@@ -4,7 +4,7 @@
 >
 > Locked on: 2026-10-09
 >
-> This document is the authoritative scope for TierListBase V1.0. If another document conflicts with this file, this file takes precedence until the scope is explicitly revised.
+> This document is a V1 scope summary. The authoritative V1 baselines are `docs/v1-requirements.md` for product scope and `docs/v1-technical-spec.md` for technical scope. If this summary conflicts with either locked document, the locked document takes precedence.
 
 ## 1. V1 objective
 
