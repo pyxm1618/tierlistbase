@@ -1,0 +1,462 @@
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { makeSignature } from "better-auth/crypto";
+import { eq, sql } from "drizzle-orm";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
+
+import { createAccountDeletionService } from "@/platform/accounts/account-deletion-service";
+import { createBetterAuthIdentityDeletion } from "@/platform/accounts/better-auth-identity-deletion";
+import { createPlatformAccountDeletionCoordinator } from "@/platform/accounts/platform-account-deletion-coordinator";
+import { createPostgresAccountSubjectRepository } from "@/platform/accounts/postgres-account-subject-repository";
+import { createAuth } from "@/platform/auth/create-auth";
+import type { getCommerceRuntime } from "@/platform/commerce/commerce-runtime";
+import { createDatabaseClient } from "@/platform/database/client";
+import {
+  account,
+  accountDeletionRequests,
+  accountSubjects,
+  commerceProducts,
+  orders,
+  session,
+  subscriptions,
+  user,
+} from "@/platform/database/schema";
+import * as schema from "@/platform/database/schema";
+
+const databaseUrl = process.env.TEST_DATABASE_URL;
+if (!databaseUrl) throw new Error("TEST_DATABASE_URL is required");
+
+const database = createDatabaseClient(databaseUrl);
+const subjects = createPostgresAccountSubjectRepository(database.db);
+type CommerceRuntime = NonNullable<Awaited<ReturnType<typeof getCommerceRuntime>>>;
+const testAuth = createAuth({
+  appName: "creat-web-test",
+  baseURL: "http://localhost:3000",
+  secret: "integration-better-auth-secret-with-at-least-32-characters",
+  cookiePrefix: "creat-web-test",
+  database: database.db,
+  schema,
+  sendMagicLink: async () => undefined,
+});
+
+async function signedSessionCookieHeaders(token: string, signature?: string) {
+  const context = await testAuth.$context;
+  const resolvedSignature = signature ?? (await makeSignature(token, context.secret));
+  return new Headers({
+    cookie: `${context.authCookies.sessionToken.name}=${token}.${resolvedSignature}`,
+  });
+}
+
+const betterAuthIdentityDeletion = createBetterAuthIdentityDeletion({
+  database: database.db,
+  invokeDeleteUser: async (workerSessionToken) =>
+    testAuth.api.deleteUser({
+      body: {},
+      headers: await signedSessionCookieHeaders(workerSessionToken),
+      asResponse: true,
+    }),
+});
+
+beforeAll(async () => {
+  await database.db.execute(sql.raw("DROP SCHEMA IF EXISTS public CASCADE"));
+  await database.db.execute(sql.raw("DROP SCHEMA IF EXISTS drizzle CASCADE"));
+  await database.db.execute(sql.raw("CREATE SCHEMA public"));
+  await migrate(database.db, {
+    migrationsFolder: "drizzle",
+    migrationsSchema: "drizzle",
+    migrationsTable: "__drizzle_migrations",
+  });
+});
+
+afterAll(async () => {
+  await database.close();
+});
+
+async function seedIdentity(id: string) {
+  const now = new Date();
+  await database.db.insert(user).values({
+    id,
+    name: "Delete Test",
+    email: `${id}@example.com`,
+    emailVerified: true,
+    createdAt: now,
+    updatedAt: now,
+  });
+  await database.db.insert(session).values({
+    id: `session_${id}`,
+    token: `token_${id}_${"x".repeat(32)}`,
+    userId: id,
+    expiresAt: new Date(now.getTime() + 60 * 60 * 1000),
+    createdAt: now,
+    updatedAt: now,
+  });
+  await database.db.insert(account).values({
+    id: `account_${id}`,
+    accountId: `provider_${id}`,
+    providerId: "google",
+    userId: id,
+    createdAt: now,
+    updatedAt: now,
+  });
+  return subjects.ensureForAuthUser(id);
+}
+
+function databaseIdentityDeletion() {
+  return {
+    deleteUser: async (authUserId: string) => {
+      await database.db.delete(user).where(eq(user.id, authUserId));
+    },
+  };
+}
+
+async function seedActiveSubscription(subjectId: string, key: string) {
+  const [product] = await database.db
+    .insert(commerceProducts)
+    .values({
+      key: `deletion-${key}`,
+      version: 1,
+      model: "subscription",
+      billingInterval: "month",
+      environment: "test",
+      providerProductId: `provider-${key}`,
+      currency: "USD",
+      expectedMinor: 1000n,
+      fulfillmentKey: "none",
+      refundPolicyKey: "standard",
+    })
+    .returning();
+  if (!product) throw new Error("product seed failed");
+  const [order] = await database.db
+    .insert(orders)
+    .values({
+      subjectId,
+      productId: product.id,
+      environment: "test",
+      expectedCurrency: "USD",
+      expectedMinor: 1000n,
+      checkoutIdempotencyKey: `deletion-checkout:${key}`,
+    })
+    .returning();
+  if (!order) throw new Error("order seed failed");
+  const [subscription] = await database.db
+    .insert(subscriptions)
+    .values({
+      orderId: order.id,
+      subjectId,
+      environment: "test",
+      externalOrderId: `external-${key}`,
+      status: "active",
+    })
+    .returning();
+  if (!subscription) throw new Error("subscription seed failed");
+  return subscription;
+}
+
+function availableCommerceRuntime() {
+  return async () => ({ database: database.db }) as CommerceRuntime;
+}
+
+describe("account deletion workflow", () => {
+  it("rejects Bearer and incorrectly signed worker-session credentials", async () => {
+    const authUserId = "delete_invalid_worker_credential";
+    await seedIdentity(authUserId);
+    const workerSessionToken = `token_${authUserId}_${"x".repeat(32)}`;
+
+    const bearerResponse = await testAuth.api.deleteUser({
+      body: {},
+      headers: new Headers({ authorization: `Bearer ${workerSessionToken}` }),
+      asResponse: true,
+    });
+    expect(bearerResponse.status).toBe(401);
+
+    const invalidCookieResponse = await testAuth.api.deleteUser({
+      body: {},
+      headers: await signedSessionCookieHeaders(workerSessionToken, "incorrect-signature"),
+      asResponse: true,
+    });
+    expect(invalidCookieResponse.status).toBe(401);
+    expect(await database.db.select().from(user).where(eq(user.id, authUserId))).toHaveLength(1);
+  });
+
+  it("does not let another user's signed session delete the target identity", async () => {
+    const targetAuthUserId = "delete_cookie_target";
+    const otherAuthUserId = "delete_cookie_other";
+    await seedIdentity(targetAuthUserId);
+    await seedIdentity(otherAuthUserId);
+    const otherSessionToken = `token_${otherAuthUserId}_${"x".repeat(32)}`;
+
+    const response = await testAuth.api.deleteUser({
+      body: {},
+      headers: await signedSessionCookieHeaders(otherSessionToken),
+      asResponse: true,
+    });
+
+    expect(response.ok).toBe(true);
+    expect(await database.db.select().from(user).where(eq(user.id, targetAuthUserId))).toHaveLength(
+      1,
+    );
+    expect(await database.db.select().from(user).where(eq(user.id, otherAuthUserId))).toEqual([]);
+  });
+
+  it("keeps the auth identity attached while commerce preparation is pending", async () => {
+    const subject = await seedIdentity("delete_commerce_pending");
+    await seedActiveSubscription(subject.id, "pending");
+    const service = createAccountDeletionService({
+      database: database.db,
+      subjects,
+      coordinator: createPlatformAccountDeletionCoordinator({
+        database: database.db,
+        getCommerce: availableCommerceRuntime(),
+      }),
+      identityDeletion: betterAuthIdentityDeletion,
+    });
+
+    const request = await service.request({
+      subjectId: subject.id,
+      authUserId: "delete_commerce_pending",
+    });
+    await expect(service.run(request.id)).rejects.toThrow("account deletion failed");
+
+    expect(
+      await database.db.select().from(user).where(eq(user.id, "delete_commerce_pending")),
+    ).toHaveLength(1);
+    const retained = await database.db
+      .select()
+      .from(accountSubjects)
+      .where(eq(accountSubjects.id, subject.id));
+    expect(retained[0]).toMatchObject({
+      authUserId: "delete_commerce_pending",
+      status: "deletion_pending",
+    });
+  });
+
+  it("uses Better Auth to hard delete identity while retaining the pseudonymous subject", async () => {
+    const subject = await seedIdentity("delete_success");
+    const service = createAccountDeletionService({
+      database: database.db,
+      subjects,
+      coordinator: { prepare: async () => undefined },
+      identityDeletion: betterAuthIdentityDeletion,
+    });
+
+    const request = await service.request({
+      subjectId: subject.id,
+      authUserId: "delete_success",
+    });
+    const completed = await service.run(request.id);
+
+    expect(completed.status).toBe("completed");
+    expect(await database.db.select().from(user).where(eq(user.id, "delete_success"))).toEqual([]);
+    expect(
+      await database.db.select().from(session).where(eq(session.userId, "delete_success")),
+    ).toEqual([]);
+    expect(
+      await database.db.select().from(account).where(eq(account.userId, "delete_success")),
+    ).toEqual([]);
+
+    const retained = await database.db
+      .select()
+      .from(accountSubjects)
+      .where(eq(accountSubjects.id, subject.id));
+    expect(retained[0]).toMatchObject({ status: "deleted", authUserId: null });
+  });
+
+  it("keeps a failed downstream request durable and resumes without repeating completed steps", async () => {
+    const subject = await seedIdentity("delete_retry");
+    let prepareAttempts = 0;
+    const service = createAccountDeletionService({
+      database: database.db,
+      subjects,
+      coordinator: {
+        prepare: async () => {
+          prepareAttempts += 1;
+          if (prepareAttempts === 1) throw new Error("temporary downstream failure");
+        },
+      },
+      identityDeletion: databaseIdentityDeletion(),
+      now: (() => {
+        let value = new Date("2030-08-07T00:00:00Z").getTime();
+        return () => new Date((value += 60_000));
+      })(),
+    });
+
+    const first = await service.request({
+      subjectId: subject.id,
+      authUserId: "delete_retry",
+    });
+    await expect(service.run(first.id)).rejects.toThrow("account deletion failed");
+
+    const failedRows = await database.db
+      .select()
+      .from(accountDeletionRequests)
+      .where(eq(accountDeletionRequests.id, first.id));
+    expect(failedRows[0]).toMatchObject({
+      status: "failed",
+      step: "access_revoked",
+      attempts: 1,
+    });
+    expect(await database.db.select().from(user).where(eq(user.id, "delete_retry"))).toHaveLength(
+      1,
+    );
+
+    const completed = await service.run(first.id);
+    expect(completed.status).toBe("completed");
+    expect(completed.attempts).toBe(2);
+    expect(prepareAttempts).toBe(2);
+  });
+
+  it("allows only one concurrent worker to execute destructive steps", async () => {
+    const subject = await seedIdentity("delete_concurrent");
+    let prepareCalls = 0;
+    let deleteCalls = 0;
+    const service = createAccountDeletionService({
+      database: database.db,
+      subjects,
+      coordinator: {
+        prepare: async () => {
+          prepareCalls += 1;
+          await new Promise((resolve) => setTimeout(resolve, 50));
+        },
+      },
+      identityDeletion: {
+        deleteUser: async (authUserId) => {
+          deleteCalls += 1;
+          await database.db.delete(user).where(eq(user.id, authUserId));
+        },
+      },
+    });
+
+    const request = await service.request({
+      subjectId: subject.id,
+      authUserId: "delete_concurrent",
+    });
+    await Promise.all(Array.from({ length: 8 }, () => service.run(request.id)));
+
+    let rows = await database.db
+      .select()
+      .from(accountDeletionRequests)
+      .where(eq(accountDeletionRequests.id, request.id));
+    for (let attempt = 0; attempt < 100 && rows[0]?.status !== "completed"; attempt += 1) {
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      rows = await database.db
+        .select()
+        .from(accountDeletionRequests)
+        .where(eq(accountDeletionRequests.id, request.id));
+    }
+    expect(rows[0]?.status).toBe("completed");
+    expect(prepareCalls).toBe(1);
+    expect(deleteCalls).toBe(1);
+  });
+
+  it("resumes after an identity deletion failure without repeating downstream preparation", async () => {
+    const subject = await seedIdentity("delete_identity_retry");
+    let prepareCalls = 0;
+    let deleteCalls = 0;
+    const service = createAccountDeletionService({
+      database: database.db,
+      subjects,
+      coordinator: {
+        prepare: async () => {
+          prepareCalls += 1;
+        },
+      },
+      identityDeletion: {
+        deleteUser: async (authUserId) => {
+          deleteCalls += 1;
+          if (deleteCalls === 1) throw new Error("temporary identity failure");
+          await database.db.delete(user).where(eq(user.id, authUserId));
+        },
+      },
+      now: (() => {
+        let value = new Date("2030-08-07T02:00:00Z").getTime();
+        return () => new Date((value += 60_000));
+      })(),
+    });
+
+    const request = await service.request({
+      subjectId: subject.id,
+      authUserId: "delete_identity_retry",
+    });
+    await expect(service.run(request.id)).rejects.toThrow("account deletion failed");
+
+    const failed = await database.db
+      .select()
+      .from(accountDeletionRequests)
+      .where(eq(accountDeletionRequests.id, request.id));
+    expect(failed[0]).toMatchObject({ status: "failed", step: "downstream_prepared" });
+    expect(
+      await database.db.select().from(user).where(eq(user.id, "delete_identity_retry")),
+    ).toHaveLength(1);
+    expect(
+      await database.db.select().from(accountSubjects).where(eq(accountSubjects.id, subject.id)),
+    ).toMatchObject([
+      {
+        id: subject.id,
+        authUserId: "delete_identity_retry",
+        status: "deletion_pending",
+      },
+    ]);
+    const reprovisioned = await subjects.ensureForAuthUser("delete_identity_retry");
+    expect(reprovisioned).toMatchObject({ id: subject.id, status: "deletion_pending" });
+
+    const completed = await service.run(request.id);
+    expect(completed.status).toBe("completed");
+    expect(prepareCalls).toBe(1);
+    expect(deleteCalls).toBe(2);
+  });
+
+  it("resumes a legacy identity-detached request by deleting the remaining auth identity", async () => {
+    const subject = await seedIdentity("delete_legacy_detached");
+    const service = createAccountDeletionService({
+      database: database.db,
+      subjects,
+      coordinator: { prepare: async () => undefined },
+      identityDeletion: databaseIdentityDeletion(),
+    });
+    const request = await service.request({
+      subjectId: subject.id,
+      authUserId: "delete_legacy_detached",
+    });
+    await subjects.beginDeletion(subject.id);
+    await subjects.detachAuthIdentity(subject.id, "delete_legacy_detached");
+    await database.db
+      .update(accountDeletionRequests)
+      .set({ status: "failed", step: "identity_detached", nextAttemptAt: new Date(0) })
+      .where(eq(accountDeletionRequests.id, request.id));
+
+    await expect(service.run(request.id)).resolves.toMatchObject({
+      status: "completed",
+      step: "completed",
+    });
+    expect(
+      await database.db.select().from(user).where(eq(user.id, "delete_legacy_detached")),
+    ).toEqual([]);
+  });
+
+  it("resumes downstream preparation after a prior delete already nulled both FKs", async () => {
+    const subject = await seedIdentity("delete_legacy_fk_null");
+    const service = createAccountDeletionService({
+      database: database.db,
+      subjects,
+      coordinator: { prepare: async () => undefined },
+      identityDeletion: databaseIdentityDeletion(),
+    });
+    const request = await service.request({
+      subjectId: subject.id,
+      authUserId: "delete_legacy_fk_null",
+    });
+    await subjects.beginDeletion(subject.id);
+    await database.db.delete(user).where(eq(user.id, "delete_legacy_fk_null"));
+    await database.db
+      .update(accountDeletionRequests)
+      .set({ status: "failed", step: "downstream_prepared", nextAttemptAt: new Date(0) })
+      .where(eq(accountDeletionRequests.id, request.id));
+
+    await expect(service.run(request.id)).resolves.toMatchObject({
+      status: "completed",
+      step: "completed",
+    });
+    expect(
+      await database.db.select().from(accountSubjects).where(eq(accountSubjects.id, subject.id)),
+    ).toMatchObject([{ status: "deleted", authUserId: null }]);
+  });
+});

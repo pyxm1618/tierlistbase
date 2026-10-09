@@ -1,0 +1,144 @@
+# Changelog
+
+All notable starter-platform changes are recorded here. This repository is an internal starter; owned products do not automatically inherit changes and must follow the upgrade procedure in `docs/参考/扩展与升级.md`.
+
+## 0.2.3 - 2026-09-06
+
+### Fixed
+
+- Refund intent correlation now uses the durable local refund ID in both Waffo merchant reference and metadata; the Waffo customer-session SDK path does not claim gateway idempotency.
+- A refund provider write is fenced by a durable `dispatched` state. Once the write may have been sent, an unknown result is never retried as a second POST.
+- Unknown refund writes reconcile through bounded, read-only provider queries that cross-check payment, order, amount, currency, environment, ticket correlation, and final refund state.
+- Provider-read reconciliation and webhook settlement share the same idempotent payment/refund/fulfillment projection without fabricating webhook or applied-event records.
+- Existing refunds without a trustworthy provider correlation are migrated to `legacy_unsafe` and are never automatically rebound or submitted again.
+
+### Added / Verification
+
+- Added contract, integration, migration, DB-persist-failure, scheduled-reconciliation, and legacy-unsafe regression coverage.
+- Added the Test Mode refund E2E gate; a provider gateway block is reported as BLOCKED rather than converted into local success.
+
+## 0.2.2 - 2026-09-05
+
+### Fixed
+
+#### Waffo customer-session environment
+
+- Pinned `@waffo/pancake-ts` exactly from `0.16.0` to `0.18.0`.
+- Customer sessions now explicitly map local `production` to provider `prod` and every other local environment to provider `test`.
+- Refund, cancel, and resume customer operations now use the correct provider environment.
+
+#### Waffo webhook event identity
+
+- Real subscription lifecycle payloads confirmed that provider `id` is not a safe global webhook deduplication identity.
+- The verified `eventId` is mapped to local `providerEventId`.
+- Webhook deduplication is scoped by `(environment, providerEventId)`, so distinct lifecycle event IDs are not merged merely because their payload `id` values match.
+
+#### Subscription checkout 409 idempotency
+
+- A checkout HTTP 409, including operator review or other conflict states, keeps the original idempotency key and must not blindly retry with a new key.
+- The client enters an explicit review/conflict state, preventing duplicate provider checkouts.
+
+#### `verify:commerce`
+
+- The verifier now recognizes fulfillment operations dynamically generated from `creditFulfillmentDefinitions`.
+- Provider mappings are checked for the current `APP_ENV`: `production` uses the `production` mapping and every other environment uses `test`.
+- A Test Mode-only subscription product is no longer incorrectly required to have a Production mapping when the verifier runs outside production.
+
+#### `verify:credits`
+
+- Credit fulfillment definitions are now checked against any enabled product, including subscription products, rather than only enabled one-time products.
+
+### Added / Verification
+
+- Real Waffo Test Mode subscription E2E verified checkout, the initial subscription payment, signed activation/payment webhooks, local subscription/payment projection, credit fulfillment, cancel, resume/reactivate, and no duplicate entitlement.
+- Waffo Test Mode currently has no confirmed official billing-cycle acceleration or test clock. Real renewal E2E is therefore not claimed as a pass.
+- Subscription missed-webhook automatic recovery remains NO-GO until an authoritative immutable payment-level period boundary exists; a current subscription-order projection is not a substitute.
+
+### Documentation
+
+- Updated the Waffo contract to the SDK 0.18 contract and corrected `eventId` semantics.
+- Documented the corrected commerce verifier behavior, checkout-conflict invariant, deleted cron entry points, and the Test Mode renewal boundary in the operational/reference docs.
+
+### Owned-project action
+
+Projects based on an older starter must cherry-pick or port these platform fixes, then rerun the relevant provider contract, integration, and E2E checks. Do not overwrite the project's product, legal, or content configuration. Waffo-enabled projects particularly need the SDK/environment propagation, webhook `eventId` identity, and checkout-409 idempotency fixes.
+
+## 0.2.1 - 2026-09-02
+
+### Fixed
+
+- `TurnstileWidget` injected the Turnstile script with `async` and `defer` set and then called `turnstile.ready()`. Cloudflare rejects that combination (`TurnstileError: Remove async/defer from the Turnstile api.js script tag before using turnstile.ready()`), so the widget never rendered, no token was ever produced, and the sign-in button stayed disabled forever — magic-link sign-in was unusable in a real browser whenever the genuine Turnstile script loaded. Both attributes are now cleared; a dynamically inserted script is non-blocking regardless. The e2e suite installs a `window.turnstile` mock before load, so the real script path was never exercised and CI stayed green throughout.
+
+### Documentation
+
+- `docs/建站手册.md`: added a tested local walkthrough for taking a one-time payment end to end (tunnel, `APP_ORIGIN`, registering the webhook through the SDK, the four rows to check in the database), the requirement that every `fulfillmentKey` has a handler, the legal-configuration facts that enabling commerce forces (and the misleading way that failure surfaces — a dozen unrelated security tests turning red because they shell out to `verify-release.ts`), and four newly hit traps — a `reviewed` SEO route without `reviewFingerprint` breaking every gate that imports `routes.config.ts`, `COMMERCE_RETENTION_KEY` needing exactly 32 base64 bytes, `drizzle.config.ts` not reading `.env.local`, and stale `.next` type files producing phantom typecheck errors.
+- Added `docs/建站手册.md` section 十一, a single feature matrix: every switchable module with its flag, which provider account it needs, its environment variables, and the configuration files enabling it forces. The information existed but was spread across several sections with no way to see it at once.
+- At the time of 0.2.1, `verify:commerce` did not yet recognize credit-based fulfillment operations injected at runtime. This historical note is superseded by 0.2.2, which recognizes `creditFulfillmentDefinitions` and checks the mapping for the active provider environment.
+
+### Owned-project action
+
+No migrations and no environment-variable changes. Any product with `auth.magicLink` enabled should take this fix — without it the sign-in form cannot be submitted.
+
+## 0.2.0 - 2026-09-01
+
+Platform capabilities that landed on `main` after the `0.1.0` entry was written, plus the documentation consolidation and two corrections.
+
+### Product modules
+
+- Added `src/modules/<product>/` as the home for product code, with `index.ts` as the only public entry.
+- Added the `creat-web-modules/product-module-boundary` ESLint rule: a module may not import `@/config/*`, and nothing outside a module may reach past its public entry (including one module into another). Covered by `tests/unit/architecture/product-module-boundary.test.ts`.
+
+### UI and styling
+
+- Added the Tailwind CSS v4 design-token layer in `src/app/globals.css`: semantic CSS variables on `:root` with a `prefers-color-scheme: dark` override, exposed to utilities through `@theme inline`. There is no `tailwind.config.js`.
+- Added `src/components/ui/styles.ts`, shared class-string constants (`container`, `card`, `buttonPrimary`, `input`, …) that keep surfaces consistent while shipping zero runtime JS.
+
+### SEO
+
+- Added IndexNow incremental change submission: `GET /indexnow-key.txt` and the authenticated `POST /api/internal/seo/indexnow`. It complements `/sitemap.xml` rather than replacing it.
+- Hardened the SEO verification gate.
+
+### Fixed
+
+- `scripts/verify-credits.ts` asserted that `vercel.json` schedules `/api/cron/credits`, which it does not. The assertion was dormant while credits were disabled and would have failed the first time anyone enabled them. It now asserts `/api/internal/jobs/credit-expiry`, matching `vercel.json` and the equivalent assertion in `verify-release.ts`.
+
+### Removed
+
+- Removed the unscheduled `/api/cron/{commerce,credits,account-deletions}` route handlers and their route-registry entries. `vercel.json` has only ever scheduled `/api/internal/jobs/*`; the `/api/cron/*` handlers were older, narrower duplicates (ledger reconciliation had already moved to the reconcile job). The `no-store` header rule for `/api/cron/:path*` is deliberately retained in `next.config.ts` as defence in depth.
+
+### Documentation
+
+- Consolidated 52 English documents (13,616 lines) into 9 Chinese ones. The removed material was build-time scaffolding — implementation plans, proposals still marked _proposed for independent review_, and review briefs — superseded by the implementation that followed; `git log` retains it.
+- `docs/建站手册.md` is the manual; reference material is under `docs/参考/`, operational procedures under `docs/运维/`, indexed by `docs/README.md`.
+- `scripts/verify-commerce.ts` asserts the Waffo activation gate's exact wording so the checklist cannot be quietly watered down; those assertions now match the Chinese document.
+
+### Owned-project action
+
+No migrations and no environment-variable changes. Anything calling `/api/cron/*` directly must move to `/api/internal/jobs/*`; nothing in this repository or `vercel.json` did.
+
+## 0.1.0 - 2026-08-09
+
+Initial internally versioned starter baseline.
+
+### Platform and security
+
+- Added strict environment validation, sensitive-route caching/robots controls, strict script CSP/SRI build support, browser isolation headers, and production HSTS.
+- Added durable Magic Link abuse controls with Cloudflare Turnstile server validation and durable rate limits.
+- Added complete analytics consent controls and allowlisted event sanitization.
+- Added authenticated bounded internal jobs, health/readiness, provider-neutral operational metrics/alerts, and audited dead-letter inspection/retry.
+- Added encrypted webhook retention classes and bounded concurrent purge processing.
+
+### Commerce and credits
+
+- Added Waffo-backed one-time/subscription/refund workflows with durable webhook inbox, leases, retries, reconciliation and fulfillment idempotency.
+- Added credit grants, reservations, commits/releases, source-bounded reversal, expiry, reconciliation and cross-expiry reservation semantics protected by shared mutation locks.
+
+### Starter/release
+
+- Added SEO/i18n route registry and production metadata verification.
+- Added database migration verification, provider build matrix, browser performance budgets and release gates.
+- Added backup/restore verification, purpose-specific key-rotation/rollback procedures, neutral-product clean-setup validation and starter version tracking.
+
+### Owned-project action
+
+Projects created before `0.1.0` must manually review/cherry-pick the affected platform modules, migrations, environment changes and verification commands. Do not copy product-specific config/content back into the starter.
