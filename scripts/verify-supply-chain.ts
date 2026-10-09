@@ -14,6 +14,8 @@ const KNOWN_BASELINE_ADVISORIES = new Set([
   "GHSA-2xp9-vwfh-vxw4", // next: RCE in Image Optimization API AVIF
   "GHSA-vcvr-r3jv-pc5j", // next: RCE in next/og
   "GHSA-2883-xcg3-v3hh", // js-yaml (via eslint)
+  "GHSA-rgj7-g3m4-5g8c", // sharp (via libheif)
+  "GHSA-wq5f-xc86-pv6w", // sharp (via librsvg)
 ]);
 
 // 1. Verify lockfile integrity

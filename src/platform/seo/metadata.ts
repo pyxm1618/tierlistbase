@@ -33,7 +33,9 @@ function indexableMetadata(
   );
 
   return {
-    title: copy.title,
+    title: {
+      absolute: copy.title,
+    },
     description: copy.description,
     alternates: policy.emitCanonical ? { canonical: localizedCanonical, languages } : undefined,
     robots: {
@@ -69,7 +71,7 @@ export function metadataForRoute(
   if (definition.class !== "public_indexable") {
     const publicNoindex = definition.class === "public_noindex";
     return {
-      title: definition.title,
+      title: definition.title ? { absolute: definition.title } : undefined,
       description: definition.description,
       robots: {
         index: false,
