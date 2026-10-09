@@ -1,7 +1,8 @@
 # TierListBase 产品方向与需求大纲
 
-> 状态：早期产品方向草案  
-> 说明：本文不是正式 PRD，而是当前阶段已经形成的产品判断、用户需求与范围边界。后续应在验证首个核心页面（Genshin Impact Tier List）后继续迭代。
+> 状态：产品方向草案  
+> **V1 范围已锁定：首发游戏为 World of Warcraft: Forever。详细范围以 `docs/v1-scope.md` 为最高优先级。**  
+> 本文保留长期产品方向；如与 V1 Scope 冲突，以 V1 Scope 为准。
 
 ## 1. 项目定位
 
@@ -21,22 +22,21 @@ TierListBase 不应只是“再做一个 Tier List 网站”，也不应在第�
 
 ## 2. 首个切入点
 
-第一阶段以：
+V1 已正式锁定为：
+
+- **World of Warcraft: Forever Tier List**
+
+原因不是 WoW Forever 长期一定比原神更大，而是它处于新版本上线前窗口，Tier List 需求正在快速形成，同时 Class / Spec × Role × Content × Version 的结构非常适合验证 TierListBase 的通用 Ranking Database 模型。
+
+V1 只做首页与一个 WoW Forever Tier List 核心页，不同时开发其他游戏。
+
+第二个验证游戏计划为：
 
 - **Genshin Impact Tier List**
 
-作为首个核心页面和验证场景。
+原神用于验证同一套底层结构是否能进一步支持 Character × Constellation × Mode × Investment × Team Context 等更复杂条件。
 
-原神适合作为第一个模板，因为它同时具备：
-
-- 大量角色；
-- 高频版本更新；
-- 不同玩法模式；
-- 命座、队友、投入度等复杂条件；
-- 用户明确存在“抽谁、练谁、谁更强”的决策需求；
-- 市场上已有大量 Tier List，可用于验证产品差异化。
-
-但 TierListBase 的底层结构不能只为原神设计，应保证后续可扩展到：
+TierListBase 的底层结构应继续保证后续可扩展到：
 
 - Honkai: Star Rail
 - Wuthering Waves
@@ -338,6 +338,6 @@ TierListBase 不必声称：
 
 如果首个页面验证成功，再扩展：
 
-> Genshin → HSR → WuWa / ZZZ → 其他游戏
+> WoW Forever → Genshin Impact → HSR / WuWa / ZZZ / 其他游戏
 
 而不是一开始追求覆盖所有 Tier List 领域。
