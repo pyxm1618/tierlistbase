@@ -1,8 +1,8 @@
-export type TierLevel = "S" | "A" | "B" | "C" | "D" | "F" | string;
+export type TierLevel = "S" | "A" | "B" | "C" | string;
 
-export type DisagreementLevel = "none" | "low" | "moderate" | "high";
+export type DisagreementLevel = "none" | "low" | "moderate" | "high" | "unconfigured";
 
-export type FreshnessStatus = "current" | "preliminary" | "stale";
+export type FreshnessStatus = "current" | "preliminary" | "stale" | "unconfigured";
 
 export type DataStatus = "available" | "preliminary" | "unavailable";
 
@@ -29,6 +29,10 @@ export type NormalizedResult = {
   readonly unconfigured: boolean;
 };
 
+export type DisagreementRule = {
+  readonly classify: (ratio: number, sourceCount: number) => DisagreementLevel;
+};
+
 export type ConsensusCalculationInput = {
   readonly entityId: string;
   readonly sourceRatings: readonly {
@@ -37,15 +41,19 @@ export type ConsensusCalculationInput = {
     readonly normalizedTier: string | null;
     readonly normalizedScore: number | null;
   }[];
+  readonly disagreementRule?: DisagreementRule;
 };
 
 export type ConsensusCalculationResult = {
   readonly entityId: string;
   readonly sourceCount: number;
   readonly agreeingSourceCount: number;
+  readonly agreementRatio: number;
+  readonly tierDistribution: Readonly<Record<string, number>>;
   readonly consensusTier: string | null;
   readonly consensusScore: number | null;
   readonly disagreementLevel: DisagreementLevel;
+  readonly isTie: boolean;
 };
 
 export type FreshnessInput = {

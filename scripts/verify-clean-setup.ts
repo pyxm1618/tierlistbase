@@ -19,6 +19,7 @@ const expectedConfig = new Set([
   "src/config/routes.config.ts",
   "src/config/seo.config.ts",
   "src/config/site.config.ts",
+  "vercel.json",
 ]);
 
 function gitStatus(cwd: string): string[] {

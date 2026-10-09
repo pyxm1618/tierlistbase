@@ -14,9 +14,14 @@ export function calculateFreshness(input: FreshnessInput): FreshnessStatus {
     return "preliminary";
   }
 
-  // If target build is specified and doesn't match, check if strict matching is required
+  // If strict build matching is explicitly required, mismatch results in stale
   if (thresholds?.buildMustMatch && targetBuild && sourceBuild && sourceBuild !== targetBuild) {
     return "stale";
+  }
+
+  // Without explicitly configured thresholds, do not fabricate a 'current' classification
+  if (thresholds?.currentMaxDays === undefined) {
+    return "unconfigured";
   }
 
   const referenceDate = checkedAt ?? new Date();
@@ -25,14 +30,11 @@ export function calculateFreshness(input: FreshnessInput): FreshnessStatus {
     (referenceDate.getTime() - sourceDate.getTime()) / MILLISECONDS_PER_DAY,
   );
 
-  const currentMaxDays = thresholds?.currentMaxDays ?? 30;
-  const preliminaryMaxDays = thresholds?.preliminaryMaxDays ?? 90;
-
-  if (diffDays <= currentMaxDays) {
+  if (diffDays <= thresholds.currentMaxDays) {
     return "current";
   }
 
-  if (diffDays <= preliminaryMaxDays) {
+  if (thresholds.preliminaryMaxDays !== undefined && diffDays <= thresholds.preliminaryMaxDays) {
     return "preliminary";
   }
 

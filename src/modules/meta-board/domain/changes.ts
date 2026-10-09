@@ -24,12 +24,6 @@ export type DetectedChange = {
   readonly evidence: string | null;
 };
 
-const DEFAULT_TIER_ORDER = ["S", "A", "B", "C", "D", "F"];
-
-/**
- * Detects whether a tier transition occurred and classifies the change type.
- * Returns null if the tier has not changed.
- */
 export function detectRatingChange(input: DetectChangeInput): DetectedChange | null {
   const {
     entityId,
@@ -40,7 +34,7 @@ export function detectRatingChange(input: DetectChangeInput): DetectedChange | n
     toVersionId,
     reason = null,
     evidence = null,
-    tierRankOrder = DEFAULT_TIER_ORDER,
+    tierRankOrder,
   } = input;
 
   if (previousTier === null || previousTier === undefined) {
@@ -61,15 +55,17 @@ export function detectRatingChange(input: DetectChangeInput): DetectedChange | n
     return null;
   }
 
-  const prevIndex = tierRankOrder.indexOf(previousTier);
-  const newIndex = tierRankOrder.indexOf(newTier);
-
   let changeType: ChangeType = "reclassified";
-  if (prevIndex !== -1 && newIndex !== -1) {
-    if (newIndex < prevIndex) {
-      changeType = "promoted"; // Lower index means higher tier in ['S', 'A', 'B'...]
-    } else if (newIndex > prevIndex) {
-      changeType = "demoted";
+  if (tierRankOrder) {
+    const prevIndex = tierRankOrder.indexOf(previousTier);
+    const newIndex = tierRankOrder.indexOf(newTier);
+
+    if (prevIndex !== -1 && newIndex !== -1) {
+      if (newIndex < prevIndex) {
+        changeType = "promoted"; // Lower index means higher tier
+      } else if (newIndex > prevIndex) {
+        changeType = "demoted";
+      }
     }
   }
 

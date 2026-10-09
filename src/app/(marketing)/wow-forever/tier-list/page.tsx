@@ -16,6 +16,8 @@ type PageProps = {
   searchParams: Promise<{
     mode?: string;
     role?: string;
+    level?: string;
+    build?: string;
   }>;
 };
 
@@ -24,12 +26,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function WowForeverTierListPage({ searchParams }: PageProps) {
-  const { mode, role } = await searchParams;
+  const { mode, role, level, build } = await searchParams;
 
   const metaBoardData = await getGameMetaBoardData({
     gameSlug: "wow-forever",
-    mode: mode ?? "overall",
-    role: role ?? "all",
+    ...(mode ? { mode } : {}),
+    ...(role ? { role } : {}),
+    ...(level ? { levelCap: Number(level) } : {}),
+    ...(build ? { build } : {}),
   });
 
   const recentChanges = await getRecentRatingChanges("wow-forever", 5);

@@ -31,8 +31,12 @@ export function TierBoard({ data }: TierBoardProps): ReactNode {
       <ContextFilters
         currentMode={currentMode}
         currentRole={currentRole}
+        currentLevel={data.activeContext?.levelCap}
+        currentBuild={data.version?.build}
         availableModes={data.availableModes}
         availableRoles={data.availableRoles}
+        availableLevels={data.availableLevels}
+        availableBuilds={data.availableBuilds}
       />
 
       {/* Main Tier Board Grid or Honest Empty State */}
@@ -43,8 +47,10 @@ export function TierBoard({ data }: TierBoardProps): ReactNode {
               No reviewed ranking data published yet
             </h3>
             <p className="mt-2 text-sm text-muted">
-              Ranking data for context ({currentMode} • {currentRole}) is currently in Preliminary
-              or Unreviewed state. TierListBase never fabricates artificial rankings.
+              {data.activeContext
+                ? `Ranking data for context (${data.activeContext.label}) is currently in Preliminary or Unreviewed state.`
+                : "No active ranking context found for this configuration."}{" "}
+              TierListBase never fabricates artificial rankings.
             </p>
           </div>
         ) : (

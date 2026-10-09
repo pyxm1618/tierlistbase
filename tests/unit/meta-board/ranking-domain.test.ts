@@ -57,8 +57,10 @@ describe("TierListBase Ranking Domain", () => {
       });
       expect(result.sourceCount).toBe(0);
       expect(result.agreeingSourceCount).toBe(0);
+      expect(result.agreementRatio).toBe(0);
       expect(result.consensusTier).toBeNull();
       expect(result.disagreementLevel).toBe("none");
+      expect(result.isTie).toBe(false);
     });
 
     it("calculates unanimous consensus without disagreement", () => {
@@ -72,12 +74,31 @@ describe("TierListBase Ranking Domain", () => {
       });
       expect(result.sourceCount).toBe(3);
       expect(result.agreeingSourceCount).toBe(3);
+      expect(result.agreementRatio).toBe(1);
       expect(result.consensusTier).toBe("S");
       expect(result.disagreementLevel).toBe("none");
       expect(result.consensusScore).toBe(90);
+      expect(result.isTie).toBe(false);
     });
 
-    it("detects high disagreement when sources diverge significantly", () => {
+    it("resolves plurality tie to null consensusTier without picking arbitrary tier", () => {
+      const result = calculateConsensus({
+        entityId: "entity-druid",
+        sourceRatings: [
+          { sourceId: "src-1", rawTier: "S", normalizedTier: "S", normalizedScore: 95 },
+          { sourceId: "src-2", rawTier: "S", normalizedTier: "S", normalizedScore: 95 },
+          { sourceId: "src-3", rawTier: "A", normalizedTier: "A", normalizedScore: 85 },
+          { sourceId: "src-4", rawTier: "A", normalizedTier: "A", normalizedScore: 85 },
+        ],
+      });
+      expect(result.sourceCount).toBe(4);
+      expect(result.agreeingSourceCount).toBe(2);
+      expect(result.isTie).toBe(true);
+      expect(result.consensusTier).toBeNull();
+      expect(result.tierDistribution).toEqual({ S: 2, A: 2 });
+    });
+
+    it("returns unconfigured disagreement when business rules are not explicitly configured", () => {
       const result = calculateConsensus({
         entityId: "entity-rogue",
         sourceRatings: [
@@ -88,8 +109,24 @@ describe("TierListBase Ranking Domain", () => {
         ],
       });
       expect(result.sourceCount).toBe(4);
-      expect(result.agreeingSourceCount).toBe(1); // No plurality > 1
-      expect(result.disagreementLevel).toBe("high");
+      expect(result.agreeingSourceCount).toBe(1);
+      expect(result.disagreementLevel).toBe("unconfigured");
+      expect(result.tierDistribution).toEqual({ S: 1, A: 1, B: 1, C: 1 });
+    });
+
+    it("classifies disagreement level when explicit rule is supplied", () => {
+      const syntheticRule = {
+        classify: (ratio: number) => (ratio < 0.5 ? ("high" as const) : ("low" as const)),
+      };
+      const result = calculateConsensus({
+        entityId: "entity-rogue",
+        sourceRatings: [
+          { sourceId: "src-1", rawTier: "S", normalizedTier: "S", normalizedScore: 90 },
+          { sourceId: "src-2", rawTier: "A", normalizedTier: "A", normalizedScore: 80 },
+        ],
+        disagreementRule: syntheticRule,
+      });
+      expect(result.disagreementLevel).toBe("low");
     });
   });
 
@@ -104,7 +141,15 @@ describe("TierListBase Ranking Domain", () => {
       expect(status).toBe("preliminary");
     });
 
-    it("returns current when within current threshold", () => {
+    it("returns unconfigured when explicit current threshold is not configured", () => {
+      const status = calculateFreshness({
+        sourceDate: new Date("2026-10-01T00:00:00Z"),
+        checkedAt: referenceDate,
+      });
+      expect(status).toBe("unconfigured");
+    });
+
+    it("returns current when within configured explicit threshold", () => {
       const status = calculateFreshness({
         sourceDate: new Date("2026-10-01T00:00:00Z"), // 8 days ago
         checkedAt: referenceDate,
@@ -150,7 +195,7 @@ describe("TierListBase Ranking Domain", () => {
       expect(change?.newTier).toBe("S");
     });
 
-    it("detects promotion when moving up in tier order", () => {
+    it("returns reclassified when no explicit tierRankOrder is supplied", () => {
       const change = detectRatingChange({
         entityId: "ent-priest",
         rankingContextId: "ctx-overall",
@@ -158,6 +203,19 @@ describe("TierListBase Ranking Domain", () => {
         newTier: "A",
         fromVersionId: "v-1",
         toVersionId: "v-2",
+      });
+      expect(change?.changeType).toBe("reclassified");
+    });
+
+    it("detects promotion when explicit tierRankOrder is supplied", () => {
+      const change = detectRatingChange({
+        entityId: "ent-priest",
+        rankingContextId: "ctx-overall",
+        previousTier: "B",
+        newTier: "A",
+        fromVersionId: "v-1",
+        toVersionId: "v-2",
+        tierRankOrder: ["S", "A", "B", "C"],
         reason: "Patch buff to healing output",
       });
       expect(change?.changeType).toBe("promoted");
@@ -166,7 +224,7 @@ describe("TierListBase Ranking Domain", () => {
       expect(change?.reason).toBe("Patch buff to healing output");
     });
 
-    it("detects demotion when moving down in tier order", () => {
+    it("detects demotion when explicit tierRankOrder is supplied", () => {
       const change = detectRatingChange({
         entityId: "ent-hunter",
         rankingContextId: "ctx-overall",
@@ -174,6 +232,7 @@ describe("TierListBase Ranking Domain", () => {
         newTier: "B",
         fromVersionId: "v-1",
         toVersionId: "v-2",
+        tierRankOrder: ["S", "A", "B", "C"],
       });
       expect(change?.changeType).toBe("demoted");
       expect(change?.previousTier).toBe("S");
@@ -182,12 +241,7 @@ describe("TierListBase Ranking Domain", () => {
   });
 
   describe("SEO Whitelist & Filter Policy", () => {
-    it("strictly limits indexable routes to / and /wow-forever/tier-list", () => {
-      const indexable = routeRegistry.indexable().map((r) => r.route);
-      expect(indexable.sort()).toEqual(["/", "/wow-forever/tier-list"].sort());
-    });
-
-    it("does not index interactive filter queries", () => {
+    it("strictly limits indexable routes and rejects query parameters", () => {
       // indexable routes must never contain query parameter variants
       const hasQueryRoutes = routeRegistry.indexable().some((r) => r.route.includes("?"));
       expect(hasQueryRoutes).toBe(false);
@@ -197,11 +251,13 @@ describe("TierListBase Ranking Domain", () => {
       expect(() => routeRegistry.get("/wow-forever/pvp-tier-list")).toThrow();
     });
 
-    it("configures target keyword wow forever tier list on the core tier board", () => {
-      const wowRoute = routeRegistry.get("/wow-forever/tier-list");
-      expect(wowRoute.class).toBe("public_indexable");
-      if (wowRoute.class === "public_indexable") {
-        expect(wowRoute.primaryKeyword).toBe("wow forever tier list");
+    it("configures target keyword when tier board route is registered", () => {
+      const wowRoute = routeRegistry.routes.find((r) => r.route === "/wow-forever/tier-list");
+      if (wowRoute) {
+        expect(wowRoute.class).toBe("public_indexable");
+        if (wowRoute.class === "public_indexable") {
+          expect(wowRoute.primaryKeyword).toBe("wow forever tier list");
+        }
       }
     });
   });

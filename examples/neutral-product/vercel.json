@@ -1,0 +1,20 @@
+{
+  "crons": [
+    {
+      "path": "/api/internal/jobs/account-deletion",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/internal/jobs/reconcile",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/internal/jobs/commerce",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/internal/jobs/credit-expiry",
+      "schedule": "0 3 * * *"
+    }
+  ]
+}

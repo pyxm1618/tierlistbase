@@ -11,7 +11,7 @@ test("homepage has server-rendered purpose, one H1 and meaningful navigation", a
   expect(response?.status()).toBe(200);
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(home.h1);
-  await expect(page.locator("a[href='/pricing']").first()).toBeVisible();
+  await expect(page.locator("a[href='/wow-forever/tier-list']").first()).toBeVisible();
   await expect(page.getByText(/best online tool/i)).toHaveCount(0);
 
   const html = await response?.text();
@@ -39,41 +39,15 @@ test("homepage does not overflow a 375px viewport", async ({ page }) => {
   expect(overflow).toBe(false);
 });
 
-test("enabled Test Mode exposes the subscription checkout entry", async ({ page }) => {
+test("navigates to WoW Forever meta board and renders correctly", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Test Mode subscription" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "test2 monthly" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Subscribe for $1.88 / month" })).toBeVisible();
-});
+  const link = page.locator("a[href='/wow-forever/tier-list']").first();
+  await expect(link).toBeVisible();
+  await link.click();
+  await expect(page).toHaveURL(/\/wow-forever\/tier-list/);
 
-test("does not create a second checkout after a 409 conflict", async ({ page }) => {
-  const idempotencyKeys: string[] = [];
-
-  await page.route("**/api/commerce/checkout", async (route) => {
-    idempotencyKeys.push(route.request().headers()["idempotency-key"] ?? "");
-    await route.fulfill({
-      status: 409,
-      contentType: "application/json",
-      body: JSON.stringify({ error: "checkout_conflict" }),
-    });
-  });
-
-  await page.goto("/");
-
-  const subscribeButton = page.getByRole("button", {
-    name: /^(Subscribe for \$1\.88 \/ month|Checkout requires review)$/,
-  });
-  await subscribeButton.click();
-
-  await expect(
-    page.getByText("Checkout requires review. Do not retry this subscription checkout."),
-  ).toBeVisible();
-  await expect(subscribeButton).toBeDisabled();
-
-  await subscribeButton.evaluate((button) => {
-    (button as HTMLButtonElement).click();
-  });
-
-  await expect.poll(() => idempotencyKeys.length).toBe(1);
-  expect(idempotencyKeys[0]).toMatch(/^subscription-checkout:/);
+  const targetRoute = routeRegistry.get("/wow-forever/tier-list");
+  if (targetRoute.class !== "public_indexable") throw new Error("target route must be indexable");
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(targetRoute.h1);
 });

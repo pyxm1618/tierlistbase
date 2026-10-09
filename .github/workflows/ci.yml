@@ -113,10 +113,24 @@ jobs:
   performance:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: creat_web_perf
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d creat_web_perf"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     env:
       APP_ENV: test
       APP_ORIGIN: http://127.0.0.1:3000
-      DATABASE_URL: postgres://test:test@127.0.0.1:5432/test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_perf
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_perf
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
@@ -125,6 +139,8 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Install Chromium
         run: bunx playwright install --with-deps chromium
+      - name: Prepare database
+        run: bun run db:migrate
       - name: Real-page performance budgets
         run: bun run verify:performance
 

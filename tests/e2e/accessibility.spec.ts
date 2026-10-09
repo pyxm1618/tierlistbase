@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-for (const route of ["/", "/pricing", "/privacy"] as const) {
+for (const route of ["/", "/wow-forever/tier-list", "/privacy"] as const) {
   test(`${route} has no serious or critical automated accessibility violations`, async ({
     page,
   }) => {
@@ -21,18 +21,18 @@ test("keyboard reaches primary navigation, CTA and footer", async ({ page }) => 
   await page.keyboard.press("Tab");
   await expect(page.locator(":focus")).toHaveAttribute("href", "/");
 
-  let reachedPricing = false;
+  let reachedMetaBoard = false;
   let reachedFooter = false;
   for (let index = 0; index < 30; index += 1) {
     const focused = page.locator(":focus");
     const href = await focused.getAttribute("href").catch(() => null);
-    if (href === "/pricing") reachedPricing = true;
+    if (href === "/wow-forever/tier-list") reachedMetaBoard = true;
     if (href === "/privacy") reachedFooter = true;
-    if (reachedPricing && reachedFooter) break;
+    if (reachedMetaBoard && reachedFooter) break;
     await page.keyboard.press("Tab");
   }
 
-  expect(reachedPricing).toBe(true);
+  expect(reachedMetaBoard).toBe(true);
   expect(reachedFooter).toBe(true);
 });
 

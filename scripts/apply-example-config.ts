@@ -36,4 +36,10 @@ for (const file of FILES) {
 }
 
 for (const file of FILES) copyFileSync(join(EXAMPLE, file), join(TARGET, file));
+
+const exampleVercel = join(EXAMPLE, "vercel.json");
+if (existsSync(exampleVercel)) {
+  copyFileSync(exampleVercel, join(ROOT, "vercel.json"));
+}
+
 console.log(JSON.stringify({ event: "neutral_example_applied", files: FILES.length }));
