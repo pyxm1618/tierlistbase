@@ -44,7 +44,7 @@ V1 只支持：
 V1 的主产品页固定为：
 
 ```text
-/wow-forever/tier-list/
+/wow-forever/tier-list
 ```
 
 核心关键词：
@@ -56,6 +56,7 @@ V1 的主产品页固定为：
 - `tier list` 是产品与 SEO 的核心搜索意图；
 - URL 必须服务真实关键词，而不是为了信息架构“整齐”而牺牲搜索意图；
 - 页面本身同时承担产品体验与搜索入口。
+- URL 规范遵循 Create Web 0.2.3 的 `trailingSlash: false`，Canonical、Sitemap 和内部链接统一使用无尾部斜杠路径。
 
 ### 3.2 关键词验证后的 WoW 子页
 
@@ -70,11 +71,11 @@ V1 不再绝对禁止额外 WoW 内页。
 则可以增加独立 URL，例如：
 
 ```text
-/wow-forever/dps-tier-list/
-/wow-forever/pvp-tier-list/
-/wow-forever/leveling-tier-list/
-/wow-forever/tank-tier-list/
-/wow-forever/best-class/
+/wow-forever/dps-tier-list
+/wow-forever/pvp-tier-list
+/wow-forever/leveling-tier-list
+/wow-forever/tank-tier-list
+/wow-forever/best-class
 ```
 
 是否建立这些页面，必须以真实关键词与 SERP 研究决定，不能预先批量生成。
