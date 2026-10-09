@@ -691,9 +691,9 @@ Published Data
 
 ## 18. MVP 技术目标
 
-Genshin Impact 首版至少做到：
+V1 已锁定为 World of Warcraft: Forever。首版至少做到：
 
-- 游戏 / 版本 / 角色数据结构；
+- 游戏 / 版本或 Build / Class / Spec 数据结构；
 - Tier List；
 - Role / Mode；
 - Search / Filter；
@@ -757,4 +757,4 @@ TierListBase 并不是一个高门槛 AI 项目。
 
 因此开发顺序应该是：
 
-> **先定数据模型 → 再定评级机制 → 再做 Genshin 页面 → 再扩第二个游戏。**
+> **先定数据模型 → 再定评级机制 → 做 WoW Forever V1 → 用 Genshin Impact 验证第二种游戏模型 → 再扩更多游戏。**
