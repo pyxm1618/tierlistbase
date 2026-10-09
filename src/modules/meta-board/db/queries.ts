@@ -145,9 +145,22 @@ export async function getGameMetaBoardData(options?: {
 
   let versionRow = null;
   if (options?.build) {
+    // If a specific build was requested, strictly require it to exist — NEVER silently fallback
     versionRow = allVersions.find((v) => v.build === options.build) ?? null;
-  }
-  if (!versionRow && gameRow.currentVersionId) {
+    if (!versionRow) {
+      return {
+        game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+        version: null,
+        activeContext: null,
+        availableModes: [],
+        availableRoles: [],
+        availableLevels: [],
+        availableBuilds,
+        tiers: [],
+        hasData: false,
+      };
+    }
+  } else if (gameRow.currentVersionId) {
     versionRow = allVersions.find((v) => v.id === gameRow.currentVersionId) ?? null;
   }
   if (!versionRow) {
@@ -160,15 +173,8 @@ export async function getGameMetaBoardData(options?: {
     .from(rankingContexts)
     .where(and(eq(rankingContexts.gameId, gameRow.id), eq(rankingContexts.status, "active")));
 
+  // Global available modes from active contexts
   const availableModes = Array.from(new Set(activeContextRows.map((c) => c.mode).filter(Boolean)));
-  const availableRoles = Array.from(new Set(activeContextRows.map((c) => c.role).filter(Boolean)));
-  const availableLevels = Array.from(
-    new Set(
-      activeContextRows
-        .map((c) => c.levelCap)
-        .filter((l): l is number => l !== null && l !== undefined),
-    ),
-  );
 
   if (activeContextRows.length === 0 || !versionRow) {
     return {
@@ -184,8 +190,8 @@ export async function getGameMetaBoardData(options?: {
         : null,
       activeContext: null,
       availableModes,
-      availableRoles,
-      availableLevels,
+      availableRoles: [],
+      availableLevels: [],
       availableBuilds,
       tiers: [],
       hasData: false,
@@ -205,6 +211,39 @@ export async function getGameMetaBoardData(options?: {
       },
       activeContext: null,
       availableModes,
+      availableRoles: [],
+      availableLevels: [],
+      availableBuilds,
+      tiers: [],
+      hasData: false,
+    };
+  }
+
+  // Cascade filtering: Modes, Roles, Levels must be linked
+  const targetMode = options?.mode ?? availableModes[0]!;
+  const modeContexts = activeContextRows.filter((c) => c.mode === targetMode);
+
+  // Available roles and levels MUST come strictly from the selected targetMode
+  const availableRoles = Array.from(new Set(modeContexts.map((c) => c.role).filter(Boolean)));
+  const availableLevels = Array.from(
+    new Set(
+      modeContexts.map((c) => c.levelCap).filter((l): l is number => l !== null && l !== undefined),
+    ),
+  );
+
+  // If a specific role was requested but does not exist in targetMode, return empty state (no silent fallback)
+  if (options?.role && !availableRoles.includes(options.role)) {
+    return {
+      game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+      version: {
+        id: versionRow.id,
+        version: versionRow.version,
+        build: versionRow.build,
+        levelCap: versionRow.levelCap,
+        status: versionRow.status,
+      },
+      activeContext: null,
+      availableModes,
       availableRoles,
       availableLevels,
       availableBuilds,
@@ -213,21 +252,40 @@ export async function getGameMetaBoardData(options?: {
     };
   }
 
-  // Match target context based on provided options or available defaults
-  const targetMode = options?.mode ?? availableModes[0];
+  // If a specific levelCap was requested but does not exist in targetMode, return empty state (no silent fallback)
+  if (options?.levelCap !== undefined && !availableLevels.includes(options.levelCap)) {
+    return {
+      game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+      version: {
+        id: versionRow.id,
+        version: versionRow.version,
+        build: versionRow.build,
+        levelCap: versionRow.levelCap,
+        status: versionRow.status,
+      },
+      activeContext: null,
+      availableModes,
+      availableRoles,
+      availableLevels,
+      availableBuilds,
+      tiers: [],
+      hasData: false,
+    };
+  }
+
+  // Match target context based on provided options
   const targetRole = options?.role;
   const targetLevel = options?.levelCap;
 
-  let contextRow = activeContextRows.find((c) => {
-    const matchMode = c.mode === targetMode;
+  let contextRow = modeContexts.find((c) => {
     const matchRole = targetRole ? c.role === targetRole : true;
     const matchLevel = targetLevel !== undefined ? c.levelCap === targetLevel : true;
-    return matchMode && matchRole && matchLevel;
+    return matchRole && matchLevel;
   });
 
   // If role/level wasn't explicitly given, fallback to first matching mode
   if (!contextRow && !targetRole && targetLevel === undefined) {
-    contextRow = activeContextRows.find((c) => c.mode === targetMode) ?? undefined;
+    contextRow = modeContexts[0] ?? undefined;
   }
 
   if (!contextRow) {

@@ -40,7 +40,7 @@
     "@waffo/pancake-ts": "0.18.0",
     "better-auth": "1.6.25",
     "drizzle-orm": "0.45.2",
-    "next": "16.2.12",
+    "next": "16.3.8",
     "postgres": "3.4.9",
     "react": "19.2.8",
     "react-dom": "19.2.8",
@@ -57,16 +57,19 @@
     "@types/react-dom": "19.2.3",
     "drizzle-kit": "0.31.10",
     "eslint": "9.39.1",
-    "eslint-config-next": "16.2.12",
+    "eslint-config-next": "16.3.8",
     "prettier": "3.7.4",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
     "vitest": "4.1.7"
   },
   "overrides": {
+    "brace-expansion": "2.1.6",
     "esbuild": "0.25.4",
+    "js-yaml": "4.3.2",
     "nanoid": "3.3.18",
     "postcss": "8.5.23",
-    "sharp": "0.35.3"
+    "sharp": "0.35.5",
+    "source-map-js": "1.2.2"
   }
 }

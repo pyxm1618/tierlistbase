@@ -277,7 +277,8 @@ describe("TierListBase Meta Board Database Integration", () => {
 
     expect(v1OverallData.hasData).toBe(true);
     expect(v1OverallData.availableModes.sort()).toEqual(["leveling", "overall", "pvp"].sort());
-    expect(v1OverallData.availableRoles.sort()).toEqual(["dps", "healer"].sort());
+    // In overall mode, only role "dps" exists in seed; "healer" belongs strictly to pvp
+    expect(v1OverallData.availableRoles).toEqual(["dps"]);
     expect(v1OverallData.availableLevels).toEqual([60]);
     expect(v1OverallData.availableBuilds.sort()).toEqual(["54321", "54322"].sort());
 
@@ -316,6 +317,37 @@ describe("TierListBase Meta Board Database Integration", () => {
     expect(nonExistentData.hasData).toBe(false);
     expect(nonExistentData.tiers).toEqual([]);
 
+    // TEST D2: Invalid or non-existent build strictly returns empty state (NO silent fallback)
+    const invalidBuildData = await getGameMetaBoardData({
+      gameSlug: "wow-forever",
+      mode: "overall",
+      role: "dps",
+      build: "99999-invalid-build",
+      db: database.db,
+    });
+    expect(invalidBuildData.hasData).toBe(false);
+    expect(invalidBuildData.version).toBeNull();
+    expect(invalidBuildData.tiers).toEqual([]);
+
+    // TEST D3: Cascading role derivation and illegal role combination rejection
+    // Mode "leveling" only has role "dps" in seed
+    const levelingContextData = await getGameMetaBoardData({
+      gameSlug: "wow-forever",
+      mode: "leveling",
+      db: database.db,
+    });
+    expect(levelingContextData.availableRoles).toEqual(["dps"]);
+
+    // Requesting illegal combination: mode "leveling" + role "healer" MUST return empty state
+    const illegalRoleCombination = await getGameMetaBoardData({
+      gameSlug: "wow-forever",
+      mode: "leveling",
+      role: "healer",
+      db: database.db,
+    });
+    expect(illegalRoleCombination.hasData).toBe(false);
+    expect(illegalRoleCombination.tiers).toEqual([]);
+
     // TEST E: Source evidence query integrity
     const mageItem = overallSGroup?.items.find((i) => i.entityName === "Frost Mage");
     expect(mageItem).toBeDefined();
@@ -323,6 +355,9 @@ describe("TierListBase Meta Board Database Integration", () => {
     expect(mageItem!.sources[0]!.sourceName).toBe("Warcraft Meta Digest");
     expect(mageItem!.sources[0]!.rawTier).toBe("S");
     expect(mageItem!.sources[0]!.versionMatch).toBe(true);
+    expect(mageItem!.sources[0]!.sourceType).toBe("expert");
+    expect(mageItem!.sources[0]!.publisher).toBe("Community Editors");
+    expect(mageItem!.sources[0]!.checkedAt).toBeDefined();
 
     // TEST F: Rating changes query integrity
     const recentChanges = await getRecentRatingChanges("wow-forever", 5, database.db);

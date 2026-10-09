@@ -3,22 +3,17 @@ import type { LegalConfig } from "@/platform/legal/types";
 export const legalConfig = {
   releaseStatus: "draft",
   operator: {
-    legalName: "Sample Operator — replace before launch",
-    jurisdiction: "Sample jurisdiction — replace before launch",
-    supportEmail: "support@example.com",
+    legalName: "TierListBase (Pending Corporate Registration Review)",
+    jurisdiction: "Pending Legal Review",
+    supportEmail: "contact@tierlistbase.com",
   },
   minimumAge: 18,
-  dataCategories: [
-    "account identifiers",
-    "authentication records",
-    "transaction and entitlement records when commerce is enabled",
-    "security and abuse-prevention events",
-  ],
-  authMethods: ["email magic link"],
+  dataCategories: ["essential technical and security events (no personal accounts)"],
+  authMethods: ["none (authentication disabled in V1)"],
   processors: [
     {
       name: "Resend",
-      purpose: "Transactional authentication and account email delivery",
+      purpose: "Dormant and inactive in TierListBase V1 (disabled feature flag)",
       privacyUrl: "https://resend.com/legal/privacy-policy",
     },
   ],
@@ -28,69 +23,64 @@ export const legalConfig = {
   credits: false,
   refundPolicy: {
     summary:
-      "No paid product is enabled in the neutral starter. Replace this section with reviewed product-specific refund terms before enabling commerce.",
+      "TierListBase V1 is a free, publicly accessible information service without paid tiers, subscriptions, or digital credits. No payment processing is enabled.",
     cancellationSummary:
-      "No subscription is enabled in the neutral starter. Add reviewed cancellation terms before enabling subscriptions.",
+      "No paid subscriptions exist on TierListBase V1. Recurring billing and subscription mechanisms are entirely disabled.",
   },
   subscriptionTerms: null,
   retentionRules: [
     {
-      category: "authentication records",
-      period: "project-defined and reviewed before production",
-      basis: "security, account operation and applicable legal obligations",
-    },
-    {
-      category: "financial records",
-      period: "project-defined and reviewed before production",
-      basis: "accounting, dispute and applicable legal obligations",
+      category: "server security logs",
+      period: "ephemeral log rotation period",
+      basis: "infrastructure security and abuse prevention",
     },
   ],
   accountDeletion: {
-    enabled: true,
+    enabled: false,
     summary:
-      "Authenticated users can request deletion from account security. Authentication access is revoked promptly while records that must be retained are detached from the active identity.",
+      "User account registration and login are disabled in V1. No active accounts or personal identities are collected or held by TierListBase.",
   },
   internationalTransfers:
-    "Document hosting, email, analytics, payment and infrastructure transfer locations before production launch.",
+    "TierListBase V1 is hosted on global edge infrastructure. No personal user data is transferred or retained.",
   documents: {
-    privacy: { version: "draft-1", effectiveDate: "2026-08-08", reviewStatus: "draft" },
-    terms: { version: "draft-1", effectiveDate: "2026-08-08", reviewStatus: "draft" },
-    acceptable_use: { version: "draft-1", effectiveDate: "2026-08-08", reviewStatus: "draft" },
-    refund_policy: { version: "draft-1", effectiveDate: "2026-08-08", reviewStatus: "draft" },
-    account_deletion: { version: "draft-1", effectiveDate: "2026-08-08", reviewStatus: "draft" },
+    privacy: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
+    terms: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
+    acceptable_use: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
+    refund_policy: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
+    account_deletion: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
   },
   content: {
     privacy: [
       {
-        heading: "Scope and status",
+        heading: "Scope and service status",
         paragraphs: [
-          "This starter privacy notice is a configurable framework, not launch-ready legal advice. Replace the operator, jurisdiction, provider, retention, transfer and product facts before production release.",
+          "TierListBase V1 is a public read-only game meta rankings board. User accounts, authentication, cookies for profile tracking, and commercial payments are disabled.",
         ],
       },
       {
-        heading: "Data categories",
+        heading: "Data collection",
         paragraphs: [
-          "The starter can process account identifiers, authentication records, security events and, when enabled, transaction or entitlement records. A product must disclose only the categories it actually uses.",
+          "The service does not collect user account identifiers, passwords, or personal credentials. Only standard ephemeral server logs for security and abuse prevention are processed.",
         ],
       },
       {
-        heading: "Processors and retention",
+        heading: "External processors",
         paragraphs: [
-          "Enabled external services must be listed with their actual purpose. Retention periods are product-owned facts and must be reviewed before launch rather than inferred from this starter.",
+          "No third-party email delivery, analytics, or payment processors are activated for user tracking in V1.",
         ],
       },
     ],
     terms: [
       {
-        heading: "Starter terms",
+        heading: "Service overview",
         paragraphs: [
-          "These draft terms demonstrate the document structure only. A production product must provide reviewed operator identity, service description, eligibility, payment, liability, governing-law and dispute terms appropriate to that product.",
+          "TierListBase provides multi-source consensus game rankings for World of Warcraft: Forever. Rankings are analytical syntheses of publicly available data and expert commentary.",
         ],
       },
       {
-        heading: "Account responsibilities",
+        heading: "No account required",
         paragraphs: [
-          "Users are responsible for access to their email account and for using the service in accordance with the final acceptable-use rules configured by the operator.",
+          "All meta board features in V1 are freely accessible without account registration, user logins, or subscription fees.",
         ],
       },
     ],
@@ -98,35 +88,23 @@ export const legalConfig = {
       {
         heading: "Baseline restrictions",
         paragraphs: [
-          "Do not use the service to violate applicable law, interfere with platform security, abuse authentication or payment systems, distribute malware, or access another person’s account without authorization.",
-        ],
-      },
-      {
-        heading: "Product-specific rules",
-        paragraphs: [
-          "Add reviewed restrictions for the actual product before launch. The starter intentionally does not invent domain-specific prohibited-use rules.",
+          "Do not use the service to violate applicable law, disrupt infrastructure availability, circumvent security controls, distribute malware, or perform abusive denial-of-service queries.",
         ],
       },
     ],
     refund_policy: [
       {
-        heading: "Current commercial status",
+        heading: "Free service status",
         paragraphs: [
-          "The neutral starter has no enabled paid product. Before commerce is enabled, configure and review refund eligibility, request windows, cancellation behavior, payment-provider responsibilities and any statutory rights that apply.",
+          "TierListBase V1 has no enabled paid product, subscription, or token purchase. All features are free and unmonetized.",
         ],
       },
     ],
     account_deletion: [
       {
-        heading: "How deletion works",
+        heading: "Account Deletion Status",
         paragraphs: [
-          "Sign in, open Account Security, review the consequences, and submit the deletion request. The workflow revokes browser sessions and processes identity deletion through the authentication system.",
-        ],
-      },
-      {
-        heading: "Retained records",
-        paragraphs: [
-          "A production product must document any records retained after account deletion and the reason for retention. Retained business records must not silently reattach to a newly created authentication identity.",
+          "TierListBase V1 does not offer user registration, authentication, or user accounts. Consequently, no user profile or account data is held by the service.",
         ],
       },
     ],

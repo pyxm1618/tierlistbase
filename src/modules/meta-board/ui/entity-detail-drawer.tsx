@@ -161,7 +161,15 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
 
           {/* Source Evidence Section */}
           <div className="space-y-4 border-t border-border pt-4">
-            <h3 className="text-sm font-bold text-foreground">Source Evidence & Audit Trail</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-foreground">Source Evidence & Audit Trail</h3>
+              <span className="text-[11px] text-muted">
+                Date Range:{" "}
+                <span className="font-medium text-foreground">
+                  {computeSourceDateRange(item.sources)}
+                </span>
+              </span>
+            </div>
 
             {/* Editorial / Expert Reviews */}
             <div>
@@ -210,9 +218,38 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
   );
 }
 
+function computeSourceDateRange(sources: SourceEvidenceItem[]): string {
+  const timestamps: number[] = [];
+  for (const s of sources) {
+    if (s.publishedAt) timestamps.push(new Date(s.publishedAt).getTime());
+    if (s.updatedAtSource) timestamps.push(new Date(s.updatedAtSource).getTime());
+    if (s.checkedAt) timestamps.push(new Date(s.checkedAt).getTime());
+  }
+  if (timestamps.length === 0) return "N/A";
+  const minDate = new Date(Math.min(...timestamps)).toISOString().split("T")[0] ?? "N/A";
+  const maxDate = new Date(Math.max(...timestamps)).toISOString().split("T")[0] ?? "N/A";
+  return minDate === maxDate ? minDate : `${minDate} ~ ${maxDate}`;
+}
+
 function SourceEvidenceCard({ source }: { source: SourceEvidenceItem }): ReactNode {
+  const publishedDate = source.publishedAt
+    ? new Date(source.publishedAt).toISOString().split("T")[0]
+    : "N/A";
+  const updatedDate = source.updatedAtSource
+    ? new Date(source.updatedAtSource).toISOString().split("T")[0]
+    : "N/A";
+  const checkedDate = source.checkedAt
+    ? new Date(source.checkedAt).toISOString().split("T")[0]
+    : "N/A";
+
+  const normDisplay = source.normalizedTier
+    ? source.normalizedScore !== null
+      ? `${source.normalizedTier} (Score: ${source.normalizedScore})`
+      : source.normalizedTier
+    : "N/A";
+
   return (
-    <div className="rounded-lg border border-border bg-surface p-3 text-xs">
+    <div className="space-y-2 rounded-lg border border-border bg-surface p-3 text-xs">
       <div className="flex items-start justify-between gap-2">
         <div>
           <a
@@ -223,25 +260,60 @@ function SourceEvidenceCard({ source }: { source: SourceEvidenceItem }): ReactNo
           >
             {source.sourceName} ↗
           </a>
-          <p className="text-[11px] text-muted">Publisher: {source.publisher}</p>
+          <p className="max-w-xs truncate text-[11px] text-muted">{source.sourceUrl}</p>
         </div>
         <div className="text-right">
-          <span className="font-mono font-bold text-foreground">Raw: {source.rawTier}</span>
-          {source.normalizedTier ? (
-            <p className="text-[11px] text-muted">Norm: {source.normalizedTier}</p>
-          ) : null}
+          <span className="font-mono font-bold text-foreground">Raw Tier: {source.rawTier}</span>
+          <p className="text-[11px] text-muted">Norm: {normDisplay}</p>
         </div>
       </div>
 
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted">
-        <span>Freshness: {source.sourceFreshness}</span>
-        <span>•</span>
-        <span>Version match: {source.versionMatch ? "Yes" : "Mismatch"}</span>
-        <span>•</span>
-        <span>Checked: {new Date(source.checkedAt).toLocaleDateString()}</span>
+      <div className="grid grid-cols-2 gap-x-2 gap-y-1 rounded bg-surface-muted/40 p-2 text-[11px]">
+        <div>
+          <span className="text-muted">Type: </span>
+          <span className="font-medium capitalize text-foreground">{source.sourceType}</span>
+        </div>
+        <div>
+          <span className="text-muted">Publisher: </span>
+          <span className="font-medium text-foreground">{source.publisher || "N/A"}</span>
+        </div>
+        <div>
+          <span className="text-muted">Raw Rank: </span>
+          <span className="font-mono text-foreground">{source.rawRank ?? "N/A"}</span>
+        </div>
+        <div>
+          <span className="text-muted">Raw Score: </span>
+          <span className="font-mono text-foreground">{source.rawScore ?? "N/A"}</span>
+        </div>
+        <div>
+          <span className="text-muted">Freshness: </span>
+          <span className="capitalize text-foreground">{source.sourceFreshness}</span>
+        </div>
+        <div>
+          <span className="text-muted">Version Match: </span>
+          <span
+            className={
+              source.versionMatch ? "font-medium text-foreground" : "font-medium text-amber-500"
+            }
+          >
+            {source.versionMatch ? "Match" : "Mismatch"}
+          </span>
+        </div>
       </div>
 
-      {source.notes ? <p className="mt-1 text-[11px] text-muted italic">{source.notes}</p> : null}
+      <div className="flex flex-wrap items-center gap-x-3 text-[10px] text-muted">
+        <span>Published: {publishedDate}</span>
+        <span>•</span>
+        <span>Updated: {updatedDate}</span>
+        <span>•</span>
+        <span>Checked: {checkedDate}</span>
+      </div>
+
+      {source.notes ? (
+        <p className="border-t border-border/40 pt-1 text-[11px] italic text-muted">
+          {source.notes}
+        </p>
+      ) : null}
     </div>
   );
 }
