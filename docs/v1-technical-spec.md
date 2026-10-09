@@ -1,62 +1,77 @@
 # TierListBase V1.0 技术方案冻结文档
 
-> Status: **LOCKED**
+> Status: **LOCKED — REVISED FROM END-STATE**
 >
 > Version: **V1.0**
 >
-> Locked on: **2026-10-09**
+> Revised on: **2026-10-09**
 >
-> 本文是 TierListBase V1.0 的正式技术基线。V1 实现不得擅自替换核心技术栈、引入 Auth / Payment / Community 等未批准子系统，或为了未来需求提前过度设计。
+> 本文是 TierListBase V1.0 的正式技术基线，与 `docs/v1-requirements.md` 配套。
 
-## 1. V1 技术目标
+## 1. 技术目标
 
-技术方案只服务一个产品目标：
+V1 技术只服务一个目标：
 
-> **稳定、可维护、可 SEO 地交付一个以 Neon 数据库驱动的 WoW Forever Tier List。**
+> **稳定、快速、可 SEO、可追溯地交付一个 Neon 驱动的 WoW Forever Tier List / 最小 Game Meta Board。**
 
-V1 不追求平台化基础设施完整度。
+技术设计必须支持：
+
+- 当前 Ranking
+- Context Filters
+- Source Evidence
+- Consensus
+- Version / Build
+- Ranking History
+- SEO keyword pages when validated
+
+不为 V2+ 功能提前建设复杂平台。
+
+---
 
 ## 2. 锁定技术栈
 
-V1 正式技术栈：
+V1：
 
 - **Framework:** Next.js App Router
 - **Language:** TypeScript
 - **Hosting:** Vercel
 - **Database:** Neon PostgreSQL
-- **Database Driver:** `@neondatabase/serverless`
-- **ORM / Schema:** Drizzle ORM
+- **Driver:** `@neondatabase/serverless`
+- **ORM:** Drizzle ORM
 - **Migrations:** Drizzle Kit
 - **Repository:** GitHub `pyxm1618/tierlistbase`
-- **Production source of truth:** GitHub `main`
+- **Production branch:** `main`
 - **Rendering:** Server-first
-- **SEO:** SSR / Server Components / 可缓存服务端 HTML
+- **SEO:** SSR / Server Components / cached server HTML
 
 禁止使用已 sunset 的 `@vercel/postgres`。
 
-## 3. Neon 从 V1 开始即为正式数据库
+---
 
-V1 不采用“先静态 JSON、以后再迁移数据库”的方案。
+## 3. Neon 从 V1 即为正式数据源
 
-Neon 从第一版开始保存正式业务数据。
+V1 不允许把正式 Tier 数据长期硬编码在：
+
+- React arrays
+- JSON fixtures
+- static TypeScript constants
+
+Neon 必须保存正式业务数据。
 
 原因：
 
-- Tier 数据会持续更新
-- 必须保留 Version / Build
-- 必须保留 Sources
-- 必须保留 Source Ratings
-- 必须形成 Consensus
-- 必须保留 Tier Changes
-- 后续扩第二个游戏时必须复用同一结构
+- Ranking 会随 Build 变化；
+- Context 不止一个；
+- Source 需要追溯；
+- Consensus 需要计算；
+- History 必须保留；
+- 后续 validated SEO pages 需要复用同一数据源。
+
+---
 
 ## 4. V1 数据模型
 
-V1 至少建立以下表。
-
 ### 4.1 games
-
-保存游戏级信息。
 
 核心字段：
 
@@ -64,17 +79,14 @@ V1 至少建立以下表。
 - slug
 - name
 - publisher
+- status
 - current_version_id
 - created_at
 - updated_at
 
-V1 只有一条核心游戏记录：
-
-- World of Warcraft: Forever
+V1 只有 World of Warcraft: Forever。
 
 ### 4.2 game_versions
-
-保存 WoW Forever Build / Version。
 
 核心字段：
 
@@ -82,21 +94,23 @@ V1 只有一条核心游戏记录：
 - game_id
 - version
 - build
+- level_cap
 - status
 - release_date
+- valid_from
+- valid_to
 - notes
 - created_at
 
+用于明确：
+
+> 一个 Ranking 到底属于哪个 Patch / Build / Level。
+
 ### 4.3 entities
 
-保存可排名对象。
+保存 Class / Spec。
 
-WoW Forever 中 Entity 主要是：
-
-- Class
-- Spec
-
-核心字段：
+字段：
 
 - id
 - game_id
@@ -106,49 +120,65 @@ WoW Forever 中 Entity 主要是：
 - name
 - role
 - status
+- sort_order
 
 ### 4.4 ranking_contexts
 
-保存排名场景。
+V1 不再把 Context 仅理解成一个简单 slug。
 
-V1 固定包含：
-
-- overall
-- leveling
-- dps
-- tank
-- healer
-- solo
-- pvp
-
-核心字段：
+至少支持：
 
 - id
 - game_id
 - slug
-- name
-- description
+- mode
+- role
+- level_cap
+- label
+- status
+
+WoW V1 的主要 context：
+
+- overall
+- leveling
+- dungeon
+- pvp
+
+Role：
+
+- all
+- dps
+- tank
+- healer
+
+Context 必须可用于真实数据库查询与 Consensus 计算，而不是只做前端 UI 状态。
 
 ### 4.5 sources
 
-保存来源。
-
-核心字段：
+字段：
 
 - id
 - name
 - url
 - source_type
+- publisher
 - published_at
 - updated_at_source
 - checked_at
 - freshness_status
+- notes
+
+`source_type` V1 至少区分：
+
+- expert / editorial
+- data
+- aggregator
+
+不建立 Community source。
 
 ### 4.6 source_ratings
 
-保存某个来源对某 Entity 在某 Context 下的原始评级。
-
-核心字段：
+字段：
 
 - id
 - source_id
@@ -157,15 +187,18 @@ V1 固定包含：
 - game_version_id
 - raw_tier
 - raw_rank
+- raw_score
 - normalized_score
 - normalized_tier
+- source_sample_size
 - collected_at
+- notes
 
 ### 4.7 ratings
 
-保存 TierListBase 最终发布评级。
+保存正式发布的 TierListBase Ranking。
 
-核心字段：
+字段：
 
 - id
 - entity_id
@@ -174,7 +207,9 @@ V1 固定包含：
 - tier
 - consensus_score
 - source_count
-- agreement_level
+- agreeing_source_count
+- disagreement_level
+- data_status
 - freshness_status
 - why_this_tier
 - strengths
@@ -182,138 +217,248 @@ V1 固定包含：
 - published_at
 - updated_at
 
+注意：
+
+- `consensus_score` 可用于内部算法；
+- UI 不得把它直接包装成“82.7% 可信度”；
+- 用户侧优先展示来源数量、agreeing sources、freshness、data availability。
+
 ### 4.8 rating_changes
 
-保存评级变化历史。
-
-核心字段：
+字段：
 
 - id
-- rating_id
 - entity_id
 - ranking_context_id
-- game_version_id
+- from_version_id
+- to_version_id
 - previous_tier
 - new_tier
+- change_type
 - reason
+- evidence
 - changed_at
 
-## 5. Consensus 机制
+### 4.9 seo_pages
 
-V1 使用透明、确定性的规则。
+V1 允许为真实验证过的 WoW 关键词增加独立页面，因此需要轻量页面配置层。
 
-基本流程：
+字段：
+
+- id
+- game_id
+- slug
+- primary_keyword
+- search_intent
+- ranking_context_id
+- title
+- meta_description
+- canonical_path
+- index_status
+- status
+- created_at
+- updated_at
+
+规则：
+
+- 只允许人工批准创建；
+- 不允许批量自动生成；
+- 页面必须对应真实独立搜索意图；
+- 不得为普通 filter state 自动创建 SEO page。
+
+---
+
+## 5. Consensus
+
+流程：
 
 ```text
 Source Rating
-→ Version / Freshness Filter
-→ Source-specific Normalization
-→ Normalized Score
+→ Version / Build / Level match
+→ Freshness filter
+→ Source-specific normalization
 → Aggregation
-→ Consensus Tier
-→ Human Review
+→ Disagreement calculation
+→ Human review
 → Published Rating
 ```
 
-V1 不使用：
+V1 不允许：
 
-- Machine Learning
-- LLM 自动决定 Tier
-- 黑箱评分算法
+- LLM 自动决定最终 Tier
+- 黑箱 ML 排名
+- 直接平均字符串 Tier
+- 把 Community 投票混入正式 Tier
 
-当来源冲突明显时，必须保留并展示 disagreement。
+当来源分歧明显时，必须保留该分歧。
 
-## 6. 数据写入方式
+---
 
-由于 V1 明确没有 Login / Auth，因此：
+## 6. Data 与 Expert 分离
 
-> **V1 不开发 Web Admin。**
+数据模型必须允许：
 
-数据维护通过开发者侧完成：
+- Expert / Editorial Rating
+- Real performance data
+
+分别存在。
+
+如果真实统计数据不存在：
+
+- `data_status = unavailable`
+- 页面明确显示“暂无可靠数据”
+
+不得用编辑意见假装 Data。
+
+Community 属于后续版本，不进入 V1 数据链路。
+
+---
+
+## 7. 数据写入与更新
+
+V1 无 Auth，因此不做公共 Web Admin。
+
+数据维护通过：
 
 - Drizzle migrations
 - Seed scripts
 - Import scripts
-- Manual reviewed data files / scripts
-- Neon console 仅用于必要维护
-
-所有可重复的数据变更应优先进入仓库脚本，而不是长期依赖手工 SQL。
-
-V2 再评估是否需要带认证的 Admin。
-
-## 7. 数据读取方式
-
-生产页面只需要公开读取已发布 Tier 数据。
+- Source ingestion scripts
+- Human-reviewed publish scripts
+- 必要时 Neon console
 
 原则：
 
-- 数据库访问只发生在 server side
-- `DATABASE_URL` 不得暴露到浏览器
-- 不在 Client Component 中直接连接 Neon
-- SQL / ORM 查询必须参数化
-- 公共页面不提供写接口
+> **Correctness > Traceability > Automation**
 
-## 8. Neon / Drizzle 连接规范
+每次可重复更新应尽量脚本化。
 
-使用：
+V1 不建设：
 
-- `@neondatabase/serverless`
-- `drizzle-orm/neon-http`
+- 大规模 crawler platform
+- real-time ingestion
+- queue system
 
-采用延迟初始化 DB client，避免在缺少环境变量时于 build evaluation 阶段直接崩溃。
+---
 
-环境变量：
+## 8. 页面与 Route
 
-```text
-DATABASE_URL
-```
-
-通过 Vercel Project Environment Variables 管理。
-
-禁止：
-
-- 将连接字符串提交到 GitHub
-- 在 `NEXT_PUBLIC_*` 中放数据库凭证
-
-## 9. 页面渲染
-
-核心 Tier List 内容必须服务端输出。
-
-推荐结构：
-
-- Server Components：读取 Tier 数据、Sources、Version
-- Client Components：只负责 Tabs、Filters、Expand/Collapse 等交互
-
-核心 SEO 内容不得依赖浏览器 JS 执行后才出现。
-
-页面可以使用 Next.js 缓存 / revalidation，但数据库仍然是唯一数据源。
-
-## 10. 页面范围
-
-V1 只实现：
+V1 必须：
 
 ```text
 /
 /wow-forever/tier-list/
 ```
 
-以及必要的边缘页面：
+允许在真实关键词验证后新增：
 
-- About
-- Methodology
-- Privacy
-- Terms / Disclaimer
-- 404
+```text
+/wow-forever/<validated-keyword-page>/
+```
 
-不创建其他游戏 Route。
+例如：
 
-## 11. SEO 技术要求
+```text
+/wow-forever/dps-tier-list/
+```
 
-必须实现：
+但技术上必须通过 `seo_pages` 或等价显式配置批准，不能由 filter 参数自动派生成可索引页面。
+
+---
+
+## 9. Tier Board 渲染
+
+核心 Tier Board 必须：
+
+- 服务端输出默认 Context；
+- HTML 中直接存在核心实体与 Tier；
+- 不依赖浏览器 JS 才出现主内容。
+
+Client Components 仅负责：
+
+- Mode / Role / Level filter interaction
+- Drawer / Expand
+- lightweight transitions
+
+筛选后的即时视图可以 client-side 更新，但默认 SEO 内容必须 server-rendered。
+
+---
+
+## 10. Filter 与 URL
+
+普通交互筛选：
+
+- 可以使用本地 state 或非索引 query state；
+- 不应自动创建 crawlable duplicate URL。
+
+当某个筛选组合被升级成独立 SEO page：
+
+- 使用稳定 path；
+- Unique title / description；
+- canonical 自指；
+- 服务端直接渲染该 Context；
+- 页面内容必须具有独立价值。
+
+---
+
+## 11. Class / Spec Detail
+
+V1 通过 Drawer / Expand 实现，不要求独立实体页面。
+
+详情数据必须来自 DB：
+
+- rating
+- context
+- why_this_tier
+- strengths
+- constraints
+- source evidence
+- latest change
+
+不创建完整 Wiki 数据模型。
+
+---
+
+## 12. Evidence / Trust UI
+
+技术层必须提供足够数据支持这些用户可见字段：
+
+- source_count
+- agreeing_source_count
+- disagreement_level
+- freshness_status
+- source date range
+- build match
+- data_status
+- change history
+
+禁止前端自行发明“可信度分数”。
+
+如未来需要综合置信模型，必须另行批准并公开方法。
+
+---
+
+## 13. Change Tracking
+
+每次发布新 Rating 时：
+
+1. 找到前一有效 Rating；
+2. 比较 tier / context / version；
+3. 如发生有效变化，写入 `rating_changes`；
+4. 保存 reason / evidence；
+5. 前端展示最近变化。
+
+不能通过覆盖旧行来丢失历史。
+
+---
+
+## 14. SEO 技术要求
+
+必须：
 
 - Next.js Metadata API
-- Unique title
-- Meta description
+- unique Title
+- Meta Description
 - Canonical
 - Open Graph
 - robots.txt
@@ -321,183 +466,185 @@ V1 只实现：
 - semantic HTML
 - server-rendered H1/H2
 - crawlable internal links
-- stable URLs
-- visible version/build
-- visible last updated
-- appropriate structured data only when semantically valid
+- visible Patch / Build / Updated
+- valid structured data only
+- no fake schema
+- no indexable empty filter pages
+- no mass thin pages
 
-禁止：
+核心目标词页面：
 
-- 客户端渲染空壳
-- 为筛选参数批量制造 indexable duplicate pages
-- 自动生成大量薄页面
-- 虚假 Schema
+> `/wow-forever/tier-list/`
 
-## 12. Create Web 的定位
+必须天然围绕 `wow forever tier list` 服务端输出内容。
+
+---
+
+## 15. 首页技术要求
+
+首页从 DB 读取：
+
+- 当前支持游戏
+- 当前版本
+- last updated
+- 主要 Tier List 入口
+
+V1 只有 WoW Forever。
+
+不得生成空白未来游戏卡片对应的 indexable route。
+
+---
+
+## 16. Create Web 的边界
 
 Create Web 可以用于：
 
-- 视觉探索
-- 页面脚手架
-- UI 原型
-- 初步组件生成
+- 页面设计探索
+- 组件草图
+- UI scaffold
 
-但它不是独立的运行时依赖，也不是技术架构来源。
+但所有正式代码必须：
 
-任何 Create Web 生成的代码最终必须：
+1. 进入 GitHub；
+2. 符合本文架构；
+3. 使用 Neon 正式数据；
+4. 通过 CI / build；
+5. 不引入未批准 Auth / Payment / Community。
 
-1. 写入 GitHub 仓库；
-2. 符合本技术文档；
-3. 使用锁定技术栈；
-4. 接入 Neon；
-5. 通过正常 CI / Build；
-6. 不私自增加 Auth、Payment 或其他系统。
+Production 不依赖 Create Web 平台运行。
 
-如果 Create Web 输出与本文件冲突：
+---
 
-> **以本文件为准。**
+## 17. V1 不引入的系统
 
-## 13. Vercel 部署
-
-生产部署：
-
-- Source: GitHub
-- Production branch: `main`
-- Hosting: Vercel
-
-继续保持：
-
-- 非 `main` 分支不自动触发正式部署
-- `main` 为 Production source of truth
-
-V1 不需要复杂多环境发布系统。
-
-## 14. V1 明确不引入的技术系统
-
-以下技术全部不属于 V1：
+不引入：
 
 - Better Auth
-- NextAuth / Auth.js
+- Auth.js
 - Clerk
 - OAuth
 - Session Store
 - Stripe
-- Payment Webhook
-- Subscription System
+- Payment
+- Subscription
 - Redis
-- Queue
 - Realtime
 - WebSocket
+- Community backend
+- Comments
+- Vote system
+- User profiles
 - AI SDK
-- LLM Ranking Pipeline
-- Vector Database
-- Search Engine Cluster
+- LLM ranking pipeline
+- Vector DB
+- Search cluster
 - CMS
 - Public Admin
-- Community System
-- User-generated Content Backend
-- General-purpose Crawler Platform
+- General-purpose crawler platform
 
-除非 V1 产品需求文档正式变更，否则不得加入。
+---
 
-## 15. 数据采集技术边界
+## 18. 测试与 CI
 
-V1 允许：
-
-- 官方公开数据
-- 手工整理
-- 半自动脚本
-- 合法 API
-- 少量可审计抓取
-- 多来源人工审核
-
-V1 不建设：
-
-- 大规模爬虫平台
-- 自动全网采集
-- 高频实时更新系统
-
-数据优先级：
-
-> Correctness > Traceability > Automation
-
-## 16. 测试与 CI
-
-V1 至少要求：
+至少：
 
 - lint
 - TypeScript typecheck
-- unit tests for normalization / consensus logic
-- database schema / migration validation
+- unit tests
+- DB schema validation
+- migration validation
 - production build
-- basic page smoke test
+- core page smoke test
+- SEO metadata tests
 
-关键逻辑必须有测试：
+关键逻辑测试：
 
-- Tier normalization
-- Consensus aggregation
-- Freshness calculation
-- Context filtering
+- source normalization
+- consensus aggregation
+- disagreement calculation
+- freshness calculation
+- context filtering
+- rating change generation
+- SEO page whitelist / no accidental indexable filter pages
 
-## 17. 性能原则
+---
 
-V1 目标：
+## 19. 性能
 
-- 首屏不依赖重型客户端 JS
-- 数据展示以 Server Components 为主
+目标：
+
+- Tier Board 首屏 server-rendered
+- 避免重型 client bundle
+- Filter / Drawer 按需交互
 - 图片优化
-- 避免不必要第三方脚本
-- 不为动画牺牲 Core Web Vitals
+- 无不必要第三方脚本
+- 不为了动画牺牲 Core Web Vitals
 
-V1 不做为了性能分数而进行的过度架构。
+动效只用于：
 
-## 18. 安全原则
+- hover
+- filter transition
+- drawer
+- loading / state feedback
 
-由于无账号、无支付，V1 攻击面应保持很小。
+不做装饰性重动画。
 
-必须保证：
+---
 
-- 所有 Secrets server-only
-- 数据库无客户端直连
-- 无公共写入端点
-- 输入参数校验
-- DB 查询参数化
-- 依赖版本保持受支持状态
+## 20. 安全
 
-## 19. V1 技术验收标准
+V1 无账号、无支付、无公共写接口。
 
-V1 技术完成必须同时满足：
+必须：
 
-1. Next.js + TypeScript 正常 build。
-2. Vercel 可从 `main` 部署。
-3. Neon 已真实接入。
-4. Drizzle schema 和 migrations 可重复执行。
-5. 核心 Tier 数据真实来自 Neon，而不是硬编码前端数组。
-6. 首页可正常读取并展示当前游戏状态。
-7. WoW Forever Tier List 服务端输出核心数据。
-8. Ranking Context 可切换。
-9. Sources / Version / Freshness 可追溯。
-10. Consensus 逻辑有测试。
-11. SEO 基础设施完整。
-12. 无 Auth / Login / Payment 代码或依赖。
-13. 无其他游戏功能。
-14. Production 不依赖 Create Web 平台运行。
+- Secrets server-only
+- `DATABASE_URL` 不暴露客户端
+- 参数化查询
+- 输入校验
+- import/publish scripts 明确权限边界
+- 依赖使用受支持版本
 
-## 20. 技术变更规则
+---
 
-V1 实现期间，如有人提出替换以下任一项：
+## 21. V1 技术验收
+
+V1 完成必须同时满足：
+
+1. Next.js + TypeScript 可正常 build；
+2. Vercel 从 `main` 正常生产部署；
+3. Neon 已真实接入；
+4. Drizzle migrations 可重复执行；
+5. 正式 Tier 数据来自 Neon；
+6. `/wow-forever/tier-list/` 服务端输出完整默认 Tier Board；
+7. Mode / Role / Level Context 可真实查询；
+8. Class / Spec Drawer 数据来自 DB；
+9. Source / Version / Freshness / Disagreement 可追溯；
+10. Rating Changes 可生成并展示；
+11. 无伪造 confidence score；
+12. SEO 基础设施完整；
+13. 普通 filters 不产生可索引重复页；
+14. 新 SEO 子页必须通过明确 whitelist / config；
+15. 无 Auth / Payment / Community 系统；
+16. 无其他游戏功能；
+17. Production 不依赖 Create Web。
+
+---
+
+## 22. 技术变更规则
+
+以下核心决策若要修改，必须先改本文并重新批准：
 
 - Next.js
 - Vercel
 - Neon
 - Drizzle
-- GitHub source of truth
-- 无 Auth
-- 无 Payment
-- 单游戏范围
-
-必须先修改并重新批准本文。
+- GitHub `main` source of truth
+- keyword-driven SEO route strategy
+- no Auth
+- no Payment
+- no Community in V1
+- single-game V1 scope
 
 未经修改本文：
 
-> **技术范围保持冻结。**
+> **V1 技术范围保持冻结。**
