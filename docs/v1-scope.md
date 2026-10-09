@@ -3,6 +3,8 @@
 > Status: **LOCKED — REVISED 2026-10-09**
 >
 > 本文件仅作为 V1 摘要。正式产品基线见 `docs/v1-requirements.md`，正式技术基线见 `docs/v1-technical-spec.md`。如有冲突，以两份正式文档为准。
+>
+> V1 技术实现严格继承 `pyxm1618/creat-web` 0.2.3；不得为 TierListBase 平行重建通用 Web 基础设施。
 
 ## V1 一句话
 
@@ -11,7 +13,7 @@
 主 URL：
 
 ```text
-/wow-forever/tier-list/
+/wow-forever/tier-list
 ```
 
 ## V1 必须有
