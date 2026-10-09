@@ -28,7 +28,7 @@ V1 已正式锁定为：
 
 原因不是 WoW Forever 长期一定比原神更大，而是它处于新版本上线前窗口，Tier List 需求正在快速形成，同时 Class / Spec × Role × Content × Version 的结构非常适合验证 TierListBase 的通用 Ranking Database 模型。
 
-V1 只做首页与一个 WoW Forever Tier List 核心页，不同时开发其他游戏。
+V1 只支持 World of Warcraft: Forever。首页与 WoW Forever Tier List 是固定核心页面；只有真实关键词数据证明存在独立搜索意图、独立用户任务和实质不同内容时，才允许增加 WoW SEO 子页，不同时开发其他游戏。
 
 第二个验证游戏计划为：
 
@@ -329,7 +329,7 @@ TierListBase 不必声称：
 
 第一阶段先证明：
 
-- 用户打开 Genshin Impact Tier List 后能快速得到答案；
+- 用户打开 WoW Forever Tier List 后能快速得到答案；
 - 排名结果有明确上下文；
 - 用户能理解为什么某角色处于某个 Tier；
 - 榜单明确标注版本和更新时间；
@@ -338,6 +338,6 @@ TierListBase 不必声称：
 
 如果首个页面验证成功，再扩展：
 
-> WoW Forever → Genshin Impact → HSR / WuWa / ZZZ / 其他游戏
+> WoW Forever → Genshin Impact（第二种游戏模型验证）→ HSR / WuWa / ZZZ / 其他游戏
 
 而不是一开始追求覆盖所有 Tier List 领域。
