@@ -1,12 +1,14 @@
 # TierListBase V1.0 技术方案冻结文档
 
-> Status: **LOCKED — REVISED FROM END-STATE**
+> Status: **LOCKED — ALIGNED TO CREAT-WEB 0.2.3**
 >
 > Version: **V1.0**
 >
 > Revised on: **2026-10-09**
 >
 > 本文是 TierListBase V1.0 的正式技术基线，与 `docs/v1-requirements.md` 配套。
+>
+> **技术底座权威：** GitHub `pyxm1618/creat-web` 0.2.3（当前封板 `main`：`7c449568cca28496815d0ff009912313caa17f44`）。TierListBase 不另起一套通用 Web 架构；除本文明确记录的产品差异外，数据库连接、Drizzle 迁移、SEO Route Registry、安全、性能、测试、发布门禁、Feature Flags 与产品模块边界均继承 Create Web。
 
 ## 1. 技术目标
 
@@ -36,7 +38,8 @@ V1：
 - **Language:** TypeScript
 - **Hosting:** Vercel
 - **Database:** Neon PostgreSQL
-- **Driver:** `@neondatabase/serverless`
+- **PostgreSQL driver:** `postgres`（postgres.js，与 Create Web 0.2.3 一致）
+- **Drizzle runtime adapter:** `drizzle-orm/postgres-js`
 - **ORM:** Drizzle ORM
 - **Migrations:** Drizzle Kit
 - **Repository:** GitHub `pyxm1618/tierlistbase`
@@ -45,6 +48,8 @@ V1：
 - **SEO:** SSR / Server Components / cached server HTML
 
 禁止使用已 sunset 的 `@vercel/postgres`。
+
+Neon 是 V1 的正式 PostgreSQL 服务商，但**不因此替换 Create Web 已验证的数据库驱动层**。不得为了“Neon 专用”而另行引入 `@neondatabase/serverless`，除非未来先修改 Create Web 技术基线并完成独立验证。
 
 ---
 
@@ -239,32 +244,18 @@ Context 必须可用于真实数据库查询与 Consensus 计算，而不是只�
 - evidence
 - changed_at
 
-### 4.9 seo_pages
+### 4.9 SEO 页面不建业务表
 
-V1 允许为真实验证过的 WoW 关键词增加独立页面，因此需要轻量页面配置层。
+V1 **不建立 `seo_pages` 数据库表**。
 
-字段：
+页面是否存在、是否可索引、搜索意图、主关键词、TDH、Canonical、内链关系和发布审核，统一使用 Create Web 已有的 SEO Route Registry：
 
-- id
-- game_id
-- slug
-- primary_keyword
-- search_intent
-- ranking_context_id
-- title
-- meta_description
-- canonical_path
-- index_status
-- status
-- created_at
-- updated_at
+- `src/config/routes.config.ts`
+- `src/config/seo.config.ts`
+- `src/config/seo-landings.config.tsx`
+- `src/platform/seo/route-registry.ts`
 
-规则：
-
-- 只允许人工批准创建；
-- 不允许批量自动生成；
-- 页面必须对应真实独立搜索意图；
-- 不得为普通 filter state 自动创建 SEO page。
+Neon 只保存 TierListBase 的业务事实与排名数据。经真实关键词验证的新 SEO 页面，必须在 Route Registry 中显式注册并通过 Create Web 的 SEO/release gates；普通 filter state 不得自动生成可索引页面。
 
 ---
 
@@ -347,22 +338,24 @@ V1 必须：
 
 ```text
 /
-/wow-forever/tier-list/
+/wow-forever/tier-list
 ```
+
+Create Web 0.2.3 使用 `trailingSlash: false`，因此 TierListBase 的 Route、Canonical、Sitemap 和内部链接统一使用**无尾部斜杠**规范。
 
 允许在真实关键词验证后新增：
 
 ```text
-/wow-forever/<validated-keyword-page>/
+/wow-forever/<validated-keyword-page>
 ```
 
 例如：
 
 ```text
-/wow-forever/dps-tier-list/
+/wow-forever/dps-tier-list
 ```
 
-但技术上必须通过 `seo_pages` 或等价显式配置批准，不能由 filter 参数自动派生成可索引页面。
+技术上必须通过 Create Web 的 `routes.config.ts` + 对应页面内容配置显式批准，不能由 filter 参数自动派生成可索引页面。
 
 ---
 
@@ -474,7 +467,7 @@ V1 通过 Drawer / Expand 实现，不要求独立实体页面。
 
 核心目标词页面：
 
-> `/wow-forever/tier-list/`
+> `/wow-forever/tier-list`
 
 必须天然围绕 `wow forever tier list` 服务端输出内容。
 
@@ -495,49 +488,82 @@ V1 只有 WoW Forever。
 
 ---
 
-## 16. Create Web 的边界
+## 16. Create Web 是 V1 的正式技术底座
 
-Create Web 可以用于：
+TierListBase 从 Create Web 0.2.3 建站基线开始，而不是把 Create Web 当作页面草图工具。
 
-- 页面设计探索
-- 组件草图
-- UI scaffold
+### 16.1 继承原则
 
-但所有正式代码必须：
+直接继承并保留适用的：
 
-1. 进入 GitHub；
-2. 符合本文架构；
-3. 使用 Neon 正式数据；
-4. 通过 CI / build；
-5. 不引入未批准 Auth / Payment / Community。
+- Next.js / TypeScript / Bun 固定工具链；
+- `postgres` + `drizzle-orm/postgres-js` 数据库连接方式；
+- Drizzle Kit migration 生成、执行与验证流程；
+- `src/config/**` 产品配置模型；
+- `src/modules/<product>/` 产品模块边界；
+- SEO Route Registry、Canonical、Sitemap、robots 与 review fingerprint；
+- CSP、安全响应头、Preview/Staging noindex；
+- 性能预算、Playwright、E2E、supply-chain 与 release gates；
+- Feature Flags 的“关闭即不初始化、不要求 provider secrets”规则。
 
-Production 不依赖 Create Web 平台运行。
+TierListBase 专属功能放在产品模块与产品数据层中。不得把 TierListBase 的 Ranking 业务规则写进可复用 platform 层。
+
+### 16.2 V1 Feature Flags
+
+V1 保持：
+
+```text
+auth       OFF
+email      OFF
+commerce   OFF
+one-time   OFF
+subscription OFF
+credits    OFF
+analytics  OFF（是否启用另行批准）
+```
+
+Create Web 中已经存在的 Auth / Email / Commerce / Credits 等通用代码**保留但关闭**。V1 的“OFF”不等于删除这些已验证基础设施，也不允许因此重写平台。
+
+Community、UGC、AI Ranking 等 Create Web 本身没有提供的 TierListBase V2+ 能力，不在 V1 实现。
+
+### 16.3 数据库扩展
+
+TierListBase 的业务 schema / query / ranking domain 必须保持产品归属，不把游戏业务表混入通用平台语义。
+
+实现时继续复用 Create Web 的 postgres.js + Drizzle 约定与 migration pipeline。如现有 starter 对“产品自有 schema 组合”存在真实缺口，只允许做**最小、通用、可验证**的底座扩展；不得以此为由重写数据库层。
+
+### 16.4 Vercel
+
+保留 TierListBase 当前已确认的 Git 部署策略：
+
+- `main` 允许自动 Production deployment；
+- 其他分支不自动部署。
+
+Create Web 0.2.3 中服务于 Commerce / Reconcile / Credits / Account Deletion 的 cron 不属于 TierListBase V1 需求，Feature 关闭时不得把这些定时任务带入 TierListBase 的 `vercel.json`。
+
+### 16.5 仓库与运行关系
+
+正式代码全部进入 `pyxm1618/tierlistbase`。Create Web 是**代码基线和架构规范来源**，不是 TierListBase Production 的运行时外部依赖；下游项目后续升级按 Create Web 的“有意识移植/cherry-pick”规则处理。
 
 ---
 
-## 17. V1 不引入的系统
+## 17. V1 不启用 / 不建设的系统
 
-不引入：
+Create Web 已提供但 V1 **不启用**：
 
-- Better Auth
-- Auth.js
-- Clerk
-- OAuth
-- Session Store
-- Stripe
-- Payment
-- Subscription
+- Better Auth / OAuth / Session
+- Email
+- Payment / Subscription / Credits
+
+V1 **不新增建设**：
+
+- Stripe 或新的支付体系
 - Redis
-- Realtime
-- WebSocket
+- Realtime / WebSocket
 - Community backend
-- Comments
-- Vote system
-- User profiles
-- AI SDK
-- LLM ranking pipeline
-- Vector DB
-- Search cluster
+- Comments / Vote system / User profiles
+- AI SDK / LLM ranking pipeline
+- Vector DB / Search cluster
 - CMS
 - Public Admin
 - General-purpose crawler platform
@@ -546,18 +572,25 @@ Production 不依赖 Create Web 平台运行。
 
 ## 18. 测试与 CI
 
-至少：
+TierListBase 不另建一套缩水 CI；以 Create Web 0.2.3 的现有门禁为基础，保留适用于当前 Feature 状态的检查，包括：
 
+- frozen Bun install / format
 - lint
 - TypeScript typecheck
-- unit tests
-- DB schema validation
-- migration validation
+- unit / integration tests
+- Drizzle migration generation / migration chain verification
+- architecture boundary
+- secret scan
+- SEO / i18n / security verification
+- supply-chain audit
 - production build
-- core page smoke test
-- SEO metadata tests
+- real-page performance budgets
+- browser E2E
+- release verification
 
-关键逻辑测试：
+Feature 关闭时，相关 provider 不应要求生产密钥或初始化，但**不得通过删除安全门禁来让 CI 变绿**。
+
+在此基础上增加 TierListBase 业务测试：
 
 - source normalization
 - consensus aggregation
@@ -565,7 +598,11 @@ Production 不依赖 Create Web 平台运行。
 - freshness calculation
 - context filtering
 - rating change generation
-- SEO page whitelist / no accidental indexable filter pages
+- DB-backed default Tier Board
+- SEO Route Registry whitelist / no accidental indexable filter pages
+- Source / Build / Data-status traceability
+
+CI 的目标是证明“Create Web 基线没有被破坏 + TierListBase 业务正确”，不是重新验证另一套架构。
 
 ---
 
@@ -615,7 +652,7 @@ V1 完成必须同时满足：
 3. Neon 已真实接入；
 4. Drizzle migrations 可重复执行；
 5. 正式 Tier 数据来自 Neon；
-6. `/wow-forever/tier-list/` 服务端输出完整默认 Tier Board；
+6. `/wow-forever/tier-list` 服务端输出完整默认 Tier Board；
 7. Mode / Role / Level Context 可真实查询；
 8. Class / Spec Drawer 数据来自 DB；
 9. Source / Version / Freshness / Disagreement 可追溯；
@@ -624,9 +661,10 @@ V1 完成必须同时满足：
 12. SEO 基础设施完整；
 13. 普通 filters 不产生可索引重复页；
 14. 新 SEO 子页必须通过明确 whitelist / config；
-15. 无 Auth / Payment / Community 系统；
+15. Auth / Email / Commerce / Credits 保持 Feature OFF，Community 不实现；
 16. 无其他游戏功能；
-17. Production 不依赖 Create Web。
+17. Create Web 0.2.3 的适用基础设施与 release gates 已继承且没有被平行重建；
+18. TierListBase Production 从自身仓库运行，不依赖外部 Create Web 服务。
 
 ---
 
@@ -634,14 +672,15 @@ V1 完成必须同时满足：
 
 以下核心决策若要修改，必须先改本文并重新批准：
 
-- Next.js
-- Vercel
-- Neon
-- Drizzle
+- Create Web 0.2.3 作为技术底座
+- Next.js / Bun / Vercel
+- Neon PostgreSQL
+- postgres.js + `drizzle-orm/postgres-js`
+- Drizzle Kit migration pipeline
+- Create Web SEO Route Registry
 - GitHub `main` source of truth
 - keyword-driven SEO route strategy
-- no Auth
-- no Payment
+- Auth / Email / Commerce / Credits OFF
 - no Community in V1
 - single-game V1 scope
 
