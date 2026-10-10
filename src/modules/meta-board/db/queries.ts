@@ -133,21 +133,59 @@ export async function getGameMetaBoardData(options?: {
     };
   }
 
-  // 2. Fetch available game versions
-  const allVersions = await db
-    .select()
-    .from(gameVersions)
-    .where(eq(gameVersions.gameId, gameRow.id));
+  // 2. Fetch all combinations of (context, version) that actually have ratings for this game
+  const activeRatingCombinations = await db
+    .selectDistinct({
+      contextId: rankingContexts.id,
+      mode: rankingContexts.mode,
+      role: rankingContexts.role,
+      levelCap: rankingContexts.levelCap,
+      contextLabel: rankingContexts.label,
+      contextSlug: rankingContexts.slug,
+      versionId: gameVersions.id,
+      versionString: gameVersions.version,
+      build: gameVersions.build,
+      versionStatus: gameVersions.status,
+      versionLevelCap: gameVersions.levelCap,
+    })
+    .from(ratings)
+    .innerJoin(rankingContexts, eq(ratings.rankingContextId, rankingContexts.id))
+    .innerJoin(gameVersions, eq(ratings.gameVersionId, gameVersions.id))
+    .where(
+      and(
+        eq(rankingContexts.gameId, gameRow.id),
+        eq(rankingContexts.status, "active"),
+        eq(gameVersions.gameId, gameRow.id),
+      ),
+    );
 
-  const availableBuilds = Array.from(
-    new Set(allVersions.map((v) => v.build).filter((b): b is string => Boolean(b))),
-  );
+  if (activeRatingCombinations.length === 0) {
+    return {
+      game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+      version: null,
+      activeContext: null,
+      availableModes: [],
+      availableRoles: [],
+      availableLevels: [],
+      availableBuilds: [],
+      tiers: [],
+      hasData: false,
+    };
+  }
 
-  let versionRow = null;
+  // 3. Determine selected game version deterministically
+  let selectedVersionRow: {
+    id: string;
+    version: string;
+    build: string | null;
+    levelCap: number | null;
+    status: string;
+  } | null = null;
+
   if (options?.build) {
-    // If a specific build was requested, strictly require it to exist — NEVER silently fallback
-    versionRow = allVersions.find((v) => v.build === options.build) ?? null;
-    if (!versionRow) {
+    // If a specific build was requested, strictly require active ratings for this build
+    const matchByBuild = activeRatingCombinations.find((c) => c.build === options.build);
+    if (!matchByBuild) {
       return {
         game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
         version: null,
@@ -155,93 +193,228 @@ export async function getGameMetaBoardData(options?: {
         availableModes: [],
         availableRoles: [],
         availableLevels: [],
-        availableBuilds,
+        availableBuilds: [],
         tiers: [],
         hasData: false,
       };
     }
-  } else if (gameRow.currentVersionId) {
-    versionRow = allVersions.find((v) => v.id === gameRow.currentVersionId) ?? null;
+    selectedVersionRow = {
+      id: matchByBuild.versionId,
+      version: matchByBuild.versionString,
+      build: matchByBuild.build,
+      levelCap: matchByBuild.versionLevelCap,
+      status: matchByBuild.versionStatus,
+    };
+  } else {
+    // Deterministic selection: currentVersionId -> status==='current' -> highest version string
+    const distinctVersions = Array.from(
+      new Map(
+        activeRatingCombinations.map((c) => [
+          c.versionId,
+          {
+            id: c.versionId,
+            version: c.versionString,
+            build: c.build,
+            levelCap: c.versionLevelCap,
+            status: c.versionStatus,
+          },
+        ]),
+      ).values(),
+    ).sort((a, b) => b.version.localeCompare(a.version));
+
+    selectedVersionRow =
+      (gameRow.currentVersionId
+        ? distinctVersions.find((v) => v.id === gameRow.currentVersionId)
+        : null) ??
+      distinctVersions.find((v) => v.status === "current") ??
+      distinctVersions[0] ??
+      null;
   }
-  if (!versionRow) {
-    versionRow = allVersions.find((v) => v.status === "current") ?? allVersions[0] ?? null;
-  }
 
-  // 3. Fetch active ranking contexts from DB for this game
-  const activeContextRows = await db
-    .select()
-    .from(rankingContexts)
-    .where(and(eq(rankingContexts.gameId, gameRow.id), eq(rankingContexts.status, "active")));
-
-  // Global available modes from active contexts
-  const availableModes = Array.from(new Set(activeContextRows.map((c) => c.mode).filter(Boolean)));
-
-  if (activeContextRows.length === 0 || !versionRow) {
+  if (!selectedVersionRow) {
     return {
       game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
-      version: versionRow
-        ? {
-            id: versionRow.id,
-            version: versionRow.version,
-            build: versionRow.build,
-            levelCap: versionRow.levelCap,
-            status: versionRow.status,
-          }
-        : null,
+      version: null,
       activeContext: null,
-      availableModes,
+      availableModes: [],
       availableRoles: [],
       availableLevels: [],
-      availableBuilds,
+      availableBuilds: [],
       tiers: [],
       hasData: false,
     };
   }
 
-  // If a specific mode was requested but doesn't exist in DB, return empty state
-  if (options?.mode && !availableModes.includes(options.mode)) {
-    return {
-      game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
-      version: {
-        id: versionRow.id,
-        version: versionRow.version,
-        build: versionRow.build,
-        levelCap: versionRow.levelCap,
-        status: versionRow.status,
-      },
-      activeContext: null,
-      availableModes,
-      availableRoles: [],
-      availableLevels: [],
-      availableBuilds,
-      tiers: [],
-      hasData: false,
-    };
-  }
-
-  // Cascade filtering: Modes, Roles, Levels must be linked
-  const targetMode = options?.mode ?? availableModes[0]!;
-  const modeContexts = activeContextRows.filter((c) => c.mode === targetMode);
-
-  // Available roles and levels MUST come strictly from the selected targetMode
-  const availableRoles = Array.from(new Set(modeContexts.map((c) => c.role).filter(Boolean)));
-  const availableLevels = Array.from(
-    new Set(
-      modeContexts.map((c) => c.levelCap).filter((l): l is number => l !== null && l !== undefined),
-    ),
+  // 4. In the selected version, find valid combinations
+  const versionCombinations = activeRatingCombinations.filter(
+    (c) => c.versionId === selectedVersionRow.id,
   );
 
-  // If a specific role was requested but does not exist in targetMode, return empty state (no silent fallback)
-  if (options?.role && !availableRoles.includes(options.role)) {
+  const availableModes = Array.from(
+    new Set(versionCombinations.map((c) => c.mode).filter(Boolean)),
+  ).sort();
+
+  if (availableModes.length === 0) {
     return {
       game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
-      version: {
-        id: versionRow.id,
-        version: versionRow.version,
-        build: versionRow.build,
-        levelCap: versionRow.levelCap,
-        status: versionRow.status,
-      },
+      version: selectedVersionRow,
+      activeContext: null,
+      availableModes: [],
+      availableRoles: [],
+      availableLevels: [],
+      availableBuilds: [],
+      tiers: [],
+      hasData: false,
+    };
+  }
+
+  let targetMode: string;
+  if (options?.mode) {
+    if (!availableModes.includes(options.mode)) {
+      return {
+        game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+        version: selectedVersionRow,
+        activeContext: null,
+        availableModes,
+        availableRoles: [],
+        availableLevels: [],
+        availableBuilds: [],
+        tiers: [],
+        hasData: false,
+      };
+    }
+    targetMode = options.mode;
+  } else {
+    // Default page: must explicitly prefer "overall"
+    if (availableModes.includes("overall")) {
+      targetMode = "overall";
+    } else {
+      // If "overall" is not an active ranking context in current version, return explicit unavailable state
+      return {
+        game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+        version: selectedVersionRow,
+        activeContext: null,
+        availableModes,
+        availableRoles: [],
+        availableLevels: [],
+        availableBuilds: [],
+        tiers: [],
+        hasData: false,
+      };
+    }
+  }
+
+  const modeCombinations = versionCombinations.filter((c) => c.mode === targetMode);
+
+  const availableRoles = Array.from(
+    new Set(modeCombinations.map((c) => c.role).filter(Boolean)),
+  ).sort();
+  const availableLevels = Array.from(
+    new Set(
+      modeCombinations
+        .map((c) => c.levelCap)
+        .filter((l): l is number => l !== null && l !== undefined),
+    ),
+  ).sort((a, b) => a - b);
+
+  let targetRole: string;
+  if (options?.role) {
+    if (!availableRoles.includes(options.role)) {
+      return {
+        game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+        version: selectedVersionRow,
+        activeContext: null,
+        availableModes,
+        availableRoles,
+        availableLevels,
+        availableBuilds: [],
+        tiers: [],
+        hasData: false,
+      };
+    }
+    targetRole = options.role;
+  } else {
+    // When role is not explicitly specified, require real "all" ranking context
+    if (availableRoles.includes("all")) {
+      targetRole = "all";
+    } else {
+      // "all" does NOT exist as an active ranking context in targetMode.
+      // Do NOT arbitrarily pick the first context; return explicit empty state.
+      return {
+        game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+        version: selectedVersionRow,
+        activeContext: null,
+        availableModes,
+        availableRoles,
+        availableLevels,
+        availableBuilds: [],
+        tiers: [],
+        hasData: false,
+      };
+    }
+  }
+
+  let targetLevel = options?.levelCap;
+  if (targetLevel !== undefined) {
+    if (!availableLevels.includes(targetLevel)) {
+      return {
+        game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+        version: selectedVersionRow,
+        activeContext: null,
+        availableModes,
+        availableRoles,
+        availableLevels,
+        availableBuilds: [],
+        tiers: [],
+        hasData: false,
+      };
+    }
+  } else {
+    const matchingLevels = modeCombinations
+      .filter((c) => c.role === targetRole)
+      .map((c) => c.levelCap)
+      .filter((l): l is number => l !== null && l !== undefined);
+    if (matchingLevels.length > 0) {
+      targetLevel = Math.max(...matchingLevels);
+    }
+  }
+
+  const matchingContexts = modeCombinations
+    .filter((c) => {
+      const matchRole = c.role === targetRole;
+      const matchLevel = targetLevel !== undefined ? c.levelCap === targetLevel : true;
+      return matchRole && matchLevel;
+    })
+    .sort((a, b) => a.contextSlug.localeCompare(b.contextSlug));
+
+  const chosenContext = matchingContexts[0];
+  if (!chosenContext) {
+    return {
+      game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+      version: selectedVersionRow,
+      activeContext: null,
+      availableModes,
+      availableRoles,
+      availableLevels,
+      availableBuilds: [],
+      tiers: [],
+      hasData: false,
+    };
+  }
+
+  // 5. availableBuilds: builds that actually have ratings in THIS chosen ranking context!
+  const buildsForCurrentContext = activeRatingCombinations
+    .filter((c) => c.contextId === chosenContext.contextId)
+    .map((c) => c.build)
+    .filter((b): b is string => Boolean(b));
+
+  const availableBuilds = Array.from(new Set(buildsForCurrentContext)).sort();
+
+  // If a specific build was requested, verify that the chosen context actually has ratings for this build
+  if (options?.build && !availableBuilds.includes(options.build)) {
+    return {
+      game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
+      version: selectedVersionRow,
       activeContext: null,
       availableModes,
       availableRoles,
@@ -252,63 +425,7 @@ export async function getGameMetaBoardData(options?: {
     };
   }
 
-  // If a specific levelCap was requested but does not exist in targetMode, return empty state (no silent fallback)
-  if (options?.levelCap !== undefined && !availableLevels.includes(options.levelCap)) {
-    return {
-      game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
-      version: {
-        id: versionRow.id,
-        version: versionRow.version,
-        build: versionRow.build,
-        levelCap: versionRow.levelCap,
-        status: versionRow.status,
-      },
-      activeContext: null,
-      availableModes,
-      availableRoles,
-      availableLevels,
-      availableBuilds,
-      tiers: [],
-      hasData: false,
-    };
-  }
-
-  // Match target context based on provided options
-  const targetRole = options?.role;
-  const targetLevel = options?.levelCap;
-
-  let contextRow = modeContexts.find((c) => {
-    const matchRole = targetRole ? c.role === targetRole : true;
-    const matchLevel = targetLevel !== undefined ? c.levelCap === targetLevel : true;
-    return matchRole && matchLevel;
-  });
-
-  // If role/level wasn't explicitly given, fallback to first matching mode
-  if (!contextRow && !targetRole && targetLevel === undefined) {
-    contextRow = modeContexts[0] ?? undefined;
-  }
-
-  if (!contextRow) {
-    return {
-      game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
-      version: {
-        id: versionRow.id,
-        version: versionRow.version,
-        build: versionRow.build,
-        levelCap: versionRow.levelCap,
-        status: versionRow.status,
-      },
-      activeContext: null,
-      availableModes,
-      availableRoles,
-      availableLevels,
-      availableBuilds,
-      tiers: [],
-      hasData: false,
-    };
-  }
-
-  // 4. Fetch ratings for this context and version
+  // 6. Fetch ratings for this context and version
   const rows = await db
     .select({
       entityId: entities.id,
@@ -332,26 +449,23 @@ export async function getGameMetaBoardData(options?: {
     .from(ratings)
     .innerJoin(entities, eq(ratings.entityId, entities.id))
     .where(
-      and(eq(ratings.rankingContextId, contextRow.id), eq(ratings.gameVersionId, versionRow.id)),
+      and(
+        eq(ratings.rankingContextId, chosenContext.contextId),
+        eq(ratings.gameVersionId, selectedVersionRow.id),
+      ),
     );
 
   if (rows.length === 0) {
     return {
       game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
-      version: {
-        id: versionRow.id,
-        version: versionRow.version,
-        build: versionRow.build,
-        levelCap: versionRow.levelCap,
-        status: versionRow.status,
-      },
+      version: selectedVersionRow,
       activeContext: {
-        id: contextRow.id,
-        slug: contextRow.slug,
-        mode: contextRow.mode,
-        role: contextRow.role,
-        levelCap: contextRow.levelCap,
-        label: contextRow.label,
+        id: chosenContext.contextId,
+        slug: chosenContext.contextSlug,
+        mode: chosenContext.mode,
+        role: chosenContext.role,
+        levelCap: chosenContext.levelCap,
+        label: chosenContext.contextLabel,
       },
       availableModes,
       availableRoles,
@@ -364,7 +478,7 @@ export async function getGameMetaBoardData(options?: {
 
   const entityIds = rows.map((r) => r.entityId);
 
-  // 5. Fetch associated source ratings and sources for evidence
+  // 7. Fetch associated source ratings strictly isolated to CURRENT version and context
   const sourceEvidenceRows = await db
     .select({
       entityId: sourceRatings.entityId,
@@ -390,7 +504,8 @@ export async function getGameMetaBoardData(options?: {
     .where(
       and(
         inArray(sourceRatings.entityId, entityIds),
-        eq(sourceRatings.rankingContextId, contextRow.id),
+        eq(sourceRatings.rankingContextId, chosenContext.contextId),
+        eq(sourceRatings.gameVersionId, selectedVersionRow.id),
       ),
     );
 
@@ -414,19 +529,19 @@ export async function getGameMetaBoardData(options?: {
       normalizedTier: item.normalizedTier,
       normalizedScore: item.normalizedScore ? Number(item.normalizedScore) : null,
       sourceFreshness: item.sourceFreshness,
-      versionMatch: item.ratingGameVersionId === versionRow.id,
+      versionMatch: item.ratingGameVersionId === selectedVersionRow.id,
       notes: item.notes,
     });
   }
 
-  // 6. Fetch latest rating changes for these entities in this context
+  // 8. Fetch latest rating changes for these entities in this context
   const changeRows = await db
     .select()
     .from(ratingChanges)
     .where(
       and(
         inArray(ratingChanges.entityId, entityIds),
-        eq(ratingChanges.rankingContextId, contextRow.id),
+        eq(ratingChanges.rankingContextId, chosenContext.contextId),
       ),
     )
     .orderBy(desc(ratingChanges.changedAt));
@@ -444,7 +559,7 @@ export async function getGameMetaBoardData(options?: {
     }
   }
 
-  // 7. Group only existing DB tiers without fabricating missing ones
+  // 9. Group only existing DB tiers without fabricating missing ones
   const baseVisualOrder = ["S", "A", "B", "C"];
   const grouped = new Map<string, BoardEntityItem[]>();
 
@@ -463,9 +578,9 @@ export async function getGameMetaBoardData(options?: {
       entityType: row.entityType,
       role: row.role,
       tier: row.tier,
-      currentContextLabel: contextRow.label,
-      versionString: versionRow.version,
-      buildString: versionRow.build,
+      currentContextLabel: chosenContext.contextLabel,
+      versionString: selectedVersionRow.version,
+      buildString: selectedVersionRow.build,
       consensusScore: row.consensusScore ? Number(row.consensusScore) : null,
       sourceCount: row.sourceCount,
       agreeingSourceCount: row.agreeingSourceCount,
@@ -496,19 +611,19 @@ export async function getGameMetaBoardData(options?: {
   return {
     game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
     version: {
-      id: versionRow.id,
-      version: versionRow.version,
-      build: versionRow.build,
-      levelCap: versionRow.levelCap,
-      status: versionRow.status,
+      id: selectedVersionRow.id,
+      version: selectedVersionRow.version,
+      build: selectedVersionRow.build,
+      levelCap: selectedVersionRow.levelCap,
+      status: selectedVersionRow.status,
     },
     activeContext: {
-      id: contextRow.id,
-      slug: contextRow.slug,
-      mode: contextRow.mode,
-      role: contextRow.role,
-      levelCap: contextRow.levelCap,
-      label: contextRow.label,
+      id: chosenContext.contextId,
+      slug: chosenContext.contextSlug,
+      mode: chosenContext.mode,
+      role: chosenContext.role,
+      levelCap: chosenContext.levelCap,
+      label: chosenContext.contextLabel,
     },
     availableModes,
     availableRoles,

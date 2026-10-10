@@ -3,7 +3,7 @@ import type { LegalConfig } from "@/platform/legal/types";
 export const legalConfig = {
   releaseStatus: "draft",
   operator: {
-    legalName: "TierListBase (Pending Corporate Registration Review)",
+    legalName: "TierListBase Operator (Pending Legal Review)",
     jurisdiction: "Pending Legal Review",
     supportEmail: "contact@tierlistbase.com",
   },

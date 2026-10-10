@@ -76,7 +76,7 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
                     Level Cap: {metaBoardData.version.levelCap}
                   </span>
                 ) : null}
-                <span className="rounded bg-emerald-500/10 px-2 py-1 font-medium text-emerald-600 dark:text-emerald-400 capitalize">
+                <span className="rounded bg-emerald-500/10 px-2 py-1 font-semibold text-emerald-800 dark:text-emerald-300 capitalize">
                   {metaBoardData.version.status}
                 </span>
               </>

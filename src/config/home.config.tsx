@@ -17,24 +17,25 @@ export const homeConfig = {
       order: 10,
       eyebrow: "Evidence-Based Game Meta",
       h1: homeRoute.h1,
-      lead: "TierListBase provides transparent, auditable game meta tier lists built from multi-source editorial consensus and verified telemetry rather than opaque formulas.",
+      lead: "TierListBase provides transparent, auditable game meta tier lists built from multi-source editorial consensus and documented evidence rather than opaque formulas.",
       primaryCta: { label: "View WoW Forever Tier List", href: "/wow-forever/tier-list" },
     },
     {
       type: "tool-demo",
       enabled: true,
       order: 20,
-      heading: "Currently live: World of Warcraft: Forever",
-      body: "World of Warcraft: Forever is the first game board activated on TierListBase. Check out current patch rankings across leveling, dungeons, and PvP contexts.",
+      heading: "WoW Forever board is available",
+      body: "World of Warcraft: Forever is the first game meta board prepared on TierListBase across leveling, dungeon, and PvP contexts. Reviewed ranking data has not been published yet in production.",
       surface: (
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-              Active Board
+              Game Board
             </span>
             <h3 className="mt-1 text-xl font-bold text-foreground">World of Warcraft: Forever</h3>
             <p className="mt-1 text-sm text-muted">
-              Live meta board tracking specs, roles, context rankings and verified patch changes.
+              Meta board structure tracking specs, roles, context rankings and verified patch
+              changes once published.
             </p>
           </div>
           <Link

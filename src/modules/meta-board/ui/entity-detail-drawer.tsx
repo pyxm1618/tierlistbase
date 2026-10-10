@@ -189,10 +189,10 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
               )}
             </div>
 
-            {/* Real Telemetry / Performance Data */}
+            {/* Statistical & Metric Evidence */}
             <div>
               <h4 className="text-xs font-semibold uppercase tracking-wider text-muted">
-                Telemetry & Performance Data ({dataSources.length})
+                Statistical & Metric Sources ({dataSources.length})
               </h4>
               {dataSources.length === 0 ? (
                 <p className="mt-1.5 text-xs text-muted">
