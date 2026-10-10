@@ -36,7 +36,13 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
     ...(build ? { build } : {}),
   });
 
-  const recentChanges = await getRecentRatingChanges("wow-forever", 5);
+  const recentChanges =
+    metaBoardData.activeContext && metaBoardData.version
+      ? await getRecentRatingChanges("wow-forever", 5, undefined, {
+          rankingContextId: metaBoardData.activeContext.id,
+          toVersionId: metaBoardData.version.id,
+        })
+      : [];
 
   const routeDef = routeRegistry.get("/wow-forever/tier-list");
   const canonicalUrl = `${routeRegistry.site.canonicalOrigin}/wow-forever/tier-list`;

@@ -195,8 +195,8 @@ describe("TierListBase Meta Board Database Integration", () => {
         gameVersionId: testVersionV1Id,
         tier: "S",
         consensusScore: "95.00",
-        sourceCount: 2,
-        agreeingSourceCount: 2,
+        sourceCount: 1,
+        agreeingSourceCount: 1,
         disagreementLevel: "none",
         dataStatus: "available",
         freshnessStatus: "current",
@@ -223,8 +223,8 @@ describe("TierListBase Meta Board Database Integration", () => {
         gameVersionId: testVersionV2Id,
         tier: "A",
         consensusScore: "85.00",
-        sourceCount: 2,
-        agreeingSourceCount: 2,
+        sourceCount: 1,
+        agreeingSourceCount: 1,
         disagreementLevel: "none",
         dataStatus: "available",
         freshnessStatus: "current",
@@ -466,13 +466,49 @@ describe("TierListBase Meta Board Database Integration", () => {
     expect(v2MageItem!.sources[0]!.rawTier).toBe("A");
     expect(v2MageItem!.sources.some((s) => s.sourceId === source1Id)).toBe(false);
 
-    // TEST F: Rating changes query integrity
-    const recentChanges = await getRecentRatingChanges("wow-forever", 5, database.db);
-    expect(recentChanges.length).toBeGreaterThan(0);
-    expect(recentChanges[0]!.entityName).toBe("Frost Mage");
-    expect(recentChanges[0]!.previousTier).toBe("S");
-    expect(recentChanges[0]!.newTier).toBe("A");
-    expect(recentChanges[0]!.changeType).toBe("demoted");
+    // TEST F: Rating changes version and context semantic alignment
+    // 1. In V1 entity item, latestTierChange must be null (no future V1->V2 change leaked)
+    expect(v1MageItem!.latestTierChange).toBeNull();
+
+    // 2. In V2 entity item, latestTierChange must show the demotion from V1 to V2
+    expect(v2MageItem!.latestTierChange).toBeDefined();
+    expect(v2MageItem!.latestTierChange!.previousTier).toBe("S");
+    expect(v2MageItem!.latestTierChange!.newTier).toBe("A");
+    expect(v2MageItem!.latestTierChange!.changeType).toBe("demoted");
+
+    // 3. What Changed feed for V1 must NOT show future V1->V2 change
+    const v1Changes = await getRecentRatingChanges("wow-forever", 5, database.db, {
+      rankingContextId: ctxOverallId,
+      toVersionId: testVersionV1Id,
+    });
+    expect(v1Changes.length).toBe(0);
+
+    // 4. What Changed feed for V2 must show the change targeting V2
+    const v2Changes = await getRecentRatingChanges("wow-forever", 5, database.db, {
+      rankingContextId: ctxOverallId,
+      toVersionId: testVersionV2Id,
+    });
+    expect(v2Changes.length).toBe(1);
+    expect(v2Changes[0]!.entityName).toBe("Frost Mage");
+    expect(v2Changes[0]!.previousTier).toBe("S");
+    expect(v2Changes[0]!.newTier).toBe("A");
+
+    // 5. Context isolation: Context Leveling must NOT show changes from Context Overall
+    const levelingChanges = await getRecentRatingChanges("wow-forever", 5, database.db, {
+      rankingContextId: ctxLevelingId,
+      toVersionId: testVersionV2Id,
+    });
+    expect(levelingChanges.length).toBe(0);
+
+    // TEST G: Rating Trust Invariant
+    // UI sourceCount & agreeingSourceCount must strictly derive from and equal real sources in Drawer
+    expect(v1MageItem!.sourceCount).toBe(v1MageItem!.sources.length);
+    expect(v1MageItem!.agreeingSourceCount).toBe(1);
+    expect(v1MageItem!.agreementRatio).toBe(1);
+
+    expect(v2MageItem!.sourceCount).toBe(v2MageItem!.sources.length);
+    expect(v2MageItem!.agreeingSourceCount).toBe(1);
+    expect(v2MageItem!.agreementRatio).toBe(1);
   });
 
   it("strictly selects overall+all on default page independent of database insertion order and isolates builds", async () => {
@@ -609,5 +645,102 @@ describe("TierListBase Meta Board Database Integration", () => {
     });
     expect(dungeonNoRole.hasData).toBe(false);
     expect(dungeonNoRole.activeContext).toBeNull();
+  });
+
+  it("enforces trust invariant by correcting unaligned rating sourceCount to actual evidence in Drawer", async () => {
+    const gameId = "game-trust-test";
+    const vId = "ver-trust";
+
+    await database.db.insert(games).values({
+      id: gameId,
+      slug: "trust-test",
+      name: "Trust Test Game",
+      publisher: "Trust Publisher",
+      status: "active",
+    });
+
+    await database.db.insert(gameVersions).values({
+      id: vId,
+      gameId,
+      version: "1.0.0",
+      build: "build-trust",
+      levelCap: 60,
+      status: "current",
+    });
+
+    const ctxId = "ctx-trust-overall-all";
+    await database.db.insert(rankingContexts).values({
+      id: ctxId,
+      gameId,
+      slug: "trust-overall-all",
+      mode: "overall",
+      role: "all",
+      levelCap: 60,
+      label: "Overall • All",
+      status: "active",
+    });
+
+    const entId = "ent-trust-entity";
+    await database.db.insert(entities).values({
+      id: entId,
+      gameId,
+      name: "Trust Knight",
+      slug: "trust-knight",
+      entityType: "class",
+      role: "all",
+      sortOrder: 1,
+    });
+
+    // Deliberately insert anomalous rating with sourceCount=5 and agreeingSourceCount=5
+    // while inserting only 1 real sourceRating in database
+    await database.db.insert(ratings).values({
+      id: "rat-trust-anomalous",
+      entityId: entId,
+      rankingContextId: ctxId,
+      gameVersionId: vId,
+      tier: "S",
+      consensusScore: "99.00",
+      sourceCount: 5, // anomalous pre-aggregated number
+      agreeingSourceCount: 5, // anomalous pre-aggregated number
+      disagreementLevel: "none",
+      dataStatus: "available",
+      freshnessStatus: "current",
+    });
+
+    const srcId = "src-trust-1";
+    await database.db.insert(sources).values({
+      id: srcId,
+      name: "Verified Single Source",
+      url: "https://example.com/verified-source",
+      sourceType: "expert",
+      publisher: "Single Auditor",
+      freshnessStatus: "current",
+      publishedAt: new Date("2026-09-01T00:00:00Z"),
+    });
+
+    await database.db.insert(sourceRatings).values({
+      id: "sr-trust-1",
+      sourceId: srcId,
+      entityId: entId,
+      rankingContextId: ctxId,
+      gameVersionId: vId,
+      rawTier: "S",
+      normalizedTier: "S",
+      normalizedScore: "99.00",
+    });
+
+    const trustData = await getGameMetaBoardData({ gameSlug: "trust-test", db: database.db });
+    expect(trustData.hasData).toBe(true);
+
+    const knightItem = trustData.tiers
+      .find((t) => t.tier === "S")
+      ?.items.find((i) => i.entityName === "Trust Knight");
+    expect(knightItem).toBeDefined();
+
+    // Trust invariant: item.sourceCount must be 1, NOT 5!
+    expect(knightItem!.sourceCount).toBe(1);
+    expect(knightItem!.agreeingSourceCount).toBe(1);
+    expect(knightItem!.agreementRatio).toBe(1);
+    expect(knightItem!.sources.length).toBe(1);
   });
 });

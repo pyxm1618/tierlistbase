@@ -534,7 +534,7 @@ export async function getGameMetaBoardData(options?: {
     });
   }
 
-  // 8. Fetch latest rating changes for these entities in this context
+  // 8. Fetch latest rating changes for these entities strictly for CURRENT version and context
   const changeRows = await db
     .select()
     .from(ratingChanges)
@@ -542,6 +542,7 @@ export async function getGameMetaBoardData(options?: {
       and(
         inArray(ratingChanges.entityId, entityIds),
         eq(ratingChanges.rankingContextId, chosenContext.contextId),
+        eq(ratingChanges.toVersionId, selectedVersionRow.id),
       ),
     )
     .orderBy(desc(ratingChanges.changedAt));
@@ -568,8 +569,17 @@ export async function getGameMetaBoardData(options?: {
     if (!grouped.has(tier)) {
       grouped.set(tier, []);
     }
+    const entitySources = evidenceByEntity.get(row.entityId) ?? [];
+
+    // TRUST INVARIANT:
+    // UI sourceCount & agreeingSourceCount must strictly derive from and align with real evidence in Drawer.
+    // Ensure 100% auditability between UI badges and Drawer records.
+    const sourceCount = entitySources.length;
+    const agreeingSourceCount = entitySources.filter(
+      (s) => s.normalizedTier && s.normalizedTier.toUpperCase() === tier,
+    ).length;
     const agreementRatio =
-      row.sourceCount > 0 ? Number((row.agreeingSourceCount / row.sourceCount).toFixed(4)) : 0;
+      sourceCount > 0 ? Number((agreeingSourceCount / sourceCount).toFixed(4)) : 0;
 
     grouped.get(tier)!.push({
       entityId: row.entityId,
@@ -582,8 +592,8 @@ export async function getGameMetaBoardData(options?: {
       versionString: selectedVersionRow.version,
       buildString: selectedVersionRow.build,
       consensusScore: row.consensusScore ? Number(row.consensusScore) : null,
-      sourceCount: row.sourceCount,
-      agreeingSourceCount: row.agreeingSourceCount,
+      sourceCount,
+      agreeingSourceCount,
       agreementRatio,
       disagreementLevel: row.disagreementLevel,
       dataStatus: row.dataStatus,
@@ -593,7 +603,7 @@ export async function getGameMetaBoardData(options?: {
       constraints: row.constraints,
       lastUpdated: row.updatedAt,
       latestTierChange: latestChangeByEntity.get(row.entityId) ?? null,
-      sources: evidenceByEntity.get(row.entityId) ?? [],
+      sources: entitySources,
     });
   }
 
@@ -652,8 +662,20 @@ export async function getRecentRatingChanges(
   gameSlug = "wow-forever",
   limit = 10,
   dbInstance?: DatabaseClient,
+  filters?: {
+    rankingContextId?: string | undefined;
+    toVersionId?: string | undefined;
+  },
 ): Promise<RecentRatingChangeItem[]> {
   const db = dbInstance ?? (await getDb());
+
+  const conditions = [eq(games.slug, gameSlug)];
+  if (filters?.rankingContextId) {
+    conditions.push(eq(ratingChanges.rankingContextId, filters.rankingContextId));
+  }
+  if (filters?.toVersionId) {
+    conditions.push(eq(ratingChanges.toVersionId, filters.toVersionId));
+  }
 
   const changes = await db
     .select({
@@ -674,7 +696,7 @@ export async function getRecentRatingChanges(
     .innerJoin(rankingContexts, eq(ratingChanges.rankingContextId, rankingContexts.id))
     .innerJoin(gameVersions, eq(ratingChanges.toVersionId, gameVersions.id))
     .innerJoin(games, eq(entities.gameId, games.id))
-    .where(eq(games.slug, gameSlug))
+    .where(and(...conditions))
     .orderBy(desc(ratingChanges.changedAt))
     .limit(limit);
 

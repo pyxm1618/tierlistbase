@@ -261,4 +261,84 @@ describe("TierListBase Ranking Domain", () => {
       }
     });
   });
+
+  describe("Source Date Range Computation", () => {
+    function createMockEvidenceItem(
+      partial: Partial<import("@/modules/meta-board/db/queries").SourceEvidenceItem>,
+    ): import("@/modules/meta-board/db/queries").SourceEvidenceItem {
+      return {
+        sourceId: "src-default",
+        sourceName: "Mock Source",
+        sourceUrl: "https://example.com",
+        sourceType: "expert",
+        publisher: "Mock Publisher",
+        publishedAt: null,
+        updatedAtSource: null,
+        checkedAt: new Date("2026-10-10T00:00:00Z"),
+        rawTier: "S",
+        rawRank: null,
+        rawScore: null,
+        normalizedTier: "S",
+        normalizedScore: null,
+        sourceFreshness: "current",
+        versionMatch: true,
+        notes: null,
+        ...partial,
+      };
+    }
+
+    it("strictly excludes checkedAt and uses only publishedAt and updatedAtSource", async () => {
+      const { computeSourceDateRange } =
+        await import("@/modules/meta-board/ui/entity-detail-drawer");
+
+      const sourceWithCheckedLater = createMockEvidenceItem({
+        sourceId: "src-1",
+        publishedAt: new Date("2026-08-01T00:00:00Z"),
+        updatedAtSource: null,
+        checkedAt: new Date("2026-10-10T00:00:00Z"), // checked much later
+      });
+
+      const result = computeSourceDateRange([sourceWithCheckedLater]);
+      // Must NOT include 2026-10-10; must strictly be single date "2026-08-01"
+      expect(result).toBe("2026-08-01");
+      expect(result).not.toContain("2026-10-10");
+    });
+
+    it("returns N/A when no publishedAt or updatedAtSource exists", async () => {
+      const { computeSourceDateRange } =
+        await import("@/modules/meta-board/ui/entity-detail-drawer");
+
+      const sourceWithOnlyCheckedAt = createMockEvidenceItem({
+        sourceId: "src-2",
+        publishedAt: null,
+        updatedAtSource: null,
+        checkedAt: new Date("2026-10-10T00:00:00Z"),
+      });
+
+      expect(computeSourceDateRange([sourceWithOnlyCheckedAt])).toBe("N/A");
+      expect(computeSourceDateRange([])).toBe("N/A");
+    });
+
+    it("correctly computes range between distinct content dates", async () => {
+      const { computeSourceDateRange } =
+        await import("@/modules/meta-board/ui/entity-detail-drawer");
+
+      const sources = [
+        createMockEvidenceItem({
+          sourceId: "src-a",
+          publishedAt: new Date("2026-05-01T00:00:00Z"),
+          updatedAtSource: null,
+          checkedAt: new Date("2026-10-10T00:00:00Z"),
+        }),
+        createMockEvidenceItem({
+          sourceId: "src-b",
+          publishedAt: null,
+          updatedAtSource: new Date("2026-07-15T00:00:00Z"),
+          checkedAt: new Date("2026-10-10T00:00:00Z"),
+        }),
+      ];
+
+      expect(computeSourceDateRange(sources)).toBe("2026-05-01 ~ 2026-07-15");
+    });
+  });
 });

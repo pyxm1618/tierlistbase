@@ -218,12 +218,11 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
   );
 }
 
-function computeSourceDateRange(sources: SourceEvidenceItem[]): string {
+export function computeSourceDateRange(sources: SourceEvidenceItem[]): string {
   const timestamps: number[] = [];
   for (const s of sources) {
     if (s.publishedAt) timestamps.push(new Date(s.publishedAt).getTime());
     if (s.updatedAtSource) timestamps.push(new Date(s.updatedAtSource).getTime());
-    if (s.checkedAt) timestamps.push(new Date(s.checkedAt).getTime());
   }
   if (timestamps.length === 0) return "N/A";
   const minDate = new Date(Math.min(...timestamps)).toISOString().split("T")[0] ?? "N/A";
