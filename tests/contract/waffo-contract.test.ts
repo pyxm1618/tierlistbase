@@ -1,0 +1,853 @@
+import { createSign, generateKeyPairSync } from "node:crypto";
+import { describe, expect, it } from "vitest";
+
+import {
+  InvalidWebhookSignatureError,
+  ProviderContractError,
+} from "@/platform/commerce/application/errors";
+import { createWaffoPaymentProvider } from "@/platform/commerce/providers/waffo/adapter";
+
+const merchantId = "MER_0123456789ABCDEFGHIJKL";
+const productId = "PROD_0123456789ABCDEFGHIJKL";
+const storeId = "STO_0123456789ABCDEFGHIJKL";
+const orderId = "ORD_0123456789ABCDEFGHIJKL";
+const paymentId = "PAY_0123456789ABCDEFGHIJKL";
+const webhookId = "WHK_0123456789ABCDEFGHIJKL";
+const merchantOrderReference = "01989ef5-c3f7-7000-8000-000000000001";
+
+function keys() {
+  const pair = generateKeyPairSync("rsa", { modulusLength: 2048 });
+  return {
+    privateKey: pair.privateKey.export({ type: "pkcs8", format: "pem" }).toString(),
+    publicKey: pair.publicKey.export({ type: "spki", format: "pem" }).toString(),
+  };
+}
+
+function signatureHeader(raw: string, privateKey: string): string {
+  const timestamp = Date.now().toString();
+  const signature = createSign("RSA-SHA256")
+    .update(`${timestamp}.${raw}`)
+    .end()
+    .sign(privateKey, "base64");
+  return `t=${timestamp},v1=${signature}`;
+}
+
+function validPayment(overrides: Record<string, unknown> = {}) {
+  return {
+    id: paymentId,
+    orderId,
+    status: "succeeded",
+    orderMerchantExternalId: merchantOrderReference,
+    snapshotAmountDetails: { currency: "USD", total: "29.00" },
+    onetimeOrder: { id: orderId, testMode: true, store: { id: storeId } },
+    subscriptionOrder: null,
+    createdAt: "2026-08-08T04:00:00.000Z",
+    ...overrides,
+  };
+}
+
+function paymentQueryProvider(input: {
+  readonly response: Record<string, unknown>;
+  readonly onRequest?: (body: Record<string, unknown>, init: RequestInit | undefined) => void;
+}) {
+  const keyPair = keys();
+  return createWaffoPaymentProvider({
+    merchantId,
+    privateKey: keyPair.privateKey,
+    storeId,
+    baseUrl: "https://api.example.test",
+    fetch: async (_url, init) => {
+      input.onRequest?.(JSON.parse(String(init?.body)) as Record<string, unknown>, init);
+      return Response.json(input.response);
+    },
+  });
+}
+
+describe("Waffo Pancake provider contract", () => {
+  it("maps authenticated checkout without accepting browser-owned price facts", async () => {
+    const keyPair = keys();
+    const requestBodies: Record<string, unknown>[] = [];
+    const fakeFetch: typeof fetch = async (input, init) => {
+      requestBodies.push(JSON.parse(String(init?.body)) as Record<string, unknown>);
+      const url = String(input);
+      if (url.includes("issue-session-token")) {
+        return Response.json({
+          data: {
+            token: "test-token",
+            expiresAt: "2026-08-08T12:00:00.000Z",
+          },
+        });
+      }
+      return Response.json({
+        data: {
+          sessionId: "CHK_0123456789ABCDEFGHIJKL",
+          checkoutUrl: "https://checkout.example.test/checkout",
+          expiresAt: "2026-08-08T12:00:00.000Z",
+        },
+      });
+    };
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      webhookPublicKey: keyPair.publicKey,
+      fetch: fakeFetch,
+      baseUrl: "https://api.example.test",
+    });
+
+    const result = await provider.createOneTimeCheckout({
+      localOrderId: "01989ef5-c3f7-7000-8000-000000000001",
+      providerProductId: productId,
+      expectedDisplayAmount: "29.00",
+      currency: "USD",
+      buyerIdentity: "01989ef5-c3f7-7000-8000-000000000002",
+      buyerEmail: "buyer@example.com",
+      successUrl: "https://app.example.com/checkout/return?order=local",
+      cancelUrl: "https://app.example.com/checkout/return?order=local&canceled=1",
+    });
+
+    expect(result).toEqual({
+      externalCheckoutSessionId: "CHK_0123456789ABCDEFGHIJKL",
+      checkoutUrl: "https://checkout.example.test/checkout#token=test-token",
+    });
+    const checkoutBody = requestBodies.find((body) => body.orderMerchantExternalId !== undefined);
+    expect(checkoutBody).toMatchObject({
+      productId,
+      currency: "USD",
+      buyerEmail: "buyer@example.com",
+      orderMerchantExternalId: "01989ef5-c3f7-7000-8000-000000000001",
+    });
+    expect(checkoutBody).not.toHaveProperty("buyerIdentity");
+    expect(checkoutBody).not.toHaveProperty("amount");
+    expect(requestBodies).toContainEqual({
+      productId,
+      buyerIdentity: "01989ef5-c3f7-7000-8000-000000000002",
+    });
+  });
+
+  it("sends the Test Mode environment on customer refund requests", async () => {
+    const keyPair = keys();
+    const refundHeaders: Headers[] = [];
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      storeId,
+      baseUrl: "https://api.example.test",
+      fetch: async (input, init) => {
+        const url = String(input);
+        if (url.includes("issue-session-token")) {
+          return Response.json({
+            data: {
+              token: "test-token",
+              expiresAt: "2026-08-08T12:00:00.000Z",
+            },
+          });
+        }
+        if (url.includes("refund-ticket/create-ticket")) {
+          refundHeaders.push(new Headers(init?.headers));
+          return Response.json({
+            data: {
+              ticket: {
+                id: "TKT_0123456789ABCDEFGHIJKL",
+                status: "pending",
+              },
+            },
+          });
+        }
+        throw new Error(`unexpected Waffo request: ${url}`);
+      },
+    });
+
+    await expect(
+      provider.requestRefund({
+        environment: "test",
+        buyerIdentity: "01989ef5-c3f7-7000-8000-000000000002",
+        externalPaymentId: paymentId,
+        amount: { currency: "USD", minor: 188n },
+        reason: "Customer requested a full refund",
+        idempotencyKey: "01989ef5-c3f7-7000-8000-000000000003",
+        refundIntentReference: "01989ef5-c3f7-7000-8000-000000000099",
+      }),
+    ).resolves.toEqual({
+      externalRefundReference: "TKT_0123456789ABCDEFGHIJKL",
+      status: "pending",
+    });
+
+    await expect(
+      provider.requestRefund({
+        environment: "production",
+        buyerIdentity: "01989ef5-c3f7-7000-8000-000000000002",
+        externalPaymentId: paymentId,
+        amount: { currency: "USD", minor: 188n },
+        reason: "Customer requested a full refund",
+        idempotencyKey: "01989ef5-c3f7-7000-8000-000000000004",
+        refundIntentReference: "01989ef5-c3f7-7000-8000-000000000098",
+      }),
+    ).resolves.toEqual({
+      externalRefundReference: "TKT_0123456789ABCDEFGHIJKL",
+      status: "pending",
+    });
+
+    expect(refundHeaders.map((headers) => headers.get("X-Environment"))).toEqual(["test", "prod"]);
+  });
+
+  it("sends a durable refund-intent correlation and never relies on gateway idempotency", async () => {
+    const keyPair = keys();
+    const refundBodies: Record<string, unknown>[] = [];
+    const refundHeaders: Headers[] = [];
+    const refundIntentReference = "01989ef5-c3f7-7000-8000-000000000099";
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      storeId,
+      baseUrl: "https://api.example.test",
+      fetch: async (input, init) => {
+        const url = String(input);
+        if (url.includes("issue-session-token")) {
+          return Response.json({
+            data: {
+              token: "test-token",
+              expiresAt: "2026-08-08T12:00:00.000Z",
+            },
+          });
+        }
+        if (url.includes("refund-ticket/create-ticket")) {
+          refundBodies.push(JSON.parse(String(init?.body)) as Record<string, unknown>);
+          refundHeaders.push(new Headers(init?.headers));
+          return Response.json({
+            data: {
+              ticket: {
+                id: "TKT_0123456789ABCDEFGHIJKL",
+                status: "pending",
+              },
+            },
+          });
+        }
+        throw new Error(`unexpected Waffo request: ${url}`);
+      },
+    });
+
+    await provider.requestRefund({
+      environment: "test",
+      buyerIdentity: "01989ef5-c3f7-7000-8000-000000000002",
+      externalPaymentId: paymentId,
+      amount: { currency: "USD", minor: 188n },
+      reason: "Customer requested a full refund",
+      idempotencyKey: "request-key-that-is-not-the-correlation",
+      refundIntentReference,
+    });
+
+    expect(refundBodies[0]).toMatchObject({
+      refundTicketMerchantExternalId: refundIntentReference,
+      metadata: { creatWebRefundIntentId: refundIntentReference },
+    });
+    expect(refundHeaders[0]?.get("X-Idempotency-Key")).toBeNull();
+  });
+
+  it("reads an exact refund settlement through payment, metadata, and ticket cross-checks", async () => {
+    const keyPair = keys();
+    const refundIntentReference = "01989ef5-c3f7-7000-8000-000000000099";
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      storeId,
+      baseUrl: "https://api.example.test",
+      fetch: async () =>
+        Response.json({
+          data: {
+            payments: [validPayment({ snapshotAmountDetails: { currency: "USD", total: "1.88" } })],
+            paymentsCount: 1,
+            refundTickets: [
+              {
+                id: "TKT_0123456789ABCDEFGHIJKL",
+                status: "succeeded",
+                subjectId: paymentId,
+                metadata: JSON.stringify({ creatWebRefundIntentId: refundIntentReference }),
+                refundTicketMerchantExternalId: refundIntentReference,
+              },
+            ],
+            refundTicketsCount: 1,
+            refunds: [
+              {
+                id: "REF_0123456789ABCDEFGHIJKL",
+                paymentId,
+                ticketId: "TKT_0123456789ABCDEFGHIJKL",
+                status: "succeeded",
+                testMode: true,
+                requestedAmountDetails: { amount: "1.88", currency: "USD" },
+                orderMerchantExternalId: merchantOrderReference,
+                refundTicketMerchantExternalId: refundIntentReference,
+              },
+            ],
+            refundsCount: 1,
+          },
+        }),
+    });
+
+    const settlement = await (
+      provider as unknown as {
+        getRefundSettlement(input: unknown): Promise<Record<string, unknown>>;
+      }
+    ).getRefundSettlement({
+      environment: "test",
+      externalPaymentId: paymentId,
+      externalOrderId: orderId,
+      merchantOrderReference,
+      expectedStoreId: storeId,
+      paymentAmount: { currency: "USD", minor: 188n },
+      amount: { currency: "USD", minor: 188n },
+      refundIntentReference,
+    });
+
+    expect(settlement).toMatchObject({
+      status: "succeeded",
+      externalRefundReference: "TKT_0123456789ABCDEFGHIJKL",
+      externalSettlementReference: "REF_0123456789ABCDEFGHIJKL",
+      amount: { currency: "USD", minor: 188n },
+    });
+  });
+
+  it("maps a cancelled refund ticket to a terminal failed settlement", async () => {
+    const keyPair = keys();
+    const refundIntentReference = "01989ef5-c3f7-7000-8000-000000000100";
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      storeId,
+      baseUrl: "https://api.example.test",
+      fetch: async () =>
+        Response.json({
+          data: {
+            payments: [validPayment({ snapshotAmountDetails: { currency: "USD", total: "1.88" } })],
+            paymentsCount: 1,
+            refundTickets: [
+              {
+                id: "TKT_0123456789ABCDEFGHIJKL",
+                status: "cancelled",
+                subjectId: paymentId,
+                metadata: JSON.stringify({ creatWebRefundIntentId: refundIntentReference }),
+                refundTicketMerchantExternalId: refundIntentReference,
+              },
+            ],
+            refundTicketsCount: 1,
+            refunds: [],
+            refundsCount: 0,
+          },
+        }),
+    });
+
+    const settlement = await (
+      provider as unknown as {
+        getRefundSettlement(input: unknown): Promise<Record<string, unknown>>;
+      }
+    ).getRefundSettlement({
+      environment: "test",
+      externalPaymentId: paymentId,
+      externalOrderId: orderId,
+      merchantOrderReference,
+      expectedStoreId: storeId,
+      paymentAmount: { currency: "USD", minor: 188n },
+      amount: { currency: "USD", minor: 188n },
+      refundIntentReference,
+    });
+
+    expect(settlement).toMatchObject({
+      status: "failed",
+      externalRefundReference: "TKT_0123456789ABCDEFGHIJKL",
+      amount: { currency: "USD", minor: 188n },
+    });
+  });
+
+  it("verifies an exact raw signed order.completed event and normalizes decimal money", async () => {
+    const keyPair = keys();
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      storeId,
+      webhookPublicKey: { test: keyPair.publicKey },
+    });
+    const raw = JSON.stringify({
+      id: webhookId,
+      timestamp: "2026-08-08T04:00:00.000Z",
+      eventType: "order.completed",
+      eventId: paymentId,
+      storeId,
+      storeName: "Test Store",
+      mode: "test",
+      data: {
+        orderId,
+        orderStatus: "completed",
+        buyerEmail: "buyer@example.com",
+        merchantProvidedBuyerIdentity: "01989ef5-c3f7-7000-8000-000000000002",
+        orderMerchantExternalId: "01989ef5-c3f7-7000-8000-000000000001",
+        currency: "USD",
+        amount: "29.00",
+        taxAmount: "0.00",
+        productName: "Test Product",
+        paymentId,
+        paymentStatus: "succeeded",
+      },
+    });
+
+    const event = await provider.verifyAndNormalizeWebhook({
+      rawBody: new TextEncoder().encode(raw),
+      signature: signatureHeader(raw, keyPair.privateKey),
+      environment: "test",
+    });
+    expect(event).toMatchObject({
+      type: "one_time_payment_succeeded",
+      eventId: paymentId,
+      environment: "test",
+      externalOrderId: orderId,
+      merchantOrderReference: "01989ef5-c3f7-7000-8000-000000000001",
+      externalPaymentId: paymentId,
+      amount: { currency: "USD", minor: 2900n },
+      storeId,
+    });
+  });
+
+  it("uses Waffo eventId for subscription delivery deduplication", async () => {
+    const keyPair = keys();
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      storeId,
+      webhookPublicKey: { test: keyPair.publicKey },
+    });
+    const deliveryEventId = `${orderId}-2026-08-08T04:00:01.000Z`;
+    const raw = JSON.stringify({
+      id: orderId,
+      timestamp: "2026-08-08T04:00:01.000Z",
+      eventType: "subscription.canceling",
+      eventId: deliveryEventId,
+      storeId,
+      storeName: "Test Store",
+      mode: "test",
+      data: {
+        orderId,
+        orderStatus: "canceling",
+        buyerEmail: "buyer@example.com",
+        orderMerchantExternalId: merchantOrderReference,
+        currentPeriodStart: "2026-08-08T04:00:00.000Z",
+        currentPeriodEnd: "2026-09-08T04:00:00.000Z",
+      },
+    });
+
+    const event = await provider.verifyAndNormalizeWebhook({
+      rawBody: new TextEncoder().encode(raw),
+      signature: signatureHeader(raw, keyPair.privateKey),
+      environment: "test",
+    });
+
+    expect(event).toMatchObject({
+      type: "subscription_canceling",
+      eventId: deliveryEventId,
+      environment: "test",
+      externalOrderId: orderId,
+      merchantOrderReference,
+      currentPeriodStart: new Date("2026-08-08T04:00:00.000Z"),
+      currentPeriodEnd: new Date("2026-09-08T04:00:00.000Z"),
+      storeId,
+    });
+  });
+
+  it("rejects signature mismatch before mapping payload fields", async () => {
+    const keyPair = keys();
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      webhookPublicKey: keyPair.publicKey,
+    });
+
+    await expect(
+      provider.verifyAndNormalizeWebhook({
+        rawBody: new TextEncoder().encode('{"mode":"test"}'),
+        signature: "not-a-valid-signature",
+        environment: "test",
+      }),
+    ).rejects.toBeInstanceOf(InvalidWebhookSignatureError);
+  });
+
+  it("queries a payment id as String with a bounded count-checked projection", async () => {
+    let requestBody: Record<string, unknown> | undefined;
+    const provider = paymentQueryProvider({
+      response: {
+        data: { payments: [validPayment()], paymentsCount: 1 },
+        warnings: [
+          {
+            message: "query cost nearing limit",
+            layer: "graphql",
+            aiHint: "REDUCE_QUERY_SIZE",
+            internal: "must not escape",
+          },
+        ],
+      },
+      onRequest(body) {
+        requestBody = body;
+      },
+    });
+
+    await expect(
+      provider.getPayment({
+        environment: "test",
+        externalPaymentId: paymentId,
+      }),
+    ).resolves.toEqual({
+      payments: [
+        {
+          environment: "test",
+          model: "one_time",
+          storeId,
+          externalOrderId: orderId,
+          merchantOrderReference,
+          externalPaymentId: paymentId,
+          status: "succeeded",
+          amount: { currency: "USD", minor: 2900n },
+          occurredAt: new Date("2026-08-08T04:00:00.000Z"),
+        },
+      ],
+      warnings: [
+        {
+          message: "query cost nearing limit",
+          layer: "graphql",
+          aiHint: "REDUCE_QUERY_SIZE",
+        },
+      ],
+    });
+
+    expect(requestBody?.variables).toEqual({ paymentId });
+    const query = String(requestBody?.query).replace(/\s+/g, " ");
+    expect(query).toContain("query ($paymentId: String!)");
+    expect(query).toContain("payments(limit: 100, filter: { id: { eq: $paymentId } })");
+    expect(query).toContain("paymentsCount(filter: { id: { eq: $paymentId } })");
+    expect(query).toContain("snapshotAmountDetails { currency total }");
+    expect(query).toContain("onetimeOrder { id testMode store { id } }");
+    expect(query).toContain("subscriptionOrder { id store { id } }");
+    expect(query).toContain("createdAt");
+  });
+
+  it("uses both lookup identities in the list and count filters and cross-validates the row", async () => {
+    let requestBody: Record<string, unknown> | undefined;
+    const provider = paymentQueryProvider({
+      response: { data: { payments: [validPayment()], paymentsCount: 1 } },
+      onRequest(body) {
+        requestBody = body;
+      },
+    });
+
+    await expect(
+      provider.getPayment({
+        environment: "test",
+        merchantOrderReference,
+        externalPaymentId: paymentId,
+      }),
+    ).resolves.toMatchObject({ payments: [{ externalPaymentId: paymentId }] });
+
+    expect(requestBody?.variables).toEqual({ reference: merchantOrderReference, paymentId });
+    const query = String(requestBody?.query).replace(/\s+/g, " ");
+    expect(query).toContain("query ($reference: String!, $paymentId: String!)");
+    expect(query).toContain(
+      "payments(limit: 100, filter: { orderMerchantExternalId: { eq: $reference }, id: { eq: $paymentId } })",
+    );
+    expect(query).toContain(
+      "paymentsCount(filter: { orderMerchantExternalId: { eq: $reference }, id: { eq: $paymentId } })",
+    );
+
+    for (const [name, payment] of [
+      ["merchant reference", validPayment({ orderMerchantExternalId: crypto.randomUUID() })],
+      ["payment id", validPayment({ id: "PAY_DIFFERENT_IDENTIFIER1" })],
+    ] as const) {
+      const mismatched = paymentQueryProvider({
+        response: { data: { payments: [payment], paymentsCount: 1 } },
+      });
+      await expect(
+        mismatched.getPayment({
+          environment: "test",
+          merchantOrderReference,
+          externalPaymentId: paymentId,
+        }),
+        name,
+      ).rejects.toBeInstanceOf(ProviderContractError);
+    }
+  });
+
+  it.each([
+    ["empty merchant reference", { merchantOrderReference: "", externalPaymentId: paymentId }],
+    ["blank merchant reference", { merchantOrderReference: "   ", externalPaymentId: paymentId }],
+    ["empty payment id", { merchantOrderReference, externalPaymentId: "" }],
+    ["blank payment id", { merchantOrderReference, externalPaymentId: "   " }],
+    ["empty provider order id", { merchantOrderReference, externalOrderId: "" }],
+    ["blank provider order id", { merchantOrderReference, externalOrderId: "   " }],
+  ])(
+    "rejects an explicitly %s instead of dropping it from payment lookup validation",
+    async (_name, lookup) => {
+      let requestCount = 0;
+      const provider = paymentQueryProvider({
+        response: { data: { payments: [validPayment()], paymentsCount: 1 } },
+        onRequest: () => {
+          requestCount += 1;
+        },
+      });
+
+      await expect(provider.getPayment({ environment: "test", ...lookup })).rejects.toBeInstanceOf(
+        ProviderContractError,
+      );
+      expect(requestCount).toBe(0);
+    },
+  );
+
+  it.each([
+    [
+      "more than 16 warnings",
+      Array.from({ length: 17 }, (_, index) => ({
+        message: `warning-${index}`,
+        layer: "graphql",
+      })),
+    ],
+    ["a warning message over 512 characters", [{ message: "m".repeat(513), layer: "graphql" }]],
+    ["a warning layer over 64 characters", [{ message: "warning", layer: "l".repeat(65) }]],
+    [
+      "a warning AI hint over 512 characters",
+      [{ message: "warning", layer: "graphql", aiHint: "a".repeat(513) }],
+    ],
+  ])("fails closed for %s", async (_name, warnings) => {
+    const provider = paymentQueryProvider({
+      response: {
+        data: { payments: [validPayment()], paymentsCount: 1 },
+        warnings,
+      },
+    });
+
+    await expect(
+      provider.getPayment({
+        environment: "test",
+        merchantOrderReference,
+      }),
+    ).rejects.toBeInstanceOf(ProviderContractError);
+  });
+
+  it.each([
+    [
+      "partial data with GraphQL errors",
+      { data: { payments: [validPayment()], paymentsCount: 1 }, errors: [{ message: "partial" }] },
+    ],
+    ["count above the bounded limit", { data: { payments: [validPayment()], paymentsCount: 101 } }],
+    ["count/list mismatch", { data: { payments: [validPayment()], paymentsCount: 2 } }],
+    [
+      "duplicate payment ids",
+      { data: { payments: [validPayment(), validPayment()], paymentsCount: 2 } },
+    ],
+    [
+      "both provider order relations",
+      {
+        data: {
+          payments: [
+            validPayment({
+              subscriptionOrder: { id: orderId, store: { id: storeId } },
+            }),
+          ],
+          paymentsCount: 1,
+        },
+      },
+    ],
+    [
+      "no provider order relation",
+      {
+        data: {
+          payments: [validPayment({ onetimeOrder: null, subscriptionOrder: null })],
+          paymentsCount: 1,
+        },
+      },
+    ],
+    [
+      "relation order mismatch",
+      {
+        data: {
+          payments: [
+            validPayment({
+              onetimeOrder: {
+                id: "ORD_DIFFERENT_IDENTIFIER1",
+                testMode: true,
+                store: { id: storeId },
+              },
+            }),
+          ],
+          paymentsCount: 1,
+        },
+      },
+    ],
+    [
+      "store mismatch",
+      {
+        data: {
+          payments: [
+            validPayment({
+              onetimeOrder: {
+                id: orderId,
+                testMode: true,
+                store: { id: "STO_DIFFERENT_IDENTIFIER1" },
+              },
+            }),
+          ],
+          paymentsCount: 1,
+        },
+      },
+    ],
+    [
+      "one-time environment mismatch",
+      {
+        data: {
+          payments: [
+            validPayment({
+              onetimeOrder: { id: orderId, testMode: false, store: { id: storeId } },
+            }),
+          ],
+          paymentsCount: 1,
+        },
+      },
+    ],
+    [
+      "invalid amount precision",
+      {
+        data: {
+          payments: [validPayment({ snapshotAmountDetails: { currency: "USD", total: "29.001" } })],
+          paymentsCount: 1,
+        },
+      },
+    ],
+    [
+      "invalid currency",
+      {
+        data: {
+          payments: [validPayment({ snapshotAmountDetails: { currency: "usd", total: "29.00" } })],
+          paymentsCount: 1,
+        },
+      },
+    ],
+    [
+      "invalid created time",
+      {
+        data: {
+          payments: [validPayment({ createdAt: "not-a-time" })],
+          paymentsCount: 1,
+        },
+      },
+    ],
+  ])("fails closed for %s", async (_name, response) => {
+    const provider = paymentQueryProvider({ response });
+    await expect(
+      provider.getPayment({
+        environment: "test",
+        merchantOrderReference,
+      }),
+    ).rejects.toBeInstanceOf(ProviderContractError);
+  });
+
+  it("normalizes a subscription-only payment without requiring undocumented period or environment facts", async () => {
+    const provider = paymentQueryProvider({
+      response: {
+        data: {
+          payments: [
+            validPayment({
+              onetimeOrder: null,
+              subscriptionOrder: {
+                id: orderId,
+                store: { id: storeId },
+                currentPeriodStart: "2026-08-01T00:00:00.000Z",
+                currentPeriodEnd: "2026-09-01T00:00:00.000Z",
+              },
+            }),
+          ],
+          paymentsCount: 1,
+        },
+      },
+    });
+
+    const result = await provider.getPayment({
+      environment: "test",
+      merchantOrderReference,
+    });
+
+    expect(result).toEqual({
+      payments: [
+        {
+          environment: "test",
+          model: "subscription",
+          storeId,
+          externalOrderId: orderId,
+          merchantOrderReference,
+          externalPaymentId: paymentId,
+          status: "succeeded",
+          amount: { currency: "USD", minor: 2900n },
+          occurredAt: new Date("2026-08-08T04:00:00.000Z"),
+        },
+      ],
+      warnings: [],
+    });
+    expect(result.payments[0]).not.toHaveProperty("currentPeriodStart");
+    expect(result.payments[0]).not.toHaveProperty("currentPeriodEnd");
+  });
+
+  it("passes the caller abort signal through the request-scoped SDK fetch", async () => {
+    const keyPair = keys();
+    let observedSignal: AbortSignal | null | undefined;
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      storeId,
+      baseUrl: "https://api.example.test",
+      fetch: async (_url, init) => {
+        observedSignal = init?.signal;
+        if (!observedSignal) throw new Error("missing request signal");
+        return new Promise<Response>((_resolve, reject) => {
+          observedSignal?.addEventListener(
+            "abort",
+            () => reject(observedSignal?.reason ?? new DOMException("aborted", "AbortError")),
+            { once: true },
+          );
+        });
+      },
+    });
+    const controller = new AbortController();
+    const lookup = provider.getPayment({
+      environment: "test",
+      externalPaymentId: paymentId,
+      signal: controller.signal,
+      timeoutMs: 1_000,
+    });
+    controller.abort();
+
+    await expect(lookup).rejects.toMatchObject({ name: "AbortError" });
+    expect(observedSignal?.aborted).toBe(true);
+  });
+
+  it("aborts the request-scoped SDK fetch when the lookup timeout expires", async () => {
+    const keyPair = keys();
+    let observedSignal: AbortSignal | null | undefined;
+    const provider = createWaffoPaymentProvider({
+      merchantId,
+      privateKey: keyPair.privateKey,
+      storeId,
+      baseUrl: "https://api.example.test",
+      fetch: async (_url, init) => {
+        observedSignal = init?.signal;
+        if (!observedSignal) throw new Error("missing request signal");
+        return new Promise<Response>((_resolve, reject) => {
+          observedSignal?.addEventListener(
+            "abort",
+            () => reject(observedSignal?.reason ?? new DOMException("timed out", "TimeoutError")),
+            { once: true },
+          );
+        });
+      },
+    });
+
+    await expect(
+      provider.getPayment({
+        environment: "test",
+        externalPaymentId: paymentId,
+        timeoutMs: 5,
+      }),
+    ).rejects.toMatchObject({ name: "TimeoutError" });
+    expect(observedSignal?.aborted).toBe(true);
+  });
+});

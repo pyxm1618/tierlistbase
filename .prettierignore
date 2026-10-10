@@ -1,0 +1,8 @@
+.next
+coverage
+playwright-report
+test-results
+bun.lock
+docs
+README.md
+drizzle/meta
