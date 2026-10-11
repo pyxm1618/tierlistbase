@@ -68,6 +68,15 @@ for (const route of routes) {
         const width = Number(image.getAttribute("width"));
         const height = Number(image.getAttribute("height"));
         if (width > 0 && height > 0) return [];
+        const parent = image.parentElement;
+        if (
+          image.getAttribute("data-nimg") === "fill" &&
+          parent &&
+          getComputedStyle(parent).position !== "static" &&
+          parent.getBoundingClientRect().height > 0
+        ) {
+          return [];
+        }
         return [image.getAttribute("src") ?? "unknown-image"];
       }),
     );
