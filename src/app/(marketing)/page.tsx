@@ -47,7 +47,7 @@ export default async function HomePage() {
           description: home.description,
         })}
       />
-      <GameHome updates={changes} />
+      <GameHome title={home.h1} updates={changes} />
     </main>
   );
 }

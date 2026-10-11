@@ -272,7 +272,7 @@ function UpdateCard({
   );
 }
 
-export function GameHome({ updates }: { updates: RecentRatingChangeItem[] }) {
+export function GameHome({ title, updates }: { title: string; updates: RecentRatingChangeItem[] }) {
   return (
     <div className="tlb-home">
       <section className="tlb-hero" aria-labelledby="page-title">
@@ -289,10 +289,16 @@ export function GameHome({ updates }: { updates: RecentRatingChangeItem[] }) {
         <div className="tlb-hero-overlay" aria-hidden="true" />
         <div className="tlb-shell tlb-hero-inner">
           <h1 id="page-title">
-            Game Meta.
-            <br />
-            {" Made "}
-            <span>Clear.</span>
+            {title === "Game Meta. Made Clear." ? (
+              <>
+                Game Meta.
+                <br />
+                {" Made "}
+                <span>Clear.</span>
+              </>
+            ) : (
+              title
+            )}
           </h1>
           <p>
             TierListBase helps you quickly understand the current meta with an evidence-backed game
