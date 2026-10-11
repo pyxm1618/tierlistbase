@@ -169,9 +169,7 @@ export function TierBoard({ data, children }: TierBoardProps): ReactNode {
                                       agreeingSourceCount={item.agreeingSourceCount}
                                       disagreementLevel={item.disagreementLevel}
                                       dataStatus={
-                                        item.sources.some(
-                                          (source) => source.sourceType === "data",
-                                        )
+                                        item.sources.some((source) => source.sourceType === "data")
                                           ? item.dataStatus
                                           : "unavailable"
                                       }
