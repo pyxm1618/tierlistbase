@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-const routes = ["/", "/wow-forever/tier-list"] as const;
+const routes = ["/", "/wow-forever/tier-list", "/wow-forever/tier-list?level=30"] as const;
 
 for (const route of routes) {
   test(`${route} stays within marketing release budgets`, async ({ page, request }) => {
@@ -125,6 +125,11 @@ for (const route of routes) {
           .filter((image) => image.encodedBodySize > 500_000)
           .map((image) => ({ name: image.name, bytes: image.encodedBodySize })),
       };
+    });
+
+    await test.info().attach("marketing-performance-metrics", {
+      body: JSON.stringify({ route, ...metrics }, null, 2),
+      contentType: "application/json",
     });
 
     expect(consoleErrors).toEqual([]);
