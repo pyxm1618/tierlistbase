@@ -37,6 +37,14 @@ export const routeDefinitions = [
     reviewFingerprint: "e12b71187a93f650e55a15873b831240e7f9e38146ba716b51f7d8df0705d22e",
   },
   {
+    route: "/genshin-impact/tier-list",
+    class: "public_noindex",
+    pageType: "WebApplication",
+    title: "Genshin Impact Tier List - Demo Meta Board",
+    description:
+      "TierListBase Genshin Impact tier list demo used to validate ranking context, filters, entity detail, changes, evidence, and methodology before real data is connected.",
+  },
+  {
     route: "/privacy",
     class: "public_noindex",
     pageType: "Legal",
