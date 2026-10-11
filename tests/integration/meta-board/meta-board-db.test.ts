@@ -639,6 +639,11 @@ describe("TierListBase Meta Board Database Integration", () => {
     });
     expect(dungeonBuildB.hasData).toBe(false);
     expect(dungeonBuildB.tiers).toEqual([]);
+    expect(dungeonBuildB.version).toBeNull();
+    expect(dungeonBuildB.availableBuilds).toEqual(["build-A"]);
+    expect(dungeonBuildB.availableModes).toEqual(expect.arrayContaining(["dungeon", "overall"]));
+    expect(dungeonBuildB.availableRoles).toEqual(expect.arrayContaining(["all", "tank"]));
+    expect(dungeonBuildB.availableLevels).toEqual([60]);
 
     // 4. Requesting mode "dungeon" without role: since dungeon has NO role=all, strictly return unavailable
     const dungeonNoRole = await getGameMetaBoardData({
