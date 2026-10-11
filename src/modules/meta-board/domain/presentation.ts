@@ -44,7 +44,9 @@ export function summarizeBoardEvidence(data: MetaBoardData) {
       ? "stale"
       : data.hasData &&
           data.version?.status === "current" &&
+          entities.length > 0 &&
           sources.length > 0 &&
+          entities.every((entity) => entity.sources.length > 0) &&
           freshnessCounts.current === sources.length &&
           entities.every((entity) => entity.freshnessStatus === "current")
         ? "current"
