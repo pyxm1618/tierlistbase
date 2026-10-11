@@ -40,8 +40,8 @@ function asRecord(value: unknown): JsonRecord | null {
 }
 
 export async function GET() {
-  if (process.env.VERCEL_ENV !== "preview") {
-    return NextResponse.json({ error: "probe_disabled_outside_preview" }, { status: 404 });
+  if (process.env.VERCEL_GIT_COMMIT_REF !== "chore/forever-logs-probe-20261011") {
+    return NextResponse.json({ error: "probe_disabled_outside_probe_branch" }, { status: 404 });
   }
 
   const apiKey = process.env.FOREVER_LOGS_API_KEY;
