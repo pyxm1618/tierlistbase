@@ -295,8 +295,8 @@ export function GameHome({ updates }: { updates: RecentRatingChangeItem[] }) {
             <span>Clear.</span>
           </h1>
           <p>
-            TierListBase helps you quickly understand the current meta with evidence-backed analysis
-            and documented ranking data.
+            TierListBase helps you quickly understand the current meta with an evidence-backed game
+            meta board and documented ranking data.
           </p>
         </div>
       </section>
