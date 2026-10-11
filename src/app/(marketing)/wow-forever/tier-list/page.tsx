@@ -4,6 +4,12 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
 import {
   ChangesFeed,
+  MetaBoardHeader,
+  QuickInsights,
+  EvidenceSummary,
+  ExpertDataView,
+  SourceOverview,
+  MetaBoardFaq,
   TierBoard,
   getGameMetaBoardData,
   getRecentRatingChanges,
@@ -57,51 +63,24 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
         })}
       />
 
-      {/* Immediate Above-the-fold Header: H1, Patch, Build, Level Cap, Freshness */}
-      <header className="border-b border-border pb-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:justify-between">
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-muted">
-              Game Meta Board
-            </span>
-            <h1 className="mt-1 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
-              WoW Forever Tier List
-            </h1>
-          </div>
-
-          {/* Patch / Build / Level Cap / Status meta indicators */}
-          <div className="flex flex-wrap items-center gap-2 text-xs">
-            {metaBoardData.version ? (
-              <>
-                <span className="rounded bg-surface-muted px-2.5 py-1 font-medium text-foreground">
-                  Patch {metaBoardData.version.version}
-                  {metaBoardData.version.build ? ` (${metaBoardData.version.build})` : ""}
-                </span>
-                {metaBoardData.version.levelCap ? (
-                  <span className="rounded bg-surface-muted px-2.5 py-1 font-medium text-foreground">
-                    Level Cap: {metaBoardData.version.levelCap}
-                  </span>
-                ) : null}
-                <span className="rounded bg-emerald-500/10 px-2 py-1 font-semibold text-emerald-800 dark:text-emerald-300 capitalize">
-                  {metaBoardData.version.status}
-                </span>
-              </>
-            ) : (
-              <span className="rounded bg-surface-muted px-2.5 py-1 font-medium text-muted">
-                Version Pending Verification
-              </span>
-            )}
-          </div>
-        </div>
-      </header>
+      <MetaBoardHeader data={metaBoardData} />
 
       {/* Tier Board is IMMEDIATELY placed at the top */}
       <section className="mt-6" aria-label="Tier Board">
-        <TierBoard data={metaBoardData} />
+        <TierBoard
+          key={`${metaBoardData.activeContext?.id ?? "none"}:${metaBoardData.version?.id ?? "none"}`}
+          data={metaBoardData}
+        />
       </section>
+
+      <QuickInsights />
 
       {/* Auditable What Changed Section */}
       <ChangesFeed changes={recentChanges} />
+      <EvidenceSummary data={metaBoardData} />
+      <ExpertDataView data={metaBoardData} />
+      <SourceOverview data={metaBoardData} />
+      <MetaBoardFaq />
     </main>
   );
 }

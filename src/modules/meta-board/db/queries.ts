@@ -64,6 +64,7 @@ export type BoardEntityItem = {
     reason: string | null;
     changedAt: Date;
   } | null;
+  tierChanges: NonNullable<BoardEntityItem["latestTierChange"]>[];
   sources: SourceEvidenceItem[];
 };
 
@@ -548,7 +549,17 @@ export async function getGameMetaBoardData(options?: {
     .orderBy(desc(ratingChanges.changedAt));
 
   const latestChangeByEntity = new Map<string, BoardEntityItem["latestTierChange"]>();
+  const changesByEntity = new Map<string, BoardEntityItem["tierChanges"]>();
   for (const c of changeRows) {
+    const history = changesByEntity.get(c.entityId) ?? [];
+    history.push({
+      previousTier: c.previousTier,
+      newTier: c.newTier,
+      changeType: c.changeType,
+      reason: c.reason,
+      changedAt: c.changedAt,
+    });
+    changesByEntity.set(c.entityId, history);
     if (!latestChangeByEntity.has(c.entityId)) {
       latestChangeByEntity.set(c.entityId, {
         previousTier: c.previousTier,
@@ -603,6 +614,7 @@ export async function getGameMetaBoardData(options?: {
       constraints: row.constraints,
       lastUpdated: row.updatedAt,
       latestTierChange: latestChangeByEntity.get(row.entityId) ?? null,
+      tierChanges: changesByEntity.get(row.entityId) ?? [],
       sources: entitySources,
     });
   }

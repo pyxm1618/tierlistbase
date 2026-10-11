@@ -469,12 +469,15 @@ describe("TierListBase Meta Board Database Integration", () => {
     // TEST F: Rating changes version and context semantic alignment
     // 1. In V1 entity item, latestTierChange must be null (no future V1->V2 change leaked)
     expect(v1MageItem!.latestTierChange).toBeNull();
+    expect(v1MageItem!.tierChanges).toEqual([]);
 
     // 2. In V2 entity item, latestTierChange must show the demotion from V1 to V2
     expect(v2MageItem!.latestTierChange).toBeDefined();
     expect(v2MageItem!.latestTierChange!.previousTier).toBe("S");
     expect(v2MageItem!.latestTierChange!.newTier).toBe("A");
     expect(v2MageItem!.latestTierChange!.changeType).toBe("demoted");
+    expect(v2MageItem!.tierChanges).toHaveLength(1);
+    expect(v2MageItem!.tierChanges[0]?.reason).toBe("Class tuning aura adjusted by 5%");
 
     // 3. What Changed feed for V1 must NOT show future V1->V2 change
     const v1Changes = await getRecentRatingChanges("wow-forever", 5, database.db, {
