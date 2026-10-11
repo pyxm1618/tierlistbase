@@ -270,6 +270,54 @@ test("drawer traps focus, handles Escape and backdrop, restores focus and scroll
   await expect(card).toBeFocused();
 });
 
+test("incompatible URL filters remain visible and can recover a valid mode or build context", async ({
+  page,
+}) => {
+  await page.goto("/wow-forever/tier-list?level=30&role=dps");
+  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
+    "Synthetic DPS Level 30",
+  );
+  await page.getByRole("button", { name: "pvp", exact: true }).click();
+  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
+  await expect(page.getByRole("button", { name: "pvp", exact: true })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await expect(page.getByRole("button", { name: "all", exact: true })).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+  await page.getByRole("button", { name: "all", exact: true }).click();
+  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
+    "Synthetic PvP Level 30",
+  );
+  expect(new URL(page.url()).searchParams.has("role")).toBe(false);
+
+  await page.goto("/wow-forever/tier-list?level=30&role=dps&build=test-build-2");
+  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
+  await expect(page.getByRole("button", { name: "all", exact: true })).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+  await page.getByRole("button", { name: "all", exact: true }).click();
+  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
+    "Synthetic new version rationale",
+  );
+  expect(new URL(page.url()).searchParams.get("build")).toBe("test-build-2");
+
+  await page.goto("/wow-forever/tier-list?level=30&mode=unknown");
+  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
+  await expect(page.getByRole("button", { name: "overall", exact: true })).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+  await page.getByRole("button", { name: "overall", exact: true }).click();
+  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
+    "Synthetic Overall Level 30",
+  );
+  expect(new URL(page.url()).searchParams.has("mode")).toBe(false);
+});
+
 test("filters navigate real contexts, expose pending feedback, and isolate evidence", async ({
   page,
 }) => {

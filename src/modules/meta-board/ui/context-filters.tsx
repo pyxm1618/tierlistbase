@@ -32,6 +32,8 @@ export function ContextFilters({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const selectedMode = searchParams.get("mode") ?? currentMode;
+  const selectedRole = searchParams.get("role") ?? currentRole;
 
   function updateFilter(key: "mode" | "role" | "level" | "build", value: string | null) {
     if (navigationLocked.current) return;
@@ -81,7 +83,7 @@ export function ContextFilters({
             <span className="text-xs font-semibold uppercase tracking-wider text-muted">Mode:</span>
             <div className="flex flex-wrap gap-1">
               {availableModes.map((mode) => {
-                const active = mode.toLowerCase() === currentMode.toLowerCase();
+                const active = mode.toLowerCase() === selectedMode.toLowerCase();
                 return (
                   <button
                     key={mode}
@@ -111,7 +113,7 @@ export function ContextFilters({
             <span className="text-xs font-semibold uppercase tracking-wider text-muted">Role:</span>
             <div className="flex flex-wrap gap-1">
               {availableRoles.map((role) => {
-                const active = role.toLowerCase() === currentRole.toLowerCase();
+                const active = role.toLowerCase() === selectedRole.toLowerCase();
                 return (
                   <button
                     key={role}

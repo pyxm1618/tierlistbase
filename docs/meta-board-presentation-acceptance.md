@@ -29,7 +29,7 @@ The 14 numbered requirements in the request are accounted for exactly once. Fina
 - Existing Meta Board database integration: 5 tests passed, including version/context isolation of recorded history.
 - `lint`, `typecheck`, `format:check`, `verify:architecture`, `verify:secrets`, `verify:seo`, `verify:i18n`, `verify:security` and `git diff --check` run for this change.
 - `verify:performance`: 8 neutral-runtime checks and 1 analytics-enabled check passed. Gates include LCP ≤ 2.5s, measured lab INP ≤ 200ms, CLS ≤ 0.1, encoded scripts ≤ 350 KB, scripts ≤ 20 and images ≤ 500 KB.
-- UI tests: dedicated `playwright.meta-board.config.ts`, desktop and mobile. All 6 final tests passed; includes SSR, 320px–1280px layouts, dark-theme accessibility, 320px drawer, focus and source/history isolation. The production build used by the tests passed.
+- UI tests: dedicated `playwright.meta-board.config.ts`, desktop and mobile. All 8 final tests passed; includes SSR, 320px–1280px layouts, dark-theme accessibility, 320px drawer, focus, source/history isolation and recovery from incompatible URL filters. The production build used by the tests passed.
 - Final neutral-runtime performance recheck: 8 tests passed after the final responsive drawer edit. Across desktop/mobile default and `?level=30` board routes, local lab LCP was 80–96ms, measured lab INP 24ms, CLS 0, encoded scripts 138,359 bytes / 6 scripts, and no oversized images. These are local test measurements, not production field metrics.
 
 ## Evidence boundaries
@@ -41,3 +41,11 @@ Last Updated means latest selected ranking-record update (UTC). Header status su
 Quick Insights are intentionally honest framework empty states. Statistical source records are shown separately from editorial evidence; an absent data source cannot produce an Available badge. Drawer history describes the records already fetched for the selected context and destination version, not a fabricated cross-version timeline.
 
 The full deployment/release aggregate was not requested or performed. This ledger records local presentation acceptance only.
+
+## Pre-merge review correction
+
+The P1 review identified a recovery bug: when the URL contained an unsupported mode/role combination, an empty Context fell back to displaying `overall/all` as selected, and active-button guards blocked the user's recovery action. Filter selected state now reads the requested mode/role from the URL, with Context values used only when the parameter is absent. Invalid contexts remain honest empty states; choosing an available role or mode restores a real database Context.
+
+The new browser regression failed before the fix and passed afterward on desktop and mobile. It covers DPS → PvP, unsupported DPS in a different build, and an unknown mode, preserving unrelated URL parameters. The unit suite (290), lint and typecheck also passed after this correction.
+
+The local full-directory formatting command encountered an owner-added, untracked `素材/favicon_io/site.webmanifest` formatting issue. That directory is preserved and excluded from this PR; formatting of tracked files is checked separately. GitHub CI checks the committed tree.
