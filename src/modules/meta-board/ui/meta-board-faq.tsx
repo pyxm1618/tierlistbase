@@ -19,17 +19,26 @@ const questions = [
 
 export function MetaBoardFaq() {
   return (
-    <section className="mt-4 rounded-2xl border border-border bg-surface p-5 sm:p-6" aria-labelledby="faq-heading">
+    <section
+      className="mt-4 rounded-2xl border border-border bg-surface p-5 sm:p-6"
+      aria-labelledby="faq-heading"
+    >
       <h2 id="faq-heading" className="text-xl font-bold text-foreground">
         FAQ / Methodology
       </h2>
       <div className="mt-4 grid gap-2 lg:grid-cols-2">
         {questions.map(([question, answer]) => (
-          <details key={question} className="group rounded-xl border border-border bg-surface-muted/25 p-4">
+          <details
+            key={question}
+            className="group rounded-xl border border-border bg-surface-muted/25 p-4"
+          >
             <summary className="cursor-pointer list-none text-sm font-semibold text-foreground">
               <span className="flex items-center justify-between gap-3">
                 {question}
-                <span aria-hidden="true" className="text-muted transition group-open:rotate-45">
+                <span
+                  aria-hidden="true"
+                  className="text-muted transition group-open:rotate-45"
+                >
                   +
                 </span>
               </span>
