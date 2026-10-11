@@ -26,10 +26,7 @@ export function QuickInsights() {
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {insights.map(([label, explanation]) => (
-          <article
-            key={label}
-            className="rounded-xl border border-border bg-surface-muted/30 p-4"
-          >
+          <article key={label} className="rounded-xl border border-border bg-surface-muted/30 p-4">
             <p className="text-[10px] font-bold uppercase tracking-wider text-muted">{label}</p>
             <p className="mt-2 text-sm font-bold text-foreground">Pending</p>
             <p className="mt-1 text-xs leading-5 text-muted">{explanation}</p>
