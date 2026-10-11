@@ -363,10 +363,7 @@ export function processForeverLogsDataRanking(input: {
     const eligible = observations.filter(
       (observation) => observation.included && observation.normalizedScore !== null,
     );
-    const sampleCount = eligible.reduce(
-      (sum, observation) => sum + observation.totalParses,
-      0,
-    );
+    const sampleCount = eligible.reduce((sum, observation) => sum + observation.totalParses, 0);
     const locationsIncluded = Array.from(
       new Set(eligible.map((observation) => observation.location)),
     ).sort();
@@ -375,8 +372,7 @@ export function processForeverLogsDataRanking(input: {
     if (sampleCount > 0) {
       weightedMedianScore = round(
         eligible.reduce(
-          (sum, observation) =>
-            sum + (observation.normalizedScore ?? 0) * observation.totalParses,
+          (sum, observation) => sum + (observation.normalizedScore ?? 0) * observation.totalParses,
           0,
         ) / sampleCount,
       );
