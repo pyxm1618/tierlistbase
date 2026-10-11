@@ -13,12 +13,12 @@ export const routeDefinitions = [
     title: "TierListBase - Evidence-Based Game Meta Boards",
     description:
       "Evidence-based Game Meta Board and tier lists for World of Warcraft: Forever. Multi-source consensus, patch tracking, and transparent tier changes.",
-    h1: "Evidence-based game meta boards for players",
+    h1: "Game Meta. Made Clear.",
     pageType: "WebApplication",
     relatedRoutes: ["/wow-forever/tier-list", "/privacy", "/terms"],
-    lastModified: "2026-10-09",
+    lastModified: "2026-10-11",
     reviewStatus: "reviewed",
-    reviewFingerprint: "f6dc74e630bd9df1edef45671f612084d05590752a335f2d3940d1a87d19acb3",
+    reviewFingerprint: "30404e7f8216a8479522ad971201b337faa654a95174efd522bc5cb561845a17",
   },
   {
     route: "/wow-forever/tier-list",
