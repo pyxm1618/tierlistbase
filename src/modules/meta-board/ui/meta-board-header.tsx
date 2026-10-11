@@ -1,10 +1,34 @@
 import type { MetaBoardData } from "../db/queries";
 import { evidenceDate, summarizeBoardEvidence } from "../domain/presentation";
 
-export function MetaBoardHeader({ data }: { data: MetaBoardData }) {
+type MetaBoardHeaderProps = {
+  data: MetaBoardData;
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  contextMetricLabel?: string;
+  contextMetricValue?: string;
+};
+
+export function MetaBoardHeader({
+  data,
+  eyebrow,
+  title,
+  description,
+  contextMetricLabel = "Level Cap",
+  contextMetricValue,
+}: MetaBoardHeaderProps) {
   const summary = summarizeBoardEvidence(data);
   const statusLabel =
     summary.status === "current" ? "Current" : summary.status === "stale" ? "Stale" : "Preliminary";
+  const gameName = eyebrow ?? data.game?.name ?? "World of Warcraft: Forever";
+  const heading = title ?? (data.game?.slug === "wow-forever" ? "WoW Forever Tier List" : `${gameName} Tier List`);
+  const intro =
+    description ??
+    "Compare reviewed rankings for the selected context. Open any ranked entity to see why it is placed there and what evidence supports the decision.";
+  const metricValue =
+    contextMetricValue ??
+    String(data.activeContext?.levelCap ?? data.version?.levelCap ?? "Unknown");
 
   return (
     <header className="relative overflow-hidden rounded-2xl border border-border bg-surface px-5 py-6 shadow-sm sm:px-7 sm:py-8">
@@ -14,25 +38,16 @@ export function MetaBoardHeader({ data }: { data: MetaBoardData }) {
       />
       <div className="relative grid gap-6 min-[1080px]:grid-cols-[minmax(0,1fr)_minmax(420px,0.8fr)] min-[1080px]:items-end">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-            World of Warcraft: Forever
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">{gameName}</p>
           <h1 className="mt-2 max-w-4xl text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-            WoW Forever Tier List
+            {heading}
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base">
-            Compare reviewed class and specialization rankings for the selected game mode, role,
-            level cap and build. Open any ranked entity to see why it is placed there and what
-            evidence supports the decision.
-          </p>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base">{intro}</p>
         </div>
 
         <dl className="grid grid-cols-2 gap-2 sm:grid-cols-4 min-[1080px]:grid-cols-2">
           <StatusCard label="Current Patch" value={data.version?.version ?? "Pending"} />
-          <StatusCard
-            label="Level Cap"
-            value={String(data.activeContext?.levelCap ?? data.version?.levelCap ?? "Unknown")}
-          />
+          <StatusCard label={contextMetricLabel} value={metricValue} />
           <StatusCard label="Last Updated" value={evidenceDate(summary.lastUpdated)} />
           <div className="rounded-xl border border-border bg-background/55 p-3 backdrop-blur-sm">
             <dt className="text-[10px] font-semibold uppercase tracking-wider text-muted">
