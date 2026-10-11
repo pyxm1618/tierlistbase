@@ -5,6 +5,8 @@ export * from "./domain/normalization";
 export * from "./domain/consensus";
 export * from "./domain/freshness";
 export * from "./domain/changes";
+export * from "./domain/forever-logs-data-ranking";
+export * from "./domain/forever-logs-data-tier";
 export * from "./ui/tier-board";
 export * from "./ui/context-filters";
 export * from "./ui/entity-detail-drawer";
