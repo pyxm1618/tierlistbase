@@ -446,7 +446,7 @@ export async function publishWowForeverDataCandidate(input: {
           ${input.candidate.retrievedAt},
           ${input.candidate.retrievedAt},
           'current',
-          'TierListBase-derived categorical ranking from Forever Logs aggregate statistics. The S/A/B/C label is TierListBase\'s calculation, not a tier supplied by Forever Logs.'
+          ${"TierListBase-derived categorical ranking from Forever Logs aggregate statistics. The S/A/B/C label is TierListBase's calculation, not a tier supplied by Forever Logs."}
         )
         on conflict (id) do update set
           name = excluded.name,
