@@ -25,12 +25,7 @@ console.log(
     {
       phase: candidate.phaseName,
       retrievedAt: candidate.retrievedAt.toISOString(),
-      dungeons: [
-        "City of Dalaran",
-        "Excavation Site: Wetlands",
-        "Razorfen Downs",
-        "Uldaman",
-      ],
+      dungeons: ["City of Dalaran", "Excavation Site: Wetlands", "Razorfen Downs", "Uldaman"],
       rankings: summary,
     },
     null,
