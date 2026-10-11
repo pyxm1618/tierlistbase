@@ -57,4 +57,6 @@ test("WoW route remains navigable and ranked content remains intact", async ({ p
   if (target.class !== "public_indexable") throw new Error("target route must be indexable");
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(target.h1);
+  await expect(page.getByRole("heading", { name: "Quick Insights" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Sources & Evidence" })).toBeVisible();
 });
