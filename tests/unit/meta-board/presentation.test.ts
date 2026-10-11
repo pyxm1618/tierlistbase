@@ -121,6 +121,31 @@ describe("Meta board presentation evidence", () => {
     expect(summary.dataSourceCount).toBe(0);
   });
 
+  it("does not mark the board Current when any published entity lacks source evidence", () => {
+    const currentSource = { ...source, sourceFreshness: "current" };
+    const board: MetaBoardData = {
+      ...populated,
+      tiers: [
+        {
+          tier: "S",
+          items: [
+            { ...entity, sources: [currentSource], freshnessStatus: "current" },
+            {
+              ...entity,
+              entityId: "unsourced-current-entity",
+              sources: [],
+              freshnessStatus: "current",
+            },
+          ],
+        },
+      ],
+    };
+
+    const summary = summarizeBoardEvidence(board);
+    expect(summary.sources).toHaveLength(1);
+    expect(summary.status).toBe("preliminary");
+  });
+
   it("preserves stale evidence and only marks fully current evidence Current", () => {
     const board = (sourceFreshness: string) => ({
       ...populated,
