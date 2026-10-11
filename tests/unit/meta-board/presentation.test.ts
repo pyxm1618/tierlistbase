@@ -170,7 +170,7 @@ describe("Meta board presentation evidence", () => {
         createElement(SourceOverview, { data: populated }),
       ),
     );
-    expect(html).toContain("Level Cap: 30");
+    expect(html.replace(/<[^>]+>/g, "")).toContain("Level Cap30");
     expect(html).toContain("Synthetic Expert");
     expect(html.replace(/<[^>]+>/g, "")).toContain("Patch / Build match: Unknown");
     expect(html).toContain("Not available yet");
