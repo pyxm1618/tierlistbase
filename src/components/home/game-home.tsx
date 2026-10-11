@@ -169,9 +169,7 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
       href={isWow ? wowHref : genshinHref}
       className={`tlb-game-card ${isWow ? "tlb-wow" : "tlb-genshin"}`}
       aria-label={
-        isWow
-          ? "Explore World of Warcraft: Forever tier list"
-          : "Explore Genshin Impact tier list"
+        isWow ? "Explore World of Warcraft: Forever tier list" : "Explore Genshin Impact tier list"
       }
     >
       {content}
