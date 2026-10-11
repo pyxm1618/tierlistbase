@@ -211,7 +211,13 @@ const popular: { title: string; subtitle: string; icon: IconName; ready: boolean
     { title: "Exploration", subtitle: "", icon: "compass", ready: false, tone: "gold" },
   ];
 
-function UpdateCard({ update, index }: { update: RecentRatingChangeItem | undefined; index: number }) {
+function UpdateCard({
+  update,
+  index,
+}: {
+  update: RecentRatingChangeItem | undefined;
+  index: number;
+}) {
   const isGenshin = index === 1 && !update;
   const title = update
     ? update.entityName + ": " + update.previousTier + " → " + update.newTier
