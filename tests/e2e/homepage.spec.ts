@@ -70,7 +70,6 @@ test("WoW route remains navigable and ranked content remains intact", async ({ p
   await expect(page.getByRole("heading", { name: "Sources & Evidence" })).toBeVisible();
 });
 
-
 test("Genshin tier-list route is public, clickable, and noindex until reviewed data exists", async ({
   page,
 }) => {
