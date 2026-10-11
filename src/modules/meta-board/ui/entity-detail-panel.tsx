@@ -33,7 +33,9 @@ export function EntityDetailPanel({ item }: { item: BoardEntityItem | null }) {
             <p className="mt-1 text-xs text-muted">{item.currentContextLabel}</p>
           </div>
           <div className="shrink-0 rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-center">
-            <span className="block text-3xl font-black leading-none text-rose-500">{item.tier}</span>
+            <span className="block text-3xl font-black leading-none text-rose-500">
+              {item.tier}
+            </span>
             <span className="mt-1 block text-[10px] font-semibold uppercase tracking-wider text-muted">
               Tier
             </span>
@@ -83,7 +85,9 @@ export function EntityDetailPanel({ item }: { item: BoardEntityItem | null }) {
         </div>
 
         <section className="rounded-xl border border-border bg-surface-muted/35 p-4">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-muted">Evidence snapshot</h4>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-muted">
+            Evidence snapshot
+          </h4>
           <dl className="mt-3 grid grid-cols-2 gap-3 text-xs">
             <div>
               <dt className="text-muted">Expert/editorial</dt>
@@ -104,7 +108,9 @@ export function EntityDetailPanel({ item }: { item: BoardEntityItem | null }) {
             </div>
             <div>
               <dt className="text-muted">Last updated</dt>
-              <dd className="mt-1 font-semibold text-foreground">{evidenceDate(item.lastUpdated)}</dd>
+              <dd className="mt-1 font-semibold text-foreground">
+                {evidenceDate(item.lastUpdated)}
+              </dd>
             </div>
           </dl>
         </section>
@@ -138,7 +144,10 @@ export function EntityDetailPanel({ item }: { item: BoardEntityItem | null }) {
           ) : (
             <ul className="mt-2 space-y-2">
               {item.sources.slice(0, 4).map((source) => (
-                <li key={source.sourceId} className="rounded-lg border border-border p-3 text-xs">
+                <li
+                  key={source.sourceId}
+                  className="rounded-lg border border-border p-3 text-xs"
+                >
                   <a
                     href={source.sourceUrl}
                     target="_blank"
