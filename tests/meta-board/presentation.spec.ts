@@ -207,13 +207,11 @@ test("SSR contains all modules in order, stays responsive, and preserves unknown
   await expect(page.locator("main h2")).toHaveText([
     "Quick Insights",
     "What Changed",
-    "Evidence & Trust",
-    "Expert / Data View",
-    "Current Sources",
+    "Sources & Evidence",
     "FAQ / Methodology",
   ]);
   await expect(page.locator("header").filter({ has: page.locator("h1") })).toContainText(
-    "Level Cap: 30",
+    /Level Cap\s*30/,
   );
   await expect(page.locator("#sources-heading").locator("..")).toContainText(
     "Patch / Build match: Unknown",

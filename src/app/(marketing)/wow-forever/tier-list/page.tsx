@@ -4,12 +4,10 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
 import {
   ChangesFeed,
+  MetaBoardFaq,
   MetaBoardHeader,
   QuickInsights,
-  EvidenceSummary,
-  ExpertDataView,
-  SourceOverview,
-  MetaBoardFaq,
+  SourcesEvidence,
   TierBoard,
   getGameMetaBoardData,
   getRecentRatingChanges,
@@ -54,7 +52,7 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
   const canonicalUrl = `${routeRegistry.site.canonicalOrigin}/wow-forever/tier-list`;
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-6 py-10 sm:px-8">
+    <main className="mx-auto w-full max-w-[1680px] px-3 py-5 sm:px-5 sm:py-7 lg:px-8">
       <JsonLd
         value={webApplicationJsonLd({
           name: routeDef.title ?? "WoW Forever Tier List",
@@ -65,22 +63,17 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
 
       <MetaBoardHeader data={metaBoardData} />
 
-      {/* Tier Board is IMMEDIATELY placed at the top */}
-      <section className="mt-6" aria-label="Tier Board">
+      <section className="mt-4" aria-label="Tier Board">
         <TierBoard
           key={`${metaBoardData.activeContext?.id ?? "none"}:${metaBoardData.version?.id ?? "none"}`}
           data={metaBoardData}
-        />
+        >
+          <QuickInsights />
+          <ChangesFeed changes={recentChanges} />
+          <SourcesEvidence data={metaBoardData} />
+          <MetaBoardFaq />
+        </TierBoard>
       </section>
-
-      <QuickInsights />
-
-      {/* Auditable What Changed Section */}
-      <ChangesFeed changes={recentChanges} />
-      <EvidenceSummary data={metaBoardData} />
-      <ExpertDataView data={metaBoardData} />
-      <SourceOverview data={metaBoardData} />
-      <MetaBoardFaq />
     </main>
   );
 }
