@@ -96,11 +96,15 @@ export function TierBoard({ data, children }: TierBoardProps): ReactNode {
                         {data.activeContext?.label ?? "Current ranking context"}
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-3 text-[11px] text-muted">
-                      <span>DPS</span>
-                      <span>Tank</span>
-                      <span>Healer</span>
-                    </div>
+                    {data.availableRoles.length > 0 ? (
+                      <div className="flex flex-wrap gap-3 text-[11px] text-muted">
+                        {data.availableRoles.map((role) => (
+                          <span key={role} className="capitalize">
+                            {role}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
 
                   <div className="divide-y divide-border">
