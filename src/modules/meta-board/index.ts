@@ -17,3 +17,4 @@ export * from "./ui/evidence-summary";
 export * from "./ui/expert-data-view";
 export * from "./ui/source-overview";
 export * from "./ui/meta-board-faq";
+export * from "./ui/sources-evidence";
