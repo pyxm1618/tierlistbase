@@ -4,11 +4,7 @@ import { evidenceDate, summarizeBoardEvidence } from "../domain/presentation";
 export function MetaBoardHeader({ data }: { data: MetaBoardData }) {
   const summary = summarizeBoardEvidence(data);
   const statusLabel =
-    summary.status === "current"
-      ? "Current"
-      : summary.status === "stale"
-        ? "Stale"
-        : "Preliminary";
+    summary.status === "current" ? "Current" : summary.status === "stale" ? "Stale" : "Preliminary";
 
   return (
     <header className="relative overflow-hidden rounded-2xl border border-border bg-surface px-5 py-6 shadow-sm sm:px-7 sm:py-8">
