@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   foreverLogsSpecKey,
+  parseForeverLogsStatisticsPayload,
   processForeverLogsDataRanking,
   type ForeverLogsObservation,
   type ForeverLogsRole,
@@ -260,5 +261,112 @@ describe("Forever Logs Data Ranking", () => {
     expect(result[0]?.confidence).toBe("insufficient");
     expect(result[0]?.weightedMedianScore).toBeNull();
     expect(result[0]?.locationsIncluded).toEqual(["The Hall of Thanes"]);
+  });
+});
+
+
+describe("Forever Logs Statistics Parser", () => {
+  it("preserves documented raw fields and provenance from /statistics", () => {
+    const parsed = parseForeverLogsStatisticsPayload(
+      {
+        success: true,
+        phase: 1,
+        phase_name: "Beta",
+        location: "City of Dalaran",
+        difficulty: "all",
+        bracket: "all",
+        metric: "avg_dps",
+        damage_mode: "standard",
+        statistics: {
+          Hunter: {
+            specs: {
+              "Beast Mastery": {
+                avg: 130,
+                median: 126.88,
+                min: 80,
+                max: 250,
+                total_parses: 18,
+                percentiles: { p95: 185.68, p50: 126.88 },
+              },
+            },
+          },
+        },
+      },
+      { retrievedAt },
+    );
+
+    expect(parsed.issues).toEqual([]);
+    expect(parsed.observations).toHaveLength(1);
+    expect(parsed.observations[0]).toMatchObject({
+      source: "Forever Logs",
+      sourceUrl: "https://foreverlogs.gg",
+      apiPath: "/api/public/v1/statistics",
+      retrievedAt,
+      phase: 1,
+      phaseName: "Beta",
+      location: "City of Dalaran",
+      metric: "avg_dps",
+      className: "Hunter",
+      specName: "Beast Mastery",
+      median: 126.88,
+      totalParses: 18,
+      percentiles: { p95: 185.68, p50: 126.88 },
+    });
+  });
+
+  it("rejects unsupported metrics instead of guessing how to rank them", () => {
+    const parsed = parseForeverLogsStatisticsPayload(
+      {
+        success: true,
+        phase: 1,
+        phase_name: "Beta",
+        location: "City of Dalaran",
+        difficulty: "all",
+        bracket: "all",
+        metric: "unknown_metric",
+        damage_mode: "standard",
+        statistics: {},
+      },
+      { retrievedAt },
+    );
+
+    expect(parsed.observations).toEqual([]);
+    expect(parsed.issues).toEqual([{ reason: "unsupported_metric" }]);
+  });
+
+  it("reports malformed spec rows instead of silently repairing them", () => {
+    const parsed = parseForeverLogsStatisticsPayload(
+      {
+        success: true,
+        phase: 1,
+        phase_name: "Beta",
+        location: "City of Dalaran",
+        difficulty: "all",
+        bracket: "all",
+        metric: "avg_dps",
+        damage_mode: "standard",
+        statistics: {
+          Hunter: {
+            specs: {
+              "Beast Mastery": {
+                median: null,
+                total_parses: 18,
+                percentiles: {},
+              },
+            },
+          },
+        },
+      },
+      { retrievedAt },
+    );
+
+    expect(parsed.observations).toEqual([]);
+    expect(parsed.issues).toEqual([
+      {
+        className: "Hunter",
+        specName: "Beast Mastery",
+        reason: "invalid_spec_statistics",
+      },
+    ]);
   });
 });
