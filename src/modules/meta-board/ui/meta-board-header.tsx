@@ -44,9 +44,7 @@ export function MetaBoardHeader({
           <h1 className="mt-2 max-w-4xl text-3xl font-black tracking-tight text-foreground sm:text-4xl lg:text-5xl">
             {heading}
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base">
-            {intro}
-          </p>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base">{intro}</p>
         </div>
 
         <dl className="grid grid-cols-2 gap-2 sm:grid-cols-4 min-[1080px]:grid-cols-2">
