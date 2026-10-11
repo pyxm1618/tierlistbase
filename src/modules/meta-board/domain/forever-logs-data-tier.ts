@@ -1,8 +1,4 @@
-import type {
-  DataStatus,
-  FreshnessStatus,
-  TierLevel,
-} from "./types";
+import type { DataStatus, FreshnessStatus, TierLevel } from "./types";
 import type { ForeverLogsDataRankingItem } from "./forever-logs-data-ranking";
 
 export type ForeverLogsDerivedTier = {
@@ -47,8 +43,7 @@ export function deriveForeverLogsDataTier(
           ? "B"
           : "C";
 
-  const preliminary =
-    item.confidence === "low" || item.flags.includes("extreme_tail");
+  const preliminary = item.confidence === "low" || item.flags.includes("extreme_tail");
 
   return {
     tier,
