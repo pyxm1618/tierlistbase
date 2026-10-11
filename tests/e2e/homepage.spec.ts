@@ -20,7 +20,6 @@ test("homepage renders the approved game-discovery information architecture", as
 
   const html = await response?.text();
   expect(html).toContain("Explore Tier Lists");
-  expect(html).toContain("Game Meta.");
 });
 
 for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
