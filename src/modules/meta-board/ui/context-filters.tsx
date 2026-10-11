@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useTransition, type ReactNode } from "react";
 
 type ContextFiltersProps = {
   currentMode: string;
@@ -24,11 +24,17 @@ export function ContextFilters({
   availableLevels,
   availableBuilds,
 }: ContextFiltersProps): ReactNode {
+  const [isPending, startTransition] = useTransition();
+  const navigationLocked = useRef(false);
+  useEffect(() => {
+    if (!isPending) navigationLocked.current = false;
+  }, [isPending]);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   function updateFilter(key: "mode" | "role" | "level" | "build", value: string | null) {
+    if (navigationLocked.current) return;
     const params = new URLSearchParams(searchParams.toString());
     if (
       value === null ||
@@ -41,7 +47,11 @@ export function ContextFilters({
       params.set(key, value);
     }
     const query = params.toString();
-    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    if (query === searchParams.toString()) return;
+    navigationLocked.current = true;
+    startTransition(() => {
+      router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    });
   }
 
   const hasAnyFilters =
@@ -59,11 +69,15 @@ export function ContextFilters({
   }
 
   return (
-    <div className="flex flex-col gap-4 border-b border-border pb-5">
+    <div
+      className="flex flex-col gap-4 border-b border-border pb-5"
+      aria-busy={isPending}
+      data-filter-pending={isPending}
+    >
       <div className="flex flex-wrap items-center gap-6">
         {/* Mode Filter */}
         {availableModes.length > 0 && (
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 flex-wrap items-center gap-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted">Mode:</span>
             <div className="flex flex-wrap gap-1">
               {availableModes.map((mode) => {
@@ -72,8 +86,12 @@ export function ContextFilters({
                   <button
                     key={mode}
                     type="button"
-                    onClick={() => updateFilter("mode", mode.toLowerCase())}
-                    className={`rounded-md px-3 py-1.5 text-xs font-medium capitalize transition ${
+                    disabled={isPending}
+                    aria-pressed={active}
+                    onClick={() => {
+                      if (!active) updateFilter("mode", mode.toLowerCase());
+                    }}
+                    className={`rounded-md px-3 py-1.5 text-xs font-medium capitalize transition disabled:cursor-wait disabled:opacity-60 break-all ${
                       active
                         ? "bg-foreground text-background shadow-xs"
                         : "bg-surface-muted text-muted hover:bg-surface hover:text-foreground"
@@ -89,7 +107,7 @@ export function ContextFilters({
 
         {/* Role Filter */}
         {availableRoles.length > 0 && (
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 flex-wrap items-center gap-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted">Role:</span>
             <div className="flex flex-wrap gap-1">
               {availableRoles.map((role) => {
@@ -98,8 +116,12 @@ export function ContextFilters({
                   <button
                     key={role}
                     type="button"
-                    onClick={() => updateFilter("role", role.toLowerCase())}
-                    className={`rounded-md px-3 py-1.5 text-xs font-medium uppercase transition ${
+                    disabled={isPending}
+                    aria-pressed={active}
+                    onClick={() => {
+                      if (!active) updateFilter("role", role.toLowerCase());
+                    }}
+                    className={`rounded-md px-3 py-1.5 text-xs font-medium uppercase transition disabled:cursor-wait disabled:opacity-60 break-all ${
                       active
                         ? "bg-foreground text-background shadow-xs"
                         : "bg-surface-muted text-muted hover:bg-surface hover:text-foreground"
@@ -115,7 +137,7 @@ export function ContextFilters({
 
         {/* Level Cap Filter */}
         {availableLevels.length > 0 && (
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 flex-wrap items-center gap-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted">
               Level:
             </span>
@@ -126,8 +148,10 @@ export function ContextFilters({
                   <button
                     key={lvl}
                     type="button"
+                    disabled={isPending}
+                    aria-pressed={active}
                     onClick={() => updateFilter("level", active ? null : String(lvl))}
-                    className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
+                    className={`rounded-md px-3 py-1.5 text-xs font-medium transition disabled:cursor-wait disabled:opacity-60 break-all ${
                       active
                         ? "bg-foreground text-background shadow-xs"
                         : "bg-surface-muted text-muted hover:bg-surface hover:text-foreground"
@@ -143,7 +167,7 @@ export function ContextFilters({
 
         {/* Build / Patch Filter */}
         {availableBuilds.length > 0 && (
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 flex-wrap items-center gap-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted">
               Build:
             </span>
@@ -154,8 +178,10 @@ export function ContextFilters({
                   <button
                     key={b}
                     type="button"
+                    disabled={isPending}
+                    aria-pressed={active}
                     onClick={() => updateFilter("build", active ? null : b)}
-                    className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
+                    className={`rounded-md px-3 py-1.5 text-xs font-medium transition disabled:cursor-wait disabled:opacity-60 break-all ${
                       active
                         ? "bg-foreground text-background shadow-xs"
                         : "bg-surface-muted text-muted hover:bg-surface hover:text-foreground"
@@ -169,6 +195,9 @@ export function ContextFilters({
           </div>
         )}
       </div>
+      <p role="status" className="min-h-4 text-xs text-muted">
+        {isPending ? "Loading ranking context…" : "Filters select published ranking contexts."}
+      </p>
     </div>
   );
 }
