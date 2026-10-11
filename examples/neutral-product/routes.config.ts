@@ -37,6 +37,13 @@ export const routeDefinitions = [
     reviewFingerprint: "e12b71187a93f650e55a15873b831240e7f9e38146ba716b51f7d8df0705d22e",
   },
   {
+    route: "/genshin-impact/tier-list",
+    class: "public_noindex",
+    title: "Genshin Impact Tier List | TierListBase",
+    description:
+      "Genshin Impact tier list page on TierListBase. Verified rankings and evidence will appear here as reviewed data is published.",
+  },
+  {
     route: "/privacy",
     class: "public_noindex",
     pageType: "Legal",

@@ -15,7 +15,16 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(page.getByRole("heading", { name: "Latest Updates" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Popular Rankings" })).toBeVisible();
   await expect(page.locator("a[href='/wow-forever/tier-list']").first()).toBeVisible();
-  await expect(page.locator("a[href^='/genshin']")).toHaveCount(0);
+  await expect(page.locator("a[href='/genshin-impact/tier-list']").first()).toBeVisible();
+
+  const primaryNav = page.getByRole("navigation", { name: "Primary navigation" });
+  const wowNav = primaryNav.getByRole("link", { name: "World of Warcraft" });
+  const genshinNav = primaryNav.getByRole("link", { name: "Genshin Impact" });
+  await expect(wowNav).toBeVisible();
+  await expect(genshinNav).toBeVisible();
+  expect(await wowNav.getAttribute("class")).not.toContain("border-b-2");
+  expect(await genshinNav.getAttribute("class")).not.toContain("border-b-2");
+
   await expect(page.getByText(/best online tool/i)).toHaveCount(0);
 
   const html = await response?.text();
@@ -59,4 +68,18 @@ test("WoW route remains navigable and ranked content remains intact", async ({ p
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(target.h1);
   await expect(page.getByRole("heading", { name: "Quick Insights" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Sources & Evidence" })).toBeVisible();
+});
+
+test("Genshin tier-list route is public, clickable, and noindex until reviewed data exists", async ({
+  page,
+}) => {
+  const target = routeRegistry.get("/genshin-impact/tier-list");
+  expect(target.class).toBe("public_noindex");
+
+  const response = await page.goto("/genshin-impact/tier-list");
+  expect(response?.status()).toBe(200);
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Genshin Impact Tier List");
+  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });
