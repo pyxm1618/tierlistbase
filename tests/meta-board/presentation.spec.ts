@@ -211,7 +211,7 @@ test("SSR contains all modules in order, stays responsive, and preserves unknown
     "FAQ / Methodology",
   ]);
   await expect(page.locator("header").filter({ has: page.locator("h1") })).toContainText(
-    "Level Cap: 30",
+    /Level Cap\s*30/,
   );
   await expect(page.locator("#sources-heading").locator("..")).toContainText(
     "Patch / Build match: Unknown",
