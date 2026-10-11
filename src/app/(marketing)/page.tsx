@@ -4,7 +4,7 @@ import { unstable_cache } from "next/cache";
 import { GameHome } from "@/components/home/game-home";
 import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
-import { getRecentRatingChanges } from "@/modules/meta-board/db/queries";
+import { getRecentRatingChanges } from "@/modules/meta-board";
 import { currentSeoEnvironment } from "@/platform/seo/environment-policy";
 import { metadataForRoute } from "@/platform/seo/metadata";
 import { webApplicationJsonLd, websiteJsonLd } from "@/platform/seo/structured-data";
