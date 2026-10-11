@@ -144,10 +144,7 @@ export function EntityDetailPanel({ item }: { item: BoardEntityItem | null }) {
           ) : (
             <ul className="mt-2 space-y-2">
               {item.sources.slice(0, 4).map((source) => (
-                <li
-                  key={source.sourceId}
-                  className="rounded-lg border border-border p-3 text-xs"
-                >
+                <li key={source.sourceId} className="rounded-lg border border-border p-3 text-xs">
                   <a
                     href={source.sourceUrl}
                     target="_blank"
