@@ -24,26 +24,27 @@ test("homepage renders the approved game-discovery information architecture", as
 });
 
 for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
-  test("homepage " + width + "px viewport uses a fluid layout without horizontal overflow", async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width, height: 900 });
-    const response = await page.goto("/");
-    expect(response?.status()).toBe(200);
+  test(
+    "homepage " + width + "px viewport uses a fluid layout without horizontal overflow",
+    async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      const response = await page.goto("/");
+      expect(response?.status()).toBe(200);
 
-    const dimensions = await page.evaluate(() => {
-      const shell = document.querySelector(".tlb-shell");
-      if (!shell) throw new Error("homepage shell missing");
-      return {
-        documentWidth: document.documentElement.scrollWidth,
-        shellWidth: shell.getBoundingClientRect().width,
-      };
-    });
-    expect(dimensions.documentWidth).toBeLessThanOrEqual(width + 1);
-    expect(dimensions.shellWidth).toBeGreaterThan(
-      width >= 2560 ? 1700 : width >= 1920 ? 1500 : width * 0.8,
-    );
-  });
+      const dimensions = await page.evaluate(() => {
+        const shell = document.querySelector(".tlb-shell");
+        if (!shell) throw new Error("homepage shell missing");
+        return {
+          documentWidth: document.documentElement.scrollWidth,
+          shellWidth: shell.getBoundingClientRect().width,
+        };
+      });
+      expect(dimensions.documentWidth).toBeLessThanOrEqual(width + 1);
+      expect(dimensions.shellWidth).toBeGreaterThan(
+        width >= 2560 ? 1700 : width >= 1920 ? 1500 : width * 0.8,
+      );
+    },
+  );
 }
 
 test("WoW route remains navigable and ranked content remains intact", async ({ page }) => {
