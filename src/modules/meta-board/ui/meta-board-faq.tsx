@@ -1,38 +1,41 @@
 const questions = [
   [
-    "What does this WoW Forever tier list rank?",
-    "The board compares classes and specs within the selected mode, role, level cap and build. A tier in one context is not a recommendation for every play style.",
+    "How We Rank",
+    "The board compares classes and specs inside the selected mode, role, level cap and build. Source ratings are normalized through configured rules before they can support a published tier. Missing evidence remains unknown rather than being filled with a guessed score.",
   ],
   [
-    "How are tiers and evidence connected?",
-    "Source ratings are associated with a context and version, normalized using configured source rules, and used in the published ranking. Open an entity to inspect its rationale, strengths, constraints and source evidence. Missing rules and missing evidence remain unknown.",
+    "Data Sources",
+    "Expert and editorial evidence is kept separate from statistical performance data. Each published source keeps its own source type, freshness and rating-version association. If no statistical source is linked, Data remains Not available yet.",
   ],
   [
-    "What do Current, Preliminary and Stale mean?",
-    "Current requires a current version and current recorded ranking and source freshness. Stale indicates recorded stale evidence or version status. Otherwise the board is Preliminary. Last Updated is the latest ranking-record update, not a promise that a source was recently published.",
+    "FAQ",
+    "A tier is specific to the current Ranking Context. Current, Preliminary and Stale describe recorded version, ranking and source freshness; Last Updated is the latest ranking-record update, not a promise about a publisher's latest article.",
   ],
   [
-    "Are expert opinions the same as performance data?",
-    "No. Expert and editorial evidence is shown separately from statistical sources. If no statistical source is linked to this context and version, Data is Not available yet.",
-  ],
-  [
-    "Why are some sections empty?",
-    "No rankings, sources or insight conclusions are invented to fill the layout. Pending sections need reviewed evidence. Filters select a real ranking context; unavailable combinations stay empty.",
+    "About This Tier List",
+    "TierListBase does not invent rankings, insight conclusions or source agreement to fill the page. Unavailable filter combinations stay empty, and future community signals can attach to rankings without changing the V1 ranking model.",
   ],
 ] as const;
 
 export function MetaBoardFaq() {
   return (
-    <section className="mt-10 border-t border-border pt-8" aria-labelledby="faq-heading">
+    <section className="mt-4 rounded-2xl border border-border bg-surface p-5 sm:p-6" aria-labelledby="faq-heading">
       <h2 id="faq-heading" className="text-xl font-bold text-foreground">
         FAQ / Methodology
       </h2>
-      <div className="mt-4 divide-y divide-border">
+      <div className="mt-4 grid gap-2 lg:grid-cols-2">
         {questions.map(([question, answer]) => (
-          <div key={question} className="py-4">
-            <h3 className="text-sm font-semibold text-foreground">{question}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{answer}</p>
-          </div>
+          <details key={question} className="group rounded-xl border border-border bg-surface-muted/25 p-4">
+            <summary className="cursor-pointer list-none text-sm font-semibold text-foreground">
+              <span className="flex items-center justify-between gap-3">
+                {question}
+                <span aria-hidden="true" className="text-muted transition group-open:rotate-45">
+                  +
+                </span>
+              </span>
+            </summary>
+            <p className="mt-3 text-sm leading-6 text-muted">{answer}</p>
+          </details>
         ))}
       </div>
     </section>
