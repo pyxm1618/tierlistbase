@@ -34,8 +34,8 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
 
   const metaBoardData = await getGameMetaBoardData({
     gameSlug: "wow-forever",
-    ...(mode ? { mode } : {}),
-    ...(role ? { role } : {}),
+    mode: mode ?? "dungeon",
+    role: role ?? "dps",
     ...(level ? { levelCap: Number(level) } : {}),
     ...(build ? { build } : {}),
   });
