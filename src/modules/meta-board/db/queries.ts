@@ -187,14 +187,37 @@ export async function getGameMetaBoardData(options?: {
     // If a specific build was requested, strictly require active ratings for this build
     const matchByBuild = activeRatingCombinations.find((c) => c.build === options.build);
     if (!matchByBuild) {
+      // Keep the result honest (no silent fallback), but preserve real filter
+      // dimensions so a stale or hand-edited build URL can recover.
+      const recoveryModes = Array.from(
+        new Set(activeRatingCombinations.map((c) => c.mode).filter(Boolean)),
+      ).sort();
+      const recoveryRoles = Array.from(
+        new Set(activeRatingCombinations.map((c) => c.role).filter(Boolean)),
+      ).sort();
+      const recoveryLevels = Array.from(
+        new Set(
+          activeRatingCombinations
+            .map((c) => c.levelCap)
+            .filter((level): level is number => level !== null && level !== undefined),
+        ),
+      ).sort((a, b) => a - b);
+      const recoveryBuilds = Array.from(
+        new Set(
+          activeRatingCombinations
+            .map((c) => c.build)
+            .filter((candidate): candidate is string => Boolean(candidate)),
+        ),
+      ).sort();
+
       return {
         game: { id: gameRow.id, name: gameRow.name, slug: gameRow.slug },
         version: null,
         activeContext: null,
-        availableModes: [],
-        availableRoles: [],
-        availableLevels: [],
-        availableBuilds: [],
+        availableModes: recoveryModes,
+        availableRoles: recoveryRoles,
+        availableLevels: recoveryLevels,
+        availableBuilds: recoveryBuilds,
         tiers: [],
         hasData: false,
       };
