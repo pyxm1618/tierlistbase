@@ -6,7 +6,7 @@ export function EntityDetailPanel({ item }: { item: BoardEntityItem | null }) {
   if (!item) {
     return (
       <aside className="rounded-2xl border border-dashed border-border bg-surface p-6 text-sm text-muted">
-        Select a class or specialization to inspect its ranking rationale and evidence.
+        Select a ranked entity to inspect its ranking rationale and evidence.
       </aside>
     );
   }
