@@ -291,7 +291,8 @@ export function GameHome({ updates }: { updates: RecentRatingChangeItem[] }) {
           <h1 id="page-title">
             Game Meta.
             <br />
-            Made <span>Clear.</span>
+            {" Made "}
+            <span>Clear.</span>
           </h1>
           <p>
             TierListBase helps you quickly understand the current meta with evidence-backed analysis
