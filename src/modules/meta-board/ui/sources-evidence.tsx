@@ -5,14 +5,18 @@ export function SourcesEvidence({ data }: { data: MetaBoardData }) {
   const summary = summarizeBoardEvidence(data);
 
   return (
-    <section className="mt-8 rounded-2xl border border-border bg-surface p-5 sm:p-6" aria-labelledby="sources-heading">
+    <section
+      className="mt-8 rounded-2xl border border-border bg-surface p-5 sm:p-6"
+      aria-labelledby="sources-heading"
+    >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 id="sources-heading" className="text-xl font-bold text-foreground">
             Sources &amp; Evidence
           </h2>
           <p className="mt-1 text-sm text-muted">
-            Evidence for the selected ranking context. Coverage is shown directly; no synthetic confidence score.
+            Evidence for the selected ranking context. Coverage is shown directly; no synthetic
+            confidence score.
           </p>
         </div>
         <p className="text-xs text-muted">
@@ -21,10 +25,21 @@ export function SourcesEvidence({ data }: { data: MetaBoardData }) {
       </div>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <Metric label="Evidence & Trust" value={summary.sources.length > 0 ? `${summary.sources.length} sources` : "No reviewed sources"} />
+        <Metric
+          label="Evidence & Trust"
+          value={
+            summary.sources.length > 0
+              ? `${summary.sources.length} sources`
+              : "No reviewed sources"
+          }
+        />
         <Metric
           label="Source agreement"
-          value={summary.ratingCount > 0 ? `${summary.agreeingRatingCount}/${summary.ratingCount} ratings match` : "Unknown"}
+          value={
+            summary.ratingCount > 0
+              ? `${summary.agreeingRatingCount}/${summary.ratingCount} ratings match`
+              : "Unknown"
+          }
         />
         <Metric
           label="Freshness"
@@ -36,7 +51,11 @@ export function SourcesEvidence({ data }: { data: MetaBoardData }) {
         />
         <Metric
           label="Statistical data"
-          value={summary.dataSourceCount > 0 ? `${summary.dataSourceCount} linked` : "Not available yet"}
+          value={
+            summary.dataSourceCount > 0
+              ? `${summary.dataSourceCount} linked`
+              : "Not available yet"
+          }
         />
       </div>
 
@@ -55,7 +74,10 @@ export function SourcesEvidence({ data }: { data: MetaBoardData }) {
         ) : (
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {summary.sources.map((source) => (
-              <li key={source.sourceId} className="min-w-0 rounded-xl border border-border bg-surface-muted/30 p-4">
+              <li
+                key={source.sourceId}
+                className="min-w-0 rounded-xl border border-border bg-surface-muted/30 p-4"
+              >
                 <a
                   href={source.sourceUrl}
                   target="_blank"
@@ -82,7 +104,9 @@ export function SourcesEvidence({ data }: { data: MetaBoardData }) {
                   </div>
                   <div>
                     <dt className="inline">Rating version: </dt>
-                    <dd className="inline">{source.versionMatch ? "Selected version" : "Mismatch"}</dd>
+                    <dd className="inline">
+                      {source.versionMatch ? "Selected version" : "Mismatch"}
+                    </dd>
                   </div>
                   <div>
                     <dt className="inline">Patch / Build match: </dt>
