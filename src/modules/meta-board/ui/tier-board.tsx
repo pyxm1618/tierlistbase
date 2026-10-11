@@ -89,7 +89,8 @@ export function TierBoard({ data, children }: TierBoardProps): ReactNode {
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3">
                     <div>
                       <p className="text-sm font-bold text-foreground">
-                        Ranked Entities ({data.tiers.reduce((count, group) => count + group.items.length, 0)})
+                        Ranked Entities (
+                        {data.tiers.reduce((count, group) => count + group.items.length, 0)})
                       </p>
                       <p className="text-xs text-muted">
                         {data.activeContext?.label ?? "Current ranking context"}
@@ -168,7 +169,9 @@ export function TierBoard({ data, children }: TierBoardProps): ReactNode {
                                       agreeingSourceCount={item.agreeingSourceCount}
                                       disagreementLevel={item.disagreementLevel}
                                       dataStatus={
-                                        item.sources.some((source) => source.sourceType === "data")
+                                        item.sources.some(
+                                          (source) => source.sourceType === "data",
+                                        )
                                           ? item.dataStatus
                                           : "unavailable"
                                       }
