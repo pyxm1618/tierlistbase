@@ -314,6 +314,15 @@ test("incompatible URL filters remain visible and can recover a valid mode or bu
     "Synthetic Overall Level 30",
   );
   expect(new URL(page.url()).searchParams.has("mode")).toBe(false);
+
+  await page.goto("/wow-forever/tier-list?level=30&build=missing-build");
+  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
+  await expect(page.getByRole("button", { name: "test-build-1", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "test-build-1", exact: true }).click();
+  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
+    "Synthetic Overall Level 30",
+  );
+  expect(new URL(page.url()).searchParams.get("build")).toBe("test-build-1");
 });
 
 test("filters navigate real contexts, expose pending feedback, and isolate evidence", async ({
