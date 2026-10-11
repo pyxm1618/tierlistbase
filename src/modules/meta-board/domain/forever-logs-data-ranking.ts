@@ -73,6 +73,139 @@ export const DEFAULT_FOREVER_LOGS_RANKING_POLICY: ForeverLogsRankingPolicy = {
   extremeTailRatio: 5,
 };
 
+
+export type ForeverLogsParseIssue = {
+  readonly className?: string;
+  readonly specName?: string;
+  readonly reason:
+    | "invalid_response"
+    | "unsupported_metric"
+    | "missing_context"
+    | "invalid_spec_statistics";
+};
+
+export type ForeverLogsParseResult = {
+  readonly observations: readonly ForeverLogsObservation[];
+  readonly issues: readonly ForeverLogsParseIssue[];
+};
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value !== null && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : null;
+}
+
+function asFiniteNumber(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function isForeverLogsMetric(value: unknown): value is ForeverLogsMetric {
+  return value === "avg_dps" || value === "avg_hps" || value === "avg_dtps";
+}
+
+/**
+ * Converts one documented Forever Logs /statistics response into immutable raw observations.
+ * It does not normalize, rank, infer roles, or repair malformed values.
+ */
+export function parseForeverLogsStatisticsPayload(
+  payload: unknown,
+  options: {
+    readonly retrievedAt: Date;
+    readonly sourceUrl?: string;
+    readonly apiPath?: string;
+  },
+): ForeverLogsParseResult {
+  const root = asRecord(payload);
+  if (!root || root.success !== true) {
+    return { observations: [], issues: [{ reason: "invalid_response" }] };
+  }
+
+  if (!isForeverLogsMetric(root.metric)) {
+    return { observations: [], issues: [{ reason: "unsupported_metric" }] };
+  }
+
+  const phase = asFiniteNumber(root.phase);
+  const location = typeof root.location === "string" ? root.location.trim() : "";
+  const difficulty = typeof root.difficulty === "string" ? root.difficulty : "";
+  const bracket = typeof root.bracket === "string" ? root.bracket : "";
+  const damageMode = typeof root.damage_mode === "string" ? root.damage_mode : "";
+
+  if (
+    phase === null ||
+    !Number.isInteger(phase) ||
+    location.length === 0 ||
+    difficulty.length === 0 ||
+    bracket.length === 0 ||
+    damageMode.length === 0
+  ) {
+    return { observations: [], issues: [{ reason: "missing_context" }] };
+  }
+
+  const statistics = asRecord(root.statistics);
+  if (!statistics) {
+    return { observations: [], issues: [] };
+  }
+
+  const observations: ForeverLogsObservation[] = [];
+  const issues: ForeverLogsParseIssue[] = [];
+
+  for (const [className, classValue] of Object.entries(statistics)) {
+    const classRecord = asRecord(classValue);
+    const specs = asRecord(classRecord?.specs);
+    if (!specs) continue;
+
+    for (const [specName, specValue] of Object.entries(specs)) {
+      const spec = asRecord(specValue);
+      const median = asFiniteNumber(spec?.median);
+      const totalParses = asFiniteNumber(spec?.total_parses);
+
+      if (
+        !spec ||
+        median === null ||
+        totalParses === null ||
+        !Number.isInteger(totalParses) ||
+        totalParses < 0
+      ) {
+        issues.push({ className, specName, reason: "invalid_spec_statistics" });
+        continue;
+      }
+
+      const percentileRecord = asRecord(spec.percentiles);
+      const percentiles: Record<string, number> = {};
+      if (percentileRecord) {
+        for (const [name, value] of Object.entries(percentileRecord)) {
+          const numeric = asFiniteNumber(value);
+          if (numeric !== null) percentiles[name] = numeric;
+        }
+      }
+
+      observations.push({
+        source: "Forever Logs",
+        sourceUrl: options.sourceUrl ?? "https://foreverlogs.gg",
+        apiPath: options.apiPath ?? "/api/public/v1/statistics",
+        retrievedAt: options.retrievedAt,
+        phase,
+        phaseName: typeof root.phase_name === "string" ? root.phase_name : null,
+        location,
+        difficulty,
+        bracket,
+        metric: root.metric,
+        damageMode,
+        className,
+        specName,
+        avg: asFiniteNumber(spec.avg),
+        median,
+        min: asFiniteNumber(spec.min),
+        max: asFiniteNumber(spec.max),
+        totalParses,
+        percentiles,
+      });
+    }
+  }
+
+  return { observations, issues };
+}
+
 const METRIC_ROLE: Readonly<Record<ForeverLogsMetric, ForeverLogsRole>> = {
   avg_dps: "dps",
   avg_hps: "healer",
