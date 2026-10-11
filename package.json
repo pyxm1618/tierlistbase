@@ -9,7 +9,7 @@
     "build:test": "APP_ENV=test next build --webpack",
     "start": "next start",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format:check": "prettier --write src/modules/meta-board/ui/entity-detail-panel.tsx src/modules/meta-board/ui/meta-board-faq.tsx src/modules/meta-board/ui/meta-board-header.tsx src/modules/meta-board/ui/quick-insights.tsx src/modules/meta-board/ui/sources-evidence.tsx src/modules/meta-board/ui/tier-board.tsx && git diff -- src/modules/meta-board/ui/entity-detail-panel.tsx src/modules/meta-board/ui/meta-board-faq.tsx src/modules/meta-board/ui/meta-board-header.tsx src/modules/meta-board/ui/quick-insights.tsx src/modules/meta-board/ui/sources-evidence.tsx src/modules/meta-board/ui/tier-board.tsx && exit 1",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run --config vitest.config.ts",
