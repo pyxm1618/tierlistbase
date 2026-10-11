@@ -35,10 +35,7 @@ export function MetaBoardFaq() {
             <summary className="cursor-pointer list-none text-sm font-semibold text-foreground">
               <span className="flex items-center justify-between gap-3">
                 {question}
-                <span
-                  aria-hidden="true"
-                  className="text-muted transition group-open:rotate-45"
-                >
+                <span aria-hidden="true" className="text-muted transition group-open:rotate-45">
                   +
                 </span>
               </span>
