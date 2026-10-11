@@ -22,9 +22,7 @@ export function MetaBoardHeader({
   const statusLabel =
     summary.status === "current" ? "Current" : summary.status === "stale" ? "Stale" : "Preliminary";
   const gameName = eyebrow ?? data.game?.name ?? "World of Warcraft: Forever";
-  const heading =
-    title ??
-    (data.game?.slug === "wow-forever" ? "WoW Forever Tier List" : `${gameName} Tier List`);
+  const heading = title ?? "WoW Forever Tier List";
   const intro =
     description ??
     "Compare reviewed rankings for the selected context. Open any ranked entity to see why it is placed there and what evidence supports the decision.";
