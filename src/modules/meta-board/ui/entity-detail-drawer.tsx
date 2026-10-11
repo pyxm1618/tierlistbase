@@ -1,6 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+
+import { evidenceDate } from "../domain/presentation";
 
 import { EvidenceBadge } from "./evidence-badge";
 
@@ -14,6 +16,20 @@ type EntityDetailDrawerProps = {
 };
 
 export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): ReactNode {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    if (!item || !dialogRef.current) return;
+    const dialog = dialogRef.current;
+    const trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = "hidden";
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      if (trigger?.isConnected) trigger.focus({ preventScroll: true });
+    };
+  }, [item]);
   if (!item) return null;
 
   const expertSources = item.sources.filter(
@@ -22,13 +38,35 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
   const dataSources = item.sources.filter((s) => s.sourceType === "data");
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex justify-end bg-background/80 backdrop-blur-sm"
-      role="dialog"
+    <dialog
+      ref={dialogRef}
+      className="fixed inset-y-0 left-auto right-0 m-0 h-dvh max-h-none w-full max-w-none border-0 bg-surface p-0 text-foreground shadow-2xl backdrop:bg-background/80 backdrop:backdrop-blur-sm sm:max-w-lg"
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+      onKeyDown={(event) => {
+        if (event.key !== "Tab") return;
+        const targets = event.currentTarget.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])',
+        );
+        const first = targets[0];
+        const last = targets[targets.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }}
       aria-modal="true"
       aria-labelledby="drawer-title"
     >
-      <div className="flex h-full w-full max-w-lg flex-col border-l border-border bg-surface p-6 shadow-2xl sm:p-8">
+      <div className="flex h-full min-w-0 w-full flex-col border-l border-border bg-surface p-6 shadow-2xl sm:p-8">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border pb-4">
           <div>
@@ -43,6 +81,7 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
           </div>
           <button
             type="button"
+            autoFocus
             onClick={onClose}
             className="rounded-lg p-2 text-muted transition hover:bg-surface-muted hover:text-foreground"
             aria-label="Close detail drawer"
@@ -52,7 +91,7 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
         </div>
 
         {/* Content Body */}
-        <div className="mt-6 flex-1 space-y-6 overflow-y-auto pr-1">
+        <div className="mt-6 min-h-0 flex-1 space-y-6 overflow-y-auto break-words pr-1">
           {/* Key Status Grid */}
           <div className="grid grid-cols-2 gap-3 rounded-xl border border-border bg-surface-muted/60 p-4">
             <div>
@@ -78,7 +117,11 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
                   sourceCount={item.sourceCount}
                   agreeingSourceCount={item.agreeingSourceCount}
                   disagreementLevel={item.disagreementLevel}
-                  dataStatus={item.dataStatus}
+                  dataStatus={
+                    item.sources.some((source) => source.sourceType === "data")
+                      ? item.dataStatus
+                      : "unavailable"
+                  }
                   freshnessStatus={item.freshnessStatus}
                 />
               </div>
@@ -87,7 +130,7 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
 
           {/* Agreement Metrics */}
           <div className="rounded-lg border border-border/80 bg-surface p-3 text-xs">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="text-muted">Source Agreement:</span>
               <span className="font-semibold text-foreground">
                 {item.sourceCount > 0
@@ -95,7 +138,7 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
                   : "No sources recorded"}
               </span>
             </div>
-            <div className="mt-1 flex items-center justify-between">
+            <div className="mt-1 flex flex-wrap items-center justify-between gap-2">
               <span className="text-muted">Disagreement Classification:</span>
               <span className="capitalize text-foreground font-medium">
                 {item.disagreementLevel}
@@ -114,23 +157,23 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
           </div>
 
           {/* Strengths & Constraints */}
-          {item.strengths ? (
-            <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">
-                Key Strengths
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-foreground">{item.strengths}</p>
-            </div>
-          ) : null}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">
+              Key Strengths
+            </h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-foreground">
+              {item.strengths || "No reviewed strengths recorded yet."}
+            </p>
+          </div>
 
-          {item.constraints ? (
-            <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">
-                Constraints & Trade-offs
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-foreground">{item.constraints}</p>
-            </div>
-          ) : null}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">
+              Constraints &amp; Trade-offs
+            </h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-foreground">
+              {item.constraints || "No reviewed constraints recorded yet."}
+            </p>
+          </div>
 
           {/* Latest Tier Change */}
           <div className="rounded-lg border border-border bg-surface-muted/40 p-4">
@@ -151,7 +194,7 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
                   <p className="text-muted">Reason: {item.latestTierChange.reason}</p>
                 ) : null}
                 <p className="text-[11px] text-muted/80">
-                  Recorded: {new Date(item.latestTierChange.changedAt).toLocaleDateString()}
+                  Recorded: {evidenceDate(item.latestTierChange.changedAt)}
                 </p>
               </div>
             ) : (
@@ -159,9 +202,34 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
             )}
           </div>
 
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">
+              Recorded Change History
+            </h3>
+            <p className="mt-1 text-xs text-muted">For the selected context and version.</p>
+            {item.tierChanges.length === 0 ? (
+              <p className="mt-2 text-xs text-muted">No recorded changes yet.</p>
+            ) : (
+              <ol className="mt-2 space-y-2 text-xs text-foreground">
+                {item.tierChanges.map((change, index) => (
+                  <li
+                    key={`${new Date(change.changedAt).toISOString()}-${index}`}
+                    className="rounded border border-border p-3"
+                  >
+                    <time dateTime={new Date(change.changedAt).toISOString()}>
+                      {evidenceDate(change.changedAt)}
+                    </time>{" "}
+                    · {change.previousTier} → {change.newTier}
+                    <p className="mt-1 text-muted">{change.reason ?? "Reason not recorded."}</p>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </div>
+
           {/* Source Evidence Section */}
           <div className="space-y-4 border-t border-border pt-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="text-sm font-bold text-foreground">Source Evidence & Audit Trail</h3>
               <span className="text-[11px] text-muted">
                 Date Range:{" "}
@@ -210,11 +278,11 @@ export function EntityDetailDrawer({ item, onClose }: EntityDetailDrawerProps): 
 
           {/* Footer Metadata */}
           <div className="border-t border-border pt-4 text-xs text-muted">
-            <p>Last DB record updated: {new Date(item.lastUpdated).toLocaleDateString()}</p>
+            <p>Last DB record updated: {evidenceDate(item.lastUpdated)}</p>
           </div>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }
 
@@ -249,7 +317,7 @@ function SourceEvidenceCard({ source }: { source: SourceEvidenceItem }): ReactNo
 
   return (
     <div className="space-y-2 rounded-lg border border-border bg-surface p-3 text-xs">
-      <div className="flex items-start justify-between gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <a
             href={source.sourceUrl}
@@ -261,7 +329,7 @@ function SourceEvidenceCard({ source }: { source: SourceEvidenceItem }): ReactNo
           </a>
           <p className="max-w-xs truncate text-[11px] text-muted">{source.sourceUrl}</p>
         </div>
-        <div className="text-right">
+        <div className="text-left sm:text-right">
           <span className="font-mono font-bold text-foreground">Raw Tier: {source.rawTier}</span>
           <p className="text-[11px] text-muted">Norm: {normDisplay}</p>
         </div>
@@ -289,17 +357,20 @@ function SourceEvidenceCard({ source }: { source: SourceEvidenceItem }): ReactNo
           <span className="capitalize text-foreground">{source.sourceFreshness}</span>
         </div>
         <div>
-          <span className="text-muted">Version Match: </span>
+          <span className="text-muted">Rating version association: </span>
           <span
             className={
               source.versionMatch ? "font-medium text-foreground" : "font-medium text-amber-500"
             }
           >
-            {source.versionMatch ? "Match" : "Mismatch"}
+            {source.versionMatch ? "Selected version" : "Mismatch"}
           </span>
         </div>
       </div>
 
+      <p className="text-muted">
+        Patch / Build match: Unknown — source-declared version not recorded.
+      </p>
       <div className="flex flex-wrap items-center gap-x-3 text-[10px] text-muted">
         <span>Published: {publishedDate}</span>
         <span>•</span>
