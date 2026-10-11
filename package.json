@@ -9,7 +9,7 @@
     "build:test": "APP_ENV=test next build --webpack",
     "start": "next start",
     "format": "prettier --write .",
-    "format:check": "prettier --write src/components/home/game-home.tsx src/modules/meta-board/ui/meta-board-header.tsx && git diff -- src/components/home/game-home.tsx src/modules/meta-board/ui/meta-board-header.tsx && exit 1",
+    "format:check": "prettier --check .",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run --config vitest.config.ts",
