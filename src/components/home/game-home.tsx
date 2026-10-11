@@ -7,6 +7,7 @@ import type { RecentRatingChangeItem } from "@/modules/meta-board";
 import "./game-home.css";
 
 const wowHref = "/wow-forever/tier-list";
+const genshinHref = "/genshin-impact/tier-list";
 
 type IconName =
   | "chart"
@@ -148,7 +149,7 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
         <p>
           {isWow
             ? "Explore the current class and specialization meta for World of Warcraft: Forever."
-            : "Character, team, and exploration rankings are planned."}
+            : "Open the Genshin Impact tier list page. Verified rankings will appear as reviewed data is published."}
         </p>
         <div className="tlb-game-bottom">
           <div className="tlb-tag-list">
@@ -157,28 +158,20 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
             ))}
           </div>
           <span className="tlb-arrow" aria-hidden="true">
-            {isWow ? <Icon name="arrow" size={23} /> : "· · ·"}
+            <Icon name="arrow" size={23} />
           </span>
         </div>
-        {!isWow && <span className="tlb-coming">Coming soon</span>}
       </div>
     </>
   );
-  return isWow ? (
+  return (
     <Link
-      href={wowHref}
-      className="tlb-game-card tlb-wow"
-      aria-label="Explore World of Warcraft: Forever tier list"
+      href={isWow ? wowHref : genshinHref}
+      className={`tlb-game-card ${isWow ? "tlb-wow" : "tlb-genshin"}`}
+      aria-label={isWow ? "Explore World of Warcraft: Forever tier list" : "Explore Genshin Impact tier list"}
     >
       {content}
     </Link>
-  ) : (
-    <article
-      className="tlb-game-card tlb-genshin"
-      aria-label="Genshin Impact tier list coming soon"
-    >
-      {content}
-    </article>
   );
 }
 
@@ -206,7 +199,7 @@ const popular: { title: string; subtitle: string; icon: IconName; ready: boolean
     { title: "WoW", subtitle: "DPS", icon: "swords", ready: true, tone: "coral" },
     { title: "WoW", subtitle: "PvP", icon: "shield", ready: true, tone: "gold" },
     { title: "WoW", subtitle: "Leveling", icon: "boot", ready: true, tone: "orange" },
-    { title: "Genshin", subtitle: "Characters", icon: "star", ready: false, tone: "ice" },
+    { title: "Genshin", subtitle: "Characters", icon: "star", ready: true, tone: "ice" },
     { title: "Spiral", subtitle: "Abyss", icon: "swirl", ready: false, tone: "blue" },
     { title: "Exploration", subtitle: "", icon: "compass", ready: false, tone: "gold" },
   ];
@@ -258,15 +251,13 @@ function UpdateCard({
         </div>
         <h3>{title}</h3>
         <p>{description}</p>
-        {isGenshin ? (
-          <span className="tlb-small-arrow tlb-small-disabled" aria-label="Unavailable">
-            · · ·
-          </span>
-        ) : (
-          <Link href={wowHref} className="tlb-small-arrow" aria-label={"View " + title}>
-            <Icon name="arrow" size={17} />
-          </Link>
-        )}
+        <Link
+          href={isGenshin ? genshinHref : wowHref}
+          className="tlb-small-arrow"
+          aria-label={"View " + title}
+        >
+          <Icon name="arrow" size={17} />
+        </Link>
       </div>
     </article>
   );
@@ -391,8 +382,12 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
               return item.ready ? (
                 <Link
                   key={item.title + item.subtitle}
-                  href={wowHref}
-                  aria-label={"Open WoW board: " + item.subtitle}
+                  href={item.title === "Genshin" ? genshinHref : wowHref}
+                  aria-label={
+                    item.title === "Genshin"
+                      ? "Open Genshin Impact tier list"
+                      : "Open WoW board: " + item.subtitle
+                  }
                   className="tlb-popular-item"
                 >
                   {contents}
