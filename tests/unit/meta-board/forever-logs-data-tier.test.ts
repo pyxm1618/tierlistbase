@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  deriveForeverLogsDataTier,
-  type ForeverLogsDataRankingItem,
-} from "@/modules/meta-board";
+import { deriveForeverLogsDataTier, type ForeverLogsDataRankingItem } from "@/modules/meta-board";
 
 function item(
   score: number | null,
