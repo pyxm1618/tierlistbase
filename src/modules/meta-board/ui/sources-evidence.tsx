@@ -28,9 +28,7 @@ export function SourcesEvidence({ data }: { data: MetaBoardData }) {
         <Metric
           label="Evidence & Trust"
           value={
-            summary.sources.length > 0
-              ? `${summary.sources.length} sources`
-              : "No reviewed sources"
+            summary.sources.length > 0 ? `${summary.sources.length} sources` : "No reviewed sources"
           }
         />
         <Metric
@@ -52,9 +50,7 @@ export function SourcesEvidence({ data }: { data: MetaBoardData }) {
         <Metric
           label="Statistical data"
           value={
-            summary.dataSourceCount > 0
-              ? `${summary.dataSourceCount} linked`
-              : "Not available yet"
+            summary.dataSourceCount > 0 ? `${summary.dataSourceCount} linked` : "Not available yet"
           }
         />
       </div>
