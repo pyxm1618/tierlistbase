@@ -5,9 +5,9 @@ import postgres from "postgres";
 const API_BASE = "https://foreverlogs.gg/api/public/v1";
 const LOCATIONS = [
   "City of Dalaran",
-  "Ruins of Lordaeron",
+  "Razorfen Downs",
   "Excavation Site: Wetlands",
-  "The Hall of Thanes",
+  "Uldaman",
 ] as const;
 
 async function apiGet(path: string, apiKey: string) {
