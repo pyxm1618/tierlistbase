@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { featuresConfig } from "@/config/features.config";
@@ -11,19 +12,14 @@ export function Brand({ href = "/" }: { href?: string }) {
       aria-label="TierListBase home"
       className="inline-flex shrink-0 items-center gap-2 text-white no-underline"
     >
-      <svg aria-hidden="true" viewBox="0 0 32 28" width="27" height="27" fill="none">
-        <path
-          d="M2 8l7 5 7-11 7 11 7-5-4 16H6z"
-          fill="#ffd568"
-          stroke="#f3ab33"
-          strokeLinejoin="round"
-          strokeWidth="1.5"
-        />
-        <path d="M7 19h18M10 15l2 3M21 15l-2 3" stroke="#9e5d18" strokeWidth="1.5" />
-        <circle cx="3" cy="6" r="2" fill="#ffe59e" />
-        <circle cx="16" cy="2" r="2" fill="#ffe59e" />
-        <circle cx="29" cy="6" r="2" fill="#ffe59e" />
-      </svg>
+      <Image
+        src="/brand/tierlistbase-mark-fa1e376158.webp"
+        alt=""
+        width={36}
+        height={34}
+        className="shrink-0"
+        unoptimized
+      />
       <span className="text-[.95rem] font-extrabold tracking-tight sm:text-[1.05rem]">
         TIERLISTBASE
       </span>
