@@ -16,6 +16,13 @@ export default async function MarketingLayout({ children }: Readonly<{ children:
   await connection();
   return (
     <html lang={siteConfig.defaultLocale}>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2804737462866511"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
