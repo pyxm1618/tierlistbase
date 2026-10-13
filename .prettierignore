@@ -6,3 +6,8 @@ bun.lock
 docs
 README.md
 drizzle/meta
+dist
+.vinext
+.cloudflare
+.wrangler
+.vercel

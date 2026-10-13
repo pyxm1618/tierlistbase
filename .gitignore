@@ -11,3 +11,8 @@ test-results
 .DS_Store
 *.log
 .worktrees
+/dist/
+.vinext/
+.cloudflare/
+.vercel
+.wrangler/
