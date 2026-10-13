@@ -5,7 +5,7 @@ export const legalConfig = {
   operator: {
     legalName: "TierListBase Operator (Pending Legal Review)",
     jurisdiction: "Pending Legal Review",
-    supportEmail: "contact@tierlistbase.com",
+    supportEmail: "support@tierlistbase.com",
   },
   minimumAge: 18,
   dataCategories: ["essential technical and security events (no personal accounts)"],
