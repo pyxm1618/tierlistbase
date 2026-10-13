@@ -17,6 +17,7 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
     ...(input.analytics.ga4 ? ["https://www.googletagmanager.com"] : []),
     ...(input.analytics.clarity ? ["https://www.clarity.ms"] : []),
     ...(input.turnstile ? [turnstileOrigin] : []),
+    "https://pagead2.googlesyndication.com",
   ];
   const connectSources = [
     "'self'",
