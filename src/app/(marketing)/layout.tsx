@@ -16,6 +16,9 @@ export default async function MarketingLayout({ children }: Readonly<{ children:
   await connection();
   return (
     <html lang={siteConfig.defaultLocale}>
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-2804737462866511" />
+      </head>
       <body>
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
