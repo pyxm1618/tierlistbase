@@ -15,7 +15,6 @@ describe("buildContentSecurityPolicy", () => {
     const scriptDirective = csp.match(/(?:^|; )script-src ([^;]+)/)?.[1] ?? "";
     expect(scriptDirective).toContain("'self'");
     expect(scriptDirective).toContain("'nonce-nonce-value'");
-    expect(scriptDirective).toContain("https://pagead2.googlesyndication.com");
     expect(scriptDirective).not.toContain("'unsafe-inline'");
     expect(scriptDirective).not.toContain("'unsafe-eval'");
     expect(csp).toContain("upgrade-insecure-requests");
