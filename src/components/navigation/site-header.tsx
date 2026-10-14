@@ -9,6 +9,7 @@ export function Brand({ href = "/" }: { href?: string }) {
   return (
     <Link
       href={href}
+      prefetch={true}
       aria-label="TierListBase home"
       className="inline-flex shrink-0 items-center gap-2 text-white no-underline"
     >
@@ -39,10 +40,10 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
       <div className="mx-auto flex h-[54px] w-[calc(100%_-_32px)] items-center gap-6 px-4 sm:w-[93.4%] max-w-[1820px] sm:px-0">
         <Brand href={homeHref} />
         <nav className="hidden items-center gap-5 sm:flex" aria-label="Primary navigation">
-          <Link href={wowHref} className={navLink}>
+          <Link href={wowHref} className={navLink} prefetch={true}>
             World of Warcraft
           </Link>
-          <Link href={genshinHref} className={navLink}>
+          <Link href={genshinHref} className={navLink} prefetch={true}>
             Genshin Impact
           </Link>
         </nav>
@@ -59,13 +60,13 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
             aria-label="Mobile navigation"
             className="absolute right-0 top-full mt-2 flex min-w-56 flex-col gap-2 rounded-lg border border-[#265174] bg-[#061b30] p-3 shadow-xl"
           >
-            <Link href={homeHref} className={navLink}>
+            <Link href={homeHref} className={navLink} prefetch={true}>
               Home
             </Link>
-            <Link href={wowHref} className={navLink}>
+            <Link href={wowHref} className={navLink} prefetch={true}>
               World of Warcraft
             </Link>
-            <Link href={genshinHref} className={navLink}>
+            <Link href={genshinHref} className={navLink} prefetch={true}>
               Genshin Impact
             </Link>
             {featuresConfig.auth.enabled ? (

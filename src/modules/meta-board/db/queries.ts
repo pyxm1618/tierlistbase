@@ -502,36 +502,49 @@ export async function getGameMetaBoardData(options?: {
 
   const entityIds = rows.map((r) => r.entityId);
 
-  // 7. Fetch associated source ratings strictly isolated to CURRENT version and context
-  const sourceEvidenceRows = await db
-    .select({
-      entityId: sourceRatings.entityId,
-      sourceId: sources.id,
-      sourceName: sources.name,
-      sourceUrl: sources.url,
-      sourceType: sources.sourceType,
-      publisher: sources.publisher,
-      publishedAt: sources.publishedAt,
-      updatedAtSource: sources.updatedAtSource,
-      checkedAt: sources.checkedAt,
-      rawTier: sourceRatings.rawTier,
-      rawRank: sourceRatings.rawRank,
-      rawScore: sourceRatings.rawScore,
-      normalizedTier: sourceRatings.normalizedTier,
-      normalizedScore: sourceRatings.normalizedScore,
-      sourceFreshness: sources.freshnessStatus,
-      ratingGameVersionId: sourceRatings.gameVersionId,
-      notes: sourceRatings.notes,
-    })
-    .from(sourceRatings)
-    .innerJoin(sources, eq(sourceRatings.sourceId, sources.id))
-    .where(
-      and(
-        inArray(sourceRatings.entityId, entityIds),
-        eq(sourceRatings.rankingContextId, chosenContext.contextId),
-        eq(sourceRatings.gameVersionId, selectedVersionRow.id),
+  // 7 & 8. Fetch associated source ratings and latest rating changes concurrently
+  const [sourceEvidenceRows, changeRows] = await Promise.all([
+    db
+      .select({
+        entityId: sourceRatings.entityId,
+        sourceId: sources.id,
+        sourceName: sources.name,
+        sourceUrl: sources.url,
+        sourceType: sources.sourceType,
+        publisher: sources.publisher,
+        publishedAt: sources.publishedAt,
+        updatedAtSource: sources.updatedAtSource,
+        checkedAt: sources.checkedAt,
+        rawTier: sourceRatings.rawTier,
+        rawRank: sourceRatings.rawRank,
+        rawScore: sourceRatings.rawScore,
+        normalizedTier: sourceRatings.normalizedTier,
+        normalizedScore: sourceRatings.normalizedScore,
+        sourceFreshness: sources.freshnessStatus,
+        ratingGameVersionId: sourceRatings.gameVersionId,
+        notes: sourceRatings.notes,
+      })
+      .from(sourceRatings)
+      .innerJoin(sources, eq(sourceRatings.sourceId, sources.id))
+      .where(
+        and(
+          inArray(sourceRatings.entityId, entityIds),
+          eq(sourceRatings.rankingContextId, chosenContext.contextId),
+          eq(sourceRatings.gameVersionId, selectedVersionRow.id),
+        ),
       ),
-    );
+    db
+      .select()
+      .from(ratingChanges)
+      .where(
+        and(
+          inArray(ratingChanges.entityId, entityIds),
+          eq(ratingChanges.rankingContextId, chosenContext.contextId),
+          eq(ratingChanges.toVersionId, selectedVersionRow.id),
+        ),
+      )
+      .orderBy(desc(ratingChanges.changedAt)),
+  ]);
 
   const evidenceByEntity = new Map<string, SourceEvidenceItem[]>();
   for (const item of sourceEvidenceRows) {
@@ -557,19 +570,6 @@ export async function getGameMetaBoardData(options?: {
       notes: item.notes,
     });
   }
-
-  // 8. Fetch latest rating changes for these entities strictly for CURRENT version and context
-  const changeRows = await db
-    .select()
-    .from(ratingChanges)
-    .where(
-      and(
-        inArray(ratingChanges.entityId, entityIds),
-        eq(ratingChanges.rankingContextId, chosenContext.contextId),
-        eq(ratingChanges.toVersionId, selectedVersionRow.id),
-      ),
-    )
-    .orderBy(desc(ratingChanges.changedAt));
 
   const latestChangeByEntity = new Map<string, BoardEntityItem["latestTierChange"]>();
   const changesByEntity = new Map<string, BoardEntityItem["tierChanges"]>();
