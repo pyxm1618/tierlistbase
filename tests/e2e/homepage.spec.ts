@@ -41,11 +41,29 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(popular.getByLabel("Exploration : coming soon")).toBeVisible();
 
   const heroImage = page.locator(".tlb-hero-art img");
-  await expect(heroImage).toHaveAttribute("src", /images%2Fhome%2Fhero\.webp|images\/home\/hero\.webp/);
+  await expect(heroImage).toHaveAttribute(
+    "src",
+    /images%2Fhome%2Fhero\.webp|images\/home\/hero\.webp/,
+  );
+  await expect(heroImage).toHaveAttribute("sizes", "(max-width: 700px) 88vw, 68vw");
+
+  const imagePreloads = page.locator('link[rel="preload"][as="image"]');
+  await expect(imagePreloads).toHaveCount(1);
+  await expect(imagePreloads).toHaveAttribute("imagesizes", "(max-width: 700px) 88vw, 68vw");
+  await expect(imagePreloads).toHaveAttribute(
+    "imagesrcset",
+    /images%2Fhome%2Fhero\.webp|images\/home\/hero\.webp/,
+  );
+
   const gameImages = page.locator(".tlb-game-grid .tlb-card-image img");
   await expect(gameImages).toHaveCount(2);
-  await expect(gameImages.nth(0)).toHaveAttribute("loading", "lazy");
-  await expect(gameImages.nth(1)).toHaveAttribute("loading", "lazy");
+  for (const gameImage of await gameImages.all()) {
+    await expect(gameImage).toHaveAttribute("loading", "lazy");
+    await expect(gameImage).toHaveAttribute(
+      "sizes",
+      "(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 46vw, 901px",
+    );
+  }
 
   await expect(page.getByText(/best online tool/i)).toHaveCount(0);
 
