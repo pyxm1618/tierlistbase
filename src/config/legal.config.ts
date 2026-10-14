@@ -43,8 +43,8 @@ export const legalConfig = {
   internationalTransfers:
     "TierListBase V1 is hosted on global edge infrastructure. No personal user data is transferred or retained.",
   documents: {
-    privacy: { version: "1.0", effectiveDate: "2026-10-13", reviewStatus: "draft" },
-    terms: { version: "1.0", effectiveDate: "2026-10-13", reviewStatus: "draft" },
+    privacy: { version: "draft-2", effectiveDate: "2026-10-14", reviewStatus: "draft" },
+    terms: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
     acceptable_use: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
     refund_policy: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
     account_deletion: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },

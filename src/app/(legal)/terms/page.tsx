@@ -18,7 +18,6 @@ export default function TermsPage() {
       title="Terms of Service"
       document={legalConfig.documents.terms}
       sections={legalConfig.content.terms}
-      showReviewStatus={false}
     />
   );
 }

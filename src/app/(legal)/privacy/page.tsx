@@ -19,7 +19,6 @@ export default function PrivacyPage() {
       title="Privacy Notice"
       document={legalConfig.documents.privacy}
       sections={legalConfig.content.privacy}
-      showReviewStatus={false}
     >
       <section className="mt-10">
         <h2 className="text-lg font-semibold tracking-tight text-foreground">

@@ -9,13 +9,11 @@ export function LegalDocument({
   title,
   document,
   sections,
-  showReviewStatus = true,
   children,
 }: Readonly<{
   title: string;
   document: LegalDocumentVersion;
   sections: readonly LegalSectionContent[];
-  showReviewStatus?: boolean;
   children?: ReactNode;
 }>) {
   return (
@@ -28,8 +26,7 @@ export function LegalDocument({
         {title}
       </h1>
       <p className="mt-4 text-sm text-muted">
-        Version {document.version} · Effective {document.effectiveDate}
-        {showReviewStatus ? ` · ${document.reviewStatus}` : null}
+        Version {document.version} · Effective {document.effectiveDate} · {document.reviewStatus}
       </p>
       <div className="mt-4 border-t border-border" />
       {sections.map((section) => (
