@@ -128,6 +128,51 @@ test("game navigation active state follows pathname only", async ({ page }) => {
   await expect(genshinNav).toHaveAttribute("aria-current", "page");
 });
 
+
+test("visual evidence captures approved homepage viewports", async ({ page }) => {
+  const viewports = [
+    { width: 390, height: 844 },
+    { width: 768, height: 1024 },
+    { width: 1024, height: 768 },
+    { width: 1440, height: 900 },
+    { width: 1920, height: 1080 },
+    { width: 2560, height: 1440 },
+  ] as const;
+  const evidenceWidths = new Set([390, 1440, 1920]);
+
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await page.goto("/", { waitUntil: "networkidle" });
+
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.locator(".tlb-hero-art img")).toBeVisible();
+    await expect(page.locator(".tlb-game-grid .tlb-card-image img")).toHaveCount(2);
+    await expect(page.locator("#popular-rankings .tlb-popular-item")).toHaveCount(6);
+    await expect(page.locator("#popular-rankings a.tlb-popular-item")).toHaveCount(1);
+
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    );
+    expect(overflow).toBeLessThanOrEqual(1);
+
+    if (evidenceWidths.has(viewport.width)) {
+      const screenshot = await page.screenshot({
+        fullPage: true,
+        type: "jpeg",
+        quality: 45,
+      });
+      const encoded = screenshot.toString("base64");
+      console.log(`TLB_VISUAL_${viewport.width}_BEGIN:${encoded.length}`);
+      for (let offset = 0, chunk = 0; offset < encoded.length; offset += 30_000, chunk += 1) {
+        console.log(
+          `TLB_VISUAL_${viewport.width}_CHUNK_${chunk}:${encoded.slice(offset, offset + 30_000)}`,
+        );
+      }
+      console.log(`TLB_VISUAL_${viewport.width}_END`);
+    }
+  }
+});
+
 test("Genshin tier-list route is public, clickable, and noindex until reviewed data exists", async ({
   page,
 }) => {
