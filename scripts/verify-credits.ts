@@ -47,11 +47,10 @@ if (featuresConfig.commerce.credits) {
     }
   }
 
-  const vercel = JSON.parse(await readFile("vercel.json", "utf8")) as {
-    crons?: Array<{ path?: string }>;
-  };
-  if (!vercel.crons?.some((cron) => cron.path === "/api/internal/jobs/credit-expiry")) {
-    throw new Error("credit recovery cron is required when credits are enabled");
+  const workerConfig = await readFile("wrangler.jsonc", "utf8");
+  const workerEntry = await readFile("cloudflare-worker.ts", "utf8");
+  if (!/["']crons["']\s*:/.test(workerConfig) || !/\bscheduled\s*\(/.test(workerEntry)) {
+    throw new Error("Cloudflare credit recovery scheduler is required when credits are enabled");
   }
 }
 
