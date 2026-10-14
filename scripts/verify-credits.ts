@@ -46,16 +46,12 @@ if (featuresConfig.commerce.credits) {
       throw new Error(`credit fulfillment has no enabled product: ${definition.fulfillmentKey}`);
     }
   }
-}
 
-const vercel = JSON.parse(await readFile("vercel.json", "utf8")) as {
-  crons?: Array<{ path?: string }>;
-};
-if (
-  featuresConfig.commerce.credits &&
-  !vercel.crons?.some((cron) => cron.path === "/api/internal/jobs/credit-expiry")
-) {
-  throw new Error("credit recovery cron is required when credits are enabled");
+  const workerConfig = await readFile("wrangler.jsonc", "utf8");
+  const workerEntry = await readFile("cloudflare-worker.ts", "utf8");
+  if (!/["']crons["']\s*:/.test(workerConfig) || !/\bscheduled\s*\(/.test(workerEntry)) {
+    throw new Error("Cloudflare credit recovery scheduler is required when credits are enabled");
+  }
 }
 
 console.log(

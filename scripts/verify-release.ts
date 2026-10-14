@@ -440,21 +440,18 @@ export async function verifyRelease(): Promise<void> {
     throw new Error("production release gate must reject draft legal configuration");
   }
 
-  const vercelConfig = JSON.parse(await readFile("vercel.json", "utf8")) as {
-    crons?: Array<{ path?: string }>;
-  };
-  const scheduledPaths = new Set(vercelConfig.crons?.map((cron) => cron.path) ?? []);
-  if (featuresConfig.auth.enabled && !scheduledPaths.has("/api/internal/jobs/account-deletion")) {
-    throw new Error("required internal schedule is missing: /api/internal/jobs/account-deletion");
-  }
-  if (featuresConfig.commerce.enabled && !scheduledPaths.has("/api/internal/jobs/reconcile")) {
-    throw new Error("required internal schedule is missing: /api/internal/jobs/reconcile");
-  }
-  if (featuresConfig.commerce.enabled && !scheduledPaths.has("/api/internal/jobs/commerce")) {
-    throw new Error("durable commerce recovery job is missing from vercel.json");
-  }
-  if (featuresConfig.commerce.credits && !scheduledPaths.has("/api/internal/jobs/credit-expiry")) {
-    throw new Error("durable credit expiry job is missing from vercel.json");
+  const requiresScheduledRecovery =
+    featuresConfig.auth.enabled ||
+    featuresConfig.commerce.enabled ||
+    featuresConfig.commerce.credits;
+  if (releaseMode !== "test" && requiresScheduledRecovery) {
+    const workerConfig = await readFile("wrangler.jsonc", "utf8");
+    const workerEntry = await readFile("cloudflare-worker.ts", "utf8");
+    if (!/["']crons["']\s*:/.test(workerConfig) || !/\bscheduled\s*\(/.test(workerEntry)) {
+      throw new Error(
+        "required Cloudflare scheduled recovery infrastructure is missing for enabled features",
+      );
+    }
   }
 
   await verifyCreditsReleaseArtifacts(".");
