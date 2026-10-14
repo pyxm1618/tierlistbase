@@ -174,7 +174,8 @@ async function main() {
       }
     > = {};
 
-    const SAMPLES = 10;
+    const SAMPLES = Number(process.env.SAMPLES ?? 30);
+    const ONLY_WARM = process.env.ONLY_WARM === "1";
 
     for (const route of ROUTES) {
       results[route.name] = {
@@ -186,19 +187,21 @@ async function main() {
       console.log(`Testing Route: ${route.name}`);
       console.log(`========================================`);
 
-      // 1. Cold Navigation (10 samples)
-      console.log(`--- Cold Navigation (${SAMPLES} samples) ---`);
-      for (let i = 0; i < SAMPLES; i++) {
-        const timing = await runSample(browser, route, "cold");
-        results[route.name]!.cold.total.push(timing.totalMs);
-        results[route.name]!.cold.url.push(timing.urlMs);
-        process.stdout.write(
-          `#${i + 1}:${timing.totalMs.toFixed(0)}ms(url:${timing.urlMs.toFixed(0)}ms) `,
-        );
+      // 1. Cold Navigation (if not ONLY_WARM)
+      if (!ONLY_WARM) {
+        console.log(`--- Cold Navigation (${SAMPLES} samples) ---`);
+        for (let i = 0; i < SAMPLES; i++) {
+          const timing = await runSample(browser, route, "cold");
+          results[route.name]!.cold.total.push(timing.totalMs);
+          results[route.name]!.cold.url.push(timing.urlMs);
+          process.stdout.write(
+            `#${i + 1}:${timing.totalMs.toFixed(0)}ms(url:${timing.urlMs.toFixed(0)}ms) `,
+          );
+        }
+        console.log();
       }
-      console.log();
 
-      // 2. Warm Navigation (10 samples)
+      // 2. Warm Navigation
       console.log(`--- Warm Navigation (${SAMPLES} samples) ---`);
       for (let i = 0; i < SAMPLES; i++) {
         const timing = await runSample(browser, route, "warm");
