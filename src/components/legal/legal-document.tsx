@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { Breadcrumbs } from "@/components/navigation/breadcrumbs";
 import type { LegalDocumentVersion, LegalSectionContent } from "@/platform/legal/types";
 
@@ -7,10 +9,14 @@ export function LegalDocument({
   title,
   document,
   sections,
+  showReviewStatus = true,
+  children,
 }: Readonly<{
   title: string;
   document: LegalDocumentVersion;
   sections: readonly LegalSectionContent[];
+  showReviewStatus?: boolean;
+  children?: ReactNode;
 }>) {
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-14 sm:px-8 sm:py-20">
@@ -22,12 +28,14 @@ export function LegalDocument({
         {title}
       </h1>
       <p className="mt-4 text-sm text-muted">
-        Version {document.version} · Effective {document.effectiveDate} · {document.reviewStatus}
+        Version {document.version} · Effective {document.effectiveDate}
+        {showReviewStatus ? ` · ${document.reviewStatus}` : null}
       </p>
       <div className="mt-4 border-t border-border" />
       {sections.map((section) => (
         <LegalSection key={section.heading} section={section} />
       ))}
+      {children}
     </main>
   );
 }

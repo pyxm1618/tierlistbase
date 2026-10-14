@@ -384,7 +384,15 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
               return item.ready ? (
                 <Link
                   key={item.title + item.subtitle}
-                  href={item.title === "Genshin" ? genshinHref : wowHref}
+                  href={
+                    item.title === "Genshin"
+                      ? genshinHref
+                      : item.subtitle === "PvP"
+                        ? `${wowHref}?mode=pvp`
+                        : item.subtitle === "Leveling"
+                          ? `${wowHref}?mode=leveling`
+                          : wowHref
+                  }
                   aria-label={
                     item.title === "Genshin"
                       ? "Open Genshin Impact tier list"
