@@ -25,6 +25,11 @@ export function SiteFooter() {
           <p className="mt-2 text-[.8rem] text-slate-300">
             For players who want to understand the meta.
           </p>
+          <p className="mt-2 max-w-md text-xs text-slate-400">
+            TierListBase is an independent third-party game ranking and analysis site, not an
+            official site of or affiliated with Blizzard, World of Warcraft, HoYoverse, or Genshin
+            Impact.
+          </p>
         </div>
         <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3">
           {links.map(({ label, href }) => (

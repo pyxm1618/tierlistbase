@@ -43,7 +43,7 @@ export const legalConfig = {
   internationalTransfers:
     "TierListBase V1 is hosted on global edge infrastructure. No personal user data is transferred or retained.",
   documents: {
-    privacy: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
+    privacy: { version: "draft-2", effectiveDate: "2026-10-14", reviewStatus: "draft" },
     terms: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
     acceptable_use: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
     refund_policy: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
@@ -67,6 +67,13 @@ export const legalConfig = {
         heading: "External processors",
         paragraphs: [
           "No third-party email delivery, analytics, or payment processors are activated for user tracking in V1.",
+        ],
+      },
+      {
+        heading: "Advertising and related data",
+        paragraphs: [
+          "If we enable Google advertising services, third-party advertising vendors, including Google, may place or read cookies to serve ads based on visits to this website or other websites. Google and its partners may also use web beacons, IP addresses, and device or browser identifiers to deliver and measure ads and, depending on your settings and applicable consent, provide personalized or non-personalized advertising. Non-personalized ads may still use these technologies for measurement and fraud prevention.",
+          "These advertising-related practices apply only when advertising services are actually enabled. Any analytics-related processing applies only when an analytics service is actually enabled; this notice does not mean that advertising or analytics is currently active on TierListBase.",
         ],
       },
     ],
