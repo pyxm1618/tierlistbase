@@ -8,13 +8,7 @@ export function CharacterAvatar({ name, detail = false }: { name: string; detail
       className={detail ? styles.detailAvatar : styles.avatar}
       data-avatar={detail ? "detail" : "board"}
     >
-      <Image
-        src={mockAvatar}
-        alt=""
-        fill
-        sizes={detail ? "96px" : "(max-width: 600px) 80px, (min-width: 1820px) 96px, 88px"}
-        loading="lazy"
-      />
+      <Image src={mockAvatar} alt="" fill sizes="96px" loading="lazy" />
       <span aria-hidden="true" className={styles.initials}>
         {name
           .split(" ")
