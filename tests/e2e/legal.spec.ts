@@ -1,20 +1,29 @@
 import { expect, test } from "@playwright/test";
 
+import { legalConfig } from "../../src/config/legal.config";
+
 const legalRoutes = [
-  { route: "/privacy", version: "draft-2" },
-  { route: "/terms", version: "draft-1" },
-  { route: "/acceptable-use", version: "draft-1" },
-  { route: "/refund-policy", version: "draft-1" },
-  { route: "/account-deletion", version: "draft-1" },
+  { route: "/privacy", document: "privacy" },
+  { route: "/terms", document: "terms" },
+  { route: "/acceptable-use", document: "acceptable_use" },
+  { route: "/refund-policy", document: "refund_policy" },
+  { route: "/account-deletion", document: "account_deletion" },
 ] as const;
 
-for (const { route, version } of legalRoutes) {
+for (const { route, document } of legalRoutes) {
   test(`${route} is reachable, versioned and noindex`, async ({ page }) => {
     const response = await page.goto(route);
     expect(response?.status()).toBe(200);
     await expect(page.locator("h1")).toHaveCount(1);
-    await expect(page.getByText(new RegExp(`Version ${version}`, "i"))).toBeVisible();
-    await expect(page.getByText(/ · draft$/i)).toBeVisible();
+
+    const expectedDocument = legalConfig.documents[document];
+    await expect(
+      page.getByText(
+        `Version ${expectedDocument.version} · Effective ${expectedDocument.effectiveDate} · ${expectedDocument.reviewStatus}`,
+        { exact: true },
+      ),
+    ).toBeVisible();
+
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/i);
     await expect(page.getByRole("contentinfo")).toBeVisible();
   });
