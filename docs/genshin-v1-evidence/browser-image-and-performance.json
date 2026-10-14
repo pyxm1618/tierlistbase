@@ -1,0 +1,226 @@
+[
+  {
+    "project": "desktop",
+    "name": "marketing-performance-metrics",
+    "observations": {
+      "route": "/genshin-impact/tier-list",
+      "cls": 0.011801351626714071,
+      "inp": 48,
+      "lcp": 164,
+      "scriptBytes": 151490,
+      "scriptCount": 9,
+      "oversizedImages": []
+    }
+  },
+  {
+    "project": "desktop",
+    "name": "genshin-image-evidence-390px",
+    "observations": [
+      {
+        "name": "hero",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero-f958fb67df.a8ec62c8.webp&w=640&q=75",
+        "naturalWidth": 390,
+        "renderedWidth": 390,
+        "encodedBodySize": 17264,
+        "dpr": 1,
+        "responseBodyBytes": 31933
+      },
+      {
+        "name": "board",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=96&q=75",
+        "naturalWidth": 80,
+        "renderedWidth": 80,
+        "encodedBodySize": 1633,
+        "dpr": 1,
+        "responseBodyBytes": 2857
+      },
+      {
+        "name": "detail",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=96&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 94,
+        "encodedBodySize": 1633,
+        "dpr": 1,
+        "responseBodyBytes": 2857
+      }
+    ]
+  },
+  {
+    "project": "desktop",
+    "name": "genshin-image-evidence-1920px",
+    "observations": [
+      {
+        "name": "hero",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero-f958fb67df.a8ec62c8.webp&w=1920&q=75",
+        "naturalWidth": 1819,
+        "renderedWidth": 1820,
+        "encodedBodySize": 101688,
+        "dpr": 1,
+        "responseBodyBytes": 198579
+      },
+      {
+        "name": "board",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=96&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 96,
+        "encodedBodySize": 1633,
+        "dpr": 1,
+        "responseBodyBytes": 2857
+      },
+      {
+        "name": "detail",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=96&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 94,
+        "encodedBodySize": 1633,
+        "dpr": 1,
+        "responseBodyBytes": 2857
+      }
+    ]
+  },
+  {
+    "project": "desktop",
+    "name": "genshin-image-evidence-2560px",
+    "observations": [
+      {
+        "name": "hero",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero-f958fb67df.a8ec62c8.webp&w=1920&q=75",
+        "naturalWidth": 1819,
+        "renderedWidth": 1820,
+        "encodedBodySize": 101688,
+        "dpr": 1,
+        "responseBodyBytes": 198579
+      },
+      {
+        "name": "board",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=96&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 96,
+        "encodedBodySize": 1633,
+        "dpr": 1,
+        "responseBodyBytes": 2857
+      },
+      {
+        "name": "detail",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=96&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 94,
+        "encodedBodySize": 1633,
+        "dpr": 1,
+        "responseBodyBytes": 2857
+      }
+    ]
+  },
+  {
+    "project": "mobile",
+    "name": "marketing-performance-metrics",
+    "observations": {
+      "route": "/genshin-impact/tier-list",
+      "cls": 0.0027974233593594873,
+      "inp": 56,
+      "lcp": 116,
+      "scriptBytes": 145004,
+      "scriptCount": 7,
+      "oversizedImages": []
+    }
+  },
+  {
+    "project": "mobile",
+    "name": "genshin-image-evidence-390px",
+    "observations": [
+      {
+        "name": "hero",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero-f958fb67df.a8ec62c8.webp&w=1080&q=75",
+        "naturalWidth": 390,
+        "renderedWidth": 390,
+        "encodedBodySize": 41594,
+        "dpr": 2.625,
+        "responseBodyBytes": 78721
+      },
+      {
+        "name": "board",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=256&q=75",
+        "naturalWidth": 80,
+        "renderedWidth": 80,
+        "encodedBodySize": 4812,
+        "dpr": 2.625,
+        "responseBodyBytes": 10365
+      },
+      {
+        "name": "detail",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=256&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 94,
+        "encodedBodySize": 4812,
+        "dpr": 2.625,
+        "responseBodyBytes": 10365
+      }
+    ]
+  },
+  {
+    "project": "mobile",
+    "name": "genshin-image-evidence-1920px",
+    "observations": [
+      {
+        "name": "hero",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero-f958fb67df.a8ec62c8.webp&w=3840&q=75",
+        "naturalWidth": 1010,
+        "renderedWidth": 1820,
+        "encodedBodySize": 131534,
+        "dpr": 2.625,
+        "responseBodyBytes": 250015
+      },
+      {
+        "name": "board",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=256&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 96,
+        "encodedBodySize": 4812,
+        "dpr": 2.625,
+        "responseBodyBytes": 10365
+      },
+      {
+        "name": "detail",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=256&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 94,
+        "encodedBodySize": 4812,
+        "dpr": 2.625,
+        "responseBodyBytes": 10365
+      }
+    ]
+  },
+  {
+    "project": "mobile",
+    "name": "genshin-image-evidence-2560px",
+    "observations": [
+      {
+        "name": "hero",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fhero-f958fb67df.a8ec62c8.webp&w=3840&q=75",
+        "naturalWidth": 1010,
+        "renderedWidth": 1820,
+        "encodedBodySize": 131534,
+        "dpr": 2.625,
+        "responseBodyBytes": 250015
+      },
+      {
+        "name": "board",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=256&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 96,
+        "encodedBodySize": 4812,
+        "dpr": 2.625,
+        "responseBodyBytes": 10365
+      },
+      {
+        "name": "detail",
+        "currentSrc": "http://127.0.0.1:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmock-avatar-1914c60a0f.2b738409.webp&w=256&q=75",
+        "naturalWidth": 96,
+        "renderedWidth": 94,
+        "encodedBodySize": 4812,
+        "dpr": 2.625,
+        "responseBodyBytes": 10365
+      }
+    ]
+  }
+]

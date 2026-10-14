@@ -1,0 +1,7 @@
+{
+  "environment": "production (local server, no deployment)",
+  "robots": "noindex, follow",
+  "canonicalLinks": 0,
+  "heroAsset": "/_next/static/media/hero-f958fb67df.a8ec62c8.webp",
+  "cacheControl": "public, max-age=31536000, immutable"
+}

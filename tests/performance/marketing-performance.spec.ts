@@ -7,7 +7,12 @@ declare global {
   }
 }
 
-const routes = ["/", "/wow-forever/tier-list", "/wow-forever/tier-list?level=30"] as const;
+const routes = [
+  "/",
+  "/wow-forever/tier-list",
+  "/wow-forever/tier-list?level=30",
+  "/genshin-impact/tier-list",
+] as const;
 
 for (const route of routes) {
   test(`${route} stays within marketing release budgets`, async ({ page, request }) => {
@@ -101,8 +106,19 @@ for (const route of routes) {
       ),
     ).toEqual([]);
 
+    if (route === "/genshin-impact/tier-list") {
+      await page.getByRole("searchbox", { name: "Search characters" }).fill("Nahida");
+      await page.getByRole("button", { name: "Support", exact: true }).click();
+      await page.getByRole("button", { name: "Dendro", exact: true }).click();
+      await page.getByRole("button", { name: /Nahida, Dendro/ }).click();
+      await expect(
+        page.getByRole("heading", { name: "Why this Tier", exact: true }).filter({ visible: true }),
+      ).toBeVisible();
+      await page.waitForTimeout(100);
+    }
+
     const firstLink = page.locator('a[href^="/"]').first();
-    if ((await firstLink.count()) > 0) {
+    if (route !== "/genshin-impact/tier-list" && (await firstLink.count()) > 0) {
       await firstLink.evaluate((element) => {
         element.addEventListener(
           "click",
@@ -150,5 +166,65 @@ for (const route of routes) {
     expect(metrics.scriptBytes).toBeLessThanOrEqual(350_000);
     expect(metrics.scriptCount).toBeLessThanOrEqual(20);
     expect(metrics.oversizedImages).toEqual([]);
+  });
+}
+
+for (const width of [390, 1920, 2560]) {
+  test(`Genshin image candidates at ${width}px match DPR without avatar preloads`, async ({
+    page,
+    request,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/genshin-impact/tier-list", { waitUntil: "networkidle" });
+    const preloads = page.locator('link[rel="preload"][as="image"]');
+    await expect(preloads).toHaveCount(1);
+    await expect(preloads).toHaveAttribute("imagesrcset", /hero-f958fb67df/);
+    const card = page.getByRole("button", { name: /Nahida, Dendro/ });
+    await card.click();
+    const samples = [];
+    for (const [name, selector] of [
+      ["hero", '[data-ia-section="page-header"] img'],
+      ["board", '[data-avatar="board"] img'],
+      ["detail", '[data-avatar="detail"] img'],
+    ] as const) {
+      const image = page.locator(selector).filter({ visible: true }).first();
+      await expect(image).toBeVisible();
+      await expect(image).toHaveJSProperty("complete", true);
+      await expect(image).toHaveAttribute("sizes", /.+/);
+      const sample = await image.evaluate((element) => {
+        const image = element as HTMLImageElement;
+        const timing = (
+          performance.getEntriesByType("resource") as PerformanceResourceTiming[]
+        ).find((entry) => entry.name === image.currentSrc);
+        return {
+          currentSrc: image.currentSrc,
+          naturalWidth: image.naturalWidth,
+          renderedWidth: image.getBoundingClientRect().width,
+          encodedBodySize: timing?.encodedBodySize ?? null,
+          dpr: devicePixelRatio,
+        };
+      });
+      expect(sample.naturalWidth).toBeGreaterThan(0);
+      expect(sample.renderedWidth).toBeGreaterThan(0);
+      expect(sample.currentSrc).toContain("/_next/image?");
+      expect(sample.currentSrc).toContain(".webp");
+      const response = await request.get(sample.currentSrc);
+      expect(response.status()).toBe(200);
+      const bytes = (await response.body()).length;
+      expect(bytes).toBeLessThan(name === "hero" ? 500_000 : 50_000);
+      if (name !== "hero") {
+        await expect(image).toHaveAttribute("loading", "lazy");
+        const candidateWidth = Number(new URL(sample.currentSrc).searchParams.get("w"));
+        expect(candidateWidth).toBeLessThanOrEqual(384);
+        expect(candidateWidth).toBeGreaterThanOrEqual(
+          Math.min(256, sample.renderedWidth * sample.dpr),
+        );
+      }
+      samples.push({ name, ...sample, responseBodyBytes: bytes });
+    }
+    await test.info().attach(`genshin-image-evidence-${width}px`, {
+      body: JSON.stringify(samples, null, 2),
+      contentType: "application/json",
+    });
   });
 }
