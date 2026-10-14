@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 
 export function SiteHeaderGameLink({
   href,
@@ -10,7 +11,7 @@ export function SiteHeaderGameLink({
 }: Readonly<{
   href: string;
   className: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   const pathname = usePathname();
   const active = pathname === href;
@@ -18,9 +19,7 @@ export function SiteHeaderGameLink({
   return (
     <Link
       href={href}
-      className={
-        className + (active ? " border-b-2 border-amber-400 text-amber-300" : "")
-      }
+      className={className + (active ? " border-b-2 border-amber-400 text-amber-300" : "")}
       prefetch={true}
       aria-current={active ? "page" : undefined}
     >
