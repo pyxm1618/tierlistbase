@@ -1,0 +1,51 @@
+[
+  {
+    "key": "hoyowiki",
+    "name": "HoYoWiki",
+    "publisher": "HoYoverse",
+    "sourceType": "official-reference",
+    "baseUrl": "https://wiki.hoyolab.com/"
+  },
+  {
+    "key": "hoyolab-official",
+    "name": "HoYoLAB / HoYoverse",
+    "publisher": "HoYoverse",
+    "sourceType": "official-announcement",
+    "baseUrl": "https://www.hoyolab.com/"
+  },
+  {
+    "key": "genshin-builds",
+    "name": "Genshin Builds",
+    "publisher": "Genshin Builds",
+    "sourceType": "third-party-observed-data",
+    "baseUrl": "https://genshin-builds.com/"
+  },
+  {
+    "key": "stygian-moe",
+    "name": "Stygian.moe",
+    "publisher": "Stygian.moe",
+    "sourceType": "third-party-endgame-records",
+    "baseUrl": "https://www.stygian.moe/"
+  },
+  {
+    "key": "mobalytics",
+    "name": "Mobalytics",
+    "publisher": "Mobalytics",
+    "sourceType": "editorial-mechanics",
+    "baseUrl": "https://mobalytics.gg/genshin-impact/"
+  },
+  {
+    "key": "icy-veins",
+    "name": "Icy Veins",
+    "publisher": "Icy Veins",
+    "sourceType": "editorial-mechanics",
+    "baseUrl": "https://www.icy-veins.com/genshin-impact/"
+  },
+  {
+    "key": "kqm",
+    "name": "KeqingMains",
+    "publisher": "KeqingMains",
+    "sourceType": "theorycrafting-mechanics",
+    "baseUrl": "https://keqingmains.com/"
+  }
+]

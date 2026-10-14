@@ -1,4 +1,14 @@
-import { integer, numeric, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
+import {
+  check,
+  integer,
+  jsonb,
+  numeric,
+  pgTable,
+  text,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const games = pgTable("games", {
   id: varchar("id", { length: 36 }).primaryKey(),
@@ -39,6 +49,14 @@ export const entities = pgTable("entities", {
   role: varchar("role", { length: 32 }).notNull(),
   status: varchar("status", { length: 32 }).notNull().default("active"),
   sortOrder: integer("sort_order").notNull().default(0),
+});
+
+// Game-specific metadata stays outside the shared entity columns.
+export const entityProfiles = pgTable("entity_profiles", {
+  entityId: varchar("entity_id", { length: 36 })
+    .primaryKey()
+    .references(() => entities.id),
+  metadata: jsonb("metadata").$type<Record<string, unknown>>().notNull(),
 });
 
 export const rankingContexts = pgTable("ranking_contexts", {
@@ -93,32 +111,85 @@ export const sourceRatings = pgTable("source_ratings", {
   notes: text("notes"),
 });
 
-export const ratings = pgTable("ratings", {
-  id: varchar("id", { length: 36 }).primaryKey(),
-  entityId: varchar("entity_id", { length: 36 })
-    .notNull()
-    .references(() => entities.id),
-  rankingContextId: varchar("ranking_context_id", { length: 36 })
-    .notNull()
-    .references(() => rankingContexts.id),
-  gameVersionId: varchar("game_version_id", { length: 36 })
-    .notNull()
-    .references(() => gameVersions.id),
-  tier: varchar("tier", { length: 32 }).notNull(),
-  consensusScore: numeric("consensus_score", { precision: 10, scale: 2 }),
-  sourceCount: integer("source_count").notNull().default(0),
-  agreeingSourceCount: integer("agreeing_source_count").notNull().default(0),
-  disagreementLevel: varchar("disagreement_level", { length: 32 }).notNull().default("none"),
-  dataStatus: varchar("data_status", { length: 32 }).notNull().default("unavailable"),
-  freshnessStatus: varchar("freshness_status", { length: 32 }).notNull().default("current"),
-  whyThisTier: text("why_this_tier"),
-  strengths: text("strengths"),
-  constraints: text("constraints"),
-  publishedAt: timestamp("published_at", { withTimezone: true, mode: "date" })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
-});
+export const ratings = pgTable(
+  "ratings",
+  {
+    primaryRole: varchar("primary_role", { length: 32 }),
+    bestUseContext: text("best_use_context"),
+    rankingAssumption: text("ranking_assumption"),
+    evidenceSummary: text("evidence_summary"),
+    editorialStatus: varchar("editorial_status", { length: 32 }).notNull().default("draft"),
+    id: varchar("id", { length: 36 }).primaryKey(),
+    entityId: varchar("entity_id", { length: 36 })
+      .notNull()
+      .references(() => entities.id),
+    rankingContextId: varchar("ranking_context_id", { length: 36 })
+      .notNull()
+      .references(() => rankingContexts.id),
+    gameVersionId: varchar("game_version_id", { length: 36 })
+      .notNull()
+      .references(() => gameVersions.id),
+    tier: varchar("tier", { length: 32 }).notNull(),
+    consensusScore: numeric("consensus_score", { precision: 10, scale: 2 }),
+    sourceCount: integer("source_count").notNull().default(0),
+    agreeingSourceCount: integer("agreeing_source_count").notNull().default(0),
+    disagreementLevel: varchar("disagreement_level", { length: 32 }).notNull().default("none"),
+    dataStatus: varchar("data_status", { length: 32 }).notNull().default("unavailable"),
+    freshnessStatus: varchar("freshness_status", { length: 32 }).notNull().default("current"),
+    whyThisTier: text("why_this_tier"),
+    strengths: text("strengths"),
+    constraints: text("constraints"),
+    // Existing publishers retain their default; reviewed imports explicitly use NULL.
+    publishedAt: timestamp("published_at", { withTimezone: true, mode: "date" }).defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
+  },
+  (table) => [
+    check(
+      "ratings_editorial_status_check",
+      sql`${table.editorialStatus} in ('draft', 'reviewed', 'published')`,
+    ),
+  ],
+);
+
+export const evidenceObservations = pgTable(
+  "evidence_observations",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    entityId: varchar("entity_id", { length: 36 })
+      .notNull()
+      .references(() => entities.id),
+    sourceId: varchar("source_id", { length: 36 })
+      .notNull()
+      .references(() => sources.id),
+    gameVersionId: varchar("game_version_id", { length: 36 })
+      .notNull()
+      .references(() => gameVersions.id),
+    rankingContextId: varchar("ranking_context_id", { length: 36 }).references(
+      () => rankingContexts.id,
+    ),
+    observationType: varchar("observation_type", { length: 64 }).notNull(),
+    metricKey: varchar("metric_key", { length: 64 }),
+    numericValue: numeric("numeric_value"),
+    textValue: text("text_value"),
+    unit: varchar("unit", { length: 32 }),
+    sampleSize: integer("sample_size"),
+    sourceUrl: text("source_url").notNull(),
+    observedAt: timestamp("observed_at", { withTimezone: true, mode: "date" }),
+    checkedAt: timestamp("checked_at", { withTimezone: true, mode: "date" }).notNull(),
+    status: varchar("status", { length: 32 }).notNull(),
+    notes: text("notes"),
+  },
+  (table) => [
+    check(
+      "evidence_value_check",
+      sql`${table.numericValue} is not null or ${table.textValue} is not null`,
+    ),
+    check(
+      "evidence_sample_size_check",
+      sql`${table.sampleSize} is null or ${table.sampleSize} >= 0`,
+    ),
+  ],
+);
 
 export const ratingChanges = pgTable("rating_changes", {
   id: varchar("id", { length: 36 }).primaryKey(),
@@ -148,3 +219,6 @@ export type Source = typeof sources.$inferSelect;
 export type SourceRating = typeof sourceRatings.$inferSelect;
 export type Rating = typeof ratings.$inferSelect;
 export type RatingChange = typeof ratingChanges.$inferSelect;
+
+export type EntityProfile = typeof entityProfiles.$inferSelect;
+export type EvidenceObservation = typeof evidenceObservations.$inferSelect;
