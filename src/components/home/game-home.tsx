@@ -136,7 +136,7 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
           src={isWow ? "/images/home/wow.webp" : "/images/home/genshin.webp"}
           alt=""
           fill
-          sizes="(max-width: 700px) 100vw, 50vw"
+          sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 46vw, 901px"
           className="tlb-cover"
         />
       </div>
@@ -196,15 +196,28 @@ const benefits: { title: string; description: string; icon: IconName }[] = [
   { title: "Track Changes", description: "See how rankings evolve across patches.", icon: "trend" },
 ];
 
-const popular: { title: string; subtitle: string; icon: IconName; ready: boolean; tone: string }[] =
-  [
-    { title: "WoW", subtitle: "DPS", icon: "swords", ready: true, tone: "coral" },
-    { title: "WoW", subtitle: "PvP", icon: "shield", ready: true, tone: "gold" },
-    { title: "WoW", subtitle: "Leveling", icon: "boot", ready: true, tone: "orange" },
-    { title: "Genshin", subtitle: "Characters", icon: "star", ready: true, tone: "ice" },
-    { title: "Spiral", subtitle: "Abyss", icon: "swirl", ready: false, tone: "blue" },
-    { title: "Exploration", subtitle: "", icon: "compass", ready: false, tone: "gold" },
-  ];
+const popular: {
+  title: string;
+  subtitle: string;
+  icon: IconName;
+  ready: boolean;
+  tone: string;
+  href?: string;
+}[] = [
+  {
+    title: "WoW",
+    subtitle: "DPS",
+    icon: "swords",
+    ready: true,
+    tone: "coral",
+    href: wowHref + "?mode=dungeon&role=dps&level=30",
+  },
+  { title: "WoW", subtitle: "PvP", icon: "shield", ready: false, tone: "gold" },
+  { title: "WoW", subtitle: "Leveling", icon: "boot", ready: false, tone: "orange" },
+  { title: "Genshin", subtitle: "Characters", icon: "star", ready: false, tone: "ice" },
+  { title: "Spiral", subtitle: "Abyss", icon: "swirl", ready: false, tone: "blue" },
+  { title: "Exploration", subtitle: "", icon: "compass", ready: false, tone: "gold" },
+];
 
 function UpdateCard({
   update,
@@ -231,7 +244,7 @@ function UpdateCard({
           src={isGenshin ? "/images/home/genshin.webp" : "/images/home/wow.webp"}
           alt=""
           fill
-          sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+          sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 31vw, 595px"
           className="tlb-cover"
         />
       </div>
@@ -274,8 +287,8 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
             src="/images/home/hero.webp"
             alt=""
             fill
-            sizes="(max-width: 700px) 100vw, 70vw"
-            priority
+            sizes="(max-width: 700px) 88vw, 68vw"
+            preload
             className="tlb-cover tlb-hero-cover"
           />
         </div>
@@ -381,15 +394,11 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
                   </span>
                 </>
               );
-              return item.ready ? (
+              return item.ready && item.href ? (
                 <Link
                   key={item.title + item.subtitle}
-                  href={item.title === "Genshin" ? genshinHref : wowHref}
-                  aria-label={
-                    item.title === "Genshin"
-                      ? "Open Genshin Impact tier list"
-                      : "Open WoW board: " + item.subtitle
-                  }
+                  href={item.href}
+                  aria-label={"Open " + item.title + " ranking: " + item.subtitle}
                   className="tlb-popular-item"
                 >
                   {contents}
