@@ -141,3 +141,23 @@ test("Genshin tier-list route is public, clickable, and noindex until reviewed d
   await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });
+
+test("visual acceptance evidence emits full-page Chromium screenshots", async ({ page }) => {
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 1440, height: 900 },
+    { width: 1920, height: 1080 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/", { waitUntil: "networkidle" });
+    const screenshot = await page.screenshot({
+      fullPage: true,
+      type: "jpeg",
+      quality: 45,
+    });
+    console.log(
+      `TLB_VISUAL_${viewport.width}_BEGIN${screenshot.toString("base64")}TLB_VISUAL_${viewport.width}_END`,
+    );
+  }
+});
+
