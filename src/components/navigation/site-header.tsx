@@ -5,6 +5,8 @@ import { featuresConfig } from "@/config/features.config";
 import { siteConfig } from "@/config/site.config";
 import { localePath } from "@/platform/i18n/routing";
 
+import { SiteHeaderGameLink } from "./site-header-game-link";
+
 export function Brand({ href = "/" }: { href?: string }) {
   return (
     <Link
@@ -40,12 +42,12 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
       <div className="mx-auto flex h-[54px] w-[calc(100%_-_32px)] items-center gap-6 px-4 sm:w-[93.4%] max-w-[1820px] sm:px-0">
         <Brand href={homeHref} />
         <nav className="hidden items-center gap-5 sm:flex" aria-label="Primary navigation">
-          <Link href={wowHref} className={navLink} prefetch={true}>
+          <SiteHeaderGameLink href={wowHref} className={navLink}>
             World of Warcraft
-          </Link>
-          <Link href={genshinHref} className={navLink} prefetch={true}>
+          </SiteHeaderGameLink>
+          <SiteHeaderGameLink href={genshinHref} className={navLink}>
             Genshin Impact
-          </Link>
+          </SiteHeaderGameLink>
         </nav>
         {featuresConfig.auth.enabled ? (
           <Link className={navLink + " ml-auto hidden sm:block"} href="/sign-in">
@@ -63,12 +65,12 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
             <Link href={homeHref} className={navLink} prefetch={true}>
               Home
             </Link>
-            <Link href={wowHref} className={navLink} prefetch={true}>
+            <SiteHeaderGameLink href={wowHref} className={navLink}>
               World of Warcraft
-            </Link>
-            <Link href={genshinHref} className={navLink} prefetch={true}>
+            </SiteHeaderGameLink>
+            <SiteHeaderGameLink href={genshinHref} className={navLink}>
               Genshin Impact
-            </Link>
+            </SiteHeaderGameLink>
             {featuresConfig.auth.enabled ? (
               <Link href="/sign-in" className={navLink}>
                 Sign in
