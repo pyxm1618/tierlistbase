@@ -145,11 +145,16 @@ test("Genshin tier-list route is public, clickable, and noindex until reviewed d
 test("visual acceptance evidence emits full-page Chromium screenshots", async ({ page }) => {
   for (const viewport of [
     { width: 390, height: 844 },
+    { width: 768, height: 1024 },
+    { width: 1024, height: 768 },
     { width: 1440, height: 900 },
     { width: 1920, height: 1080 },
+    { width: 2560, height: 1440 },
   ]) {
     await page.setViewportSize(viewport);
     await page.goto("/", { waitUntil: "networkidle" });
+    const decline = page.getByRole("button", { name: "Decline" });
+    if (await decline.isVisible().catch(() => false)) await decline.click();
     const screenshot = await page.screenshot({
       fullPage: true,
       type: "jpeg",
