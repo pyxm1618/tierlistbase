@@ -155,6 +155,28 @@ test("visual acceptance evidence emits full-page Chromium screenshots", async ({
     await page.goto("/", { waitUntil: "networkidle" });
     const decline = page.getByRole("button", { name: "Decline" });
     if (await decline.isVisible().catch(() => false)) await decline.click();
+    const imageMetrics = await page.evaluate(() => {
+      const resources = performance.getEntriesByType("resource") as PerformanceResourceTiming[];
+      const read = (selector: string) => {
+        const image = document.querySelector<HTMLImageElement>(selector);
+        if (!image) return null;
+        const resource = resources.find((item) => item.name === image.currentSrc);
+        return {
+          currentSrc: image.currentSrc,
+          naturalWidth: image.naturalWidth,
+          renderedWidth: Math.round(image.getBoundingClientRect().width),
+          encodedBodySize: resource?.encodedBodySize ?? null,
+        };
+      };
+      return {
+        hero: read(".tlb-hero-art img"),
+        wow: read(".tlb-game-grid .tlb-game-card:nth-child(1) img"),
+        genshin: read(".tlb-game-grid .tlb-game-card:nth-child(2) img"),
+        scrollWidth: document.documentElement.scrollWidth,
+      };
+    });
+    console.log(`TLB_METRICS_${viewport.width}_${JSON.stringify(imageMetrics)}`);
+
     const screenshot = await page.screenshot({
       fullPage: true,
       type: "jpeg",
