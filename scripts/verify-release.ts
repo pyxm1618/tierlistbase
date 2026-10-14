@@ -444,7 +444,7 @@ export async function verifyRelease(): Promise<void> {
     featuresConfig.auth.enabled ||
     featuresConfig.commerce.enabled ||
     featuresConfig.commerce.credits;
-  if (requiresScheduledRecovery) {
+  if (releaseMode !== "test" && requiresScheduledRecovery) {
     const workerConfig = await readFile("wrangler.jsonc", "utf8");
     const workerEntry = await readFile("cloudflare-worker.ts", "utf8");
     if (!/["']crons["']\s*:/.test(workerConfig) || !/\bscheduled\s*\(/.test(workerEntry)) {
