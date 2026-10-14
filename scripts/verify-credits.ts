@@ -46,16 +46,13 @@ if (featuresConfig.commerce.credits) {
       throw new Error(`credit fulfillment has no enabled product: ${definition.fulfillmentKey}`);
     }
   }
-}
 
-const vercel = JSON.parse(await readFile("vercel.json", "utf8")) as {
-  crons?: Array<{ path?: string }>;
-};
-if (
-  featuresConfig.commerce.credits &&
-  !vercel.crons?.some((cron) => cron.path === "/api/internal/jobs/credit-expiry")
-) {
-  throw new Error("credit recovery cron is required when credits are enabled");
+  const vercel = JSON.parse(await readFile("vercel.json", "utf8")) as {
+    crons?: Array<{ path?: string }>;
+  };
+  if (!vercel.crons?.some((cron) => cron.path === "/api/internal/jobs/credit-expiry")) {
+    throw new Error("credit recovery cron is required when credits are enabled");
+  }
 }
 
 console.log(
