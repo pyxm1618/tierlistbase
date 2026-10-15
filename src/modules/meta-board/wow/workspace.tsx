@@ -56,11 +56,10 @@ export function WowWorkspace({ specs, children }: { specs: WowSpec[]; children: 
                   setDrawerId(null);
                 }}
               >
-                {name !== "All Classes" && <SpecIcon />}
+                {name !== "All Classes" && <SpecIcon className={name} />}
                 <span>{name}</span>
               </button>
             ))}
-            <p>Neutral placeholder icons</p>
           </nav>
           <section className={styles.board} aria-label="Tier Board">
             <header className={styles.boardHeading}>
@@ -70,9 +69,6 @@ export function WowWorkspace({ specs, children }: { specs: WowSpec[]; children: 
               </h2>
               <span>Sorted by Tier / Score</span>
             </header>
-            <p className={styles.placeholderNotice}>
-              Class / Spec icons: neutral placeholders · final assets pending
-            </p>
             {specs.length === 0 && (
               <p className={styles.empty}>
                 No recorded data for this Ranking Context. Not enough data to publish a tier.
@@ -122,7 +118,7 @@ export function WowWorkspace({ specs, children }: { specs: WowSpec[]; children: 
                           aria-label={`${spec.name}, ${spec.role.toUpperCase()}, ${spec.tier} tier`}
                           onClick={() => select(spec)}
                         >
-                          <SpecIcon />
+                          <SpecIcon className={spec.className} specName={spec.specName} />
                           <strong>{spec.specName}</strong>
                           <span>{spec.className ?? "Class not recorded"}</span>
                           <small className={styles.role}>{spec.role.toUpperCase()}</small>

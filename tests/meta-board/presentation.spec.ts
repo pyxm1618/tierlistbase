@@ -220,7 +220,7 @@ for (const width of [390, 768, 1024, 1280, 1440, 1920, 2560])
       body: JSON.stringify(image),
       contentType: "application/json",
     });
-    const icons = page.locator('img[alt="Neutral placeholder icon"]');
+    const icons = page.locator('img[alt$=" icon"]');
     for (const icon of await icons.all()) await expect(icon).toHaveAttribute("loading", "lazy");
     if (width < 1280) {
       await page.getByRole("button", { name: /Arms Warrior, DPS/ }).click();
