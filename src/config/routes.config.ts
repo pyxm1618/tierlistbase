@@ -41,7 +41,7 @@ export const routeDefinitions = [
     class: "public_noindex",
     title: "Genshin Impact Tier List | TierListBase",
     description:
-      "Genshin Impact tier list page on TierListBase. Verified rankings and evidence will appear here as reviewed data is published.",
+      "Genshin Impact Endgame Overall tier list with reviewed character ratings, ranking assumptions and evidence.",
   },
   {
     route: "/privacy",
