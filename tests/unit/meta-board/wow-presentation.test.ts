@@ -131,6 +131,23 @@ describe("WoW stored performance presentation", () => {
       ),
     ).toBe("Stale");
   });
+  it("strictly filters out cohort entities from WoW spec tier board", () => {
+    const cohortItem = {
+      ...item,
+      entityId: "gladiator",
+      entityName: "Gladiator Warrior",
+      entitySlug: "gladiator-warrior",
+      entityType: "cohort",
+      profile: { className: "Warrior", specName: "Gladiator" },
+    } as unknown as BoardEntityItem;
+    const boardWithCohort = {
+      ...board,
+      tiers: [{ tier: "A", items: [item, cohortItem] }],
+    } as MetaBoardData;
+    const specs = buildWowSpecs(boardWithCohort);
+    expect(specs.some((s) => s.specName === "Gladiator")).toBe(false);
+    expect(specs.some((s) => s.specName === "Fire")).toBe(true);
+  });
 });
 
 it("rejects stored tier/score conflict rather than publishing an inconsistent tier", () => {

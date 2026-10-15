@@ -65,6 +65,7 @@ export function parseDungeonEvidence(notes: string | null) {
 export function buildWowSpecs(board: MetaBoardData): WowSpec[] {
   const items = board.tiers.flatMap((group) => group.items);
   const specs = items
+    .filter((item) => item.entityType === "spec")
     .map((item): WowSpec => {
       const sources = item.sources.filter(
         (source) =>

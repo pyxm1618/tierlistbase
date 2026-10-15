@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 
 import postgres from "postgres";
 import {
+  isSpecialCohortSpec,
   requireActivePhase,
   validatePublicationReview,
   type PublicationReview,
@@ -449,23 +450,34 @@ export async function publishWowForeverDataCandidate(input: {
           values (${classId},${gameId},'class',${slugify(item.className)},${item.className},'all','active',0)
           on conflict (id) do nothing`;
 
+        const specKey = foreverLogsSpecKey(item.className, item.specName);
+        const isCohort = isSpecialCohortSpec(specKey, review);
+        const entityType = isCohort ? "cohort" : "spec";
+
         await tx`
           insert into entities (
             id, game_id, parent_entity_id, entity_type, slug, name, role, status, sort_order
           )
           values (
-            ${entity.id}, ${gameId}, ${classId}, 'spec', ${entity.slug}, ${entity.name},
+            ${entity.id}, ${gameId}, ${classId}, ${entityType}, ${entity.slug}, ${entity.name},
             ${entity.role}, 'active', 0
           )
           on conflict (id) do update set
+            entity_type = excluded.entity_type,
             slug = excluded.slug,
             name = excluded.name,
             role = excluded.role,
             parent_entity_id = excluded.parent_entity_id,
             status = excluded.status
         `;
+        const profileMetadata = {
+          className: item.className,
+          specName: item.specName,
+          officialSpec: !isCohort,
+          entityKind: isCohort ? "forever_logs_cohort" : "official_spec",
+        };
         await tx`insert into entity_profiles (entity_id,metadata)
-          values (${entity.id},${tx.json({ className: item.className, specName: item.specName })})
+          values (${entity.id},${tx.json(profileMetadata)})
           on conflict (entity_id) do update set metadata =
             (case when jsonb_typeof(entity_profiles.metadata) = 'string'
               then (entity_profiles.metadata #>> '{}')::jsonb
@@ -501,7 +513,7 @@ export async function publishWowForeverDataCandidate(input: {
           notes = excluded.notes
       `;
 
-      const previous = await tx`
+      const sameVersionRatings = await tx`
         select entity_id, ranking_context_id, tier
         from ratings
         where game_version_id = ${versionId}
@@ -513,7 +525,7 @@ export async function publishWowForeverDataCandidate(input: {
             `${entityIdentity(ranking.item).id}::${contextForRole(ranking.item.role).id}`,
         ),
       );
-      const omitted = previous.filter(
+      const omitted = sameVersionRatings.filter(
         (row) => !candidateKeys.has(`${row.entity_id}::${row.ranking_context_id}`),
       );
       if (omitted.length > 0)
@@ -521,8 +533,41 @@ export async function publishWowForeverDataCandidate(input: {
           `Publication blocked: candidate omits previously stored same-phase observations (${omitted.map((row) => `${row.entity_id}/${row.ranking_context_id}`).join(", ")}); preserve prior snapshot for review`,
         );
 
-      const previousByKey = new Map(
-        previous.map((row) => [`${row.entity_id}::${row.ranking_context_id}`, String(row.tier)]),
+      const sameVersionByKey = new Map(
+        sameVersionRatings.map((row) => [
+          `${row.entity_id}::${row.ranking_context_id}`,
+          String(row.tier),
+        ]),
+      );
+
+      const previousVersionRatings = await tx`
+        select distinct on (r.entity_id, r.ranking_context_id)
+          r.entity_id,
+          r.ranking_context_id,
+          r.game_version_id,
+          r.tier,
+          coalesce(gv.valid_from, gv.release_date, gv.created_at) as version_time
+        from ratings r
+        join game_versions gv on gv.id = r.game_version_id
+        join ranking_contexts rc on rc.id = r.ranking_context_id
+        where gv.game_id = ${gameId}
+          and gv.id != ${versionId}
+          and rc.id = any(${contextIds})
+          and gv.level_cap = 30
+          and coalesce(gv.valid_from, gv.release_date, gv.created_at) is not null
+          and coalesce(gv.valid_from, gv.release_date, gv.created_at) < ${input.candidate.retrievedAt}
+        order by
+          r.entity_id,
+          r.ranking_context_id,
+          coalesce(gv.valid_from, gv.release_date, gv.created_at) desc,
+          r.published_at desc
+      `;
+
+      const previousVersionByKey = new Map(
+        previousVersionRatings.map((row) => [
+          `${row.entity_id}::${row.ranking_context_id}`,
+          { versionId: String(row.game_version_id), tier: String(row.tier) },
+        ]),
       );
 
       for (const ranking of input.candidate.rankings) {
@@ -592,32 +637,62 @@ export async function publishWowForeverDataCandidate(input: {
             published_at=excluded.published_at,updated_at=excluded.updated_at
         `;
 
-        const oldTier = previousByKey.get(`${entity.id}::${context.id}`);
-        if (oldTier && oldTier !== ranking.tier.tier) {
+        const contextKey = `${entity.id}::${context.id}`;
+        let previousTier: string | null = null;
+        let fromVersionId: string | null = null;
+        let isCrossVersion = false;
+
+        if (sameVersionByKey.has(contextKey)) {
+          previousTier = sameVersionByKey.get(contextKey)!;
+          fromVersionId = versionId;
+        } else if (previousVersionByKey.has(contextKey)) {
+          const prev = previousVersionByKey.get(contextKey)!;
+          previousTier = prev.tier;
+          fromVersionId = prev.versionId;
+          isCrossVersion = true;
+        }
+
+        if (previousTier !== null && fromVersionId !== null && previousTier !== ranking.tier.tier) {
           changes += 1;
+          const reason = isCrossVersion
+            ? "Forever Logs near-cap dungeon data changed the TierListBase data tier across phases."
+            : "Forever Logs current near-cap dungeon data changed the TierListBase data tier.";
+          const changeId = isCrossVersion
+            ? stableId(
+                "h-",
+                entity.id,
+                context.id,
+                fromVersionId,
+                versionId,
+                previousTier,
+                ranking.tier.tier,
+                input.candidate.retrievedAt.toISOString(),
+              )
+            : stableId(
+                "h-",
+                entity.id,
+                context.id,
+                versionId,
+                previousTier,
+                ranking.tier.tier,
+                input.candidate.retrievedAt.toISOString(),
+              );
+
           await tx`
             insert into rating_changes (
               id, entity_id, ranking_context_id, from_version_id, to_version_id,
               previous_tier, new_tier, change_type, reason, evidence, changed_at
             )
             values (
-              ${stableId(
-                "h-",
-                entity.id,
-                context.id,
-                versionId,
-                oldTier,
-                ranking.tier.tier,
-                input.candidate.retrievedAt.toISOString(),
-              )},
+              ${changeId},
               ${entity.id},
               ${context.id},
+              ${fromVersionId},
               ${versionId},
-              ${versionId},
-              ${oldTier},
+              ${previousTier},
               ${ranking.tier.tier},
               'reclassified',
-              'Forever Logs current near-cap dungeon data changed the TierListBase data tier.',
+              ${reason},
               ${notes},
               ${input.candidate.retrievedAt}
             )
