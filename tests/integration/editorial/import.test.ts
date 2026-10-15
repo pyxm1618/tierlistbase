@@ -74,8 +74,12 @@ it("runs the real CLI with an independent postgres connection and JSONB objects"
     encoding: "utf8",
   });
   expect(output).toContain('"event":"independent_post_commit_read_back"');
+  const report = await readBackReviewedPackage(sql, pkg);
   expect(
-    await sql`select count(*)::int as count from entity_profiles where jsonb_typeof(metadata)='object'`,
+    await sql`select count(*)::int as count
+      from entity_profiles p
+      join entities e on e.id=p.entity_id
+      where e.game_id=${report.gameId} and jsonb_typeof(p.metadata)='object'`,
   ).toEqual([{ count: 121 }]);
 });
 
