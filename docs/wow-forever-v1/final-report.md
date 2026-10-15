@@ -8,7 +8,7 @@ Final origin/main checked: `2feb6a69d33751d49685f949e3fd96ac5ef401de`, fetched 2
 
 Branch: `codex/wow-forever-v1-publication-gate`
 
-PR: [Draft #24](https://github.com/pyxm1618/tierlistbase/pull/24). No merge, deployment or production publication performed. Current remote checks are available on the PR; this report does not substitute local results for CI or production acceptance.
+PR: [Draft #24](https://github.com/pyxm1618/tierlistbase/pull/24). No merge or deployment performed. The authorized follow-up production data publication and read-back completed; see the acceptance report. Current remote checks are available on the PR; this report does not substitute local results for CI or production acceptance.
 
 Main WoW files changed:
 
