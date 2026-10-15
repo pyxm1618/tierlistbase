@@ -120,8 +120,24 @@ for (const route of routes) {
       await page.waitForTimeout(100);
     }
 
+    let measuredWowSpec = false;
+    if (route.startsWith("/wow-forever/tier-list")) {
+      const card = page.locator("[data-spec-id]").first();
+      if (await card.count()) {
+        await card.click();
+        measuredWowSpec = true;
+        await page.getByRole("tab", { name: "Performance", exact: true }).click();
+        if (await page.getByRole("dialog").count()) await page.keyboard.press("Escape");
+        await page.waitForTimeout(100);
+      }
+    }
+
     const firstLink = page.locator('a[href^="/"]').first();
-    if (route !== "/genshin-impact/tier-list" && (await firstLink.count()) > 0) {
+    if (
+      route !== "/genshin-impact/tier-list" &&
+      !measuredWowSpec &&
+      (await firstLink.count()) > 0
+    ) {
       await firstLink.evaluate((element) => {
         element.addEventListener(
           "click",

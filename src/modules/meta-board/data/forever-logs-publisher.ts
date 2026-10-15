@@ -3,6 +3,11 @@ import "server-only";
 import { createHash } from "node:crypto";
 
 import postgres from "postgres";
+import {
+  requireActivePhase,
+  validatePublicationReview,
+  type PublicationReview,
+} from "../domain/forever-logs-publication";
 
 import {
   foreverLogsSpecKey,
@@ -16,30 +21,13 @@ import { deriveForeverLogsDataTier } from "../domain/forever-logs-data-tier";
 
 const FOREVER_LOGS_API_BASE = "https://foreverlogs.gg/api/public/v1";
 const FOREVER_LOGS_SOURCE_URL = "https://foreverlogs.gg/";
-const BLIZZARD_NOTES_URL =
-  "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-8/2360696";
 
 export const WOW_FOREVER_NEAR_CAP_DUNGEONS = [
-  { name: "City of Dalaran", levelRange: "28-33" },
-  { name: "Excavation Site: Wetlands", levelRange: "24-29" },
+  { name: "City of Dalaran", levelRange: null },
+  { name: "Excavation Site: Wetlands", levelRange: "26-31" },
   { name: "Razorfen Downs", levelRange: "25+" },
   { name: "Uldaman", levelRange: "30+" },
 ] as const;
-
-const HEALER_SPECS = new Set([
-  "Priest::Discipline",
-  "Priest::Holy",
-  "Druid::Restoration",
-  "Shaman::Restoration",
-  "Paladin::Holy",
-]);
-
-const TANK_SPECS = new Set([
-  "Druid::Guardian",
-  "Druid::Feral Combat",
-  "Paladin::Protection",
-  "Warrior::Protection",
-]);
 
 type ApiResponse = {
   readonly ok: boolean;
@@ -58,6 +46,7 @@ export type WowForeverDataCandidate = {
   readonly retrievedAt: Date;
   readonly phaseId: number;
   readonly phaseName: string;
+  readonly review: PublicationReview;
   readonly observations: readonly ForeverLogsObservation[];
   readonly rankings: readonly PublishedRanking[];
 };
@@ -98,7 +87,11 @@ async function apiGet(path: string, apiKey: string): Promise<ApiResponse> {
   let body: unknown = text;
   try {
     body = JSON.parse(text);
-  } catch {}
+  } catch {
+    throw new Error(
+      `Forever Logs ${path.split("?")[0]} returned invalid JSON (HTTP ${response.status})`,
+    );
+  }
 
   return {
     ok: response.ok,
@@ -106,33 +99,6 @@ async function apiGet(path: string, apiKey: string): Promise<ApiResponse> {
     remaining: response.headers.get("x-ratelimit-remaining"),
     body,
   };
-}
-
-function asRecord(value: unknown): Record<string, unknown> | null {
-  return value !== null && typeof value === "object" && !Array.isArray(value)
-    ? (value as Record<string, unknown>)
-    : null;
-}
-
-function buildRoleCatalog(observations: readonly ForeverLogsObservation[]) {
-  const roleBySpec: Record<string, ForeverLogsRole> = {};
-
-  for (const observation of observations) {
-    const key = foreverLogsSpecKey(observation.className, observation.specName);
-    if (observation.metric === "avg_dps") roleBySpec[key] = "dps";
-  }
-
-  for (const key of HEALER_SPECS) roleBySpec[key] = "healer";
-  for (const key of TANK_SPECS) roleBySpec[key] = "tank";
-
-  return roleBySpec;
-}
-
-function isRealRoleItem(
-  item: ForeverLogsDataRankingItem,
-  roleBySpec: Readonly<Record<string, ForeverLogsRole>>,
-) {
-  return roleBySpec[foreverLogsSpecKey(item.className, item.specName)] === item.role;
 }
 
 function rankingSort(a: ForeverLogsDataRankingItem, b: ForeverLogsDataRankingItem) {
@@ -144,6 +110,7 @@ function rankingSort(a: ForeverLogsDataRankingItem, b: ForeverLogsDataRankingIte
 
 export async function buildWowForeverDataCandidate(input: {
   readonly apiKey: string;
+  readonly review: unknown;
   readonly now?: Date;
 }): Promise<WowForeverDataCandidate> {
   const retrievedAt = input.now ?? new Date();
@@ -152,18 +119,21 @@ export async function buildWowForeverDataCandidate(input: {
     throw new Error(`Forever Logs /phases failed with HTTP ${phases.status}`);
   }
 
-  const phaseRoot = asRecord(phases.body);
-  const phaseRows = Array.isArray(phaseRoot?.phases)
-    ? (phaseRoot.phases as Array<Record<string, unknown>>)
-    : [];
-  const activePhase =
-    phaseRows.find((phase) => phase.is_active === true) ??
-    [...phaseRows].sort(
-      (a, b) => Number(b.phase_number ?? b.id ?? 0) - Number(a.phase_number ?? a.id ?? 0),
-    )[0];
+  const activePhase = requireActivePhase(phases.body);
+  const phaseId = activePhase.id;
+  const review = validatePublicationReview(input.review, {
+    phaseId,
+    phaseName: activePhase.name,
+    now: retrievedAt,
+  });
 
-  const phaseId = Number(activePhase?.id ?? activePhase?.phase_number);
-  if (!Number.isFinite(phaseId)) throw new Error("Forever Logs returned no active phase");
+  if (
+    !activePhase.locations ||
+    WOW_FOREVER_NEAR_CAP_DUNGEONS.some(
+      (dungeon) => !activePhase.locations!.some((location) => location.location === dungeon.name),
+    )
+  )
+    throw new Error("Active phase dungeon availability does not match reviewed near-cap scope");
 
   const observations: ForeverLogsObservation[] = [];
 
@@ -207,21 +177,61 @@ export async function buildWowForeverDataCandidate(input: {
       retrievedAt,
       sourceUrl: FOREVER_LOGS_SOURCE_URL,
       apiPath: "/api/public/v1/statistics?" + params.toString(),
+      expectedContext: {
+        phase: phaseId,
+        location: probe.location,
+        metric: probe.metric,
+        difficulty: "all",
+        bracket: "all",
+        damageMode: "standard",
+      },
     });
-    if (parsed.issues.some((issue) => issue.reason !== "invalid_spec_statistics")) {
+    if (parsed.issues.some((issue) => issue.reason === "context_mismatch"))
+      throw new Error(
+        `Forever Logs response context mismatch for ${probe.location}/${probe.metric}`,
+      );
+    if (parsed.issues.length > 0) {
       throw new Error(
         `Forever Logs payload validation failed for ${probe.location}/${probe.metric}`,
+      );
+    }
+    if (
+      parsed.observations.some(
+        (observation) =>
+          observation.phase !== phaseId ||
+          observation.location !== probe.location ||
+          observation.metric !== probe.metric ||
+          observation.difficulty !== "all" ||
+          observation.bracket !== "all" ||
+          observation.damageMode !== "standard",
+      )
+    ) {
+      throw new Error(
+        `Forever Logs response context mismatch for ${probe.location}/${probe.metric}`,
       );
     }
     observations.push(...parsed.observations);
   }
 
-  const roleBySpec = buildRoleCatalog(observations);
-  const dataRankings = processForeverLogsDataRanking({
-    observations,
-    roleBySpec,
-  })
-    .filter((item) => isRealRoleItem(item, roleBySpec))
+  const dataRankings = (["dps", "healer", "tank"] as const)
+    .flatMap((role) => {
+      const metric = role === "dps" ? "avg_dps" : role === "healer" ? "avg_hps" : "avg_dtps";
+      const roleObservations = observations.filter((observation) => observation.metric === metric);
+      for (const observation of roleObservations) {
+        const key = foreverLogsSpecKey(observation.className, observation.specName);
+        if (!review.roleBySpec[key]) throw new Error(`Unreviewed live spec taxonomy: ${key}`);
+        if (role !== "healer" && !review.roleBySpec[key]!.includes(role))
+          throw new Error(`Live role/taxonomy mismatch: ${key}/${role}`);
+      }
+      const roleBySpec = Object.fromEntries(
+        Object.entries(review.roleBySpec)
+          .filter(([, roles]) => roles.includes(role))
+          .map(([key]) => [key, role]),
+      );
+      return processForeverLogsDataRanking({ observations: roleObservations, roleBySpec }).filter(
+        (item) => roleBySpec[foreverLogsSpecKey(item.className, item.specName)] === role,
+      );
+    })
     .sort(rankingSort);
 
   const rankings: PublishedRanking[] = [];
@@ -243,7 +253,8 @@ export async function buildWowForeverDataCandidate(input: {
   return {
     retrievedAt,
     phaseId,
-    phaseName: String(activePhase?.name ?? "Beta"),
+    phaseName: activePhase.name,
+    review,
     observations,
     rankings,
   };
@@ -269,12 +280,19 @@ function entityIdentity(item: ForeverLogsDataRankingItem) {
   };
 }
 
-function observationNotes(item: ForeverLogsDataRankingItem, retrievedAt: Date) {
+function observationNotes(
+  item: ForeverLogsDataRankingItem,
+  retrievedAt: Date,
+  review: PublicationReview,
+) {
   return JSON.stringify({
     derivedBy: "TierListBase",
     dataSource: "Forever Logs Public API",
     attributionUrl: FOREVER_LOGS_SOURCE_URL,
     retrievedAt: retrievedAt.toISOString(),
+    phaseId: review.phaseId,
+    phaseName: review.phaseName,
+    publicationVerifiedAt: review.checkedAt,
     confidence: item.confidence,
     flags: item.flags,
     scoreDefinition:
@@ -316,7 +334,6 @@ function constraints(item: ForeverLogsDataRankingItem, tier: PublishedRanking["t
   const parts = [
     "Current WoW Forever Beta only.",
     "Forever Logs aggregate statistics do not expose a player-level filter, so TierListBase limits this context to dungeons at or near the current level-30 cap.",
-    "No Level-60 simulation data is mixed into this ranking.",
   ];
   if (tier.preliminary) {
     parts.push(
@@ -332,10 +349,22 @@ export async function publishWowForeverDataCandidate(input: {
   readonly candidate: WowForeverDataCandidate;
   readonly databaseUrl: string;
 }): Promise<WowForeverPublishResult> {
+  const review = validatePublicationReview(input.candidate.review, {
+    phaseId: input.candidate.phaseId,
+    phaseName: input.candidate.phaseName,
+    now: new Date(),
+  });
+  if (
+    Date.now() - input.candidate.retrievedAt.getTime() > 24 * 60 * 60 * 1000 ||
+    input.candidate.retrievedAt.getTime() > Date.now()
+  )
+    throw new Error("Publication blocked: candidate retrieval time is stale or in the future");
+  if (input.candidate.rankings.length === 0)
+    throw new Error("Publication blocked: no validated rankings");
   const sql = postgres(input.databaseUrl, { max: 1, prepare: false });
 
   const gameId = stableId("g-", "wow-forever");
-  const versionId = stableId("v-", "wow-forever", "beta", "2026-10-08", "level-30");
+  const versionId = stableId("v-", "wow-forever", "beta", String(review.phaseId), "level-30");
   const sourceId = stableId("s-", "tierlistbase", "forever-logs", "data-ranking");
   const contexts = (["dps", "healer", "tank"] as const).map(contextForRole);
   const contextIds = contexts.map((context) => context.id);
@@ -379,12 +408,12 @@ export async function publishWowForeverDataCandidate(input: {
         values (
           ${versionId},
           ${gameId},
-          'Beta 2026-10-08',
+          ${review.phaseName},
           null,
           30,
           'current',
-          '2026-10-08T00:00:00Z',
-          ${"Official Blizzard beta context: level cap 30; Oct. 8 beta build. Numeric client build is intentionally not asserted because Blizzard's official notes do not publish it. " + BLIZZARD_NOTES_URL}
+          ${input.candidate.retrievedAt},
+          ${JSON.stringify(review)}
         )
         on conflict (id) do update set
           version = excluded.version,
@@ -414,21 +443,33 @@ export async function publishWowForeverDataCandidate(input: {
         `;
       }
 
-      for (const { entity } of uniqueItems.values()) {
+      for (const { entity, item } of uniqueItems.values()) {
+        const classId = stableId("e-", "wow-forever", "class", item.className);
+        await tx`insert into entities (id,game_id,entity_type,slug,name,role,status,sort_order)
+          values (${classId},${gameId},'class',${slugify(item.className)},${item.className},'all','active',0)
+          on conflict (id) do nothing`;
+
         await tx`
           insert into entities (
             id, game_id, parent_entity_id, entity_type, slug, name, role, status, sort_order
           )
           values (
-            ${entity.id}, ${gameId}, null, 'spec', ${entity.slug}, ${entity.name},
+            ${entity.id}, ${gameId}, ${classId}, 'spec', ${entity.slug}, ${entity.name},
             ${entity.role}, 'active', 0
           )
           on conflict (id) do update set
             slug = excluded.slug,
             name = excluded.name,
             role = excluded.role,
+            parent_entity_id = excluded.parent_entity_id,
             status = excluded.status
         `;
+        await tx`insert into entity_profiles (entity_id,metadata)
+          values (${entity.id},${tx.json({ className: item.className, specName: item.specName })})
+          on conflict (entity_id) do update set metadata =
+            (case when jsonb_typeof(entity_profiles.metadata) = 'string'
+              then (entity_profiles.metadata #>> '{}')::jsonb
+              else entity_profiles.metadata end) || excluded.metadata`;
       }
 
       await tx`
@@ -466,21 +507,23 @@ export async function publishWowForeverDataCandidate(input: {
         where game_version_id = ${versionId}
           and ranking_context_id = any(${contextIds})
       `;
+      const candidateKeys = new Set(
+        input.candidate.rankings.map(
+          (ranking) =>
+            `${entityIdentity(ranking.item).id}::${contextForRole(ranking.item.role).id}`,
+        ),
+      );
+      const omitted = previous.filter(
+        (row) => !candidateKeys.has(`${row.entity_id}::${row.ranking_context_id}`),
+      );
+      if (omitted.length > 0)
+        throw new Error(
+          `Publication blocked: candidate omits previously stored same-phase observations (${omitted.map((row) => `${row.entity_id}/${row.ranking_context_id}`).join(", ")}); preserve prior snapshot for review`,
+        );
+
       const previousByKey = new Map(
         previous.map((row) => [`${row.entity_id}::${row.ranking_context_id}`, String(row.tier)]),
       );
-
-      await tx`
-        delete from source_ratings
-        where source_id = ${sourceId}
-          and game_version_id = ${versionId}
-          and ranking_context_id = any(${contextIds})
-      `;
-      await tx`
-        delete from ratings
-        where game_version_id = ${versionId}
-          and ranking_context_id = any(${contextIds})
-      `;
 
       for (const ranking of input.candidate.rankings) {
         const context = contextForRole(ranking.item.role);
@@ -489,7 +532,7 @@ export async function publishWowForeverDataCandidate(input: {
           ranking.item.weightedMedianScore === null
             ? null
             : ranking.item.weightedMedianScore.toFixed(2);
-        const notes = observationNotes(ranking.item, input.candidate.retrievedAt);
+        const notes = observationNotes(ranking.item, input.candidate.retrievedAt, review);
 
         await tx`
           insert into source_ratings (
@@ -512,6 +555,9 @@ export async function publishWowForeverDataCandidate(input: {
             ${input.candidate.retrievedAt},
             ${notes}
           )
+          on conflict (id) do update set raw_tier=excluded.raw_tier,raw_rank=excluded.raw_rank,raw_score=excluded.raw_score,
+            normalized_score=excluded.normalized_score,normalized_tier=excluded.normalized_tier,
+            sample_size=excluded.sample_size,collected_at=excluded.collected_at,notes=excluded.notes
         `;
 
         await tx`
@@ -539,6 +585,11 @@ export async function publishWowForeverDataCandidate(input: {
             ${input.candidate.retrievedAt},
             ${input.candidate.retrievedAt}
           )
+          on conflict (id) do update set tier=excluded.tier,consensus_score=excluded.consensus_score,
+            source_count=excluded.source_count,agreeing_source_count=excluded.agreeing_source_count,
+            data_status=excluded.data_status,freshness_status=excluded.freshness_status,
+            why_this_tier=excluded.why_this_tier,strengths=excluded.strengths,constraints=excluded.constraints,
+            published_at=excluded.published_at,updated_at=excluded.updated_at
         `;
 
         const oldTier = previousByKey.get(`${entity.id}::${context.id}`);

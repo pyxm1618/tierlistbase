@@ -1,0 +1,15 @@
+{
+  "retrievedAt": "2026-10-15T06:37:28.847Z",
+  "httpStatus": 200,
+  "schema": "PASS",
+  "activeCount": 1,
+  "phaseNumber": 1,
+  "phaseName": "Beta",
+  "requiredDungeons": [
+    "City of Dalaran",
+    "Excavation Site: Wetlands",
+    "Razorfen Downs",
+    "Uldaman"
+  ],
+  "missingDungeons": []
+}

@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-15T06:57:56.927485+00:00",
+  "operation": "Read-only PostgreSQL pg_typeof/jsonb_typeof grouped check, scoped to wow-forever",
+  "result": [
+    {
+      "sql_type": "jsonb",
+      "json_type": "object",
+      "count": 27
+    }
+  ],
+  "status": "PASS"
+}
