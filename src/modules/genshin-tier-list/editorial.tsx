@@ -108,7 +108,8 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
           <span aria-hidden="true">▱</span> Sources &amp; Evidence
         </h2>
         <p>
-          {data.sources.length} reviewed sources · {data.evidenceCount} evidence observations
+          {data.sources.length} evidence-linked sources · {data.evidenceCount} verified evidence
+          observations
         </p>
         <ol className={styles.numberedList}>
           {evidence.map(([name, explanation]) => (

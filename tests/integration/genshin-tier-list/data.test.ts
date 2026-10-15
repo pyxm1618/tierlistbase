@@ -43,7 +43,13 @@ it("reads 121 characters, reviewed ratings and profiles in a read-only transacti
     changes: [],
   });
   expect(result.data.characters).toHaveLength(121);
-  expect(result.data.sources).toHaveLength(7);
+  expect(result.data.sources).toHaveLength(4);
+  expect(result.data.sources.map((source) => source.name).sort()).toEqual([
+    "Genshin Builds",
+    "Icy Veins",
+    "KeqingMains",
+    "Mobalytics",
+  ]);
   expect(
     result.data.characters
       .filter((c) => c.officialReleaseVersion === result.data.version)
@@ -130,4 +136,32 @@ it("returns a safe unavailable result for database connection failure", async ()
   } finally {
     await disconnected.end();
   }
+});
+
+it("resolves sources from verified evidence relationships, including DB-only sources", async () => {
+  await db
+    .transaction(async (tx) => {
+      await tx.execute(
+        query`insert into sources (id,name,url,source_type,publisher) values ('db-only-source','DB-only source','https://example.com/db-only','test','Test')`,
+      );
+      await tx.execute(query`insert into evidence_observations (id,entity_id,source_id,game_version_id,ranking_context_id,observation_type,text_value,source_url,checked_at,status)
+      select 'db-only-observation',entity_id,'db-only-source',game_version_id,ranking_context_id,'test','Verified DB relationship','https://example.com/db-only',checked_at,'verified'
+      from evidence_observations limit 1`);
+      const result = await loadGenshinData(tx);
+      expect(result.status).toBe("available");
+      if (result.status === "available") {
+        expect(result.data.sources).toHaveLength(5);
+        expect(result.data.sources).toContainEqual({
+          id: "db-only-source",
+          name: "DB-only source",
+          url: "https://example.com/db-only",
+          sourceType: "test",
+        });
+        expect(result.data.evidenceCount).toBe(131);
+      }
+      throw new Error("rollback fixture mutation");
+    })
+    .catch((error) => {
+      if (error.message !== "rollback fixture mutation") throw error;
+    });
 });

@@ -40,7 +40,7 @@ test("Genshin V1 preserves the complete architecture, local filters and reviewed
   await expect(page.locator("[data-character-card][aria-pressed=true]")).toHaveCount(0);
   await expect(page.locator('[data-ia-section="ranking-context"]')).toContainText("7.1");
   await expect(page.locator('[data-ia-section="sources"]')).toContainText(
-    "7 reviewed sources · 130 evidence observations",
+    "4 evidence-linked sources · 130 verified evidence observations",
   );
   await expect(page.locator('[data-ia-section="changes"]')).toContainText("Vesna");
   await expect(page.locator('[data-ia-section="changes"]')).toContainText("Vodyanitsa");

@@ -2,7 +2,6 @@ import "server-only";
 
 import { and, eq, inArray, isNull, or } from "drizzle-orm";
 import { z } from "zod";
-import approvedSources from "../../../data/editorial/genshin-impact/7.1/sources.json";
 import type { DatabaseClient } from "@/platform/database/client";
 import {
   entities,
@@ -157,25 +156,17 @@ export async function loadGenshinData(
       );
     const characters = mapGenshinCharacters(rows);
     const entityIds = characters.map((character) => character.id);
-    const [sourceRows, observations, changes] = await Promise.all([
-      // Sources have no game FK. The approved package supplies only the scope URLs;
-      // names, links, IDs and the displayed count are resolved from database rows.
+    const [observations, changes] = await Promise.all([
       db
         .select({
-          id: sources.id,
-          name: sources.name,
-          url: sources.url,
-          sourceType: sources.sourceType,
+          id: evidenceObservations.id,
+          source: {
+            id: sources.id,
+            name: sources.name,
+            url: sources.url,
+            sourceType: sources.sourceType,
+          },
         })
-        .from(sources)
-        .where(
-          inArray(
-            sources.url,
-            approvedSources.map((source) => source.baseUrl),
-          ),
-        ),
-      db
-        .select({ id: evidenceObservations.id })
         .from(evidenceObservations)
         .innerJoin(sources, eq(sources.id, evidenceObservations.sourceId))
         .where(
@@ -207,6 +198,11 @@ export async function loadGenshinData(
           ),
         ),
     ]);
+    const sourceRows = [
+      ...new Map(
+        observations.map((observation) => [observation.source.id, observation.source]),
+      ).values(),
+    ];
     return {
       status: "available",
       data: {
