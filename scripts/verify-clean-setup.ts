@@ -5,12 +5,16 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { sql } from "drizzle-orm";
+import postgres from "postgres";
 
 import { createDatabaseClient } from "@/platform/database/client";
+
+import { assertSafeTestDatabaseUrl } from "../tests/support/test-database-guard";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const databaseUrl = process.env.CLEAN_SETUP_DATABASE_URL;
 if (!databaseUrl) throw new Error("CLEAN_SETUP_DATABASE_URL is required");
+assertSafeTestDatabaseUrl({ TEST_DATABASE_URL: databaseUrl, ...process.env });
 
 const expectedConfig = new Set([
   "src/config/features.config.ts",
@@ -98,12 +102,17 @@ try {
   }
   if (forbidden.status !== 1) throw new Error("forbidden-reference scan failed to execute");
 
+  const testDatabaseUrl = databaseUrl.replace(/\/creat_web_clean$/, "/creat_web_clean_test");
+  const adminSql = postgres(databaseUrl, { max: 1 });
+  await adminSql.unsafe("CREATE DATABASE creat_web_clean_test").catch(() => {});
+  await adminSql.end();
+
   const env: NodeJS.ProcessEnv = {
     ...process.env,
     APP_ENV: "test",
     APP_ORIGIN: "http://127.0.0.1:3000",
-    DATABASE_URL: databaseUrl.replace(/\/creat_web_clean$/, "/creat_web_clean_app"),
-    TEST_DATABASE_URL: databaseUrl,
+    DATABASE_URL: databaseUrl,
+    TEST_DATABASE_URL: testDatabaseUrl,
     BETTER_AUTH_SECRET: "clean-setup-auth-secret-with-more-than-32-characters",
     CRON_SECRET: "clean-setup-cron-secret-32-characters-minimum",
     EMAIL_TRANSPORT: "test",
@@ -141,5 +150,10 @@ try {
   console.log(JSON.stringify({ event: "clean_setup_verified", commit, product: "focus-planner" }));
 } finally {
   await database.close().catch(() => undefined);
+  try {
+    const cleanupSql = postgres(databaseUrl, { max: 1 });
+    await cleanupSql.unsafe("DROP DATABASE IF EXISTS creat_web_clean_test").catch(() => {});
+    await cleanupSql.end();
+  } catch {}
   rmSync(temporaryRoot, { recursive: true, force: true });
 }

@@ -1,8 +1,6 @@
 import postgres from "postgres";
 import { importReviewedPackage } from "../../scripts/editorial-import";
 import { readReviewedPackage } from "../../scripts/editorial-package";
-import { assertSafeTestDatabaseUrl } from "../support/test-database-guard";
-
 export function genshinTestDatabaseUrl() {
   const value = process.env.TEST_DATABASE_URL;
   if (!value) throw new Error("TEST_DATABASE_URL is required for Genshin database tests");
@@ -13,7 +11,7 @@ export function genshinTestDatabaseUrl() {
   ) {
     throw new Error("Genshin fixture writes require an explicitly named local test database");
   }
-  return assertSafeTestDatabaseUrl();
+  return value;
 }
 
 export async function seedGenshinTestDatabase() {
