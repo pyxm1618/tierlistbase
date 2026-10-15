@@ -1,5 +1,8 @@
+import { seedGenshinTestDatabase } from "../genshin-tier-list/database";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+
+test.beforeAll(seedGenshinTestDatabase);
 
 declare global {
   interface Window {

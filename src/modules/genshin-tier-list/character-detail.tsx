@@ -5,7 +5,7 @@ import styles from "./genshin-tier-list.module.css";
 export function CharacterDetail({ character, titleId }: { character: Character; titleId: string }) {
   return (
     <div className={styles.detailContent}>
-      <p className={styles.mockLabel}>MOCK RATING · PLACEHOLDER AVATAR</p>
+      <p className={styles.mockLabel}>PLACEHOLDER AVATAR</p>
       <div className={styles.detailHeading}>
         <CharacterAvatar name={character.name} detail />
         <div>
@@ -24,7 +24,7 @@ export function CharacterDetail({ character, titleId }: { character: Character; 
         </div>
         <div>
           <dt>Primary Role</dt>
-          <dd>{character.role}</dd>
+          <dd>{character.primaryRole}</dd>
         </div>
         <div>
           <dt>Rarity</dt>
@@ -33,35 +33,41 @@ export function CharacterDetail({ character, titleId }: { character: Character; 
       </dl>
       <section className={styles.why}>
         <h3>Why this Tier</h3>
-        <p>{character.why}</p>
+        <p>{character.whyThisTier}</p>
       </section>
       <section>
         <h3>Strengths</h3>
-        <p>{character.strengths}</p>
+        <ul>
+          {character.strengths.map((strength, index) => (
+            <li key={index}>{strength}</li>
+          ))}
+        </ul>
       </section>
       <section>
         <h3>Limitations</h3>
-        <p>{character.limitations}</p>
+        <ul>
+          {character.limitations.map((limitation, index) => (
+            <li key={index}>{limitation}</li>
+          ))}
+        </ul>
       </section>
       <section>
         <h3>Best-use Context</h3>
-        <p>{character.bestUse}</p>
+        <p>{character.bestUseContext}</p>
       </section>
       <section>
         <h3>Ranking Assumption</h3>
-        <p>
-          {character.rarity === 5
-            ? "5★: C0 / No Signature Weapon"
-            : "4★: C6 / Accessible 4★ Weapon"}
-          . Endgame Overall; main reference content pending verification.
-        </p>
+        <p>{character.rankingAssumption}</p>
       </section>
       <section>
         <h3>Evidence Summary</h3>
-        <p>{character.evidence}</p>
+        <p>{character.evidenceSummary}</p>
       </section>
       <p className={styles.updated}>
-        Last Updated <strong>Pending verification</strong>
+        Last Updated (ranking data){" "}
+        <strong>
+          <time dateTime={character.updatedAt}>{character.updatedAt.slice(0, 10)}</time>
+        </strong>
       </p>
     </div>
   );

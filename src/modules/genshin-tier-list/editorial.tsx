@@ -1,3 +1,4 @@
+import type { GenshinData } from "./data";
 import { tiers } from "./characters";
 import styles from "./genshin-tier-list.module.css";
 
@@ -16,15 +17,12 @@ const evidence = [
 const faq = [
   [
     "How is this Genshin Impact Tier List created?",
-    "The list considers Endgame Performance, Team Contribution, Flexibility, Replaceability and Consistency. Official facts, observed performance data and editorial cross-check provide the evidence structure. Current ratings are mock examples awaiting verification.",
+    "The list considers Endgame Performance, Team Contribution, Flexibility, Replaceability and Consistency. Official facts, observed performance data and editorial cross-check provide the evidence structure. Current ratings use reviewed database records.",
   ],
-  [
-    "What version is this Tier List for?",
-    "Current Version is pending verification. This UI preview does not claim to represent a verified live version.",
-  ],
+  ["What version is this Tier List for?", "The current database version is {version}."],
   [
     "What endgame content is considered?",
-    "The scope is Endgame Overall. Main Reference Content is pending verification; high-difficulty content will be recorded as context, not separate ranking modes.",
+    "The scope is Endgame Overall. Reference encounters and team contexts are recorded in each character’s reviewed Best-use Context.",
   ],
   [
     "What investment level is assumed?",
@@ -32,7 +30,7 @@ const faq = [
   ],
   [
     "Why do characters move between tiers?",
-    "A character may move when reviewed evidence changes the overall assessment under the shared assumptions. New Characters and Tier Changes will record those differences; current examples are mock.",
+    "A character may move when reviewed evidence changes the overall assessment under the shared assumptions. New Characters are derived from official release versions; Tier Changes show recorded version history.",
   ],
   [
     "Can lower-tier characters still clear endgame?",
@@ -40,41 +38,47 @@ const faq = [
   ],
 ] as const;
 
-export function GenshinChanges() {
+export function GenshinChanges({ data }: { data: GenshinData }) {
+  const newCharacters = data.characters.filter(
+    (character) => character.officialReleaseVersion === data.version,
+  );
   return (
     <section className={styles.changes} data-ia-section="changes" aria-labelledby="changes-heading">
       <h2 id="changes-heading">
         <span aria-hidden="true">▤</span> What&apos;s Changed
       </h2>
-      <p className={styles.label}>Mock changes · comparison version pending verification</p>
+      <p className={styles.label}>Version {data.version}</p>
       <h3>New Characters</h3>
       <ul>
-        {["Mavuika", "Citlali"].map((name) => (
-          <li key={name}>
+        {newCharacters.map((character) => (
+          <li key={character.id}>
             <span className={styles.newBadge}>NEW</span>
-            <strong>{name}</strong>
-            <span>Mock addition · Pending Evaluation</span>
+            <strong>{character.name}</strong>
+            <span>Official release version {data.version}</span>
           </li>
         ))}
       </ul>
       <h3>Tier Changes</h3>
-      <ul>
-        <li>
-          <span className={styles.moveBadge}>A → A+</span>
-          <strong>Alhaitham</strong>
-          <span>Mock: revised encounter assessment.</span>
-        </li>
-        <li>
-          <span className={styles.moveBadge}>S → A+</span>
-          <strong>Hu Tao</strong>
-          <span>Mock: changed overall reference conditions.</span>
-        </li>
-      </ul>
+      {data.changes.length ? (
+        <ul>
+          {data.changes.map((change) => (
+            <li key={change.id}>
+              <span className={styles.moveBadge}>
+                {change.previousTier} → {change.newTier}
+              </span>
+              <strong>{change.name}</strong>
+              {change.reason && <span>{change.reason}</span>}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No published tier changes recorded for this version.</p>
+      )}
     </section>
   );
 }
 
-export function GenshinEditorial() {
+export function GenshinEditorial({ data }: { data: GenshinData }) {
   return (
     <div className={styles.editorial}>
       <section
@@ -103,14 +107,14 @@ export function GenshinEditorial() {
         <h2 id="evidence-heading">
           <span aria-hidden="true">▱</span> Sources &amp; Evidence
         </h2>
-        <p>Placeholder structure · no verified sources attached.</p>
+        <p>
+          {data.sources.length} reviewed sources · {data.evidenceCount} evidence observations
+        </p>
         <ol className={styles.numberedList}>
           {evidence.map(([name, explanation]) => (
             <li key={name}>
               <strong>{name}</strong>
-              <span>
-                {explanation} <em>Pending verification</em>
-              </span>
+              <span>{explanation}</span>
             </li>
           ))}
         </ol>
@@ -146,7 +150,7 @@ export function GenshinEditorial() {
               {question}
               <span aria-hidden="true">＋</span>
             </summary>
-            <p>{answer}</p>
+            <p>{answer.replace("{version}", data.version)}</p>
           </details>
         ))}
       </section>
