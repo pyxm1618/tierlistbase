@@ -28,6 +28,17 @@ const worker = {
         await close();
         throw error;
       }
+
+      if (new URL(request.url).pathname === "/sitemap.xml" && response.status === 200) {
+        const headers = new Headers(response.headers);
+        headers.set("content-type", "application/xml; charset=utf-8");
+        response = new Response(response.body, {
+          status: response.status,
+          statusText: response.statusText,
+          headers,
+        });
+      }
+
       if (!response.body) {
         await close();
         return response;
