@@ -7,10 +7,10 @@ import { migrate } from "drizzle-orm/postgres-js/migrator";
 
 import { createDatabaseClient } from "@/platform/database/client";
 
+import { assertSafeTestDatabaseUrl } from "../tests/support/test-database-guard";
 import { verifyMigrationMetadata } from "./verify-migration-metadata";
 
-const databaseUrl = process.env.TEST_DATABASE_URL ?? process.env.DATABASE_URL;
-if (!databaseUrl) throw new Error("TEST_DATABASE_URL or DATABASE_URL is required");
+const databaseUrl = assertSafeTestDatabaseUrl();
 
 const MAIN_BASELINE_TAG = "0007_easy_stellaris";
 const database = createDatabaseClient(databaseUrl);

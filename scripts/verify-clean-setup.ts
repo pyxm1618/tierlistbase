@@ -102,7 +102,7 @@ try {
     ...process.env,
     APP_ENV: "test",
     APP_ORIGIN: "http://127.0.0.1:3000",
-    DATABASE_URL: databaseUrl,
+    DATABASE_URL: databaseUrl.replace(/\/creat_web_clean$/, "/creat_web_clean_app"),
     TEST_DATABASE_URL: databaseUrl,
     BETTER_AUTH_SECRET: "clean-setup-auth-secret-with-more-than-32-characters",
     CRON_SECRET: "clean-setup-cron-secret-32-characters-minimum",
