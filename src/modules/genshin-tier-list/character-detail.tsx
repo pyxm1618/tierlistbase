@@ -63,6 +63,27 @@ export function CharacterDetail({ character, titleId }: { character: Character; 
         <h3>Evidence Summary</h3>
         <p>{character.evidenceSummary}</p>
       </section>
+      <section>
+        <h3>Evidence Sources</h3>
+        {character.evidenceSources.length > 0 ? (
+          <ul className={styles.evidenceSourceList}>
+            {character.evidenceSources.map((source) => (
+              <li key={source.id}>
+                <a href={source.url} target="_blank" rel="noopener noreferrer">
+                  {source.name}
+                </a>
+                <span>
+                  {" "}
+                  · {source.observationCount}{" "}
+                  {source.observationCount === 1 ? "observation" : "observations"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No linked evidence sources for this character.</p>
+        )}
+      </section>
       <p className={styles.updated}>
         Last Updated (ranking data){" "}
         <strong>

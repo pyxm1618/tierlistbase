@@ -45,7 +45,10 @@ const rowSchema = z.object({
   }),
 });
 
-export function mapGenshinCharacters(input: unknown): Character[] {
+export function mapGenshinCharacters(
+  input: unknown,
+  evidenceSourcesByEntity: ReadonlyMap<string, Character["evidenceSources"]> = new Map(),
+): Character[] {
   const rows = z.array(rowSchema).length(121).parse(input);
   if (
     new Set(rows.map((row) => row.id)).size !== 121 ||
@@ -67,6 +70,7 @@ export function mapGenshinCharacters(input: unknown): Character[] {
       rankingAssumption: row.rankingAssumption,
       evidenceSummary: row.evidenceSummary,
       updatedAt: row.updatedAt.toISOString(),
+      evidenceSources: evidenceSourcesByEntity.get(row.id) ?? [],
       ...row.metadata,
     }))
     .sort((a, b) => a.name.localeCompare(b.name, "en"));
@@ -154,12 +158,12 @@ export async function loadGenshinData(
           eq(entities.status, "active"),
         ),
       );
-    const characters = mapGenshinCharacters(rows);
-    const entityIds = characters.map((character) => character.id);
+    const entityIds = rows.map((row) => row.id);
     const [observations, changes] = await Promise.all([
       db
         .select({
           id: evidenceObservations.id,
+          entityId: evidenceObservations.entityId,
           source: {
             id: sources.id,
             name: sources.name,
@@ -198,11 +202,41 @@ export async function loadGenshinData(
           ),
         ),
     ]);
+    const sourcesByEntity = new Map<
+      string,
+      Map<string, { id: string; name: string; url: string; observationCount: number }>
+    >();
+    for (const observation of observations) {
+      let characterSources = sourcesByEntity.get(observation.entityId);
+      if (!characterSources) {
+        characterSources = new Map();
+        sourcesByEntity.set(observation.entityId, characterSources);
+      }
+      const existing = characterSources.get(observation.source.id);
+      if (existing) {
+        existing.observationCount += 1;
+      } else {
+        characterSources.set(observation.source.id, {
+          id: observation.source.id,
+          name: observation.source.name,
+          url: observation.source.url,
+          observationCount: 1,
+        });
+      }
+    }
+    const evidenceSourcesByEntity = new Map<string, Character["evidenceSources"]>();
+    for (const [entityId, map] of sourcesByEntity.entries()) {
+      evidenceSourcesByEntity.set(
+        entityId,
+        [...map.values()].sort((a, b) => a.name.localeCompare(b.name, "en")),
+      );
+    }
+    const characters = mapGenshinCharacters(rows, evidenceSourcesByEntity);
     const sourceRows = [
       ...new Map(
         observations.map((observation) => [observation.source.id, observation.source]),
       ).values(),
-    ];
+    ].sort((a, b) => a.name.localeCompare(b.name, "en"));
     return {
       status: "available",
       data: {

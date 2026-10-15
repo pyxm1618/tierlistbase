@@ -93,6 +93,12 @@ export type Character = {
   rankingAssumption: string;
   evidenceSummary: string;
   updatedAt: string;
+  evidenceSources: {
+    id: string;
+    name: string;
+    url: string;
+    observationCount: number;
+  }[];
 };
 
 export function filterCharacters(

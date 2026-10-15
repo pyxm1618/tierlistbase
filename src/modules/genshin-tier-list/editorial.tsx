@@ -111,6 +111,15 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
           {data.sources.length} evidence-linked sources · {data.evidenceCount} verified evidence
           observations
         </p>
+        <ul className={styles.sourceList}>
+          {data.sources.map((source) => (
+            <li key={source.id}>
+              <a href={source.url} target="_blank" rel="noopener noreferrer">
+                {source.name}
+              </a>
+            </li>
+          ))}
+        </ul>
         <ol className={styles.numberedList}>
           {evidence.map(([name, explanation]) => (
             <li key={name}>
@@ -119,6 +128,11 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
             </li>
           ))}
         </ol>
+        <p className={styles.disclosure}>
+          Genshin Impact and related intellectual property are owned by COGNOSPHERE PTE. LTD.
+          TierListBase is an independent site and is not affiliated with or endorsed by COGNOSPHERE
+          or HoYoverse.
+        </p>
       </section>
       <section
         className={styles.editorialPanel}

@@ -86,4 +86,34 @@ describe("reviewed Genshin database mapping", () => {
   ])("rejects %s rather than returning partial or mock characters", (_name, rows) => {
     expect(() => mapGenshinCharacters(rows())).toThrow();
   });
+
+  it("attaches evidence sources by entity and defaults to empty array without fallback", () => {
+    const customSources = new Map([
+      [
+        "nahida",
+        [
+          {
+            id: "src-1",
+            name: "Test Source",
+            url: "https://example.com",
+            observationCount: 3,
+          },
+        ],
+      ],
+    ]);
+    const characters = mapGenshinCharacters(reviewedRows, customSources);
+    const nahida = characters.find((c) => c.id === "nahida");
+    expect(nahida?.evidenceSources).toEqual([
+      {
+        id: "src-1",
+        name: "Test Source",
+        url: "https://example.com",
+        observationCount: 3,
+      },
+    ]);
+    const others = characters.filter((c) => c.id !== "nahida");
+    for (const other of others) {
+      expect(other.evidenceSources).toEqual([]);
+    }
+  });
 });

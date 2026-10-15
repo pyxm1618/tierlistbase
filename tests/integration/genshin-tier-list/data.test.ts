@@ -50,6 +50,30 @@ it("reads 121 characters, reviewed ratings and profiles in a read-only transacti
     "KeqingMains",
     "Mobalytics",
   ]);
+  for (const source of result.data.sources) {
+    expect(source.name).toBeTruthy();
+    expect(source.url.startsWith("https://")).toBe(true);
+  }
+  for (const character of result.data.characters) {
+    const dbObservations = await sql`
+      select s.id, s.name, s.url, count(*)::int as count
+      from evidence_observations eo
+      join sources s on s.id = eo.source_id
+      where eo.entity_id = ${character.id}
+        and eo.game_version_id = (select current_version_id from games where slug = 'genshin-impact')
+        and (eo.ranking_context_id = (select id from ranking_contexts where slug = 'endgame-overall' and game_id = (select id from games where slug = 'genshin-impact')) or eo.ranking_context_id is null)
+        and eo.status = 'verified'
+      group by s.id, s.name, s.url
+      order by s.name asc
+    `;
+    const expectedSources = dbObservations.map((row) => ({
+      id: row.id,
+      name: row.name,
+      url: row.url,
+      observationCount: row.count,
+    }));
+    expect(character.evidenceSources).toEqual(expectedSources);
+  }
   expect(
     result.data.characters
       .filter((c) => c.officialReleaseVersion === result.data.version)
@@ -158,6 +182,16 @@ it("resolves sources from verified evidence relationships, including DB-only sou
           sourceType: "test",
         });
         expect(result.data.evidenceCount).toBe(131);
+        const affected = result.data.characters.find((c) =>
+          c.evidenceSources.some((s) => s.id === "db-only-source"),
+        );
+        expect(affected).toBeDefined();
+        expect(affected?.evidenceSources).toContainEqual({
+          id: "db-only-source",
+          name: "DB-only source",
+          url: "https://example.com/db-only",
+          observationCount: 1,
+        });
       }
       throw new Error("rollback fixture mutation");
     })

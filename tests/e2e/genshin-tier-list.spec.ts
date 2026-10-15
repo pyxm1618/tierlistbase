@@ -75,7 +75,18 @@ test("Genshin V1 preserves the complete architecture, local filters and reviewed
   }
   await expect(page.locator('[data-ia-section="faq"] details')).toHaveCount(6);
   await expect(page.locator('[data-ia-section="methodology"] li')).toHaveCount(5);
-  await expect(page.locator('[data-ia-section="sources"] li')).toHaveCount(3);
+  await expect(page.locator('[data-ia-section="sources"] ol li')).toHaveCount(3);
+  await expect(page.locator('[data-ia-section="sources"] ul li')).toHaveCount(4);
+  for (const name of ["Genshin Builds", "Icy Veins", "KeqingMains", "Mobalytics"]) {
+    const link = page.locator('[data-ia-section="sources"] ul').getByRole("link", { name });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute("target", "_blank");
+    await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    await expect(link).toHaveAttribute("href", /^https:\/\//);
+  }
+  await expect(page.locator('[data-ia-section="sources"]')).toContainText(
+    "Genshin Impact and related intellectual property are owned by COGNOSPHERE PTE. LTD. TierListBase is an independent site and is not affiliated with or endorsed by COGNOSPHERE or HoYoverse.",
+  );
   const before = requests.length;
   const roleGroup = page.getByRole("group", { name: "Role", exact: true });
   const elementGroup = page.getByRole("group", { name: "Element", exact: true });
@@ -105,8 +116,16 @@ test("Genshin V1 preserves the complete architecture, local filters and reviewed
     "Best-use Context",
     "Ranking Assumption",
     "Evidence Summary",
+    "Evidence Sources",
   ])
     await expect(detail.getByRole("heading", { name: heading, exact: true })).toBeVisible();
+  const detailSourceLinks = detail.locator("ul").last().getByRole("link");
+  expect(await detailSourceLinks.count()).toBeGreaterThan(0);
+  for (const link of await detailSourceLinks.all()) {
+    await expect(link).toHaveAttribute("target", "_blank");
+    await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    await expect(link).toHaveAttribute("href", /^https:\/\//);
+  }
   const nahida = approvedRatings.find((rating) => rating.entitySlug === "nahida")!;
   for (const value of [
     nahida.whyThisTier,
