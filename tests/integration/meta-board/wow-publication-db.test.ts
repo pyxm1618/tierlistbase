@@ -158,6 +158,7 @@ it("tracks cross-phase and same-phase rating_changes and strictly enforces cohor
     dungeons,
     roleBySpec: {
       "Warrior::Arms": ["dps"],
+      "Warrior::Fury": ["dps"],
       "Warrior::Gladiator": ["dps"],
       "Priest::Holy": ["healer"],
     },
@@ -236,6 +237,7 @@ it("tracks cross-phase and same-phase rating_changes and strictly enforces cohor
           Warrior: {
             specs: {
               Arms: { median: armsMedian, total_parses: 30 },
+              Fury: { median: 200 - armsMedian, total_parses: 30 },
               Gladiator: { median: gladiatorMedian, total_parses: 30 },
             },
           },
@@ -249,6 +251,17 @@ it("tracks cross-phase and same-phase rating_changes and strictly enforces cohor
     review: reviewPhase1,
     now: t1,
   });
+  gladiatorMedian = 1;
+  const changedCohort = await buildWowForeverDataCandidate({
+    apiKey: randomUUID(),
+    review: reviewPhase1,
+    now: t1,
+  });
+  expect(
+    changedCohort.rankings.find((entry) => entry.item.specName === "Arms")?.item
+      .weightedMedianScore,
+  ).toBe(100);
+  gladiatorMedian = 100;
   const res1 = await publishWowForeverDataCandidate({ candidate: candidate1, databaseUrl: url! });
   expect(res1.changes).toBe(0);
 
@@ -306,7 +319,7 @@ it("tracks cross-phase and same-phase rating_changes and strictly enforces cohor
     checkedAt: t2.toISOString(),
   };
 
-  // Arms: median 110, Gladiator: median 90 -> benchmark 100 -> Arms score 110 (Tier A)
+  // Official Arms 110 and Fury 90 give benchmark 100, independently of Gladiator.
   armsMedian = 110;
   gladiatorMedian = 90;
 
@@ -354,8 +367,8 @@ it("tracks cross-phase and same-phase rating_changes and strictly enforces cohor
 
   // --- 3. Phase 2 同版本内数据更新 ---
   const t3 = new Date(baseNow.getTime() - 1 * 3600 * 1000);
-  // Arms median 变为 130, Gladiator median 变为 70 -> Arms score 130 (Tier S)
-  armsMedian = 130;
+  // Official Arms 140 and Fury 60 give benchmark 100 and Tier S.
+  armsMedian = 140;
   gladiatorMedian = 70;
 
   const candidate3 = await buildWowForeverDataCandidate({

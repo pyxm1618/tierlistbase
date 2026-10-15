@@ -1,8 +1,8 @@
-const fs = require("node:fs/promises");
-const path = require("node:path");
-const https = require("node:https");
-const crypto = require("node:crypto");
-const sharp = require("sharp");
+import fs from "node:fs/promises";
+import path from "node:path";
+import https from "node:https";
+import crypto from "node:crypto";
+import sharp from "sharp";
 
 // 9 Classes from SSOT
 const CLASSES = [
@@ -363,7 +363,7 @@ async function processSingleItem(item, type) {
   console.log(
     `Processing ${type}: [${item.className}${item.specName ? "::" + item.specName : ""}]`,
   );
-  const { statusCode, contentType, buffer } = await downloadBuffer(item.assetUrl);
+  const { statusCode, buffer } = await downloadBuffer(item.assetUrl);
   const retrievedAt = new Date().toISOString();
 
   const image = sharp(buffer);
@@ -451,18 +451,12 @@ async function runFull() {
   }
 
   const allItems = [...classResults, ...specResults];
-  const passedItems = allItems.filter((i) => i.result === "PASS");
   const unresolvedItems = allItems.filter((i) => i.result === "UNRESOLVED");
 
   const manifestPath = "docs/wow-forever-v1/evidence/icon-canary/manifest.json";
   const manifestData = {
     scope: "WoW Forever V1 Production Taxonomy SSOT",
     generatedAt: new Date().toISOString(),
-    canarySummary: {
-      total: 5,
-      passed: 5,
-      status: "PASS",
-    },
     classSummary: {
       total: CLASSES.length,
       acquired: classResults.filter((r) => r.result === "PASS").length,

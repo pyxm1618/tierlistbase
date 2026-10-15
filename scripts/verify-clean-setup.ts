@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { execFileSync, spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -14,7 +15,10 @@ import { assertSafeTestDatabaseUrl } from "../tests/support/test-database-guard"
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const databaseUrl = process.env.CLEAN_SETUP_DATABASE_URL;
 if (!databaseUrl) throw new Error("CLEAN_SETUP_DATABASE_URL is required");
-assertSafeTestDatabaseUrl({ TEST_DATABASE_URL: databaseUrl, ...process.env });
+assertSafeTestDatabaseUrl({ ...process.env, TEST_DATABASE_URL: databaseUrl });
+if (!["localhost", "127.0.0.1", "[::1]"].includes(new URL(databaseUrl).hostname)) {
+  throw new Error("Clean setup requires an explicitly named local test database");
+}
 
 const expectedConfig = new Set([
   "src/config/features.config.ts",
@@ -68,6 +72,11 @@ const temporaryRoot = mkdtempSync(join(tmpdir(), "creat-web-clean-"));
 const checkout = join(temporaryRoot, "checkout");
 const commit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
 const database = createDatabaseClient(databaseUrl);
+const testDatabaseName = `creat_web_clean_test_${randomUUID().replaceAll("-", "")}`;
+const testTarget = new URL(databaseUrl);
+testTarget.pathname = `/${testDatabaseName}`;
+const testDatabaseUrl = testTarget.toString();
+let createdTestDatabase = false;
 
 try {
   await database.db.execute(sql.raw("DROP SCHEMA IF EXISTS public CASCADE"));
@@ -102,10 +111,13 @@ try {
   }
   if (forbidden.status !== 1) throw new Error("forbidden-reference scan failed to execute");
 
-  const testDatabaseUrl = databaseUrl.replace(/\/creat_web_clean$/, "/creat_web_clean_test");
   const adminSql = postgres(databaseUrl, { max: 1 });
-  await adminSql.unsafe("CREATE DATABASE creat_web_clean_test").catch(() => {});
-  await adminSql.end();
+  try {
+    await adminSql`CREATE DATABASE ${adminSql(testDatabaseName)}`;
+    createdTestDatabase = true;
+  } finally {
+    await adminSql.end();
+  }
 
   const env: NodeJS.ProcessEnv = {
     ...process.env,
@@ -149,11 +161,17 @@ try {
   assertNeutralConfigApplied(checkout);
   console.log(JSON.stringify({ event: "clean_setup_verified", commit, product: "focus-planner" }));
 } finally {
-  await database.close().catch(() => undefined);
   try {
-    const cleanupSql = postgres(databaseUrl, { max: 1 });
-    await cleanupSql.unsafe("DROP DATABASE IF EXISTS creat_web_clean_test").catch(() => {});
-    await cleanupSql.end();
-  } catch {}
-  rmSync(temporaryRoot, { recursive: true, force: true });
+    await database.close();
+    if (createdTestDatabase) {
+      const cleanupSql = postgres(databaseUrl, { max: 1 });
+      try {
+        await cleanupSql`DROP DATABASE ${cleanupSql(testDatabaseName)}`;
+      } finally {
+        await cleanupSql.end();
+      }
+    }
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
 }

@@ -42,6 +42,17 @@ describe("Test Database Production Guard", () => {
     });
   });
 
+  it("rejects the same database when credentials or query parameters differ", () => {
+    expect(() =>
+      assertSafeTestDatabaseUrl({
+        NODE_ENV: "test",
+        APP_ENV: "test",
+        DATABASE_URL: "postgres://owner@localhost:5432/shared_test",
+        TEST_DATABASE_URL: "postgresql://tester@localhost/shared_test?sslmode=disable",
+      }),
+    ).toThrow(/same database/i);
+  });
+
   describe("Case C: TEST_DATABASE_URL points to known Production endpoint", () => {
     it.each(KNOWN_PRODUCTION_ENDPOINTS)(
       "refuses to run when TEST_DATABASE_URL points to production endpoint %s",

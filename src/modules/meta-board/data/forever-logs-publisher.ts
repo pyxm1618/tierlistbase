@@ -229,8 +229,18 @@ export async function buildWowForeverDataCandidate(input: {
           .filter(([, roles]) => roles.includes(role))
           .map(([key]) => [key, role]),
       );
-      return processForeverLogsDataRanking({ observations: roleObservations, roleBySpec }).filter(
-        (item) => roleBySpec[foreverLogsSpecKey(item.className, item.specName)] === role,
+      // Preserve cohort evidence, but normalize official specs independently of cohorts.
+      return [false, true].flatMap((cohort) =>
+        processForeverLogsDataRanking({
+          observations: roleObservations.filter(
+            (observation) =>
+              isSpecialCohortSpec(
+                foreverLogsSpecKey(observation.className, observation.specName),
+                review,
+              ) === cohort,
+          ),
+          roleBySpec,
+        }).filter((item) => roleBySpec[foreverLogsSpecKey(item.className, item.specName)] === role),
       );
     })
     .sort(rankingSort);
@@ -242,11 +252,15 @@ export async function buildWowForeverDataCandidate(input: {
     for (const item of roleItems) {
       const tier = deriveForeverLogsDataTier(item);
       const hasScore = item.weightedMedianScore !== null;
-      if (hasScore) rank += 1;
+      const isOfficialSpec = !isSpecialCohortSpec(
+        foreverLogsSpecKey(item.className, item.specName),
+        review,
+      );
+      if (hasScore && isOfficialSpec) rank += 1;
       rankings.push({
         item,
         tier,
-        rank: hasScore ? rank : null,
+        rank: hasScore && isOfficialSpec ? rank : null,
       });
     }
   }

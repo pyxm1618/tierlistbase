@@ -38,16 +38,32 @@ export function assertSafeTestDatabaseUrl(env: NodeJS.ProcessEnv = process.env):
   let parsed: URL;
   try {
     parsed = new URL(testUrlValue);
-  } catch (err) {
-    throw new Error(
-      `Safety Guard Violation: TEST_DATABASE_URL is not a valid URL: ${(err as Error).message}`,
-    );
+  } catch {
+    throw new Error("Safety Guard Violation: TEST_DATABASE_URL is not a valid URL.");
   }
 
   if (!["postgres:", "postgresql:"].includes(parsed.protocol)) {
     throw new Error(
       `Safety Guard Violation: TEST_DATABASE_URL protocol must be postgres: or postgresql:, found '${parsed.protocol}'.`,
     );
+  }
+
+  if (databaseUrlValue) {
+    let applicationUrl: URL;
+    try {
+      applicationUrl = new URL(databaseUrlValue);
+    } catch {
+      throw new Error("Safety Guard Violation: DATABASE_URL is not a valid URL.");
+    }
+    if (
+      applicationUrl.hostname.toLowerCase() === parsed.hostname.toLowerCase() &&
+      (applicationUrl.port || "5432") === (parsed.port || "5432") &&
+      decodeURIComponent(applicationUrl.pathname) === decodeURIComponent(parsed.pathname)
+    ) {
+      throw new Error(
+        "Safety Guard Violation: TEST_DATABASE_URL and DATABASE_URL point to the same database.",
+      );
+    }
   }
 
   const host = parsed.host.toLowerCase();
