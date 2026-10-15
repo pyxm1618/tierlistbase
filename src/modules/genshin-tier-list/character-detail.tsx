@@ -5,9 +5,8 @@ import styles from "./genshin-tier-list.module.css";
 export function CharacterDetail({ character, titleId }: { character: Character; titleId: string }) {
   return (
     <div className={styles.detailContent}>
-      <p className={styles.mockLabel}>PLACEHOLDER AVATAR</p>
       <div className={styles.detailHeading}>
-        <CharacterAvatar name={character.name} detail />
+        <CharacterAvatar name={character.name} avatar={character.avatar} detail />
         <div>
           <p className={styles.label}>Character</p>
           <h2 id={titleId}>{character.name}</h2>

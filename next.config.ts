@@ -40,6 +40,13 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "media.tierlistbase.com",
+        pathname: "/**",
+      },
+    ],
   },
   async headers() {
     return [

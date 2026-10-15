@@ -99,6 +99,10 @@ export type Character = {
     url: string;
     observationCount: number;
   }[];
+  avatar?: {
+    "128": string;
+    "256": string;
+  } | null;
 };
 
 export function filterCharacters(

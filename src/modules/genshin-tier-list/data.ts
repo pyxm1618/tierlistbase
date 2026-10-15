@@ -17,6 +17,26 @@ import {
 import { elements, roles, tiers, type Character } from "./characters";
 
 const text = z.string().trim().min(1);
+const avatarSchema = z.preprocess(
+  (val) => {
+    if (typeof val === "string") {
+      try {
+        return JSON.parse(val);
+      } catch {
+        return null;
+      }
+    }
+    return val;
+  },
+  z
+    .object({
+      128: z.string().url(),
+      256: z.string().url(),
+    })
+    .nullable()
+    .optional(),
+);
+
 const rowSchema = z.object({
   id: text,
   name: text,
@@ -32,6 +52,7 @@ const rowSchema = z.object({
   rankingAssumption: text,
   evidenceSummary: text,
   updatedAt: z.date(),
+  avatar: avatarSchema,
   metadata: z.object({
     element: text.refine((value) =>
       value
@@ -71,6 +92,7 @@ export function mapGenshinCharacters(
       evidenceSummary: row.evidenceSummary,
       updatedAt: row.updatedAt.toISOString(),
       evidenceSources: evidenceSourcesByEntity.get(row.id) ?? [],
+      avatar: row.avatar ?? null,
       ...row.metadata,
     }))
     .sort((a, b) => a.name.localeCompare(b.name, "en"));
@@ -128,6 +150,7 @@ export async function loadGenshinData(
         name: entities.name,
         profileId: entityProfiles.entityId,
         metadata: entityProfiles.metadata,
+        avatar: entityProfiles.avatar,
         ratingId: ratings.id,
         tier: ratings.tier,
         primaryRole: ratings.primaryRole,

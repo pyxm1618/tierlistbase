@@ -57,6 +57,7 @@ export const entityProfiles = pgTable("entity_profiles", {
     .primaryKey()
     .references(() => entities.id),
   metadata: jsonb("metadata").$type<Record<string, unknown>>().notNull(),
+  avatar: jsonb("avatar").$type<{ "128": string; "256": string }>(),
 });
 
 export const rankingContexts = pgTable("ranking_contexts", {

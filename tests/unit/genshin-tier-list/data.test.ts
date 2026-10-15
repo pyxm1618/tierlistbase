@@ -116,4 +116,29 @@ describe("reviewed Genshin database mapping", () => {
       expect(other.evidenceSources).toEqual([]);
     }
   });
+
+  it("maps official avatar URLs when present and defaults to null when omitted", () => {
+    const charactersWithoutAvatar = mapGenshinCharacters(reviewedRows);
+    expect(charactersWithoutAvatar.every((c) => c.avatar === null)).toBe(true);
+
+    const sampleRow = reviewedRows[0]!;
+    const sampleSlug = sampleRow.id;
+    const rowsWithAvatar = reviewedRows.map((r) =>
+      r.id === sampleSlug
+        ? {
+            ...r,
+            avatar: {
+              128: "https://media.tierlistbase.com/genshin/characters/sample/avatar-128.webp",
+              256: "https://media.tierlistbase.com/genshin/characters/sample/avatar-256.webp",
+            },
+          }
+        : r,
+    );
+    const characters = mapGenshinCharacters(rowsWithAvatar);
+    const target = characters.find((c) => c.id === sampleSlug);
+    expect(target?.avatar).toEqual({
+      128: "https://media.tierlistbase.com/genshin/characters/sample/avatar-128.webp",
+      256: "https://media.tierlistbase.com/genshin/characters/sample/avatar-256.webp",
+    });
+  });
 });
