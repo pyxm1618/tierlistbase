@@ -260,7 +260,7 @@ function UpdateCard({
                   month: "short",
                   day: "numeric",
                   timeZone: "UTC",
-                }).format(update.changedAt)
+                }).format(new Date(update.changedAt))
               : "Pending verification"}
           </span>
         </div>

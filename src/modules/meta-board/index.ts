@@ -20,3 +20,8 @@ export * from "./ui/expert-data-view";
 export * from "./ui/source-overview";
 export * from "./ui/meta-board-faq";
 export * from "./ui/sources-evidence";
+
+export * from "./domain/wow-context";
+export * from "./domain/forever-logs-publication";
+
+export * from "./wow";

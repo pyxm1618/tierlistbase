@@ -1,79 +1,138 @@
 import type { Metadata } from "next";
-
+import Image from "next/image";
 import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
+import { getGameMetaBoardData, getRecentRatingChanges } from "@/modules/meta-board";
 import {
-  ChangesFeed,
-  MetaBoardFaq,
-  MetaBoardHeader,
-  QuickInsights,
-  SourcesEvidence,
-  TierBoard,
-  getGameMetaBoardData,
-  getRecentRatingChanges,
+  buildWowSpecs,
+  summarizeWowStatus,
+  WowWorkspace,
+  WowRoleLinks,
+  WowChanges,
+  WowInsights,
+  WowMethodology,
+  WowSources,
+  wowHero as hero,
+  wowStyles as styles,
 } from "@/modules/meta-board";
 import { currentSeoEnvironment } from "@/platform/seo/environment-policy";
 import { metadataForRoute } from "@/platform/seo/metadata";
 import { webApplicationJsonLd } from "@/platform/seo/structured-data";
 
 type PageProps = {
-  searchParams: Promise<{
-    mode?: string;
-    role?: string;
-    level?: string;
-    build?: string;
-  }>;
+  searchParams: Promise<{ role?: string; mode?: string; level?: string; build?: string }>;
 };
-
 export async function generateMetadata(): Promise<Metadata> {
   return metadataForRoute(routeRegistry, "/wow-forever/tier-list", currentSeoEnvironment());
 }
-
 export default async function WowForeverTierListPage({ searchParams }: PageProps) {
-  const { mode, role, level, build } = await searchParams;
-
-  const metaBoardData = await getGameMetaBoardData({
+  const { role } = await searchParams;
+  // Dungeon / Level 30 / current stored version are fixed V1 context dimensions.
+  const data = await getGameMetaBoardData({
     gameSlug: "wow-forever",
-    mode: mode ?? "dungeon",
+    mode: "dungeon",
     role: role ?? "dps",
-    ...(level ? { levelCap: Number(level) } : {}),
-    ...(build ? { build } : {}),
+    levelCap: 30,
   });
-
-  const recentChanges =
-    metaBoardData.activeContext && metaBoardData.version
-      ? await getRecentRatingChanges("wow-forever", 5, undefined, {
-          rankingContextId: metaBoardData.activeContext.id,
-          toVersionId: metaBoardData.version.id,
+  const changes =
+    data.activeContext && data.version
+      ? await getRecentRatingChanges("wow-forever", 10, undefined, {
+          rankingContextId: data.activeContext.id,
+          toVersionId: data.version.id,
         })
       : [];
-
-  const routeDef = routeRegistry.get("/wow-forever/tier-list");
+  const specs = buildWowSpecs(data);
+  const status = summarizeWowStatus(data);
+  // Conservative publication status also applies to every card and Detail, not only the Hero.
+  for (const spec of specs) {
+    if (status === "Stale") spec.status = "Stale";
+    else if (status === "Preliminary" && spec.status === "Current") spec.status = "Preliminary";
+  }
+  const retrieved = specs
+    .flatMap((spec) => (spec.retrievedAt ? [spec.retrievedAt] : []))
+    .sort()
+    .at(-1);
   const canonicalUrl = `${routeRegistry.site.canonicalOrigin}/wow-forever/tier-list`;
-
   return (
-    <main className="mx-auto w-full max-w-[1680px] px-3 py-5 sm:px-5 sm:py-7 lg:px-8">
-      <JsonLd
-        value={webApplicationJsonLd({
-          name: routeDef.title ?? "WoW Forever Tier List",
-          url: canonicalUrl,
-          ...(routeDef.description ? { description: routeDef.description } : {}),
-        })}
-      />
-
-      <MetaBoardHeader data={metaBoardData} />
-
-      <section className="mt-4" aria-label="Tier Board">
-        <TierBoard
-          key={`${metaBoardData.activeContext?.id ?? "none"}:${metaBoardData.version?.id ?? "none"}`}
-          data={metaBoardData}
+    <div className={styles.pageBackground}>
+      <main className={styles.page}>
+        <JsonLd
+          value={webApplicationJsonLd({
+            name: "World of Warcraft: Forever Tier List",
+            url: canonicalUrl,
+            description:
+              "Level 30 Beta near-cap Dungeon performance rankings for DPS, Tank and Healer, based on observed Forever Logs data.",
+          })}
+        />
+        <header className={styles.hero} data-wow-hero>
+          <Image
+            src={hero}
+            alt=""
+            fill
+            sizes="(max-width: 767px) calc(100vw - 24px), (max-width: 1640px) calc(100vw - 48px), 1592px"
+            priority
+            className={styles.heroImage}
+          />
+          <div className={styles.heroContent}>
+            <div>
+              <h1>World of Warcraft: Forever Tier List</h1>
+              <p className={styles.heroSubtitle}>Level 30 Beta · Dungeon DPS / Tank / Healer</p>
+              <p>
+                Based on observed dungeon performance data and reviewed editorial evidence. Selected
+                near-cap dungeons in the current Beta context.
+              </p>
+            </div>
+            <dl className={styles.heroFacts}>
+              <div>
+                <dt>Recorded Beta Phase / Version</dt>
+                <dd>{data.version?.version ?? "Current Beta · verification pending"}</dd>
+              </div>
+              <div>
+                <dt>Level Cap Context</dt>
+                <dd>30</dd>
+              </div>
+              <div>
+                <dt>Data Updated · UTC</dt>
+                <dd>{retrieved ? retrieved.slice(0, 10) : "No recorded data"}</dd>
+              </div>
+              <div>
+                <dt>Data Status</dt>
+                <dd data-status={status}>{status}</dd>
+              </div>
+            </dl>
+          </div>
+        </header>
+        <section className={styles.context} aria-labelledby="wow-context-heading">
+          <h2 id="wow-context-heading">Ranking Context</h2>
+          <dl>
+            <div>
+              <dt>Mode</dt>
+              <dd>Dungeon</dd>
+            </div>
+            <div>
+              <dt>Level Cap</dt>
+              <dd>30 Beta</dd>
+            </div>
+            <div>
+              <dt>Version</dt>
+              <dd>Current WoW Forever Beta context</dd>
+            </div>
+          </dl>
+          <WowRoleLinks
+            availableRoles={data.availableRoles}
+            currentRole={data.activeContext?.role}
+          />
+        </section>
+        <WowWorkspace
+          key={`${data.activeContext?.id ?? "none"}:${data.version?.id ?? "none"}`}
+          specs={specs}
         >
-          <QuickInsights />
-          <ChangesFeed changes={recentChanges} />
-          <SourcesEvidence data={metaBoardData} />
-          <MetaBoardFaq />
-        </TierBoard>
-      </section>
-    </main>
+          <WowInsights specs={specs} changes={changes} />
+          <WowChanges changes={changes} />
+          <WowSources specs={specs} />
+        </WowWorkspace>
+        <WowMethodology />
+      </main>
+    </div>
   );
 }

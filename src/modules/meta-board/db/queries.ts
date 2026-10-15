@@ -8,6 +8,7 @@ async function getDb() {
 
 import {
   entities,
+  entityProfiles,
   gameVersions,
   games,
   rankingContexts,
@@ -34,10 +35,13 @@ export type SourceEvidenceItem = {
   sourceFreshness: string;
   versionMatch: boolean;
   notes: string | null;
+  sampleSize?: number | null;
+  collectedAt?: Date;
 };
 
 export type BoardEntityItem = {
   entityId: string;
+  profile?: Record<string, unknown> | undefined;
   entityName: string;
   entitySlug: string;
   entityType: string;
@@ -85,6 +89,7 @@ export type MetaBoardData = {
     build: string | null;
     levelCap: number | null;
     status: string;
+    notes?: string | null;
   } | null;
   activeContext: {
     id: string;
@@ -147,6 +152,7 @@ export async function getGameMetaBoardData(options?: {
       versionString: gameVersions.version,
       build: gameVersions.build,
       versionStatus: gameVersions.status,
+      versionNotes: gameVersions.notes,
       versionLevelCap: gameVersions.levelCap,
     })
     .from(ratings)
@@ -181,6 +187,7 @@ export async function getGameMetaBoardData(options?: {
     build: string | null;
     levelCap: number | null;
     status: string;
+    notes?: string | null;
   } | null = null;
 
   if (options?.build) {
@@ -228,6 +235,7 @@ export async function getGameMetaBoardData(options?: {
       build: matchByBuild.build,
       levelCap: matchByBuild.versionLevelCap,
       status: matchByBuild.versionStatus,
+      notes: matchByBuild.versionNotes,
     };
   } else {
     // Deterministic selection: currentVersionId -> status==='current' -> highest version string
@@ -241,6 +249,7 @@ export async function getGameMetaBoardData(options?: {
             build: c.build,
             levelCap: c.versionLevelCap,
             status: c.versionStatus,
+            notes: c.versionNotes,
           },
         ]),
       ).values(),
@@ -331,7 +340,12 @@ export async function getGameMetaBoardData(options?: {
   const modeCombinations = versionCombinations.filter((c) => c.mode === targetMode);
 
   const availableRoles = Array.from(
-    new Set(modeCombinations.map((c) => c.role).filter(Boolean)),
+    new Set(
+      modeCombinations
+        .filter((c) => options?.levelCap === undefined || c.levelCap === options.levelCap)
+        .map((c) => c.role)
+        .filter(Boolean),
+    ),
   ).sort();
   const availableLevels = Array.from(
     new Set(
@@ -456,6 +470,7 @@ export async function getGameMetaBoardData(options?: {
       entityName: entities.name,
       entitySlug: entities.slug,
       entityType: entities.entityType,
+      profile: entityProfiles.metadata,
       role: entities.role,
       sortOrder: entities.sortOrder,
       tier: ratings.tier,
@@ -472,6 +487,7 @@ export async function getGameMetaBoardData(options?: {
     })
     .from(ratings)
     .innerJoin(entities, eq(ratings.entityId, entities.id))
+    .leftJoin(entityProfiles, eq(entityProfiles.entityId, entities.id))
     .where(
       and(
         eq(ratings.rankingContextId, chosenContext.contextId),
@@ -523,6 +539,8 @@ export async function getGameMetaBoardData(options?: {
         sourceFreshness: sources.freshnessStatus,
         ratingGameVersionId: sourceRatings.gameVersionId,
         notes: sourceRatings.notes,
+        sampleSize: sourceRatings.sampleSize,
+        collectedAt: sourceRatings.collectedAt,
       })
       .from(sourceRatings)
       .innerJoin(sources, eq(sourceRatings.sourceId, sources.id))
@@ -568,6 +586,8 @@ export async function getGameMetaBoardData(options?: {
       sourceFreshness: item.sourceFreshness,
       versionMatch: item.ratingGameVersionId === selectedVersionRow.id,
       notes: item.notes,
+      sampleSize: item.sampleSize,
+      collectedAt: item.collectedAt,
     });
   }
 
@@ -617,10 +637,11 @@ export async function getGameMetaBoardData(options?: {
 
     grouped.get(tier)!.push({
       entityId: row.entityId,
+      profile: row.profile ?? undefined,
       entityName: row.entityName,
       entitySlug: row.entitySlug,
       entityType: row.entityType,
-      role: row.role,
+      role: gameSlug === "wow-forever" ? chosenContext.role : row.role,
       tier: row.tier,
       currentContextLabel: chosenContext.contextLabel,
       versionString: selectedVersionRow.version,
@@ -661,6 +682,7 @@ export async function getGameMetaBoardData(options?: {
       build: selectedVersionRow.build,
       levelCap: selectedVersionRow.levelCap,
       status: selectedVersionRow.status,
+      notes: selectedVersionRow.notes ?? null,
     },
     activeContext: {
       id: chosenContext.contextId,

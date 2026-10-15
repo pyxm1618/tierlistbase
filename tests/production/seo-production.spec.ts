@@ -161,3 +161,14 @@ test("production legal surfaces remain noindex and outside the sitemap", async (
     );
   }
 });
+
+test("WoW query filters preserve the base canonical and fixed Beta scope", async ({ page }) => {
+  await page.goto("/wow-forever/tier-list");
+  const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+  expect(canonical).toBeTruthy();
+  await page.goto("/wow-forever/tier-list?role=tank&mode=pvp&level=60&build=old");
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", canonical!);
+  await expect(page.locator("h1")).toHaveText("World of Warcraft: Forever Tier List");
+  await expect(page.locator("main")).toContainText("Level 30 Beta");
+  await expect(page.locator("main")).not.toContainText("Level 60");
+});

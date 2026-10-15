@@ -1,377 +1,235 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { eq } from "drizzle-orm";
+import { seedWowPresentationFixtures } from "./wow-fixtures";
 
-import { createDatabaseClient } from "../../src/platform/database/client";
-import {
-  entities,
-  games,
-  gameVersions,
-  rankingContexts,
-  ratings,
-  sources,
-  sourceRatings,
-  ratingChanges,
-} from "../../src/modules/meta-board/db/schema";
-
-// These synthetic records may only be written to a dedicated local presentation-test DB.
-test.beforeAll(async () => {
-  const url = process.env.TEST_DATABASE_URL;
-  if (!url) throw new Error("TEST_DATABASE_URL is required for presentation fixtures");
-  const target = new URL(url);
-  if (
-    !["localhost", "127.0.0.1"].includes(target.hostname) ||
-    !target.pathname.startsWith("/tierlistbase_presentation_test")
-  )
-    throw new Error(
-      "Presentation fixtures require a dedicated local tierlistbase_presentation_test database",
-    );
-  const database = createDatabaseClient(url);
-  try {
-    const existing = await database.db.select().from(games).where(eq(games.slug, "wow-forever"));
-    if (existing.length > 0) {
-      if (existing[0]?.id !== "presentation-test-game")
-        throw new Error("Refusing to replace existing game data");
-      return;
-    }
-    await database.db.transaction(async (db) => {
-      await db.insert(games).values({
-        id: "presentation-test-game",
-        slug: "wow-forever",
-        name: "Synthetic WoW Forever",
-        publisher: "Synthetic test",
-        status: "active",
-      });
-      await db.insert(gameVersions).values([
-        {
-          id: "presentation-version",
-          gameId: "presentation-test-game",
-          version: "synthetic-v1",
-          build: "test-build-1",
-          levelCap: 60,
-          status: "current",
-        },
-        {
-          id: "presentation-version-2",
-          gameId: "presentation-test-game",
-          version: "synthetic-v2",
-          build: "test-build-2",
-          levelCap: 60,
-          status: "preliminary",
-        },
-      ]);
-      await db
-        .update(games)
-        .set({ currentVersionId: "presentation-version" })
-        .where(eq(games.id, "presentation-test-game"));
-      await db.insert(entities).values({
-        id: "presentation-mage",
-        gameId: "presentation-test-game",
-        name: "Synthetic Mage",
-        slug: "synthetic-mage",
-        entityType: "spec",
-        role: "dps",
-      });
-      const contexts = [
-        {
-          id: "presentation-overall",
-          slug: "test-overall",
-          mode: "overall",
-          role: "all",
-          levelCap: 30,
-          label: "Synthetic Overall Level 30",
-        },
-        {
-          id: "presentation-pvp",
-          slug: "test-pvp",
-          mode: "pvp",
-          role: "all",
-          levelCap: 30,
-          label: "Synthetic PvP Level 30",
-        },
-        {
-          id: "presentation-dps",
-          slug: "test-dps",
-          mode: "overall",
-          role: "dps",
-          levelCap: 30,
-          label: "Synthetic DPS Level 30",
-        },
-        {
-          id: "presentation-60",
-          slug: "test-60",
-          mode: "overall",
-          role: "all",
-          levelCap: 60,
-          label: "Synthetic Overall Level 60",
-        },
-      ];
-      await db
-        .insert(rankingContexts)
-        .values(contexts.map((context) => ({ ...context, gameId: "presentation-test-game" })));
-      await db.insert(ratings).values([
-        ...contexts.map((context) => ({
-          id: `rating-${context.id}`,
-          entityId: "presentation-mage",
-          rankingContextId: context.id,
-          gameVersionId: "presentation-version",
-          tier: context.mode === "pvp" ? "B" : "S",
-          whyThisTier: context.label,
-          strengths: "Synthetic strength",
-          constraints: "Synthetic constraint",
-          freshnessStatus: "current",
-        })),
-        {
-          id: "rating-presentation-v2",
-          entityId: "presentation-mage",
-          rankingContextId: "presentation-overall",
-          gameVersionId: "presentation-version-2",
-          tier: "A",
-          whyThisTier: "Synthetic new version rationale",
-          freshnessStatus: "preliminary",
-        },
-      ]);
-      await db.insert(sources).values([
-        {
-          id: "presentation-expert",
-          name: "Synthetic Expert Source",
-          url: "https://example.com/synthetic-expert",
-          sourceType: "expert",
-          publisher: "Synthetic fixture",
-          freshnessStatus: "unconfigured",
-        },
-        {
-          id: "presentation-data",
-          name: "Synthetic Data Source",
-          url: "https://example.com/synthetic-data",
-          sourceType: "data",
-          publisher: "Synthetic fixture",
-          freshnessStatus: "preliminary",
-        },
-      ]);
-      await db.insert(sourceRatings).values([
-        {
-          id: "presentation-sr1",
-          sourceId: "presentation-expert",
-          entityId: "presentation-mage",
-          rankingContextId: "presentation-overall",
-          gameVersionId: "presentation-version",
-          rawTier: "S",
-          normalizedTier: "S",
-        },
-        {
-          id: "presentation-sr2",
-          sourceId: "presentation-data",
-          entityId: "presentation-mage",
-          rankingContextId: "presentation-overall",
-          gameVersionId: "presentation-version-2",
-          rawTier: "A",
-          normalizedTier: "A",
-          rawRank: 2,
-          rawScore: "0",
-        },
-      ]);
-      await db.insert(ratingChanges).values({
-        id: "presentation-change",
-        entityId: "presentation-mage",
-        rankingContextId: "presentation-overall",
-        fromVersionId: "presentation-version",
-        toVersionId: "presentation-version-2",
-        previousTier: "S",
-        newTier: "A",
-        changeType: "demoted",
-        reason: "Synthetic change reason",
-        evidence: "Synthetic change evidence",
-      });
-    });
-  } finally {
-    await database.close();
-  }
-});
-
-test("SSR contains all modules in order, stays responsive, and preserves unknowns", async ({
-  page,
+// Scope changed from the old generic PvP/Overall/Level-60 board to the approved Dungeon/30 page.
+// Preserve SSR, context isolation, unknown states, responsive and full drawer accessibility coverage.
+test.beforeAll(seedWowPresentationFixtures);
+test("SSR contains default dungeon ranking and modules in order without foreign data", async ({
   request,
-}, testInfo) => {
-  const response = await request.get("/wow-forever/tier-list?level=30");
+  page,
+}) => {
+  const response = await request.get("/wow-forever/tier-list");
+  expect(response.status()).toBe(200);
   const html = await response.text();
   for (const text of [
-    "WoW Forever Tier List",
-    "Synthetic Mage",
-    "Evidence &amp; Trust",
-    "Current Sources",
-    "FAQ / Methodology",
-  ])
-    expect(html).toContain(text);
-  await page.goto("/wow-forever/tier-list?level=30");
-  await expect(page.locator("main h2")).toHaveText([
+    "World of Warcraft: Forever Tier List",
+    "Arms Warrior",
     "Quick Insights",
     "What Changed",
-    "Sources & Evidence",
-    "FAQ / Methodology",
-  ]);
-  await expect(page.locator("header").filter({ has: page.locator("h1") })).toContainText(
-    /Level Cap\s*30/,
-  );
-  await expect(page.locator("#sources-heading").locator("..")).toContainText(
-    "Patch / Build match: Unknown",
-  );
+    "Sources &amp; Evidence",
+    "Methodology &amp; FAQ",
+  ])
+    expect(html).toContain(text);
+  for (const text of [
+    "FOREIGN SOURCE",
+    "FOREIGN CHANGE",
+    "FOREIGN EVIDENCE",
+    "Community Data",
+    "sources agree",
+    "Level 60",
+    "Best for New Players",
+    "Strong for Leveling",
+  ])
+    expect(html).not.toContain(text);
+  const order = [
+    "wow-board-heading",
+    "wow-insights-heading",
+    "wow-changes-heading",
+    "wow-sources-heading",
+    "wow-methodology-heading",
+  ].map((id) => html.indexOf(`id="${id}"`));
+  expect(order.every((value, index) => index === 0 || value > order[index - 1]!)).toBe(true);
+  await page.goto("/wow-forever/tier-list");
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByRole("button", { name: /Arms Warrior, DPS, S tier/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Frost Mage, DPS, Pending tier/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /Agree|Disagree|Vote/ })).toHaveCount(0);
-  for (const width of [320, 390, 768, 1280]) {
-    await page.setViewportSize({ width, height: 900 });
-    expect(
-      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
-    ).toBe(true);
-  }
-  await page.screenshot({ path: testInfo.outputPath("board-light.png"), fullPage: true });
-  await page.emulateMedia({ colorScheme: "dark" });
-  await page.waitForFunction(() =>
-    document.getAnimations().every((animation) => animation.playState !== "running"),
-  );
-  await page.screenshot({ path: testInfo.outputPath("board-dark.png"), fullPage: true });
-  const audit = await new AxeBuilder({ page }).analyze();
-  expect(
-    audit.violations.filter((issue) => issue.impact === "critical" || issue.impact === "serious"),
-  ).toEqual([]);
 });
-
-test("drawer traps focus, handles Escape and backdrop, restores focus and scroll", async ({
+test("role links navigate real contexts and isolate spec performance, evidence and history", async ({
   page,
-}, testInfo) => {
-  await page.goto("/wow-forever/tier-list?level=30");
-  const card = page.getByRole("button", { name: /Synthetic Mage/ });
-  await page.setViewportSize({ width: 320, height: 900 });
+}) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/wow-forever/tier-list");
+  await page.getByRole("link", { name: "TANK", exact: true }).click();
+  await expect(page).toHaveURL(/role=tank/);
+  await expect(page.getByRole("button", { name: /Earthen Guardian Shaman, TANK/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Arms Warrior/ })).toHaveCount(0);
+  await expect(page.locator("#wow-changes-heading").locator("..")).toContainText(
+    "No recorded tier changes yet",
+  );
+  await page.getByRole("link", { name: "HEALER", exact: true }).click();
+  await expect(page.getByRole("button", { name: /Holy Priest, HEALER/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Earthen Guardian/ })).toHaveCount(0);
+  await page.getByRole("link", { name: "DPS", exact: true }).click();
+  await expect(page.getByRole("button", { name: /Arms Warrior/ })).toBeVisible();
+  await expect(page.locator("#wow-changes-heading").locator("..")).toContainText("Fury Warrior");
+  await expect(page.locator("main")).not.toContainText(/FOREIGN/);
+});
+test("Class filtering is local and preserves global rank and selected Detail", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/wow-forever/tier-list");
+  await page.waitForLoadState("networkidle");
+  let navigations = 0;
+  page.on("request", (request) => {
+    if (new URL(request.url()).pathname === "/wow-forever/tier-list") navigations++;
+  });
+  await page
+    .getByRole("navigation", { name: "Class Navigator" })
+    .getByRole("button", { name: "Mage", exact: true })
+    .click();
+  await expect(page.getByRole("button", { name: /Fire Mage, DPS/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Arms Warrior, DPS/ })).toHaveCount(0);
+  await expect(page.locator("#desktop-spec-title")).toHaveText("Fire");
+  const card = page.getByRole("button", { name: /Fire Mage, DPS/ });
+  await expect(card).toContainText("#2");
   await card.click();
-  const dialog = page.getByRole("dialog", { name: "Synthetic Mage" });
+  await expect(page.locator("#desktop-spec-title")).toHaveText("Fire");
+  await page.getByRole("tab", { name: "Performance", exact: true }).click();
+  const panel = page.getByRole("tabpanel");
+  await expect(panel).toContainText("126.0");
+  await expect(panel).toContainText("120");
+  await expect(panel).toContainText("207");
+  await expect(panel).toContainText("N/A");
+  expect(navigations).toBe(0);
+  await page
+    .getByRole("navigation", { name: "Class Navigator" })
+    .getByRole("button", { name: "All Classes", exact: true })
+    .click();
+  await expect(page.getByRole("button", { name: /Arms Warrior, DPS/ })).toBeVisible();
+});
+test("pending remains unranked with real low sample and N/A score", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/wow-forever/tier-list");
+  await page.getByRole("button", { name: /Frost Mage, DPS, Pending/ }).click();
+  await page.getByRole("tab", { name: "Performance", exact: true }).click();
+  const panel = page.getByRole("tabpanel");
+  await expect(panel).toContainText("Pending");
+  await expect(panel).toContainText("N/A");
+  await expect(panel).toContainText("Insufficient sample / excluded");
+  await expect(panel).not.toContainText("126.0");
+});
+test("unsupported query dimensions cannot introduce another scope and invalid role stays unavailable", async ({
+  page,
+}) => {
+  await page.goto("/wow-forever/tier-list?mode=pvp&level=60&build=historical");
+  await expect(page.getByRole("button", { name: /Arms Warrior, DPS/ })).toBeVisible();
+  await expect(page.locator("main")).not.toContainText(/Level 60|Historical|PvP|FOREIGN/);
+  await page.goto("/wow-forever/tier-list?role=unknown");
+  await expect(
+    page.getByText("No recorded data for this Ranking Context.", { exact: false }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "DPS", exact: true }).click();
+  await expect(page.getByRole("button", { name: /Arms Warrior/ })).toBeVisible();
+});
+test("drawer traps focus, closes with Escape/backdrop, restores focus and body scroll", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 768, height: 900 });
+  await page.goto("/wow-forever/tier-list");
+  const card = page.getByRole("button", { name: /Arms Warrior, DPS/ });
+  await card.click();
+  const dialog = page.getByRole("dialog", { name: "Arms", exact: true });
   await expect(dialog).toBeVisible();
-  expect(await dialog.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
-  await expect(dialog.getByRole("button", { name: "Close detail drawer" })).toBeFocused();
+  await expect(dialog.getByRole("button", { name: "Close Spec Detail" })).toBeFocused();
   expect(await page.evaluate(() => document.body.style.overflow)).toBe("hidden");
-  await page.keyboard.press("Shift+Tab");
-  expect(await dialog.evaluate((element) => element.contains(document.activeElement))).toBe(true);
-  const audit = await new AxeBuilder({ page }).analyze();
-  expect(
-    audit.violations.filter((issue) => issue.impact === "critical" || issue.impact === "serious"),
-  ).toEqual([]);
-  await page.screenshot({ path: testInfo.outputPath("drawer.png") });
+  for (const key of ["Shift+Tab", "Tab", "Tab", "Tab"]) {
+    await page.keyboard.press(key);
+    expect(await dialog.evaluate((el) => el.contains(document.activeElement))).toBe(true);
+  }
   await page.keyboard.press("Escape");
   await expect(dialog).toHaveCount(0);
   await expect(card).toBeFocused();
   expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
   await card.click();
-  await dialog.getByRole("button", { name: "Close detail drawer" }).click();
-  await expect(card).toBeFocused();
-  await page.setViewportSize({ width: 1280, height: 900 });
-  await card.click();
-  await page.mouse.click(20, 300);
+  await page.mouse.click(10, 400);
   await expect(dialog).toHaveCount(0);
   await expect(card).toBeFocused();
+  await card.click();
+  await dialog.getByRole("button", { name: "Close Spec Detail" }).click();
+  await expect(card).toBeFocused();
 });
-
-test("incompatible URL filters remain visible and can recover a valid mode or build context", async ({
+test("detail tab keyboard navigation and source attribution remain accessible", async ({
   page,
 }) => {
-  await page.goto("/wow-forever/tier-list?level=30&role=dps");
-  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
-    "Synthetic DPS Level 30",
-  );
-  await page.getByRole("button", { name: "pvp", exact: true }).click();
-  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
-  await expect(page.getByRole("button", { name: "pvp", exact: true })).toHaveAttribute(
-    "aria-pressed",
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/wow-forever/tier-list");
+  await page.getByRole("tab", { name: "Overview", exact: true }).focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("tab", { name: "Performance", exact: true })).toHaveAttribute(
+    "aria-selected",
     "true",
   );
-  await expect(page.getByRole("button", { name: "all", exact: true })).toHaveAttribute(
-    "aria-pressed",
-    "false",
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("tabpanel")).toContainText("1 performance data source");
+  await expect(
+    page.getByRole("tabpanel").getByRole("link", { name: "Synthetic Forever Logs fixture" }),
+  ).toHaveAttribute("href", "https://foreverlogs.gg/");
+  await expect(page.locator("main")).not.toContainText("sources agree");
+  const audit = await new AxeBuilder({ page }).analyze();
+  expect(audit.violations.filter((v) => v.impact === "critical" || v.impact === "serious")).toEqual(
+    [],
   );
-  await page.getByRole("button", { name: "all", exact: true }).click();
-  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
-    "Synthetic PvP Level 30",
-  );
-  expect(new URL(page.url()).searchParams.has("role")).toBe(false);
-
-  await page.goto("/wow-forever/tier-list?level=30&role=dps&build=test-build-2");
-  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
-  await expect(page.getByRole("button", { name: "all", exact: true })).toHaveAttribute(
-    "aria-pressed",
-    "false",
-  );
-  await page.getByRole("button", { name: "all", exact: true }).click();
-  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
-    "Synthetic new version rationale",
-  );
-  expect(new URL(page.url()).searchParams.get("build")).toBe("test-build-2");
-
-  await page.goto("/wow-forever/tier-list?level=30&mode=unknown");
-  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
-  await expect(page.getByRole("button", { name: "overall", exact: true })).toHaveAttribute(
-    "aria-pressed",
-    "false",
-  );
-  await page.getByRole("button", { name: "overall", exact: true }).click();
-  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
-    "Synthetic Overall Level 30",
-  );
-  expect(new URL(page.url()).searchParams.has("mode")).toBe(false);
-
-  await page.goto("/wow-forever/tier-list?level=30&build=missing-build");
-  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
-  await expect(page.getByRole("button", { name: "test-build-1", exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "test-build-1", exact: true }).click();
-  await expect(page.getByRole("button", { name: /Synthetic Mage/ })).toContainText(
-    "Synthetic Overall Level 30",
-  );
-  expect(new URL(page.url()).searchParams.get("build")).toBe("test-build-1");
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.getByRole("button", { name: /Arms Warrior, DPS/ }).click();
+  const modalAudit = await new AxeBuilder({ page }).analyze();
+  expect(
+    modalAudit.violations.filter((v) => v.impact === "critical" || v.impact === "serious"),
+  ).toEqual([]);
 });
-
-test("filters navigate real contexts, expose pending feedback, and isolate evidence", async ({
-  page,
-}) => {
-  await page.goto("/wow-forever/tier-list?level=30");
-  await page.route("**/wow-forever/tier-list?*", async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    await route.continue();
+for (const width of [390, 768, 1024, 1280, 1440, 1920, 2560])
+  test(`approved layout and image strategy at ${width}px`, async ({ page, request }, testInfo) => {
+    await page.setViewportSize({ width, height: 1000 });
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    page.on("console", (message) => {
+      if (message.type() === "error") errors.push(message.text());
+    });
+    await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    await expect(page.getByRole("navigation", { name: "Class Navigator" })).toBeVisible();
+    await expect(page.getByRole("complementary", { name: "Selected Spec Detail" }))[
+      width >= 1280 ? "toBeVisible" : "toBeHidden"
+    ]();
+    const preloads = page.locator('link[rel="preload"][as="image"]');
+    await expect(preloads).toHaveCount(1);
+    await expect(preloads).toHaveAttribute("imagesrcset", /hero-3b7bb10711/);
+    const hero = page.locator("[data-wow-hero] img");
+    await expect(hero).toHaveJSProperty("complete", true);
+    const image = await hero.evaluate((img: HTMLImageElement) => {
+      const r = (performance.getEntriesByType("resource") as PerformanceResourceTiming[]).find(
+        (r) => r.name === img.currentSrc,
+      );
+      return {
+        currentSrc: img.currentSrc,
+        naturalWidth: img.naturalWidth,
+        renderedWidth: img.getBoundingClientRect().width,
+        encodedBodySize: r?.encodedBodySize,
+        dpr: devicePixelRatio,
+      };
+    });
+    expect(image.naturalWidth).toBeGreaterThan(0);
+    expect(Number(new URL(image.currentSrc).searchParams.get("w"))).toBeGreaterThanOrEqual(
+      Math.min(2172, image.renderedWidth * image.dpr),
+    );
+    const resource = await request.get(image.currentSrc);
+    expect((await resource.body()).length).toBeLessThan(500000);
+    await testInfo.attach("hero-image-evidence", {
+      body: JSON.stringify(image),
+      contentType: "application/json",
+    });
+    const icons = page.locator('img[alt="Neutral placeholder icon"]');
+    for (const icon of await icons.all()) await expect(icon).toHaveAttribute("loading", "lazy");
+    if (width < 1280) {
+      await page.getByRole("button", { name: /Arms Warrior, DPS/ }).click();
+      await expect(page.getByRole("dialog")).toBeVisible();
+      await page.keyboard.press("Escape");
+    }
+    if ([390, 1440, 1920].includes(width)) {
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.screenshot({ path: testInfo.outputPath(`wow-${width}.png`), fullPage: true });
+    }
+    expect(errors).toEqual([]);
   });
-  const card = page.getByRole("button", { name: /Synthetic Mage/ });
-  await page.getByRole("button", { name: "pvp", exact: true }).click();
-  await expect(page.getByRole("status")).toHaveText("Loading ranking context…");
-  await expect(page.getByRole("button", { name: "pvp", exact: true })).toBeDisabled();
-  await expect(page.locator('[aria-label="Tier Board"] [aria-hidden="true"]')).toBeVisible();
-  await expect(page).toHaveURL(/mode=pvp/);
-  await expect(card).toContainText("Synthetic PvP Level 30");
-  await expect(page.locator("#sources-heading").locator("..")).toContainText(
-    "No reviewed sources published",
-  );
-  await page.getByRole("button", { name: "overall", exact: true }).click();
-  await expect(card).toContainText("Synthetic Overall Level 30");
-  await page.getByRole("button", { name: "dps", exact: true }).click();
-  await expect(card).toContainText("Synthetic DPS Level 30");
-  await page.getByRole("button", { name: "all", exact: true }).click();
-  await expect(card).toContainText("Synthetic Overall Level 30");
-  await page.getByRole("button", { name: "Lv 60", exact: true }).click();
-  await expect(card).toContainText("Synthetic Overall Level 60");
-  await page.getByRole("button", { name: "Lv 30", exact: true }).click();
-  await expect(card).toContainText("Synthetic Overall Level 30");
-  await page.getByRole("button", { name: "test-build-2", exact: true }).click();
-  await expect(page).toHaveURL(/build=test-build-2/);
-  await expect(card).toContainText("Synthetic new version rationale");
-  await expect(page.locator("#sources-heading").locator("..")).toContainText(
-    "Synthetic Data Source",
-  );
-  await expect(page.locator("#sources-heading").locator("..")).not.toContainText(
-    "Synthetic Expert Source",
-  );
-  await expect(page.getByRole("region", { name: "What Changed" })).toContainText(
-    "Synthetic change reason",
-  );
-  await card.click();
-  await expect(page.getByRole("dialog")).toContainText("Recorded Change History");
-  await expect(page.getByRole("dialog")).toContainText("Synthetic change reason");
-  await page.keyboard.press("Escape");
-  await page.goto("/wow-forever/tier-list?mode=unknown");
-  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
-  await expect(page.locator("#sources-heading").locator("..")).not.toContainText(
-    "Synthetic Data Source",
-  );
-});

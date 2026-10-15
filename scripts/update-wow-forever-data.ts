@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import {
   buildWowForeverDataCandidate,
   publishWowForeverDataCandidate,
@@ -6,7 +7,14 @@ import {
 const apiKey = process.env.FOREVER_LOGS_API_KEY;
 if (!apiKey) throw new Error("FOREVER_LOGS_API_KEY is required");
 
-const candidate = await buildWowForeverDataCandidate({ apiKey });
+const reviewIndex = process.argv.indexOf("--review");
+const reviewPath = reviewIndex >= 0 ? process.argv[reviewIndex + 1] : undefined;
+if (!reviewPath || reviewPath.startsWith("--"))
+  throw new Error(
+    "--review <path> is required: current official Beta scope and Forever Logs live taxonomy must be reviewed before ranking/publication",
+  );
+const review: unknown = JSON.parse(await readFile(reviewPath, "utf8"));
+const candidate = await buildWowForeverDataCandidate({ apiKey, review });
 
 const summary = candidate.rankings.map((ranking) => ({
   role: ranking.item.role,
