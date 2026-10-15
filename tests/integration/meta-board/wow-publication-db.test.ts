@@ -16,7 +16,10 @@ if (!url) throw new Error("TEST_DATABASE_URL required");
 const target = new URL(url);
 if (
   !["localhost", "127.0.0.1"].includes(target.hostname) ||
-  !/(?:_test|_integration)/.test(target.pathname)
+  !(
+    /(?:_test|_integration)/.test(target.pathname) ||
+    (process.env.CLEAN_SETUP_DATABASE_URL === url && /_clean(?:_|$)/.test(target.pathname))
+  )
 )
   throw new Error("Publisher integration requires a dedicated local WoW V1 integration database");
 const database = createDatabaseClient(url);
