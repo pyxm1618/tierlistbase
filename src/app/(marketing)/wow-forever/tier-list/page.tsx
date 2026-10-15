@@ -26,6 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return metadataForRoute(routeRegistry, "/wow-forever/tier-list", currentSeoEnvironment());
 }
 export default async function WowForeverTierListPage({ searchParams }: PageProps) {
+  const route = routeRegistry.get("/wow-forever/tier-list");
+  if (route.class !== "public_indexable") throw new Error("WoW tier list must be indexable");
   const { role } = await searchParams;
   // Dungeon / Level 30 / current stored version are fixed V1 context dimensions.
   const data = await getGameMetaBoardData({
@@ -58,7 +60,7 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
       <main className={styles.page}>
         <JsonLd
           value={webApplicationJsonLd({
-            name: "World of Warcraft: Forever Tier List",
+            name: route.h1,
             url: canonicalUrl,
             description:
               "Level 30 Beta near-cap Dungeon performance rankings for DPS, Tank and Healer, based on observed Forever Logs data.",
@@ -75,7 +77,7 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
           />
           <div className={styles.heroContent}>
             <div>
-              <h1>World of Warcraft: Forever Tier List</h1>
+              <h1>{route.h1}</h1>
               <p className={styles.heroSubtitle}>Level 30 Beta · Dungeon DPS / Tank / Healer</p>
               <p>
                 Based on observed dungeon performance data and reviewed editorial evidence. Selected

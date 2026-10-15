@@ -9,8 +9,8 @@
 
 - [x] 1. Data presentation and publication boundaries. Add failing unit cases for malformed/foreign observations, sample/coverage, pending/rank, and phase/role/version mismatches. Extend existing query fields without N+1. Preserve existing normalization/tier bands. Repair publisher metadata and gate Current against reviewed official/live context.
 - [x] 2. Approved layout. Convert standalone hero through existing sharp to hashed WebP; create one neutral geometric placeholder WebP, mark it visibly, keep a minimal asset ledger. Implement server sections and client workspace with real role links, local class filtering, four detail tabs and accessible modal drawer.
-- [ ] 3. Verification. Extend existing Playwright coverage for all three real DB contexts, context/version isolation, SSR, class/spec detail, missing data, source attribution, modal keyboard behavior and seven viewports. Synthetic fixtures only in a dedicated local DB, clearly separated from real data acceptance. Run unit/type/lint/build and existing Home/Genshin/performance checks.
-- [ ] 4. Delivery. Review diff, reconcile 44-item ledger, record limitations/metrics/screenshots, final fetch and compare main, commit only task files, open and attach PR; never merge/deploy.
+- [x] 3. Verification. Extend existing Playwright coverage for all three real DB contexts, context/version isolation, SSR, class/spec detail, missing data, source attribution, modal keyboard behavior and seven viewports. Synthetic fixtures only in a dedicated local DB, clearly separated from real data acceptance. Run unit/type/lint/build and existing Home/Genshin/performance checks.
+- [x] 4. Delivery. Review diff, reconcile 44-item ledger, record limitations/metrics/screenshots, final fetch and compare main, commit only task files, open and attach PR; never merge/deploy.
 
 ## Review focus
 
