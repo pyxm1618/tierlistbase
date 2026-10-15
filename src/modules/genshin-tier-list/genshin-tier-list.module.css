@@ -660,6 +660,44 @@
   color: #c4d0df;
   font-style: normal;
 }
+.sourceList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 8px;
+}
+.sourceList a,
+.evidenceSourceList a {
+  color: #66c9ff;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-word;
+}
+.sourceList a:hover,
+.evidenceSourceList a:hover {
+  color: #aae0ff;
+}
+.evidenceSourceList {
+  list-style: disc;
+  padding-left: 18px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #bed1e8;
+}
+.evidenceSourceList li {
+  margin-top: 4px;
+}
+.disclosure {
+  font-size: 10px;
+  color: var(--muted);
+  border-top: 1px solid #163a50;
+  padding-top: 8px;
+  margin-top: 10px;
+  line-height: 1.4;
+}
 .definitions {
   margin-top: 7px;
 }
