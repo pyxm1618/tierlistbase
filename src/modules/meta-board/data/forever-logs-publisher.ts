@@ -177,7 +177,19 @@ export async function buildWowForeverDataCandidate(input: {
       retrievedAt,
       sourceUrl: FOREVER_LOGS_SOURCE_URL,
       apiPath: "/api/public/v1/statistics?" + params.toString(),
+      expectedContext: {
+        phase: phaseId,
+        location: probe.location,
+        metric: probe.metric,
+        difficulty: "all",
+        bracket: "all",
+        damageMode: "standard",
+      },
     });
+    if (parsed.issues.some((issue) => issue.reason === "context_mismatch"))
+      throw new Error(
+        `Forever Logs response context mismatch for ${probe.location}/${probe.metric}`,
+      );
     if (parsed.issues.length > 0) {
       throw new Error(
         `Forever Logs payload validation failed for ${probe.location}/${probe.metric}`,
@@ -491,6 +503,20 @@ export async function publishWowForeverDataCandidate(input: {
         where game_version_id = ${versionId}
           and ranking_context_id = any(${contextIds})
       `;
+      const candidateKeys = new Set(
+        input.candidate.rankings.map(
+          (ranking) =>
+            `${entityIdentity(ranking.item).id}::${contextForRole(ranking.item.role).id}`,
+        ),
+      );
+      const omitted = previous.filter(
+        (row) => !candidateKeys.has(`${row.entity_id}::${row.ranking_context_id}`),
+      );
+      if (omitted.length > 0)
+        throw new Error(
+          `Publication blocked: candidate omits previously stored same-phase observations (${omitted.map((row) => `${row.entity_id}/${row.ranking_context_id}`).join(", ")}); preserve prior snapshot for review`,
+        );
+
       const previousByKey = new Map(
         previous.map((row) => [`${row.entity_id}::${row.ranking_context_id}`, String(row.tier)]),
       );

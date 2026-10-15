@@ -80,6 +80,7 @@ export type ForeverLogsParseIssue = {
     | "invalid_response"
     | "unsupported_metric"
     | "missing_context"
+    | "context_mismatch"
     | "invalid_spec_statistics";
 };
 
@@ -128,6 +129,14 @@ export function parseForeverLogsStatisticsPayload(
     readonly retrievedAt: Date;
     readonly sourceUrl?: string;
     readonly apiPath?: string;
+    readonly expectedContext?: {
+      readonly phase: number;
+      readonly location: string;
+      readonly metric: ForeverLogsMetric;
+      readonly difficulty: string;
+      readonly bracket: string;
+      readonly damageMode: string;
+    };
   },
 ): ForeverLogsParseResult {
   const root = asRecord(payload);
@@ -156,9 +165,22 @@ export function parseForeverLogsStatisticsPayload(
     return { observations: [], issues: [{ reason: "missing_context" }] };
   }
 
+  const expected = options.expectedContext;
+  if (
+    expected &&
+    (phase !== expected.phase ||
+      location !== expected.location ||
+      root.metric !== expected.metric ||
+      difficulty !== expected.difficulty ||
+      bracket !== expected.bracket ||
+      damageMode !== expected.damageMode)
+  ) {
+    return { observations: [], issues: [{ reason: "context_mismatch" }] };
+  }
+
   const statistics = asRecord(root.statistics);
   if (!statistics) {
-    return { observations: [], issues: [] };
+    return { observations: [], issues: [{ reason: "invalid_response" }] };
   }
 
   const observations: ForeverLogsObservation[] = [];
@@ -167,7 +189,10 @@ export function parseForeverLogsStatisticsPayload(
   for (const [className, classValue] of Object.entries(statistics)) {
     const classRecord = asRecord(classValue);
     const specs = asRecord(classRecord?.specs);
-    if (!specs) continue;
+    if (!specs) {
+      issues.push({ className, reason: "invalid_spec_statistics" });
+      continue;
+    }
 
     for (const [specName, specValue] of Object.entries(specs)) {
       const spec = asRecord(specValue);

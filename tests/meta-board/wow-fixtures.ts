@@ -32,14 +32,12 @@ export async function seedWowPresentationFixtures() {
     }
     const now = new Date();
     await database.db.transaction(async (db) => {
-      await db
-        .insert(games)
-        .values({
-          id: "wow-v1-synthetic-game",
-          slug: "wow-forever",
-          name: "World of Warcraft: Forever",
-          publisher: "Synthetic test fixture",
-        });
+      await db.insert(games).values({
+        id: "wow-v1-synthetic-game",
+        slug: "wow-forever",
+        name: "World of Warcraft: Forever",
+        publisher: "Synthetic test fixture",
+      });
       await db.insert(gameVersions).values([
         {
           id: "wow-v1-synthetic-version",
@@ -61,19 +59,17 @@ export async function seedWowPresentationFixtures() {
         .update(games)
         .set({ currentVersionId: "wow-v1-synthetic-version" })
         .where(eq(games.id, "wow-v1-synthetic-game"));
-      await db
-        .insert(rankingContexts)
-        .values(
-          ["dps", "tank", "healer"].map((role) => ({
-            id: `wow-v1-${role}`,
-            gameId: "wow-v1-synthetic-game",
-            slug: `dungeon-${role}-30`,
-            mode: "dungeon",
-            role,
-            levelCap: 30,
-            label: `Dungeon · ${role.toUpperCase()} · Level Cap 30`,
-          })),
-        );
+      await db.insert(rankingContexts).values(
+        ["dps", "tank", "healer"].map((role) => ({
+          id: `wow-v1-${role}`,
+          gameId: "wow-v1-synthetic-game",
+          slug: `dungeon-${role}-30`,
+          mode: "dungeon",
+          role,
+          levelCap: 30,
+          label: `Dungeon · ${role.toUpperCase()} · Level Cap 30`,
+        })),
+      );
       await db.insert(sources).values([
         {
           id: "wow-v1-data",
@@ -125,31 +121,27 @@ export async function seedWowPresentationFixtures() {
                 : score >= 90
                   ? "B"
                   : "C";
-        await db
-          .insert(entities)
-          .values({
-            id,
-            gameId: "wow-v1-synthetic-game",
-            entityType: "spec",
-            slug: `synthetic-${index}`,
-            name: `${specName} ${className}`,
-            role,
-          });
+        await db.insert(entities).values({
+          id,
+          gameId: "wow-v1-synthetic-game",
+          entityType: "spec",
+          slug: `synthetic-${index}`,
+          name: `${specName} ${className}`,
+          role,
+        });
         await db.insert(entityProfiles).values({ entityId: id, metadata: { className, specName } });
-        await db
-          .insert(ratings)
-          .values({
-            id: `wow-v1-rating-${index}`,
-            entityId: id,
-            rankingContextId: `wow-v1-${role}`,
-            gameVersionId: "wow-v1-synthetic-version",
-            tier,
-            consensusScore: score === null ? null : String(score),
-            dataStatus: score === null ? "unavailable" : "available",
-            freshnessStatus: score === null ? "preliminary" : "current",
-            whyThisTier: "Synthetic observed evidence",
-            updatedAt: now,
-          });
+        await db.insert(ratings).values({
+          id: `wow-v1-rating-${index}`,
+          entityId: id,
+          rankingContextId: `wow-v1-${role}`,
+          gameVersionId: "wow-v1-synthetic-version",
+          tier,
+          consensusScore: score === null ? null : String(score),
+          dataStatus: score === null ? "unavailable" : "available",
+          freshnessStatus: score === null ? "preliminary" : "current",
+          whyThisTier: "Synthetic observed evidence",
+          updatedAt: now,
+        });
         const notes = JSON.stringify({
           derivedBy: "TierListBase",
           dataSource: "Forever Logs Public API",
@@ -177,22 +169,20 @@ export async function seedWowPresentationFixtures() {
             },
           ],
         });
-        await db
-          .insert(sourceRatings)
-          .values({
-            id: `wow-v1-source-rating-${index}`,
-            sourceId: "wow-v1-data",
-            entityId: id,
-            rankingContextId: `wow-v1-${role}`,
-            gameVersionId: "wow-v1-synthetic-version",
-            rawTier: tier,
-            normalizedTier: tier,
-            rawScore: score === null ? null : String(score),
-            normalizedScore: score === null ? null : String(score),
-            sampleSize: parses * 2,
-            collectedAt: now,
-            notes,
-          });
+        await db.insert(sourceRatings).values({
+          id: `wow-v1-source-rating-${index}`,
+          sourceId: "wow-v1-data",
+          entityId: id,
+          rankingContextId: `wow-v1-${role}`,
+          gameVersionId: "wow-v1-synthetic-version",
+          rawTier: tier,
+          normalizedTier: tier,
+          rawScore: score === null ? null : String(score),
+          normalizedScore: score === null ? null : String(score),
+          sampleSize: parses * 2,
+          collectedAt: now,
+          notes,
+        });
       }
       await db.insert(ratingChanges).values([
         {
@@ -220,18 +210,16 @@ export async function seedWowPresentationFixtures() {
           changedAt: now,
         },
       ]);
-      await db
-        .insert(sourceRatings)
-        .values({
-          id: "wow-v1-foreign-rating",
-          sourceId: "wow-v1-foreign-source",
-          entityId: "wow-v1-spec-0",
-          rankingContextId: "wow-v1-tank",
-          gameVersionId: "wow-v1-foreign-version",
-          rawTier: "S",
-          normalizedTier: "S",
-          notes: "FOREIGN EVIDENCE DO NOT DISPLAY",
-        });
+      await db.insert(sourceRatings).values({
+        id: "wow-v1-foreign-rating",
+        sourceId: "wow-v1-foreign-source",
+        entityId: "wow-v1-spec-0",
+        rankingContextId: "wow-v1-tank",
+        gameVersionId: "wow-v1-foreign-version",
+        rawTier: "S",
+        normalizedTier: "S",
+        notes: "FOREIGN EVIDENCE DO NOT DISPLAY",
+      });
     });
   } finally {
     await database.close();

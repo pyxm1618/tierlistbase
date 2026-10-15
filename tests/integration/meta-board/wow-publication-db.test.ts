@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { afterAll, beforeAll, expect, it, vi } from "vitest";
 import { sql } from "drizzle-orm";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
@@ -34,7 +35,7 @@ afterAll(async () => {
   vi.unstubAllGlobals();
   await database.close();
 });
-it("persists phase/profile/evidence and upserts without deleting an absent previously observed spec", async () => {
+it("persists phase/profile/evidence and blocks incomplete refresh without deleting prior observations", async () => {
   const now = new Date();
   const dungeons = WOW_FOREVER_NEAR_CAP_DUNGEONS.map((d) => d.name);
   const review = {
@@ -85,7 +86,7 @@ it("persists phase/profile/evidence and upserts without deleting an absent previ
     );
   });
   const candidate = await buildWowForeverDataCandidate({
-    apiKey: "synthetic-test-key",
+    apiKey: randomUUID(),
     review,
     now,
   });
@@ -109,7 +110,9 @@ it("persists phase/profile/evidence and upserts without deleting an absent previ
     ...candidate,
     rankings: candidate.rankings.filter((r) => r.item.role !== "tank"),
   };
-  await publishWowForeverDataCandidate({ candidate: partial, databaseUrl: url! });
+  await expect(
+    publishWowForeverDataCandidate({ candidate: partial, databaseUrl: url! }),
+  ).rejects.toThrow(/omits previously stored/);
   const tank = await getGameMetaBoardData({
     gameSlug: "wow-forever",
     mode: "dungeon",

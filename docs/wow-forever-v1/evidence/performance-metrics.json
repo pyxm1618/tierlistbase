@@ -4,7 +4,7 @@
     "route": "/",
     "cls": 0,
     "inp": 24,
-    "lcp": 328,
+    "lcp": 420,
     "scriptBytes": 156463,
     "scriptCount": 9,
     "oversizedImages": []
@@ -13,8 +13,8 @@
     "project": "desktop",
     "route": "/wow-forever/tier-list",
     "cls": 0,
-    "inp": 56,
-    "lcp": 108,
+    "inp": 48,
+    "lcp": 112,
     "scriptBytes": 156463,
     "scriptCount": 9,
     "oversizedImages": []
@@ -23,8 +23,8 @@
     "project": "desktop",
     "route": "/wow-forever/tier-list?level=30",
     "cls": 0,
-    "inp": 40,
-    "lcp": 100,
+    "inp": 48,
+    "lcp": 92,
     "scriptBytes": 156463,
     "scriptCount": 9,
     "oversizedImages": []
@@ -33,8 +33,8 @@
     "project": "desktop",
     "route": "/genshin-impact/tier-list",
     "cls": 0.007468643983205159,
-    "inp": 40,
-    "lcp": 112,
+    "inp": 48,
+    "lcp": 88,
     "scriptBytes": 156463,
     "scriptCount": 9,
     "oversizedImages": []
@@ -44,7 +44,7 @@
     "route": "/",
     "cls": 0,
     "inp": 24,
-    "lcp": 316,
+    "lcp": 416,
     "scriptBytes": 139541,
     "scriptCount": 6,
     "oversizedImages": []
@@ -54,7 +54,7 @@
     "route": "/wow-forever/tier-list",
     "cls": 0,
     "inp": 40,
-    "lcp": 120,
+    "lcp": 152,
     "scriptBytes": 151053,
     "scriptCount": 8,
     "oversizedImages": []
@@ -63,8 +63,8 @@
     "project": "mobile",
     "route": "/wow-forever/tier-list?level=30",
     "cls": 0,
-    "inp": 40,
-    "lcp": 92,
+    "inp": 72,
+    "lcp": 100,
     "scriptBytes": 151053,
     "scriptCount": 8,
     "oversizedImages": []
@@ -73,8 +73,8 @@
     "project": "mobile",
     "route": "/genshin-impact/tier-list",
     "cls": 0.0027517755760820633,
-    "inp": 40,
-    "lcp": 124,
+    "inp": 32,
+    "lcp": 108,
     "scriptBytes": 144951,
     "scriptCount": 7,
     "oversizedImages": []

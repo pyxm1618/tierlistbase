@@ -1,6 +1,6 @@
 # WoW V1 Gap Audit / 验收台账
 
-日期：2026-10-15。页面功能已经实现；图标按用户新授权使用中性占位素材。最终生产发布验收 NOT READY：认证 Forever Logs active phase / live taxonomy / 生产 Neon 一致性未核查。不得用本地 fixture 证明真实排名已验收。
+日期：2026-10-15。页面功能已经实现；图标按用户新授权使用中性占位素材。最终生产发布验收 NOT READY：认证 Forever Logs active phase / live taxonomy / 生产 Neon 一致性为 remote production validation pending。不得用本地 fixture 证明真实排名已验收。
 
 ## Existing and reusable
 
@@ -17,7 +17,7 @@
 
 ## Missing / Data not currently verified
 
-- FOREVER_LOGS_API_KEY未配置；认证active phase/statistics/live taxonomy调用不能完成。本轮没有生产数据库只读配置，DATABASE_URL是本地开发库。
+- 生产 Worker tierlistbase 的 FOREVER_LOGS_API_KEY 与生产 Neon DATABASE_URL 已配置（用户确认）；本地无权读取 Cloudflare Secret，无法执行认证 API/生产 DB 核查，属于环境隔离。
 - 当前生产Neon的Class/Spec回填、observations、context/version/phase一致性和真实默认排名尚未核验或刷新。
 - 正式Class/Spec视觉素材待补；此项遵循用户例外，不阻塞功能实现。
 
@@ -77,7 +77,7 @@
 | READY-29 | 当前性能门禁通过； | approved / pass | 现有marketing performance20/20 + analytics-on1/1通过；本机实验室值，不是生产RUM。 |
 | READY-30 | Genshin / Homepage 无回归； | approved / pass | 现有Homepage/Genshin功能回归18/18通过；含共享缓存日期bug最小修复。 |
 | READY-31 | 没有修改本任务范围之外的产品。 | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
-| DATA-01 | Forever Logs active phase 与当前 Beta context 一致； | deferred / unknown | 认证 live active phase 不可读（缺API凭证）；代码门禁不允许历史fallback。 |
+| DATA-01 | Forever Logs active phase 与当前 Beta context 一致； | deferred / unknown | 认证 live active phase 本地不可读（Cloudflare Secret 环境隔离）；代码门禁不允许历史fallback。 |
 | DATA-02 | Blizzard 官方当前 Level Cap / Dungeon availability 已核对； | approved / pass | 本轮读取 Blizzard 官方主题JSON，含10月1日Level30与near-cap范围及10月8日City of Dalaran开放。 |
 | DATA-03 | 所有参与 ranking 的 dungeon metadata 未过期； | approved / pass | Wetlands修正26-31；Razorfen25+ / Uldaman30+核对；City of Dalaran不臆测数值范围（null）。 |
 | DATA-04 | DPS / Healer / Tank 的 spec-role mapping 与 Forever Logs 当前 live taxonomy 一致； | deferred / unknown | Live taxonomy认证核查待完成；代码只接受逐项review，含实际observations角色验证。 |

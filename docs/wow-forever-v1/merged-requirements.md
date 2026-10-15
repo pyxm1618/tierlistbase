@@ -29,6 +29,15 @@
 - 最小素材台账位于 `src/modules/meta-board/wow/assets/README.md`，记录素材名、最终文件、原路径、使用依据、日期、处理与批准状态。
 - 最终保留 `Remaining issue: final Class/Spec visual assets pending`。
 
+## 生产配置与最终远程验收（用户最新确认）
+
+- Forever Logs production secret: configured（用户确认，Cloudflare Worker `tierlistbase`；不代表本轮读取了 Secret）。
+- DATABASE_URL: 沿用 Cloudflare 中现有生产 Neon Secret。
+- 本地无法读取生产 Secret 属环境隔离；不向用户索取值、不导出、不写仓库、不新增第二个 Secret 名称。
+- 当前页面从现有数据库读取，既有发布脚本继续使用同名 FOREVER_LOGS_API_KEY。没有增加运行时导入端点、scheduler 或其他超出页面范围的基础设施。
+- Forever Logs live API validation / Production DB read-back / Active phase-context consistency / Data freshness: remote production validation pending。
+- 最终 READY 前后四项必须真实 PASS。本地 fixtures 与本地测试通过不能替代生产真实性验收。
+
 ## 原始正式开发任务（完整保留）
 
 TierListBase — WoW Forever Tier List V1 最终开发任务

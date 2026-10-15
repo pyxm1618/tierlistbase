@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { afterEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 import {
@@ -17,7 +18,14 @@ const review = {
   roleBySpec: { "Shaman::Earthen Guardian": ["tank", "dps"], "Priest::Holy": ["healer"] },
 };
 function respond(
-  options: { wrongPhase?: boolean; invalidSample?: boolean; unknownSpec?: boolean } = {},
+  options: {
+    wrongPhase?: boolean;
+    invalidSample?: boolean;
+    unknownSpec?: boolean;
+    emptyForeign?: boolean;
+    malformedStatistics?: boolean;
+    malformedClass?: boolean;
+  } = {},
 ) {
   return vi.fn(async (input: string) => {
     const url = new URL(input);
@@ -36,7 +44,7 @@ function respond(
         }
       : {
           success: true,
-          phase: options.wrongPhase ? 1 : 3,
+          phase: options.wrongPhase || options.emptyForeign ? 1 : 3,
           phase_name: "Current Beta",
           location: url.searchParams.get("location"),
           metric: url.searchParams.get("metric"),
@@ -57,6 +65,11 @@ function respond(
                   },
                 },
         };
+    if (!url.pathname.endsWith("/phases")) {
+      if (options.emptyForeign) Object.assign(body, { statistics: {} });
+      if (options.malformedStatistics) Object.assign(body, { statistics: null });
+      if (options.malformedClass) Object.assign(body, { statistics: { Shaman: { specs: null } } });
+    }
     return new Response(JSON.stringify(body), {
       status: 200,
       headers: { "content-type": "application/json" },
@@ -69,7 +82,7 @@ describe("Forever Logs publisher uses reviewed live role context", () => {
     const fetch = respond();
     vi.stubGlobal("fetch", fetch);
     const candidate = await buildWowForeverDataCandidate({
-      apiKey: "synthetic-test-key",
+      apiKey: randomUUID(),
       review,
       now,
     });
@@ -93,19 +106,32 @@ describe("Forever Logs publisher uses reviewed live role context", () => {
   it("rejects payload context mismatch instead of publishing another phase", async () => {
     vi.stubGlobal("fetch", respond({ wrongPhase: true }));
     await expect(
-      buildWowForeverDataCandidate({ apiKey: "synthetic-test-key", review, now }),
+      buildWowForeverDataCandidate({ apiKey: randomUUID(), review, now }),
     ).rejects.toThrow(/context mismatch/);
   });
   it("rejects malformed spec statistics rather than silently excluding invalid payload rows", async () => {
     vi.stubGlobal("fetch", respond({ invalidSample: true }));
     await expect(
-      buildWowForeverDataCandidate({ apiKey: "synthetic-test-key", review, now }),
+      buildWowForeverDataCandidate({ apiKey: randomUUID(), review, now }),
     ).rejects.toThrow(/validation failed/);
   });
   it("requires review for each returned spec instead of assigning DPS by default", async () => {
     vi.stubGlobal("fetch", respond({ unknownSpec: true }));
     await expect(
-      buildWowForeverDataCandidate({ apiKey: "synthetic-test-key", review, now }),
+      buildWowForeverDataCandidate({ apiKey: randomUUID(), review, now }),
     ).rejects.toThrow(/Unreviewed live spec taxonomy/);
   });
+});
+
+it("blocks foreign empty responses and malformed statistics containers", async () => {
+  for (const options of [
+    { emptyForeign: true },
+    { malformedStatistics: true },
+    { malformedClass: true },
+  ]) {
+    vi.stubGlobal("fetch", respond(options));
+    await expect(
+      buildWowForeverDataCandidate({ apiKey: randomUUID(), review, now }),
+    ).rejects.toThrow();
+  }
 });
