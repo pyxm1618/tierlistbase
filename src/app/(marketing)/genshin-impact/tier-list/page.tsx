@@ -5,6 +5,7 @@ import Link from "next/link";
 import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
 import {
+  loadGenshinData,
   GenshinChanges,
   GenshinEditorial,
   GenshinTierBoard,
@@ -19,15 +20,30 @@ export async function generateMetadata(): Promise<Metadata> {
   return metadataForRoute(routeRegistry, "/genshin-impact/tier-list", currentSeoEnvironment());
 }
 
-export default function GenshinImpactTierListPage() {
+export const dynamic = "force-dynamic";
+
+export default async function GenshinImpactTierListPage() {
+  const result = await loadGenshinData();
+  if (result.status === "unavailable")
+    return (
+      <main className={styles.page}>
+        <div className={styles.shell}>
+          <h1>Genshin Impact Tier List</h1>
+          <p role="status">
+            Reviewed ranking data is currently unavailable. Please try again later.
+          </p>
+        </div>
+      </main>
+    );
+  const { data } = result;
   return (
     <main className={styles.page}>
       <JsonLd
         value={webApplicationJsonLd({
-          name: "Genshin Impact Tier List UI Preview",
+          name: "Genshin Impact Tier List — Reviewed Data Preview",
           url: `${routeRegistry.site.canonicalOrigin}/genshin-impact/tier-list`,
           description:
-            "Mock UI preview for an Endgame Overall tier list. Reviewed rankings are not yet published.",
+            "Reviewed database rankings for Genshin Impact Endgame Overall, with character rationale and evidence.",
         })}
       />
       <header className={styles.hero} data-ia-section="page-header">
@@ -74,11 +90,13 @@ export default function GenshinImpactTierListPage() {
             >
               <div>
                 <span>Current Version</span>
-                <strong>Pending verification</strong>
+                <strong>{data.version}</strong>
               </div>
               <div>
-                <span>Last Updated</span>
-                <strong>Pending verification</strong>
+                <span>Ranking Data Updated</span>
+                <strong>
+                  <time dateTime={data.updatedAt}>{data.updatedAt.slice(0, 10)}</time>
+                </strong>
               </div>
               <div>
                 <span>Ranking Context</span>
@@ -94,7 +112,7 @@ export default function GenshinImpactTierListPage() {
               </div>
               <div>
                 <span>Main Reference Content</span>
-                <strong>Pending verification</strong>
+                <strong>See character Best-use Context</strong>
               </div>
             </section>
           </div>
@@ -102,14 +120,13 @@ export default function GenshinImpactTierListPage() {
       </header>
       <div className={styles.shell}>
         <div className={styles.mockNotice}>
-          <strong>Mock / Placeholder preview</strong>
+          <strong>Reviewed Data Preview</strong>
           <span>
-            No reviewed ranking data published yet. Tiers, roles, rationale, changes and evidence
-            are UI fixtures. Avatars are branded placeholders.
+            Reviewed character ratings for version {data.version}. Avatars are branded placeholders.
           </span>
         </div>
-        <GenshinTierBoard changes={<GenshinChanges />} />
-        <GenshinEditorial />
+        <GenshinTierBoard characters={data.characters} changes={<GenshinChanges data={data} />} />
+        <GenshinEditorial data={data} />
       </div>
     </main>
   );
