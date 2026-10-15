@@ -129,8 +129,9 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
           ))}
         </ol>
         <p className={styles.disclosure}>
-          Genshin Impact and related trademarks are property of HoYoverse. TierListBase is not
-          affiliated with or endorsed by HoYoverse.
+          Genshin Impact and related intellectual property are owned by COGNOSPHERE PTE. LTD.
+          TierListBase is an independent site and is not affiliated with or endorsed by COGNOSPHERE
+          or HoYoverse.
         </p>
       </section>
       <section

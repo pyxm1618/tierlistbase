@@ -85,7 +85,7 @@ test("Genshin V1 preserves the complete architecture, local filters and reviewed
     await expect(link).toHaveAttribute("href", /^https:\/\//);
   }
   await expect(page.locator('[data-ia-section="sources"]')).toContainText(
-    "Genshin Impact and related trademarks are property of HoYoverse. TierListBase is not affiliated with or endorsed by HoYoverse.",
+    "Genshin Impact and related intellectual property are owned by COGNOSPHERE PTE. LTD. TierListBase is an independent site and is not affiliated with or endorsed by COGNOSPHERE or HoYoverse.",
   );
   const before = requests.length;
   const roleGroup = page.getByRole("group", { name: "Role", exact: true });
