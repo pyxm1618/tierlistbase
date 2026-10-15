@@ -1,3 +1,4 @@
+import { seedGenshinTestDatabase } from "../genshin-tier-list/database";
 import { expect, test } from "@playwright/test";
 
 import { routeRegistry } from "@/config/routes.config";
@@ -128,9 +129,10 @@ test("game navigation active state follows pathname only", async ({ page }) => {
   await expect(genshinNav).toHaveAttribute("aria-current", "page");
 });
 
-test("Genshin tier-list route is public, clickable, and noindex until reviewed data exists", async ({
+test("Genshin tier-list route is public, clickable, and noindex pending final review", async ({
   page,
 }) => {
+  await seedGenshinTestDatabase();
   const target = routeRegistry.get("/genshin-impact/tier-list");
   expect(target.class).toBe("public_noindex");
 
@@ -138,6 +140,6 @@ test("Genshin tier-list route is public, clickable, and noindex until reviewed d
   expect(response?.status()).toBe(200);
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Genshin Impact Tier List");
-  await expect(page.getByText("No reviewed ranking data published yet")).toBeVisible();
+  await expect(page.getByText("Reviewed Data Preview", { exact: true })).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });

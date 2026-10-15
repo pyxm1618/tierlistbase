@@ -13,7 +13,6 @@ import { CharacterDetail } from "./character-detail";
 import {
   elements,
   filterCharacters,
-  mockCharacters,
   roles,
   tiers,
   type Character,
@@ -73,13 +72,19 @@ function MobileDetail({ character, onClose }: { character: Character; onClose: (
   );
 }
 
-export function GenshinTierBoard({ changes }: { changes: ReactNode }) {
+export function GenshinTierBoard({
+  characters,
+  changes,
+}: {
+  characters: readonly Character[];
+  changes: ReactNode;
+}) {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<Role>("All");
   const [element, setElement] = useState<Element>("All");
   const [selected, setSelected] = useState<Character | null>(null);
   const mobile = useSyncExternalStore(subscribeToMobile, isMobile, serverMobileSnapshot);
-  const filtered = filterCharacters(mockCharacters, search, role, element);
+  const filtered = filterCharacters(characters, search, role, element);
   return (
     <>
       <section
@@ -147,11 +152,11 @@ export function GenshinTierBoard({ changes }: { changes: ReactNode }) {
         >
           <div className={styles.boardHeading}>
             <h2 id="overall-heading">Overall Tier Board</h2>
-            <span>Mock · A–Z within each tier</span>
+            <span>A–Z within each tier</span>
           </div>
           <p className={styles.results} role="status">
             {filtered.length
-              ? `${filtered.length} mock characters`
+              ? `${filtered.length} characters`
               : "No characters match these filters."}
           </p>
           {tiers.map((tier) => (
@@ -187,7 +192,7 @@ export function GenshinTierBoard({ changes }: { changes: ReactNode }) {
                       data-character-card
                       data-selected={selected?.id === character.id}
                       aria-pressed={selected?.id === character.id}
-                      aria-label={`${character.name}, ${character.element}, ${character.role}, ${character.rarity} stars`}
+                      aria-label={`${character.name}, ${character.element}, ${character.primaryRole}, ${character.rarity} stars`}
                       onClick={() => setSelected(character)}
                     >
                       <CharacterAvatar name={character.name} />
@@ -198,8 +203,12 @@ export function GenshinTierBoard({ changes }: { changes: ReactNode }) {
                         {character.name}
                       </span>
                       <span className={styles.cardMeta}>
-                        <span data-element={character.element}>{character.element}</span>
-                        <span>{character.role}</span>
+                        <span data-element={character.element}>
+                          {character.element.includes(" / ")
+                            ? "Multiple elements"
+                            : character.element}
+                        </span>
+                        <span>{character.primaryRole}</span>
                       </span>
                     </button>
                   ))}
@@ -227,7 +236,9 @@ export function GenshinTierBoard({ changes }: { changes: ReactNode }) {
                 <p>
                   Click any character from the tier list to see why they are placed in that tier.
                 </p>
-                <span className={styles.label}>Mock preview · no verified ratings published</span>
+                <span className={styles.label}>
+                  Reviewed data · select a character for evidence
+                </span>
               </div>
             )}
           </section>
