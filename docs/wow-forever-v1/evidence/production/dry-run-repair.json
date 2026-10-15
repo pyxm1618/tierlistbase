@@ -1,0 +1,329 @@
+{
+  "phase": "Beta",
+  "retrievedAt": "2026-10-15T06:49:11.414Z",
+  "dungeons": [
+    "City of Dalaran",
+    "Excavation Site: Wetlands",
+    "Razorfen Downs",
+    "Uldaman"
+  ],
+  "rankings": [
+    {
+      "role": "dps",
+      "entity": "Beast Mastery Hunter",
+      "score": 141.2325,
+      "sampleSize": 49,
+      "locations": 2,
+      "confidence": "low",
+      "flags": [],
+      "tier": "S",
+      "status": "preliminary"
+    },
+    {
+      "role": "dps",
+      "entity": "Enhancement Shaman",
+      "score": 126.3058,
+      "sampleSize": 119,
+      "locations": 2,
+      "confidence": "medium",
+      "flags": [],
+      "tier": "S",
+      "status": "available"
+    },
+    {
+      "role": "dps",
+      "entity": "Retribution Paladin",
+      "score": 113.6503,
+      "sampleSize": 75,
+      "locations": 2,
+      "confidence": "medium",
+      "flags": [],
+      "tier": "A",
+      "status": "available"
+    },
+    {
+      "role": "dps",
+      "entity": "Combat Rogue",
+      "score": 112.2801,
+      "sampleSize": 71,
+      "locations": 2,
+      "confidence": "medium",
+      "flags": [],
+      "tier": "A",
+      "status": "available"
+    },
+    {
+      "role": "dps",
+      "entity": "Arms Warrior",
+      "score": 107.8513,
+      "sampleSize": 41,
+      "locations": 2,
+      "confidence": "low",
+      "flags": [],
+      "tier": "A",
+      "status": "preliminary"
+    },
+    {
+      "role": "dps",
+      "entity": "Frost Mage",
+      "score": 96.7686,
+      "sampleSize": 41,
+      "locations": 2,
+      "confidence": "low",
+      "flags": [],
+      "tier": "B",
+      "status": "preliminary"
+    },
+    {
+      "role": "dps",
+      "entity": "Marksmanship Hunter",
+      "score": null,
+      "sampleSize": 34,
+      "locations": 1,
+      "confidence": "insufficient",
+      "flags": [
+        "insufficient_sample"
+      ],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Fire Mage",
+      "score": null,
+      "sampleSize": 9,
+      "locations": 1,
+      "confidence": "insufficient",
+      "flags": [],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Subtlety Rogue",
+      "score": null,
+      "sampleSize": 7,
+      "locations": 1,
+      "confidence": "insufficient",
+      "flags": [
+        "insufficient_sample"
+      ],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Affliction Warlock",
+      "score": null,
+      "sampleSize": 15,
+      "locations": 1,
+      "confidence": "insufficient",
+      "flags": [
+        "insufficient_sample"
+      ],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Gladiator Warrior",
+      "score": null,
+      "sampleSize": 0,
+      "locations": 0,
+      "confidence": "insufficient",
+      "flags": [
+        "insufficient_sample"
+      ],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Feral Combat Druid",
+      "score": null,
+      "sampleSize": 0,
+      "locations": 0,
+      "confidence": "insufficient",
+      "flags": [
+        "insufficient_sample"
+      ],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Survival Hunter",
+      "score": null,
+      "sampleSize": 0,
+      "locations": 0,
+      "confidence": "insufficient",
+      "flags": [
+        "insufficient_sample"
+      ],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Arcane Mage",
+      "score": null,
+      "sampleSize": 0,
+      "locations": 0,
+      "confidence": "insufficient",
+      "flags": [
+        "insufficient_sample"
+      ],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Justicar Paladin",
+      "score": null,
+      "sampleSize": 0,
+      "locations": 0,
+      "confidence": "insufficient",
+      "flags": [
+        "insufficient_sample"
+      ],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Shadow Priest",
+      "score": null,
+      "sampleSize": 6,
+      "locations": 1,
+      "confidence": "insufficient",
+      "flags": [],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Assassination Rogue",
+      "score": null,
+      "sampleSize": 19,
+      "locations": 1,
+      "confidence": "insufficient",
+      "flags": [],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Elemental Shaman",
+      "score": null,
+      "sampleSize": 0,
+      "locations": 0,
+      "confidence": "insufficient",
+      "flags": [
+        "insufficient_sample"
+      ],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "dps",
+      "entity": "Destruction Warlock",
+      "score": null,
+      "sampleSize": 9,
+      "locations": 1,
+      "confidence": "insufficient",
+      "flags": [],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "healer",
+      "entity": "Discipline Priest",
+      "score": 114.5275,
+      "sampleSize": 58,
+      "locations": 2,
+      "confidence": "medium",
+      "flags": [],
+      "tier": "A",
+      "status": "available"
+    },
+    {
+      "role": "healer",
+      "entity": "Restoration Druid",
+      "score": 100.9497,
+      "sampleSize": 36,
+      "locations": 2,
+      "confidence": "low",
+      "flags": [],
+      "tier": "B",
+      "status": "preliminary"
+    },
+    {
+      "role": "healer",
+      "entity": "Holy Paladin",
+      "score": 25.3808,
+      "sampleSize": 35,
+      "locations": 2,
+      "confidence": "low",
+      "flags": [
+        "extreme_tail"
+      ],
+      "tier": "C",
+      "status": "preliminary"
+    },
+    {
+      "role": "healer",
+      "entity": "Holy Priest",
+      "score": null,
+      "sampleSize": 12,
+      "locations": 2,
+      "confidence": "insufficient",
+      "flags": [],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "healer",
+      "entity": "Restoration Shaman",
+      "score": null,
+      "sampleSize": 11,
+      "locations": 1,
+      "confidence": "insufficient",
+      "flags": [],
+      "tier": "Pending",
+      "status": "unavailable"
+    },
+    {
+      "role": "tank",
+      "entity": "Protection Warrior",
+      "score": 122.3095,
+      "sampleSize": 49,
+      "locations": 2,
+      "confidence": "low",
+      "flags": [],
+      "tier": "S",
+      "status": "preliminary"
+    },
+    {
+      "role": "tank",
+      "entity": "Protection Paladin",
+      "score": 96.9437,
+      "sampleSize": 78,
+      "locations": 2,
+      "confidence": "medium",
+      "flags": [],
+      "tier": "B",
+      "status": "available"
+    },
+    {
+      "role": "tank",
+      "entity": "Guardian Druid",
+      "score": 92.8975,
+      "sampleSize": 25,
+      "locations": 2,
+      "confidence": "low",
+      "flags": [],
+      "tier": "B",
+      "status": "preliminary"
+    }
+  ]
+}

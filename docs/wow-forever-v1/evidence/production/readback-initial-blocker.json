@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "operation": "first production read-back",
+  "evidence": "jsonb_typeof(metadata) = string for all 27 current Spec profiles",
+  "rootCause": "Pre-stringified object bound to inferred jsonb parameter was serialized as a JSON scalar string",
+  "repair": "Use postgres JSON parameter; decode known legacy JSONB string before merging; no publication gate bypass",
+  "productionWritesPausedUntilRegressionGreen": true
+}

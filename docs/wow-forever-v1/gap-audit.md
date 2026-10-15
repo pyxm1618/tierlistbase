@@ -1,6 +1,6 @@
 # WoW V1 Gap Audit / 验收台账
 
-日期：2026-10-15。页面功能已经实现；图标按用户新授权使用中性占位素材。最终生产发布验收 NOT READY：认证 Forever Logs active phase / live taxonomy / 生产 Neon 一致性为 remote production validation pending。不得用本地 fixture 证明真实排名已验收。
+日期：2026-10-15。页面功能已经实现；图标按用户新授权使用中性占位素材。本轮生产数据验收 PASS：认证 Forever Logs active phase / live taxonomy / 生产 Neon 一致性与 freshness 已实际核验。不得用本地 fixture 证明真实排名已验收。
 
 ## Existing and reusable
 
@@ -17,8 +17,8 @@
 
 ## Missing / Data not currently verified
 
-- 生产 Worker tierlistbase 的 FOREVER_LOGS_API_KEY 与生产 Neon DATABASE_URL 已配置（用户确认）；本地无权读取 Cloudflare Secret，无法执行认证 API/生产 DB 核查，属于环境隔离。
-- 当前生产Neon的Class/Spec回填、observations、context/version/phase一致性和真实默认排名尚未核验或刷新。
+- 生产 Worker tierlistbase 的 FOREVER_LOGS_API_KEY 与生产 Neon DATABASE_URL 已配置（用户确认）；本轮由用户提供忽略的 .env.local 作为受信任执行配置，实际认证API/生产DB检查已完成；Secret未输出或提交。
+- 生产Neon已通过既有pipeline发布并read-back；Class/Spec profiles已回填，当前phase/version/context及真实默认榜单已核验。
 - 正式Class/Spec视觉素材待补；此项遵循用户例外，不阻塞功能实现。
 
 ## Data already supported
@@ -47,15 +47,15 @@
 | ID | Requirement | State | Evidence / next action |
 | --- | --- | --- | --- |
 | READY-01 | Final Design 信息架构完整落地； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
-| READY-02 | 当前 Forever Beta / Level 30 / Dungeon 范围正确； | deferred / unknown | 官方 Level30 / Dungeon facts已核对；当前认证 active phase/DB未核对。 |
-| READY-03 | DPS / Tank / Healer 都是真实 Context； | deferred / unknown | 真实查询与本地3 Context 测试通过；生产实际 Context 仍待只读核查。 |
+| READY-02 | 当前 Forever Beta / Level 30 / Dungeon 范围正确； | approved / pass | 本轮真实认证 API、生产 read-only 对比、publish 后 read-back 和生产数据 runtime 验收通过；见 production-data-acceptance.md 及 evidence/production/。 |
+| READY-03 | DPS / Tank / Healer 都是真实 Context； | approved / pass | 本轮真实认证 API、生产 read-only 对比、publish 后 read-back 和生产数据 runtime 验收通过；见 production-data-acceptance.md 及 evidence/production/。 |
 | READY-04 | Class Navigator 可用； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
-| READY-05 | Tier Board 使用真实数据； | deferred / unknown | 页面只读数据库；真实 Forever Logs/Neon刷新未执行，本地截图是显式合成测试数据。 |
+| READY-05 | Tier Board 使用真实数据； | approved / pass | 本轮真实认证 API、生产 read-only 对比、publish 后 read-back 和生产数据 runtime 验收通过；见 production-data-acceptance.md 及 evidence/production/。 |
 | READY-06 | Pending 语义正确； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
 | READY-07 | Spec Detail 与当前 Spec 对齐； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
-| READY-08 | Performance 使用真实数据； | deferred / unknown | 数据库performance roundtrip与展示测试通过；当前生产数据有效性未验收。 |
+| READY-08 | Performance 使用真实数据； | approved / pass | 本轮真实认证 API、生产 read-only 对比、publish 后 read-back 和生产数据 runtime 验收通过；见 production-data-acceptance.md 及 evidence/production/。 |
 | READY-09 | Dungeon Breakdown 不串数据； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
-| READY-10 | Sources / Evidence 真实； | deferred / unknown | 来源角色与归因已实现；生产关联 evidence 待核查。 |
+| READY-10 | Sources / Evidence 真实； | approved / pass | 本轮真实认证 API、生产 read-only 对比、publish 后 read-back 和生产数据 runtime 验收通过；见 production-data-acceptance.md 及 evidence/production/。 |
 | READY-11 | 无假 source agreement； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
 | READY-12 | rating_changes 语义正确； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
 | READY-13 | 无 change record 不冒充 Stable； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
@@ -77,18 +77,18 @@
 | READY-29 | 当前性能门禁通过； | approved / pass | 现有marketing performance20/20 + analytics-on1/1通过；本机实验室值，不是生产RUM。 |
 | READY-30 | Genshin / Homepage 无回归； | approved / pass | 现有Homepage/Genshin功能回归18/18通过；含共享缓存日期bug最小修复。 |
 | READY-31 | 没有修改本任务范围之外的产品。 | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
-| DATA-01 | Forever Logs active phase 与当前 Beta context 一致； | deferred / unknown | 认证 live active phase 本地不可读（Cloudflare Secret 环境隔离）；代码门禁不允许历史fallback。 |
+| DATA-01 | Forever Logs active phase 与当前 Beta context 一致； | approved / pass | 本轮真实认证 API、生产 read-only 对比、publish 后 read-back 和生产数据 runtime 验收通过；见 production-data-acceptance.md 及 evidence/production/。 |
 | DATA-02 | Blizzard 官方当前 Level Cap / Dungeon availability 已核对； | approved / pass | 本轮读取 Blizzard 官方主题JSON，含10月1日Level30与near-cap范围及10月8日City of Dalaran开放。 |
 | DATA-03 | 所有参与 ranking 的 dungeon metadata 未过期； | approved / pass | Wetlands修正26-31；Razorfen25+ / Uldaman30+核对；City of Dalaran不臆测数值范围（null）。 |
-| DATA-04 | DPS / Healer / Tank 的 spec-role mapping 与 Forever Logs 当前 live taxonomy 一致； | deferred / unknown | Live taxonomy认证核查待完成；代码只接受逐项review，含实际observations角色验证。 |
+| DATA-04 | DPS / Healer / Tank 的 spec-role mapping 与 Forever Logs 当前 live taxonomy 一致； | approved / pass | 本轮真实认证 API、生产 read-only 对比、publish 后 read-back 和生产数据 runtime 验收通过；见 production-data-acceptance.md 及 evidence/production/。 |
 | DATA-05 | 不使用历史静态 role map 覆盖 live data； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
 | DATA-06 | 当前页面不得把 near-cap dungeon aggregate data 描述成“仅 Level 30 玩家数据”； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
 | DATA-07 | API payload 必须通过现有 parser/schema validation； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
-| DATA-08 | retrievedAt / checkedAt / freshnessStatus 必须真实； | deferred / unknown | 本地时间/状态测试通过；生产实际retrievedAt/checkedAt未读。 |
-| DATA-09 | active phase / DB current version 无法对应时禁止标记 Current； | deferred / unknown | 代码强制review/phase/version一致；生产DB current version尚未核对。 |
+| DATA-08 | retrievedAt / checkedAt / freshnessStatus 必须真实； | approved / pass | 本轮真实认证 API、生产 read-only 对比、publish 后 read-back 和生产数据 runtime 验收通过；见 production-data-acceptance.md 及 evidence/production/。 |
+| DATA-09 | active phase / DB current version 无法对应时禁止标记 Current； | approved / pass | 本轮真实认证 API、生产 read-only 对比、publish 后 read-back 和生产数据 runtime 验收通过；见 production-data-acceptance.md 及 evidence/production/。 |
 | DATA-10 | Forever Logs 必须在页面显式 attribution 并提供有效链接； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
 | DATA-11 | Blizzard facts 必须来自当前官方 Forever Beta source； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
 | DATA-12 | Editorial evidence 未审核/未入库，不允许进入 Ranking explanation； | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
 | DATA-13 | 任何数据存在冲突时，优先显示 Pending / Preliminary / Stale，而不是猜测。 | approved / pass | 源码与相应本地自动验收通过；不代表生产发布已执行。 |
 
-计数核对：original total 44 = approved / pass 33 + deferred / waiting 2 + deferred / unknown 9 + confirmed reject / fail 0 + unreviewed 0。
+计数核对：original total 44 = approved / pass 42 + deferred / waiting 2 + deferred / unknown 0 + confirmed reject / fail 0 + unreviewed 0。

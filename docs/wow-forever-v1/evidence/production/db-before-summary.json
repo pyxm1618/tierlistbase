@@ -1,0 +1,80 @@
+{
+  "readOnly": true,
+  "readAt": "2026-10-15T06:42:50.720Z",
+  "game": {
+    "id": "g-eb75b1a9d574a52b924ed6bb105c032360",
+    "slug": "wow-forever",
+    "name": "World of Warcraft: Forever",
+    "publisher": "Blizzard Entertainment",
+    "status": "active",
+    "current_version_id": "v-64e1d8e2af3e8a69c1f84c38d6f5125196",
+    "created_at": "2026-10-11T07:54:54.050Z",
+    "updated_at": "2026-10-11T07:54:54.050Z"
+  },
+  "currentVersion": {
+    "id": "v-64e1d8e2af3e8a69c1f84c38d6f5125196",
+    "game_id": "g-eb75b1a9d574a52b924ed6bb105c032360",
+    "version": "Beta 2026-10-08",
+    "build": null,
+    "level_cap": 30,
+    "status": "current",
+    "release_date": null,
+    "valid_from": "2026-10-08T00:00:00.000Z",
+    "valid_to": null,
+    "notes": "Official Blizzard beta context: level cap 30; Oct. 8 beta build. Numeric client build is intentionally not asserted because Blizzard's official notes do not publish it. https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes-%E2%80%93-updated-october-8/2360696",
+    "created_at": "2026-10-11T07:54:54.050Z"
+  },
+  "counts": {
+    "games": 1,
+    "game_versions": 1,
+    "ranking_contexts": 3,
+    "entities": 25,
+    "entity_profiles": 0,
+    "sources": 1,
+    "source_ratings": 25,
+    "ratings": 25,
+    "rating_changes": 0
+  },
+  "contexts": [
+    {
+      "id": "c-45e764d516afcbcc029a3613aefcfc91a5",
+      "game_id": "g-eb75b1a9d574a52b924ed6bb105c032360",
+      "slug": "dungeon-dps-30",
+      "mode": "dungeon",
+      "role": "dps",
+      "level_cap": 30,
+      "label": "Dungeon • DPS • Level Cap 30",
+      "status": "active"
+    },
+    {
+      "id": "c-2fd83c0323a32ab0390736347b573ae8bc",
+      "game_id": "g-eb75b1a9d574a52b924ed6bb105c032360",
+      "slug": "dungeon-healer-30",
+      "mode": "dungeon",
+      "role": "healer",
+      "level_cap": 30,
+      "label": "Dungeon • HEALER • Level Cap 30",
+      "status": "active"
+    },
+    {
+      "id": "c-ccdbc801532121537046a21874a6ec73bb",
+      "game_id": "g-eb75b1a9d574a52b924ed6bb105c032360",
+      "slug": "dungeon-tank-30",
+      "mode": "dungeon",
+      "role": "tank",
+      "level_cap": 30,
+      "label": "Dungeon • TANK • Level Cap 30",
+      "status": "active"
+    }
+  ],
+  "lastDataTimestamp": "2026-10-11T07:54:53.632Z",
+  "sourceTimestamps": [
+    {
+      "id": "s-e33459639b3d8b60ffb4cc4d56e7600bfb",
+      "name": "TierListBase Data Ranking · Forever Logs",
+      "checkedAt": "2026-10-11T07:54:53.632Z",
+      "updatedAt": "2026-10-11T07:54:53.632Z",
+      "freshness": "current"
+    }
+  ]
+}

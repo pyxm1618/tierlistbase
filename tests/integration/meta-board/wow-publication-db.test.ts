@@ -96,6 +96,21 @@ it("persists phase/profile/evidence and blocks incomplete refresh without deleti
   const first = await publishWowForeverDataCandidate({ candidate, databaseUrl: url! });
   expect(first.contexts).toBe(3);
   expect(first.ratings).toBe(3);
+  const profileTypes = await database.db.execute(
+    sql`select jsonb_typeof(metadata) as kind from entity_profiles`,
+  );
+  expect(profileTypes.map((row) => row.kind)).toEqual(["object", "object"]);
+  // Repair the exact JSONB-string shape observed in the production read-back,
+  // retaining unrelated existing profile metadata on a repeated publication.
+  await database.db.execute(sql`update entity_profiles
+    set metadata = to_jsonb((metadata || '{"retained":"reviewed"}'::jsonb)::text)`);
+  await publishWowForeverDataCandidate({ candidate, databaseUrl: url! });
+  const repairedProfiles = await database.db.execute(sql`select
+    jsonb_typeof(metadata) as kind, metadata->>'retained' as retained,
+    metadata->>'className' as class_name from entity_profiles`);
+  expect(repairedProfiles.map((row) => row.kind)).toEqual(["object", "object"]);
+  expect(repairedProfiles.every((row) => row.retained === "reviewed")).toBe(true);
+  expect(repairedProfiles.map((row) => row.class_name).sort()).toEqual(["Priest", "Shaman"]);
   for (const role of ["dps", "tank", "healer"]) {
     const board = await getGameMetaBoardData({
       gameSlug: "wow-forever",

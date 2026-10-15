@@ -1,5 +1,7 @@
 # WoW Forever V1 delivery report
 
+Production-data follow-up: **PASS**; see [production-data-acceptance.md](production-data-acceptance.md). Implementation screenshots/performance remain labelled local fixtures; the separate production evidence now establishes the actual data acceptance.
+
 Base SHA: `ee400982f197646aeab6d0db526f0367f101e24e` (initial); rebased onto `2feb6a69d33751d49685f949e3fd96ac5ef401de`.
 
 Final origin/main checked: `2feb6a69d33751d49685f949e3fd96ac5ef401de`, fetched 2026-10-15.
@@ -20,15 +22,15 @@ Main WoW files changed:
 
 Implemented modules: approved Hero; fixed Dungeon / Level 30 context; DPS/Tank/Healer navigation; Class Navigator; Tier Board; four-tab Spec Detail; responsive modal drawer; Quick Insights; What Changed; Sources & Evidence; Methodology & FAQ. Server-rendered route and editorial sections; client boundaries limited to interactions. Existing database/query/module architecture retained.
 
-Real data used: the page reads existing database records through the shared query. Blizzard official current Beta notes were read for Level 30 and dungeon availability/ranges; Wetlands corrected to 26–31. Authenticated current Forever Logs responses and production Neon records have not been validated in this environment. Dedicated local synthetic fixtures were used only for tests, screenshots and performance measurement. No sample/design values were put into production.
+Real data used: the page reads existing database records through the shared query. Blizzard official current Beta notes were read for Level 30 and dungeon availability/ranges; Wetlands corrected to 26–31. Authenticated current Forever Logs responses and production Neon records have now been validated and published through the existing gated pipeline; see the follow-up acceptance report. Dedicated local synthetic fixtures were used only for tests, screenshots and performance measurement. No sample/design values were put into production.
 
 | Production acceptance gate | Status |
 | --- | --- |
 | Forever Logs production secret | configured (user-confirmed in Worker tierlistbase) |
-| Forever Logs live API validation | Pending — remote production validation pending |
-| Production DB read-back | Pending — remote production validation pending |
-| Active phase / context consistency | Pending — remote production validation pending |
-| Data freshness | Pending — remote production validation pending |
+| Forever Logs live API validation | PASS — authenticated current Beta/1 and twelve statistics probes |
+| Production DB read-back | PASS — all27 current records and27 object profiles checked |
+| Active phase / context consistency | PASS — Beta/1, Dungeon/30, three real role contexts |
+| Data freshness | PASS — real retrieval/review within24h; page remains Preliminary for evidence limitations |
 
 The existing production Neon DATABASE_URL remains user-confirmed configured. Local inability to read Cloudflare Secrets is environment isolation. Runtime ingestion continues to use FOREVER_LOGS_API_KEY and DATABASE_URL; no second Secret name or Secret value was introduced into the repository.
 
@@ -96,10 +98,10 @@ Homepage regression: same 18/18 run; one reproduced cache-hit date serialization
 
 Remaining issues:
 
-- Remote production validation pending for the four runtime/data gates above; authenticated phase/taxonomy, stored version/role context and timestamps must be checked before READY.
+- Remaining data blockers: None. Four production data gates passed; low-sample Pending rows remain intentionally unranked.
 - Remaining issue: final Class/Spec visual assets pending. User-approved development placeholders permit functional delivery but do not count as final visual assets.
 - Draft PR checks must complete successfully before integration. No merge/deployment authorized or performed in this delivery.
 
-44-item coverage reconciliation: 44 = 33 approved/pass + 2 deferred/waiting for visual assets + 9 deferred/unknown for remote data + 0 confirmed reject + 0 unreviewed. See `gap-audit.md` for item-level evidence and next actions.
+44-item coverage reconciliation: 44 = 42 approved/pass + 2 deferred/waiting for visual assets + 0 deferred/unknown for remote data + 0 confirmed reject + 0 unreviewed. See `gap-audit.md` for item-level evidence and next actions.
 
-Final: NOT READY — remote production validation pending. WoW V1 functional implementation is delivered for review in the draft PR; production authenticity acceptance is still pending.
+Final data acceptance: PASS. Draft PR remains Draft; final Class/Spec assets remain pending under the approved exception. No merge/deployment performed.

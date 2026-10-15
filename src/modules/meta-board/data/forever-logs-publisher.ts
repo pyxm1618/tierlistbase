@@ -464,8 +464,12 @@ export async function publishWowForeverDataCandidate(input: {
             parent_entity_id = excluded.parent_entity_id,
             status = excluded.status
         `;
-        await tx`insert into entity_profiles (entity_id,metadata) values (${entity.id},${JSON.stringify({ className: item.className, specName: item.specName })}::jsonb)
-          on conflict (entity_id) do update set metadata = entity_profiles.metadata || excluded.metadata`;
+        await tx`insert into entity_profiles (entity_id,metadata)
+          values (${entity.id},${tx.json({ className: item.className, specName: item.specName })})
+          on conflict (entity_id) do update set metadata =
+            (case when jsonb_typeof(entity_profiles.metadata) = 'string'
+              then (entity_profiles.metadata #>> '{}')::jsonb
+              else entity_profiles.metadata end) || excluded.metadata`;
       }
 
       await tx`
