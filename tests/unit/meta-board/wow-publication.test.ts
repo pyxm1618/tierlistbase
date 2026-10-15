@@ -55,4 +55,27 @@ describe("WoW publication accuracy gate", () => {
         validatePublicationReview(changed, { phaseId: 1, phaseName: "Beta", now }),
       ).toThrow();
   });
+
+  it("identifies known Forever Logs cohorts vs official specs", async () => {
+    const { isSpecialCohortSpec } =
+      await import("@/modules/meta-board/domain/forever-logs-publication");
+    expect(isSpecialCohortSpec("Warrior::Gladiator")).toBe(true);
+    expect(isSpecialCohortSpec("Paladin::Justicar")).toBe(true);
+    expect(isSpecialCohortSpec("Warrior::Arms")).toBe(false);
+    expect(isSpecialCohortSpec("Warrior::Protection")).toBe(false);
+    expect(isSpecialCohortSpec("Paladin::Retribution")).toBe(false);
+    expect(isSpecialCohortSpec("Paladin::Holy")).toBe(false);
+
+    // Custom review cohorts override
+    expect(isSpecialCohortSpec("Warrior::Gladiator", { cohortSpecs: ["Mage::Frostfire"] })).toBe(
+      false,
+    );
+    expect(isSpecialCohortSpec("Mage::Frostfire", { cohortSpecs: ["Mage::Frostfire"] })).toBe(true);
+
+    // Custom review official specs override
+    expect(isSpecialCohortSpec("Warrior::Arms", { officialSpecs: ["Warrior::Arms"] })).toBe(false);
+    expect(isSpecialCohortSpec("Warrior::Gladiator", { officialSpecs: ["Warrior::Arms"] })).toBe(
+      true,
+    );
+  });
 });

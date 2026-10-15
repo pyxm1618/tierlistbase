@@ -24,8 +24,31 @@ const reviewSchema = z.object({
   roleBySpec: z
     .record(z.string().min(3), z.array(z.enum(WOW_ROLES)).min(1))
     .refine((value) => Object.keys(value).length > 0),
+  cohortSpecs: z.array(z.string().min(3)).optional(),
+  officialSpecs: z.array(z.string().min(3)).optional(),
 });
 export type PublicationReview = z.infer<typeof reviewSchema>;
+
+export const KNOWN_FOREVER_LOGS_COHORTS = ["Warrior::Gladiator", "Paladin::Justicar"] as const;
+
+export function isSpecialCohortSpec(
+  specKey: string,
+  review?: {
+    readonly cohortSpecs?: readonly string[] | undefined;
+    readonly officialSpecs?: readonly string[] | undefined;
+    readonly [key: string]: unknown;
+  },
+): boolean {
+  if (review?.cohortSpecs && review.cohortSpecs.length > 0) {
+    return review.cohortSpecs.includes(specKey);
+  }
+  if (review?.officialSpecs && review.officialSpecs.length > 0) {
+    return !review.officialSpecs.includes(specKey);
+  }
+  return KNOWN_FOREVER_LOGS_COHORTS.includes(
+    specKey as (typeof KNOWN_FOREVER_LOGS_COHORTS)[number],
+  );
+}
 export function validatePublicationReview(
   value: unknown,
   context: { phaseId: number; phaseName: string; now: Date },
