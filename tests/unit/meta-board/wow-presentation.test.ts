@@ -61,6 +61,22 @@ const board = {
   hasData: true,
 } as MetaBoardData;
 describe("WoW stored performance presentation", () => {
+  it.each([
+    ["Warrior", "Gladiator"],
+    ["Paladin", "Justicar"],
+  ])("excludes legacy %s %s cohorts still stored as spec", (className, specName) => {
+    const legacy = {
+      ...item,
+      entityId: "legacy-cohort",
+      entityType: "spec",
+      profile: { className, specName },
+    };
+    expect(
+      buildWowSpecs({ ...board, tiers: [{ tier: "A", items: [item, legacy] }] }).map(
+        (spec) => spec.id,
+      ),
+    ).toEqual(["mage"]);
+  });
   it("reads real dungeon samples and coverage without converting score to DPS", () => {
     const result = buildWowSpecs(board)[0]!;
     expect(result).toMatchObject({
@@ -130,6 +146,23 @@ describe("WoW stored performance presentation", () => {
         new Date("2026-10-15T01:00:00Z"),
       ),
     ).toBe("Stale");
+  });
+  it("strictly filters out cohort entities from WoW spec tier board", () => {
+    const cohortItem = {
+      ...item,
+      entityId: "gladiator",
+      entityName: "Gladiator Warrior",
+      entitySlug: "gladiator-warrior",
+      entityType: "cohort",
+      profile: { className: "Warrior", specName: "Gladiator" },
+    } as unknown as BoardEntityItem;
+    const boardWithCohort = {
+      ...board,
+      tiers: [{ tier: "A", items: [item, cohortItem] }],
+    } as MetaBoardData;
+    const specs = buildWowSpecs(boardWithCohort);
+    expect(specs.some((s) => s.specName === "Gladiator")).toBe(false);
+    expect(specs.some((s) => s.specName === "Fire")).toBe(true);
   });
 });
 

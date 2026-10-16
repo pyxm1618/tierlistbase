@@ -220,7 +220,7 @@ for (const width of [390, 768, 1024, 1280, 1440, 1920, 2560])
       body: JSON.stringify(image),
       contentType: "application/json",
     });
-    const icons = page.locator('img[alt="Neutral placeholder icon"]');
+    const icons = page.locator('img[alt$=" icon"]');
     for (const icon of await icons.all()) await expect(icon).toHaveAttribute("loading", "lazy");
     if (width < 1280) {
       await page.getByRole("button", { name: /Arms Warrior, DPS/ }).click();
@@ -233,3 +233,21 @@ for (const width of [390, 768, 1024, 1280, 1440, 1920, 2560])
     }
     expect(errors).toEqual([]);
   });
+
+test("detail icon renderedWidth does not exceed naturalWidth", async ({ page }, testInfo) => {
+  await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: /Arms Warrior, DPS/ }).click();
+  const icon = page
+    .locator('dialog[open] header img[alt="Arms icon"], aside header img[alt="Arms icon"]')
+    .locator("visible=true")
+    .first();
+  await expect(icon).toBeVisible();
+  await expect(icon).toHaveJSProperty("complete", true);
+  const info = await icon.evaluate((img: HTMLImageElement) => ({
+    currentSrc: img.currentSrc,
+    renderedWidth: img.getBoundingClientRect().width,
+    naturalWidth: img.naturalWidth,
+  }));
+  console.log(`[${testInfo.project.name}] Detail icon:`, JSON.stringify(info));
+  expect(info.renderedWidth).toBeLessThanOrEqual(info.naturalWidth);
+});

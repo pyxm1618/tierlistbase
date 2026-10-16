@@ -345,7 +345,6 @@
 }
 .avatar img {
   object-fit: contain;
-  opacity: 0.08;
 }
 .initials {
   position: absolute;
@@ -465,7 +464,6 @@
 }
 .detailAvatar img {
   object-fit: contain;
-  opacity: 0.08;
 }
 .detailAvatar .initials {
   font-size: 32px;

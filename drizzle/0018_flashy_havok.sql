@@ -1,0 +1,1 @@
+ALTER TABLE "entity_profiles" ADD COLUMN "avatar" jsonb;

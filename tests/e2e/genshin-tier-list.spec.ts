@@ -1,8 +1,10 @@
+import { readFile } from "node:fs/promises";
+import postgres from "postgres";
 import approvedRatings from "../../data/editorial/genshin-impact/7.1/ratings.json" with { type: "json" };
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-import { seedGenshinTestDatabase } from "../genshin-tier-list/database";
+import { genshinTestDatabaseUrl, seedGenshinTestDatabase } from "../genshin-tier-list/database";
 
 test.beforeAll(seedGenshinTestDatabase);
 
@@ -189,3 +191,42 @@ for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
       await page.screenshot({ path: testInfo.outputPath(`genshin-${width}.png`), fullPage: true });
   });
 }
+
+test("a failed detail avatar does not hide the next character's valid avatar", async ({ page }) => {
+  const database = postgres(genshinTestDatabaseUrl(), { max: 1 });
+  const previous = await database`select ep.entity_id, ep.avatar, e.slug from entity_profiles ep
+    join entities e on e.id = ep.entity_id join games g on g.id = e.game_id
+    where g.slug = 'genshin-impact' and e.slug in ('nahida', 'bennett')`;
+  try {
+    expect(previous).toHaveLength(2);
+    for (const row of previous) {
+      const id = row.slug;
+      const avatar = {
+        128: `https://media.tierlistbase.com/genshin/characters/${id}/avatar-128.webp`,
+        256: `https://media.tierlistbase.com/genshin/characters/${id}/avatar-256.webp`,
+      };
+      await database`update entity_profiles set avatar = ${database.json(avatar)}::jsonb where entity_id = ${row.entity_id}`;
+    }
+    const image = await readFile(
+      "src/modules/genshin-tier-list/assets/mock-avatar-1914c60a0f.webp",
+    );
+    await page.route("**/_next/image?**", async (route) => {
+      const source = new URL(route.request().url()).searchParams.get("url") ?? "";
+      if (source.includes("media.tierlistbase.com") && source.includes("/nahida/"))
+        await route.abort();
+      else await route.fulfill({ status: 200, contentType: "image/webp", body: image });
+    });
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(route);
+    await page.getByRole("button", { name: /Nahida, Dendro/ }).click();
+    const detail = page.locator('[data-ia-section="character-detail"] [data-avatar="detail"]');
+    await expect(detail.locator('img[alt=""]')).toBeVisible();
+    await page.getByRole("button", { name: /Bennett, Pyro/ }).click();
+    await expect(detail.getByRole("img", { name: "Bennett", exact: true })).toBeVisible();
+  } finally {
+    for (const row of previous) {
+      await database`update entity_profiles set avatar = ${row.avatar === null ? null : database.json(row.avatar)}::jsonb where entity_id = ${row.entity_id}`;
+    }
+    await database.end();
+  }
+});

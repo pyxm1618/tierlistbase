@@ -11,7 +11,7 @@ export function SpecDetail({ spec, titleId }: { spec: WowSpec; titleId: string }
   return (
     <div className={styles.detailBody}>
       <header className={styles.specHeading}>
-        <SpecIcon detail />
+        <SpecIcon className={spec.className} specName={spec.specName} detail />
         <div>
           <p className={styles.eyebrow}>
             {spec.role.toUpperCase()} · {spec.className ?? "Class not recorded"}
@@ -20,7 +20,6 @@ export function SpecDetail({ spec, titleId }: { spec: WowSpec; titleId: string }
         </div>
         <span className={styles.detailTier}>{spec.tier}</span>
       </header>
-      <p className={styles.placeholderNotice}>Placeholder icon · final visual asset pending</p>
       <p className={styles.contextNote}>Level 30 Beta · Dungeon · {spec.role.toUpperCase()}</p>
       <div role="tablist" aria-label="Spec detail tabs" className={styles.tabs}>
         {tabs.map((name, index) => (

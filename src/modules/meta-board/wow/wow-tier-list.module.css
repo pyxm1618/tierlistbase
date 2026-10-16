@@ -364,9 +364,9 @@
   background: #233342;
 }
 .detailIcon {
-  width: 56px;
-  height: 56px;
-  flex-basis: 56px;
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
 }
 .placeholderMark {
   position: absolute;

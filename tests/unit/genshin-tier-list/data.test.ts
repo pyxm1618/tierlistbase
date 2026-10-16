@@ -116,4 +116,42 @@ describe("reviewed Genshin database mapping", () => {
       expect(other.evidenceSources).toEqual([]);
     }
   });
+
+  it.each([
+    "not-a-url",
+    "https://example.com/avatar.webp",
+    "http://media.tierlistbase.com/avatar.webp",
+    "https://media.tierlistbase.com:8443/avatar.webp",
+  ])("uses an unavailable avatar for unsupported image URL %s", (url) => {
+    const rows = reviewedRows.map((row, index) =>
+      index ? row : { ...row, avatar: { 128: url, 256: url } },
+    );
+    const characters = mapGenshinCharacters(rows);
+    expect(characters).toHaveLength(121);
+    expect(characters.find((character) => character.id === reviewedRows[0]!.id)?.avatar).toBeNull();
+  });
+  it("maps official avatar URLs when present and defaults to null when omitted", () => {
+    const charactersWithoutAvatar = mapGenshinCharacters(reviewedRows);
+    expect(charactersWithoutAvatar.every((c) => c.avatar === null)).toBe(true);
+
+    const sampleRow = reviewedRows[0]!;
+    const sampleSlug = sampleRow.id;
+    const rowsWithAvatar = reviewedRows.map((r) =>
+      r.id === sampleSlug
+        ? {
+            ...r,
+            avatar: {
+              128: "https://media.tierlistbase.com/genshin/characters/sample/avatar-128.webp",
+              256: "https://media.tierlistbase.com/genshin/characters/sample/avatar-256.webp",
+            },
+          }
+        : r,
+    );
+    const characters = mapGenshinCharacters(rowsWithAvatar);
+    const target = characters.find((c) => c.id === sampleSlug);
+    expect(target?.avatar).toEqual({
+      128: "https://media.tierlistbase.com/genshin/characters/sample/avatar-128.webp",
+      256: "https://media.tierlistbase.com/genshin/characters/sample/avatar-256.webp",
+    });
+  });
 });

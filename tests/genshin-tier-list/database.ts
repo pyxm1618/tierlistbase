@@ -1,7 +1,6 @@
 import postgres from "postgres";
 import { importReviewedPackage } from "../../scripts/editorial-import";
 import { readReviewedPackage } from "../../scripts/editorial-package";
-
 export function genshinTestDatabaseUrl() {
   const value = process.env.TEST_DATABASE_URL;
   if (!value) throw new Error("TEST_DATABASE_URL is required for Genshin database tests");

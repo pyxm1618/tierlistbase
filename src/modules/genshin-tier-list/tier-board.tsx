@@ -195,7 +195,7 @@ export function GenshinTierBoard({
                       aria-label={`${character.name}, ${character.element}, ${character.primaryRole}, ${character.rarity} stars`}
                       onClick={() => setSelected(character)}
                     >
-                      <CharacterAvatar name={character.name} />
+                      <CharacterAvatar name={character.name} avatar={character.avatar} />
                       <span className={styles.stars} aria-hidden="true">
                         {"★".repeat(character.rarity)}
                       </span>
