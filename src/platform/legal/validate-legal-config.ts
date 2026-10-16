@@ -27,7 +27,6 @@ const legalSchema = z.object({
     supportEmail: z.email(),
     postalAddress: z.string().trim().min(1).optional(),
   }),
-  minimumAge: z.number().int().min(13).max(21),
   dataCategories: z.array(z.string().trim().min(1)).min(1),
   authMethods: z.array(z.string().trim().min(1)).min(1),
   processors: z.array(processorSchema),
