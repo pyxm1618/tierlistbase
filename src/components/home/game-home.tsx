@@ -149,7 +149,7 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
         <p>
           {isWow
             ? "Explore the current class and specialization meta for World of Warcraft: Forever."
-            : "Open the Genshin Impact tier list page. Verified rankings will appear as reviewed data is published."}
+            : "Explore current Genshin Impact character rankings backed by reviewed data."}
         </p>
         <div className="tlb-game-bottom">
           <div className="tlb-tag-list">
@@ -214,7 +214,7 @@ const popular: {
   },
   { title: "WoW", subtitle: "PvP", icon: "shield", ready: false, tone: "gold" },
   { title: "WoW", subtitle: "Leveling", icon: "boot", ready: false, tone: "orange" },
-  { title: "Genshin", subtitle: "Characters", icon: "star", ready: false, tone: "ice" },
+  { title: "Genshin", subtitle: "Characters", icon: "star", ready: true, tone: "ice", href: genshinHref },
   { title: "Spiral", subtitle: "Abyss", icon: "swirl", ready: false, tone: "blue" },
   { title: "Exploration", subtitle: "", icon: "compass", ready: false, tone: "gold" },
 ];
