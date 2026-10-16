@@ -11,8 +11,6 @@ const links = [
 
 const moreLinks = [
   { label: "Acceptable use", href: "/acceptable-use" },
-  { label: "Refunds", href: "/refund-policy" },
-  { label: "Account deletion", href: "/account-deletion" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
