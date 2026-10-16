@@ -321,7 +321,9 @@ export default function AboutPage() {
               <span className={styles.gameShade} aria-hidden="true" />
               <span className={styles.gameContent}>
                 <strong>World of Warcraft: Forever</strong>
-                <span>Explore class and specialization rankings for World of Warcraft: Forever.</span>
+                <span>
+                  Explore class and specialization rankings for World of Warcraft: Forever.
+                </span>
                 <span className={styles.gameCta}>View Tier List →</span>
               </span>
             </Link>
