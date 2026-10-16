@@ -85,10 +85,9 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
     const response = await page.goto(route.route, { waitUntil: "networkidle" });
     expect(response?.status(), `${route.route}: HTTP status`).toBe(200);
     const xRobotsTag = response?.headers()["x-robots-tag"]?.toLowerCase() ?? "";
-    expect(
-      xRobotsTag,
-      `${route.route}: production indexable route must not emit HTTP noindex/nofollow`,
-    ).not.toMatch(/\b(noindex|nofollow)\b/);
+    const headerMessage =
+      `${route.route}: production indexable route must not emit HTTP noindex/nofollow`;
+    expect(xRobotsTag, headerMessage).not.toMatch(/\b(noindex|nofollow)\b/);
 
     const canonical = sitemapEntries.get(route.route);
     expect(canonical, `${route.route}: sitemap canonical exists`).toBeTruthy();
@@ -310,12 +309,11 @@ test("production sitemap is exactly the registered localized indexable surface",
 }) => {
   const response = await request.get("/sitemap.xml");
   expect(response.status()).toBe(200);
-  expect(response.headers()["content-type"]?.toLowerCase() ?? "").toContain("application/xml");
+  const contentType = response.headers()["content-type"]?.toLowerCase() ?? "";
+  expect(contentType).toContain("application/xml");
   const xRobotsTag = response.headers()["x-robots-tag"]?.toLowerCase() ?? "";
-  expect(
-    xRobotsTag,
-    "production sitemap must not emit HTTP noindex/nofollow",
-  ).not.toMatch(/\b(noindex|nofollow)\b/);
+  const sitemapHeaderMessage = "production sitemap must not emit HTTP noindex/nofollow";
+  expect(xRobotsTag, sitemapHeaderMessage).not.toMatch(/\b(noindex|nofollow)\b/);
   const xml = await response.text();
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
     .map((match) => decodeXml(match[1]!))
