@@ -7,7 +7,6 @@ export const legalConfig = {
     jurisdiction: "Pending Legal Review",
     supportEmail: "support@tierlistbase.com",
   },
-  minimumAge: 18,
   dataCategories: [
     "request, network, and security metadata processed by hosting/security infrastructure",
     "support correspondence only when a visitor chooses to email the published support address",
