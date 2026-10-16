@@ -31,6 +31,11 @@ export const legalConfig = {
       purpose:
         "Email hosting for support correspondence voluntarily sent to support@tierlistbase.com.",
     },
+    {
+      name: "Google Analytics",
+      purpose: "Optional website analytics loaded only after explicit visitor consent.",
+      privacyUrl: "https://policies.google.com/privacy",
+    },
   ],
   paymentModel: "none",
   oneTimePurchases: false,
@@ -70,7 +75,7 @@ export const legalConfig = {
       {
         heading: "Scope and service status",
         paragraphs: [
-          "TierListBase V1 is a public, read-only game ranking and analysis service. User registration, authentication, payments, subscriptions, Google Analytics, Microsoft Clarity, and ad serving are not enabled in the current production product.",
+          "TierListBase V1 is a public, read-only game ranking and analysis service. User registration, authentication, payments, subscriptions, Microsoft Clarity, and ad serving are not enabled in the current production product. Optional Google Analytics (GA4) is available only if a visitor grants explicit consent.",
         ],
       },
       {
@@ -93,21 +98,21 @@ export const legalConfig = {
           "Cloudflare provides Cloudflare Workers hosting and edge delivery/security. Cloudflare processes end-user request and security metadata as part of delivering and protecting the site.",
           "Neon provides the production PostgreSQL database used for game, ranking, source, and evidence data. TierListBase V1 does not use that database for visitor account profiles because accounts are disabled.",
           "Dynadot provides email hosting for support correspondence voluntarily sent to support@tierlistbase.com. Dynadot is not used to process general website visits.",
-          "No third-party authentication, analytics, advertising, or payment service is activated by the TierListBase V1 application runtime.",
+          "Except for optional Google Analytics loaded only after explicit visitor consent, no third-party authentication, advertising, or payment service is activated by the TierListBase V1 application runtime.",
         ],
       },
       {
         heading: "Cookies and browser storage",
         paragraphs: [
-          "The TierListBase application does not currently use profile, analytics, advertising, or personalization cookies, and it does not write analytics-consent preferences to browser storage in normal production use because analytics is disabled.",
+          "The TierListBase application does not use profile, advertising, or personalization cookies. If you choose to allow optional analytics, Google Analytics may set analytics measurement cookies, and your consent choice is stored in local browser storage. If consent is declined or withdrawn, analytics cookies and browser storage entries are removed.",
           "Cloudflare security features may set strictly necessary security or challenge cookies when needed to protect or deliver the site. The exact cookie depends on the Cloudflare protection feature triggered. TierListBase does not use those cookies for advertising or behavioral profiling.",
         ],
       },
       {
         heading: "Analytics and advertising",
         paragraphs: [
-          "Google Analytics and Microsoft Clarity are not currently loaded on TierListBase public pages.",
-          "TierListBase currently has Google publisher verification or authorization metadata, including ads.txt, but does not load Google ad-serving scripts or display ads in V1. If advertising or optional analytics is enabled later, the relevant privacy disclosures and consent controls must be reviewed before activation.",
+          "Optional Google Analytics (GA4) is available on TierListBase public pages only after explicit visitor consent. If consent is not granted, or if it is withdrawn, Google Analytics is not loaded and no measurement data is transmitted. Microsoft Clarity is not enabled.",
+          "TierListBase currently has Google publisher verification or authorization metadata, including ads.txt, but does not load Google ad-serving scripts or display ads in V1. If advertising is enabled later, the relevant privacy disclosures and consent controls must be reviewed before activation.",
         ],
       },
       {

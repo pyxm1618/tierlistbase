@@ -234,7 +234,7 @@ function UpdateCard({
   update: RecentRatingChangeItem | undefined;
   index: number;
 }) {
-  const isGenshin = index === 1 && !update;
+  const isGenshin = update ? update.gameSlug === "genshin-impact" : index === 1;
   const title = update
     ? update.entityName + ": " + update.previousTier + " → " + update.newTier
     : isGenshin
@@ -365,8 +365,8 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
             >
               Latest Updates
             </SectionTitle>
-            <Link className="tlb-all-updates" href={wowHref}>
-              View WoW changes <Icon name="arrow" size={17} />
+            <Link className="tlb-all-updates" href="#explore">
+              View rankings <Icon name="arrow" size={17} />
             </Link>
           </div>
           <div className="tlb-update-grid">
