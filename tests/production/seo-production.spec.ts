@@ -85,8 +85,7 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
     const response = await page.goto(route.route, { waitUntil: "networkidle" });
     expect(response?.status(), `${route.route}: HTTP status`).toBe(200);
     const xRobotsTag = response?.headers()["x-robots-tag"]?.toLowerCase() ?? "";
-    const headerMessage =
-      `${route.route}: production indexable route must not emit HTTP noindex/nofollow`;
+    const headerMessage = `${route.route}: production indexable route must not emit HTTP noindex/nofollow`;
     expect(xRobotsTag, headerMessage).not.toMatch(/\b(noindex|nofollow)\b/);
 
     const canonical = sitemapEntries.get(route.route);
