@@ -136,6 +136,7 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
           src={isWow ? "/images/home/wow.webp" : "/images/home/genshin.webp"}
           alt=""
           fill
+          unoptimized
           sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 46vw, 901px"
           className="tlb-cover"
         />
@@ -244,6 +245,7 @@ function UpdateCard({
           src={isGenshin ? "/images/home/genshin.webp" : "/images/home/wow.webp"}
           alt=""
           fill
+          unoptimized
           sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 31vw, 595px"
           className="tlb-cover"
         />
@@ -287,6 +289,7 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
             src="/images/home/hero.webp"
             alt=""
             fill
+            unoptimized
             sizes="(max-width: 700px) 88vw, 68vw"
             preload
             className="tlb-cover tlb-hero-cover"

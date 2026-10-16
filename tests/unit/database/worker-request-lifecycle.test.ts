@@ -3,10 +3,15 @@ import { afterEach, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
 vi.mock("@/platform/config/env", () => ({ env: { databaseUrl: "postgres://unused" } }));
 
-const state = vi.hoisted(() => ({ nextId: 0, closed: new Set<number>() }));
+const state = vi.hoisted(() => ({
+  nextId: 0,
+  closed: new Set<number>(),
+  connectionLimits: new Map<number, number>(),
+}));
 vi.mock("@/platform/database/client", () => ({
-  createDatabaseClient: () => {
+  createDatabaseClient: (_url: string, maxConnections = 5) => {
     const id = ++state.nextId;
+    state.connectionLimits.set(id, maxConnections);
     return {
       db: {
         select() {
@@ -101,3 +106,29 @@ it("closes the request client when the response consumer cancels the stream", as
   await Promise.allSettled(pending);
   expect(state.closed.has(before + 1)).toBe(true);
 });
+
+it.each(["/", "/genshin-impact/tier-list", "/wow-forever/tier-list?role=tank"])(
+  "reuses one database connection for the public GET %s",
+  async (path) => {
+    const response = await worker.fetch(new Request(`https://worker.test${path}`), {}, ctx);
+    const body = await response.text();
+    const id = Number(body.split(":")[0]);
+    expect(state.connectionLimits.get(id)).toBe(1);
+  },
+);
+
+it.each([
+  ["/account", "GET"],
+  ["/api/auth/session", "GET"],
+  ["/genshin-impact/tier-list", "POST"],
+  ["/wow-forever/tier-list/other", "GET"],
+])("keeps the existing connection limit for %s %s", async (path, method) => {
+  const response = await worker.fetch(
+    new Request(`https://worker.test${path}`, { method }),
+    {},
+    ctx,
+  );
+  const body = await response.text();
+  expect(state.connectionLimits.get(Number(body.split(":")[0]))).toBe(5);
+});
+
