@@ -118,6 +118,7 @@ describe("reviewed Genshin database mapping", () => {
   });
 
   it.each([
+    "not-a-url",
     "https://example.com/avatar.webp",
     "http://media.tierlistbase.com/avatar.webp",
     "https://media.tierlistbase.com:8443/avatar.webp",

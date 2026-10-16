@@ -20,16 +20,18 @@ const text = z.string().trim().min(1);
 const avatarUrlSchema = z
   .string()
   .url()
-  .refine((value) => {
-    const url = new URL(value);
-    return (
-      url.protocol === "https:" &&
-      url.hostname === "media.tierlistbase.com" &&
-      url.port === "" &&
-      url.username === "" &&
-      url.password === ""
-    );
-  });
+  .pipe(
+    z.string().refine((value) => {
+      const url = new URL(value);
+      return (
+        url.protocol === "https:" &&
+        url.hostname === "media.tierlistbase.com" &&
+        url.port === "" &&
+        url.username === "" &&
+        url.password === ""
+      );
+    }),
+  );
 const avatarSchema = z.preprocess(
   (val) => {
     if (typeof val === "string") {
