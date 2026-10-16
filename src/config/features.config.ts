@@ -26,12 +26,18 @@ const neutralFeaturesConfig = {
   analytics: { enabled: false, ga4: false, clarity: false, consentRequired: true },
 } as const satisfies ProductConfig["features"];
 
+const productionFeaturesConfig = {
+  ...neutralFeaturesConfig,
+  analytics: { enabled: true, ga4: true, clarity: false, consentRequired: true },
+} as const satisfies ProductConfig["features"];
+
 const useEnabledTestProfile =
   process.env.APP_ENV === "test" && process.env.CREAT_WEB_E2E_ENABLED_FEATURES === "1";
 const useCommerceEnabledTestProfile =
   useEnabledTestProfile && process.env.CREAT_WEB_E2E_COMMERCE === "1";
 const useAnalyticsEnabledPerformanceProfile =
   process.env.APP_ENV === "test" && process.env.CREAT_WEB_PERFORMANCE_ANALYTICS === "1";
+const useProductionProfile = process.env.APP_ENV === "production";
 
 export const featuresConfig = useCommerceEnabledTestProfile
   ? commerceEnabledTestFeaturesConfig
@@ -39,4 +45,6 @@ export const featuresConfig = useCommerceEnabledTestProfile
     ? enabledTestFeaturesConfig
     : useAnalyticsEnabledPerformanceProfile
       ? analyticsEnabledPerformanceFeaturesConfig
-      : neutralFeaturesConfig;
+      : useProductionProfile
+        ? productionFeaturesConfig
+        : neutralFeaturesConfig;

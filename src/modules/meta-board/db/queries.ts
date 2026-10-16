@@ -713,10 +713,11 @@ export type RecentRatingChangeItem = {
   changedAt: Date;
   contextLabel: string;
   toVersion: string;
+  gameSlug: string;
 };
 
 export async function getRecentRatingChanges(
-  gameSlug = "wow-forever",
+  gameSlug: string | readonly string[] = "wow-forever",
   limit = 10,
   dbInstance?: DatabaseClient,
   filters?: {
@@ -726,7 +727,11 @@ export async function getRecentRatingChanges(
 ): Promise<RecentRatingChangeItem[]> {
   const db = dbInstance ?? (await getDb());
 
-  const conditions = [eq(games.slug, gameSlug)];
+  const slugCondition = Array.isArray(gameSlug)
+    ? inArray(games.slug, gameSlug as string[])
+    : eq(games.slug, gameSlug as string);
+
+  const conditions = [slugCondition];
   if (filters?.rankingContextId) {
     conditions.push(eq(ratingChanges.rankingContextId, filters.rankingContextId));
   }
@@ -747,6 +752,7 @@ export async function getRecentRatingChanges(
       changedAt: ratingChanges.changedAt,
       contextLabel: rankingContexts.label,
       toVersion: gameVersions.version,
+      gameSlug: games.slug,
     })
     .from(ratingChanges)
     .innerJoin(entities, eq(ratingChanges.entityId, entities.id))
@@ -758,4 +764,12 @@ export async function getRecentRatingChanges(
     .limit(limit);
 
   return changes;
+}
+
+export async function getMultiGameRecentRatingChanges(
+  gameSlugs: readonly string[] = ["wow-forever", "genshin-impact"],
+  limit = 3,
+  dbInstance?: DatabaseClient,
+): Promise<RecentRatingChangeItem[]> {
+  return getRecentRatingChanges(gameSlugs, limit, dbInstance);
 }
