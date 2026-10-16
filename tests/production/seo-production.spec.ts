@@ -17,6 +17,29 @@ function countPhrase(words: readonly string[], phrase: string): number {
   return count;
 }
 
+function countNonOverlappingPhrases(
+  words: readonly string[],
+  phrases: readonly string[],
+): Record<string, number> {
+  const candidates = phrases
+    .map((phrase) => ({ phrase, words: tokenize(phrase) }))
+    .sort((a, b) => b.words.length - a.words.length);
+  const counts = Object.fromEntries(phrases.map((phrase) => [phrase, 0])) as Record<string, number>;
+
+  for (let index = 0; index < words.length; index += 1) {
+    const match = candidates.find(
+      (candidate) =>
+        candidate.words.length > 0 &&
+        candidate.words.every((word, offset) => words[index + offset] === word),
+    );
+    if (!match) continue;
+    counts[match.phrase] = (counts[match.phrase] ?? 0) + 1;
+    index += match.words.length - 1;
+  }
+
+  return counts;
+}
+
 const genshinKeywordGroup = [
   "genshin tier list",
   "genshin impact tier list",
@@ -196,6 +219,46 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
       "max-age=31536000; includeSubDomains",
     );
   }
+});
+
+test("homepage visible keyword group stays natural and non-overlapping", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  const phrases = ["tier list", "tier lists", "game tier lists", "gaming tier lists"] as const;
+  const visibleMainContent = await page.locator("main").innerText();
+  const visibleWords = tokenize(visibleMainContent);
+  const counts = countNonOverlappingPhrases(visibleWords, phrases);
+  const density = Object.fromEntries(
+    phrases.map((phrase) => [
+      phrase,
+      Number(((counts[phrase]! / Math.max(visibleWords.length, 1)) * 100).toFixed(3)),
+    ]),
+  ) as Record<(typeof phrases)[number], number>;
+  const combinedOccurrences = phrases.reduce((total, phrase) => total + counts[phrase]!, 0);
+  const combinedDensity = Number(
+    ((combinedOccurrences / Math.max(visibleWords.length, 1)) * 100).toFixed(3),
+  );
+
+  console.log(
+    JSON.stringify({
+      event: "homepage_keyword_group_audit",
+      visibleMainContentWords: visibleWords.length,
+      phrases: Object.fromEntries(
+        phrases.map((phrase) => [
+          phrase,
+          { occurrences: counts[phrase], densityPct: density[phrase] },
+        ]),
+      ),
+      combinedOccurrences,
+      combinedDensityPct: combinedDensity,
+    }),
+  );
+
+  expect(combinedDensity).toBeGreaterThanOrEqual(3);
+  expect(combinedDensity).toBeLessThanOrEqual(5);
+  expect(counts["tier list"]).toBeGreaterThan(counts["tier lists"]!);
+  expect(counts["tier list"]).toBeGreaterThan(counts["game tier lists"]!);
+  expect(counts["tier list"]).toBeGreaterThan(counts["gaming tier lists"]!);
 });
 
 test("WoW visible main-content keyword group stays within the approved SEO range", async ({
