@@ -17,6 +17,33 @@ function countPhrase(words: readonly string[], phrase: string): number {
   return count;
 }
 
+const genshinKeywordGroup = [
+  "genshin tier list",
+  "genshin impact tier list",
+  "genshin character tier list",
+  "genshin impact character tier list",
+] as const;
+
+const genshinVisibleCopySelectors = [
+  '[data-ia-section="page-header"] h1',
+  '[data-ia-section="page-header"] p',
+  '[data-ia-section="tier-board"] h2',
+  '[data-ia-section="changes"] h2',
+  '[data-ia-section="changes"] > p',
+  '[data-ia-section="methodology"] h2',
+  '[data-ia-section="methodology"] > p',
+  '[data-ia-section="methodology"] li',
+  '[data-ia-section="sources"] h2',
+  '[data-ia-section="sources"] > p',
+  '[data-ia-section="sources"] ol li',
+  '[data-ia-section="tier-definitions"] h2',
+  '[data-ia-section="tier-definitions"] > p',
+  '[data-ia-section="tier-definitions"] dt',
+  '[data-ia-section="tier-definitions"] dd',
+  '[data-ia-section="faq"] h2',
+  '[data-ia-section="faq"] summary',
+] as const;
+
 function decodeXml(value: string): string {
   return value
     .replace(/&amp;/g, "&")
@@ -94,6 +121,58 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
       coverage,
       `${route.route}: primary keyword tokens must be present in visible content`,
     ).toBe(1);
+
+    if (route.route === "/genshin-impact/tier-list") {
+      const visibleCopy: string[] = [];
+      for (const selector of genshinVisibleCopySelectors) {
+        const texts = await page.locator(selector).allInnerTexts();
+        visibleCopy.push(...texts.map((text) => text.trim()).filter(Boolean));
+      }
+      const visibleMainWords = tokenize(visibleCopy.join(" "));
+      const phraseStats = genshinKeywordGroup.map((phrase) => {
+        const occurrences = countPhrase(visibleMainWords, phrase);
+        return {
+          phrase,
+          occurrences,
+          densityPct: Number(
+            ((occurrences / Math.max(visibleMainWords.length, 1)) * 100).toFixed(3),
+          ),
+        };
+      });
+      const combinedOccurrences = phraseStats.reduce(
+        (sum, phrase) => sum + phrase.occurrences,
+        0,
+      );
+      const combinedDensityPct = Number(
+        ((combinedOccurrences / Math.max(visibleMainWords.length, 1)) * 100).toFixed(3),
+      );
+
+      console.log(
+        JSON.stringify({
+          event: "genshin_keyword_group_audit",
+          visibleMainContentWords: visibleMainWords.length,
+          phraseStats,
+          combinedOccurrences,
+          combinedDensityPct,
+        }),
+      );
+
+      expect(
+        combinedDensityPct,
+        "Genshin keyword group density must be at least 3%",
+      ).toBeGreaterThanOrEqual(3);
+      expect(
+        combinedDensityPct,
+        "Genshin keyword group density must not exceed 5%",
+      ).toBeLessThanOrEqual(5);
+      const primaryOccurrences = phraseStats[0].occurrences;
+      for (const variant of phraseStats.slice(1)) {
+        expect(
+          primaryOccurrences,
+          `primary keyword must outrank ${variant.phrase}`,
+        ).toBeGreaterThan(variant.occurrences);
+      }
+    }
 
     const renderedInternalPaths = new Set(
       await page.locator('a[href^="/"]').evaluateAll((links) =>
