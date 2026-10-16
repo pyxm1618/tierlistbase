@@ -131,4 +131,3 @@ it.each([
   const body = await response.text();
   expect(state.connectionLimits.get(Number(body.split(":")[0]))).toBe(5);
 });
-
