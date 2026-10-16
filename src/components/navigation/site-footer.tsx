@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Brand } from "@/components/navigation/site-header";
 
 const links = [
-  { label: "About", href: "/#why-tierlistbase" },
+  { label: "About", href: "/about" },
   { label: "How Rankings Work", href: "/wow-forever/tier-list" },
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
