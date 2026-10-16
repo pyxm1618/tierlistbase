@@ -162,7 +162,7 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
         combinedDensityPct,
         "Genshin keyword group density must not exceed 5%",
       ).toBeLessThanOrEqual(5);
-      const primaryOccurrences = phraseStats[0].occurrences;
+      const primaryOccurrences = phraseStats[0]!.occurrences;
       for (const variant of phraseStats.slice(1)) {
         expect(
           primaryOccurrences,
