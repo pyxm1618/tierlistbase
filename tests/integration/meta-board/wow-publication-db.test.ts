@@ -396,3 +396,376 @@ it("tracks cross-phase and same-phase rating_changes and strictly enforces cohor
   expect(armsSameVersionChange?.previous_tier).toBe("A");
   expect(armsSameVersionChange?.new_tier).toBe("S");
 });
+
+it("selects the most recent previous version when multiple older versions exist (Test A)", async () => {
+  const baseNow = new Date();
+  const dungeons = WOW_FOREVER_NEAR_CAP_DUNGEONS.map((d) => d.name);
+
+  let currentPhaseId = 201;
+  let currentPhaseName = "Beta · Phase 201 Historical Baseline";
+  let armsMedian = 100;
+
+  vi.stubGlobal("fetch", async (input: string) => {
+    const endpoint = new URL(input);
+    if (endpoint.pathname.endsWith("/phases")) {
+      return new Response(
+        JSON.stringify({
+          success: true,
+          phases: [
+            {
+              id: 2000 + currentPhaseId,
+              phase_number: currentPhaseId,
+              name: currentPhaseName,
+              is_active: true,
+              locations: dungeons.map((location) => ({ location })),
+            },
+          ],
+        }),
+      );
+    }
+
+    const metric = endpoint.searchParams.get("metric");
+    if (metric === "avg_hps") {
+      return new Response(
+        JSON.stringify({
+          success: true,
+          phase: currentPhaseId,
+          phase_name: currentPhaseName,
+          location: endpoint.searchParams.get("location"),
+          difficulty: "all",
+          bracket: "all",
+          damage_mode: "standard",
+          metric,
+          statistics: {
+            Priest: { specs: { Holy: { median: 100, total_parses: 30 } } },
+          },
+        }),
+      );
+    }
+
+    if (metric === "avg_dtps") {
+      return new Response(
+        JSON.stringify({
+          success: true,
+          phase: currentPhaseId,
+          phase_name: currentPhaseName,
+          location: endpoint.searchParams.get("location"),
+          difficulty: "all",
+          bracket: "all",
+          damage_mode: "standard",
+          metric,
+          statistics: {},
+        }),
+      );
+    }
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        phase: currentPhaseId,
+        phase_name: currentPhaseName,
+        location: endpoint.searchParams.get("location"),
+        difficulty: "all",
+        bracket: "all",
+        damage_mode: "standard",
+        metric,
+        statistics: {
+          Warrior: {
+            specs: {
+              Arms: { median: armsMedian, total_parses: 30 },
+              Fury: { median: 200 - armsMedian, total_parses: 30 },
+            },
+          },
+        },
+      }),
+    );
+  });
+
+  const baseReview = {
+    officialSourceUrl:
+      "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes/2360696",
+    taxonomySourceUrl: "https://foreverlogs.gg/faq",
+    dungeons,
+    roleBySpec: {
+      "Warrior::Arms": ["dps"],
+      "Warrior::Fury": ["dps"],
+      "Priest::Holy": ["healer"],
+    },
+    levelCap: 30 as const,
+  };
+
+  // --- Version 1 (Phase 201): Arms = 100 -> Tier B ---
+  const t1 = new Date(baseNow.getTime() - 6 * 3600 * 1000);
+  currentPhaseId = 201;
+  currentPhaseName = "Beta · Phase 201 Historical Baseline";
+  armsMedian = 100;
+  const candidateV1 = await buildWowForeverDataCandidate({
+    apiKey: randomUUID(),
+    review: {
+      ...baseReview,
+      phaseId: currentPhaseId,
+      phaseName: currentPhaseName,
+      checkedAt: t1.toISOString(),
+    },
+    now: t1,
+  });
+  const resV1 = await publishWowForeverDataCandidate({ candidate: candidateV1, databaseUrl: url! });
+
+  // --- Version 2 (Phase 202): Arms = 110 -> Tier A ---
+  const t2 = new Date(baseNow.getTime() - 5 * 3600 * 1000);
+  currentPhaseId = 202;
+  currentPhaseName = "Beta · Phase 202 Intermediate Baseline";
+  armsMedian = 110;
+  const candidateV2 = await buildWowForeverDataCandidate({
+    apiKey: randomUUID(),
+    review: {
+      ...baseReview,
+      phaseId: currentPhaseId,
+      phaseName: currentPhaseName,
+      checkedAt: t2.toISOString(),
+    },
+    now: t2,
+  });
+  const resV2 = await publishWowForeverDataCandidate({ candidate: candidateV2, databaseUrl: url! });
+  expect(resV2.versionId).not.toBe(resV1.versionId);
+
+  // --- Version 3 (Phase 203): Arms = 140 -> Tier S ---
+  const t3 = new Date(baseNow.getTime() - 4 * 3600 * 1000);
+  currentPhaseId = 203;
+  currentPhaseName = "Beta · Phase 203 Latest Baseline";
+  armsMedian = 140;
+  const candidateV3 = await buildWowForeverDataCandidate({
+    apiKey: randomUUID(),
+    review: {
+      ...baseReview,
+      phaseId: currentPhaseId,
+      phaseName: currentPhaseName,
+      checkedAt: t3.toISOString(),
+    },
+    now: t3,
+  });
+  const resV3 = await publishWowForeverDataCandidate({ candidate: candidateV3, databaseUrl: url! });
+  expect(resV3.versionId).not.toBe(resV2.versionId);
+  expect(resV3.versionId).not.toBe(resV1.versionId);
+
+  // 核心断言：发布 Version 3 时，系统必须选择最近的 previous Version (Version 2 A -> Version 3 S)，而不是更早的 Version 1 (B -> S)
+  const changesV3 = await database.db.execute(
+    sql`select rc.*, e.slug as entity_slug from rating_changes rc
+        join entities e on e.id = rc.entity_id
+        where rc.to_version_id = ${resV3.versionId}`,
+  );
+  const armsChangeV3 = changesV3.find((c) => c.entity_slug === "arms-warrior");
+  expect(armsChangeV3).toBeDefined();
+  expect(armsChangeV3?.from_version_id).toBe(resV2.versionId);
+  expect(armsChangeV3?.from_version_id).not.toBe(resV1.versionId);
+  expect(armsChangeV3?.to_version_id).toBe(resV3.versionId);
+  expect(armsChangeV3?.previous_tier).toBe("A");
+  expect(armsChangeV3?.new_tier).toBe("S");
+});
+
+it("strictly isolates ranking contexts: same entity in different contexts never cross-compares (Test B)", async () => {
+  const baseNow = new Date();
+  const dungeons = WOW_FOREVER_NEAR_CAP_DUNGEONS.map((d) => d.name);
+
+  let currentPhaseId = 301;
+  let currentPhaseName = "Beta · Phase 301 Context Isolation 1";
+  let shamanDpsMedian = 110;
+  let shamanTankMedian = 100;
+
+  vi.stubGlobal("fetch", async (input: string) => {
+    const endpoint = new URL(input);
+    if (endpoint.pathname.endsWith("/phases")) {
+      return new Response(
+        JSON.stringify({
+          success: true,
+          phases: [
+            {
+              id: 3000 + currentPhaseId,
+              phase_number: currentPhaseId,
+              name: currentPhaseName,
+              is_active: true,
+              locations: dungeons.map((location) => ({ location })),
+            },
+          ],
+        }),
+      );
+    }
+
+    const metric = endpoint.searchParams.get("metric");
+    if (metric === "avg_hps") {
+      return new Response(
+        JSON.stringify({
+          success: true,
+          phase: currentPhaseId,
+          phase_name: currentPhaseName,
+          location: endpoint.searchParams.get("location"),
+          difficulty: "all",
+          bracket: "all",
+          damage_mode: "standard",
+          metric,
+          statistics: {
+            Priest: { specs: { Holy: { median: 100, total_parses: 30 } } },
+          },
+        }),
+      );
+    }
+
+    if (metric === "avg_dtps") {
+      return new Response(
+        JSON.stringify({
+          success: true,
+          phase: currentPhaseId,
+          phase_name: currentPhaseName,
+          location: endpoint.searchParams.get("location"),
+          difficulty: "all",
+          bracket: "all",
+          damage_mode: "standard",
+          metric,
+          statistics:
+            currentPhaseId === 301
+              ? {}
+              : {
+                  Warrior: {
+                    specs: {
+                      Protection: { median: 200 - shamanTankMedian, total_parses: 30 },
+                    },
+                  },
+                  Shaman: {
+                    specs: {
+                      "Earthen Guardian": { median: shamanTankMedian, total_parses: 30 },
+                    },
+                  },
+                },
+        }),
+      );
+    }
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        phase: currentPhaseId,
+        phase_name: currentPhaseName,
+        location: endpoint.searchParams.get("location"),
+        difficulty: "all",
+        bracket: "all",
+        damage_mode: "standard",
+        metric,
+        statistics:
+          currentPhaseId === 301
+            ? {
+                Warrior: {
+                  specs: {
+                    Arms: { median: 100, total_parses: 30 },
+                    Fury: { median: 100, total_parses: 30 },
+                  },
+                },
+                Shaman: {
+                  specs: {
+                    "Earthen Guardian": { median: shamanDpsMedian, total_parses: 30 },
+                  },
+                },
+              }
+            : {},
+      }),
+    );
+  });
+
+  const baseReview = {
+    officialSourceUrl:
+      "https://us.forums.blizzard.com/en/wow/t/wow-forever-beta-development-notes/2360696",
+    taxonomySourceUrl: "https://foreverlogs.gg/faq",
+    dungeons,
+    levelCap: 30 as const,
+  };
+
+  // --- Phase 301: Shaman::Earthen Guardian published under DPS context (Tier A) ---
+  const t1 = new Date(baseNow.getTime() - 6 * 3600 * 1000);
+  currentPhaseId = 301;
+  currentPhaseName = "Beta · Phase 301 Context Isolation 1";
+  shamanDpsMedian = 110;
+  const candidateB1 = await buildWowForeverDataCandidate({
+    apiKey: randomUUID(),
+    review: {
+      ...baseReview,
+      phaseId: currentPhaseId,
+      phaseName: currentPhaseName,
+      checkedAt: t1.toISOString(),
+      roleBySpec: {
+        "Warrior::Arms": ["dps"],
+        "Warrior::Fury": ["dps"],
+        "Shaman::Earthen Guardian": ["dps"],
+        "Priest::Holy": ["healer"],
+      },
+    },
+    now: t1,
+  });
+  const resB1 = await publishWowForeverDataCandidate({ candidate: candidateB1, databaseUrl: url! });
+
+  // --- Phase 302: SAME entity Shaman::Earthen Guardian now published only under TANK context (Tier B) ---
+  const t2 = new Date(baseNow.getTime() - 5 * 3600 * 1000);
+  currentPhaseId = 302;
+  currentPhaseName = "Beta · Phase 302 Context Isolation 2";
+  shamanTankMedian = 100;
+  const candidateB2 = await buildWowForeverDataCandidate({
+    apiKey: randomUUID(),
+    review: {
+      ...baseReview,
+      phaseId: currentPhaseId,
+      phaseName: currentPhaseName,
+      checkedAt: t2.toISOString(),
+      roleBySpec: {
+        "Warrior::Protection": ["tank"],
+        "Shaman::Earthen Guardian": ["tank"],
+        "Priest::Holy": ["healer"],
+      },
+    },
+    now: t2,
+  });
+  const resB2 = await publishWowForeverDataCandidate({ candidate: candidateB2, databaseUrl: url! });
+
+  // 断言：由于 Phase 301 仅有 DPS context 评分，Phase 302 的 Tank context 绝不能与同一个 entity 的 DPS 串比！
+  // 必须严格为 same entity_id + same ranking_context_id。找不到同 context 的 previous rating，绝不产生 rating_change！
+  const changesB2 = await database.db.execute(
+    sql`select rc.*, e.slug as entity_slug from rating_changes rc
+        join entities e on e.id = rc.entity_id
+        where rc.to_version_id = ${resB2.versionId}`,
+  );
+  const shamanChangeB2 = changesB2.find((c) => c.entity_slug === "earthen-guardian-shaman");
+  expect(shamanChangeB2).toBeUndefined();
+
+  // --- Phase 303: Shaman::Earthen Guardian published under TANK context again, but now Tier S ---
+  const t3 = new Date(baseNow.getTime() - 4 * 3600 * 1000);
+  currentPhaseId = 303;
+  currentPhaseName = "Beta · Phase 303 Context Isolation 3";
+  shamanTankMedian = 60;
+  const candidateB3 = await buildWowForeverDataCandidate({
+    apiKey: randomUUID(),
+    review: {
+      ...baseReview,
+      phaseId: currentPhaseId,
+      phaseName: currentPhaseName,
+      checkedAt: t3.toISOString(),
+      roleBySpec: {
+        "Warrior::Protection": ["tank"],
+        "Shaman::Earthen Guardian": ["tank"],
+        "Priest::Holy": ["healer"],
+      },
+    },
+    now: t3,
+  });
+  const resB3 = await publishWowForeverDataCandidate({ candidate: candidateB3, databaseUrl: url! });
+
+  // 对照断言：同一 entity 在相同 ranking_context_id (tank) 下跨版本正常比较 (Phase 302 Tier B -> Phase 303 Tier S)
+  const changesB3 = await database.db.execute(
+    sql`select rc.*, e.slug as entity_slug from rating_changes rc
+        join entities e on e.id = rc.entity_id
+        where rc.to_version_id = ${resB3.versionId}`,
+  );
+  const shamanChangeB3 = changesB3.find((c) => c.entity_slug === "earthen-guardian-shaman");
+  expect(shamanChangeB3).toBeDefined();
+  expect(shamanChangeB3?.from_version_id).toBe(resB2.versionId);
+  expect(shamanChangeB3?.from_version_id).not.toBe(resB1.versionId);
+  expect(shamanChangeB3?.to_version_id).toBe(resB3.versionId);
+  expect(shamanChangeB3?.previous_tier).toBe("B");
+  expect(shamanChangeB3?.new_tier).toBe("S");
+});

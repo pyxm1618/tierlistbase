@@ -66,14 +66,24 @@ describe("WoW publication accuracy gate", () => {
     expect(isSpecialCohortSpec("Paladin::Retribution")).toBe(false);
     expect(isSpecialCohortSpec("Paladin::Holy")).toBe(false);
 
-    // Custom review cohorts override
+    // Test C: explicit review cohortSpecs classification
+    expect(isSpecialCohortSpec("Warrior::Gladiator", { cohortSpecs: ["Warrior::Gladiator"] })).toBe(
+      true,
+    );
+    expect(isSpecialCohortSpec("Mage::Frostfire", { cohortSpecs: ["Mage::Frostfire"] })).toBe(true);
     expect(isSpecialCohortSpec("Warrior::Gladiator", { cohortSpecs: ["Mage::Frostfire"] })).toBe(
       false,
     );
-    expect(isSpecialCohortSpec("Mage::Frostfire", { cohortSpecs: ["Mage::Frostfire"] })).toBe(true);
 
-    // Custom review official specs override
+    // Test D: incomplete officialSpecs must NEVER falsely classify an unknown spec as cohort
+    expect(
+      isSpecialCohortSpec("Mage::Some Future Spec", { officialSpecs: ["Warrior::Arms"] }),
+    ).toBe(false);
     expect(isSpecialCohortSpec("Warrior::Arms", { officialSpecs: ["Warrior::Arms"] })).toBe(false);
+
+    // Test E: default compatibility fallbacks preserved
+    expect(isSpecialCohortSpec("Warrior::Gladiator")).toBe(true);
+    expect(isSpecialCohortSpec("Paladin::Justicar")).toBe(true);
     expect(isSpecialCohortSpec("Warrior::Gladiator", { officialSpecs: ["Warrior::Arms"] })).toBe(
       true,
     );

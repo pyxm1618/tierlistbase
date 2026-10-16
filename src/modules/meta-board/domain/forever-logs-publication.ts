@@ -42,9 +42,6 @@ export function isSpecialCohortSpec(
   if (review?.cohortSpecs && review.cohortSpecs.length > 0) {
     return review.cohortSpecs.includes(specKey);
   }
-  if (review?.officialSpecs && review.officialSpecs.length > 0) {
-    return !review.officialSpecs.includes(specKey);
-  }
   return KNOWN_FOREVER_LOGS_COHORTS.includes(
     specKey as (typeof KNOWN_FOREVER_LOGS_COHORTS)[number],
   );
