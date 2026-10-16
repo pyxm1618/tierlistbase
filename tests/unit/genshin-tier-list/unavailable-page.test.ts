@@ -6,6 +6,7 @@ vi.mock("@/modules/genshin-tier-list", () => ({
   genshinStyles: { page: "page", shell: "shell" },
 }));
 import GenshinPage, { generateMetadata } from "@/app/(marketing)/genshin-impact/tier-list/page";
+import { routeRegistry } from "@/config/routes.config";
 
 it("renders a truthful unavailable state without fixtures or database error details", async () => {
   const html = renderToStaticMarkup(await GenshinPage());
@@ -14,10 +15,13 @@ it("renders a truthful unavailable state without fixtures or database error deta
   expect(html).not.toMatch(/Mock|data-character-card|DATABASE_URL|postgres/i);
 });
 
-it("remains indexable with the production metadata policy", async () => {
+it("follows the route registry under the production metadata policy", async () => {
   vi.stubEnv("APP_ENV", "production");
   try {
-    expect(await generateMetadata()).toMatchObject({ robots: { index: true, follow: true } });
+    const route = routeRegistry.get("/genshin-impact/tier-list");
+    expect(await generateMetadata()).toMatchObject({
+      robots: { index: route.class === "public_indexable", follow: true },
+    });
   } finally {
     vi.unstubAllEnvs();
   }
