@@ -17,6 +17,19 @@ import {
 import { elements, roles, tiers, type Character } from "./characters";
 
 const text = z.string().trim().min(1);
+const avatarUrlSchema = z
+  .string()
+  .url()
+  .refine((value) => {
+    const url = new URL(value);
+    return (
+      url.protocol === "https:" &&
+      url.hostname === "media.tierlistbase.com" &&
+      url.port === "" &&
+      url.username === "" &&
+      url.password === ""
+    );
+  });
 const avatarSchema = z.preprocess(
   (val) => {
     if (typeof val === "string") {
@@ -30,11 +43,12 @@ const avatarSchema = z.preprocess(
   },
   z
     .object({
-      128: z.string().url(),
-      256: z.string().url(),
+      128: avatarUrlSchema,
+      256: avatarUrlSchema,
     })
     .nullable()
-    .optional(),
+    .optional()
+    .catch(null),
 );
 
 const rowSchema = z.object({

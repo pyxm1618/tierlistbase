@@ -2,6 +2,7 @@ import { z } from "zod";
 import type { BoardEntityItem, MetaBoardData } from "../db/queries";
 
 import {
+  isSpecialCohortSpec,
   validatePublicationReview,
   type PublicationReview,
 } from "../domain/forever-logs-publication";
@@ -65,7 +66,12 @@ export function parseDungeonEvidence(notes: string | null) {
 export function buildWowSpecs(board: MetaBoardData): WowSpec[] {
   const items = board.tiers.flatMap((group) => group.items);
   const specs = items
-    .filter((item) => item.entityType === "spec")
+    .filter(
+      (item) =>
+        item.entityType === "spec" &&
+        item.profile?.officialSpec !== false &&
+        !isSpecialCohortSpec(`${item.profile?.className}::${item.profile?.specName}`),
+    )
     .map((item): WowSpec => {
       const sources = item.sources.filter(
         (source) =>

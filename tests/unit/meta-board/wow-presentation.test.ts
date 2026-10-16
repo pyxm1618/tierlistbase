@@ -61,6 +61,22 @@ const board = {
   hasData: true,
 } as MetaBoardData;
 describe("WoW stored performance presentation", () => {
+  it.each([
+    ["Warrior", "Gladiator"],
+    ["Paladin", "Justicar"],
+  ])("excludes legacy %s %s cohorts still stored as spec", (className, specName) => {
+    const legacy = {
+      ...item,
+      entityId: "legacy-cohort",
+      entityType: "spec",
+      profile: { className, specName },
+    };
+    expect(
+      buildWowSpecs({ ...board, tiers: [{ tier: "A", items: [item, legacy] }] }).map(
+        (spec) => spec.id,
+      ),
+    ).toEqual(["mage"]);
+  });
   it("reads real dungeon samples and coverage without converting score to DPS", () => {
     const result = buildWowSpecs(board)[0]!;
     expect(result).toMatchObject({

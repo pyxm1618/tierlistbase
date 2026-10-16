@@ -6,7 +6,12 @@ export function CharacterDetail({ character, titleId }: { character: Character; 
   return (
     <div className={styles.detailContent}>
       <div className={styles.detailHeading}>
-        <CharacterAvatar name={character.name} avatar={character.avatar} detail />
+        <CharacterAvatar
+          key={character.id}
+          name={character.name}
+          avatar={character.avatar}
+          detail
+        />
         <div>
           <p className={styles.label}>Character</p>
           <h2 id={titleId}>{character.name}</h2>

@@ -117,6 +117,18 @@ describe("reviewed Genshin database mapping", () => {
     }
   });
 
+  it.each([
+    "https://example.com/avatar.webp",
+    "http://media.tierlistbase.com/avatar.webp",
+    "https://media.tierlistbase.com:8443/avatar.webp",
+  ])("uses an unavailable avatar for unsupported image URL %s", (url) => {
+    const rows = reviewedRows.map((row, index) =>
+      index ? row : { ...row, avatar: { 128: url, 256: url } },
+    );
+    const characters = mapGenshinCharacters(rows);
+    expect(characters).toHaveLength(121);
+    expect(characters.find((character) => character.id === reviewedRows[0]!.id)?.avatar).toBeNull();
+  });
   it("maps official avatar URLs when present and defaults to null when omitted", () => {
     const charactersWithoutAvatar = mapGenshinCharacters(reviewedRows);
     expect(charactersWithoutAvatar.every((c) => c.avatar === null)).toBe(true);
