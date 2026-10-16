@@ -18,7 +18,7 @@ export const legalConfig = {
     {
       name: "Cloudflare",
       purpose:
-        "DNS, CDN/security, and Cloudflare Workers hosting. Cloudflare may process request and security metadata needed to deliver and protect the site.",
+        "Cloudflare Workers hosting and edge delivery/security. Cloudflare may process request and security metadata needed to deliver and protect the site.",
       privacyUrl: "https://www.cloudflare.com/privacypolicy/",
     },
     {
@@ -86,7 +86,7 @@ export const legalConfig = {
       {
         heading: "Infrastructure providers",
         paragraphs: [
-          "Cloudflare provides DNS, CDN/security, and Cloudflare Workers hosting. Cloudflare processes end-user request and security metadata as part of delivering and protecting customer Internet properties.",
+          "Cloudflare provides Cloudflare Workers hosting and edge delivery/security. Cloudflare processes end-user request and security metadata as part of delivering and protecting the site.",
           "Neon provides the production PostgreSQL database used for game, ranking, source, and evidence data. TierListBase V1 does not use that database for visitor account profiles because accounts are disabled.",
           "No third-party email delivery, authentication, analytics, advertising, or payment service is activated by the TierListBase V1 application runtime.",
         ],
