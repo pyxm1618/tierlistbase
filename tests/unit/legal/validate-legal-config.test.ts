@@ -26,7 +26,6 @@ it("permits draft sample facts outside production release mode", () => {
     validateLegalConfig({
       legal: legalConfig,
       features: {
-        resend: true,
         subscriptions: legalConfig.subscriptions,
         credits: legalConfig.credits,
       },
@@ -37,9 +36,15 @@ it("permits draft sample facts outside production release mode", () => {
 it("rejects draft and placeholder facts in production release mode", () => {
   expect(() =>
     validateLegalConfig({
-      legal: legalConfig,
+      legal: {
+        ...legalConfig,
+        releaseStatus: "draft",
+        operator: {
+          ...legalConfig.operator,
+          legalName: "Sample Operator",
+        },
+      },
       features: {
-        resend: true,
         subscriptions: legalConfig.subscriptions,
         credits: legalConfig.credits,
       },

@@ -29,11 +29,14 @@ for (const { route, document } of legalRoutes) {
   });
 }
 
-test("every legal route is linked from the footer", async ({ page }) => {
+test("active V1 legal routes are linked from the footer", async ({ page }) => {
   await page.goto("/");
   const footer = page.getByRole("contentinfo");
-  for (const { route } of legalRoutes) {
+
+  for (const route of ["/privacy", "/terms", "/acceptable-use", "/contact"]) {
     await expect(footer.locator(`a[href='${route}']`)).toHaveCount(1);
   }
-  await expect(footer.locator("a[href='/contact']")).toHaveCount(1);
+
+  await expect(footer.locator("a[href='/refund-policy']")).toHaveCount(0);
+  await expect(footer.locator("a[href='/account-deletion']")).toHaveCount(0);
 });

@@ -10,10 +10,9 @@ export const legalConfig = {
   releaseStatus: "draft",
   operator: {
     legalName: "Test Only Focus Utility Operator — replace before launch",
-    jurisdiction: "Test jurisdiction — replace before launch",
+    establishment: "Test establishment — replace before launch",
     supportEmail: "test-only-support@example.com",
   },
-  minimumAge: 18,
   dataCategories: [
     "account identifiers",
     "authentication records",

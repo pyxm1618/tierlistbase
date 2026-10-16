@@ -32,11 +32,10 @@ export type LegalConfig = {
   readonly releaseStatus: "draft" | "reviewed";
   readonly operator: {
     readonly legalName: string;
-    readonly jurisdiction: string;
+    readonly establishment: string;
     readonly supportEmail: string;
     readonly postalAddress?: string;
   };
-  readonly minimumAge: number;
   readonly dataCategories: readonly string[];
   readonly authMethods: readonly string[];
   readonly processors: readonly ProcessorDisclosure[];
