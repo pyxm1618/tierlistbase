@@ -64,10 +64,10 @@ export function WowWorkspace({ specs, children }: { specs: WowSpec[]; children: 
           <section className={styles.board} aria-label="Tier Board">
             <header className={styles.boardHeading}>
               <h2 id="wow-board-heading">
-                {className === "All Classes" ? "All Specs" : className}{" "}
+                WoW Tier List · {className === "All Classes" ? "All Specs" : className}{" "}
                 <span>({visible.length})</span>
               </h2>
-              <span>Sorted by Tier / Score</span>
+              <span>WoW Forever Tier List · Dungeon Specs · Sorted by Tier / Score</span>
             </header>
             {specs.length === 0 && (
               <p className={styles.empty}>
