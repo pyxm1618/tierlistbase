@@ -52,10 +52,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:path*",
-        headers: [
-          ...baselineSecurityHeaders,
-          ...(!isProduction ? [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] : []),
-        ],
+        headers: [...baselineSecurityHeaders],
       },
       {
         source: "/brand/:path*",
