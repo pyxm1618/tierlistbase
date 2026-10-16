@@ -196,7 +196,7 @@ for (const width of [390, 1920, 2560]) {
     await page.goto("/genshin-impact/tier-list", { waitUntil: "networkidle" });
     const preloads = page.locator('link[rel="preload"][as="image"]');
     await expect(preloads).toHaveCount(1);
-    await expect(preloads).toHaveAttribute("imagesrcset", /hero-f958fb67df/);
+    await expect(preloads).toHaveAttribute("href", /hero-f958fb67df/);
     const card = page.getByRole("button", { name: /Nahida, Dendro/ });
     await card.click();
     const samples = [];
@@ -208,7 +208,9 @@ for (const width of [390, 1920, 2560]) {
       const image = page.locator(selector).filter({ visible: true }).first();
       await expect(image).toBeVisible();
       await expect(image).toHaveJSProperty("complete", true);
-      await expect(image).toHaveAttribute("sizes", /.+/);
+      if (name !== "hero") {
+        await expect(image).toHaveAttribute("sizes", /.+/);
+      }
       const sample = await image.evaluate((element) => {
         const image = element as HTMLImageElement;
         const timing = (
@@ -224,7 +226,8 @@ for (const width of [390, 1920, 2560]) {
       });
       expect(sample.naturalWidth).toBeGreaterThan(0);
       expect(sample.renderedWidth).toBeGreaterThan(0);
-      expect(sample.currentSrc).toContain("/_next/image?");
+      if (name === "hero") expect(sample.currentSrc).not.toContain("/_next/image?");
+      else expect(sample.currentSrc).toContain("/_next/image?");
       expect(sample.currentSrc).toContain(".webp");
       const response = await request.get(sample.currentSrc);
       expect(response.status()).toBe(200);

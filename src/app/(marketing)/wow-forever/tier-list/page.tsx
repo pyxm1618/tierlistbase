@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
@@ -25,24 +26,33 @@ type PageProps = {
 export async function generateMetadata(): Promise<Metadata> {
   return metadataForRoute(routeRegistry, "/wow-forever/tier-list", currentSeoEnvironment());
 }
+const getWowPageData = unstable_cache(
+  async (role: string) => {
+    // Dungeon / Level 30 / current stored version are fixed V1 context dimensions.
+    const data = await getGameMetaBoardData({
+      gameSlug: "wow-forever",
+      mode: "dungeon",
+      role,
+      levelCap: 30,
+    });
+    const changes =
+      data.activeContext && data.version
+        ? await getRecentRatingChanges("wow-forever", 10, undefined, {
+            rankingContextId: data.activeContext.id,
+            toVersionId: data.version.id,
+          })
+        : [];
+    return { data, changes };
+  },
+  ["tierlistbase-wow-page-data-v1"],
+  { revalidate: 30 },
+);
+
 export default async function WowForeverTierListPage({ searchParams }: PageProps) {
   const route = routeRegistry.get("/wow-forever/tier-list");
   if (route.class !== "public_indexable") throw new Error("WoW tier list must be indexable");
   const { role } = await searchParams;
-  // Dungeon / Level 30 / current stored version are fixed V1 context dimensions.
-  const data = await getGameMetaBoardData({
-    gameSlug: "wow-forever",
-    mode: "dungeon",
-    role: role ?? "dps",
-    levelCap: 30,
-  });
-  const changes =
-    data.activeContext && data.version
-      ? await getRecentRatingChanges("wow-forever", 10, undefined, {
-          rankingContextId: data.activeContext.id,
-          toVersionId: data.version.id,
-        })
-      : [];
+  const { data, changes } = await getWowPageData(role ?? "dps");
   const specs = buildWowSpecs(data);
   const status = summarizeWowStatus(data);
   // Conservative publication status also applies to every card and Detail, not only the Hero.
@@ -70,6 +80,7 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
             src={hero}
             alt=""
             fill
+            unoptimized
             sizes="(max-width: 767px) calc(100vw - 24px), (max-width: 1640px) calc(100vw - 48px), 1592px"
             priority
             className={styles.heroImage}

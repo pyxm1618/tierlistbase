@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,8 +23,25 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const dynamic = "force-dynamic";
 
+const getReviewedData = unstable_cache(
+  async () => {
+    const result = await loadGenshinData();
+    // A failed read must not become a cached unavailable page.
+    if (result.status === "unavailable") throw new Error("Reviewed ranking data unavailable");
+    return result;
+  },
+  ["tierlistbase-genshin-reviewed-data-v1"],
+  { revalidate: 30 },
+);
+
 export default async function GenshinImpactTierListPage() {
-  const result = await loadGenshinData();
+  let result: Awaited<ReturnType<typeof loadGenshinData>>;
+  try {
+    result = await getReviewedData();
+  } catch (error) {
+    console.error("Genshin ranking read unavailable", error);
+    result = { status: "unavailable" };
+  }
   if (result.status === "unavailable")
     return (
       <main className={styles.page}>
@@ -51,6 +69,7 @@ export default async function GenshinImpactTierListPage() {
           src={hero}
           alt=""
           fill
+          unoptimized
           priority
           sizes="(max-width: 1820px) 100vw, 1820px"
           className={styles.heroImage}

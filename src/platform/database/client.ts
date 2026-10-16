@@ -3,9 +3,9 @@ import postgres from "postgres";
 
 import * as schema from "./schema";
 
-export function createDatabaseClient(url: string) {
+export function createDatabaseClient(url: string, maxConnections = 5) {
   const client = postgres(url, {
-    max: 5,
+    max: maxConnections,
     prepare: false,
     connect_timeout: 10,
   });
