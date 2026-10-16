@@ -256,7 +256,8 @@ describe("TierListBase Ranking Domain", () => {
       if (wowRoute) {
         expect(wowRoute.class).toBe("public_indexable");
         if (wowRoute.class === "public_indexable") {
-          expect(wowRoute.primaryKeyword).toBe("wow forever tier list");
+          expect(wowRoute.primaryKeyword).toBe("wow tier list");
+          expect(wowRoute.secondaryKeywords).toContain("wow forever tier list");
         }
       }
     });
