@@ -8,13 +8,24 @@ export const legalConfig = {
     supportEmail: "support@tierlistbase.com",
   },
   minimumAge: 18,
-  dataCategories: ["essential technical and security events (no personal accounts)"],
+  dataCategories: [
+    "request, network, and security metadata processed by hosting/security infrastructure",
+    "support correspondence only when a visitor chooses to email the published support address",
+    "no account, payment, advertising-profile, or analytics-profile data in V1",
+  ],
   authMethods: ["none (authentication disabled in V1)"],
   processors: [
     {
-      name: "Resend",
-      purpose: "Dormant and inactive in TierListBase V1 (disabled feature flag)",
-      privacyUrl: "https://resend.com/legal/privacy-policy",
+      name: "Cloudflare",
+      purpose:
+        "DNS, CDN/security, and Cloudflare Workers hosting. Cloudflare may process request and security metadata needed to deliver and protect the site.",
+      privacyUrl: "https://www.cloudflare.com/privacypolicy/",
+    },
+    {
+      name: "Neon",
+      purpose:
+        "PostgreSQL database hosting for TierListBase game, ranking, source, and evidence data. The application does not intentionally store visitor account profiles in this database in V1.",
+      privacyUrl: "https://neon.com/privacy-policy",
     },
   ],
   paymentModel: "none",
@@ -25,26 +36,27 @@ export const legalConfig = {
     summary:
       "TierListBase V1 is a free, publicly accessible information service without paid tiers, subscriptions, or digital credits. No payment processing is enabled.",
     cancellationSummary:
-      "No paid subscriptions exist on TierListBase V1. Recurring billing and subscription mechanisms are entirely disabled.",
+      "No paid subscriptions exist on TierListBase V1. Recurring billing and subscription mechanisms are disabled.",
   },
   subscriptionTerms: null,
   retentionRules: [
     {
-      category: "server security logs",
-      period: "ephemeral log rotation period",
-      basis: "infrastructure security and abuse prevention",
+      category: "infrastructure request and security metadata",
+      period:
+        "no fixed public period is asserted; retention depends on verified provider configuration and operational need",
+      basis: "site delivery, security, abuse prevention, and troubleshooting",
     },
   ],
   accountDeletion: {
     enabled: false,
     summary:
-      "User account registration and login are disabled in V1. No active accounts or personal identities are collected or held by TierListBase.",
+      "User account registration and login are disabled in V1. TierListBase does not maintain active user accounts or account profiles.",
   },
   internationalTransfers:
-    "TierListBase V1 is hosted on global edge infrastructure. No personal user data is transferred or retained.",
+    "TierListBase uses infrastructure providers that operate internationally. This notice does not claim that request or security metadata remains in a single country or region.",
   documents: {
-    privacy: { version: "draft-2", effectiveDate: "2026-10-14", reviewStatus: "draft" },
-    terms: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
+    privacy: { version: "draft-3", effectiveDate: "2026-10-16", reviewStatus: "draft" },
+    terms: { version: "draft-2", effectiveDate: "2026-10-16", reviewStatus: "draft" },
     acceptable_use: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
     refund_policy: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
     account_deletion: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
@@ -54,26 +66,62 @@ export const legalConfig = {
       {
         heading: "Scope and service status",
         paragraphs: [
-          "TierListBase V1 is a public read-only game meta rankings board. User accounts, authentication, cookies for profile tracking, and commercial payments are disabled.",
+          "TierListBase V1 is a public, read-only game ranking and analysis service. User registration, authentication, payments, subscriptions, Google Analytics, Microsoft Clarity, and ad serving are not enabled in the current production product.",
         ],
       },
       {
-        heading: "Data collection",
+        heading: "Information processed",
         paragraphs: [
-          "The service does not collect user account identifiers, passwords, or personal credentials. Only standard ephemeral server logs for security and abuse prevention are processed.",
+          "When you request a page, hosting and security infrastructure may process technical information needed to deliver and protect the service, such as IP address, request and routing metadata, browser or user-agent information, timestamps, and security signals. TierListBase does not intentionally build visitor profiles or store account credentials in its application database in V1.",
+          "The Contact page is a mailto link, not a web form. If you choose to send an email to the published support address, the sender details and content you include in that email are processed as support correspondence outside the website form flow.",
         ],
       },
       {
-        heading: "External processors",
+        heading: "Why this information is processed",
         paragraphs: [
-          "No third-party email delivery, analytics, or payment processors are activated for user tracking in V1.",
+          "Technical request and security information is used to deliver pages, maintain service reliability, prevent abuse, investigate errors, and protect the service. Where UK or EU data-protection law applies, these limited operational and security purposes may rely on legitimate interests, subject to the applicable necessity and balancing requirements.",
+          "Support correspondence is used only to receive and respond to the message and for related operational or legal record-keeping where necessary.",
         ],
       },
       {
-        heading: "Advertising and related data",
+        heading: "Infrastructure providers",
         paragraphs: [
-          "If we enable Google advertising services, third-party advertising vendors, including Google, may place or read cookies to serve ads based on visits to this website or other websites. Google and its partners may also use web beacons, IP addresses, and device or browser identifiers to deliver and measure ads and, depending on your settings and applicable consent, provide personalized or non-personalized advertising. Non-personalized ads may still use these technologies for measurement and fraud prevention.",
-          "These advertising-related practices apply only when advertising services are actually enabled. Any analytics-related processing applies only when an analytics service is actually enabled; this notice does not mean that advertising or analytics is currently active on TierListBase.",
+          "Cloudflare provides DNS, CDN/security, and Cloudflare Workers hosting. Cloudflare processes end-user request and security metadata as part of delivering and protecting customer Internet properties.",
+          "Neon provides the production PostgreSQL database used for game, ranking, source, and evidence data. TierListBase V1 does not use that database for visitor account profiles because accounts are disabled.",
+          "No third-party email delivery, authentication, analytics, advertising, or payment service is activated by the TierListBase V1 application runtime.",
+        ],
+      },
+      {
+        heading: "Cookies and browser storage",
+        paragraphs: [
+          "The TierListBase application does not currently use profile, analytics, advertising, or personalization cookies, and its disabled analytics path does not write its analytics-consent localStorage value in normal production use.",
+          "Cloudflare security features may set strictly necessary security or challenge cookies when needed to protect or deliver the site. The exact cookie depends on the Cloudflare protection feature triggered. TierListBase does not use those cookies for advertising or behavioral profiling.",
+        ],
+      },
+      {
+        heading: "Analytics and advertising",
+        paragraphs: [
+          "Google Analytics and Microsoft Clarity are not currently loaded on TierListBase public pages.",
+          "TierListBase currently has Google publisher verification or authorization metadata, including ads.txt, but does not load Google ad-serving scripts or display ads in V1. If advertising or optional analytics is enabled later, the relevant privacy disclosures and consent controls must be reviewed before activation.",
+        ],
+      },
+      {
+        heading: "Retention and international processing",
+        paragraphs: [
+          "TierListBase does not publish an unverified fixed retention period for infrastructure logs. Request and security metadata may be retained according to provider configuration and for as long as reasonably needed for site delivery, security, abuse prevention, and troubleshooting, subject to applicable requirements.",
+          "Cloudflare operates global infrastructure, and infrastructure providers may process data in more than one country according to their service configuration and contractual terms. TierListBase therefore does not claim that request or security metadata remains only in the UK, EEA, or any other single region.",
+        ],
+      },
+      {
+        heading: "Your rights",
+        paragraphs: [
+          "Where applicable data-protection law gives you rights in relation to personal information, those rights may include access, rectification, erasure, restriction, objection, portability where applicable, withdrawal of consent where processing is based on consent, and the right to complain to the relevant supervisory authority. These rights are subject to the conditions and exceptions in the applicable law.",
+        ],
+      },
+      {
+        heading: "Contact",
+        paragraphs: [
+          "Privacy or support questions may be sent to support@tierlistbase.com. The legal operator name and governing jurisdiction remain pending verified Owner information and are not inferred from hosting, account, or location data.",
         ],
       },
     ],
@@ -81,13 +129,58 @@ export const legalConfig = {
       {
         heading: "Service overview",
         paragraphs: [
-          "TierListBase provides multi-source consensus game rankings for World of Warcraft: Forever. Rankings are analytical syntheses of publicly available data and expert commentary.",
+          "TierListBase provides public game ranking and analysis pages for Genshin Impact and World of Warcraft: Forever. The service combines reviewed source material, performance data where available, and TierListBase editorial analysis.",
         ],
       },
       {
-        heading: "No account required",
+        heading: "Informational service and ranking limitations",
         paragraphs: [
-          "All meta board features in V1 are freely accessible without account registration, user logins, or subscription fees.",
+          "Tier lists, scores, tier placements, explanations, and change records are informational analysis, not official game guidance or a guarantee of in-game results. Rankings depend on the stated methodology, version, sample coverage, available evidence, and editorial assumptions, all of which may change.",
+        ],
+      },
+      {
+        heading: "Third-party sources and links",
+        paragraphs: [
+          "TierListBase may cite or link to third-party sources, including game publishers, Forever Logs, and other documented evidence sources. Source links and attribution identify where evidence came from; they do not transfer ownership of third-party material to TierListBase or make TierListBase responsible for the availability, accuracy, or terms of external sites.",
+          "Where a third-party source imposes attribution, access, redistribution, or other usage conditions, those conditions remain applicable independently of these Terms.",
+        ],
+      },
+      {
+        heading: "Intellectual property and non-affiliation",
+        paragraphs: [
+          "TierListBase original analysis, ranking presentation, and original site content are distinct from third-party game intellectual property. Game names, character names, class and specialization names, trademarks, logos, icons, artwork, and other publisher-owned material remain the property of their respective rights holders.",
+          "Genshin Impact and related intellectual property are owned by COGNOSPHERE PTE. LTD. and its licensors. World of Warcraft, Warcraft, Blizzard, and related intellectual property are owned by Blizzard Entertainment, Inc. and its licensors. TierListBase is an independent third-party site and is not affiliated with, sponsored by, or endorsed by COGNOSPHERE, HoYoverse, Blizzard Entertainment, or Forever Logs.",
+        ],
+      },
+      {
+        heading: "No account or paid service in V1",
+        paragraphs: [
+          "TierListBase V1 is accessible without account registration, login, subscription, payment, or digital credits. Account, billing, and payment scaffolding present in the codebase is not an active V1 product feature.",
+        ],
+      },
+      {
+        heading: "Availability and changes",
+        paragraphs: [
+          "TierListBase may update rankings, evidence, methodology, pages, or service availability as the product and source material change. No fixed uptime, permanent availability, or permanent preservation of any ranking is promised.",
+        ],
+      },
+      {
+        heading: "Acceptable use",
+        paragraphs: [
+          "You must not use TierListBase to violate applicable law, interfere with site security or availability, distribute malware, bypass access controls, or perform abusive automated traffic. The separate Acceptable Use Policy provides the current baseline restrictions.",
+        ],
+      },
+      {
+        heading: "Disclaimers and liability",
+        paragraphs: [
+          "To the extent permitted by applicable law, TierListBase is provided on an as-available basis without a warranty that rankings, source links, third-party data, or service availability will always be complete, current, accurate, or uninterrupted.",
+          "To the extent permitted by applicable law, TierListBase is not responsible for losses arising solely from reliance on a ranking, a third-party source changing or becoming unavailable, or temporary service interruption. Nothing in these Terms excludes or limits liability that cannot lawfully be excluded or limited.",
+        ],
+      },
+      {
+        heading: "Contact",
+        paragraphs: [
+          "Questions about these Terms may be sent to support@tierlistbase.com. Governing law and jurisdiction are intentionally not stated until the Owner provides verified legal-operator facts.",
         ],
       },
     ],
