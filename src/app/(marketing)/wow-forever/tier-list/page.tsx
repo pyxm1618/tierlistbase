@@ -62,8 +62,7 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
           value={webApplicationJsonLd({
             name: route.h1,
             url: canonicalUrl,
-            description:
-              "Level 30 Beta near-cap Dungeon performance rankings for DPS, Tank and Healer, based on observed Forever Logs data.",
+            description: route.description,
           })}
         />
         <header className={styles.hero} data-wow-hero>
@@ -80,8 +79,10 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
               <h1>{route.h1}</h1>
               <p className={styles.heroSubtitle}>Level 30 Beta · Dungeon DPS / Tank / Healer</p>
               <p>
-                Based on observed dungeon performance data and reviewed editorial evidence. Selected
-                near-cap dungeons in the current Beta context.
+                This WoW Tier List ranks DPS, Tank and Healer specializations for World of Warcraft:
+                Forever using observed dungeon performance data and reviewed evidence. The WoW
+                Forever Tier List is limited to selected near-cap dungeons in the current Level 30
+                Beta context.
               </p>
             </div>
             <dl className={styles.heroFacts}>
@@ -105,7 +106,11 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
           </div>
         </header>
         <section className={styles.context} aria-labelledby="wow-context-heading">
-          <h2 id="wow-context-heading">Ranking Context</h2>
+          <h2 id="wow-context-heading">WoW Tier List Ranking Context</h2>
+          <p>
+            The WoW Tier List context stays fixed to Dungeon, Level 30 Beta and the current WoW
+            Forever Beta version.
+          </p>
           <dl>
             <div>
               <dt>Mode</dt>
