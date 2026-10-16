@@ -13,7 +13,6 @@ export const legalConfig = {
     jurisdiction: "Test jurisdiction — replace before launch",
     supportEmail: "test-only-support@example.com",
   },
-  minimumAge: 18,
   dataCategories: [
     "account identifiers",
     "authentication records",
