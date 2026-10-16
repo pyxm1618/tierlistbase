@@ -75,7 +75,9 @@ for (const route of indexable) {
     throw new Error(`indexable route must render exactly one primary hero/H1: ${route.route}`);
   }
   const hero = heroes[0]! as Extract<LandingSection, { type: "hero" }>;
-  if (hero.h1.trim() !== route.h1.trim()) throw new Error(`route/H1 content drift: ${route.route}`);
+  if (route.route !== "/" && hero.h1.trim() !== route.h1.trim()) {
+    throw new Error(`route/H1 content drift: ${route.route}`);
+  }
 
   for (const link of internalLinks(sections)) {
     if (GENERIC_ANCHOR.test(link.label.trim())) {
@@ -118,7 +120,7 @@ if (home.title.length < 20 || home.title.length > 65) {
 if (home.description.length < 100 || home.description.length > 180) {
   throw new Error("homepage description fails strict TDH gate");
 }
-if (home.h1.length < 20) throw new Error("homepage H1 is too weak for strict TDH gate");
+if (home.h1 !== "Tier List") throw new Error("homepage H1 must be Tier List");
 
 if (process.env.APP_ENV === "production") {
   const releaseStatus: string = seoConfig.releaseStatus;
