@@ -44,7 +44,8 @@ export const routeDefinitions = [
   {
     route: "/genshin-impact/tier-list",
     class: "public_indexable",
-    searchIntent: "find current Genshin character tier rankings and identify the strongest characters",
+    searchIntent:
+      "find current Genshin character tier rankings and identify the strongest characters",
     primaryKeyword: "genshin tier list",
     secondaryKeywords: [
       "genshin impact tier list",
