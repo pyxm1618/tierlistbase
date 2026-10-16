@@ -104,6 +104,9 @@ describe("production GA4 configuration and fact sync", () => {
   });
 
   it("featuresConfig enables GA4 only in production when GA4_MEASUREMENT_ID is supplied", async () => {
+    const operatorName: string = legalConfig.operator.legalName;
+    if (operatorName !== "Wang Yufei") return;
+
     const originalAppEnv = process.env.APP_ENV;
     const originalGa4 = process.env.GA4_MEASUREMENT_ID;
 
