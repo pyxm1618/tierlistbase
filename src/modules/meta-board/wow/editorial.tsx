@@ -202,7 +202,8 @@ export function WowMethodology() {
       <h2 id="wow-methodology-heading">WoW Tier List Methodology &amp; FAQ</h2>
       <p>
         The WoW Tier List methodology applies the existing score, sample and tier-band rules to this
-        fixed Dungeon context. The WoW Forever Tier List keeps Pending when evidence is insufficient.
+        fixed Dungeon context. The WoW Forever Tier List keeps Pending when evidence is
+        insufficient.
       </p>
       <div>
         {faqs.map(([question, answer]) => (
