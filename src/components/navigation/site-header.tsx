@@ -5,7 +5,7 @@ import { featuresConfig } from "@/config/features.config";
 import { siteConfig } from "@/config/site.config";
 import { localePath } from "@/platform/i18n/routing";
 
-import { SiteHeaderGameLink } from "./site-header-game-link";
+import { SiteHeaderGameLink, SiteHeaderLinkStatus } from "./site-header-game-link";
 
 export function Brand({ href = "/" }: { href?: string }) {
   return (
@@ -13,7 +13,7 @@ export function Brand({ href = "/" }: { href?: string }) {
       href={href}
       prefetch={true}
       aria-label="TierListBase home"
-      className="inline-flex shrink-0 items-center gap-2 text-white no-underline"
+      className="inline-flex shrink-0 items-center gap-2 text-white no-underline has-[[data-navigation-pending=true]]:cursor-progress has-[[data-navigation-pending=true]]:opacity-60"
     >
       <Image
         src="/brand/tierlistbase-mark-fa1e376158.webp"
@@ -26,6 +26,7 @@ export function Brand({ href = "/" }: { href?: string }) {
       <span className="text-[.95rem] font-extrabold tracking-tight sm:text-[1.05rem]">
         TIERLISTBASE
       </span>
+      <SiteHeaderLinkStatus />
     </Link>
   );
 }

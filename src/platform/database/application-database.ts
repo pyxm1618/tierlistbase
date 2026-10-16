@@ -18,7 +18,10 @@ export const db = new Proxy(applicationDatabase.db, {
   },
 });
 
-export function runWithRequestDatabase<T>(operation: (close: () => Promise<void>) => T): T {
-  const database = createDatabaseClient(env.databaseUrl);
+export function runWithRequestDatabase<T>(
+  operation: (close: () => Promise<void>) => T,
+  maxConnections = 5,
+): T {
+  const database = createDatabaseClient(env.databaseUrl, maxConnections);
   return requestDatabase.run(database, () => operation(database.close));
 }
