@@ -139,10 +139,7 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
           ),
         };
       });
-      const combinedOccurrences = phraseStats.reduce(
-        (sum, phrase) => sum + phrase.occurrences,
-        0,
-      );
+      const combinedOccurrences = phraseStats.reduce((sum, phrase) => sum + phrase.occurrences, 0);
       const combinedDensityPct = Number(
         ((combinedOccurrences / Math.max(visibleMainWords.length, 1)) * 100).toFixed(3),
       );
