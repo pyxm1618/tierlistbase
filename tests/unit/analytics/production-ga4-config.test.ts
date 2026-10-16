@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { legalConfig } from "@/config/legal.config";
 import { loadRuntimeEnv } from "@/platform/config/load-runtime-config";
@@ -95,5 +95,33 @@ describe("production GA4 configuration and fact sync", () => {
     expect(privacyTexts).not.toContain(
       "Google Analytics and Microsoft Clarity are not currently loaded",
     );
+  });
+
+  it("featuresConfig enables GA4 only in production when GA4_MEASUREMENT_ID is supplied", async () => {
+    const originalAppEnv = process.env.APP_ENV;
+    const originalGa4 = process.env.GA4_MEASUREMENT_ID;
+
+    try {
+      vi.resetModules();
+      process.env.APP_ENV = "production";
+      process.env.GA4_MEASUREMENT_ID = "G-TBL00RRKY6";
+      const { featuresConfig: prodConfig } = await import("@/config/features.config");
+      expect(prodConfig.analytics.enabled).toBe(true);
+      expect(prodConfig.analytics.ga4).toBe(true);
+      expect(prodConfig.analytics.clarity).toBe(false);
+      expect(prodConfig.analytics.consentRequired).toBe(true);
+
+      // Without GA4_MEASUREMENT_ID
+      vi.resetModules();
+      delete process.env.GA4_MEASUREMENT_ID;
+      const { featuresConfig: fallbackConfig } = await import("@/config/features.config");
+      expect(fallbackConfig.analytics.enabled).toBe(false);
+      expect(fallbackConfig.analytics.ga4).toBe(false);
+    } finally {
+      process.env.APP_ENV = originalAppEnv;
+      if (originalGa4 !== undefined) process.env.GA4_MEASUREMENT_ID = originalGa4;
+      else delete process.env.GA4_MEASUREMENT_ID;
+      vi.resetModules();
+    }
   });
 });

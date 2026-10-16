@@ -37,7 +37,8 @@ const useCommerceEnabledTestProfile =
   useEnabledTestProfile && process.env.CREAT_WEB_E2E_COMMERCE === "1";
 const useAnalyticsEnabledPerformanceProfile =
   process.env.APP_ENV === "test" && process.env.CREAT_WEB_PERFORMANCE_ANALYTICS === "1";
-const useProductionProfile = process.env.APP_ENV === "production";
+const useProductionProfile =
+  process.env.APP_ENV === "production" && Boolean(process.env.GA4_MEASUREMENT_ID);
 
 export const featuresConfig = useCommerceEnabledTestProfile
   ? commerceEnabledTestFeaturesConfig
