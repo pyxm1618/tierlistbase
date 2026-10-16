@@ -18,6 +18,7 @@ const contentByRoute = new Map<string, readonly LandingSection[]>([
   ["/", homeConfig.sections],
   ...seoLandingPages.map((page) => [page.route, page.sections] as const),
 ]);
+const bespokeIndexableRoutes = new Set(["/genshin-impact/tier-list"]);
 
 function internalLinks(sections: readonly LandingSection[]) {
   const links: { label: string; href: string }[] = [];
@@ -64,8 +65,16 @@ for (const route of indexable) {
   const depth = route.route === "/" ? 0 : route.route.split("/").filter(Boolean).length;
   if (depth > 3) throw new Error(`indexable route is unnecessarily deep: ${route.route}`);
 
+  for (const relatedRoute of route.relatedRoutes) {
+    const related = routeRegistry.get(relatedRoute);
+    if (related.class === "public_indexable") inbound.add(related.route);
+  }
+
   const sections = contentByRoute.get(route.route);
-  if (!sections) throw new Error(`missing landing content for indexable route: ${route.route}`);
+  if (!sections) {
+    if (bespokeIndexableRoutes.has(route.route)) continue;
+    throw new Error(`missing landing content for indexable route: ${route.route}`);
+  }
   const heroes = sections.filter((section) => section.enabled !== false && section.type === "hero");
   if (heroes.length !== 1) {
     throw new Error(`indexable route must render exactly one primary hero/H1: ${route.route}`);
