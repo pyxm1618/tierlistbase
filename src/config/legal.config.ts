@@ -94,7 +94,7 @@ export const legalConfig = {
       {
         heading: "Cookies and browser storage",
         paragraphs: [
-          "The TierListBase application does not currently use profile, analytics, advertising, or personalization cookies, and its disabled analytics path does not write its analytics-consent localStorage value in normal production use.",
+          "The TierListBase application does not currently use profile, analytics, advertising, or personalization cookies, and it does not write analytics-consent preferences to browser storage in normal production use because analytics is disabled.",
           "Cloudflare security features may set strictly necessary security or challenge cookies when needed to protect or deliver the site. The exact cookie depends on the Cloudflare protection feature triggered. TierListBase does not use those cookies for advertising or behavioral profiling.",
         ],
       },
@@ -121,7 +121,7 @@ export const legalConfig = {
       {
         heading: "Contact",
         paragraphs: [
-          "Privacy or support questions may be sent to support@tierlistbase.com. The legal operator name and governing jurisdiction remain pending verified Owner information and are not inferred from hosting, account, or location data.",
+          "Privacy or support questions may be sent to support@tierlistbase.com.",
         ],
       },
     ],
@@ -155,7 +155,7 @@ export const legalConfig = {
       {
         heading: "No account or paid service in V1",
         paragraphs: [
-          "TierListBase V1 is accessible without account registration, login, subscription, payment, or digital credits. Account, billing, and payment scaffolding present in the codebase is not an active V1 product feature.",
+          "TierListBase V1 is accessible without account registration, login, subscription, payment, or digital credits. TierListBase V1 does not currently offer account registration, billing, payment, subscription, or digital-credit features.",
         ],
       },
       {
@@ -180,7 +180,7 @@ export const legalConfig = {
       {
         heading: "Contact",
         paragraphs: [
-          "Questions about these Terms may be sent to support@tierlistbase.com. Governing law and jurisdiction are intentionally not stated until the Owner provides verified legal-operator facts.",
+          "Questions about these Terms may be sent to support@tierlistbase.com.",
         ],
       },
     ],
