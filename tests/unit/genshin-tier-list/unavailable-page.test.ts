@@ -14,10 +14,10 @@ it("renders a truthful unavailable state without fixtures or database error deta
   expect(html).not.toMatch(/Mock|data-character-card|DATABASE_URL|postgres/i);
 });
 
-it("retains noindex even with production metadata policy", async () => {
+it("remains indexable with the production metadata policy", async () => {
   vi.stubEnv("APP_ENV", "production");
   try {
-    expect(await generateMetadata()).toMatchObject({ robots: { index: false } });
+    expect(await generateMetadata()).toMatchObject({ robots: { index: true, follow: true } });
   } finally {
     vi.unstubAllEnvs();
   }
