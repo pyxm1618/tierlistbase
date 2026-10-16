@@ -33,16 +33,27 @@ test("homepage renders the approved game-discovery information architecture", as
   expect(await wowNav.getAttribute("class")).not.toContain("border-b-2");
   expect(await genshinNav.getAttribute("class")).not.toContain("border-b-2");
 
+  await expect(
+    page.getByText("Explore current Genshin Impact character rankings backed by reviewed data."),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      "Open the Genshin Impact tier list page. Verified rankings will appear as reviewed data is published.",
+    ),
+  ).toHaveCount(0);
+
   const popular = page.locator("#popular-rankings");
   const readyRankings = popular.locator("a.tlb-popular-item");
-  await expect(readyRankings).toHaveCount(1);
-  await expect(readyRankings).toHaveAttribute(
+  await expect(readyRankings).toHaveCount(2);
+  await expect(popular.getByRole("link", { name: "Open WoW ranking: DPS" })).toHaveAttribute(
     "href",
     "/wow-forever/tier-list?mode=dungeon&role=dps&level=30",
   );
+  await expect(
+    popular.getByRole("link", { name: "Open Genshin ranking: Characters" }),
+  ).toHaveAttribute("href", "/genshin-impact/tier-list");
   await expect(popular.getByLabel("WoW PvP: coming soon")).toBeVisible();
   await expect(popular.getByLabel("WoW Leveling: coming soon")).toBeVisible();
-  await expect(popular.getByLabel("Genshin Characters: coming soon")).toBeVisible();
   await expect(popular.getByLabel("Spiral Abyss: coming soon")).toBeVisible();
   await expect(popular.getByLabel("Exploration : coming soon")).toBeVisible();
 
