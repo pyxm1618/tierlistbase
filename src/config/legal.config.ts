@@ -3,8 +3,8 @@ import type { LegalConfig } from "@/platform/legal/types";
 export const legalConfig = {
   releaseStatus: "draft",
   operator: {
-    legalName: "TierListBase Operator (Pending Legal Review)",
-    jurisdiction: "Pending Legal Review",
+    legalName: "Wang Yufei",
+    establishment: "People's Republic of China",
     supportEmail: "support@tierlistbase.com",
   },
   dataCategories: [
@@ -25,6 +25,11 @@ export const legalConfig = {
       purpose:
         "PostgreSQL database hosting for TierListBase game, ranking, source, and evidence data. The application does not intentionally store visitor account profiles in this database in V1.",
       privacyUrl: "https://neon.com/privacy-policy",
+    },
+    {
+      name: "Dynadot",
+      purpose:
+        "Email hosting for support correspondence voluntarily sent to support@tierlistbase.com.",
     },
   ],
   paymentModel: "none",
@@ -54,8 +59,8 @@ export const legalConfig = {
   internationalTransfers:
     "TierListBase uses infrastructure providers that operate internationally. This notice does not claim that request or security metadata remains in a single country or region.",
   documents: {
-    privacy: { version: "draft-3", effectiveDate: "2026-10-16", reviewStatus: "draft" },
-    terms: { version: "draft-2", effectiveDate: "2026-10-16", reviewStatus: "draft" },
+    privacy: { version: "draft-4", effectiveDate: "2026-10-16", reviewStatus: "draft" },
+    terms: { version: "draft-3", effectiveDate: "2026-10-16", reviewStatus: "draft" },
     acceptable_use: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
     refund_policy: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
     account_deletion: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
@@ -87,7 +92,8 @@ export const legalConfig = {
         paragraphs: [
           "Cloudflare provides Cloudflare Workers hosting and edge delivery/security. Cloudflare processes end-user request and security metadata as part of delivering and protecting the site.",
           "Neon provides the production PostgreSQL database used for game, ranking, source, and evidence data. TierListBase V1 does not use that database for visitor account profiles because accounts are disabled.",
-          "No third-party email delivery, authentication, analytics, advertising, or payment service is activated by the TierListBase V1 application runtime.",
+          "Dynadot provides email hosting for support correspondence voluntarily sent to support@tierlistbase.com. Dynadot is not used to process general website visits.",
+          "No third-party authentication, analytics, advertising, or payment service is activated by the TierListBase V1 application runtime.",
         ],
       },
       {
@@ -119,7 +125,9 @@ export const legalConfig = {
       },
       {
         heading: "Contact",
-        paragraphs: ["Privacy or support questions may be sent to support@tierlistbase.com."],
+        paragraphs: [
+          "TierListBase is operated by Wang Yufei, an individual established in the People's Republic of China. Privacy or support questions may be sent to support@tierlistbase.com.",
+        ],
       },
     ],
     terms: [
@@ -176,7 +184,9 @@ export const legalConfig = {
       },
       {
         heading: "Contact",
-        paragraphs: ["Questions about these Terms may be sent to support@tierlistbase.com."],
+        paragraphs: [
+          "TierListBase is operated by Wang Yufei, an individual established in the People's Republic of China. Questions about these Terms may be sent to support@tierlistbase.com.",
+        ],
       },
     ],
     acceptable_use: [
