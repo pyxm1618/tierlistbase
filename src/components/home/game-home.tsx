@@ -215,7 +215,14 @@ const popular: {
   },
   { title: "WoW", subtitle: "PvP", icon: "shield", ready: false, tone: "gold" },
   { title: "WoW", subtitle: "Leveling", icon: "boot", ready: false, tone: "orange" },
-  { title: "Genshin", subtitle: "Characters", icon: "star", ready: true, tone: "ice", href: genshinHref },
+  {
+    title: "Genshin",
+    subtitle: "Characters",
+    icon: "star",
+    ready: true,
+    tone: "ice",
+    href: genshinHref,
+  },
   { title: "Spiral", subtitle: "Abyss", icon: "swirl", ready: false, tone: "blue" },
   { title: "Exploration", subtitle: "", icon: "compass", ready: false, tone: "gold" },
 ];
