@@ -112,7 +112,7 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
         </h2>
         <p>
           Evidence for this Genshin Tier List includes {data.sources.length} evidence-linked sources
-          and {data.evidenceCount} verified evidence observations.
+          · {data.evidenceCount} verified evidence observations.
         </p>
         <ul className={styles.sourceList}>
           {data.sources.map((source) => (
