@@ -129,17 +129,14 @@ test("game navigation active state follows pathname only", async ({ page }) => {
   await expect(genshinNav).toHaveAttribute("aria-current", "page");
 });
 
-test("Genshin tier-list route is public, clickable, and noindex pending final review", async ({
-  page,
-}) => {
+test("Genshin tier-list route is public, clickable, and registry-indexable", async ({ page }) => {
   await seedGenshinTestDatabase();
   const target = routeRegistry.get("/genshin-impact/tier-list");
-  expect(target.class).toBe("public_noindex");
+  expect(target.class).toBe("public_indexable");
 
   const response = await page.goto("/genshin-impact/tier-list");
   expect(response?.status()).toBe(200);
   await expect(page.locator("h1")).toHaveCount(1);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Genshin Impact Tier List");
-  await expect(page.getByText("Reviewed Data Preview", { exact: true })).toBeVisible();
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Genshin Tier List");
+  await expect(page.getByText("Current Genshin Tier List", { exact: true })).toBeVisible();
 });
