@@ -7,18 +7,19 @@ export const routeDefinitions = [
   {
     route: "/",
     class: "public_indexable",
-    searchIntent: "discover evidence-based game meta boards and tier lists",
-    primaryKeyword: "game meta board",
-    secondaryKeywords: ["tier list base", "gaming tier list"],
-    title: "TierListBase - Evidence-Based Game Meta Boards",
+    searchIntent:
+      "discover and explore game tier lists to compare current character and class rankings",
+    primaryKeyword: "tier list",
+    secondaryKeywords: ["tier lists", "game tier lists", "gaming tier lists"],
+    title: "Tier List – Explore Game Tier Lists | TierListBase",
     description:
-      "Evidence-based Game Meta Board and tier lists for World of Warcraft: Forever. Multi-source consensus, patch tracking, and transparent tier changes.",
-    h1: "Game Meta. Made Clear.",
+      "Explore game tier lists for Genshin Impact and WoW Forever. Compare character and class rankings, follow tier changes, and review supporting evidence.",
+    h1: "Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/wow-forever/tier-list", "/genshin-impact/tier-list", "/privacy", "/terms"],
-    lastModified: "2026-10-11",
+    lastModified: "2026-10-16",
     reviewStatus: "reviewed",
-    reviewFingerprint: "579481b10bf2e7420ec3a77c48bc6321efbd592907889e195324f8e38c40f55d",
+    reviewFingerprint: "054218732cd0ed9650201a895fd350b7243b2db2b4b817fa823fd077229a56a2",
   },
   {
     route: "/wow-forever/tier-list",

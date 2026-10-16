@@ -11,6 +11,11 @@ test("homepage renders the approved game-discovery information architecture", as
   expect(response?.status()).toBe(200);
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(home.h1);
+  await expect(page).toHaveTitle(home.title);
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    home.description,
+  );
   await expect(page.getByRole("heading", { name: "Explore Tier Lists" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Why TierListBase?" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Latest Updates" })).toBeVisible();

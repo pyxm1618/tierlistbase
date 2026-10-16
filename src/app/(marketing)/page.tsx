@@ -37,7 +37,7 @@ export default async function HomePage() {
         value={websiteJsonLd({
           name: routeRegistry.site.siteName,
           url: routeRegistry.site.canonicalOrigin,
-          description: routeRegistry.site.defaultDescription,
+          description: home.description,
         })}
       />
       <JsonLd
