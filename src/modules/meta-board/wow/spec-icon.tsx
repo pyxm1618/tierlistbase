@@ -116,6 +116,7 @@ export function SpecIcon({ className, specName, detail = false }: SpecIconProps)
     return (
       <span className={detail ? styles.detailIcon : styles.icon}>
         <Image
+          unoptimized
           src={asset}
           alt={`${specName} icon`}
           width={size}
@@ -134,6 +135,7 @@ export function SpecIcon({ className, specName, detail = false }: SpecIconProps)
     return (
       <span className={styles.icon}>
         <Image
+          unoptimized
           src={asset}
           alt={`${className} icon`}
           width={24}
@@ -150,6 +152,7 @@ export function SpecIcon({ className, specName, detail = false }: SpecIconProps)
   return (
     <span className={detail ? styles.detailIcon : styles.icon}>
       <Image
+        unoptimized
         src={placeholder}
         alt="WoW icon"
         width={detail ? 56 : 36}
