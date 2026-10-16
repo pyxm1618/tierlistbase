@@ -78,8 +78,8 @@ export default async function GenshinImpactTierListPage() {
                 <h1>Genshin Tier List</h1>
                 <p>Current Version · Endgame Overall Character Rankings</p>
                 <p className={styles.subtitle}>
-                  This Genshin Tier List ranks current characters for endgame play under shared assumptions,
-                  with clear tier explanations and documented evidence.
+                  This Genshin Tier List ranks current characters for endgame play under shared
+                  assumptions, with clear tier explanations and documented evidence.
                 </p>
               </div>
             </div>
