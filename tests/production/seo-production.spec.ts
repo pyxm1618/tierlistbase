@@ -122,7 +122,9 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
   }
 });
 
-test("WoW visible main-content keyword group stays within the approved SEO range", async ({ page }) => {
+test("WoW visible main-content keyword group stays within the approved SEO range", async ({
+  page,
+}) => {
   const wow = routeRegistry.get("/wow-forever/tier-list");
   if (wow.class !== "public_indexable") throw new Error("WoW route must remain indexable");
   expect(wow.primaryKeyword).toBe("wow tier list");
