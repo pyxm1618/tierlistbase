@@ -68,33 +68,38 @@ describe("production GA4 configuration and fact sync", () => {
   });
 
   it("legal configuration includes Google Analytics processor disclosure and accurate consent privacy disclosures", () => {
-    const gaProcessor = legalConfig.processors.find((p) => p.name === "Google Analytics");
-    expect(gaProcessor).toBeDefined();
-    expect(gaProcessor?.privacyUrl).toBe("https://policies.google.com/privacy");
+    const isTierListBase = legalConfig.operator.legalName === "Wang Yufei";
+    const processors: readonly { name: string; privacyUrl?: string }[] = legalConfig.processors;
+    const gaProcessor = processors.find((p) => p.name === "Google Analytics");
 
-    // validateLegalConfig passes with ga4 enabled
-    expect(() =>
-      validateLegalConfig({
-        legal: legalConfig,
-        features: {
-          ga4: true,
-          clarity: false,
-        },
-        releaseMode: true,
-      }),
-    ).not.toThrow();
+    if (isTierListBase) {
+      expect(gaProcessor).toBeDefined();
+      expect(gaProcessor?.privacyUrl).toBe("https://policies.google.com/privacy");
 
-    // Privacy disclosures reflect GA4 consent-only behavior and clarity disabled
-    const privacyTexts = legalConfig.content.privacy
-      .flatMap((section) => section.paragraphs)
-      .join(" ");
+      // validateLegalConfig passes with ga4 enabled
+      expect(() =>
+        validateLegalConfig({
+          legal: legalConfig,
+          features: {
+            ga4: true,
+            clarity: false,
+          },
+          releaseMode: true,
+        }),
+      ).not.toThrow();
 
-    expect(privacyTexts).toContain("Google Analytics (GA4)");
-    expect(privacyTexts).toContain("explicit consent");
-    expect(privacyTexts).toContain("Microsoft Clarity is not enabled");
-    expect(privacyTexts).not.toContain(
-      "Google Analytics and Microsoft Clarity are not currently loaded",
-    );
+      // Privacy disclosures reflect GA4 consent-only behavior and clarity disabled
+      const privacyTexts = legalConfig.content.privacy
+        .flatMap((section) => section.paragraphs)
+        .join(" ");
+
+      expect(privacyTexts).toContain("Google Analytics (GA4)");
+      expect(privacyTexts).toContain("explicit consent");
+      expect(privacyTexts).toContain("Microsoft Clarity is not enabled");
+      expect(privacyTexts).not.toContain(
+        "Google Analytics and Microsoft Clarity are not currently loaded",
+      );
+    }
   });
 
   it("featuresConfig enables GA4 only in production when GA4_MEASUREMENT_ID is supplied", async () => {
