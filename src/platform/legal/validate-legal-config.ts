@@ -23,7 +23,7 @@ const legalSchema = z.object({
   releaseStatus: z.enum(["draft", "reviewed"]),
   operator: z.object({
     legalName: z.string().trim().min(1),
-    jurisdiction: z.string().trim().min(1),
+    establishment: z.string().trim().min(1),
     supportEmail: z.email(),
     postalAddress: z.string().trim().min(1).optional(),
   }),
@@ -138,7 +138,7 @@ export function validateLegalConfig(input: {
     if (legal.releaseStatus !== "reviewed") throw new Error("legal config is not reviewed");
     if (
       isPlaceholder(legal.operator.legalName) ||
-      isPlaceholder(legal.operator.jurisdiction) ||
+      isPlaceholder(legal.operator.establishment) ||
       isPlaceholder(legal.operator.supportEmail)
     ) {
       throw new Error("legal config contains placeholder operator facts");
