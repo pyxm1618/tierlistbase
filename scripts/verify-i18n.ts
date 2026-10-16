@@ -6,6 +6,7 @@ import { buildLanguageAlternates, localePath } from "@/platform/i18n/routing";
 const PLACEHOLDER = /\b(todo|tbd|placeholder|replace[ -]?me|lorem ipsum)\b/i;
 const indexable = routeRegistry.indexable();
 const bespokeIndexableRoutes = new Set(["/genshin-impact/tier-list"]);
+const bespokeIndexableRoutes = new Set(["/genshin-impact/tier-list"]);
 
 for (const locale of siteConfig.supportedLocales) {
   const bundle = (localeBundles as Readonly<Record<string, (typeof localeBundles)["en"]>>)[locale];
