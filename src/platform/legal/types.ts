@@ -36,7 +36,6 @@ export type LegalConfig = {
     readonly supportEmail: string;
     readonly postalAddress?: string;
   };
-  readonly minimumAge: number;
   readonly dataCategories: readonly string[];
   readonly authMethods: readonly string[];
   readonly processors: readonly ProcessorDisclosure[];
