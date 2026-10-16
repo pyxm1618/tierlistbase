@@ -2,9 +2,45 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { seedWowPresentationFixtures } from "./wow-fixtures";
 
+function tokenizeSeo(value: string): string[] {
+  return value.toLocaleLowerCase("en-US").match(/[\p{L}\p{N}]+/gu) ?? [];
+}
+
+function countSeoPhrase(words: readonly string[], phrase: string): number {
+  const wanted = tokenizeSeo(phrase);
+  if (wanted.length === 0 || wanted.length > words.length) return 0;
+  let count = 0;
+  for (let index = 0; index <= words.length - wanted.length; index += 1) {
+    if (wanted.every((word, offset) => words[index + offset] === word)) count += 1;
+  }
+  return count;
+}
+
 // Scope changed from the old generic PvP/Overall/Level-60 board to the approved Dungeon/30 page.
 // Preserve SSR, context isolation, unknown states, responsive and full drawer accessibility coverage.
 test.beforeAll(seedWowPresentationFixtures);
+
+test("records rendered WoW SEO keyword density baseline", async ({ page }) => {
+  await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
+  const visibleText = await page.locator("main").innerText();
+  const words = tokenizeSeo(visibleText);
+  const primary = countSeoPhrase(words, "wow tier list");
+  const variant = countSeoPhrase(words, "wow forever tier list");
+  const primaryDensity = (primary / Math.max(words.length, 1)) * 100;
+  const variantDensity = (variant / Math.max(words.length, 1)) * 100;
+  console.log(
+    JSON.stringify({
+      event: "wow_seo_density_baseline",
+      visibleWords: words.length,
+      primaryOccurrences: primary,
+      primaryDensityPct: Number(primaryDensity.toFixed(3)),
+      variantOccurrences: variant,
+      variantDensityPct: Number(variantDensity.toFixed(3)),
+      combinedDensityPct: Number((primaryDensity + variantDensity).toFixed(3)),
+    }),
+  );
+  expect(words.length).toBeGreaterThan(0);
+});
 test("SSR contains default dungeon ranking and modules in order without foreign data", async ({
   request,
   page,
