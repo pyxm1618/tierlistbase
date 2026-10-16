@@ -122,7 +122,7 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
   }
 });
 
-test("records WoW visible main-content keyword group baseline", async ({ page }) => {
+test("WoW visible main-content keyword group stays within the approved SEO range", async ({ page }) => {
   const wow = routeRegistry.get("/wow-forever/tier-list");
   if (wow.class !== "public_indexable") throw new Error("WoW route must remain indexable");
   expect(wow.primaryKeyword).toBe("wow tier list");
@@ -138,7 +138,7 @@ test("records WoW visible main-content keyword group baseline", async ({ page })
   const variantDensity = (variantOccurrences / Math.max(words.length, 1)) * 100;
   console.log(
     JSON.stringify({
-      event: "wow_visible_main_keyword_group_baseline",
+      event: "wow_visible_main_keyword_group_audit",
       visibleWords: words.length,
       primaryOccurrences,
       primaryDensityPct: Number(primaryDensity.toFixed(3)),
@@ -147,7 +147,16 @@ test("records WoW visible main-content keyword group baseline", async ({ page })
       combinedDensityPct: Number((primaryDensity + variantDensity).toFixed(3)),
     }),
   );
+  const combinedDensity = primaryDensity + variantDensity;
   expect(words.length).toBeGreaterThan(0);
+  expect(combinedDensity).toBeGreaterThanOrEqual(3);
+  expect(combinedDensity).toBeLessThanOrEqual(5);
+  expect(primaryDensity).toBeGreaterThan(variantDensity);
+
+  const schemas = await page.locator('script[type="application/ld+json"]').allTextContents();
+  expect(JSON.stringify(schemas.map((schema) => JSON.parse(schema)))).toContain(
+    '"name":"WoW Tier List"',
+  );
 });
 
 test("production sitemap is exactly the registered localized indexable surface", async ({
