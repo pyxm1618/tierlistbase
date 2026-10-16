@@ -13,7 +13,7 @@ test("SSR contains default dungeon ranking and modules in order without foreign 
   expect(response.status()).toBe(200);
   const html = await response.text();
   for (const text of [
-    "World of Warcraft: Forever Tier List",
+    "WoW Tier List",
     "Arms Warrior",
     "Quick Insights",
     "What Changed",

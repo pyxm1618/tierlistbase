@@ -23,18 +23,19 @@ export const routeDefinitions = [
   {
     route: "/wow-forever/tier-list",
     class: "public_indexable",
-    searchIntent: "find current patch tier rankings for World of Warcraft: Forever",
-    primaryKeyword: "wow forever tier list",
-    secondaryKeywords: ["wow forever meta", "wow forever class tier list"],
-    title: "WoW Forever Tier List - Evidence-Backed Meta Rankings",
+    searchIntent:
+      "view World of Warcraft: Forever Level 30 Beta dungeon DPS, Tank and Healer specialization rankings with performance scores and linked evidence",
+    primaryKeyword: "wow tier list",
+    secondaryKeywords: ["wow forever tier list"],
+    title: "WoW Tier List – WoW Forever Dungeon Spec Rankings",
     description:
-      "World of Warcraft: Forever tier list with evidence-based rankings across leveling, dungeons, and PvP. Auditable source consensus and patch change tracking.",
-    h1: "WoW Forever Tier List",
+      "Explore the WoW Forever Tier List for Level 30 beta dungeon DPS, tank and healer specializations, with performance scores, sample sizes and linked evidence.",
+    h1: "WoW Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/", "/privacy", "/terms"],
-    lastModified: "2026-10-09",
+    lastModified: "2026-10-16",
     reviewStatus: "reviewed",
-    reviewFingerprint: "e12b71187a93f650e55a15873b831240e7f9e38146ba716b51f7d8df0705d22e",
+    reviewFingerprint: "f7f699edb4c56724470e18d5415d3827d13b6bfe7df025a64181a0a1c4ce4f6e",
   },
   {
     route: "/genshin-impact/tier-list",

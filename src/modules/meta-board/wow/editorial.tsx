@@ -56,8 +56,12 @@ export function WowInsights({
   return (
     <section className={styles.section} aria-labelledby="wow-insights-heading">
       <h2 id="wow-insights-heading">
-        Quick Insights <span>· Level 30 Beta</span>
+        WoW Tier List Quick Insights <span>· Level 30 Beta</span>
       </h2>
+      <p>
+        These WoW Tier List insights summarize the current ranking context without changing the
+        underlying scores, samples or evidence.
+      </p>
       <div className={styles.insights}>
         {insights.map(([label, name, detail]) => (
           <article key={label}>
@@ -74,7 +78,7 @@ export function WowChanges({ changes }: { changes: RecentRatingChangeItem[] }) {
   return (
     <section className={styles.section} aria-labelledby="wow-changes-heading">
       <h2 id="wow-changes-heading">
-        What Changed <span>· Ranking movement</span>
+        WoW Tier List Changes <span>· Ranking movement</span>
       </h2>
       {changes.length === 0 ? (
         <p>No recorded tier changes yet.</p>
@@ -94,8 +98,8 @@ export function WowChanges({ changes }: { changes: RecentRatingChangeItem[] }) {
         </ol>
       )}
       <p className={styles.contextNote}>
-        Selected context and version only. A missing record does not establish Stable; ranking
-        changes do not establish buffs or nerfs.
+        For this WoW Forever Tier List, only the selected context and version are shown. A missing
+        record does not establish Stable; ranking changes do not establish buffs or nerfs.
       </p>
     </section>
   );
@@ -110,7 +114,11 @@ export function WowSources({ specs }: { specs: WowSpec[] }) {
   ];
   return (
     <section className={styles.section} aria-labelledby="wow-sources-heading">
-      <h2 id="wow-sources-heading">Sources &amp; Evidence</h2>
+      <h2 id="wow-sources-heading">WoW Tier List Sources &amp; Evidence</h2>
+      <p>
+        Evidence for the WoW Forever Tier List links performance data to Forever Logs and official
+        Beta context to Blizzard.
+      </p>
       <div className={styles.sourceGrid}>
         <article>
           <a href="https://foreverlogs.gg/" target="_blank" rel="noopener noreferrer">
@@ -191,7 +199,12 @@ export function WowMethodology() {
   ];
   return (
     <section className={styles.methodology} aria-labelledby="wow-methodology-heading">
-      <h2 id="wow-methodology-heading">Methodology &amp; FAQ</h2>
+      <h2 id="wow-methodology-heading">WoW Tier List Methodology &amp; FAQ</h2>
+      <p>
+        The WoW Tier List methodology applies the existing score, sample and tier-band rules to this
+        fixed Dungeon context. The WoW Forever Tier List keeps Pending when evidence is
+        insufficient.
+      </p>
       <div>
         {faqs.map(([question, answer]) => (
           <details key={question}>

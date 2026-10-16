@@ -23,18 +23,19 @@ export const routeDefinitions = [
   {
     route: "/wow-forever/tier-list",
     class: "public_indexable",
-    searchIntent: "find Level 30 Beta Dungeon performance rankings for World of Warcraft: Forever",
-    primaryKeyword: "wow forever tier list",
-    secondaryKeywords: ["wow forever meta", "wow forever class tier list"],
-    title: "WoW Forever Tier List - Level 30 Beta Dungeon Rankings",
+    searchIntent:
+      "view World of Warcraft: Forever Level 30 Beta dungeon DPS, Tank and Healer specialization rankings with performance scores and linked evidence",
+    primaryKeyword: "wow tier list",
+    secondaryKeywords: ["wow forever tier list"],
+    title: "WoW Tier List – WoW Forever Dungeon Spec Rankings",
     description:
-      "World of Warcraft: Forever Level 30 Beta Dungeon tier list for DPS, Tank and Healer. Observed performance, sample sizes, dungeon coverage and linked evidence.",
-    h1: "World of Warcraft: Forever Tier List",
+      "Explore the WoW Forever Tier List for Level 30 beta dungeon DPS, tank and healer specializations, with performance scores, sample sizes and linked evidence.",
+    h1: "WoW Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/", "/privacy", "/terms"],
-    lastModified: "2026-10-15",
+    lastModified: "2026-10-16",
     reviewStatus: "reviewed",
-    reviewFingerprint: "3ea4ac1de2b47b553bda550a1bbcbcc4d5cfbe9ff0f1d017be7036f271f1e933",
+    reviewFingerprint: "f7f699edb4c56724470e18d5415d3827d13b6bfe7df025a64181a0a1c4ce4f6e",
   },
   {
     route: "/genshin-impact/tier-list",

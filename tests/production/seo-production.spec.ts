@@ -198,6 +198,45 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
   }
 });
 
+test("WoW visible main-content keyword group stays within the approved SEO range", async ({
+  page,
+}) => {
+  const wow = routeRegistry.get("/wow-forever/tier-list");
+  if (wow.class !== "public_indexable") throw new Error("WoW route must remain indexable");
+  expect(wow.primaryKeyword).toBe("wow tier list");
+  expect(wow.secondaryKeywords).toContain("wow forever tier list");
+  expect(wow.title).toBe("WoW Tier List – WoW Forever Dungeon Spec Rankings");
+  expect(wow.h1).toBe("WoW Tier List");
+
+  await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
+  const words = tokenize(await page.locator("main").innerText());
+  const primaryOccurrences = countPhrase(words, "wow tier list");
+  const variantOccurrences = countPhrase(words, "wow forever tier list");
+  const primaryDensity = (primaryOccurrences / Math.max(words.length, 1)) * 100;
+  const variantDensity = (variantOccurrences / Math.max(words.length, 1)) * 100;
+  console.log(
+    JSON.stringify({
+      event: "wow_visible_main_keyword_group_audit",
+      visibleWords: words.length,
+      primaryOccurrences,
+      primaryDensityPct: Number(primaryDensity.toFixed(3)),
+      variantOccurrences,
+      variantDensityPct: Number(variantDensity.toFixed(3)),
+      combinedDensityPct: Number((primaryDensity + variantDensity).toFixed(3)),
+    }),
+  );
+  const combinedDensity = primaryDensity + variantDensity;
+  expect(words.length).toBeGreaterThan(0);
+  expect(combinedDensity).toBeGreaterThanOrEqual(3);
+  expect(combinedDensity).toBeLessThanOrEqual(5);
+  expect(primaryDensity).toBeGreaterThan(variantDensity);
+
+  const schemas = await page.locator('script[type="application/ld+json"]').allTextContents();
+  expect(JSON.stringify(schemas.map((schema) => JSON.parse(schema)))).toContain(
+    '"name":"WoW Tier List"',
+  );
+});
+
 test("production sitemap is exactly the registered localized indexable surface", async ({
   request,
 }) => {
@@ -244,7 +283,7 @@ test("WoW query filters preserve the base canonical and fixed Beta scope", async
   expect(canonical).toBeTruthy();
   await page.goto("/wow-forever/tier-list?role=tank&mode=pvp&level=60&build=old");
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", canonical!);
-  await expect(page.locator("h1")).toHaveText("World of Warcraft: Forever Tier List");
+  await expect(page.locator("h1")).toHaveText("WoW Tier List");
   await expect(page.locator("main")).toContainText("Level 30 Beta");
   await expect(page.locator("main")).not.toContainText("Level 60");
 });
