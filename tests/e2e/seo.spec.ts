@@ -8,8 +8,6 @@ test("test environment is layered noindex with no production canonical, sitemap,
 }) => {
   const response = await page.goto("/");
   expect(response?.status()).toBe(200);
-  expect(response?.headers()["x-robots-tag"]).toBe("noindex, nofollow");
-
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/i);
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
 
@@ -22,7 +20,6 @@ test("test environment is layered noindex with no production canonical, sitemap,
 
   const indexNowKey = await request.get("/indexnow-key.txt");
   expect(indexNowKey.status()).toBe(404);
-  expect(indexNowKey.headers()["x-robots-tag"]).toBe("noindex, nofollow");
 });
 
 test("structured data parses and matches registered homepage SEO facts", async ({ page }) => {

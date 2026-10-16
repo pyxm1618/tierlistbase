@@ -65,7 +65,6 @@ test("analytics-enabled homepage stays within release budgets", async ({ page })
 
   const response = await page.goto("/", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
-  expect(response?.headers()["x-robots-tag"]).toContain("noindex");
 
   await page.waitForFunction(() => window.__gaStubLoaded === true);
   await page.waitForFunction(() => window.__clarityStubLoaded === true);

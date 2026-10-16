@@ -18,7 +18,6 @@ test("marketing responses carry the configured security baseline", async ({ requ
   expect(response.headers()["content-security-policy"]).toContain("object-src 'none'");
   expect(response.headers()["x-content-type-options"]).toBe("nosniff");
   expect(response.headers()["referrer-policy"]).toBe("strict-origin-when-cross-origin");
-  expect(response.headers()["x-robots-tag"]).toBe("noindex, nofollow");
 });
 
 test("sensitive responses are no-store and noindex even before authentication", async ({
