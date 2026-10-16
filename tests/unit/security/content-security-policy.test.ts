@@ -38,4 +38,31 @@ describe("buildContentSecurityPolicy", () => {
     expect(csp).toContain("'unsafe-eval'");
     expect(csp).not.toContain("upgrade-insecure-requests");
   });
+
+  it("configures strict img-src with allowed media origin and no wildcard or bare scheme", () => {
+    const csp = buildContentSecurityPolicy({
+      nonce: "test-nonce",
+      development: false,
+      production: true,
+      analytics: { ga4: true, clarity: true },
+      turnstile: false,
+    });
+
+    const imageDirective = csp.match(/(?:^|; )img-src ([^;]+)/)?.[1] ?? "";
+    const tokens = imageDirective.split(/\s+/).filter(Boolean);
+
+    expect(tokens).toContain("'self'");
+    expect(tokens).toContain("data:");
+    expect(tokens).toContain("blob:");
+    expect(tokens).toContain("https://media.tierlistbase.com");
+
+    expect(tokens).not.toContain("*");
+    expect(tokens).not.toContain("https:");
+    expect(tokens).not.toContain("http:");
+
+    for (const token of tokens) {
+      if (token === "'self'" || token === "data:" || token === "blob:") continue;
+      expect(token).toMatch(/^https:\/\/[a-zA-Z0-9.*-]+\.[a-zA-Z]{2,}/);
+    }
+  });
 });

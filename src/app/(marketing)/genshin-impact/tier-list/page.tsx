@@ -121,9 +121,7 @@ export default async function GenshinImpactTierListPage() {
       <div className={styles.shell}>
         <div className={styles.mockNotice}>
           <strong>Reviewed Data Preview</strong>
-          <span>
-            Reviewed character ratings for version {data.version}. Avatars are branded placeholders.
-          </span>
+          <span>Reviewed character ratings for version {data.version}.</span>
         </div>
         <GenshinTierBoard characters={data.characters} changes={<GenshinChanges data={data} />} />
         <GenshinEditorial data={data} />
