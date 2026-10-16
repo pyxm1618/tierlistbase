@@ -354,7 +354,7 @@
       "item": "stash@{1}",
       "oid": "b9ae84de516e4d95b8a4616568ce5f1df812df40",
       "state": "pass",
-      "evidence": "Avatar schema/migration in 4fef4f3; missing journal restored from this stash; final query also selects avatar.",
+      "evidence": "Avatar schema/migration in 4fef4f3; missing journal registration recovered; final migration timestamp preserves the original deployed value from stash7, not the regenerated stash1 timestamp. Final query selects avatar.",
       "tracked_paths": [
         "drizzle/meta/_journal.json",
         "next.config.ts",
@@ -577,7 +577,7 @@
       "item": "stash@{7}",
       "oid": "1d2c5dd1485953f2ba3109f91c6d20f5915c0d3c",
       "state": "pass",
-      "evidence": "Earlier avatar fallback URLs superseded by database-backed URLs; duplicate migration SQL retained in stash; icon size browser test recovered.",
+      "evidence": "Earlier avatar fallback URLs superseded by database-backed URLs; duplicate migration SQL retained in stash; original migration timestamp 1792058386430 recovered and confirmed against production journal by read-only hash lookup; icon size browser test recovered.",
       "tracked_paths": [
         "drizzle/meta/_journal.json",
         "next.config.ts",
