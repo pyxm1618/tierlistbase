@@ -120,9 +120,7 @@ export const legalConfig = {
       },
       {
         heading: "Contact",
-        paragraphs: [
-          "Privacy or support questions may be sent to support@tierlistbase.com.",
-        ],
+        paragraphs: ["Privacy or support questions may be sent to support@tierlistbase.com."],
       },
     ],
     terms: [
@@ -179,9 +177,7 @@ export const legalConfig = {
       },
       {
         heading: "Contact",
-        paragraphs: [
-          "Questions about these Terms may be sent to support@tierlistbase.com.",
-        ],
+        paragraphs: ["Questions about these Terms may be sent to support@tierlistbase.com."],
       },
     ],
     acceptable_use: [
