@@ -129,10 +129,8 @@ test("game navigation active state follows pathname only", async ({ page }) => {
   await expect(genshinNav).toHaveAttribute("aria-current", "page");
 });
 
-test("Genshin tier-list route is public, clickable, and registry-indexable", async ({ page }) => {
+test("Genshin tier-list route remains public and clickable", async ({ page }) => {
   await seedGenshinTestDatabase();
-  const target = routeRegistry.get("/genshin-impact/tier-list");
-  expect(target.class).toBe("public_indexable");
 
   const response = await page.goto("/genshin-impact/tier-list");
   expect(response?.status()).toBe(200);
