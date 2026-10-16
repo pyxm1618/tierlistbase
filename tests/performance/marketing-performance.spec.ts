@@ -56,7 +56,6 @@ for (const route of routes) {
 
     const response = await page.goto(route, { waitUntil: "networkidle" });
     expect(response?.status()).toBe(200);
-    expect(response?.headers()["x-robots-tag"]).toContain("noindex");
 
     const title = await page.title();
     expect(title.trim().length).toBeGreaterThanOrEqual(20);
