@@ -19,7 +19,7 @@ const faq = [
     "How is this Genshin Impact Tier List created?",
     "The list considers Endgame Performance, Team Contribution, Flexibility, Replaceability and Consistency. Official facts, observed performance data and editorial cross-check provide the evidence structure. Current ratings use reviewed database records.",
   ],
-  ["What version is this Tier List for?", "The current database version is {version}."],
+  ["What version is this Genshin Tier List for?", "The current database version is {version}."],
   [
     "What endgame content is considered?",
     "The scope is Endgame Overall. Reference encounters and team contexts are recorded in each character’s reviewed Best-use Context.",
@@ -33,7 +33,7 @@ const faq = [
     "A character may move when reviewed evidence changes the overall assessment under the shared assumptions. New Characters are derived from official release versions; Tier Changes show recorded version history.",
   ],
   [
-    "Can lower-tier characters still clear endgame?",
+    "Can lower-tier characters in the Genshin Impact Character Tier List still clear endgame?",
     "Tiers describe relative overall value under stated assumptions, not a guarantee or a restriction on clearing content. Encounter conditions and execution still matter.",
   ],
 ] as const;
@@ -45,7 +45,7 @@ export function GenshinChanges({ data }: { data: GenshinData }) {
   return (
     <section className={styles.changes} data-ia-section="changes" aria-labelledby="changes-heading">
       <h2 id="changes-heading">
-        <span aria-hidden="true">▤</span> What&apos;s Changed
+        <span aria-hidden="true">▤</span> What&apos;s Changed in the Genshin Tier List
       </h2>
       <p className={styles.label}>Version {data.version}</p>
       <h3>New Characters</h3>
@@ -87,9 +87,12 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
         aria-labelledby="methodology-heading"
       >
         <h2 id="methodology-heading">
-          <span aria-hidden="true">◈</span> Ranking Methodology
+          <span aria-hidden="true">◈</span> How the Genshin Impact Tier List Is Ranked
         </h2>
-        <p>Five dimensions inform the overall assessment.</p>
+        <p>
+          The Genshin Tier List uses five consistent dimensions to compare current characters under
+          the same endgame assumptions.
+        </p>
         <ol className={styles.numberedList}>
           {methodology.map(([name, explanation]) => (
             <li key={name}>
@@ -108,8 +111,8 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
           <span aria-hidden="true">▱</span> Sources &amp; Evidence
         </h2>
         <p>
-          {data.sources.length} evidence-linked sources · {data.evidenceCount} verified evidence
-          observations
+          Evidence for this Genshin Tier List includes {data.sources.length} evidence-linked sources
+          and {data.evidenceCount} verified evidence observations.
         </p>
         <ul className={styles.sourceList}>
           {data.sources.map((source) => (
@@ -142,6 +145,10 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
         <h2 id="definitions-heading">
           <span aria-hidden="true">▥</span> Tier Definitions
         </h2>
+        <p>
+          These definitions explain what each placement means in the Genshin Tier List under the
+          stated endgame assumptions.
+        </p>
         <dl className={styles.definitions}>
           {tiers.map((tier) => (
             <div key={tier.name}>
