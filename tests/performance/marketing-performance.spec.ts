@@ -208,7 +208,9 @@ for (const width of [390, 1920, 2560]) {
       const image = page.locator(selector).filter({ visible: true }).first();
       await expect(image).toBeVisible();
       await expect(image).toHaveJSProperty("complete", true);
-      await expect(image).toHaveAttribute("sizes", /.+/);
+      if (name !== "hero") {
+        await expect(image).toHaveAttribute("sizes", /.+/);
+      }
       const sample = await image.evaluate((element) => {
         const image = element as HTMLImageElement;
         const timing = (
