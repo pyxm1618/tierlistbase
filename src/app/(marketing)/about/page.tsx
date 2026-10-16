@@ -4,10 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { siteConfig } from "@/config/site.config";
-import {
-  currentSeoEnvironment,
-  seoEnvironmentPolicy,
-} from "@/platform/seo/environment-policy";
+import { currentSeoEnvironment, seoEnvironmentPolicy } from "@/platform/seo/environment-policy";
 
 import styles from "./about.module.css";
 
