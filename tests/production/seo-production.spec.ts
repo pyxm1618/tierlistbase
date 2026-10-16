@@ -122,6 +122,27 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
   }
 });
 
+test("records WoW visible main-content keyword group baseline", async ({ page }) => {
+  await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
+  const words = tokenize(await page.locator("main").innerText());
+  const primaryOccurrences = countPhrase(words, "wow tier list");
+  const variantOccurrences = countPhrase(words, "wow forever tier list");
+  const primaryDensity = (primaryOccurrences / Math.max(words.length, 1)) * 100;
+  const variantDensity = (variantOccurrences / Math.max(words.length, 1)) * 100;
+  console.log(
+    JSON.stringify({
+      event: "wow_visible_main_keyword_group_baseline",
+      visibleWords: words.length,
+      primaryOccurrences,
+      primaryDensityPct: Number(primaryDensity.toFixed(3)),
+      variantOccurrences,
+      variantDensityPct: Number(variantDensity.toFixed(3)),
+      combinedDensityPct: Number((primaryDensity + variantDensity).toFixed(3)),
+    }),
+  );
+  expect(words.length).toBeGreaterThan(0);
+});
+
 test("production sitemap is exactly the registered localized indexable surface", async ({
   request,
 }) => {
