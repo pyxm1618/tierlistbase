@@ -15,10 +15,10 @@ export const routeDefinitions = [
       "Evidence-based Game Meta Board and tier lists for World of Warcraft: Forever. Multi-source consensus, patch tracking, and transparent tier changes.",
     h1: "Game Meta. Made Clear.",
     pageType: "WebApplication",
-    relatedRoutes: ["/wow-forever/tier-list", "/privacy", "/terms"],
+    relatedRoutes: ["/wow-forever/tier-list", "/genshin-impact/tier-list", "/privacy", "/terms"],
     lastModified: "2026-10-11",
     reviewStatus: "reviewed",
-    reviewFingerprint: "30404e7f8216a8479522ad971201b337faa654a95174efd522bc5cb561845a17",
+    reviewFingerprint: "579481b10bf2e7420ec3a77c48bc6321efbd592907889e195324f8e38c40f55d",
   },
   {
     route: "/wow-forever/tier-list",
@@ -38,10 +38,24 @@ export const routeDefinitions = [
   },
   {
     route: "/genshin-impact/tier-list",
-    class: "public_noindex",
-    title: "Genshin Impact Tier List | TierListBase",
+    class: "public_indexable",
+    searchIntent:
+      "find current Genshin character tier rankings and identify the strongest characters",
+    primaryKeyword: "genshin tier list",
+    secondaryKeywords: [
+      "genshin impact tier list",
+      "genshin character tier list",
+      "genshin impact character tier list",
+    ],
+    title: "Genshin Tier List – Best Genshin Impact Characters Ranked",
     description:
-      "Genshin Impact Endgame Overall tier list with reviewed character ratings, ranking assumptions and evidence.",
+      "Explore the Genshin Impact Tier List with current character rankings, the best Genshin characters, ranking explanations, evidence, and the latest version changes.",
+    h1: "Genshin Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-10-16",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "c65df52835515113512c411f218aa87af3d942e9e300953993e59fda09948664",
   },
   {
     route: "/privacy",
