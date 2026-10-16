@@ -18,7 +18,7 @@ test("Genshin V1 preserves the complete architecture, local filters and reviewed
     if (request.resourceType() === "fetch") requests.push(request.url());
   });
   await page.goto(route);
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Genshin Tier List");
   await expect(page.getByText("Select a character to view details", { exact: true })).toBeVisible();
   expect(
     await page
@@ -51,7 +51,7 @@ test("Genshin V1 preserves the complete architecture, local filters and reviewed
   );
   await expect(page.locator('[data-ia-section="changes"]')).not.toContainText("→");
   await expect(page.locator("main")).not.toContainText(
-    /Mock \/ Placeholder|MOCK RATING|mock characters|Pending verification|No reviewed ranking data published yet/i,
+    /Mock \/ Placeholder|MOCK RATING|mock characters|Pending verification|Reviewed Data Preview|No reviewed ranking data published yet/i,
   );
   const distribution = {
     S: 9,

@@ -151,7 +151,7 @@ export function GenshinTierBoard({
           aria-label="Genshin Impact Tier List"
         >
           <div className={styles.boardHeading}>
-            <h2 id="overall-heading">Overall Tier Board</h2>
+            <h2 id="overall-heading">Genshin Character Tier List</h2>
             <span>A–Z within each tier</span>
           </div>
           <p className={styles.results} role="status">
