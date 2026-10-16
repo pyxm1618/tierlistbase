@@ -307,8 +307,8 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
             )}
           </h1>
           <p>
-            TierListBase helps you quickly understand the current meta with an evidence-backed game
-            meta board and documented ranking data.
+            TierListBase helps you explore game tier lists, compare current rankings, and understand
+            the evidence behind how characters, classes, and builds move between tiers.
           </p>
         </div>
       </section>
@@ -317,7 +317,7 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
         <section className="tlb-section" id="explore" aria-labelledby="explore-title">
           <SectionTitle
             id="explore-title"
-            subtitle="Choose your game and dive into the latest meta rankings."
+            subtitle="Browse current game tier lists and compare character, class, and specialization rankings."
           >
             Explore Tier Lists
           </SectionTitle>
