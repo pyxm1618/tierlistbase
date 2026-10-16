@@ -1,7 +1,7 @@
 import type { LegalConfig } from "@/platform/legal/types";
 
 export const legalConfig = {
-  releaseStatus: "draft",
+  releaseStatus: "reviewed",
   operator: {
     legalName: "Wang Yufei",
     establishment: "People's Republic of China",
@@ -59,11 +59,11 @@ export const legalConfig = {
   internationalTransfers:
     "TierListBase uses infrastructure providers that operate internationally. This notice does not claim that request or security metadata remains in a single country or region.",
   documents: {
-    privacy: { version: "draft-4", effectiveDate: "2026-10-16", reviewStatus: "draft" },
-    terms: { version: "draft-3", effectiveDate: "2026-10-16", reviewStatus: "draft" },
-    acceptable_use: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
-    refund_policy: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
-    account_deletion: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "draft" },
+    privacy: { version: "draft-4", effectiveDate: "2026-10-16", reviewStatus: "reviewed" },
+    terms: { version: "draft-3", effectiveDate: "2026-10-16", reviewStatus: "reviewed" },
+    acceptable_use: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "reviewed" },
+    refund_policy: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "reviewed" },
+    account_deletion: { version: "draft-1", effectiveDate: "2026-10-09", reviewStatus: "reviewed" },
   },
   content: {
     privacy: [
