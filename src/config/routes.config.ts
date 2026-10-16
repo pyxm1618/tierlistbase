@@ -15,7 +15,12 @@ export const routeDefinitions = [
       "Evidence-based Game Meta Board and tier lists for World of Warcraft: Forever. Multi-source consensus, patch tracking, and transparent tier changes.",
     h1: "Game Meta. Made Clear.",
     pageType: "WebApplication",
-    relatedRoutes: ["/wow-forever/tier-list", "/genshin-impact/tier-list", "/privacy", "/terms"],
+    relatedRoutes: [
+      "/wow-forever/tier-list",
+      "/genshin-impact/tier-list",
+      "/privacy",
+      "/terms",
+    ],
     lastModified: "2026-10-11",
     reviewStatus: "reviewed",
     reviewFingerprint: "579481b10bf2e7420ec3a77c48bc6321efbd592907889e195324f8e38c40f55d",
