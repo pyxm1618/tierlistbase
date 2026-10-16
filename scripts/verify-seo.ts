@@ -65,11 +65,6 @@ for (const route of indexable) {
   const depth = route.route === "/" ? 0 : route.route.split("/").filter(Boolean).length;
   if (depth > 3) throw new Error(`indexable route is unnecessarily deep: ${route.route}`);
 
-  for (const relatedRoute of route.relatedRoutes) {
-    const related = routeRegistry.get(relatedRoute);
-    if (related.class === "public_indexable") inbound.add(related.route);
-  }
-
   const sections = contentByRoute.get(route.route);
   if (!sections) {
     if (bespokeIndexableRoutes.has(route.route)) continue;
@@ -99,7 +94,11 @@ for (const route of indexable) {
 }
 
 for (const route of indexable) {
-  if (route.route !== "/" && !inbound.has(route.route)) {
+  if (
+    route.route !== "/" &&
+    !inbound.has(route.route) &&
+    !bespokeIndexableRoutes.has(route.route)
+  ) {
     throw new Error(`orphan indexable route in rendered content: ${route.route}`);
   }
 }
