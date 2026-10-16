@@ -28,7 +28,7 @@ export default async function GenshinImpactTierListPage() {
     return (
       <main className={styles.page}>
         <div className={styles.shell}>
-          <h1>Genshin Impact Tier List</h1>
+          <h1>Genshin Tier List</h1>
           <p role="status">
             Reviewed ranking data is currently unavailable. Please try again later.
           </p>
@@ -40,10 +40,10 @@ export default async function GenshinImpactTierListPage() {
     <main className={styles.page}>
       <JsonLd
         value={webApplicationJsonLd({
-          name: "Genshin Impact Tier List — Reviewed Data Preview",
+          name: "Genshin Tier List",
           url: `${routeRegistry.site.canonicalOrigin}/genshin-impact/tier-list`,
           description:
-            "Reviewed database rankings for Genshin Impact Endgame Overall, with character rationale and evidence.",
+            "Current Genshin Impact character rankings with tier explanations, ranking evidence, and version changes.",
         })}
       />
       <header className={styles.hero} data-ia-section="page-header">
@@ -75,11 +75,11 @@ export default async function GenshinImpactTierListPage() {
                 </strong>
               </div>
               <div>
-                <h1>Genshin Impact Tier List</h1>
-                <p>Current Version · Endgame Overall Tier List</p>
+                <h1>Genshin Tier List</h1>
+                <p>Current Version · Endgame Overall Character Rankings</p>
                 <p className={styles.subtitle}>
-                  Overall character rankings under shared endgame assumptions, with clear reasons
-                  and evidence.
+                  This Genshin Tier List ranks current characters for endgame play under shared assumptions,
+                  with clear tier explanations and documented evidence.
                 </p>
               </div>
             </div>
@@ -120,8 +120,8 @@ export default async function GenshinImpactTierListPage() {
       </header>
       <div className={styles.shell}>
         <div className={styles.mockNotice}>
-          <strong>Reviewed Data Preview</strong>
-          <span>Reviewed character ratings for version {data.version}.</span>
+          <strong>Current Genshin Tier List</strong>
+          <span>Character rankings reviewed for version {data.version}.</span>
         </div>
         <GenshinTierBoard characters={data.characters} changes={<GenshinChanges data={data} />} />
         <GenshinEditorial data={data} />
