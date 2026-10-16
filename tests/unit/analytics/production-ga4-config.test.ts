@@ -68,7 +68,8 @@ describe("production GA4 configuration and fact sync", () => {
   });
 
   it("legal configuration includes Google Analytics processor disclosure and accurate consent privacy disclosures", () => {
-    const isTierListBase = legalConfig.operator.legalName === "Wang Yufei";
+    const operatorName: string = legalConfig.operator.legalName;
+    const isTierListBase = operatorName === "Wang Yufei";
     const processors: readonly { name: string; privacyUrl?: string }[] = legalConfig.processors;
     const gaProcessor = processors.find((p) => p.name === "Google Analytics");
 
