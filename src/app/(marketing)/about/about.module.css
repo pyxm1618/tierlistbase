@@ -4,9 +4,7 @@
   --about-border: #1d5578;
   min-width: 0;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 78% 6%, rgba(34, 123, 214, 0.12), transparent 34%),
-    #02111d;
+  background: radial-gradient(circle at 78% 6%, rgba(34, 123, 214, 0.12), transparent 34%), #02111d;
   color: #f7f9ff;
 }
 
