@@ -97,6 +97,9 @@ describe("production GA4 configuration and fact sync", () => {
       expect(privacyTexts).toContain("Google Analytics (GA4)");
       expect(privacyTexts).toContain("explicit consent");
       expect(privacyTexts).toContain("Microsoft Clarity is not enabled");
+      expect(privacyTexts).toContain("analytics cookies are removed");
+      expect(privacyTexts).toContain("consent choice remains stored locally");
+      expect(privacyTexts).not.toContain("browser storage entries are removed");
       expect(privacyTexts).not.toContain(
         "Google Analytics and Microsoft Clarity are not currently loaded",
       );
