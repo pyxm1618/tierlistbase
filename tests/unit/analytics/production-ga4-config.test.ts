@@ -18,7 +18,7 @@ describe("production analytics configuration and fact sync", () => {
     expect(parsed.vars.APP_ENV).toBe("production");
     expect(parsed.vars.APP_ORIGIN).toBe("https://www.tierlistbase.com");
     expect(parsed.vars.GA4_MEASUREMENT_ID).toBe("G-TBL00RRKY6");
-    expect(parsed.vars.CLARITY_PROJECT_ID).toBe("yywwgi3lrn");
+    expect(parsed.vars.CLARITY_PROJECT_ID).toBe("yywwgi3lrm");
   });
 
   it("runtime configuration enforces GA4_MEASUREMENT_ID only in production", () => {
@@ -47,12 +47,12 @@ describe("production analytics configuration and fact sync", () => {
       {
         ...baseProductionEnv,
         GA4_MEASUREMENT_ID: "G-TBL00RRKY6",
-        CLARITY_PROJECT_ID: "yywwgi3lrn",
+        CLARITY_PROJECT_ID: "yywwgi3lrm",
       },
       productionFeatures,
     );
     expect(validEnv.ga4MeasurementId).toBe("G-TBL00RRKY6");
-    expect(validEnv.clarityProjectId).toBe("yywwgi3lrn");
+    expect(validEnv.clarityProjectId).toBe("yywwgi3lrm");
 
     // Local / staging / non-production does not require GA4_MEASUREMENT_ID
     const nonProductionFeatures = {
@@ -125,7 +125,7 @@ describe("production analytics configuration and fact sync", () => {
       vi.resetModules();
       process.env.APP_ENV = "production";
       process.env.GA4_MEASUREMENT_ID = "G-TBL00RRKY6";
-      process.env.CLARITY_PROJECT_ID = "yywwgi3lrn";
+      process.env.CLARITY_PROJECT_ID = "yywwgi3lrm";
       const { featuresConfig: prodConfig } = await import("@/config/features.config");
       expect(prodConfig.analytics.enabled).toBe(true);
       expect(prodConfig.analytics.ga4).toBe(true);
