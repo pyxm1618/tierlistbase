@@ -15,8 +15,7 @@ export const metadata: Metadata = rootMetadata();
 export default async function MarketingLayout({ children }: Readonly<{ children: ReactNode }>) {
   await connection();
   const shouldLoadCmp =
-    process.env.APP_ENV === "production" ||
-    process.env.CREAT_WEB_E2E_ENABLED_FEATURES === "1";
+    process.env.APP_ENV === "production" || process.env.CREAT_WEB_E2E_ENABLED_FEATURES === "1";
 
   return (
     <html lang={siteConfig.defaultLocale}>
