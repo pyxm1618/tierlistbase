@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Brand } from "@/components/navigation/site-header";
+import { PrivacySettingsButton } from "@/components/navigation/privacy-settings-button";
 
 const links = [
   { label: "About", href: "/about" },
@@ -39,12 +40,16 @@ export function SiteFooter() {
       </div>
       <div className="mx-auto flex w-[calc(100%_-_32px)] flex-wrap items-center justify-between gap-3 border-t border-[#16354d] py-4 text-xs text-slate-400 sm:w-[93.4%] max-w-[1820px]">
         <span>© {new Date().getUTCFullYear()} TierListBase</span>
-        <nav aria-label="Additional legal links" className="flex flex-wrap gap-x-4 gap-y-2">
+        <nav
+          aria-label="Additional legal links"
+          className="flex flex-wrap items-center gap-x-4 gap-y-2"
+        >
           {moreLinks.map(({ label, href }) => (
             <Link className="hover:text-slate-200" key={href} href={href}>
               {label}
             </Link>
           ))}
+          <PrivacySettingsButton />
         </nav>
       </div>
     </footer>
