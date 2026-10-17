@@ -168,6 +168,7 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
   return (
     <Link
       href={isWow ? wowHref : genshinHref}
+      prefetch={true}
       className={`tlb-game-card ${isWow ? "tlb-wow" : "tlb-genshin"}`}
       aria-label={
         isWow ? "Explore World of Warcraft: Forever tier list" : "Explore Genshin Impact tier list"
