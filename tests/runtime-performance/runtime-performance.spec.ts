@@ -82,9 +82,17 @@ for (const path of ["/", genshin, wow]) {
     const response = await request.get(src, { maxRedirects: 0 });
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain("image/webp");
-    if (path !== "/") {
-      await expect(hero).toHaveAttribute("loading", "eager");
-      await expect(hero).toHaveAttribute("fetchpriority", "high");
+    await expect(hero).toHaveAttribute("loading", "eager");
+    await expect(hero).toHaveAttribute("fetchpriority", "high");
+    if (path === "/") {
+      const cards = page.locator(".tlb-card-image img");
+      expect(await cards.count()).toBe(2);
+      for (const card of await cards.all()) {
+        await expect(card).toHaveAttribute("loading", "lazy");
+        await expect(card).not.toHaveAttribute("fetchpriority", "high");
+        const cardSrc = await card.evaluate((el) => (el as HTMLImageElement).currentSrc);
+        expect(cardSrc).not.toContain("/_next/image?");
+      }
     }
   });
 

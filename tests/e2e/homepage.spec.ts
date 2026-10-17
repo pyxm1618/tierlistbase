@@ -62,6 +62,10 @@ test("homepage renders the approved game-discovery information architecture", as
     "src",
     /images%2Fhome%2Fhero\.webp|images\/home\/hero\.webp/,
   );
+  await expect(heroImage).toHaveAttribute("loading", "eager");
+  await expect(heroImage).toHaveAttribute("fetchpriority", "high");
+  await expect(heroImage).toHaveAttribute("srcset", /hero-768\.webp/);
+  await expect(heroImage).toHaveAttribute("sizes", /\(max-width:\s*700px\)/);
   expect(await heroImage.getAttribute("src")).not.toContain("/_next/image");
 
   const heroResponse = await page.request.get("/images/home/hero.webp");
@@ -70,14 +74,18 @@ test("homepage renders the approved game-discovery information architecture", as
   const imagePreloads = page.locator('link[rel="preload"][as="image"]');
   await expect(imagePreloads).toHaveCount(1);
   await expect(imagePreloads).toHaveAttribute(
-    "href",
-    /images%2Fhome%2Fhero\.webp|images\/home\/hero\.webp/,
+    "imagesrcset",
+    /images%2Fhome%2Fhero-768\.webp|images\/home\/hero-768\.webp/,
   );
+  await expect(imagePreloads).toHaveAttribute("fetchpriority", "high");
 
   const gameImages = page.locator(".tlb-game-grid .tlb-card-image img");
   await expect(gameImages).toHaveCount(2);
   for (const gameImage of await gameImages.all()) {
     await expect(gameImage).toHaveAttribute("loading", "lazy");
+    await expect(gameImage).not.toHaveAttribute("fetchpriority", "high");
+    await expect(gameImage).toHaveAttribute("srcset", /384w/);
+    await expect(gameImage).toHaveAttribute("sizes", /.+/);
     await expect(gameImage).toHaveAttribute("src", /images\/home\/(?:wow|genshin)\.webp/);
     expect(await gameImage.getAttribute("src")).not.toContain("/_next/image");
   }
