@@ -10,7 +10,7 @@ export const legalConfig = {
   dataCategories: [
     "request, network, and security metadata processed by hosting/security infrastructure",
     "support correspondence only when a visitor chooses to email the published support address",
-    "no account, payment, advertising-profile, or analytics-profile data in V1",
+    "optional analytics event and session-interaction data only when a visitor explicitly consents",
   ],
   authMethods: ["none (authentication disabled in V1)"],
   processors: [
@@ -35,6 +35,12 @@ export const legalConfig = {
       name: "Google Analytics",
       purpose: "Optional website analytics loaded only after explicit visitor consent.",
       privacyUrl: "https://policies.google.com/privacy",
+    },
+    {
+      name: "Microsoft Clarity",
+      purpose:
+        "Optional session analytics and interaction measurement loaded only after explicit visitor consent.",
+      privacyUrl: "https://privacy.microsoft.com/privacystatement",
     },
   ],
   paymentModel: "none",
@@ -64,7 +70,7 @@ export const legalConfig = {
   internationalTransfers:
     "TierListBase uses infrastructure providers that operate internationally. This notice does not claim that request or security metadata remains in a single country or region.",
   documents: {
-    privacy: { version: "1.0", effectiveDate: "2026-10-16", reviewStatus: "reviewed" },
+    privacy: { version: "1.1", effectiveDate: "2026-10-17", reviewStatus: "reviewed" },
     terms: { version: "1.0", effectiveDate: "2026-10-16", reviewStatus: "reviewed" },
     acceptable_use: { version: "1.0", effectiveDate: "2026-10-09", reviewStatus: "reviewed" },
     refund_policy: { version: "1.0", effectiveDate: "2026-10-09", reviewStatus: "reviewed" },
@@ -75,7 +81,7 @@ export const legalConfig = {
       {
         heading: "Scope and service status",
         paragraphs: [
-          "TierListBase V1 is a public, read-only game ranking and analysis service. User registration, authentication, payments, subscriptions, Microsoft Clarity, and ad serving are not enabled in the current production product. Optional Google Analytics (GA4) is available only if a visitor grants explicit consent.",
+          "TierListBase V1 is a public, read-only game ranking and analysis service. User registration, authentication, payments, subscriptions, and ad serving are not enabled in the current production product. Optional Google Analytics (GA4) and Microsoft Clarity analytics are available only if a visitor grants explicit consent.",
         ],
       },
       {
@@ -98,27 +104,27 @@ export const legalConfig = {
           "Cloudflare provides Cloudflare Workers hosting and edge delivery/security. Cloudflare processes end-user request and security metadata as part of delivering and protecting the site.",
           "Neon provides the production PostgreSQL database used for game, ranking, source, and evidence data. TierListBase V1 does not use that database for visitor account profiles because accounts are disabled.",
           "Dynadot provides email hosting for support correspondence voluntarily sent to support@tierlistbase.com. Dynadot is not used to process general website visits.",
-          "Except for optional Google Analytics loaded only after explicit visitor consent, no third-party authentication, advertising, or payment service is activated by the TierListBase V1 application runtime.",
+          "Except for optional Google Analytics and Microsoft Clarity loaded only after explicit visitor consent, no third-party authentication, advertising, or payment service is activated by the TierListBase V1 application runtime.",
         ],
       },
       {
         heading: "Cookies and browser storage",
         paragraphs: [
-          "The TierListBase application does not use profile, advertising, or personalization cookies. If you choose to allow optional analytics, Google Analytics may set analytics measurement cookies, and your consent choice is stored in local browser storage. If analytics consent is declined or withdrawn, analytics cookies are removed and the consent choice remains stored locally so the site can remember your preference.",
+          "The TierListBase application does not use advertising or personalization cookies. If you choose to allow optional analytics, Google Analytics and Microsoft Clarity may set analytics measurement cookies, and your consent choice is stored in local browser storage. If analytics consent is declined or withdrawn, analytics cookies are removed and the consent choice remains stored locally so the site can remember your preference.",
           "Cloudflare security features may set strictly necessary security or challenge cookies when needed to protect or deliver the site. The exact cookie depends on the Cloudflare protection feature triggered. TierListBase does not use those cookies for advertising or behavioral profiling.",
         ],
       },
       {
         heading: "Analytics and advertising",
         paragraphs: [
-          "Optional Google Analytics (GA4) is available on TierListBase public pages only after explicit visitor consent. If consent is not granted, or if it is withdrawn, Google Analytics is not loaded and no measurement data is transmitted. Microsoft Clarity is not enabled.",
+          "Optional Google Analytics (GA4) and Microsoft Clarity are available on TierListBase public pages only after explicit visitor consent. If consent is not granted, or if it is withdrawn, these analytics providers are not loaded. Clarity is used for session and interaction analytics, while GA4 is used for aggregate website measurement.",
           "TierListBase currently has Google publisher verification or authorization metadata, including ads.txt, but does not load Google ad-serving scripts or display ads in V1. If advertising is enabled later, the relevant privacy disclosures and consent controls must be reviewed before activation.",
         ],
       },
       {
         heading: "Retention and international processing",
         paragraphs: [
-          "TierListBase does not publish an unverified fixed retention period for infrastructure logs. Request and security metadata may be retained according to provider configuration and for as long as reasonably needed for site delivery, security, abuse prevention, and troubleshooting, subject to applicable requirements.",
+          "TierListBase does not publish an unverified fixed retention period for infrastructure logs or optional analytics data. Request, security, and consent-based analytics data may be retained according to the applicable provider configuration and policies, subject to applicable requirements.",
           "Cloudflare operates global infrastructure, and infrastructure providers may process data in more than one country according to their service configuration and contractual terms. TierListBase therefore does not claim that request or security metadata remains only in the UK, EEA, or any other single region.",
         ],
       },

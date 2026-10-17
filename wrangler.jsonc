@@ -9,6 +9,7 @@
     "APP_ENV": "production",
     "APP_ORIGIN": "https://www.tierlistbase.com",
     "GA4_MEASUREMENT_ID": "G-TBL00RRKY6",
+    "CLARITY_PROJECT_ID": "yywwgi3lrn",
   },
   "assets": {
     "directory": "dist/client",

@@ -28,7 +28,7 @@ const neutralFeaturesConfig = {
 
 const productionFeaturesConfig = {
   ...neutralFeaturesConfig,
-  analytics: { enabled: true, ga4: true, clarity: false, consentRequired: true },
+  analytics: { enabled: true, ga4: true, clarity: true, consentRequired: true },
 } as const satisfies ProductConfig["features"];
 
 const useEnabledTestProfile =
