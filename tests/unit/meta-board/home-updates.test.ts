@@ -120,7 +120,7 @@ describe("homepage multi-game updates", () => {
     expect(changes.some((c) => c.gameSlug === "genshin-impact")).toBe(false);
   });
 
-  it("renders WoW real change, Genshin real change, and placeholder correctly without fake tier movement", () => {
+  it("renders real WoW and Genshin updates with their existing game links", () => {
     const realUpdates: RecentRatingChangeItem[] = [
       {
         id: "wow-1",
@@ -155,26 +155,47 @@ describe("homepage multi-game updates", () => {
     const html = renderToStaticMarkup(
       createElement(GameHome, { title: "Game Tier Lists", updates: realUpdates }),
     );
+    const updateCards = html.match(/<article class="tlb-update-card">[\s\S]*?<\/article>/g) ?? [];
 
-    // Section header has neutral link
     expect(html).toContain("View rankings");
     expect(html).not.toContain("View WoW changes");
+    expect(updateCards).toHaveLength(3);
 
-    // WoW card
-    expect(html).toContain("Restoration Druid: A → S");
-    expect(html).toContain("HoT scaling improved");
-    expect(html).toContain("/wow-forever/tier-list");
+    expect(updateCards[0]).toContain("Restoration Druid: A → S");
+    expect(updateCards[0]).toContain("HoT scaling improved");
+    expect(updateCards[0]).toContain('href="/wow-forever/tier-list"');
 
-    // Genshin card
-    expect(html).toContain("Neuvillette: S → SS");
-    expect(html).toContain("High DPS floor confirmed");
-    expect(html).toContain("/genshin-impact/tier-list");
+    expect(updateCards[1]).toContain("Neuvillette: S → SS");
+    expect(updateCards[1]).toContain("High DPS floor confirmed");
+    expect(updateCards[1]).toContain('href="/genshin-impact/tier-list"');
 
-    // 3rd card is placeholder (no fake tier movement, pending verification)
-    expect(html).toContain("Pending verification");
-    expect(html).toContain("No verified update has been published here yet.");
-    expect(html).toContain("PvP ranking updates");
-    expect(html).not.toContain("PvP ranking updates:");
-    expect(html).not.toContain("PvP ranking updates: ");
+    expect(updateCards[2]).toContain("No verified update yet");
+    expect(updateCards[2]).toContain("Pending verification");
+    expect(updateCards[2]).toContain(
+      "New verified ranking changes will appear here when published.",
+    );
+    expect(updateCards[2]).not.toContain("PvP ranking updates");
+    expect(updateCards[2]).not.toContain("WoW");
+    expect(updateCards[2]).not.toContain("Genshin");
+    expect(updateCards[2]).not.toContain("href=");
+  });
+
+  it("renders every empty update slot as a neutral placeholder without game-specific CTAs", () => {
+    const html = renderToStaticMarkup(
+      createElement(GameHome, { title: "Game Tier Lists", updates: [] }),
+    );
+    const updateCards = html.match(/<article class="tlb-update-card">[\s\S]*?<\/article>/g) ?? [];
+
+    expect(updateCards).toHaveLength(3);
+    for (const card of updateCards) {
+      expect(card).toContain("No verified update yet");
+      expect(card).toContain("Pending verification");
+      expect(card).toContain("New verified ranking changes will appear here when published.");
+      expect(card).not.toContain("PvP ranking updates");
+      expect(card).not.toContain("WoW");
+      expect(card).not.toContain("Genshin");
+      expect(card).not.toContain("href=");
+      expect(card).not.toContain("tlb-small-arrow");
+    }
   });
 });
