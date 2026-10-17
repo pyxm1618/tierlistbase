@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import type { RecentRatingChangeItem } from "@/modules/meta-board";
 
+import { HomeHeroImage } from "./home-hero-image";
 import "./game-home.css";
 
 const wowHref = "/wow-forever/tier-list";
@@ -319,24 +320,7 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
     <div className="tlb-home">
       <section className="tlb-hero" aria-labelledby="page-title">
         <div className="tlb-hero-art" aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer */}
-          <img
-            src="/images/home/hero.webp"
-            srcSet="/images/home/hero-384.webp 384w, /images/home/hero-768.webp 768w, /images/home/hero-1080.webp 1080w, /images/home/hero-1536.webp 1536w, /images/home/hero.webp 2172w"
-            sizes="(max-width: 700px) 88vw, 68vw"
-            alt=""
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            className="tlb-cover tlb-hero-cover"
-            style={{
-              position: "absolute",
-              height: "100%",
-              width: "100%",
-              inset: 0,
-              color: "transparent",
-            }}
-          />
+          <HomeHeroImage />
         </div>
         <div className="tlb-hero-overlay" aria-hidden="true" />
         <div className="tlb-shell tlb-hero-inner">

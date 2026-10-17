@@ -198,6 +198,16 @@ for (const width of [390, 1920, 2560]) {
     const preloads = page.locator('link[rel="preload"][as="image"]');
     await expect(preloads).toHaveCount(1);
     await expect(preloads).toHaveAttribute("href", /hero-f958fb67df/);
+    await expect(
+      page.locator('head link[rel="preload"][imagesrcset*="/images/home/hero-"]'),
+    ).toHaveCount(0);
+    const homeHeroTimings = await page.evaluate(() =>
+      performance
+        .getEntriesByType("resource")
+        .map((entry) => entry.name)
+        .filter((url) => url.includes("/images/home/hero-")),
+    );
+    expect(homeHeroTimings).toEqual([]);
     const card = page.getByRole("button", { name: /Nahida, Dendro/ });
     await card.click();
     const samples = [];

@@ -67,6 +67,9 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(heroImage).toHaveAttribute("srcset", /hero-768\.webp/);
   await expect(heroImage).toHaveAttribute("sizes", /\(max-width:\s*700px\)/);
   expect(await heroImage.getAttribute("src")).not.toContain("/_next/image");
+  const heroCurrentSrc = await heroImage.evaluate((el) => (el as HTMLImageElement).currentSrc);
+  expect(heroCurrentSrc).toMatch(/\/images\/home\/hero.*\.webp/);
+  expect(heroCurrentSrc).not.toContain("/_next/image");
 
   const heroResponse = await page.request.get("/images/home/hero.webp");
   expect(heroResponse.status()).toBe(200);
@@ -161,4 +164,56 @@ test("Genshin tier-list route remains public and clickable", async ({ page }) =>
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Genshin Tier List");
   await expect(page.getByText("Current Genshin Tier List", { exact: true })).toBeVisible();
+});
+
+test("cross-route prefetch isolation: Genshin and WoW pages do not leak Home Hero preload or requests", async ({
+  page,
+}) => {
+  if (process.env.TEST_DATABASE_URL) {
+    await seedGenshinTestDatabase();
+  }
+
+  // B. Directly visit /genshin-impact/tier-list
+  const genshinRequests: string[] = [];
+  page.on("request", (req) => genshinRequests.push(req.url()));
+  await page.goto("/genshin-impact/tier-list", { waitUntil: "networkidle" });
+
+  const genshinPreloads = page.locator('link[rel="preload"][as="image"]');
+  if (process.env.TEST_DATABASE_URL) {
+    await expect(genshinPreloads).toHaveCount(1);
+    await expect(genshinPreloads).toHaveAttribute("href", /hero-f958fb67df/);
+  }
+  await expect(
+    page.locator('head link[rel="preload"][imagesrcset*="/images/home/hero-"]'),
+  ).toHaveCount(0);
+
+  const genshinTimings = await page.evaluate(() =>
+    performance
+      .getEntriesByType("resource")
+      .map((entry) => entry.name)
+      .filter((url) => url.includes("/images/home/hero-")),
+  );
+  expect(genshinTimings).toEqual([]);
+  expect(genshinRequests.filter((url) => url.includes("/images/home/hero-"))).toEqual([]);
+
+  // C. Directly visit /wow-forever/tier-list
+  const wowRequests: string[] = [];
+  page.on("request", (req) => wowRequests.push(req.url()));
+  await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
+
+  const wowPreloads = page.locator('link[rel="preload"][as="image"]');
+  await expect(wowPreloads).toHaveCount(1);
+  await expect(wowPreloads).toHaveAttribute("href", /hero-3b7bb10711/);
+  await expect(
+    page.locator('head link[rel="preload"][imagesrcset*="/images/home/hero-"]'),
+  ).toHaveCount(0);
+
+  const wowTimings = await page.evaluate(() =>
+    performance
+      .getEntriesByType("resource")
+      .map((entry) => entry.name)
+      .filter((url) => url.includes("/images/home/hero-")),
+  );
+  expect(wowTimings).toEqual([]);
+  expect(wowRequests.filter((url) => url.includes("/images/home/hero-"))).toEqual([]);
 });
