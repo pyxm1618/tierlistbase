@@ -29,7 +29,14 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
     "https://*.adtrafficquality.google",
     "https://*.google.com",
   ];
-  const cmpImageOrigins = ["https://pagead2.googlesyndication.com"];
+  const cmpImageOrigins = [
+    "https://pagead2.googlesyndication.com",
+    "https://fundingchoicesmessages.google.com",
+    "https://*.adtrafficquality.google",
+    "https://adtrafficquality.google",
+    "https://*.google.com",
+    "https://googleads.g.doubleclick.net",
+  ];
 
   const scriptSources = [
     "'self'",
