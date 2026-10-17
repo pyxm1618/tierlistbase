@@ -104,7 +104,7 @@ export const legalConfig = {
       {
         heading: "Cookies and browser storage",
         paragraphs: [
-          "The TierListBase application does not use profile, advertising, or personalization cookies. If you choose to allow optional analytics, Google Analytics may set analytics measurement cookies, and your consent choice is stored in local browser storage. If consent is declined or withdrawn, analytics cookies and browser storage entries are removed.",
+          "The TierListBase application does not use profile, advertising, or personalization cookies. If you choose to allow optional analytics, Google Analytics may set analytics measurement cookies, and your consent choice is stored in local browser storage. If analytics consent is declined or withdrawn, analytics cookies are removed and the consent choice remains stored locally so the site can remember your preference.",
           "Cloudflare security features may set strictly necessary security or challenge cookies when needed to protect or deliver the site. The exact cookie depends on the Cloudflare protection feature triggered. TierListBase does not use those cookies for advertising or behavioral profiling.",
         ],
       },
