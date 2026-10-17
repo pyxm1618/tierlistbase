@@ -13,10 +13,14 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
   const cmpScriptOrigins = [
     "https://pagead2.googlesyndication.com",
     "https://fundingchoicesmessages.google.com",
+    "https://*.adtrafficquality.google",
   ];
   const cmpConnectOrigins = [
     "https://pagead2.googlesyndication.com",
     "https://fundingchoicesmessages.google.com",
+    "https://*.adtrafficquality.google",
+    "https://adtrafficquality.google",
+    "https://googleads.g.doubleclick.net",
   ];
   const cmpFrameOrigins = [
     "https://fundingchoicesmessages.google.com",

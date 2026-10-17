@@ -14,6 +14,13 @@ test("analytics-enabled homepage stays within release budgets", async ({ page })
     if (message.type() === "error") consoleErrors.push(message.text());
   });
 
+  await page.route("https://pagead2.googlesyndication.com/**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: "// mock cmp",
+    });
+  });
   await page.route("https://www.googletagmanager.com/**", async (route) => {
     await route.fulfill({
       status: 200,
@@ -30,7 +37,13 @@ test("analytics-enabled homepage stays within release budgets", async ({ page })
   });
 
   await page.addInitScript(() => {
-    localStorage.setItem("creat-web:analytics-consent:v1", "granted");
+    window.googlefc = {
+      callbackQueue: [],
+      getGoogleConsentModeValues: () => ({
+        analytics_storage: "granted",
+        ad_storage: "denied",
+      }),
+    };
     window.__analyticsPerf = { cls: 0, inp: 0, lcp: 0 };
     new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
@@ -68,7 +81,7 @@ test("analytics-enabled homepage stays within release budgets", async ({ page })
 
   await page.waitForFunction(() => window.__gaStubLoaded === true);
   await page.waitForFunction(() => window.__clarityStubLoaded === true);
-  await expect(page.getByRole("button", { name: "Analytics settings" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Privacy & cookie settings" })).toBeVisible();
 
   const firstLink = page.locator('a[href^="/"]').first();
   await firstLink.evaluate((element) => {
