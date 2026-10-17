@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
 import type { RecentRatingChangeItem } from "@/modules/meta-board";
 
+import { HomeHeroImage } from "./home-hero-image";
 import "./game-home.css";
 
 const wowHref = "/wow-forever/tier-list";
@@ -132,13 +132,26 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
   const content = (
     <>
       <div className="tlb-card-image" aria-hidden="true">
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer */}
+        <img
           src={isWow ? "/images/home/wow.webp" : "/images/home/genshin.webp"}
-          alt=""
-          fill
-          unoptimized
+          srcSet={
+            isWow
+              ? "/images/home/wow-384.webp 384w, /images/home/wow-768.webp 768w, /images/home/wow-1080.webp 1080w, /images/home/wow-1440.webp 1440w, /images/home/wow.webp 2048w"
+              : "/images/home/genshin-384.webp 384w, /images/home/genshin-768.webp 768w, /images/home/genshin-1080.webp 1080w, /images/home/genshin-1440.webp 1440w, /images/home/genshin.webp 1774w"
+          }
           sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 46vw, 901px"
+          alt=""
+          loading="lazy"
+          decoding="async"
           className="tlb-cover"
+          style={{
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            inset: 0,
+            color: "transparent",
+          }}
         />
       </div>
       <div className="tlb-game-card-shade" aria-hidden="true" />
@@ -245,13 +258,26 @@ function UpdateCard({ update }: { update: RecentRatingChangeItem | undefined }) 
         }
       >
         {update ? (
-          <Image
+          /* eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer */
+          <img
             src={isGenshin ? "/images/home/genshin.webp" : "/images/home/wow.webp"}
-            alt=""
-            fill
-            unoptimized
+            srcSet={
+              isGenshin
+                ? "/images/home/genshin-384.webp 384w, /images/home/genshin-768.webp 768w, /images/home/genshin-1080.webp 1080w, /images/home/genshin-1440.webp 1440w, /images/home/genshin.webp 1774w"
+                : "/images/home/wow-384.webp 384w, /images/home/wow-768.webp 768w, /images/home/wow-1080.webp 1080w, /images/home/wow-1440.webp 1440w, /images/home/wow.webp 2048w"
+            }
             sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 31vw, 595px"
+            alt=""
+            loading="lazy"
+            decoding="async"
             className="tlb-cover"
+            style={{
+              position: "absolute",
+              height: "100%",
+              width: "100%",
+              inset: 0,
+              color: "transparent",
+            }}
           />
         ) : null}
       </div>
@@ -294,15 +320,7 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
     <div className="tlb-home">
       <section className="tlb-hero" aria-labelledby="page-title">
         <div className="tlb-hero-art" aria-hidden="true">
-          <Image
-            src="/images/home/hero.webp"
-            alt=""
-            fill
-            unoptimized
-            sizes="(max-width: 700px) 88vw, 68vw"
-            preload
-            className="tlb-cover tlb-hero-cover"
-          />
+          <HomeHeroImage />
         </div>
         <div className="tlb-hero-overlay" aria-hidden="true" />
         <div className="tlb-shell tlb-hero-inner">
