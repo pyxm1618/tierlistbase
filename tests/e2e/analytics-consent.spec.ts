@@ -5,6 +5,7 @@ const analyticsHosts = [
   "www.google-analytics.com",
   "region1.google-analytics.com",
   "www.clarity.ms",
+  "scripts.clarity.ms",
 ];
 
 function isAnalytics(url: string): boolean {
@@ -16,69 +17,72 @@ function isAnalytics(url: string): boolean {
   }
 }
 
+function isCmpExternal(url: string): boolean {
+  return (
+    url.includes("pagead2.googlesyndication.com") ||
+    url.includes("fundingchoicesmessages.google.com") ||
+    url.includes("googleads.g.doubleclick.net")
+  );
+}
+
 function getMockCmpInitScript(
   options: {
-    initialStatus?: "tcloaded" | "cmpuishown";
-    analyticsGranted?: boolean;
-    advertisingGranted?: boolean;
+    initialAnalyticsStorage?: "granted" | "denied";
+    initialAdStorage?: "granted" | "denied";
   } = {},
 ) {
-  const initialStatus = options.initialStatus ?? "cmpuishown";
-  const an = Boolean(options.analyticsGranted);
-  const ad = Boolean(options.advertisingGranted);
+  const initialAnalyticsStorage = options.initialAnalyticsStorage ?? "denied";
+  const initialAdStorage = options.initialAdStorage ?? "denied";
 
   return `(() => {
-    let currentEventStatus = "${initialStatus}";
-    let consents = {
-      1: ${an || ad},
-      8: ${an},
-      2: ${ad}
+    let consentValues = {
+      analytics_storage: "${initialAnalyticsStorage}",
+      ad_storage: "${initialAdStorage}"
     };
-    const listeners = [];
 
-    const persisted = sessionStorage.getItem("mock_cmp_tcdata");
+    const persisted = sessionStorage.getItem("mock_googlefc_consent_mode");
     if (persisted) {
       try {
-        const parsed = JSON.parse(persisted);
-        currentEventStatus = parsed.eventStatus;
-        consents = parsed.purpose.consents;
+        consentValues = JSON.parse(persisted);
       } catch (e) {}
     }
 
+    const callbacks = [];
+
     window.__mockCmp = {
       reopenCalls: 0,
-      setConsent: function(analytics, advertising) {
-        currentEventStatus = "useractioncomplete";
-        consents[1] = Boolean(analytics || advertising);
-        consents[8] = Boolean(analytics);
-        consents[2] = Boolean(advertising);
-        sessionStorage.setItem("mock_cmp_tcdata", JSON.stringify({
-          eventStatus: "tcloaded",
-          purpose: { consents: consents }
-        }));
-        listeners.forEach(function(cb) {
-          cb({
-            eventStatus: currentEventStatus,
-            purpose: { consents: consents }
-          }, true);
+      setConsent: function(analyticsStorage, adStorage) {
+        consentValues = {
+          analytics_storage: analyticsStorage ? "granted" : "denied",
+          ad_storage: adStorage ? "granted" : "denied"
+        };
+        sessionStorage.setItem("mock_googlefc_consent_mode", JSON.stringify(consentValues));
+        callbacks.forEach(function(item) {
+          if (typeof item === "function") {
+            try { item(); } catch (e) {}
+          } else if (item && typeof item.CONSENT_MODE_DATA_READY === "function") {
+            try { item.CONSENT_MODE_DATA_READY(); } catch (e) {}
+          }
         });
       }
     };
 
-    window.__tcfapi = function(command, version, callback) {
-      if (command === "addEventListener") {
-        listeners.push(callback);
-        setTimeout(function() {
-          callback({
-            eventStatus: currentEventStatus,
-            purpose: { consents: consents }
-          }, true);
-        }, 10);
+    const queue = [];
+    const proxyQueue = new Proxy(queue, {
+      set: function(target, prop, value) {
+        target[prop] = value;
+        if (typeof value === "function" || (value && typeof value.CONSENT_MODE_DATA_READY === "function")) {
+          callbacks.push(value);
+        }
+        return true;
       }
-    };
+    });
 
     window.googlefc = {
-      callbackQueue: [],
+      callbackQueue: proxyQueue,
+      getGoogleConsentModeValues: function() {
+        return consentValues;
+      },
       showRevocationMessage: function() {
         window.__mockCmp.reopenCalls++;
       }
@@ -97,11 +101,19 @@ test("1. zero third-party requests before consent and floating settings button i
       await route.abort();
       return;
     }
+    if (isCmpExternal(url)) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/javascript",
+        body: "// mock cmp",
+      });
+      return;
+    }
     await route.continue();
   });
 
   // Load without any consent decision made (fail-closed)
-  await page.addInitScript(getMockCmpInitScript({ initialStatus: "cmpuishown" }));
+  await page.addInitScript(getMockCmpInitScript({ initialAnalyticsStorage: "denied" }));
   await page.goto("/");
   await page.waitForTimeout(400);
 
@@ -120,11 +132,25 @@ test("1. zero third-party requests before consent and floating settings button i
 
 test("2. reject non-essential keeps analytics disabled", async ({ page }) => {
   const requests: string[] = [];
-  page.on("request", (request) => {
-    if (isAnalytics(request.url())) requests.push(request.url());
+  await page.route("**/*", async (route) => {
+    const url = route.request().url();
+    if (isAnalytics(url)) {
+      requests.push(url);
+      await route.abort();
+      return;
+    }
+    if (isCmpExternal(url)) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/javascript",
+        body: "// mock cmp",
+      });
+      return;
+    }
+    await route.continue();
   });
 
-  await page.addInitScript(getMockCmpInitScript({ initialStatus: "cmpuishown" }));
+  await page.addInitScript(getMockCmpInitScript({ initialAnalyticsStorage: "denied" }));
   await page.goto("/");
 
   // Simulate user rejecting non-essential in CMP
@@ -145,10 +171,18 @@ test("3. analytics consent granted allows GA4 and Clarity to load", async ({ pag
       await route.abort();
       return;
     }
+    if (isCmpExternal(url)) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/javascript",
+        body: "// mock cmp",
+      });
+      return;
+    }
     await route.continue();
   });
 
-  await page.addInitScript(getMockCmpInitScript({ initialStatus: "cmpuishown" }));
+  await page.addInitScript(getMockCmpInitScript({ initialAnalyticsStorage: "denied" }));
   await page.goto("/");
   await page.waitForTimeout(200);
   expect(requests).toEqual([]);
@@ -170,12 +204,20 @@ test("4. consent state correctly restores across reload", async ({ page }) => {
       await route.abort();
       return;
     }
+    if (isCmpExternal(url)) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/javascript",
+        body: "// mock cmp",
+      });
+      return;
+    }
     await route.continue();
   });
 
-  // Pre-seed CMP state as granted (tcloaded)
+  // Pre-seed CMP state as granted
   await page.addInitScript(
-    getMockCmpInitScript({ initialStatus: "tcloaded", analyticsGranted: true }),
+    getMockCmpInitScript({ initialAnalyticsStorage: "granted", initialAdStorage: "denied" }),
   );
   await page.goto("/");
   await expect.poll(() => requests.length).toBeGreaterThan(0);
@@ -197,11 +239,19 @@ test("5. footer reopens preferences and withdrawal stops analytics", async ({ pa
       await route.abort();
       return;
     }
+    if (isCmpExternal(url)) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/javascript",
+        body: "// mock cmp",
+      });
+      return;
+    }
     await route.continue();
   });
 
   await page.addInitScript(
-    getMockCmpInitScript({ initialStatus: "tcloaded", analyticsGranted: true }),
+    getMockCmpInitScript({ initialAnalyticsStorage: "granted", initialAdStorage: "denied" }),
   );
   await page.goto("/");
   await expect.poll(() => requests.length).toBeGreaterThan(0);
@@ -232,12 +282,26 @@ test("5. footer reopens preferences and withdrawal stops analytics", async ({ pa
 
 test("6. sensitive sign-in surface does not load analytics even with consent", async ({ page }) => {
   const requests: string[] = [];
-  page.on("request", (request) => {
-    if (isAnalytics(request.url())) requests.push(request.url());
+  await page.route("**/*", async (route) => {
+    const url = route.request().url();
+    if (isAnalytics(url)) {
+      requests.push(url);
+      await route.abort();
+      return;
+    }
+    if (isCmpExternal(url)) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/javascript",
+        body: "// mock cmp",
+      });
+      return;
+    }
+    await route.continue();
   });
 
   await page.addInitScript(
-    getMockCmpInitScript({ initialStatus: "tcloaded", analyticsGranted: true }),
+    getMockCmpInitScript({ initialAnalyticsStorage: "granted", initialAdStorage: "denied" }),
   );
   await page.goto("/sign-in");
   await page.waitForTimeout(300);

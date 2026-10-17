@@ -6,29 +6,25 @@ export type ConsentState = {
   readonly advertising: boolean;
 };
 
-export interface TCFData {
-  eventStatus?: "tcloaded" | "cmpuishown" | "useractioncomplete";
-  cmpStatus?: "stub" | "loading" | "loaded" | "error";
-  purpose?: {
-    consents?: Record<number | string, boolean>;
-  };
-  vendor?: {
-    consents?: Record<number | string, boolean>;
-  };
-  gdprApplies?: boolean;
-}
+export type GoogleConsentModeValues = {
+  analytics_storage?: "granted" | "denied";
+  ad_storage?: "granted" | "denied";
+  ad_user_data?: "granted" | "denied";
+  ad_personalization?: "granted" | "denied";
+};
 
 declare global {
   interface Window {
     __tcfapi?: (
       command: string,
       version: number,
-      callback: (tcData: TCFData | null, success: boolean) => void,
+      callback: (tcData: unknown, success: boolean) => void,
       parameter?: unknown,
     ) => void;
     googlefc?: {
       callbackQueue?: Array<(() => void) | Record<string, () => void>>;
       showRevocationMessage?: () => void;
+      getGoogleConsentModeValues?: () => GoogleConsentModeValues | undefined;
     };
   }
 }
@@ -41,7 +37,7 @@ const DEFAULT_FAIL_CLOSED_STATE: ConsentState = {
 
 let currentConsent: ConsentState = DEFAULT_FAIL_CLOSED_STATE;
 const listeners = new Set<() => void>();
-let tcfListenerRegistered = false;
+let isSubscribedToCmp = false;
 
 function notifyListeners(): void {
   for (const listener of listeners) {
@@ -49,70 +45,96 @@ function notifyListeners(): void {
   }
 }
 
-function parseConsentFromTCData(tcData: TCFData | null): ConsentState {
-  if (!tcData) return DEFAULT_FAIL_CLOSED_STATE;
-
-  if (tcData.eventStatus === "cmpuishown") {
-    return DEFAULT_FAIL_CLOSED_STATE;
+function updateFromConsentModeValues(values?: GoogleConsentModeValues): void {
+  if (!values) {
+    if (currentConsent.analytics || currentConsent.advertising) {
+      currentConsent = DEFAULT_FAIL_CLOSED_STATE;
+      notifyListeners();
+    }
+    return;
   }
 
-  const consents = tcData.purpose?.consents;
-  if (!consents) return DEFAULT_FAIL_CLOSED_STATE;
+  const analytics = values.analytics_storage === "granted";
+  const advertising = values.ad_storage === "granted";
 
-  const analytics = Boolean(consents[1] && consents[8]);
-  const advertising = Boolean(consents[1] && (consents[2] || consents[3] || consents[4]));
-
-  return {
+  const nextState: ConsentState = {
     essential: true,
     analytics,
     advertising,
   };
-}
 
-function registerTCFListener(): void {
-  if (typeof window === "undefined" || tcfListenerRegistered) return;
-  if (typeof window.__tcfapi !== "function") return;
-
-  try {
-    tcfListenerRegistered = true;
-    window.__tcfapi("addEventListener", 2, (tcData, success) => {
-      if (!success || !tcData) {
-        currentConsent = DEFAULT_FAIL_CLOSED_STATE;
-        notifyListeners();
-        return;
-      }
-
-      currentConsent = parseConsentFromTCData(tcData);
-      notifyListeners();
-    });
-  } catch {
-    currentConsent = DEFAULT_FAIL_CLOSED_STATE;
+  if (
+    currentConsent.analytics !== nextState.analytics ||
+    currentConsent.advertising !== nextState.advertising
+  ) {
+    currentConsent = nextState;
     notifyListeners();
   }
+}
+
+export function checkAndSyncConsentMode(): void {
+  if (typeof window === "undefined") return;
+  const values = window.googlefc?.getGoogleConsentModeValues?.();
+  if (values) {
+    updateFromConsentModeValues(values);
+  }
+}
+
+function registerCmpListeners(): void {
+  if (typeof window === "undefined" || isSubscribedToCmp) return;
+  isSubscribedToCmp = true;
+
+  window.googlefc = window.googlefc || {};
+  window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+
+  window.googlefc.callbackQueue.push({
+    CONSENT_MODE_DATA_READY: () => {
+      checkAndSyncConsentMode();
+    },
+    CONSENT_DATA_READY: () => {
+      checkAndSyncConsentMode();
+    },
+  });
+
+  if (typeof window.__tcfapi === "function") {
+    try {
+      window.__tcfapi("addEventListener", 2, (tcData, success) => {
+        if (success && tcData) {
+          checkAndSyncConsentMode();
+        }
+      });
+    } catch {
+      // ignore
+    }
+  }
+
+  checkAndSyncConsentMode();
 }
 
 export function subscribeConsent(onStoreChange: () => void): () => void {
   listeners.add(onStoreChange);
 
   if (typeof window !== "undefined") {
-    registerTCFListener();
+    registerCmpListeners();
 
-    if (!tcfListenerRegistered) {
+    if (typeof window.setInterval === "function") {
       const intervalId = window.setInterval(() => {
-        if (typeof window.__tcfapi === "function") {
-          window.clearInterval(intervalId);
-          registerTCFListener();
+        if (typeof window.googlefc?.getGoogleConsentModeValues === "function") {
+          checkAndSyncConsentMode();
         }
       }, 100);
 
-      const timeoutId = window.setTimeout(() => {
-        window.clearInterval(intervalId);
-      }, 5000);
+      const timeoutId =
+        typeof window.setTimeout === "function"
+          ? window.setTimeout(() => {
+              window.clearInterval(intervalId);
+            }, 5000)
+          : undefined;
 
       return () => {
         listeners.delete(onStoreChange);
         window.clearInterval(intervalId);
-        window.clearTimeout(timeoutId);
+        if (timeoutId !== undefined) window.clearTimeout(timeoutId);
       };
     }
   }
@@ -128,6 +150,12 @@ export function getConsentSnapshot(): ConsentState {
 
 export function getServerConsentSnapshot(): ConsentState {
   return DEFAULT_FAIL_CLOSED_STATE;
+}
+
+export function resetConsentStateForTesting(): void {
+  currentConsent = DEFAULT_FAIL_CLOSED_STATE;
+  listeners.clear();
+  isSubscribedToCmp = false;
 }
 
 export function openPrivacySettings(): void {

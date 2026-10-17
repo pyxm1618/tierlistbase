@@ -1,24 +1,24 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
+  checkAndSyncConsentMode,
   getConsentSnapshot,
   getServerConsentSnapshot,
   openPrivacySettings,
+  resetConsentStateForTesting,
   subscribeConsent,
-  type TCFData,
 } from "@/components/analytics/consent-adapter";
 
 describe("consent adapter", () => {
-  let tcfCallback: ((tcData: TCFData | null, success: boolean) => void) | null = null;
-
   beforeEach(() => {
-    tcfCallback = null;
+    resetConsentStateForTesting();
     (globalThis as unknown as { window?: unknown }).window = globalThis.window ?? {};
     delete (window as unknown as { __tcfapi?: unknown }).__tcfapi;
     delete (window as unknown as { googlefc?: unknown }).googlefc;
   });
 
   afterEach(() => {
+    resetConsentStateForTesting();
     vi.restoreAllMocks();
   });
 
@@ -35,40 +35,26 @@ describe("consent adapter", () => {
     });
   });
 
-  it("correctly maps TCF purpose consents to analytics and advertising", () => {
-    window.__tcfapi = vi.fn((command, version, cb) => {
-      if (command === "addEventListener") {
-        tcfCallback = cb;
-      }
-    });
-
+  it("correctly syncs consent state from Google Consent Mode values", () => {
     const listener = vi.fn();
     const unsubscribe = subscribeConsent(listener);
 
-    expect(window.__tcfapi).toHaveBeenCalledWith("addEventListener", 2, expect.any(Function));
-
-    // When cmpuishown is active, remain fail-closed
-    tcfCallback?.(
-      {
-        eventStatus: "cmpuishown",
-        purpose: { consents: { 1: true, 8: true, 2: true } },
-      },
-      true,
-    );
+    // Initial state: fail-closed
     expect(getConsentSnapshot()).toEqual({
       essential: true,
       analytics: false,
       advertising: false,
     });
 
-    // When analytics and advertising purposes are granted
-    tcfCallback?.(
-      {
-        eventStatus: "useractioncomplete",
-        purpose: { consents: { 1: true, 8: true, 2: true } },
-      },
-      true,
-    );
+    // Consent Mode ready with both granted
+    window.googlefc = {
+      getGoogleConsentModeValues: vi.fn().mockReturnValue({
+        analytics_storage: "granted",
+        ad_storage: "granted",
+      }),
+    };
+    checkAndSyncConsentMode();
+
     expect(getConsentSnapshot()).toEqual({
       essential: true,
       analytics: true,
@@ -76,46 +62,69 @@ describe("consent adapter", () => {
     });
     expect(listener).toHaveBeenCalled();
 
-    // Reject non-essential: only purpose 1 without purpose 8 or 2
-    tcfCallback?.(
-      {
-        eventStatus: "useractioncomplete",
-        purpose: { consents: { 1: false, 8: false, 2: false } },
-      },
-      true,
-    );
+    // Reject non-essential: both denied
+    window.googlefc.getGoogleConsentModeValues = vi.fn().mockReturnValue({
+      analytics_storage: "denied",
+      ad_storage: "denied",
+    });
+    checkAndSyncConsentMode();
+
     expect(getConsentSnapshot()).toEqual({
       essential: true,
       analytics: false,
       advertising: false,
     });
 
-    // Independent analytics: purpose 1 + 8 granted, advertising rejected
-    tcfCallback?.(
-      {
-        eventStatus: "useractioncomplete",
-        purpose: { consents: { 1: true, 8: true, 2: false, 3: false, 4: false } },
-      },
-      true,
-    );
+    // Independent analytics: analytics_storage granted, ad_storage denied
+    window.googlefc.getGoogleConsentModeValues = vi.fn().mockReturnValue({
+      analytics_storage: "granted",
+      ad_storage: "denied",
+    });
+    checkAndSyncConsentMode();
+
     expect(getConsentSnapshot()).toEqual({
       essential: true,
       analytics: true,
       advertising: false,
     });
 
-    // Independent advertising: purpose 1 + 2 granted, analytics rejected
-    tcfCallback?.(
-      {
-        eventStatus: "useractioncomplete",
-        purpose: { consents: { 1: true, 8: false, 2: true } },
-      },
-      true,
-    );
+    // Independent advertising: analytics_storage denied, ad_storage granted
+    window.googlefc.getGoogleConsentModeValues = vi.fn().mockReturnValue({
+      analytics_storage: "denied",
+      ad_storage: "granted",
+    });
+    checkAndSyncConsentMode();
+
     expect(getConsentSnapshot()).toEqual({
       essential: true,
       analytics: false,
       advertising: true,
+    });
+
+    unsubscribe();
+  });
+
+  it("registers callbacks into window.googlefc.callbackQueue", () => {
+    const queue: Array<(() => void) | Record<string, () => void>> = [];
+    window.googlefc = {
+      callbackQueue: queue,
+      getGoogleConsentModeValues: vi.fn().mockReturnValue({
+        analytics_storage: "granted",
+        ad_storage: "denied",
+      }),
+    };
+
+    const unsubscribe = subscribeConsent(vi.fn());
+    expect(queue.length).toBe(1);
+
+    const queuedObj = queue[0] as Record<string, () => void>;
+    expect(typeof queuedObj.CONSENT_MODE_DATA_READY).toBe("function");
+
+    queuedObj.CONSENT_MODE_DATA_READY?.();
+    expect(getConsentSnapshot()).toEqual({
+      essential: true,
+      analytics: true,
+      advertising: false,
     });
 
     unsubscribe();

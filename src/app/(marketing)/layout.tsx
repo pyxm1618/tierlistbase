@@ -18,6 +18,11 @@ export default async function MarketingLayout({ children }: Readonly<{ children:
     <html lang={siteConfig.defaultLocale}>
       <head>
         <meta name="google-adsense-account" content="ca-pub-2804737462866511" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2804737462866511"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
         <div className="flex min-h-screen flex-col">
