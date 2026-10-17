@@ -1,0 +1,19 @@
+diff --git a/dist/shims/link.js b/dist/shims/link.js
+index 9133f4a..cefb20e 100644
+--- a/dist/shims/link.js
++++ b/dist/shims/link.js
+@@ -135,0 +136,2 @@ function prefetchUrl(href, mode, priority = "low", pagesRouteHref, locale) {
++	// Public ranking navigation must not inherit a browser Low queue behind images.
++	const networkPriority = ["/", "/genshin-impact/tier-list", "/wow-forever/tier-list"].includes(target.pathname) ? "high" : priority;
+@@ -196 +198 @@ function prefetchUrl(href, mode, priority = "low", pagesRouteHref, locale) {
+-					priority,
++					priority: networkPriority,
+@@ -218 +220 @@ function prefetchUrl(href, mode, priority = "low", pagesRouteHref, locale) {
+-							priority,
++							priority: networkPriority,
+@@ -244 +246 @@ function prefetchUrl(href, mode, priority = "low", pagesRouteHref, locale) {
+-						priority,
++						priority: networkPriority,
+@@ -270 +272 @@ function prefetchUrl(href, mode, priority = "low", pagesRouteHref, locale) {
+-							priority,
++							priority: networkPriority,

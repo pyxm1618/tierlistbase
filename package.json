@@ -84,5 +84,8 @@
     "sharp": "0.35.5",
     "source-map-js": "1.2.2"
   },
-  "type": "module"
+  "type": "module",
+  "patchedDependencies": {
+    "vinext@1.1.0": "patches/vinext@1.1.0.patch"
+  }
 }
