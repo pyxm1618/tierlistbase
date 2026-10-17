@@ -228,41 +228,40 @@ const popular: {
   { title: "Exploration", subtitle: "", icon: "compass", ready: false, tone: "gold" },
 ];
 
-function UpdateCard({
-  update,
-  index,
-}: {
-  update: RecentRatingChangeItem | undefined;
-  index: number;
-}) {
-  const isGenshin = update ? update.gameSlug === "genshin-impact" : index === 1;
+function UpdateCard({ update }: { update: RecentRatingChangeItem | undefined }) {
+  const isGenshin = update?.gameSlug === "genshin-impact";
   const title = update
     ? update.entityName + ": " + update.previousTier + " → " + update.newTier
-    : isGenshin
-      ? "Genshin rankings"
-      : index === 2
-        ? "PvP ranking updates"
-        : "WoW ranking updates";
+    : "No verified update yet";
   const description = update
     ? update.reason || "Verified tier change recorded for " + update.contextLabel + "."
-    : "No verified update has been published here yet.";
+    : "New verified ranking changes will appear here when published.";
   return (
     <article className="tlb-update-card">
-      <div className={"tlb-update-art " + (isGenshin ? "tlb-update-ice" : "tlb-update-fire")}>
-        <Image
-          src={isGenshin ? "/images/home/genshin.webp" : "/images/home/wow.webp"}
-          alt=""
-          fill
-          unoptimized
-          sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 31vw, 595px"
-          className="tlb-cover"
-        />
+      <div
+        className={
+          "tlb-update-art" +
+          (update ? " " + (isGenshin ? "tlb-update-ice" : "tlb-update-fire") : "")
+        }
+      >
+        {update ? (
+          <Image
+            src={isGenshin ? "/images/home/genshin.webp" : "/images/home/wow.webp"}
+            alt=""
+            fill
+            unoptimized
+            sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 31vw, 595px"
+            className="tlb-cover"
+          />
+        ) : null}
       </div>
       <div className="tlb-update-body">
         <div className="tlb-update-meta">
-          <span className={isGenshin ? "tlb-label ice" : "tlb-label"}>
-            {isGenshin ? "Genshin" : "WoW"}
-          </span>
+          {update ? (
+            <span className={isGenshin ? "tlb-label ice" : "tlb-label"}>
+              {isGenshin ? "Genshin" : "WoW"}
+            </span>
+          ) : null}
           <span>
             {update
               ? new Intl.DateTimeFormat("en-US", {
@@ -276,13 +275,15 @@ function UpdateCard({
         </div>
         <h3>{title}</h3>
         <p>{description}</p>
-        <Link
-          href={isGenshin ? genshinHref : wowHref}
-          className="tlb-small-arrow"
-          aria-label={"View " + title}
-        >
-          <Icon name="arrow" size={17} />
-        </Link>
+        {update ? (
+          <Link
+            href={isGenshin ? genshinHref : wowHref}
+            className="tlb-small-arrow"
+            aria-label={"View " + title}
+          >
+            <Icon name="arrow" size={17} />
+          </Link>
+        ) : null}
       </div>
     </article>
   );
@@ -375,7 +376,6 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
               <UpdateCard
                 key={updates[index]?.id ?? "placeholder-" + index}
                 update={updates[index]}
-                index={index}
               />
             ))}
           </div>
