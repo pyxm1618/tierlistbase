@@ -242,7 +242,14 @@
   place-items: center;
   border-left: 1px solid rgba(209, 25, 35, 0.2);
   background:
-    linear-gradient(135deg, transparent 0 35%, rgba(218, 27, 37, 0.11) 35% 36%, transparent 36% 57%, rgba(218, 27, 37, 0.11) 57% 58%, transparent 58%),
+    linear-gradient(
+      135deg,
+      transparent 0 35%,
+      rgba(218, 27, 37, 0.11) 35% 36%,
+      transparent 36% 57%,
+      rgba(218, 27, 37, 0.11) 57% 58%,
+      transparent 58%
+    ),
     rgba(10, 15, 18, 0.16);
   color: rgba(225, 232, 235, 0.5);
   font-size: 10px;
@@ -283,7 +290,12 @@
   content: "";
   inset: 0 -70px;
   background:
-    linear-gradient(90deg, rgba(220, 209, 187, 0.12), transparent 10% 90%, rgba(220, 209, 187, 0.12)),
+    linear-gradient(
+      90deg,
+      rgba(220, 209, 187, 0.12),
+      transparent 10% 90%,
+      rgba(220, 209, 187, 0.12)
+    ),
     repeating-linear-gradient(173deg, transparent 0 44px, rgba(207, 190, 162, 0.045) 44px 48px);
   pointer-events: none;
 }
