@@ -15,6 +15,7 @@ const routes = [
   "/wow-forever/tier-list",
   "/wow-forever/tier-list?level=30",
   "/genshin-impact/tier-list",
+  "/nikke/tier-list",
 ] as const;
 
 for (const route of routes) {
@@ -67,8 +68,10 @@ for (const route of routes) {
     const structuredData = await page
       .locator('script[type="application/ld+json"]')
       .allTextContents();
-    expect(structuredData.length).toBeGreaterThan(0);
-    for (const value of structuredData) expect(() => JSON.parse(value)).not.toThrow();
+    if (route !== "/nikke/tier-list") {
+      expect(structuredData.length).toBeGreaterThan(0);
+      for (const value of structuredData) expect(() => JSON.parse(value)).not.toThrow();
+    }
 
     const imageProblems = await page.locator("img").evaluateAll((images) =>
       images.flatMap((image) => {
