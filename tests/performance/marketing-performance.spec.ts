@@ -76,12 +76,13 @@ for (const route of routes) {
         const height = Number(image.getAttribute("height"));
         if (width > 0 && height > 0) return [];
         const parent = image.parentElement;
-        if (
-          image.getAttribute("data-nimg") === "fill" &&
+        const isFillLayout =
+          (image.getAttribute("data-nimg") === "fill" ||
+            getComputedStyle(image).position === "absolute") &&
           parent &&
           getComputedStyle(parent).position !== "static" &&
-          parent.getBoundingClientRect().height > 0
-        ) {
+          parent.getBoundingClientRect().height > 0;
+        if (isFillLayout) {
           return [];
         }
         return [image.getAttribute("src") ?? "unknown-image"];
@@ -197,6 +198,16 @@ for (const width of [390, 1920, 2560]) {
     const preloads = page.locator('link[rel="preload"][as="image"]');
     await expect(preloads).toHaveCount(1);
     await expect(preloads).toHaveAttribute("href", /hero-f958fb67df/);
+    await expect(
+      page.locator('head link[rel="preload"][imagesrcset*="/images/home/hero-"]'),
+    ).toHaveCount(0);
+    const homeHeroTimings = await page.evaluate(() =>
+      performance
+        .getEntriesByType("resource")
+        .map((entry) => entry.name)
+        .filter((url) => url.includes("/images/home/hero-")),
+    );
+    expect(homeHeroTimings).toEqual([]);
     const card = page.getByRole("button", { name: /Nahida, Dendro/ });
     await card.click();
     const samples = [];
@@ -244,6 +255,84 @@ for (const width of [390, 1920, 2560]) {
       samples.push({ name, ...sample, responseBodyBytes: bytes });
     }
     await test.info().attach(`genshin-image-evidence-${width}px`, {
+      body: JSON.stringify(samples, null, 2),
+      contentType: "application/json",
+    });
+  });
+}
+
+for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
+  test(`Homepage image candidates at ${width}px deliver direct static WebP within responsive size budgets`, async ({
+    page,
+    request,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/", { waitUntil: "networkidle" });
+
+    const preloads = page.locator('link[rel="preload"][as="image"]');
+    await expect(preloads).toHaveCount(1);
+    await expect(preloads).toHaveAttribute("imagesrcset", /hero-768\.webp/);
+    await expect(preloads).toHaveAttribute("fetchpriority", "high");
+
+    const samples = [];
+    for (const [name, selector] of [
+      ["hero", ".tlb-hero-art img"],
+      ["wow", ".tlb-game-grid .tlb-wow .tlb-card-image img"],
+      ["genshin", ".tlb-game-grid .tlb-genshin .tlb-card-image img"],
+    ] as const) {
+      const image = page.locator(selector).first();
+      await expect(image).toBeVisible();
+      await expect(image).toHaveJSProperty("complete", true);
+
+      const sample = await image.evaluate((element) => {
+        const image = element as HTMLImageElement;
+        const timing = (
+          performance.getEntriesByType("resource") as PerformanceResourceTiming[]
+        ).find((entry) => entry.name === image.currentSrc);
+        return {
+          currentSrc: image.currentSrc,
+          naturalWidth: image.naturalWidth,
+          naturalHeight: image.naturalHeight,
+          renderedWidth: Math.round(image.getBoundingClientRect().width),
+          renderedHeight: Math.round(image.getBoundingClientRect().height),
+          encodedBodySize: timing?.encodedBodySize ?? null,
+          dpr: devicePixelRatio,
+        };
+      });
+
+      expect(sample.naturalWidth).toBeGreaterThan(0);
+      expect(sample.renderedWidth).toBeGreaterThan(0);
+      expect(sample.currentSrc).not.toContain("/_next/image?");
+      expect(sample.currentSrc).toContain(".webp");
+
+      const response = await request.get(sample.currentSrc);
+      expect(response.status()).toBe(200);
+      expect(response.headers()["content-type"]).toContain("image/webp");
+      const bytes = (await response.body()).length;
+
+      if (name === "hero") {
+        await expect(image).toHaveAttribute("loading", "eager");
+        await expect(image).toHaveAttribute("fetchpriority", "high");
+        if (width <= 768) {
+          // Mobile & tablet must never download the 2172px 484KB original image
+          expect(sample.naturalWidth).toBeLessThan(2172);
+          expect(bytes).toBeLessThan(sample.dpr > 1 ? 250_000 : 90_000);
+        }
+      } else {
+        await expect(image).toHaveAttribute("loading", "lazy");
+        await expect(image).not.toHaveAttribute("fetchpriority", "high");
+        if (width <= 768) {
+          // Mobile & tablet must never download original 372KB/291KB card images
+          const originalWidth = name === "wow" ? 2048 : 1774;
+          expect(sample.naturalWidth).toBeLessThan(originalWidth);
+          expect(bytes).toBeLessThan(sample.dpr > 1 ? 160_000 : 95_000);
+        }
+      }
+
+      samples.push({ name, ...sample, responseBodyBytes: bytes });
+    }
+
+    await test.info().attach(`homepage-image-evidence-${width}px`, {
       body: JSON.stringify(samples, null, 2),
       contentType: "application/json",
     });
