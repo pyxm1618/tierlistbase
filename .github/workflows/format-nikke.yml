@@ -1,0 +1,26 @@
+name: NIKKE Format Helper
+
+on:
+  push:
+    branches: [feat/nikke-tier-list-design]
+
+permissions:
+  contents: read
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - run: bun install --frozen-lockfile
+      - run: bunx prettier --config .prettierrc.json --write src/modules/nikke-tier-list/nikke-tier-list.tsx src/modules/nikke-tier-list/nikke-tier-list.module.css src/app/'(marketing)'/nikke/tier-list/page.tsx
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nikke-formatted
+          path: |
+            src/modules/nikke-tier-list/nikke-tier-list.tsx
+            src/modules/nikke-tier-list/nikke-tier-list.module.css
+            src/app/(marketing)/nikke/tier-list/page.tsx
