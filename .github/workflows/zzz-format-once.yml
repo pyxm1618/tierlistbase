@@ -1,0 +1,35 @@
+name: ZZZ format once
+
+on:
+  push:
+    branches:
+      - feat/zzz-tier-list-design-implementation
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/zzz-tier-list-design-implementation
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - run: bun install --frozen-lockfile
+      - name: Format ZZZ implementation
+        run: |
+          bunx prettier --config .prettierrc.json --write             "src/app/(marketing)/zenless-zone-zero/tier-list/page.tsx"             "src/modules/zenless-zone-zero-tier-list/data.ts"             "src/modules/zenless-zone-zero-tier-list/zenless-zone-zero-tier-list.module.css"             "src/modules/zenless-zone-zero-tier-list/zenless-zone-zero-tier-list.tsx"
+      - name: Commit formatting
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             "src/app/(marketing)/zenless-zone-zero/tier-list/page.tsx"             "src/modules/zenless-zone-zero-tier-list/data.ts"             "src/modules/zenless-zone-zero-tier-list/zenless-zone-zero-tier-list.module.css"             "src/modules/zenless-zone-zero-tier-list/zenless-zone-zero-tier-list.tsx"
+          git commit -m "style(zzz): format implementation"
+          git push origin HEAD:feat/zzz-tier-list-design-implementation
