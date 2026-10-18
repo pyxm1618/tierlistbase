@@ -134,6 +134,12 @@
 }
 
 .heroCopy h1 span,
+.heroCopy h1 span {
+  width: 116%;
+  transform: scaleX(0.86);
+  transform-origin: left center;
+}
+
 .heroCopy h1 em {
   display: block;
 }
@@ -1263,7 +1269,7 @@
 
 .content {
   width: min(calc(100% - 28px), 1540px);
-  padding: 7px 0 18px;
+  padding: 0 0 18px;
 }
 
 .content::before {
@@ -1527,7 +1533,7 @@
 }
 
 .teamTable td {
-  height: 29px;
+  height: 31px;
   padding: 2px 3px;
 }
 
@@ -1677,7 +1683,7 @@
 }
 
 .egoTable td {
-  height: 32px;
+  height: 36px;
   padding: 2px 3px;
 }
 
@@ -1716,7 +1722,7 @@
 
 .bestEgoLabels,
 .egoSinnerColumn {
-  grid-template-rows: 24px 36px 38px 38px 38px;
+  grid-template-rows: 26px 40px 44px 44px 44px;
 }
 
 .bestEgoLabels span {
@@ -1729,7 +1735,7 @@
 }
 
 .egoSinnerColumn > .assetSlot {
-  height: 36px;
+  height: 40px;
 }
 
 .egoSinnerColumn > div {
