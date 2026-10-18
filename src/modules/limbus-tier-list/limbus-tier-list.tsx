@@ -394,16 +394,16 @@ export function LimbusTierList() {
         </section>
 
         <section className={styles.paperSection} id="ego-tier-list">
+          <SectionHeader
+            number="03"
+            title="E.G.O TIER LIST"
+            question="Which E.G.O are the most valuable?"
+            description="Ranked by overall combat value, with use case, team importance, generalist value, and availability kept visible."
+            action="View Guide"
+            actionHref="#ego-tier-list"
+          />
           <div className={styles.egoWorkspace}>
             <div>
-              <SectionHeader
-                number="03"
-                title="E.G.O TIER LIST"
-                question="Which E.G.O are the most valuable?"
-                description="Ranked by overall combat value, with use case, team importance, generalist value, and availability kept visible."
-                action="View Guide"
-                actionHref="#ego-tier-list"
-              />
               <div className={styles.tableFrame}>
                 <table className={[styles.dataTable, styles.egoTable].join(" ")}>
                   <thead>
