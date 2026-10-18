@@ -1,0 +1,524 @@
+import Image from "next/image";
+
+import {
+  bestEgoBySinner,
+  bestIdentityBySinner,
+  egoRows,
+  exampleTeamDetail,
+  teamRows,
+  type Availability,
+  type RatingValue,
+  type TierValue,
+} from "./data";
+import limbusHero from "./assets/hero.webp";
+import teamBanner from "./assets/team-banner.webp";
+import { IdentityRanking } from "./identity-ranking";
+import styles from "./limbus-tier-list.module.css";
+import { TeamDetailTabs } from "./team-detail-tabs";
+
+function AssetSlot({
+  compact = false,
+  wide = false,
+  label = "ART",
+}: {
+  compact?: boolean;
+  wide?: boolean;
+  label?: string;
+}) {
+  return (
+    <span
+      className={[
+        styles.assetSlot,
+        compact ? styles.assetSlotCompact : "",
+        wide ? styles.assetSlotWide : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      aria-label="Artwork asset required"
+      title="Artwork asset required"
+    >
+      <span>{label}</span>
+    </span>
+  );
+}
+
+function TierBadge({ value }: { value: TierValue }) {
+  return (
+    <span className={styles.tierBadge} data-tier={value}>
+      {value}
+    </span>
+  );
+}
+
+function RatingBadge({
+  value,
+  compact = false,
+}: {
+  value: RatingValue | TierValue | string;
+  compact?: boolean;
+}) {
+  return (
+    <span
+      className={[styles.ratingBadge, compact ? styles.ratingBadgeCompact : ""]
+        .filter(Boolean)
+        .join(" ")}
+      data-rating={value}
+    >
+      {value}
+    </span>
+  );
+}
+
+function AvailabilityBadge({ value }: { value: Availability }) {
+  return (
+    <span className={styles.availabilityBadge} data-availability={value}>
+      {value}
+    </span>
+  );
+}
+
+function SectionHeader({
+  number,
+  title,
+  question,
+  description,
+  action,
+  actionHref,
+}: {
+  number: string;
+  title: string;
+  question: string;
+  description?: string;
+  action: string;
+  actionHref: string;
+}) {
+  return (
+    <header className={styles.sectionHeader}>
+      <span className={styles.sectionNumber}>{number}</span>
+      <h2>{title}</h2>
+      <p className={styles.sectionQuestion}>{question}</p>
+      {description ? <p className={styles.sectionDescription}>{description}</p> : null}
+      <a className={styles.sectionAction} href={actionHref}>
+        {action}
+        <span aria-hidden="true">→</span>
+      </a>
+    </header>
+  );
+}
+
+export function LimbusTierList() {
+  return (
+    <div className={styles.page} data-limbus-page>
+      <section className={styles.hero} aria-labelledby="limbus-title">
+        <Image src={limbusHero} alt="" fill priority sizes="100vw" className={styles.heroImage} />
+        <div className={styles.heroShade} />
+        <div className={styles.heroNoise} />
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}>MANAGER DOSSIER // COMBAT INDEX</p>
+          <h1 id="limbus-title">
+            <span>LIMBUS COMPANY</span>
+            <em>TIER LIST</em>
+          </h1>
+          <p>Know what&apos;s strong. Know what fits your account. Know what to build next.</p>
+        </div>
+        <p className={styles.heroGraffiti} aria-hidden="true">
+          FACE THE SIN,
+          <br />
+          SAVE THE E.G.O.
+        </p>
+      </section>
+
+      <main className={styles.content}>
+        <section className={styles.paperSection} id="identity-tier-list">
+          <SectionHeader
+            number="01"
+            title="IDENTITY TIER LIST"
+            question="Which Identities are the strongest in the current meta?"
+            description="Ranked by overall combat strength. Generalist value, beginner friendliness, team dependency, and availability stay separate from the core tier."
+            action="View Guide"
+            actionHref="#identity-tier-list"
+          />
+
+          <IdentityRanking />
+        </section>
+
+        <section className={styles.paperSection} id="best-identity-by-sinner">
+          <SectionHeader
+            number="02"
+            title="BEST IDENTITY BY SINNER"
+            question="If you want to use this Sinner, which Identity should you choose?"
+            action="View All"
+            actionHref="#best-identity-by-sinner"
+          />
+          <div className={styles.sinnerGrid}>
+            <div className={styles.sinnerLabels} aria-hidden="true">
+              <span />
+              <strong>Best Overall</strong>
+              <strong>Best Generalist</strong>
+              <strong>Best for Team</strong>
+            </div>
+            {bestIdentityBySinner.map((pick) => (
+              <article className={styles.sinnerCard} key={pick.sinner}>
+                <div className={styles.sinnerPortrait}>
+                  <AssetSlot wide label="PORTRAIT" />
+                  <h3>{pick.sinner}</h3>
+                </div>
+                <div className={styles.sinnerPick} title={pick.bestOverall}>
+                  <AssetSlot compact label="ART" />
+                  <span>{pick.bestOverall}</span>
+                </div>
+                <div className={styles.sinnerPick} title={pick.bestGeneralist}>
+                  <AssetSlot compact label="ART" />
+                  <span>{pick.bestGeneralist}</span>
+                </div>
+                <div className={styles.sinnerPick} title={pick.bestForTeam}>
+                  <AssetSlot compact label="ART" />
+                  <span>{pick.bestForTeam}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.paperSection} id="team-tier-list">
+          <SectionHeader
+            number="02"
+            title="TEAM TIER LIST"
+            question="Which complete teams / builds are the strongest?"
+            description="Power is ranked at full build. Cost, dependency, flexibility, ease of use, and beginner friendliness remain separate decision signals."
+            action="View Guide"
+            actionHref="#team-tier-list"
+          />
+          <div className={styles.teamWorkspace}>
+            <div className={styles.tableFrame}>
+              <table className={[styles.dataTable, styles.teamTable].join(" ")}>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Tier</th>
+                    <th>Team / Build</th>
+                    <th>Type</th>
+                    <th>Key Mechanic</th>
+                    <th>Power</th>
+                    <th>Story / General</th>
+                    <th>MD</th>
+                    <th>Railway</th>
+                    <th>Build Cost</th>
+                    <th>Beginner Friendly</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {teamRows.map((row) => (
+                    <tr key={row.rank}>
+                      <td className={styles.rankCell}>{row.rank}</td>
+                      <td>
+                        <TierBadge value={row.tier} />
+                      </td>
+                      <td>
+                        <div className={styles.nameCell}>
+                          <AssetSlot compact label="ICON" />
+                          <strong>{row.team}</strong>
+                        </div>
+                      </td>
+                      <td>{row.type}</td>
+                      <td>
+                        <span className={styles.mechanicText}>{row.keyMechanic}</span>
+                      </td>
+                      <td>
+                        <RatingBadge value={row.power} compact />
+                      </td>
+                      <td>
+                        <RatingBadge value={row.storyGeneral} compact />
+                      </td>
+                      <td>
+                        <RatingBadge value={row.mirrorDungeon} compact />
+                      </td>
+                      <td>
+                        <RatingBadge value={row.railway} compact />
+                      </td>
+                      <td>
+                        <RatingBadge value={row.buildCost} compact />
+                      </td>
+                      <td>
+                        <RatingBadge value={row.beginnerFriendly} compact />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <article className={styles.teamDetail} id="team-details">
+              <div className={styles.teamDetailHeader}>
+                <span className={styles.detailNumber}>02</span>
+                <strong>TEAM DETAILS (EXAMPLE)</strong>
+                <a href="#team-tier-list">View All Teams →</a>
+              </div>
+              <div className={styles.teamDetailHero}>
+                <Image
+                  src={teamBanner}
+                  alt=""
+                  fill
+                  sizes="(max-width: 760px) calc(100vw - 28px), 420px"
+                  className={styles.teamBannerImage}
+                />
+                <div className={styles.teamBannerShade} />
+                <div className={styles.teamDetailTitle}>
+                  <h3>{exampleTeamDetail.team}</h3>
+                  <div>
+                    <TierBadge value={exampleTeamDetail.powerTier} />
+                    <span className={styles.typeChip}>Status</span>
+                    <span className={styles.mechanicText}>Bleed</span>
+                  </div>
+                </div>
+              </div>
+              <TeamDetailTabs />
+              <div className={styles.teamMetrics}>
+                <dl>
+                  <div>
+                    <dt>Power Tier</dt>
+                    <dd>
+                      <RatingBadge value={exampleTeamDetail.powerTier} compact />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Story / General</dt>
+                    <dd>
+                      <RatingBadge value={exampleTeamDetail.storyGeneral} compact />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Mirror Dungeon</dt>
+                    <dd>
+                      <RatingBadge value={exampleTeamDetail.mirrorDungeon} compact />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Railway / Endgame</dt>
+                    <dd>
+                      <RatingBadge value={exampleTeamDetail.railwayEndgame} compact />
+                    </dd>
+                  </div>
+                </dl>
+                <dl>
+                  <div>
+                    <dt>Build Cost</dt>
+                    <dd>
+                      <RatingBadge value={exampleTeamDetail.buildCost} compact />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Core Dependency</dt>
+                    <dd>
+                      <RatingBadge value={exampleTeamDetail.coreDependency} compact />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Flexibility</dt>
+                    <dd>
+                      <RatingBadge value={exampleTeamDetail.flexibility} compact />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Ease of Use</dt>
+                    <dd>
+                      <RatingBadge value={exampleTeamDetail.easeOfUse} compact />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Beginner Friendly</dt>
+                    <dd>
+                      <RatingBadge value={exampleTeamDetail.beginnerFriendly} compact />
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+              <div className={styles.teamPieces}>
+                <div>
+                  <h4>Core Members</h4>
+                  <div className={styles.assetStrip}>
+                    {exampleTeamDetail.coreMembers.map((member) => (
+                      <span key={member} title={member}>
+                        <AssetSlot compact label="ART" />
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4>Recommended Team</h4>
+                  <div className={styles.assetStrip}>
+                    {exampleTeamDetail.recommendedTeam.map((member) => (
+                      <span key={member} title={member}>
+                        <AssetSlot compact label="ART" />
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4>Key E.G.O</h4>
+                  <div className={styles.assetStrip}>
+                    {exampleTeamDetail.keyEgo.map((ego) => (
+                      <span key={ego} title={ego}>
+                        <AssetSlot compact label="EGO" />
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <h4>Substitutes / Alternatives</h4>
+                  <div className={styles.assetStrip}>
+                    {exampleTeamDetail.substitutes.map((member) => (
+                      <span key={member} title={member}>
+                        <AssetSlot compact label="ART" />
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className={styles.missingNext}>
+                  <h4>Missing One / What to Get Next</h4>
+                  <p>
+                    {exampleTeamDetail.missingOne}
+                    <span aria-hidden="true">›</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section className={styles.paperSection} id="ego-tier-list">
+          <SectionHeader
+            number="03"
+            title="E.G.O TIER LIST"
+            question="Which E.G.O are the most valuable?"
+            description="Ranked by overall combat value, with use case, team importance, generalist value, and availability kept visible."
+            action="View Guide"
+            actionHref="#ego-tier-list"
+          />
+          <div className={styles.egoWorkspace}>
+            <div>
+              <div className={styles.tableFrame}>
+                <table className={[styles.dataTable, styles.egoTable].join(" ")}>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Tier</th>
+                      <th>E.G.O</th>
+                      <th>Sinner</th>
+                      <th>Main Team</th>
+                      <th>Best Use Case</th>
+                      <th>Generalist</th>
+                      <th>Team Importance</th>
+                      <th>Availability</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {egoRows.map((row) => (
+                      <tr key={row.rank}>
+                        <td className={styles.rankCell}>{row.rank}</td>
+                        <td>
+                          <TierBadge value={row.tier} />
+                        </td>
+                        <td>
+                          <div className={styles.nameCell}>
+                            <AssetSlot compact label="EGO" />
+                            <strong>{row.ego}</strong>
+                          </div>
+                        </td>
+                        <td>{row.sinner}</td>
+                        <td>
+                          <span className={styles.mechanicText}>{row.mainTeam}</span>
+                        </td>
+                        <td>{row.bestUseCase}</td>
+                        <td>
+                          <RatingBadge value={row.generalist} compact />
+                        </td>
+                        <td>
+                          <RatingBadge value={row.teamImportance} compact />
+                        </td>
+                        <td>
+                          <AvailabilityBadge value={row.availability} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <section className={styles.bestEgo} id="best-ego-by-sinner">
+              <div className={styles.bestEgoHeader}>
+                <span className={styles.detailNumber}>03</span>
+                <h2>BEST E.G.O BY SINNER</h2>
+                <a href="#best-ego-by-sinner">View All →</a>
+              </div>
+              <div className={styles.bestEgoMatrix}>
+                <div className={styles.bestEgoLabels} aria-hidden="true">
+                  <span />
+                  <span>Best Overall</span>
+                  <span>Best Generalist</span>
+                  <span>Best for Team</span>
+                </div>
+                {bestEgoBySinner.map((pick) => (
+                  <article className={styles.egoSinnerColumn} key={pick.sinner}>
+                    <h3>{pick.sinner}</h3>
+                    <AssetSlot compact label="POR" />
+                    <div title={pick.bestOverall}>
+                      <AssetSlot compact label="EGO" />
+                      <span>{pick.bestOverall}</span>
+                    </div>
+                    <div title={pick.bestGeneralist}>
+                      <AssetSlot compact label="EGO" />
+                      <span>{pick.bestGeneralist}</span>
+                    </div>
+                    <div title={pick.bestForTeam}>
+                      <AssetSlot compact label="EGO" />
+                      <span>{pick.bestForTeam}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section className={styles.nextStep} aria-labelledby="next-step-title">
+          <div className={styles.nextStepTitle}>
+            <span aria-hidden="true">↯</span>
+            <h2 id="next-step-title">YOUR NEXT STEP</h2>
+          </div>
+          <ol>
+            <li>
+              <strong>1</strong>
+              <div>
+                <h3>Find strong Identities</h3>
+                <p>Check the Identity Tier List and the detailed ratings.</p>
+              </div>
+              <span aria-hidden="true">→</span>
+            </li>
+            <li>
+              <strong>2</strong>
+              <div>
+                <h3>Choose a Team to build</h3>
+                <p>Use Team Tier List and the Team Details block.</p>
+              </div>
+              <span aria-hidden="true">→</span>
+            </li>
+            <li>
+              <strong>3</strong>
+              <div>
+                <h3>Get key members &amp; E.G.O</h3>
+                <p>Review the missing pieces and key E.G.O for your chosen team.</p>
+              </div>
+            </li>
+          </ol>
+          <p className={styles.nextStepGraffiti} aria-hidden="true">
+            SAME SIN,
+            <br />
+            DIFFERENT ANSWERS.
+          </p>
+        </section>
+      </main>
+    </div>
+  );
+}
