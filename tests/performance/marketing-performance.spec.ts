@@ -58,20 +58,20 @@ for (const route of routes) {
     const response = await page.goto(route, { waitUntil: "networkidle" });
     expect(response?.status()).toBe(200);
 
-    if (route !== "/nikke/tier-list") {
-      const title = await page.title();
-      expect(title.trim().length).toBeGreaterThanOrEqual(20);
-      const description = await page.locator('meta[name="description"]').getAttribute("content");
-      expect(description?.trim().length ?? 0).toBeGreaterThanOrEqual(70);
-      await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+    const title = await page.title();
+    expect(title.trim().length).toBeGreaterThanOrEqual(20);
+    const description = await page.locator('meta[name="description"]').getAttribute("content");
+    expect(description?.trim().length ?? 0).toBeGreaterThanOrEqual(70);
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
 
-      const structuredData = await page
-        .locator('script[type="application/ld+json"]')
-        .allTextContents();
+    const structuredData = await page
+      .locator('script[type="application/ld+json"]')
+      .allTextContents();
+    if (route !== "/nikke/tier-list") {
       expect(structuredData.length).toBeGreaterThan(0);
       for (const value of structuredData) expect(() => JSON.parse(value)).not.toThrow();
     }
-    await expect(page.locator("h1")).toHaveCount(1);
 
     const imageProblems = await page.locator("img").evaluateAll((images) =>
       images.flatMap((image) => {
