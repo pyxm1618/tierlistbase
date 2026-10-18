@@ -367,7 +367,10 @@ const navItems = [
 
 function Placeholder({ label, compact = false }: { label: string; compact?: boolean }) {
   return (
-    <div className={compact ? styles.placeholderCompact : styles.placeholder} aria-label={`${label} image placeholder`}>
+    <div
+      className={compact ? styles.placeholderCompact : styles.placeholder}
+      aria-label={`${label} image placeholder`}
+    >
       <span>{label}</span>
     </div>
   );
@@ -502,8 +505,8 @@ function DetailPanel({ character }: { character: Character }) {
       <section className={styles.detailBlock}>
         <h4>Why this tier?</h4>
         <p>
-          Placement text is intentionally local mock copy. It exists only to preserve the design density and
-          information hierarchy.
+          Placement text is intentionally local mock copy. It exists only to preserve the design
+          density and information hierarchy.
         </p>
       </section>
 
@@ -591,7 +594,8 @@ export function NikkeTierListPage() {
   const [wishlist, setWishlist] = useState("New Player");
   const [methodology, setMethodology] = useState<ModeKey>("campaign");
 
-  const selected = characters.find((character) => character.name === selectedName) ?? characters[0]!;
+  const selected =
+    characters.find((character) => character.name === selectedName) ?? characters[0]!;
 
   const filteredCharacters = useMemo(() => {
     const normalized = search.trim().toLowerCase();
@@ -614,7 +618,9 @@ export function NikkeTierListPage() {
     if (sort === "Name") return [...next].sort((a, b) => a.name.localeCompare(b.name));
     if (sort === "Tier") {
       return [...next].sort(
-        (a, b) => ratingScore[b.ratings[mode]] - ratingScore[a.ratings[mode]] || a.name.localeCompare(b.name),
+        (a, b) =>
+          ratingScore[b.ratings[mode]] - ratingScore[a.ratings[mode]] ||
+          a.name.localeCompare(b.name),
       );
     }
     return next;
@@ -657,7 +663,9 @@ export function NikkeTierListPage() {
             <span className={styles.gameEyebrow}>GODDESS OF VICTORY</span>
             <h1>NIKKE</h1>
             <strong>Find the right NIKKE for your journey</strong>
-            <p>Complete tier lists, team recommendations, and in-depth analysis for every game mode.</p>
+            <p>
+              Complete tier lists, team recommendations, and in-depth analysis for every game mode.
+            </p>
           </div>
         </div>
       </section>
@@ -765,13 +773,48 @@ export function NikkeTierListPage() {
                   onChange={(event) => setSearch(event.target.value)}
                 />
               </label>
-              <FilterButtons label="Burst Type" values={["All", "Burst I", "Burst II", "Burst III"]} value={burst} onChange={setBurst} />
-              <FilterButtons label="Element" values={["All", "Fire", "Water", "Wind", "Iron", "Electric"]} value={element} onChange={setElement} />
-              <FilterButtons label="Weapon" values={["All", "AR", "SMG", "SG", "SR", "RL", "MG"]} value={weapon} onChange={setWeapon} />
-              <FilterButtons label="Class" values={["All", "Attacker", "Defender", "Supporter"]} value={classType} onChange={setClassType} />
-              <FilterButtons label="Manufacturer" values={["All", "Elysion", "Missilis", "Tetra", "Pilgrim"]} value={manufacturer} onChange={setManufacturer} />
-              <FilterButtons label="Rarity" values={["All", "SSR", "SR"]} value={rarity} onChange={setRarity} />
-              <FilterButtons label="Availability" values={["All", "Standard", "Limited"]} value={availability} onChange={setAvailability} />
+              <FilterButtons
+                label="Burst Type"
+                values={["All", "Burst I", "Burst II", "Burst III"]}
+                value={burst}
+                onChange={setBurst}
+              />
+              <FilterButtons
+                label="Element"
+                values={["All", "Fire", "Water", "Wind", "Iron", "Electric"]}
+                value={element}
+                onChange={setElement}
+              />
+              <FilterButtons
+                label="Weapon"
+                values={["All", "AR", "SMG", "SG", "SR", "RL", "MG"]}
+                value={weapon}
+                onChange={setWeapon}
+              />
+              <FilterButtons
+                label="Class"
+                values={["All", "Attacker", "Defender", "Supporter"]}
+                value={classType}
+                onChange={setClassType}
+              />
+              <FilterButtons
+                label="Manufacturer"
+                values={["All", "Elysion", "Missilis", "Tetra", "Pilgrim"]}
+                value={manufacturer}
+                onChange={setManufacturer}
+              />
+              <FilterButtons
+                label="Rarity"
+                values={["All", "SSR", "SR"]}
+                value={rarity}
+                onChange={setRarity}
+              />
+              <FilterButtons
+                label="Availability"
+                values={["All", "Standard", "Limited"]}
+                value={availability}
+                onChange={setAvailability}
+              />
               <FilterButtons
                 label="Role / Mechanic"
                 values={[
@@ -834,15 +877,42 @@ export function NikkeTierListPage() {
                 <div className={styles.keyInfo}>
                   <h4>Key Information</h4>
                   <dl>
-                    <div><dt>Rarity</dt><dd>{selected.rarity}</dd></div>
-                    <div><dt>Burst Type</dt><dd>{selected.burst}</dd></div>
-                    <div><dt>Burst Cooldown</dt><dd>{selected.cooldown}</dd></div>
-                    <div><dt>Element</dt><dd>{selected.element}</dd></div>
-                    <div><dt>Weapon</dt><dd>{selected.weapon}</dd></div>
-                    <div><dt>Class</dt><dd>{selected.classType}</dd></div>
-                    <div><dt>Manufacturer</dt><dd>{selected.manufacturer}</dd></div>
-                    <div><dt>Availability</dt><dd>{selected.availability}</dd></div>
-                    <div><dt>Favorite Item</dt><dd>{selected.favoriteItem ? "Available" : "None"}</dd></div>
+                    <div>
+                      <dt>Rarity</dt>
+                      <dd>{selected.rarity}</dd>
+                    </div>
+                    <div>
+                      <dt>Burst Type</dt>
+                      <dd>{selected.burst}</dd>
+                    </div>
+                    <div>
+                      <dt>Burst Cooldown</dt>
+                      <dd>{selected.cooldown}</dd>
+                    </div>
+                    <div>
+                      <dt>Element</dt>
+                      <dd>{selected.element}</dd>
+                    </div>
+                    <div>
+                      <dt>Weapon</dt>
+                      <dd>{selected.weapon}</dd>
+                    </div>
+                    <div>
+                      <dt>Class</dt>
+                      <dd>{selected.classType}</dd>
+                    </div>
+                    <div>
+                      <dt>Manufacturer</dt>
+                      <dd>{selected.manufacturer}</dd>
+                    </div>
+                    <div>
+                      <dt>Availability</dt>
+                      <dd>{selected.availability}</dd>
+                    </div>
+                    <div>
+                      <dt>Favorite Item</dt>
+                      <dd>{selected.favoriteItem ? "Available" : "None"}</dd>
+                    </div>
                   </dl>
                 </div>
 
@@ -867,19 +937,27 @@ export function NikkeTierListPage() {
                 <section>
                   <h4>Core Partners</h4>
                   <div className={styles.partnerRow}>
-                    {["Liter", "Naga", "Crown", "Modernia"].map((name) => <MiniPortrait key={name} name={name} />)}
+                    {["Liter", "Naga", "Crown", "Modernia"].map((name) => (
+                      <MiniPortrait key={name} name={name} />
+                    ))}
                   </div>
                 </section>
                 <section>
                   <h4>Replacement / Alternatives</h4>
                   <div className={styles.partnerRow}>
-                    {["Scarlet", "Alice", "Maxwell", "Drake"].map((name) => <MiniPortrait key={name} name={name} />)}
+                    {["Scarlet", "Alice", "Maxwell", "Drake"].map((name) => (
+                      <MiniPortrait key={name} name={name} />
+                    ))}
                   </div>
                 </section>
                 <section>
                   <h4>Best Use</h4>
                   <div className={styles.tagRow}>
-                    <span>Boss</span><span>Raid</span><span>Interception</span><span>Core Damage</span><span>Manual Play</span>
+                    <span>Boss</span>
+                    <span>Raid</span>
+                    <span>Interception</span>
+                    <span>Core Damage</span>
+                    <span>Manual Play</span>
                   </div>
                 </section>
               </div>
@@ -894,9 +972,27 @@ export function NikkeTierListPage() {
             <div className={styles.panelHeader}>
               <h2>⚔ Recommended Teams</h2>
               <div className={styles.panelTabs}>
-                <button type="button" data-active={teamMode === "campaign"} onClick={() => setTeamMode("campaign")}>Campaign Team</button>
-                <button type="button" data-active={teamMode === "boss"} onClick={() => setTeamMode("boss")}>Boss / Raid Team</button>
-                <button type="button" data-active={teamMode === "pvp"} onClick={() => setTeamMode("pvp")}>PvP Team</button>
+                <button
+                  type="button"
+                  data-active={teamMode === "campaign"}
+                  onClick={() => setTeamMode("campaign")}
+                >
+                  Campaign Team
+                </button>
+                <button
+                  type="button"
+                  data-active={teamMode === "boss"}
+                  onClick={() => setTeamMode("boss")}
+                >
+                  Boss / Raid Team
+                </button>
+                <button
+                  type="button"
+                  data-active={teamMode === "pvp"}
+                  onClick={() => setTeamMode("pvp")}
+                >
+                  PvP Team
+                </button>
               </div>
             </div>
             <TeamPanel mode={teamMode} />
@@ -904,13 +1000,41 @@ export function NikkeTierListPage() {
 
           <section className={styles.panel}>
             <h2>◉ Investment Details</h2>
-            <div className={styles.metricRow}><span>Overall Investment</span><strong>High</strong></div>
+            <div className={styles.metricRow}>
+              <span>Overall Investment</span>
+              <strong>High</strong>
+            </div>
             <h3>Recommended Skill Investment</h3>
-            <div className={styles.skillGrid}><span>Skill 1<br /><strong>7+</strong></span><span>Skill 2<br /><strong>7+</strong></span><span>Burst<br /><strong>10</strong></span></div>
-            <div className={styles.metricRow}><span>Overload Gear</span><strong>High Priority</strong></div>
-            <div className={styles.metricRow}><span>Cube</span><strong>Resilience / Charge</strong></div>
-            <div className={styles.metricRow}><span>Favorite Item / Treasure</span><strong>Recommended</strong></div>
-            <p className={styles.warning}>High investment note retained for final data replacement.</p>
+            <div className={styles.skillGrid}>
+              <span>
+                Skill 1<br />
+                <strong>7+</strong>
+              </span>
+              <span>
+                Skill 2<br />
+                <strong>7+</strong>
+              </span>
+              <span>
+                Burst
+                <br />
+                <strong>10</strong>
+              </span>
+            </div>
+            <div className={styles.metricRow}>
+              <span>Overload Gear</span>
+              <strong>High Priority</strong>
+            </div>
+            <div className={styles.metricRow}>
+              <span>Cube</span>
+              <strong>Resilience / Charge</strong>
+            </div>
+            <div className={styles.metricRow}>
+              <span>Favorite Item / Treasure</span>
+              <strong>Recommended</strong>
+            </div>
+            <p className={styles.warning}>
+              High investment note retained for final data replacement.
+            </p>
           </section>
 
           <section id="reroll" className={styles.panel}>
@@ -918,22 +1042,41 @@ export function NikkeTierListPage() {
             <h3>Best Reroll Targets</h3>
             <div className={styles.rerollRow}>
               {["Red Hood", "Modernia", "Scarlet", "Liter"].map((name) => (
-                <div key={name}><MiniPortrait name={name} /><strong>{name}</strong><span>Excellent</span></div>
+                <div key={name}>
+                  <MiniPortrait name={name} />
+                  <strong>{name}</strong>
+                  <span>Excellent</span>
+                </div>
               ))}
             </div>
-            <button type="button" className={styles.primaryButton}>View Reroll Guide</button>
+            <button type="button" className={styles.primaryButton}>
+              View Reroll Guide
+            </button>
           </section>
 
           <section id="wishlist" className={styles.panel}>
             <h2>◎ Wishlist Priority</h2>
             <div className={styles.panelTabs}>
               {["New Player", "General PvE", "Raid", "PvP"].map((tab) => (
-                <button key={tab} type="button" data-active={wishlist === tab} onClick={() => setWishlist(tab)}>{tab}</button>
+                <button
+                  key={tab}
+                  type="button"
+                  data-active={wishlist === tab}
+                  onClick={() => setWishlist(tab)}
+                >
+                  {tab}
+                </button>
               ))}
             </div>
             <div className={styles.wishlistRow}>
               {["Liter", "Naga", "Crown", "Modernia"].map((name, index) => (
-                <div key={name}><MiniPortrait name={name} /><strong>{name}</strong><span>{wishlist} · {index < 2 ? "High" : "Medium"}</span></div>
+                <div key={name}>
+                  <MiniPortrait name={name} />
+                  <strong>{name}</strong>
+                  <span>
+                    {wishlist} · {index < 2 ? "High" : "Medium"}
+                  </span>
+                </div>
               ))}
             </div>
           </section>
@@ -942,9 +1085,27 @@ export function NikkeTierListPage() {
             <h2>♜ Ranking Methodology</h2>
             <p>How we evaluate characters in each game mode.</p>
             <div className={styles.panelTabs}>
-              <button type="button" data-active={methodology === "campaign"} onClick={() => setMethodology("campaign")}>Campaign</button>
-              <button type="button" data-active={methodology === "boss"} onClick={() => setMethodology("boss")}>Boss / Raid</button>
-              <button type="button" data-active={methodology === "pvp"} onClick={() => setMethodology("pvp")}>PvP</button>
+              <button
+                type="button"
+                data-active={methodology === "campaign"}
+                onClick={() => setMethodology("campaign")}
+              >
+                Campaign
+              </button>
+              <button
+                type="button"
+                data-active={methodology === "boss"}
+                onClick={() => setMethodology("boss")}
+              >
+                Boss / Raid
+              </button>
+              <button
+                type="button"
+                data-active={methodology === "pvp"}
+                onClick={() => setMethodology("pvp")}
+              >
+                PvP
+              </button>
             </div>
             <ul className={styles.methodologyList}>
               <li>Evaluation criteria and assumptions</li>
@@ -958,10 +1119,26 @@ export function NikkeTierListPage() {
             <h2>◴ Changelog / Tier History</h2>
             <p>Recent changes to tier list and important updates.</p>
             <div className={styles.changeList}>
-              <div><span>Mock date</span><strong>Red Hood</strong><em>New character / tier update</em></div>
-              <div><span>Mock date</span><strong>Modernia</strong><em>Tier adjusted</em></div>
-              <div><span>Mock date</span><strong>Scarlet</strong><em>Favorite Item change</em></div>
-              <div><span>Mock date</span><strong>Arena Meta</strong><em>Meta / version change</em></div>
+              <div>
+                <span>Mock date</span>
+                <strong>Red Hood</strong>
+                <em>New character / tier update</em>
+              </div>
+              <div>
+                <span>Mock date</span>
+                <strong>Modernia</strong>
+                <em>Tier adjusted</em>
+              </div>
+              <div>
+                <span>Mock date</span>
+                <strong>Scarlet</strong>
+                <em>Favorite Item change</em>
+              </div>
+              <div>
+                <span>Mock date</span>
+                <strong>Arena Meta</strong>
+                <em>Meta / version change</em>
+              </div>
             </div>
           </section>
 
@@ -970,7 +1147,11 @@ export function NikkeTierListPage() {
             <div className={styles.bannerBody}>
               <MiniPortrait name="Red Hood" />
               <div>
-                <div className={styles.bannerBadges}><span>Worth Pulling</span><span>Limited</span><span>NEW</span></div>
+                <div className={styles.bannerBadges}>
+                  <span>Worth Pulling</span>
+                  <span>Limited</span>
+                  <span>NEW</span>
+                </div>
                 <strong>Red Hood</strong>
                 <ul>
                   <li>Top tier for Campaign and Boss</li>
@@ -986,11 +1167,20 @@ export function NikkeTierListPage() {
             <h2>▤ Data &amp; Evidence (Coming Soon)</h2>
             <p>More data will be added in future updates.</p>
             <div className={styles.evidenceGrid}>
-              {["Raid Pick Rate", "Arena Win Rate", "Team Usage", "Boss Performance", "Season Data", "Sample Size"].map((item) => (
+              {[
+                "Raid Pick Rate",
+                "Arena Win Rate",
+                "Team Usage",
+                "Boss Performance",
+                "Season Data",
+                "Sample Size",
+              ].map((item) => (
                 <span key={item}>{item}</span>
               ))}
             </div>
-            <button type="button" className={styles.disabledButton} disabled>Coming in Future Updates</button>
+            <button type="button" className={styles.disabledButton} disabled>
+              Coming in Future Updates
+            </button>
           </section>
         </section>
       </div>

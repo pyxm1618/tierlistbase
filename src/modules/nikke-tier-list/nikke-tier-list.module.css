@@ -161,7 +161,9 @@
 .pageNavItems a[data-active="true"] {
   border-color: #ff445b;
   background: linear-gradient(#661a27, #2a0c13);
-  box-shadow: 0 0 14px #ff304d4d, inset 0 0 10px #ff304d30;
+  box-shadow:
+    0 0 14px #ff304d4d,
+    inset 0 0 10px #ff304d30;
 }
 
 .versionInfo {
@@ -230,7 +232,9 @@
 
 .quickCard[data-tone="red"] {
   border-color: #e43a54;
-  box-shadow: inset 0 0 18px #ff29401a, 0 0 10px #ff294026;
+  box-shadow:
+    inset 0 0 18px #ff29401a,
+    0 0 10px #ff294026;
 }
 
 .quickCard[data-tone="purple"] {
@@ -289,7 +293,13 @@
   overflow: hidden;
   border: 1px dashed #6f8491;
   background:
-    linear-gradient(135deg, #263746 0 1px, transparent 1px 10px, #263746 10px 11px, transparent 11px 20px),
+    linear-gradient(
+      135deg,
+      #263746 0 1px,
+      transparent 1px 10px,
+      #263746 10px 11px,
+      transparent 11px 20px
+    ),
     #0a1822;
   color: #a9bac4;
 }
@@ -387,14 +397,18 @@
 }
 
 .modeGrid button[data-active="true"] {
-  box-shadow: inset 0 0 20px #ffffff12, 0 0 12px #25a8ff2c;
+  box-shadow:
+    inset 0 0 20px #ffffff12,
+    0 0 12px #25a8ff2c;
   outline: 1px solid #dfefff4a;
   outline-offset: -3px;
 }
 
 .modeGrid button[data-tone="red"][data-active="true"] {
   background: linear-gradient(160deg, #5b1d28, #15151d);
-  box-shadow: inset 0 0 22px #ff394c26, 0 0 14px #ff394c2e;
+  box-shadow:
+    inset 0 0 22px #ff394c26,
+    0 0 14px #ff394c2e;
 }
 
 .modeIcon {
@@ -429,9 +443,7 @@
 .panelWide {
   border: 1px solid var(--line);
   border-radius: 7px;
-  background:
-    linear-gradient(135deg, #0c2232ed, #06141fed 66%),
-    var(--panel);
+  background: linear-gradient(135deg, #0c2232ed, #06141fed 66%), var(--panel);
   box-shadow: inset 0 0 20px #00000030;
 }
 
@@ -541,7 +553,9 @@
 
 .characterCard[data-selected="true"] {
   border-color: #ff354e;
-  box-shadow: 0 0 0 1px #ff354e70, 0 0 10px #ff354e38;
+  box-shadow:
+    0 0 0 1px #ff354e70,
+    0 0 10px #ff354e38;
 }
 
 .characterCard strong {
