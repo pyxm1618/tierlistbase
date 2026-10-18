@@ -1067,7 +1067,11 @@
   background: #1268c4;
   color: white;
   font-size: 9px;
-  cursor: pointer;
+}
+
+.primaryButton {
+  display: grid;
+  place-items: center;
 }
 
 .disabledButton {
