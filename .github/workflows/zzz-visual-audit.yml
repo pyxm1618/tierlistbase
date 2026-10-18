@@ -1,0 +1,55 @@
+name: ZZZ visual audit
+
+on:
+  push:
+    branches:
+      - audit/zzz-visual-check
+
+permissions:
+  contents: read
+
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      APP_ENV: test
+      APP_ORIGIN: http://127.0.0.1:3000
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - run: bun install --frozen-lockfile
+      - run: bunx playwright install --with-deps chromium
+      - name: Start ZZZ page
+        run: |
+          bunx next dev --webpack -H 127.0.0.1 > /tmp/zzz-dev.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:3000/zenless-zone-zero/tier-list >/dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/zzz-dev.log
+          exit 1
+      - name: Capture desktop and mobile
+        run: |
+          bun -e '
+            import { chromium } from "@playwright/test";
+            const browser = await chromium.launch({ headless: true });
+            const desktop = await browser.newPage({ viewport: { width: 1440, height: 1200 } });
+            await desktop.goto("http://127.0.0.1:3000/zenless-zone-zero/tier-list", { waitUntil: "networkidle" });
+            await desktop.screenshot({ path: "zzz-desktop.png", fullPage: true });
+            const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
+            await mobile.goto("http://127.0.0.1:3000/zenless-zone-zero/tier-list", { waitUntil: "networkidle" });
+            await mobile.screenshot({ path: "zzz-mobile.png", fullPage: true });
+            await browser.close();
+          '
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zzz-visual-audit
+          path: |
+            zzz-desktop.png
+            zzz-mobile.png
