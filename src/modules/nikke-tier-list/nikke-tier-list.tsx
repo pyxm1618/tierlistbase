@@ -105,7 +105,7 @@ const characters: Character[] = [
     manufacturer: "Missilis",
     availability: "Standard",
     favoriteItem: false,
-    roles: ["Support", "Buffer", "CDR"],
+    roles: ["Support", "Buffer", "CDR", "Cover Recovery"],
     ratings: { campaign: "SSS", boss: "S", pvp: "A" },
     newPlayer: "Excellent",
     investment: "Medium",
@@ -121,7 +121,7 @@ const characters: Character[] = [
     manufacturer: "Pilgrim",
     availability: "Limited",
     favoriteItem: false,
-    roles: ["Buffer", "Shield", "Support"],
+    roles: ["Buffer", "Shielder", "Support", "Invulnerability"],
     ratings: { campaign: "SSS", boss: "S", pvp: "S" },
     newPlayer: "Excellent",
     investment: "High",
@@ -153,7 +153,7 @@ const characters: Character[] = [
     manufacturer: "Tetra",
     availability: "Standard",
     favoriteItem: false,
-    roles: ["Support", "Healer", "Shield"],
+    roles: ["Support", "Healer", "Shielder"],
     ratings: { campaign: "A", boss: "A", pvp: "SSS" },
     newPlayer: "Good",
     investment: "Medium",
@@ -169,7 +169,7 @@ const characters: Character[] = [
     manufacturer: "Missilis",
     availability: "Standard",
     favoriteItem: false,
-    roles: ["Support", "Buffer", "Core Damage"],
+    roles: ["Support", "Buffer", "Core Damage", "Element Support"],
     ratings: { campaign: "S", boss: "S", pvp: "B" },
     newPlayer: "Excellent",
     investment: "Medium",
@@ -217,7 +217,7 @@ const characters: Character[] = [
     manufacturer: "Pilgrim",
     availability: "Limited",
     favoriteItem: false,
-    roles: ["Support", "Burst Generation", "Parts Damage"],
+    roles: ["Support", "Debuffer", "Burst Generation", "Parts Damage"],
     ratings: { campaign: "SSS", boss: "S", pvp: "A" },
     newPlayer: "Good",
     investment: "High",
@@ -313,7 +313,7 @@ const characters: Character[] = [
     manufacturer: "Missilis",
     availability: "Standard",
     favoriteItem: false,
-    roles: ["Shield", "Burst Generation"],
+    roles: ["Shielder", "Burst Generation"],
     ratings: { campaign: "S", boss: "A", pvp: "B" },
     newPlayer: "Good",
     investment: "Low",
@@ -806,7 +806,7 @@ export function NikkeTierListPage() {
               />
               <FilterButtons
                 label="Weapon"
-                values={["All", "AR", "SMG", "SG", "SR", "RL", "MG"]}
+                values={["All", "AR", "SMG", "SG", "SR", "RL"]}
                 value={weapon}
                 onChange={setWeapon}
               />
@@ -843,15 +843,19 @@ export function NikkeTierListPage() {
                   "Support",
                   "Healer",
                   "Buffer",
-                  "Shield",
+                  "Debuffer",
+                  "Shielder",
                   "CDR",
                   "Burst Generation",
                   "Taunt",
                   "Control",
+                  "Cover Recovery",
+                  "Pierce",
                   "Core Damage",
                   "Parts Damage",
                   "Sustain",
-                  "Pierce",
+                  "Invulnerability",
+                  "Element Support",
                   "Arena Specialist",
                 ]}
                 value={mechanic}
@@ -929,7 +933,7 @@ export function NikkeTierListPage() {
                       <dd>{selected.availability}</dd>
                     </div>
                     <div>
-                      <dt>Favorite Item</dt>
+                      <dt>Favorite Item / Treasure</dt>
                       <dd>{selected.favoriteItem ? "Available" : "None"}</dd>
                     </div>
                   </dl>
