@@ -60,6 +60,14 @@ export const routeDefinitions = [
     reviewFingerprint: "c65df52835515113512c411f218aa87af3d942e9e300953993e59fda09948664",
   },
   {
+    route: "/nikke/tier-list",
+    class: "public_noindex",
+    pageType: "WebApplication",
+    title: "NIKKE Tier List Preview | TierListBase",
+    description:
+      "Preview the TierListBase NIKKE tier list interface for Campaign, Boss, Raid, PvP, teams, reroll, wishlist, methodology, and character details.",
+  },
+  {
     route: "/privacy",
     class: "public_noindex",
     pageType: "Legal",
