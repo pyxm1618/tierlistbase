@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import {
   bestEgoBySinner,
   bestIdentityBySinner,
@@ -8,6 +10,8 @@ import {
   type RatingValue,
   type TierValue,
 } from "./data";
+import limbusHero from "./assets/hero.webp";
+import teamBanner from "./assets/team-banner.webp";
 import { IdentityRanking } from "./identity-ranking";
 import styles from "./limbus-tier-list.module.css";
 import { TeamDetailTabs } from "./team-detail-tabs";
@@ -106,6 +110,15 @@ export function LimbusTierList() {
   return (
     <div className={styles.page} data-limbus-page>
       <section className={styles.hero} aria-labelledby="limbus-title">
+        <Image
+          src={limbusHero}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className={styles.heroImage}
+        />
+        <div className={styles.heroShade} />
         <div className={styles.heroNoise} />
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>MANAGER DOSSIER // COMBAT INDEX</p>
@@ -114,9 +127,6 @@ export function LimbusTierList() {
             <em>TIER LIST</em>
           </h1>
           <p>Know what&apos;s strong. Know what fits your account. Know what to build next.</p>
-        </div>
-        <div className={styles.heroArt} aria-label="Hero artwork asset required">
-          <span>HERO ART · ASSET REQUIRED</span>
         </div>
         <p className={styles.heroGraffiti} aria-hidden="true">
           FACE THE SIN,
@@ -148,24 +158,30 @@ export function LimbusTierList() {
             actionHref="#best-identity-by-sinner"
           />
           <div className={styles.sinnerGrid}>
+            <div className={styles.sinnerLabels} aria-hidden="true">
+              <span />
+              <strong>Best Overall</strong>
+              <strong>Best Generalist</strong>
+              <strong>Best for Team</strong>
+            </div>
             {bestIdentityBySinner.map((pick) => (
               <article className={styles.sinnerCard} key={pick.sinner}>
-                <AssetSlot wide label="PORTRAIT" />
-                <h3>{pick.sinner}</h3>
-                <dl>
-                  <div>
-                    <dt>Best Overall</dt>
-                    <dd>{pick.bestOverall}</dd>
-                  </div>
-                  <div>
-                    <dt>Best Generalist</dt>
-                    <dd>{pick.bestGeneralist}</dd>
-                  </div>
-                  <div>
-                    <dt>Best for Team</dt>
-                    <dd>{pick.bestForTeam}</dd>
-                  </div>
-                </dl>
+                <div className={styles.sinnerPortrait}>
+                  <AssetSlot wide label="PORTRAIT" />
+                  <h3>{pick.sinner}</h3>
+                </div>
+                <div className={styles.sinnerPick} title={pick.bestOverall}>
+                  <AssetSlot compact label="ART" />
+                  <span>{pick.bestOverall}</span>
+                </div>
+                <div className={styles.sinnerPick} title={pick.bestGeneralist}>
+                  <AssetSlot compact label="ART" />
+                  <span>{pick.bestGeneralist}</span>
+                </div>
+                <div className={styles.sinnerPick} title={pick.bestForTeam}>
+                  <AssetSlot compact label="ART" />
+                  <span>{pick.bestForTeam}</span>
+                </div>
               </article>
             ))}
           </div>
@@ -246,7 +262,14 @@ export function LimbusTierList() {
                 <a href="#team-tier-list">View All Teams →</a>
               </div>
               <div className={styles.teamDetailHero}>
-                <div className={styles.teamBannerAsset}>TEAM BANNER · ASSET REQUIRED</div>
+                <Image
+                  src={teamBanner}
+                  alt=""
+                  fill
+                  sizes="(max-width: 760px) calc(100vw - 28px), 420px"
+                  className={styles.teamBannerImage}
+                />
+                <div className={styles.teamBannerShade} />
                 <div className={styles.teamDetailTitle}>
                   <h3>{exampleTeamDetail.team}</h3>
                   <div>
