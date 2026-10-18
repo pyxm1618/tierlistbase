@@ -593,6 +593,7 @@ export function NikkeTierListPage() {
   const [teamMode, setTeamMode] = useState<ModeKey>("campaign");
   const [wishlist, setWishlist] = useState("New Player");
   const [methodology, setMethodology] = useState<ModeKey>("campaign");
+  const [activeNav, setActiveNav] = useState("tier-list");
 
   const selected =
     characters.find((character) => character.name === selectedName) ?? characters[0]!;
@@ -673,8 +674,13 @@ export function NikkeTierListPage() {
       <nav className={styles.pageNav} aria-label="NIKKE page navigation">
         <div className={styles.shell}>
           <div className={styles.pageNavItems}>
-            {navItems.map(([id, label], index) => (
-              <a key={id} href={`#${id}`} data-active={index === 0}>
+            {navItems.map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                data-active={activeNav === id}
+                onClick={() => setActiveNav(id)}
+              >
                 {label}
               </a>
             ))}
@@ -700,7 +706,20 @@ export function NikkeTierListPage() {
                 <h3>{pick.title}</h3>
                 <div>
                   {pick.names.map((name) => (
-                    <button key={name} type="button" onClick={() => setSelectedName(name)}>
+                    <button
+                      key={name}
+                      type="button"
+                      onClick={() => {
+                        setSelectedName(name);
+                        setActiveNav("tier-list");
+                        requestAnimationFrame(() => {
+                          document.getElementById("tier-list")?.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
+                        });
+                      }}
+                    >
                       <MiniPortrait name={name} />
                       <span>{name}</span>
                     </button>
@@ -1049,9 +1068,7 @@ export function NikkeTierListPage() {
                 </div>
               ))}
             </div>
-            <button type="button" className={styles.primaryButton}>
-              View Reroll Guide
-            </button>
+            <div className={styles.primaryButton}>View Reroll Guide</div>
           </section>
 
           <section id="wishlist" className={styles.panel}>
