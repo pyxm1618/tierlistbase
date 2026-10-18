@@ -110,14 +110,7 @@ export function LimbusTierList() {
   return (
     <div className={styles.page} data-limbus-page>
       <section className={styles.hero} aria-labelledby="limbus-title">
-        <Image
-          src={limbusHero}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className={styles.heroImage}
-        />
+        <Image src={limbusHero} alt="" fill priority sizes="100vw" className={styles.heroImage} />
         <div className={styles.heroShade} />
         <div className={styles.heroNoise} />
         <div className={styles.heroCopy}>
