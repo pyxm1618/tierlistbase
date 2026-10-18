@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useMemo,
-  useRef,
-  useState,
-  type ChangeEvent,
-  type ReactNode,
-} from "react";
+import { useMemo, useRef, useState, type ChangeEvent, type ReactNode } from "react";
 
 import {
   agentRankingViews,
@@ -28,7 +22,13 @@ const tiers: readonly Tier[] = ["S+", "S", "A", "B"];
 
 type PrimarySection = "agents" | "teams" | "pull";
 type AgentDetailTab = "build" | "teams" | "details";
-type TeamDetailTab = "overview" | "composition" | "alternatives" | "bangboo" | "performance" | "details";
+type TeamDetailTab =
+  | "overview"
+  | "composition"
+  | "alternatives"
+  | "bangboo"
+  | "performance"
+  | "details";
 type PullDetailTab = "overview" | "decision" | "teams" | "investment" | "alternatives" | "summary";
 
 function rankOrder(tier: Tier) {
@@ -480,7 +480,10 @@ function TeamDetail({
           <div className={styles.performanceGrid}>
             <Metric label="Shiyu Defense" value={team.shiyuDefense} strong />
             <Metric label="Deadly Assault" value={team.deadlyAssault} strong />
-            <Metric label="Current Cycle / Matchup Suitability" value={team.currentCycleSuitability} />
+            <Metric
+              label="Current Cycle / Matchup Suitability"
+              value={team.currentCycleSuitability}
+            />
           </div>
         </>
       )}
@@ -673,17 +676,20 @@ export function ZenlessZoneZeroTierList() {
     [teamView],
   );
 
-  const selectedAgent =
-    agents.find((agent) => agent.id === selectedAgentId) ?? agents[0];
+  const selectedAgent = agents.find((agent) => agent.id === selectedAgentId) ?? agents[0];
   const selectedTeam = teams.find((team) => team.id === selectedTeamId) ?? teams[0];
-  const selectedPull =
-    pullAdvices.find((advice) => advice.id === selectedPullId) ?? pullAdvices[0];
+  const selectedPull = pullAdvices.find((advice) => advice.id === selectedPullId) ?? pullAdvices[0];
 
   if (!selectedAgent || !selectedTeam || !selectedPull) return null;
 
   const scrollTo = (section: PrimarySection) => {
     setPrimarySection(section);
-    const target = section === "agents" ? agentRef.current : section === "teams" ? teamRef.current : pullRef.current;
+    const target =
+      section === "agents"
+        ? agentRef.current
+        : section === "teams"
+          ? teamRef.current
+          : pullRef.current;
     target?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -783,7 +789,11 @@ export function ZenlessZoneZeroTierList() {
             </div>
           </section>
 
-          <section ref={pullRef} className={styles.pullSummary} aria-labelledby="pull-summary-heading">
+          <section
+            ref={pullRef}
+            className={styles.pullSummary}
+            aria-labelledby="pull-summary-heading"
+          >
             <SectionHeading
               eyebrow="Current banners"
               title="Current Pull Advice"
@@ -845,7 +855,11 @@ export function ZenlessZoneZeroTierList() {
             </button>
           </nav>
 
-          <section ref={agentRef} className={styles.rankingSection} aria-labelledby="agent-ranking-heading">
+          <section
+            ref={agentRef}
+            className={styles.rankingSection}
+            aria-labelledby="agent-ranking-heading"
+          >
             <SectionHeading
               eyebrow="Agents"
               title="Agent Ranking"
@@ -914,7 +928,9 @@ export function ZenlessZoneZeroTierList() {
             <div className={styles.agentWorkspace}>
               <div className={styles.tierBoard}>
                 {tiers.map((tier) => {
-                  const inTier = filteredAgents.filter((agent) => agent.viewTiers[agentView] === tier);
+                  const inTier = filteredAgents.filter(
+                    (agent) => agent.viewTiers[agentView] === tier,
+                  );
                   return (
                     <div className={styles.tierRow} data-tier={tier} key={tier}>
                       <div className={styles.tierLabel}>{tier}</div>
@@ -947,7 +963,11 @@ export function ZenlessZoneZeroTierList() {
             </div>
           </section>
 
-          <section ref={teamRef} className={styles.rankingSection} aria-labelledby="team-ranking-heading">
+          <section
+            ref={teamRef}
+            className={styles.rankingSection}
+            aria-labelledby="team-ranking-heading"
+          >
             <SectionHeading
               eyebrow="Teams"
               title="Team Ranking"

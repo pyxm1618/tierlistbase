@@ -351,7 +351,10 @@ const agentSeeds: readonly AgentSeed[] = [
 ];
 
 function slugify(value: string) {
-  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }
 
 function makeAgent(seed: AgentSeed): Agent {
@@ -390,14 +393,19 @@ function makeAgent(seed: AgentSeed): Agent {
       "Clear upgrade path without changing the page decision model",
     ],
     keyLimitations: [
-      seed.tier === "S+" ? "Higher resource demand at peak investment" : "Lower ceiling than top picks",
-      supportLike ? "Value depends on the team core around them" : "Needs appropriate support coverage",
+      seed.tier === "S+"
+        ? "Higher resource demand at peak investment"
+        : "Lower ceiling than top picks",
+      supportLike
+        ? "Value depends on the team core around them"
+        : "Needs appropriate support coverage",
       "Matchup and rotation quality can change practical results",
     ],
     bestWEngine: seed.tier === "S+" ? "Signature W-Engine" : "Premium Role W-Engine",
     bestAlternative: "A-Rank Role Alternative",
     bestF2pOption: "Craftable / Event Option",
-    bestDriveDisc: seed.specialty === "Anomaly" ? "Anomaly-focused 4-Pc Set" : "Role-focused 4-Pc Set",
+    bestDriveDisc:
+      seed.specialty === "Anomaly" ? "Anomaly-focused 4-Pc Set" : "Role-focused 4-Pc Set",
     mainStats:
       seed.specialty === "Anomaly"
         ? ["Anomaly Proficiency", "Attribute DMG", "Anomaly Mastery"]
@@ -547,7 +555,11 @@ export const teams: readonly Team[] = [
     ],
     bestBangboo: "Rocketboo",
     alternativeBangboo: "Cryboo",
-    activationRequirement: ["Fire-oriented core", "Reliable stun window", "Consistent burst rotation"],
+    activationRequirement: [
+      "Fire-oriented core",
+      "Reliable stun window",
+      "Consistent burst rotation",
+    ],
     shiyuDefense: "S · Strong",
     deadlyAssault: "S+ · Excellent",
     currentCycleSuitability: "Strong",
@@ -600,7 +612,11 @@ export const teams: readonly Team[] = [
     ],
     bestBangboo: "Plugboo",
     alternativeBangboo: "Electroboo",
-    activationRequirement: ["Electric coverage", "Stun or support utility", "Comfortable quick-swap cadence"],
+    activationRequirement: [
+      "Electric coverage",
+      "Stun or support utility",
+      "Comfortable quick-swap cadence",
+    ],
     shiyuDefense: "A · Good",
     deadlyAssault: "S · Strong",
     currentCycleSuitability: "Good",
