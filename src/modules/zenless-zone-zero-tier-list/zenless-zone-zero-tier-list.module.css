@@ -1212,17 +1212,46 @@
   text-align: center;
 }
 
-.detailSplit {
+.detailOverlayLayer {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  left: 164px;
+  z-index: 64;
   display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
+  grid-template-columns: minmax(0, 1.16fr) minmax(0, 0.84fr);
   gap: 8px;
-  margin-top: 10px;
-  align-items: start;
+  width: auto;
+  max-width: 1420px;
+  margin-left: auto;
+  align-items: end;
+  pointer-events: none;
+}
+
+.overlayPanel {
+  min-width: 0;
+  pointer-events: auto;
+}
+
+.overlayPanel[data-open="false"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.overlayPanel[data-overlay="team"] .largeDetailPanel {
+  max-height: min(670px, calc(100vh - 86px));
+}
+
+.overlayPanel[data-overlay="pull"] .largeDetailPanel {
+  max-height: min(455px, calc(100vh - 86px));
 }
 
 .largeDetailPanel {
-  overflow: hidden;
+  overflow: auto;
   border-radius: 6px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.58),
+    0 0 0 1px rgba(0, 0, 0, 0.45);
 }
 
 .detailPanelHeader {
@@ -1244,10 +1273,33 @@
   font-weight: 900;
 }
 
-.detailPanelHeader > span {
+.closeButton {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #3a4a59;
+  border-radius: 3px;
+  background: #0b1219;
   color: #d7dee4;
-  font-size: 20px;
+  font: inherit;
+  font-size: 16px;
   line-height: 1;
+  cursor: pointer;
+}
+
+.closeButton:hover,
+.closeButton:focus-visible {
+  border-color: var(--zzz-yellow);
+  color: var(--zzz-yellow);
+  outline: none;
+}
+
+.pullHeaderActions {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
 }
 
 .detailPanelTitle {
@@ -1556,9 +1608,12 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .agentWorkspace,
-  .detailSplit {
+  .agentWorkspace {
     grid-template-columns: 1fr;
+  }
+
+  .detailOverlayLayer {
+    left: 12px;
   }
 
   .tierCards {
@@ -1692,5 +1747,28 @@
 
   .detailPanelHeader {
     flex-direction: column;
+  }
+
+  .detailOverlayLayer {
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    display: block;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  .overlayPanel + .overlayPanel {
+    margin-top: 8px;
+  }
+
+  .overlayPanel[data-overlay="team"] .largeDetailPanel,
+  .overlayPanel[data-overlay="pull"] .largeDetailPanel {
+    max-height: none;
+  }
+
+  .pullHeaderActions {
+    width: 100%;
+    justify-content: space-between;
   }
 }
