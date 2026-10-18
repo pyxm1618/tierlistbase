@@ -2,12 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import {
-  identityRows,
-  type Availability,
-  type RatingValue,
-  type TierValue,
-} from "./data";
+import { identityRows, type Availability, type RatingValue, type TierValue } from "./data";
 import styles from "./limbus-tier-list.module.css";
 
 const identityFilters = [
