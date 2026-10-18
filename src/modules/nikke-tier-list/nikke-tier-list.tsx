@@ -598,6 +598,27 @@ export function NikkeTierListPage() {
   const selected =
     characters.find((character) => character.name === selectedName) ?? characters[0]!;
 
+  const methodologyItems: Record<ModeKey, string[]> = {
+    campaign: [
+      "Story and tower progression consistency",
+      "Wave clear, survivability and general PvE utility",
+      "Team flexibility and new-player accessibility",
+      "Investment and Favorite Item impact",
+    ],
+    boss: [
+      "Sustained single-target damage and raid contribution",
+      "Core and parts damage, support uptime and team synergy",
+      "Element-specific value and replacement flexibility",
+      "Investment and Favorite Item impact",
+    ],
+    pvp: [
+      "Burst generation speed and opening pressure",
+      "Attack, defense, sustain, stall and counter value",
+      "Arena-specific team synergy and reliability",
+      "Investment and Favorite Item impact",
+    ],
+  };
+
   const filteredCharacters = useMemo(() => {
     const normalized = search.trim().toLowerCase();
     const next = characters.filter((character) => {
@@ -1129,10 +1150,9 @@ export function NikkeTierListPage() {
               </button>
             </div>
             <ul className={styles.methodologyList}>
-              <li>Evaluation criteria and assumptions</li>
-              <li>Team synergy and combat power context</li>
-              <li>Availability and investment considerations</li>
-              <li>Favorite Item and mode-specific performance</li>
+              {methodologyItems[methodology].map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </section>
 
