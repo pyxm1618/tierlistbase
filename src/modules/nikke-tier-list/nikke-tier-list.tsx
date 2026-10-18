@@ -735,7 +735,9 @@ export function NikkeTierListPage() {
                         setActiveNav("tier-list");
                         requestAnimationFrame(() => {
                           document.getElementById("tier-list")?.scrollIntoView({
-                            behavior: "smooth",
+                            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                              ? "auto"
+                              : "smooth",
                             block: "start",
                           });
                         });
