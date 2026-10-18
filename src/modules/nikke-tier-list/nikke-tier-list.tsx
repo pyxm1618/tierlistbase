@@ -1,7 +1,12 @@
 "use client";
 
+import Image, { type StaticImageData } from "next/image";
 import { useMemo, useState } from "react";
 
+import bossRaidArt from "./assets/boss-raid.webp";
+import campaignTowerArt from "./assets/campaign-tower.webp";
+import heroArt from "./assets/hero.webp";
+import pvpArenaArt from "./assets/pvp-arena.webp";
 import styles from "./nikke-tier-list.module.css";
 
 type ModeKey = "campaign" | "boss" | "pvp";
@@ -24,24 +29,33 @@ type Character = {
   investment: "Low" | "Medium" | "High";
 };
 
-const modes: Array<{ key: ModeKey; title: string; description: string; tone: string }> = [
+const modes: Array<{
+  key: ModeKey;
+  title: string;
+  description: string;
+  tone: string;
+  image: StaticImageData;
+}> = [
   {
     key: "campaign",
     title: "CAMPAIGN / TOWER TIER LIST",
     description: "Best for story, normal tower and general PvE.",
     tone: "red",
+    image: campaignTowerArt,
   },
   {
     key: "boss",
     title: "BOSS / RAID TIER LIST",
     description: "Best for boss battles, interception and raids.",
     tone: "blue",
+    image: bossRaidArt,
   },
   {
     key: "pvp",
     title: "PVP / ARENA TIER LIST",
     description: "Best for rookie, special and champion arena.",
     tone: "violet",
+    image: pvpArenaArt,
   },
 ];
 
@@ -677,9 +691,16 @@ export function NikkeTierListPage() {
   return (
     <main className={styles.page}>
       <section className={styles.hero} aria-label="NIKKE hero">
-        <div className={styles.heroPlaceholder} aria-hidden="true">
-          <span>NIKKE HERO ART PLACEHOLDER</span>
-        </div>
+        <Image
+          src={heroArt}
+          alt=""
+          fill
+          priority
+          unoptimized
+          sizes="100vw"
+          className={styles.heroImage}
+        />
+        <div className={styles.heroShade} aria-hidden="true" />
         <div className={styles.heroContent}>
           <div className={styles.heroTitle}>
             <span className={styles.gameEyebrow}>GODDESS OF VICTORY</span>
@@ -791,10 +812,21 @@ export function NikkeTierListPage() {
                 aria-pressed={mode === item.key}
                 onClick={() => setMode(item.key)}
               >
-                <span className={styles.modeIcon}>◇</span>
-                <span>
-                  <strong>{item.title}</strong>
-                  <small>{item.description}</small>
+                <Image
+                  src={item.image}
+                  alt=""
+                  fill
+                  unoptimized
+                  sizes="(max-width: 680px) calc(100vw - 32px), 33vw"
+                  className={styles.modeArt}
+                />
+                <span className={styles.modeShade} aria-hidden="true" />
+                <span className={styles.modeContent}>
+                  <span className={styles.modeIcon}>◇</span>
+                  <span>
+                    <strong>{item.title}</strong>
+                    <small>{item.description}</small>
+                  </span>
                 </span>
               </button>
             ))}
