@@ -3,10 +3,10 @@
 import Image, { type StaticImageData } from "next/image";
 import { useMemo, useState } from "react";
 
-import bossRaidArt from "./assets/boss-raid.webp";
-import campaignTowerArt from "./assets/campaign-tower.webp";
-import heroArt from "./assets/hero.webp";
-import pvpArenaArt from "./assets/pvp-arena.webp";
+import bossRaidArt from "./assets/boss-raid.avif";
+import campaignTowerArt from "./assets/campaign-tower.avif";
+import heroArt from "./assets/hero.avif";
+import pvpArenaArt from "./assets/pvp-arena.avif";
 import styles from "./nikke-tier-list.module.css";
 
 type ModeKey = "campaign" | "boss" | "pvp";
