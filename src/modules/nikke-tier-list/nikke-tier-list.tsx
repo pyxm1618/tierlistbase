@@ -700,6 +700,7 @@ export function NikkeTierListPage() {
                 key={id}
                 href={`#${id}`}
                 data-active={activeNav === id}
+                aria-current={activeNav === id ? "location" : undefined}
                 onClick={() => setActiveNav(id)}
               >
                 {label}
@@ -787,6 +788,7 @@ export function NikkeTierListPage() {
                 type="button"
                 data-tone={item.tone}
                 data-active={mode === item.key}
+                aria-pressed={mode === item.key}
                 onClick={() => setMode(item.key)}
               >
                 <span className={styles.modeIcon}>◇</span>
@@ -1021,6 +1023,7 @@ export function NikkeTierListPage() {
                 <button
                   type="button"
                   data-active={teamMode === "campaign"}
+                  aria-pressed={teamMode === "campaign"}
                   onClick={() => setTeamMode("campaign")}
                 >
                   Campaign Team
@@ -1028,6 +1031,7 @@ export function NikkeTierListPage() {
                 <button
                   type="button"
                   data-active={teamMode === "boss"}
+                  aria-pressed={teamMode === "boss"}
                   onClick={() => setTeamMode("boss")}
                 >
                   Boss / Raid Team
@@ -1035,6 +1039,7 @@ export function NikkeTierListPage() {
                 <button
                   type="button"
                   data-active={teamMode === "pvp"}
+                  aria-pressed={teamMode === "pvp"}
                   onClick={() => setTeamMode("pvp")}
                 >
                   PvP Team
@@ -1106,6 +1111,7 @@ export function NikkeTierListPage() {
                   key={tab}
                   type="button"
                   data-active={wishlist === tab}
+                  aria-pressed={wishlist === tab}
                   onClick={() => setWishlist(tab)}
                 >
                   {tab}
@@ -1132,6 +1138,7 @@ export function NikkeTierListPage() {
               <button
                 type="button"
                 data-active={methodology === "campaign"}
+                aria-pressed={methodology === "campaign"}
                 onClick={() => setMethodology("campaign")}
               >
                 Campaign
@@ -1139,6 +1146,7 @@ export function NikkeTierListPage() {
               <button
                 type="button"
                 data-active={methodology === "boss"}
+                aria-pressed={methodology === "boss"}
                 onClick={() => setMethodology("boss")}
               >
                 Boss / Raid
@@ -1146,6 +1154,7 @@ export function NikkeTierListPage() {
               <button
                 type="button"
                 data-active={methodology === "pvp"}
+                aria-pressed={methodology === "pvp"}
                 onClick={() => setMethodology("pvp")}
               >
                 PvP
