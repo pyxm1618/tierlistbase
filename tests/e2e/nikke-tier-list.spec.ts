@@ -53,7 +53,9 @@ test(
     const bossTeam = teams.getByRole("button", { name: "Boss / Raid Team", exact: true });
     await bossTeam.click();
     await expect(bossTeam).toHaveAttribute("aria-pressed", "true");
-    await expect(teams.getByRole("heading", { name: "Boss / Raid Team", exact: true })).toBeVisible();
+    await expect(
+      teams.getByRole("heading", { name: "Boss / Raid Team", exact: true }),
+    ).toBeVisible();
 
     const wishlist = page.locator("#wishlist");
     const raidWishlist = wishlist.getByRole("button", { name: "Raid", exact: true });
