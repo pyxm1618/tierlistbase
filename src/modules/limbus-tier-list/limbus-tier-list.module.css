@@ -35,8 +35,7 @@
   height: 46px;
   border-bottom: 1px solid #2f3f47;
   background:
-    linear-gradient(90deg, rgba(151, 17, 24, 0.15), transparent 36%),
-    rgba(5, 15, 22, 0.98);
+    linear-gradient(90deg, rgba(151, 17, 24, 0.15), transparent 36%), rgba(5, 15, 22, 0.98);
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.36);
 }
 
@@ -306,9 +305,7 @@
   margin: 0 0 10px;
   border: 1px solid #5f5548;
   border-radius: 4px;
-  background:
-    linear-gradient(rgba(6, 15, 21, 0.985), rgba(5, 16, 23, 0.985)),
-    var(--panel);
+  background: linear-gradient(rgba(6, 15, 21, 0.985), rgba(5, 16, 23, 0.985)), var(--panel);
   box-shadow:
     0 8px 18px rgba(0, 0, 0, 0.44),
     inset 0 0 0 1px rgba(231, 221, 201, 0.05);
@@ -331,9 +328,7 @@
   display: grid;
   place-items: center;
   margin: -1px 8px -1px -1px;
-  background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.08), transparent 45%),
-    var(--red);
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.08), transparent 45%), var(--red);
   color: #080909;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 32px;
@@ -533,8 +528,7 @@
   overflow: hidden;
   border: 1px solid #5e6970;
   border-radius: 2px;
-  background:
-    repeating-linear-gradient(135deg, #0d1820 0 7px, #13242e 7px 14px);
+  background: repeating-linear-gradient(135deg, #0d1820 0 7px, #13242e 7px 14px);
   color: #839097;
 }
 
@@ -819,9 +813,7 @@
   position: relative;
   height: 86px;
   overflow: hidden;
-  background:
-    linear-gradient(90deg, rgba(210, 23, 31, 0.23), transparent 50%),
-    #0b1114;
+  background: linear-gradient(90deg, rgba(210, 23, 31, 0.23), transparent 50%), #0b1114;
 }
 
 .teamBannerAsset {
@@ -1122,8 +1114,7 @@
   overflow: hidden;
   border: 1px solid #5e5447;
   background:
-    linear-gradient(90deg, var(--paper-light) 0 220px, rgba(5, 18, 26, 0.98) 220px),
-    #081720;
+    linear-gradient(90deg, var(--paper-light) 0 220px, rgba(5, 18, 26, 0.98) 220px), #081720;
 }
 
 .nextStepTitle {
