@@ -359,14 +359,21 @@ function TeamDetail({
   team,
   tab,
   onTabChange,
+  onClose,
 }: {
   team: Team;
   tab: TeamDetailTab;
   onTabChange: (tab: TeamDetailTab) => void;
+  onClose: () => void;
 }) {
   const [best, alternative, budget] = team.compositions;
   return (
-    <section className={styles.largeDetailPanel} aria-label="Team Detail">
+    <section
+      className={styles.largeDetailPanel}
+      role="dialog"
+      aria-modal="false"
+      aria-label="Team Detail"
+    >
       <div className={styles.detailPanelHeader}>
         <div>
           <p>Team Detail</p>
@@ -378,7 +385,14 @@ function TeamDetail({
           </div>
           <Pills items={team.tags} />
         </div>
-        <span aria-hidden="true">×</span>
+        <button
+          type="button"
+          className={styles.closeButton}
+          aria-label="Close Team Detail"
+          onClick={onClose}
+        >
+          ×
+        </button>
       </div>
 
       <div className={styles.detailTabs} role="tablist" aria-label="Team detail tabs">
@@ -495,13 +509,20 @@ function PullAdviceDetail({
   advice,
   tab,
   onTabChange,
+  onClose,
 }: {
   advice: PullAdvice;
   tab: PullDetailTab;
   onTabChange: (tab: PullDetailTab) => void;
+  onClose: () => void;
 }) {
   return (
-    <section className={styles.largeDetailPanel} aria-label="Pull Advice Detail">
+    <section
+      className={styles.largeDetailPanel}
+      role="dialog"
+      aria-modal="false"
+      aria-label="Pull Advice Detail"
+    >
       <div className={styles.detailPanelHeader}>
         <div>
           <p>Pull Advice Detail</p>
@@ -516,9 +537,19 @@ function PullAdviceDetail({
             </div>
           </div>
         </div>
-        <div className={styles.pullScoreGrid}>
-          <Metric label="Pull Value" value={advice.pullValue} strong />
-          <Metric label="F2P Friendliness" value={advice.f2pFriendliness} />
+        <div className={styles.pullHeaderActions}>
+          <div className={styles.pullScoreGrid}>
+            <Metric label="Pull Value" value={advice.pullValue} strong />
+            <Metric label="F2P Friendliness" value={advice.f2pFriendliness} />
+          </div>
+          <button
+            type="button"
+            className={styles.closeButton}
+            aria-label="Close Pull Advice Detail"
+            onClick={onClose}
+          >
+            ×
+          </button>
         </div>
       </div>
 
@@ -642,6 +673,8 @@ export function ZenlessZoneZeroTierList() {
   const [agentDetailTab, setAgentDetailTab] = useState<AgentDetailTab>("build");
   const [teamDetailTab, setTeamDetailTab] = useState<TeamDetailTab>("overview");
   const [pullDetailTab, setPullDetailTab] = useState<PullDetailTab>("decision");
+  const [teamDetailOpen, setTeamDetailOpen] = useState(true);
+  const [pullDetailOpen, setPullDetailOpen] = useState(true);
 
   const agentRef = useRef<HTMLElement>(null);
   const teamRef = useRef<HTMLElement>(null);
@@ -789,11 +822,7 @@ export function ZenlessZoneZeroTierList() {
             </div>
           </section>
 
-          <section
-            ref={pullRef}
-            className={styles.pullSummary}
-            aria-labelledby="pull-summary-heading"
-          >
+          <section ref={pullRef} className={styles.pullSummary} aria-label="Current Pull Advice">
             <SectionHeading
               eyebrow="Current banners"
               title="Current Pull Advice"
@@ -810,6 +839,7 @@ export function ZenlessZoneZeroTierList() {
                   onClick={() => {
                     setSelectedPullId(advice.id);
                     setPullDetailTab("decision");
+                    setPullDetailOpen(true);
                   }}
                 >
                   <span className={styles.bannerBadge}>{advice.bannerStatus}</span>
@@ -855,11 +885,7 @@ export function ZenlessZoneZeroTierList() {
             </button>
           </nav>
 
-          <section
-            ref={agentRef}
-            className={styles.rankingSection}
-            aria-labelledby="agent-ranking-heading"
-          >
+          <section ref={agentRef} className={styles.rankingSection} aria-label="Agent Ranking">
             <SectionHeading
               eyebrow="Agents"
               title="Agent Ranking"
@@ -963,11 +989,7 @@ export function ZenlessZoneZeroTierList() {
             </div>
           </section>
 
-          <section
-            ref={teamRef}
-            className={styles.rankingSection}
-            aria-labelledby="team-ranking-heading"
-          >
+          <section ref={teamRef} className={styles.rankingSection} aria-label="Team Ranking">
             <SectionHeading
               eyebrow="Teams"
               title="Team Ranking"
@@ -996,20 +1018,41 @@ export function ZenlessZoneZeroTierList() {
                   onSelect={() => {
                     setSelectedTeamId(team.id);
                     setTeamDetailTab("overview");
+                    setTeamDetailOpen(true);
                   }}
                 />
               ))}
             </div>
           </section>
 
-          <div className={styles.detailSplit}>
-            <TeamDetail team={selectedTeam} tab={teamDetailTab} onTabChange={setTeamDetailTab} />
-            <PullAdviceDetail
-              advice={selectedPull}
-              tab={pullDetailTab}
-              onTabChange={setPullDetailTab}
-            />
-          </div>
+          {teamDetailOpen || pullDetailOpen ? (
+            <div
+              className={styles.detailOverlayLayer}
+              data-team-open={teamDetailOpen}
+              data-pull-open={pullDetailOpen}
+            >
+              <div className={styles.overlayPanel} data-overlay="team" data-open={teamDetailOpen}>
+                {teamDetailOpen ? (
+                  <TeamDetail
+                    team={selectedTeam}
+                    tab={teamDetailTab}
+                    onTabChange={setTeamDetailTab}
+                    onClose={() => setTeamDetailOpen(false)}
+                  />
+                ) : null}
+              </div>
+              <div className={styles.overlayPanel} data-overlay="pull" data-open={pullDetailOpen}>
+                {pullDetailOpen ? (
+                  <PullAdviceDetail
+                    advice={selectedPull}
+                    tab={pullDetailTab}
+                    onTabChange={setPullDetailTab}
+                    onClose={() => setPullDetailOpen(false)}
+                  />
+                ) : null}
+              </div>
+            </div>
+          ) : null}
         </main>
       </div>
     </div>
