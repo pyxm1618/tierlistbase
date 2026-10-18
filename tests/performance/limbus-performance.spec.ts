@@ -6,7 +6,9 @@ declare global {
   }
 }
 
-test("Limbus page uses shared shell and stays within page performance budgets", async ({ page }) => {
+test("Limbus page uses shared shell and stays within page performance budgets", async ({
+  page,
+}) => {
   const consoleErrors: string[] = [];
   page.on("console", (message) => {
     if (message.type() === "error") consoleErrors.push(message.text());
@@ -34,10 +36,7 @@ test("Limbus page uses shared shell and stays within page performance budgets", 
           interactionId?: number;
         };
         if ((interaction.interactionId ?? 0) > 0) {
-          window.__limbusCwv!.inp = Math.max(
-            window.__limbusCwv!.inp,
-            interaction.duration ?? 0,
-          );
+          window.__limbusCwv!.inp = Math.max(window.__limbusCwv!.inp, interaction.duration ?? 0);
         }
       }
     }).observe({
