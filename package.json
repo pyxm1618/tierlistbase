@@ -9,7 +9,7 @@
     "build:test": "APP_ENV=test next build --webpack",
     "start": "next start",
     "format": "prettier --write .",
-    "format:check": "prettier --write src/modules/limbus-tier-list/limbus-tier-list.module.css && git diff -- src/modules/limbus-tier-list/limbus-tier-list.module.css && exit 1",
+    "format:check": "prettier --check .",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run --config vitest.config.ts",
