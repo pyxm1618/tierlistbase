@@ -1132,7 +1132,6 @@
   clip-path: inset(50%);
 }
 
-
 /* Final desktop calibration against the approved 1024px design reference. */
 :global(body):has(.page) > :global(div) > :global(header) {
   min-height: 36px;
@@ -1591,7 +1590,12 @@
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(90deg, rgba(5, 8, 10, 0.18), rgba(4, 8, 10, 0.2) 48%, rgba(3, 7, 9, 0.78) 76%);
+  background: linear-gradient(
+    90deg,
+    rgba(5, 8, 10, 0.18),
+    rgba(4, 8, 10, 0.2) 48%,
+    rgba(3, 7, 9, 0.78) 76%
+  );
   pointer-events: none;
 }
 
