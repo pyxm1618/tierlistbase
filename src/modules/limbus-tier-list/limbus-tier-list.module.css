@@ -40,13 +40,6 @@
   font-family: "Arial Narrow", "Roboto Condensed", Arial, sans-serif;
 }
 
-
-
-
-
-
-
-
 .inlineSearch input {
   min-width: 0;
   flex: 1;
@@ -57,13 +50,10 @@
   font: inherit;
 }
 
-
 .inlineSearch input::placeholder {
   color: #9babb1;
   opacity: 1;
 }
-
-
 
 .hero {
   position: relative;
@@ -617,7 +607,6 @@
   font-weight: 800;
 }
 
-
 .sinnerGrid {
   display: grid;
   grid-template-columns: repeat(12, minmax(105px, 1fr));
@@ -900,7 +889,6 @@
 .missingNext p span {
   font-size: 22px;
 }
-
 
 .egoWorkspace {
   display: grid;
