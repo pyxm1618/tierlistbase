@@ -60,6 +60,14 @@ export const routeDefinitions = [
     reviewFingerprint: "c65df52835515113512c411f218aa87af3d942e9e300953993e59fda09948664",
   },
   {
+    route: "/zenless-zone-zero/tier-list",
+    class: "public_noindex",
+    pageType: "WebApplication",
+    title: "Zenless Zone Zero Tier List | TierListBase",
+    description:
+      "Zenless Zone Zero agent rankings, team rankings, and account-focused pull advice.",
+  },
+  {
     route: "/privacy",
     class: "public_noindex",
     pageType: "Legal",
