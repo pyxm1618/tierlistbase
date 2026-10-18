@@ -118,7 +118,6 @@ function SectionHeader({
 }
 
 export function LimbusTierList() {
-
   return (
     <div className={styles.page} data-limbus-page>
       <section className={styles.hero} aria-labelledby="limbus-title">
