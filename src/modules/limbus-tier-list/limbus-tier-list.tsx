@@ -3,29 +3,14 @@ import {
   bestIdentityBySinner,
   egoRows,
   exampleTeamDetail,
-  identityRows,
   teamRows,
   type Availability,
   type RatingValue,
   type TierValue,
 } from "./data";
+import { IdentityRanking } from "./identity-ranking";
 import styles from "./limbus-tier-list.module.css";
-
-const identityFilters = [
-  "All Identities",
-  "Sinner",
-  "Rarity",
-  "Role",
-  "Team / Archetype",
-  "Damage Type",
-  "Sin Affinity",
-  "Generalist Value",
-  "Beginner Friendly",
-  "Team Dependency",
-  "Availability",
-] as const;
-
-const detailTabs = ["Overview", "Core & Team", "Key E.G.O", "What to Get Next"] as const;
+import { TeamDetailTabs } from "./team-detail-tabs";
 
 function AssetSlot({
   compact = false,
@@ -151,88 +136,7 @@ export function LimbusTierList() {
             actionHref="#identity-tier-list"
           />
 
-          <div className={styles.filterBar} aria-label="Identity filters">
-            <div className={styles.filterScroll}>
-              {identityFilters.map((filter, index) => (
-                <button
-                  className={styles.filterButton}
-                  data-active={index === 0 ? "true" : "false"}
-                  type="button"
-                  key={filter}
-                >
-                  {filter}
-                </button>
-              ))}
-            </div>
-            <label className={styles.inlineSearch}>
-              <span aria-hidden="true">⌕</span>
-              <span className={styles.visuallyHidden}>Search Identity</span>
-              <input placeholder="Search Identity..." />
-            </label>
-          </div>
-
-          <div className={styles.tableFrame}>
-            <table className={styles.dataTable}>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Tier</th>
-                  <th>Identity</th>
-                  <th>Sinner</th>
-                  <th>Rarity</th>
-                  <th>Role</th>
-                  <th>Main Team / Archetype</th>
-                  <th>Damage Type</th>
-                  <th>Sin</th>
-                  <th>Generalist Value</th>
-                  <th>Beginner Friendly</th>
-                  <th>Team Dependency</th>
-                  <th>Availability</th>
-                </tr>
-              </thead>
-              <tbody>
-                {identityRows.map((row) => (
-                  <tr key={row.rank}>
-                    <td className={styles.rankCell}>{row.rank}</td>
-                    <td>
-                      <TierBadge value={row.tier} />
-                    </td>
-                    <td>
-                      <div className={styles.nameCell}>
-                        <AssetSlot compact />
-                        <strong>{row.identity}</strong>
-                      </div>
-                    </td>
-                    <td>
-                      <div className={styles.sinnerCell}>
-                        <AssetSlot compact />
-                        <span>{row.sinner}</span>
-                      </div>
-                    </td>
-                    <td className={styles.rarityCell}>{row.rarity}</td>
-                    <td>{row.role}</td>
-                    <td>
-                      <span className={styles.mechanicText}>{row.mainTeam}</span>
-                    </td>
-                    <td>{row.damageType}</td>
-                    <td>{row.sin}</td>
-                    <td>
-                      <RatingBadge value={row.generalistValue} />
-                    </td>
-                    <td>
-                      <RatingBadge value={row.beginnerFriendly} />
-                    </td>
-                    <td>
-                      <RatingBadge value={row.teamDependency} />
-                    </td>
-                    <td>
-                      <AvailabilityBadge value={row.availability} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <IdentityRanking />
         </section>
 
         <section className={styles.paperSection} id="best-identity-by-sinner">
@@ -339,7 +243,7 @@ export function LimbusTierList() {
               <div className={styles.teamDetailHeader}>
                 <span className={styles.detailNumber}>02</span>
                 <strong>TEAM DETAILS (EXAMPLE)</strong>
-                <button type="button">View All Teams →</button>
+                <a href="#team-tier-list">View All Teams →</a>
               </div>
               <div className={styles.teamDetailHero}>
                 <div className={styles.teamBannerAsset}>TEAM BANNER · ASSET REQUIRED</div>
@@ -352,19 +256,7 @@ export function LimbusTierList() {
                   </div>
                 </div>
               </div>
-              <div className={styles.detailTabs} role="tablist" aria-label="Team detail sections">
-                {detailTabs.map((tab) => (
-                  <button
-                    key={tab}
-                    type="button"
-                    role="tab"
-                    aria-selected={tab === "Overview"}
-                    data-active={tab === "Overview" ? "true" : "false"}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
+              <TeamDetailTabs />
               <div className={styles.teamMetrics}>
                 <dl>
                   <div>
