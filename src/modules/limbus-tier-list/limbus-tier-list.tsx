@@ -1,8 +1,3 @@
-"use client";
-
-import Image from "next/image";
-import { useMemo, useState } from "react";
-
 import {
   bestEgoBySinner,
   bestIdentityBySinner,
@@ -123,66 +118,9 @@ function SectionHeader({
 }
 
 export function LimbusTierList() {
-  const [search, setSearch] = useState("");
-  const [activeDetailTab, setActiveDetailTab] = useState<(typeof detailTabs)[number]>("Overview");
-
-  const filteredIdentities = useMemo(() => {
-    const query = search.trim().toLowerCase();
-    if (!query) return identityRows;
-
-    return identityRows.filter((row) =>
-      [
-        row.identity,
-        row.sinner,
-        row.rarity,
-        row.role,
-        row.mainTeam,
-        row.damageType,
-        row.sin,
-        row.generalistValue,
-        row.beginnerFriendly,
-        row.teamDependency,
-        row.availability,
-      ].some((value) => value.toLowerCase().includes(query)),
-    );
-  }, [search]);
 
   return (
     <div className={styles.page} data-limbus-page>
-      <header className={styles.chrome}>
-        <div className={styles.chromeInner}>
-          <div className={styles.brandLockup}>
-            <Image
-              src="/brand/tierlistbase-mark-fa1e376158.webp"
-              alt=""
-              width={28}
-              height={27}
-              unoptimized
-            />
-            <strong>TIERLISTBASE</strong>
-          </div>
-          <nav className={styles.mockNavigation} aria-label="Limbus page navigation">
-            <span>Games</span>
-            <span>Tier Lists</span>
-            <span>Guides</span>
-            <span>Tools</span>
-          </nav>
-          <label className={styles.topSearch}>
-            <span className={styles.visuallyHidden}>Search this mock Limbus page</span>
-            <span aria-hidden="true">⌕</span>
-            <input
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder="Search identities, teams, E.G.O..."
-            />
-          </label>
-          <div className={styles.chromeMeta} aria-hidden="true">
-            <span>EN⌄</span>
-            <span>◐</span>
-          </div>
-        </div>
-      </header>
-
       <section className={styles.hero} aria-labelledby="limbus-title">
         <div className={styles.heroNoise} />
         <div className={styles.heroCopy}>
@@ -230,11 +168,7 @@ export function LimbusTierList() {
             <label className={styles.inlineSearch}>
               <span aria-hidden="true">⌕</span>
               <span className={styles.visuallyHidden}>Search Identity</span>
-              <input
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search Identity..."
-              />
+              <input placeholder="Search Identity..." />
             </label>
           </div>
 
@@ -258,7 +192,7 @@ export function LimbusTierList() {
                 </tr>
               </thead>
               <tbody>
-                {filteredIdentities.map((row) => (
+                {identityRows.map((row) => (
                   <tr key={row.rank}>
                     <td className={styles.rankCell}>{row.rank}</td>
                     <td>
@@ -299,9 +233,6 @@ export function LimbusTierList() {
                 ))}
               </tbody>
             </table>
-            {filteredIdentities.length === 0 ? (
-              <p className={styles.emptyState}>No mock Identity rows match this search.</p>
-            ) : null}
           </div>
         </section>
 
@@ -428,9 +359,8 @@ export function LimbusTierList() {
                     key={tab}
                     type="button"
                     role="tab"
-                    aria-selected={activeDetailTab === tab}
-                    data-active={activeDetailTab === tab ? "true" : "false"}
-                    onClick={() => setActiveDetailTab(tab)}
+                    aria-selected={tab === "Overview"}
+                    data-active={tab === "Overview" ? "true" : "false"}
                   >
                     {tab}
                   </button>
@@ -545,9 +475,6 @@ export function LimbusTierList() {
                   </p>
                 </div>
               </div>
-              <p className={styles.tabHint}>
-                Active detail view: <strong>{activeDetailTab}</strong>
-              </p>
             </article>
           </div>
         </section>
