@@ -11,7 +11,7 @@ type Character = {
   name: string;
   rarity: "SSR" | "SR";
   burst: "Burst I" | "Burst II" | "Burst III";
-  cooldown: "20s" | "40s";
+  cooldown: "20s" | "40s" | "60s";
   element: "Fire" | "Water" | "Wind" | "Iron" | "Electric";
   weapon: "AR" | "SMG" | "SG" | "SR" | "RL" | "MG";
   classType: "Attacker" | "Defender" | "Supporter";
@@ -157,7 +157,7 @@ const characters: Character[] = [
     ratings: { campaign: "A", boss: "A", pvp: "SSS" },
     newPlayer: "Good",
     investment: "Medium",
-  } as Character & { cooldown: "60s" },
+  },
   {
     name: "Naga",
     rarity: "SSR",
@@ -591,7 +591,7 @@ export function NikkeTierListPage() {
   const [wishlist, setWishlist] = useState("New Player");
   const [methodology, setMethodology] = useState<ModeKey>("campaign");
 
-  const selected = characters.find((character) => character.name === selectedName) ?? characters[0];
+  const selected = characters.find((character) => character.name === selectedName) ?? characters[0]!;
 
   const filteredCharacters = useMemo(() => {
     const normalized = search.trim().toLowerCase();
