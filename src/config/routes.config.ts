@@ -62,7 +62,6 @@ export const routeDefinitions = [
   {
     route: "/nikke/tier-list",
     class: "public_noindex",
-    pageType: "WebApplication",
     title: "NIKKE Tier List Preview | TierListBase",
     description:
       "Preview the TierListBase NIKKE tier list interface for Campaign, Boss, Raid, PvP, teams, reroll, wishlist, methodology, and character details.",
