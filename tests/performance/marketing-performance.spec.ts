@@ -15,6 +15,7 @@ const routes = [
   "/wow-forever/tier-list",
   "/wow-forever/tier-list?level=30",
   "/genshin-impact/tier-list",
+  "/limbus-company/tier-list",
 ] as const;
 
 for (const route of routes) {
