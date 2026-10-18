@@ -25,7 +25,8 @@ export function TeamDetailTabs() {
             onKeyDown={(event) => {
               let next: number | undefined;
               if (event.key === "ArrowRight") next = (index + 1) % detailTabs.length;
-              if (event.key === "ArrowLeft") next = (index + detailTabs.length - 1) % detailTabs.length;
+              if (event.key === "ArrowLeft")
+                next = (index + detailTabs.length - 1) % detailTabs.length;
               if (event.key === "Home") next = 0;
               if (event.key === "End") next = detailTabs.length - 1;
               if (next === undefined) return;
