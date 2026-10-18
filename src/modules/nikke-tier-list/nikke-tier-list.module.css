@@ -430,7 +430,7 @@
 
 .workspace {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr) 330px;
+  grid-template-columns: 315px minmax(0, 1fr) 370px;
   gap: 8px;
   margin-top: 8px;
   align-items: start;
@@ -1164,7 +1164,7 @@
 
 @media (max-width: 1250px) {
   .workspace {
-    grid-template-columns: 200px minmax(0, 1fr) 290px;
+    grid-template-columns: 260px minmax(0, 1fr) 320px;
   }
 
   .characterGrid {
