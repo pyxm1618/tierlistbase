@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, type ChangeEvent, type ReactNode } from "react";
+import { useMemo, useState, type ChangeEvent, type ReactNode } from "react";
 
 import {
   agentRankingViews,
@@ -673,12 +673,8 @@ export function ZenlessZoneZeroTierList() {
   const [agentDetailTab, setAgentDetailTab] = useState<AgentDetailTab>("build");
   const [teamDetailTab, setTeamDetailTab] = useState<TeamDetailTab>("overview");
   const [pullDetailTab, setPullDetailTab] = useState<PullDetailTab>("decision");
-  const [teamDetailOpen, setTeamDetailOpen] = useState(true);
-  const [pullDetailOpen, setPullDetailOpen] = useState(true);
-
-  const agentRef = useRef<HTMLElement>(null);
-  const teamRef = useRef<HTMLElement>(null);
-  const pullRef = useRef<HTMLElement>(null);
+  const [teamDetailOpen, setTeamDetailOpen] = useState(false);
+  const [pullDetailOpen, setPullDetailOpen] = useState(false);
 
   const filteredAgents = useMemo(() => {
     const normalized = search.trim().toLowerCase();
@@ -715,15 +711,23 @@ export function ZenlessZoneZeroTierList() {
 
   if (!selectedAgent || !selectedTeam || !selectedPull) return null;
 
-  const scrollTo = (section: PrimarySection) => {
+  const activatePrimarySection = (section: PrimarySection) => {
     setPrimarySection(section);
-    const target =
-      section === "agents"
-        ? agentRef.current
-        : section === "teams"
-          ? teamRef.current
-          : pullRef.current;
-    target?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    if (section === "agents") {
+      setTeamDetailOpen(false);
+      setPullDetailOpen(false);
+      return;
+    }
+
+    if (section === "teams") {
+      setTeamDetailOpen(true);
+      setPullDetailOpen(false);
+      return;
+    }
+
+    setTeamDetailOpen(false);
+    setPullDetailOpen(true);
   };
 
   const resetFilters = () => {
@@ -767,27 +771,31 @@ export function ZenlessZoneZeroTierList() {
 
       <div className={styles.pageFrame}>
         <aside className={styles.sideRail} aria-label="Zenless Zone Zero sections">
-          <button type="button" className={styles.sideRailTitle} onClick={() => scrollTo("agents")}>
+          <button
+            type="button"
+            className={styles.sideRailTitle}
+            onClick={() => activatePrimarySection("agents")}
+          >
             <span>▣</span> ZZZ Tier List
           </button>
           <button
             type="button"
             data-active={primarySection === "agents"}
-            onClick={() => scrollTo("agents")}
+            onClick={() => activatePrimarySection("agents")}
           >
             <span>◉</span> Agents
           </button>
           <button
             type="button"
             data-active={primarySection === "teams"}
-            onClick={() => scrollTo("teams")}
+            onClick={() => activatePrimarySection("teams")}
           >
             <span>♟</span> Teams
           </button>
           <button
             type="button"
             data-active={primarySection === "pull"}
-            onClick={() => scrollTo("pull")}
+            onClick={() => activatePrimarySection("pull")}
           >
             <span>✦</span> Pull Advice
           </button>
@@ -822,13 +830,17 @@ export function ZenlessZoneZeroTierList() {
             </div>
           </section>
 
-          <section ref={pullRef} className={styles.pullSummary} aria-label="Current Pull Advice">
-            <SectionHeading
-              eyebrow="Current banners"
-              title="Current Pull Advice"
-              description="Current and upcoming decisions, framed around account value rather than a third tier list."
-              action={<span className={styles.smallAction}>View All Patches →</span>}
-            />
+          <section className={styles.pullSummary} aria-label="Current Pull Advice">
+            <div className={styles.pullSummaryHeader}>
+              <div className={styles.pullSummaryTitle}>
+                <span aria-hidden="true">✦</span>
+                <strong>Current Pull Advice</strong>
+              </div>
+              <span className={styles.pullSummaryDescription}>
+                Based on current and upcoming banners. Get personalized pull recommendations.
+              </span>
+              <span className={styles.smallAction}>View All Patches →</span>
+            </div>
             <div className={styles.pullSummaryGrid}>
               {pullAdvices.map((advice) => (
                 <button
@@ -839,6 +851,8 @@ export function ZenlessZoneZeroTierList() {
                   onClick={() => {
                     setSelectedPullId(advice.id);
                     setPullDetailTab("decision");
+                    setPrimarySection("pull");
+                    setTeamDetailOpen(false);
                     setPullDetailOpen(true);
                   }}
                 >
@@ -849,49 +863,69 @@ export function ZenlessZoneZeroTierList() {
                   <span className={styles.pullSummaryCopy}>
                     <strong>{advice.name}</strong>
                     <small>{advice.style}</small>
-                    <span>{advice.pullIf.slice(0, 3).join(" · ")}</span>
-                    <small>{advice.dateLabel}</small>
+                    <span className={styles.pullBulletList}>
+                      {advice.pullIf.slice(0, 3).map((item) => (
+                        <span key={item}>{item}</span>
+                      ))}
+                    </span>
+                    <small className={styles.pullDate}>{advice.dateLabel}</small>
                   </span>
-                  <span className={styles.pullValue}>Pull {advice.pullValue}</span>
+                  <span
+                    className={styles.pullCardAction}
+                    data-upcoming={advice.bannerStatus === "Upcoming"}
+                  >
+                    {advice.bannerStatus === "Upcoming" ? "View Details →" : "View Pull Advice →"}
+                  </span>
                 </button>
               ))}
             </div>
           </section>
 
-          <nav className={styles.primaryTabs} aria-label="Tier list primary sections">
+          <nav
+            className={styles.primaryTabs}
+            role="tablist"
+            aria-label="Tier list primary sections"
+          >
             <button
               type="button"
+              role="tab"
+              aria-selected={primarySection === "agents"}
               data-active={primarySection === "agents"}
-              onClick={() => scrollTo("agents")}
+              onClick={() => activatePrimarySection("agents")}
             >
               <strong>Agents</strong>
               <span>Who should I build?</span>
             </button>
             <button
               type="button"
+              role="tab"
+              aria-selected={primarySection === "teams"}
               data-active={primarySection === "teams"}
-              onClick={() => scrollTo("teams")}
+              onClick={() => activatePrimarySection("teams")}
             >
               <strong>Teams</strong>
               <span>What team should I build?</span>
             </button>
             <button
               type="button"
+              role="tab"
+              aria-selected={primarySection === "pull"}
               data-active={primarySection === "pull"}
-              onClick={() => scrollTo("pull")}
+              onClick={() => activatePrimarySection("pull")}
             >
               <strong>Pull Advice</strong>
               <span>Who should I pull now?</span>
             </button>
           </nav>
 
-          <section ref={agentRef} className={styles.rankingSection} aria-label="Agent Ranking">
-            <SectionHeading
+          {primarySection === "agents" ? (
+            <section className={styles.rankingSection} aria-label="Agent Ranking">
+              <SectionHeading
               eyebrow="Agents"
               title="Agent Ranking"
               description="Compare agents across the frozen ranking views and account-value filters."
             />
-            <div className={styles.rankingTabs} role="tablist" aria-label="Agent ranking views">
+              <div className={styles.rankingTabs} role="tablist" aria-label="Agent ranking views">
               {agentRankingViews.map((view) => (
                 <button
                   key={view}
@@ -905,7 +939,7 @@ export function ZenlessZoneZeroTierList() {
               ))}
             </div>
 
-            <div className={styles.filters}>
+              <div className={styles.filters}>
               <strong>Filters</strong>
               <SelectFilter
                 label="Combat Role"
@@ -951,7 +985,7 @@ export function ZenlessZoneZeroTierList() {
               </label>
             </div>
 
-            <div className={styles.agentWorkspace}>
+              <div className={styles.agentWorkspace}>
               <div className={styles.tierBoard}>
                 {tiers.map((tier) => {
                   const inTier = filteredAgents.filter(
@@ -987,15 +1021,17 @@ export function ZenlessZoneZeroTierList() {
                 onTabChange={setAgentDetailTab}
               />
             </div>
-          </section>
+            </section>
+          ) : null}
 
-          <section ref={teamRef} className={styles.rankingSection} aria-label="Team Ranking">
-            <SectionHeading
+          {primarySection === "teams" ? (
+            <section className={styles.rankingSection} aria-label="Team Ranking">
+              <SectionHeading
               eyebrow="Teams"
               title="Team Ranking"
               description="Rank complete team concepts, then open a team to compare premium, alternative, and F2P versions."
             />
-            <div className={styles.rankingTabs} role="tablist" aria-label="Team ranking views">
+              <div className={styles.rankingTabs} role="tablist" aria-label="Team ranking views">
               {teamRankingViews.map((view) => (
                 <button
                   key={view}
@@ -1008,7 +1044,7 @@ export function ZenlessZoneZeroTierList() {
                 </button>
               ))}
             </div>
-            <div className={styles.teamRankingGrid}>
+              <div className={styles.teamRankingGrid}>
               {rankedTeams.map((team) => (
                 <TeamCard
                   key={team.id}
@@ -1018,12 +1054,24 @@ export function ZenlessZoneZeroTierList() {
                   onSelect={() => {
                     setSelectedTeamId(team.id);
                     setTeamDetailTab("overview");
+                    setPullDetailOpen(false);
                     setTeamDetailOpen(true);
                   }}
                 />
               ))}
             </div>
-          </section>
+            </section>
+          ) : null}
+
+          {primarySection === "pull" && !pullDetailOpen ? (
+            <section className={styles.rankingSection} aria-label="Pull Advice">
+              <SectionHeading
+                eyebrow="Pull Advice"
+                title="Current Pull Advice"
+                description="Select a current or upcoming banner above to open the account-focused pull decision detail."
+              />
+            </section>
+          ) : null}
 
           {teamDetailOpen || pullDetailOpen ? (
             <div
