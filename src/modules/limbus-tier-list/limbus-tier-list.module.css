@@ -1126,7 +1126,683 @@
   clip-path: inset(50%);
 }
 
-@media (max-width: 1240px) {
+
+/* Final desktop calibration against the approved 1024px design reference. */
+:global(body):has(.page) > :global(div) > :global(header) {
+  min-height: 36px;
+  border-bottom-color: rgba(107, 78, 63, 0.72);
+  background: rgba(3, 11, 17, 0.93);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.52);
+  backdrop-filter: blur(6px);
+}
+
+:global(body):has(.page) > :global(div) > :global(header) > :global(div) {
+  width: min(calc(100% - 24px), 1540px);
+  max-width: 1540px;
+  height: 36px;
+  gap: 12px;
+  padding-inline: 0;
+}
+
+:global(body):has(.page) > :global(div) > :global(header) :global(img) {
+  width: 24px;
+  height: 23px;
+}
+
+:global(body):has(.page) > :global(div) > :global(header) :global(nav) {
+  gap: 8px;
+}
+
+:global(body):has(.page) > :global(div) > :global(header) :global(nav) :global(a) {
+  padding: 4px 5px;
+  font-size: 11px;
+}
+
+.page {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(8, 8, 8, 0.34), rgba(5, 7, 8, 0.68)),
+    radial-gradient(circle at 12% 30%, rgba(163, 20, 25, 0.24), transparent 24%),
+    radial-gradient(circle at 88% 68%, rgba(167, 18, 23, 0.2), transparent 26%),
+    repeating-linear-gradient(102deg, #1c1210 0 1px, #080a0b 1px 18px);
+}
+
+.hero {
+  height: 148px;
+  min-height: 148px;
+  border-bottom: 2px solid #211712;
+  background: #080c0e;
+}
+
+.heroImage {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center 43%;
+  filter: saturate(0.95) contrast(1.04) brightness(0.82);
+}
+
+.heroShade {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3, 8, 11, 0.94) 0%,
+      rgba(5, 8, 10, 0.78) 26%,
+      rgba(5, 8, 10, 0.28) 51%,
+      rgba(3, 7, 9, 0.08) 72%,
+      rgba(3, 6, 8, 0.3) 100%
+    ),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.34));
+  pointer-events: none;
+}
+
+.hero::before {
+  z-index: 2;
+  opacity: 0.12;
+}
+
+.hero::after {
+  display: none;
+}
+
+.heroNoise {
+  display: none;
+}
+
+.heroCopy {
+  z-index: 3;
+  width: min(100% - 32px, 1540px);
+  padding: 18px 48% 10px 20px;
+}
+
+.eyebrow {
+  display: none;
+}
+
+.heroCopy h1 {
+  max-width: 560px;
+  color: #efe4cb;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(48px, 6.3vw, 66px);
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: -0.055em;
+  text-shadow:
+    2px 2px 0 #0b0806,
+    -1px -1px 0 rgba(235, 218, 185, 0.5),
+    0 0 18px rgba(0, 0, 0, 0.8);
+}
+
+.heroCopy h1 em {
+  margin: 6px 0 0 118px;
+  color: #e3272f;
+  font-family: "Segoe Print", "Bradley Hand", cursive;
+  font-size: 0.48em;
+  letter-spacing: -0.08em;
+  text-shadow: 2px 2px 0 #3a0a0d;
+}
+
+.heroCopy > p:last-child {
+  max-width: 520px;
+  margin: 10px 0 0 2px;
+  color: #f3f0e8;
+  font-size: 12px;
+  line-height: 1.1;
+  text-shadow: 0 1px 4px #000;
+}
+
+.heroGraffiti {
+  z-index: 4;
+  right: 28px;
+  bottom: 24px;
+  font-size: 19px;
+  line-height: 1.02;
+}
+
+.content {
+  width: min(calc(100% - 28px), 1540px);
+  padding: 7px 0 18px;
+}
+
+.content::before {
+  inset: 0 -28px;
+  opacity: 0.66;
+}
+
+.paperSection {
+  margin: 0 0 7px;
+  border: 2px solid #171410;
+  border-radius: 2px;
+  box-shadow:
+    0 0 0 1px rgba(213, 199, 174, 0.24),
+    0 5px 12px rgba(0, 0, 0, 0.46);
+}
+
+.sectionHeader {
+  grid-template-columns: 54px 245px 190px minmax(250px, 1fr) 104px;
+  min-height: 48px;
+  border-bottom: 2px solid #17130f;
+  background:
+    linear-gradient(rgba(235, 228, 214, 0.97), rgba(204, 192, 171, 0.96)),
+    repeating-linear-gradient(89deg, transparent 0 19px, rgba(53, 42, 31, 0.07) 19px 20px);
+}
+
+.sectionNumber {
+  margin: -1px 8px -1px -1px;
+  font-size: 30px;
+  box-shadow:
+    inset -5px 0 0 rgba(73, 8, 10, 0.28),
+    2px 0 0 rgba(255, 255, 255, 0.18);
+}
+
+.sectionHeader h2 {
+  padding-right: 12px;
+  font-size: 27px;
+  letter-spacing: -0.01em;
+}
+
+.sectionQuestion,
+.sectionDescription {
+  padding: 7px 12px;
+  font-size: 9.5px;
+  line-height: 1.2;
+}
+
+.sectionAction {
+  min-width: 88px;
+  height: 31px;
+  gap: 8px;
+  margin: 0 7px;
+  border-color: #dc2730;
+  font-size: 9px;
+}
+
+.sectionAction span {
+  font-size: 15px;
+}
+
+.filterBar {
+  grid-template-columns: minmax(0, 1fr) 168px;
+  gap: 6px;
+  padding: 6px 7px;
+  background: #08141c;
+}
+
+.filterScroll {
+  gap: 5px;
+}
+
+.filterButton {
+  height: 29px;
+  padding: 0 9px;
+  font-size: 8px;
+}
+
+.inlineSearch {
+  height: 29px;
+  padding: 0 7px;
+  font-size: 8px;
+}
+
+.dataTable {
+  min-width: 980px;
+  font-size: 9px;
+}
+
+.dataTable th {
+  height: 27px;
+  padding: 3px 5px;
+  font-size: 7px;
+}
+
+.dataTable td {
+  height: 39px;
+  padding: 3px 5px;
+}
+
+.nameCell,
+.sinnerCell {
+  gap: 5px;
+}
+
+.nameCell strong {
+  max-width: 118px;
+  font-size: 9px;
+}
+
+.sinnerCell {
+  min-width: 84px;
+}
+
+.assetSlotCompact {
+  width: 30px;
+  height: 30px;
+}
+
+.assetSlotWide {
+  height: 62px;
+}
+
+.tierBadge {
+  min-width: 39px;
+  height: 30px;
+  font-size: 14px;
+}
+
+.ratingBadge {
+  min-width: 50px;
+  height: 26px;
+  padding: 0 6px;
+  font-size: 9px;
+}
+
+.ratingBadgeCompact {
+  min-width: 34px;
+  height: 24px;
+  padding: 0 5px;
+}
+
+.availabilityBadge {
+  min-width: 62px;
+  min-height: 25px;
+  padding: 0 6px;
+  font-size: 8px;
+}
+
+.rarityCell {
+  font-size: 11px;
+}
+
+.emptyState {
+  height: 39px;
+  font-size: 9px;
+}
+
+.sinnerGrid {
+  display: grid;
+  grid-template-columns: 46px repeat(12, minmax(0, 1fr));
+  min-width: 980px;
+  overflow-x: auto;
+  background: #07141c;
+}
+
+.sinnerLabels {
+  display: grid;
+  grid-template-rows: 82px 42px 42px 42px;
+  background: #ded4c2;
+  color: #161412;
+}
+
+.sinnerLabels > * {
+  display: grid;
+  place-items: center;
+  padding: 3px;
+  border-right: 1px solid #887d6d;
+  border-bottom: 1px solid #8e8272;
+  font-size: 7px;
+  line-height: 1;
+  text-align: center;
+}
+
+.sinnerCard {
+  display: grid;
+  grid-template-rows: 82px 42px 42px 42px;
+  min-width: 0;
+  border-right: 1px solid #273943;
+  background: linear-gradient(#0a1b25, #06131a);
+}
+
+.sinnerPortrait {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-bottom: 1px solid #263c47;
+}
+
+.sinnerPortrait .assetSlot {
+  width: 100%;
+  height: 62px;
+  border-width: 0 0 1px;
+}
+
+.sinnerPortrait h3 {
+  display: grid;
+  height: 20px;
+  place-items: center;
+  margin: 0;
+  background: #07131a;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+}
+
+.sinnerPick {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr);
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  padding: 3px;
+  border-bottom: 1px solid #1c313c;
+  background: #091923;
+  color: #eef2f3;
+  font-size: 6.5px;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.sinnerPick .assetSlot {
+  width: 24px;
+  height: 24px;
+}
+
+.sinnerPick > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sinnerCard .sinnerPick:last-child {
+  color: #21d5b6;
+}
+
+.teamWorkspace {
+  grid-template-columns: minmax(0, 1.5fr) minmax(360px, 0.95fr);
+  gap: 6px;
+  padding: 6px;
+}
+
+.teamTable {
+  min-width: 590px;
+  font-size: 7.5px;
+}
+
+.teamTable th {
+  height: 25px;
+  padding: 2px 3px;
+  font-size: 6.3px;
+}
+
+.teamTable td {
+  height: 29px;
+  padding: 2px 3px;
+}
+
+.teamTable .assetSlotCompact {
+  width: 25px;
+  height: 25px;
+}
+
+.teamTable .tierBadge,
+.egoTable .tierBadge {
+  min-width: 34px;
+  height: 25px;
+  font-size: 11px;
+}
+
+.teamTable .ratingBadgeCompact {
+  min-width: 31px;
+  height: 23px;
+  font-size: 8px;
+}
+
+.teamDetailHeader,
+.bestEgoHeader {
+  min-height: 30px;
+  gap: 6px;
+}
+
+.detailNumber {
+  min-width: 36px;
+  font-size: 20px;
+}
+
+.teamDetailHeader strong {
+  font-size: 14px;
+}
+
+.teamDetailHeader a {
+  padding: 2px 5px;
+  font-size: 7px;
+}
+
+.teamDetailHero {
+  height: 64px;
+  background: #0b1114;
+}
+
+.teamBannerImage {
+  z-index: 0;
+  object-fit: cover;
+  object-position: 42% 39%;
+  filter: saturate(1.04) contrast(1.04) brightness(0.74);
+}
+
+.teamBannerShade {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(5, 8, 10, 0.18), rgba(4, 8, 10, 0.2) 48%, rgba(3, 7, 9, 0.78) 76%);
+  pointer-events: none;
+}
+
+.teamDetailTitle {
+  z-index: 2;
+  right: 9px;
+  bottom: 6px;
+}
+
+.teamDetailTitle h3 {
+  margin-bottom: 3px;
+  font-size: 20px;
+}
+
+.typeChip {
+  height: 23px;
+  padding: 0 7px;
+  font-size: 8px;
+}
+
+.detailTabs {
+  gap: 2px;
+  padding: 3px;
+}
+
+.detailTabs button {
+  min-height: 25px;
+  font-size: 7.5px;
+}
+
+.teamMetrics {
+  gap: 5px;
+  padding: 5px;
+}
+
+.teamMetrics dl > div {
+  min-height: 22px;
+  gap: 5px;
+  font-size: 8px;
+}
+
+.teamPieces {
+  gap: 4px;
+  padding: 0 5px 5px;
+}
+
+.teamPieces > div {
+  padding: 4px;
+}
+
+.teamPieces h4 {
+  margin-bottom: 4px;
+  font-size: 6.7px;
+}
+
+.teamPieces .assetSlotCompact {
+  width: 25px;
+  height: 25px;
+}
+
+.assetStrip {
+  gap: 2px;
+}
+
+.missingNext p {
+  min-height: 31px;
+  font-size: 8px;
+}
+
+.egoWorkspace {
+  grid-template-columns: minmax(0, 1.13fr) minmax(0, 0.95fr);
+  gap: 6px;
+  padding: 0 0 6px;
+}
+
+.egoWorkspace > div .sectionHeader {
+  grid-template-columns: none;
+}
+
+.egoTable {
+  min-width: 500px;
+  font-size: 7.5px;
+}
+
+.egoTable th {
+  height: 25px;
+  padding: 2px 3px;
+  font-size: 6.2px;
+}
+
+.egoTable td {
+  height: 32px;
+  padding: 2px 3px;
+}
+
+.egoTable .assetSlotCompact {
+  width: 25px;
+  height: 25px;
+}
+
+.egoTable .ratingBadgeCompact {
+  min-width: 31px;
+  height: 23px;
+  font-size: 8px;
+}
+
+.bestEgo {
+  border-width: 1px;
+}
+
+.bestEgoHeader {
+  background: linear-gradient(90deg, var(--paper-light) 0 56%, #0a1b25 56%);
+}
+
+.bestEgoHeader h2 {
+  font-size: 17px;
+}
+
+.bestEgoHeader a {
+  padding: 0 6px;
+  font-size: 7px;
+}
+
+.bestEgoMatrix {
+  grid-template-columns: 42px repeat(12, minmax(0, 1fr));
+  min-width: 0;
+}
+
+.bestEgoLabels,
+.egoSinnerColumn {
+  grid-template-rows: 24px 36px 38px 38px 38px;
+}
+
+.bestEgoLabels span {
+  padding: 2px;
+  font-size: 6px;
+}
+
+.egoSinnerColumn h3 {
+  font-size: 5.5px;
+}
+
+.egoSinnerColumn > .assetSlot {
+  height: 36px;
+}
+
+.egoSinnerColumn > div {
+  grid-template-columns: 25px minmax(0, 1fr);
+  gap: 2px;
+  padding: 2px;
+}
+
+.egoSinnerColumn > div .assetSlot {
+  width: 23px;
+  height: 23px;
+}
+
+.egoSinnerColumn > div > span:last-child {
+  font-size: 5.2px;
+}
+
+.nextStep {
+  grid-template-columns: 166px minmax(0, 1fr);
+  min-height: 78px;
+  background:
+    linear-gradient(90deg, var(--paper-light) 0 166px, rgba(5, 18, 26, 0.98) 166px), #081720;
+}
+
+.nextStepTitle {
+  gap: 6px;
+  padding: 0 14px;
+}
+
+.nextStepTitle > span {
+  font-size: 17px;
+}
+
+.nextStep h2 {
+  font-size: 20px;
+}
+
+.nextStep ol {
+  padding-right: 172px;
+}
+
+.nextStep li {
+  grid-template-columns: 34px 1fr auto;
+  gap: 7px;
+  padding: 9px 9px;
+}
+
+.nextStep li > strong {
+  width: 31px;
+  height: 36px;
+  font-size: 17px;
+}
+
+.nextStep li h3 {
+  margin-bottom: 2px;
+  font-size: 8.5px;
+}
+
+.nextStep li p {
+  font-size: 6.8px;
+}
+
+.nextStep li > span {
+  font-size: 17px;
+}
+
+.nextStepGraffiti {
+  right: 18px;
+  top: 13px;
+  font-size: 16px;
+}
+
+@media (max-width: 900px) {
   .sectionHeader,
   .egoWorkspace > div .sectionHeader {
     grid-template-columns: 58px minmax(220px, auto) minmax(190px, 1fr) auto;
