@@ -45,6 +45,13 @@ export const routeDefinitions = [
       "Genshin Impact tier list page on TierListBase. Verified rankings and evidence will appear here as reviewed data is published.",
   },
   {
+    route: "/zenless-zone-zero/tier-list",
+    class: "public_noindex",
+    title: "Zenless Zone Zero Tier List | TierListBase",
+    description:
+      "Zenless Zone Zero agent rankings, team rankings, and account-focused pull advice.",
+  },
+  {
     route: "/privacy",
     class: "public_noindex",
     pageType: "Legal",
