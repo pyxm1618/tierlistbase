@@ -58,7 +58,11 @@ test("Limbus page uses shared shell and stays within page performance budgets", 
   const search = page.getByRole("searchbox", { name: "Search Identity" });
   await search.fill("Priestess");
   await expect(page.locator("#identity-tier-list tbody tr")).toHaveCount(1);
-  await expect(page.getByText("The Priestess of La Manchaland", { exact: true })).toBeVisible();
+  await expect(
+    page.locator("#identity-tier-list tbody").getByText("The Priestess of La Manchaland", {
+      exact: true,
+    }),
+  ).toBeVisible();
 
   const sinnerFilter = page.getByRole("button", { name: "Sinner", exact: true });
   await sinnerFilter.click();
