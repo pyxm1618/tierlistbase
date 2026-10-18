@@ -703,8 +703,8 @@ export function NikkeTierListPage() {
         <div className={styles.heroShade} aria-hidden="true" />
         <div className={styles.heroContent}>
           <div className={styles.heroTitle}>
-            <span className={styles.gameEyebrow}>GODDESS OF VICTORY</span>
             <h1>NIKKE</h1>
+            <span className={styles.gameEyebrow}>GODDESS OF VICTORY</span>
             <strong>Find the right NIKKE for your journey</strong>
             <p>
               Complete tier lists, team recommendations, and in-depth analysis for every game mode.
