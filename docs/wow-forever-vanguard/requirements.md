@@ -105,6 +105,15 @@ WoW Forever 官方全球上线时间为：
 
 Seat Hold 不延长活动截止时间。
 
+### 截止判定口径
+
+是否成功只以**服务端最终 Inscription 写入的接受时间**为准。
+
+- 服务端在数据库事务内、正式写入前使用数据库时间检查截止点。
+- 如果该检查时间早于 2026-11-04 23:00:00 UTC，则该次 Inscription 可以完成，即使前端 3–5 秒动画在截止后才播放结束。
+- 如果该检查时间已经达到或晚于截止点，则提交失败。
+- 浏览器本地时间、按钮按下时间和动画结束时间都不作为有效判定依据。
+
 关闭状态统一展示：
 
 **THE MONUMENT IS SEALED**
@@ -141,26 +150,13 @@ WOW 是第一阶段，也是整个活动的 Founding Cohort。
 
 ---
 
-## 4. WOW 未满的运营预案
+## 4. WOW 未满的处理
 
-产品正常路径始终是真实用户自然参与。
+本版本**不实现任何技术补位 / 系统补位能力**。
 
-如果临近最终截止时 WOW 仍未满，可进行运营补量。
+如果临近最终截止时 WOW 仍未满，是否通过运营手段补足由后续运营另行决定，不进入当前产品与技术开发范围，也不影响 Vanguard 主流程开发。
 
-为了不增加产品和后台开发：
-
-- 不开发专门的补位 UI
-- 不开发运营 Admin
-- 如确需补位，由一次性内部脚本执行
-- 系统补位记录必须在数据层标记为 system_fill
-- system_fill 不绑定真实 TierListBase 用户账户
-- system_fill 不计入“真实参与用户数”分析指标
-- 不使用虚构真实人物身份、虚构真实玩家照片或冒充真实用户
-- 如需要在公共 Monument 中展示，使用中性纪念铭牌 / Default Emblem
-
-运营层可以决定是否执行补位，但该能力不属于普通用户功能。
-
-如希望确保 FOREVER 至少开放一天，WOW 必须在最终截止前至少 24 小时完成。
+当前系统只处理真实用户成功 Inscription、WOW 满 8,016 后的阶段切换，以及固定活动截止规则。
 
 ---
 
@@ -552,22 +548,21 @@ WOW 与 FOREVER 使用 **同一套图片上传要求**。
 2. 直接看到当前阶段 Monument 与已占 Seat 数
 3. 点击 ENTER THE MONUMENT
 4. 使用鼠标、触控或可选手势浏览
-5. 选择空 Seat
+5. 选择空 Seat，并立即创建短时 Seat Hold
 6. 填写 Vanguard Name / Faction / Class
 7. 可选填写 Guild / Battle Cry
-8. 可选选择 Memory Image 并裁切
-9. 最后正式占位前要求 Google 登录
-10. 创建短时 Seat Hold
-11. 图片上传和自动审核
-12. 图片不合格则换图或使用 Default Emblem
-13. HOLD TO INSCRIBE
-14. 数据库事务完成正式占位
-15. 3–5 秒刻碑动画
-16. Reveal
-17. 生成 Vanguard Seal
-18. 用户保存 / 分享 / Stand Beside Me
-19. 展示与所选 Class 对应的 WoW Forever Tier List CTA
-20. 用户之后可以随时回到自己的 Seat，但不能修改
+8. 最后正式占位前要求 Google 登录
+9. Google 登录返回后重新验证原 Seat：仍为空则继续 / 重新建立 Hold；若已被占，则保留全部文字草稿并推荐最近空 Seat
+10. 登录完成后，可选选择 Memory Image、进行 1:1 裁切、上传并自动审核
+11. 图片不合格则换图或使用 Default Emblem
+12. HOLD TO INSCRIBE
+13. 数据库事务完成正式占位
+14. 3–5 秒刻碑动画
+15. Reveal
+16. 生成 Vanguard Seal
+17. 用户保存 / 分享 / Stand Beside Me
+18. 展示与所选 Class 对应的 WoW Forever Tier List CTA
+19. 用户之后可以随时回到自己的 Seat，但不能修改
 
 ---
 
@@ -788,9 +783,14 @@ CTA：
 
 ### 登录失败
 
-Claim 草稿与当前 Seat Hold 尽可能保留。
+Claim 文字草稿必须保留。
 
-不得让用户重新填写全部内容。
+Google 登录返回时必须重新验证原 Seat：
+
+- 原 Seat 仍为空：继续使用或重新建立 Hold
+- 原 Seat 已被别人占用：保留全部文字草稿，提示冲突并推荐最近空 Seat
+- 不得让用户重新填写全部内容
+- Memory Image 选择 / 上传安排在登录完成以后，因此不需要跨 OAuth 跳转保存本地 File 对象
 
 ### 网络失败
 
@@ -847,8 +847,6 @@ V1 不做：
 
 ## 25. 关键指标
 
-真实用户指标必须与 system_fill 分开。
-
 核心指标：
 
 - Page Visit
@@ -856,8 +854,7 @@ V1 不做：
 - Focus
 - Claim Start
 - Claim Complete
-- Real User Seats
-- System Fill Seats
+- Occupied Seats
 - Seal Save
 - Share
 - Stand Beside Me Open
@@ -867,7 +864,6 @@ V1 不做：
 - FOREVER Unlock Time
 - Total Occupied Seats
 
-不得把 system_fill 计入真实参与人数。
 
 ---
 
