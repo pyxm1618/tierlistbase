@@ -30,12 +30,12 @@ This ledger distinguishes implemented code/interfaces from final visual and exte
 | 21 Class Tier List link | PASS | Existing WOW_CLASSES reused; class searchParam selection/role preservation and fixed canonical, browser verified |
 | 22 Report + email | PASS | Five fixed reasons, existing rate/session/IP boundary, DB insert then Resend notification, failure preserves report, no auto-hide/admin. Live delivery remains external |
 | 23 My Vanguard | PASS | Existing AccountShell/context; read-only Plate/details, Seal interface, View in Monument and Share. Account deletion/revocation retains occupied neutral Seat |
-| 24 Existing Legal | DEFERRED | Vanguard-only changes from foundation remain draft; human legal review is an external release gate, not asset work |
+| 24 Existing Legal | PASS | Existing Privacy/Terms/Acceptable Use/Account Deletion now cover Vanguard; stale disabled-account/Neon statements corrected. Human legal review remains external and draft is retained |
 | 25 Tests | PASS | Local unit, PostgreSQL integration, provider/clock fixtures, browser contracts, cache/SEO/security checks; results below distinguish simulated versus actual services |
 | 26 CI / viewport / device acceptance | IN_PROGRESS | Existing CI gains dedicated Google-only Vanguard browser suite. Local five widths, mouse/touch/reduced-motion, fake Camera/No Camera. Remote CI and physical devices not run |
 | 27 Production launch | DEFERRED | No push/deploy. Requires final assets, real service calibration/readback, legal review and production authorization |
 
-Coverage reconciliation: 27 original units = PASS 19 + IN_PROGRESS 3 + DEFERRED 5 + UNKNOWN 0. No unit rejected or removed.
+Coverage reconciliation: 27 original units = PASS 20 + IN_PROGRESS 3 + DEFERRED 4 + UNKNOWN 0. No unit rejected or removed.
 
 ## Verification boundary
 
@@ -43,10 +43,11 @@ Coverage reconciliation: 27 original units = PASS 19 + IN_PROGRESS 3 + DEFERRED 
 - Browser contracts use real existing Better Auth sessions but intercept Vanguard business APIs to exercise UI deterministically while final layouts are absent. PostgreSQL suites independently exercise real transactional service logic. They are not a claim of full live-provider end-to-end acceptance.
 - Local workerd smoke executed the real WASM normalizer and inspected exact derivative sizes. Browser fake-camera test executes the real self-hosted MediaPipe runtime; synthetic camera frames do not verify physical detection accuracy.
 - R2/Clef/Resend fixtures do not prove production credentials, billing, CORS, lifecycle, deletion/purge, email delivery or moderation accuracy. Thresholds remain null pending the required real sample set.
-- Final assets: WOW/FOREVER art/masks, Memory Plate/Focus, nine class emblems, Scatter/fly/ritual keyframes, Seal compositions, BGM and six SFX are BLOCKED_ASSET. No final art, emblems, coordinates, Seal or audio were fabricated. Five WAV files from user commit `8b46067` are present but final acceptance/six-channel mapping are unverified; audio slots remain unassigned.
+- BLOCKED_ASSET is limited to six visual groups: WOW/FOREVER final visuals; Mask/Seat Layout; Memory Plate/Focus final visuals; nine Default Emblems; Inscription animation keyframes; Vanguard Seal final visuals.
+- Audio correction: all five WAVs from `8b46067` are final and complete, as confirmed by the user. They are mapped and connected: plaque-form → plate formation, plaque-lock → insertion/lock, monument-ignite → success ignition, focus-open → Focus, ambient-theme → BGM. No audio remains BLOCKED_ASSET. Original bytes are retained; only BGM follows Music Toggle.
 - Legal content remains draft and deliberately blocks the existing production release gate. Remote CI and production feature acceptance are unverified.
 
-## Final continuation verification
+## Prior e8ba0c4 verification (historical)
 
 - Full unit suite: 88 files / 474 tests passed.
 - Full isolated PostgreSQL integration suite: 44 files / 299 tests passed; includes the final Hold cutoff recheck, publication rollback and compact/versioned Manifest cases.
@@ -62,3 +63,7 @@ See next-stage.md for independent review/fix evidence and files.md for the exact
 Scope outside frozen Vanguard requirements: **No**. No frozen-document changes, admin/CMS, second account/product DB, realtime/backfill, unrelated refactor or unrelated dependency upgrades.
 
 Direct dependency changes required by this phase: `three@0.186.1`, `@types/three@0.186.0` (development), `@mediapipe/tasks-vision@1.1.1`, `@cf-wasm/photon@0.4.0`; existing `sharp@0.35.5` moved to development-only fixture/oracle usage for Workers compatibility. Provider configuration is server-only and documented in services.md.
+
+## Current audio/service continuation
+
+Baseline e8ba0c4; see audio-service-stage.md and live-integration.md for current evidence. The preceding test totals describe the prior commit, not the current verification run. The current phase adds real local HTTP → existing Session → PostgreSQL → test email E2E, audio/production-Claim isolation tests, scoped R2 signature/delete/purge tests and explicit-run sample calibration preparation. Real provider acceptance, physical devices and legal review remain pending non-asset work.

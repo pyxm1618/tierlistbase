@@ -61,6 +61,7 @@ async function fixtures(
     stolen?: boolean;
     sealed?: boolean;
     existing?: boolean;
+    stage?: "COMPLETE" | "WOW_COMPLETE_WAITING";
   } = {},
 ) {
   let accepted = Boolean(options.existing);
@@ -75,10 +76,16 @@ async function fixtures(
     if (path === "manifest")
       return route.fulfill({
         json: {
-          stage: options.sealed ? "SEALED" : "WOW_OPEN",
-          counts: { wow: accepted ? 1 : 0, forever: 0, total: accepted ? 1 : 0 },
-          wowCompletedAt: null,
-          foreverUnlockAt: null,
+          stage: options.sealed ? "SEALED" : (options.stage ?? "WOW_OPEN"),
+          counts: options.stage
+            ? {
+                wow: 8016,
+                forever: options.stage === "COMPLETE" ? 56112 : 0,
+                total: options.stage === "COMPLETE" ? 64128 : 8016,
+              }
+            : { wow: accepted ? 1 : 0, forever: 0, total: accepted ? 1 : 0 },
+          wowCompletedAt: options.stage ? "2026-10-19T12:00:00.000Z" : null,
+          foreverUnlockAt: options.stage ? "2026-10-20T12:00:00.000Z" : null,
           eventCloseAt: "2026-11-04T23:00:00Z",
           phase: "wow",
           occupancy: Buffer.alloc(1002).toString("base64"),
@@ -413,4 +420,55 @@ test("sealed archive keeps public Focus, report, share and Tier List", async ({ 
   await focus.getByRole("button", { name: "Submit Report" }).click();
   await expect(page.getByText("Report received. Thank you.", { exact: true })).toBeVisible();
   await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
+});
+
+for (const stage of ["COMPLETE", "WOW_COMPLETE_WAITING"] as const)
+  test(`${stage} preserves browsing and blocks a new Claim`, async ({ page }) => {
+    await fixtures(page, { stage });
+    await page.goto("/wow-forever/vanguard");
+    await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+    await expect(
+      page.getByText(stage === "COMPLETE" ? "THE MONUMENT IS COMPLETE" : "WOW IS COMPLETE", {
+        exact: true,
+      }),
+    ).toBeVisible({ timeout: 20000 });
+    if (stage === "WOW_COMPLETE_WAITING")
+      await expect(page.getByText("FOREVER AWAKENS IN", { exact: false })).toBeVisible();
+    await page.getByRole("textbox", { name: "Seat ID", exact: true }).fill(seatId);
+    await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
+    await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
+    await expect(
+      page.getByRole("link", { name: "WoW Forever Tier List", exact: true }).first(),
+    ).toBeVisible();
+  });
+
+test("Music Toggle fetches only supplied BGM after user action and leaves Focus SFX on", async ({
+  page,
+}) => {
+  const sounds: string[] = [];
+  page.on("request", (request) => {
+    if (request.url().endsWith(".wav")) sounds.push(request.url().split("/").at(-1)!);
+  });
+  await fixtures(page, { existing: true });
+  await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+  await expect(page.getByRole("region", { name: "Vanguard Focus" })).toBeVisible();
+  expect(sounds).toEqual([]);
+  await page.getByRole("button", { name: "Music Off", exact: true }).click();
+  await expect.poll(() => sounds.includes("vanguard-ambient-theme.wav")).toBe(true);
+  await page.getByRole("button", { name: "Music On", exact: true }).click();
+  await page.getByRole("textbox", { name: "Seat ID", exact: true }).fill(seatId);
+  await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
+  await expect.poll(() => sounds.includes("vanguard-focus-open.wav")).toBe(true);
+  await expect(page.getByRole("button", { name: "Music Off", exact: true })).toBeVisible();
+});
+test("BGM load failure is explicit and leaves ENTER usable", async ({ page }) => {
+  await page.route("**/audio/vanguard-ambient-theme.wav", (route) =>
+    route.fulfill({ status: 503, body: "fixture unavailable" }),
+  );
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "Music Off", exact: true }).click();
+  await expect(
+    page.getByText("The background music could not load.", { exact: false }),
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true })).toBeEnabled();
 });

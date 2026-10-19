@@ -15,7 +15,12 @@ export const vanguardAssets = {
   layouts: {},
   plate: null,
   emblems: {},
-  bgm: null,
-  sfx: {},
+  bgm: "/wow-forever/vanguard/audio/vanguard-ambient-theme.wav",
+  sfx: {
+    focus: "/wow-forever/vanguard/audio/vanguard-focus-open.wav",
+    plate_formation: "/wow-forever/vanguard/audio/vanguard-plaque-form.wav",
+    plate_insert: "/wow-forever/vanguard/audio/vanguard-plaque-lock.wav",
+    seat_ignite: "/wow-forever/vanguard/audio/vanguard-monument-ignite.wav",
+  },
   seal: { portrait: null, square: null },
 } satisfies import("@/modules/wow-vanguard").VanguardAssets;

@@ -26,3 +26,9 @@ export * from "./domain/catalog";
 export { createVanguardThumbnailLookup } from "./experience/thumbnails";
 
 export { occupiedSeats } from "./client/canvas";
+
+export { createVanguardAudio } from "./experience/audio";
+export {
+  validateVanguardCalibrationManifest,
+  VANGUARD_CALIBRATION_CATEGORIES,
+} from "./media/calibration";

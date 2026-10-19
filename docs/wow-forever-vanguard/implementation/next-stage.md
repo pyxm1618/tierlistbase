@@ -29,7 +29,7 @@ No review finding was deferred as unrelated cleanup.
 
 ## Asset and external gates
 
-BLOCKED_ASSET: final WOW/FOREVER hero art, final masks/shape-derived coordinates, layered Plate/Focus, nine class emblems, Scatter/fly/ritual keyframes, final Seal compositions, original BGM and six SFX assets. Only explicitly labeled DEV PLACEHOLDER UI ships while these slots are empty.
+BLOCKED_ASSET: final WOW/FOREVER visuals, Mask/Seat Layout, Memory Plate/Focus, nine Default Emblems, Inscription animation keyframes and Vanguard Seal visuals. Audio is complete and is not blocked. Only explicitly labeled DEV PLACEHOLDER UI ships while these slots are empty.
 
 EXTERNAL_VERIFICATION: real Google OAuth, R2 CORS/lifecycle/private/public/purge readback, Resend delivery, Workers AI account readiness and real-sample moderation calibration, physical cameras/devices, reviewed legal content. No mocked provider response or green local test is presented as that acceptance.
 
@@ -38,6 +38,6 @@ Ruling: moderation thresholds remain null until real sample calibration. Cost if
 
 ## Concurrent supplied audio commit
 
-During continuation the branch received user-authored `8b46067` after foundation `b976dbb`: ambient-theme, focus-open, monument-ignite, plaque-form and plaque-lock WAV files under `public/wow-forever/vanguard/audio`. All five are preserved byte-for-byte. They are PRESENT_UNVERIFIED_ASSET: this task has no final audio acceptance or explicit six-channel SFX mapping. They are not represented as missing files or silently treated as approved final mappings; controller slots remain unassigned pending asset integration. This continuation does not claim authorship of that separate commit.
+The branch received user-authored `8b46067`: ambient-theme, focus-open, monument-ignite, plaque-form and plaque-lock WAV files under `public/wow-forever/vanguard/audio`. The user has confirmed all five are final. They are connected to the explicit approved BGM/Focus/formation/insertion/ignition actions. Original bytes are unchanged; there is no outstanding audio asset blocker. This corrects the earlier unverified/unassigned assessment at e8ba0c4. See audio-service-stage.md for the mapping and tests.
 
 Submission checks: E2E auth/provider fixture tokens are generated at runtime rather than committed as fixed literals. Vendored generated loaders retain upstream bytes through a directory-local whitespace attribute; no application-source, secret-scan or CSP exemption was added.

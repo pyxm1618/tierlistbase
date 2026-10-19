@@ -16,12 +16,7 @@ export type VanguardAssets = {
   plate: string | null;
   emblems: Partial<Record<string, string>>;
   bgm: string | null;
-  sfx: Partial<
-    Record<
-      "focus" | "inscription" | "stone_carve" | "metal_resonance" | "seat_ignite" | "reveal",
-      string
-    >
-  >;
+  sfx: Partial<Record<"focus" | "plate_formation" | "plate_insert" | "seat_ignite", string>>;
   seal: { portrait: string | null; square: string | null };
 };
 export type ClaimDraft = {
@@ -151,4 +146,12 @@ export function sealInput(seat: Extract<PublicInscription, { status: "active" }>
 export type SealInput = ReturnType<typeof sealInput>;
 export interface SealRenderer {
   render(input: SealInput, format: "9:16" | "1:1"): Promise<Blob>;
+}
+
+export function ritualSound(
+  frame: RitualFrame,
+): Exclude<keyof VanguardAssets["sfx"], "focus"> | null {
+  return frame === "plate_formation" || frame === "plate_insert" || frame === "seat_ignite"
+    ? frame
+    : null;
 }

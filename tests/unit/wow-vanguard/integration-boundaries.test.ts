@@ -66,3 +66,15 @@ it("allows validated seat and class query only, never text or account fields", (
     }),
   ).toBe(false);
 });
+it("caches the final immutable audio files without caching the event HTML", async () => {
+  const rules = await nextConfig.headers!();
+  const audio = rules.find((rule) => rule.source === "/wow-forever/vanguard/audio/:path*");
+  expect(audio?.headers.find((header) => header.key === "Cache-Control")?.value).toBe(
+    "public, max-age=31536000, immutable",
+  );
+  expect(
+    rules
+      .find((rule) => rule.source === "/wow-forever/vanguard")
+      ?.headers.some((header) => header.key === "Cache-Control"),
+  ).toBe(false);
+});

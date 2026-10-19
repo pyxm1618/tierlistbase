@@ -7,6 +7,7 @@ import { parseSeatId } from "../domain/event";
 import {
   vanguardErrorMessage,
   draftFromStorage,
+  ritualSound,
   type VanguardManifest,
   type VanguardAssets,
   type RitualFrame,
@@ -23,8 +24,12 @@ export function VanguardExperience({
   initialSeat,
   authenticated,
   entered = true,
+  audioController,
+  initialMusic,
 }: {
   entered?: boolean;
+  audioController: import("../experience/audio").VanguardAudioController;
+  initialMusic: boolean;
   manifest: VanguardManifest;
   assets: VanguardAssets;
   classes: readonly string[];
@@ -42,7 +47,7 @@ export function VanguardExperience({
   const [notice, setNotice] = useState("");
   const [frame, setFrame] = useState<RitualFrame | null>(null);
   const [revealed, setRevealed] = useState(false);
-  const [music, setMusic] = useState(false);
+  const [music, setMusic] = useState(initialMusic);
   const [camera, setCamera] = useState(false);
   const [cameraPending, setCameraPending] = useState(false);
   const cameraGeneration = useRef(0);
@@ -69,9 +74,7 @@ export function VanguardExperience({
   const video = useRef<HTMLVideoElement>(null);
   const stopCamera = useRef<(() => void) | null>(null);
   const scene = useRef<{ pick: (x: number, y: number) => void; gather: () => void } | null>(null);
-  const audio = useRef<ReturnType<typeof import("../experience/audio").createVanguardAudio> | null>(
-    null,
-  );
+  const audio = useRef(audioController);
   const select = useRef<(id: string, resume?: boolean) => Promise<void>>(async () => {});
   const ritualLocked = submissionPending || (frame !== null && frame !== "reveal");
   const claimOpen = manifest.stage === "WOW_OPEN" || manifest.stage === "FOREVER_OPEN";
@@ -130,19 +133,11 @@ export function VanguardExperience({
       vanguardRequest<{ inscription: PublicInscription | null }>("me")
         .then((value) => setMine(value.inscription))
         .catch(error);
-    const saved = localStorage.getItem("tierlistbase:vanguard:music") === "1";
-    setMusic(saved);
-    let cancelled = false;
-    import("../experience/audio").then((audioModule) => {
-      if (!cancelled) audio.current = audioModule.createVanguardAudio(assets);
-    });
     return () => {
-      cancelled = true;
       // This counter invalidates an in-flight camera startup; it does not reference a DOM node.
       // eslint-disable-next-line react-hooks/exhaustive-deps
       cameraGeneration.current++;
       stopCamera.current?.();
-      void audio.current?.close();
     };
   }, [assets, authenticated]);
   useEffect(() => {
@@ -248,15 +243,22 @@ export function VanguardExperience({
       aria-label="Monument experience"
       data-clarity-mask="true"
       className="space-y-6"
+      onKeyDown={(event) => {
+        if (!event.repeat && (event.key === " " || event.key === "Enter"))
+          void audio.current
+            ?.unlock()
+            .catch(() => setNotice("Audio could not start. Browsing remains available."));
+      }}
       onPointerDown={() => {
         void audio.current
           ?.unlock()
-          .then(() => audio.current?.setMusic(music))
           .catch(() => setNotice("Audio could not start. Browsing remains available."));
       }}
     >
-      <div className="flex flex-wrap gap-4">
+      <div className="flex justify-end">
         <button onClick={() => void toggleMusic()}>{music ? "Music On" : "Music Off"}</button>
+      </div>
+      <div className="flex flex-wrap gap-4">
         <button
           disabled={!monumentEntered || ritualLocked || cameraPending}
           onClick={() => void enableCamera()}
@@ -288,6 +290,7 @@ export function VanguardExperience({
       {!monumentEntered && (
         <button
           onClick={() => {
+            void audio.current?.unlock();
             setMonumentEntered(true);
             trackVanguard("vanguard_enter");
           }}
@@ -453,15 +456,7 @@ export function VanguardExperience({
           onFrame={(next) => {
             setFrame(next);
             audio.current?.duck(next !== "reveal");
-            const channel =
-              next === "stone_carve" ||
-              next === "metal_resonance" ||
-              next === "seat_ignite" ||
-              next === "reveal"
-                ? next
-                : next === "camera_focus"
-                  ? "inscription"
-                  : null;
+            const channel = ritualSound(next);
             if (channel)
               void audio.current
                 ?.sfx(channel)

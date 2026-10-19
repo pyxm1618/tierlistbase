@@ -46,8 +46,28 @@ export async function removeVanguardBeforeAccountDeletion(userId: string) {
 }
 
 export function getVanguardService() {
-  const catalog = createVanguardLayoutLookup(vanguardAssets.layouts, async (path) => {
-    const response = await fetch(new URL(path, runtimeEnv.appOrigin), { cache: "force-cache" });
+  // Fixed loopback test transport only; never read by a production runtime.
+  const fixture =
+    runtimeEnv.appEnv === "test" &&
+    process.env.CREAT_WEB_E2E_VANGUARD === "1" &&
+    process.env.VANGUARD_E2E_LAYOUT_ORIGIN === "http://127.0.0.1:3199";
+  const layouts = fixture
+    ? Object.fromEntries([
+        ...["W1", "O", "W2"].map((letter) => [
+          `wow:${letter}`,
+          `/__vanguard_test__/wow-${letter}.f32`,
+        ]),
+        ...["F", "O", "R1", "E1", "V", "E2", "R2"].map((letter) => [
+          `forever:${letter}`,
+          `/__vanguard_test__/forever-${letter}.f32`,
+        ]),
+      ])
+    : vanguardAssets.layouts;
+  const catalog = createVanguardLayoutLookup(layouts, async (path) => {
+    const response = await fetch(
+      new URL(path, fixture ? "http://127.0.0.1:3199" : runtimeEnv.appOrigin),
+      { cache: "force-cache" },
+    );
     if (!response.ok) throw new VanguardError("LAYOUT_UNAVAILABLE", 503);
     return response.arrayBuffer();
   });

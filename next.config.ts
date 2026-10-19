@@ -65,6 +65,10 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: "/wow-forever/vanguard/audio/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
         source: "/vendor/vanguard/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },

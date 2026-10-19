@@ -54,3 +54,9 @@ test("manifest returns a compact public ETag representation and 304", async ({ r
   });
   expect(unchanged.status()).toBe(304);
 });
+test("final supplied WAV is served directly with immutable cache", async ({ request }) => {
+  const response = await request.get("/wow-forever/vanguard/audio/vanguard-focus-open.wav");
+  expect(response.status()).toBe(200);
+  expect(response.headers()["cache-control"]).toBe("public, max-age=31536000, immutable");
+  expect((await response.body()).subarray(0, 4).toString()).toBe("RIFF");
+});

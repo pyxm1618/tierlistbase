@@ -34,7 +34,7 @@ export const legalConfig = {
     {
       name: "Neon",
       purpose:
-        "PostgreSQL database hosting for TierListBase game, ranking, source, and evidence data. The application does not intentionally store visitor account profiles in this database in V1.",
+        "PostgreSQL hosting for TierListBase game, ranking and evidence data, existing Google account/session records, Vanguard inscriptions, holds, media metadata and reports. Images are stored in Cloudflare R2, not as database binaries.",
       privacyUrl: "https://neon.com/privacy-policy",
     },
     {
@@ -67,6 +67,18 @@ export const legalConfig = {
   subscriptionTerms: null,
   retentionRules: [
     {
+      category: "Vanguard pending images",
+      period: "24-hour R2 pending-prefix lifecycle",
+      basis: "temporary upload validation and automated screening",
+    },
+    {
+      category: "Completed Vanguard inscriptions",
+      period:
+        "retained for the permanent Monument archive, subject to privacy, legal and moderation removal",
+      basis:
+        "requested public inscription and community tribute; neutral Seat identity is retained after removal",
+    },
+    {
       category: "infrastructure request and security metadata",
       period:
         "no fixed public period is asserted; retention depends on verified provider configuration and operational need",
@@ -74,9 +86,9 @@ export const legalConfig = {
     },
   ],
   accountDeletion: {
-    enabled: false,
+    enabled: true,
     summary:
-      "User account registration and login are disabled in V1. TierListBase does not maintain active user accounts or account profiles.",
+      "Use the existing Account security and account deletion flow, or contact support for privacy or legal removal. Your public Vanguard text and images are removed or hidden; the account binding is detached. The Seat and Seat ID remain occupied as an Unavailable Plate and are never reassigned.",
   },
   internationalTransfers:
     "TierListBase uses infrastructure providers that operate internationally. This notice does not claim that request or security metadata remains in a single country or region.",
@@ -113,6 +125,7 @@ export const legalConfig = {
         heading: "Why this information is processed",
         paragraphs: [
           "Technical request and security information is used to deliver pages, maintain service reliability, prevent abuse, investigate errors, and protect the service. Where UK or EU data-protection law applies, these limited operational and security purposes may rely on legitimate interests, subject to the applicable necessity and balancing requirements.",
+          "Account and session information supports Google sign-in, the global one-account-one-seat rule and account security. Submitted Vanguard text and approved images support the public Monument, Focus, Seal and Seat sharing; image screening and reports support content safety and privacy removal.",
           "Support correspondence is used only to receive and respond to the message and for related operational or legal record-keeping where necessary.",
         ],
       },

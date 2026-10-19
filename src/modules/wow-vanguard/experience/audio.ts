@@ -26,24 +26,33 @@ export function createVanguardAudio(assets: Pick<VanguardAssets, "bgm" | "sfx">)
     if (context && bgmGain)
       bgmGain.gain.setTargetAtTime(music ? (ducked ? 0.15 : 1) : 0, context.currentTime, 0.1);
   }
+  async function startMusic() {
+    if (!music || !context || context.state !== "running" || !assets.bgm || bgmSource) return;
+    const decoded = await buffer(assets.bgm);
+    if (!context || context.state !== "running" || !music || bgmSource) return;
+    bgmSource = context.createBufferSource();
+    bgmGain = context.createGain();
+    bgmSource.buffer = decoded;
+    bgmSource.loop = true;
+    bgmSource.connect(bgmGain).connect(context.destination);
+    volume();
+    bgmSource.start();
+  }
   return {
     async unlock() {
       context ??= new AudioContext();
-      await context.resume();
+      try {
+        await context.resume();
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "NotAllowedError") return;
+        throw error;
+      }
+      await startMusic();
     },
     async setMusic(enabled: boolean) {
       music = enabled;
       volume();
-      if (!enabled || !context || !assets.bgm || bgmSource) return;
-      const decoded = await buffer(assets.bgm);
-      if (!context || !music || bgmSource) return;
-      bgmSource = context.createBufferSource();
-      bgmGain = context.createGain();
-      bgmSource.buffer = decoded;
-      bgmSource.loop = true;
-      bgmSource.connect(bgmGain).connect(context.destination);
-      volume();
-      bgmSource.start();
+      await startMusic();
     },
     duck(enabled: boolean) {
       ducked = enabled;
@@ -63,8 +72,10 @@ export function createVanguardAudio(assets: Pick<VanguardAssets, "bgm" | "sfx">)
       bgmSource?.stop();
       bgmSource = null;
       buffers.clear();
-      await context?.close();
+      const active = context;
       context = null;
+      await active?.close();
     },
   };
 }
+export type VanguardAudioController = ReturnType<typeof createVanguardAudio>;
