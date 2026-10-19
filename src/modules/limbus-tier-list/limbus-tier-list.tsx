@@ -13,6 +13,7 @@ import {
 import limbusHero from "./assets/hero.webp";
 import teamBanner from "./assets/team-banner.webp";
 import { IdentityRanking } from "./identity-ranking";
+import { SinnerPortrait } from "./sinner-portrait";
 import styles from "./limbus-tier-list.module.css";
 import { TeamDetailTabs } from "./team-detail-tabs";
 
@@ -160,7 +161,7 @@ export function LimbusTierList() {
             {bestIdentityBySinner.map((pick) => (
               <article className={styles.sinnerCard} key={pick.sinner}>
                 <div className={styles.sinnerPortrait}>
-                  <AssetSlot wide label="PORTRAIT" />
+                  <SinnerPortrait sinner={pick.sinner} variant="identity" />
                   <h3>{pick.sinner}</h3>
                 </div>
                 <div className={styles.sinnerPick} title={pick.bestOverall}>
@@ -462,7 +463,7 @@ export function LimbusTierList() {
                 {bestEgoBySinner.map((pick) => (
                   <article className={styles.egoSinnerColumn} key={pick.sinner}>
                     <h3>{pick.sinner}</h3>
-                    <AssetSlot compact label="POR" />
+                    <SinnerPortrait sinner={pick.sinner} variant="ego" />
                     <div title={pick.bestOverall}>
                       <AssetSlot compact label="EGO" />
                       <span>{pick.bestOverall}</span>

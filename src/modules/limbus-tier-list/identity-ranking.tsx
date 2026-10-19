@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { identityRows, type Availability, type RatingValue, type TierValue } from "./data";
 import styles from "./limbus-tier-list.module.css";
+import { SinnerPortrait } from "./sinner-portrait";
 
 const identityFilters = [
   "All Identities",
@@ -146,7 +147,7 @@ export function IdentityRanking() {
                 </td>
                 <td>
                   <div className={styles.sinnerCell}>
-                    <AssetSlot />
+                    <SinnerPortrait sinner={row.sinner} />
                     <span>{row.sinner}</span>
                   </div>
                 </td>
