@@ -35,6 +35,9 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
   const homeHref = localePath(siteConfig, locale, "/");
   const wowHref = localePath(siteConfig, locale, "/wow-forever/tier-list");
   const genshinHref = localePath(siteConfig, locale, "/genshin-impact/tier-list");
+  const nikkeHref = localePath(siteConfig, locale, "/nikke/tier-list");
+  const zenlessHref = localePath(siteConfig, locale, "/zenless-zone-zero/tier-list");
+  const limbusHref = localePath(siteConfig, locale, "/limbus-company/tier-list");
   const navLink =
     "rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400";
 
@@ -42,20 +45,29 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
     <header className="sticky top-0 z-40 border-b border-[#315072]/60 bg-[#020e1d]/95 text-white backdrop-blur-md">
       <div className="mx-auto flex h-[54px] w-[calc(100%_-_32px)] items-center gap-6 px-4 sm:w-[93.4%] max-w-[1820px] sm:px-0">
         <Brand href={homeHref} />
-        <nav className="hidden items-center gap-5 sm:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary navigation">
           <SiteHeaderGameLink href={wowHref} className={navLink}>
             World of Warcraft
           </SiteHeaderGameLink>
           <SiteHeaderGameLink href={genshinHref} className={navLink}>
             Genshin Impact
           </SiteHeaderGameLink>
+          <SiteHeaderGameLink href={nikkeHref} className={navLink}>
+            NIKKE
+          </SiteHeaderGameLink>
+          <SiteHeaderGameLink href={zenlessHref} className={navLink}>
+            Zenless Zone Zero
+          </SiteHeaderGameLink>
+          <SiteHeaderGameLink href={limbusHref} className={navLink}>
+            Limbus Company
+          </SiteHeaderGameLink>
         </nav>
         {featuresConfig.auth.enabled ? (
-          <Link className={navLink + " ml-auto hidden sm:block"} href="/sign-in">
+          <Link className={navLink + " ml-auto hidden lg:block"} href="/sign-in">
             Sign in
           </Link>
         ) : null}
-        <details className="group relative ml-auto sm:hidden">
+        <details className="group relative ml-auto lg:hidden">
           <summary className="flex cursor-pointer list-none items-center gap-2 rounded-md border border-[#2d5a7e] px-3 py-1.5 text-sm marker:content-none">
             Menu <span aria-hidden="true">☰</span>
           </summary>
@@ -71,6 +83,15 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
             </SiteHeaderGameLink>
             <SiteHeaderGameLink href={genshinHref} className={navLink}>
               Genshin Impact
+            </SiteHeaderGameLink>
+            <SiteHeaderGameLink href={nikkeHref} className={navLink}>
+              NIKKE
+            </SiteHeaderGameLink>
+            <SiteHeaderGameLink href={zenlessHref} className={navLink}>
+              Zenless Zone Zero
+            </SiteHeaderGameLink>
+            <SiteHeaderGameLink href={limbusHref} className={navLink}>
+              Limbus Company
             </SiteHeaderGameLink>
             {featuresConfig.auth.enabled ? (
               <Link href="/sign-in" className={navLink}>
