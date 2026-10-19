@@ -513,6 +513,20 @@
   border-radius: 0;
 }
 
+.sinnerIcon {
+  background: #0d1820;
+}
+
+.sinnerIcon::before,
+.sinnerIcon::after {
+  display: none;
+}
+
+.sinnerIconImage {
+  object-fit: contain;
+  object-position: center;
+}
+
 .tierBadge {
   display: inline-grid;
   min-width: 44px;
