@@ -68,3 +68,124 @@ for (const width of [390, 1440]) {
     );
   });
 }
+
+for (const width of [390, 1440]) {
+  test(`ZZZ reuses local agent and Bangboo icons at ${width}px`, async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(route);
+    await page.getByRole("button", { name: "Close Team Detail" }).click();
+    await page.getByRole("button", { name: "Close Pull Advice Detail" }).click();
+    const names = [
+      "Evelyn",
+      "Astra",
+      "Jane",
+      "Zhu Yuan",
+      "Harumasa",
+      "Yanagi",
+      "Caesar",
+      "Burnice",
+      "Qingyi",
+      "Lighter",
+      "Soukaku",
+      "Nicole",
+      "Rina",
+      "Anby",
+      "Nekomata",
+      "Piper",
+      "Ben",
+      "Anton",
+      "Billy",
+      "Lucy",
+      "Corin",
+      "Seth",
+    ];
+    const ranking = page.getByRole("region", { name: "Agent Ranking", exact: true });
+    const detail = page.getByRole("complementary", { name: "Agent Detail", exact: true });
+    for (const name of names) {
+      const card = ranking.getByRole("button", { name: new RegExp(`^${name},`) });
+      const icon = card.getByRole("img", { name, exact: true });
+      await expect(icon).toHaveAttribute("src", /\/_next\/image\?/);
+      await expect(icon).toHaveAttribute(
+        "src",
+        new RegExp(name.toLowerCase().replaceAll(" ", "-")),
+      );
+      await card.click();
+      await expect(detail.getByRole("img", { name, exact: true })).toHaveAttribute(
+        "src",
+        (await icon.getAttribute("src")) ?? "",
+      );
+      await expect(detail.locator('[data-kind="portrait"]')).toHaveCount(0);
+      await expect(detail.locator('[data-kind="hero"]')).toHaveCount(1);
+      await expect(detail.locator('[data-kind="item"]')).toHaveCount(3);
+    }
+    await expect(ranking.locator('[data-kind="portrait"]')).toHaveCount(0);
+    const summary = page.getByRole("region", { name: "Current Pull Advice", exact: true });
+    for (const name of ["Harumasa", "Evelyn"]) {
+      const icon = summary.getByRole("img", { name, exact: true });
+      await expect(icon).toHaveAttribute("src", new RegExp(name.toLowerCase()));
+      await icon.click();
+      const pull = page.getByRole("region", { name: "Pull Advice Detail", exact: true });
+      await expect(pull.getByRole("img", { name, exact: true })).toHaveAttribute(
+        "src",
+        (await icon.getAttribute("src")) ?? "",
+      );
+      await pull.getByRole("button", { name: "Close Pull Advice Detail" }).click();
+    }
+    await page
+      .locator('nav[aria-label="Tier list primary sections"]')
+      .getByRole("tab", { name: /^Teams/ })
+      .click();
+    const teamDetail = page.getByRole("region", { name: "Team Detail", exact: true });
+    for (const [team, icons] of [
+      ["Miyabi Freeze", ["Sharkboo", "Butlerboo", "Rocketboo"]],
+      ["Evelyn Hypercarry", ["Rocketboo", "Cryboo"]],
+      ["Harumasa Quicken", ["Plugboo", "Electroboo"]],
+    ] as const) {
+      if (await teamDetail.isVisible())
+        await teamDetail.getByRole("button", { name: "Close Team Detail" }).click();
+      await page
+        .getByRole("region", { name: "Team Ranking", exact: true })
+        .getByRole("button")
+        .filter({ hasText: team })
+        .click();
+      for (const name of icons) {
+        const icon = teamDetail.getByRole("img", { name, exact: true });
+        await expect(icon).toBeVisible();
+        await expect(icon).toHaveAttribute("src", new RegExp(name.toLowerCase()));
+        await expect(icon).toHaveCSS("object-fit", "contain");
+      }
+      await expect(teamDetail.locator('[data-kind="portrait"], [data-kind="item"]')).toHaveCount(0);
+      await expect(teamDetail.locator('[data-kind="team"]')).toHaveCount(
+        team === "Miyabi Freeze" ? 0 : 1,
+      );
+      if (team === "Miyabi Freeze")
+        await expect(teamDetail.getByText("Butlerboo / Rocketboo", { exact: true })).toBeVisible();
+      for (const icon of await teamDetail.locator("img[alt]").all()) {
+        const name = await icon.getAttribute("alt");
+        if (names.includes(name ?? "")) {
+          await expect(icon).toHaveAttribute(
+            "src",
+            new RegExp((name ?? "").toLowerCase().replaceAll(" ", "-")),
+          );
+        }
+      }
+      await expect
+        .poll(() =>
+          teamDetail
+            .locator('img[alt]:not([alt=""])')
+            .evaluateAll((images) =>
+              images.every(
+                (image) =>
+                  (image as HTMLImageElement).complete &&
+                  (image as HTMLImageElement).naturalWidth > 0,
+              ),
+            ),
+        )
+        .toBe(true);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+        true,
+      );
+    }
+  });
+}
