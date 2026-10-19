@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/site.config";
 import { localePath } from "@/platform/i18n/routing";
 
 import { SiteHeaderGameLink, SiteHeaderLinkStatus } from "./site-header-game-link";
+import { SiteHeaderVariant } from "./site-header-variant";
 
 export function Brand({ href = "/" }: { href?: string }) {
   return (
@@ -41,7 +42,7 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
   const navLink =
     "rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400";
 
-  return (
+  const header = (
     <header className="sticky top-0 z-40 border-b border-[#315072]/60 bg-[#020e1d]/95 text-white backdrop-blur-md">
       <div className="mx-auto flex h-[54px] w-[calc(100%_-_32px)] items-center gap-6 px-4 sm:w-[93.4%] max-w-[1820px] sm:px-0">
         <Brand href={homeHref} />
@@ -103,4 +104,6 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
       </div>
     </header>
   );
+
+  return <SiteHeaderVariant brand={<Brand href={homeHref} />}>{header}</SiteHeaderVariant>;
 }

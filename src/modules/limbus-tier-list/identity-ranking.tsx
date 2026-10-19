@@ -2,7 +2,13 @@
 
 import { useMemo, useState } from "react";
 
-import { identityRows, type Availability, type RatingValue, type TierValue } from "./data";
+import {
+  identityRows,
+  type Availability,
+  type RatingValue,
+  type TierValue,
+  type IdentityRow,
+} from "./data";
 import styles from "./limbus-tier-list.module.css";
 import { SinnerPortrait } from "./sinner-portrait";
 
@@ -21,6 +27,19 @@ const identityFilters = [
 ] as const;
 
 type IdentityFilter = (typeof identityFilters)[number];
+
+const filterFields = {
+  Sinner: "sinner",
+  Rarity: "rarity",
+  Role: "role",
+  "Team / Archetype": "mainTeam",
+  "Damage Type": "damageType",
+  "Sin Affinity": "sin",
+  "Generalist Value": "generalistValue",
+  "Beginner Friendly": "beginnerFriendly",
+  "Team Dependency": "teamDependency",
+  Availability: "availability",
+} as const satisfies Record<Exclude<IdentityFilter, "All Identities">, keyof IdentityRow>;
 
 function AssetSlot() {
   return (
@@ -62,42 +81,70 @@ export function IdentityRanking() {
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState<IdentityFilter>("All Identities");
 
+  const [filterValue, setFilterValue] = useState("");
+  const activeField = activeFilter === "All Identities" ? undefined : filterFields[activeFilter];
+  const filterOptions = useMemo(
+    () => (activeField ? [...new Set(identityRows.map((row) => row[activeField]))] : []),
+    [activeField],
+  );
+
   const filteredIdentities = useMemo(() => {
     const query = search.trim().toLowerCase();
-    if (!query) return identityRows;
-
-    return identityRows.filter((row) =>
-      [
-        row.identity,
-        row.sinner,
-        row.rarity,
-        row.role,
-        row.mainTeam,
-        row.damageType,
-        row.sin,
-        row.generalistValue,
-        row.beginnerFriendly,
-        row.teamDependency,
-        row.availability,
-      ].some((value) => value.toLowerCase().includes(query)),
-    );
-  }, [search]);
+    return identityRows.filter((row) => {
+      if (activeField && filterValue && row[activeField] !== filterValue) return false;
+      return (
+        !query ||
+        [
+          row.identity,
+          row.sinner,
+          row.rarity,
+          row.role,
+          row.mainTeam,
+          row.damageType,
+          row.sin,
+          row.generalistValue,
+          row.beginnerFriendly,
+          row.teamDependency,
+          row.availability,
+        ].some((value) => value.toLowerCase().includes(query))
+      );
+    });
+  }, [search, activeField, filterValue]);
 
   return (
     <>
       <div className={styles.filterBar} aria-label="Identity filters">
         <div className={styles.filterScroll}>
           {identityFilters.map((filter) => (
-            <button
-              className={styles.filterButton}
-              data-active={activeFilter === filter ? "true" : "false"}
-              aria-pressed={activeFilter === filter}
-              type="button"
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-            >
-              {filter}
-            </button>
+            <span className={styles.filterControl} key={filter}>
+              <button
+                className={styles.filterButton}
+                data-active={activeFilter === filter ? "true" : "false"}
+                aria-pressed={activeFilter === filter}
+                type="button"
+                onClick={() => {
+                  setActiveFilter(filter);
+                  setFilterValue("");
+                }}
+              >
+                {filter}
+              </button>
+              {activeFilter === filter && activeField ? (
+                <select
+                  className={[styles.filterButton, styles.filterValue].join(" ")}
+                  aria-label={`${filter} value`}
+                  value={filterValue}
+                  onChange={(event) => setFilterValue(event.target.value)}
+                >
+                  <option value="">All values</option>
+                  {filterOptions.map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
+              ) : null}
+            </span>
           ))}
         </div>
         <label className={styles.inlineSearch}>
