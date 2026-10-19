@@ -165,3 +165,124 @@ test("real API rejects invalid input/origin, requires auth and uses Google-only 
     "http://127.0.0.1:3197/api/auth/callback/google",
   );
 });
+
+for (const width of [390, 1440]) {
+  test(`shared Header uses server session and signs out at ${width}px`, async ({
+    page,
+    context,
+  }) => {
+    const database = createDatabaseClient(assertSafeTestDatabaseUrl());
+    const owner = randomUUID();
+    const token = randomBytes(32).toString("base64url");
+    const now = new Date();
+    await page.setViewportSize({ width, height: 900 });
+    const menu = async () => {
+      if (width < 1024) await page.locator("header summary").filter({ hasText: "Menu" }).click();
+    };
+    try {
+      await page.goto("/");
+      await menu();
+      await expect(
+        page
+          .locator("header")
+          .getByRole("link", { name: "Sign in", exact: true })
+          .filter({ visible: true }),
+      ).toHaveAttribute("href", "/sign-in");
+      await expect(page.locator("header").getByText("Account", { exact: true })).toHaveCount(0);
+      for (const path of ["/account", "/account/vanguard", "/account/security"]) {
+        await page.goto(path);
+        await expect(page).toHaveURL(/\/sign-in/);
+      }
+      await database.db
+        .insert(user)
+        .values({ id: owner, name: "Header private identity", email: `${owner}@example.test` });
+      await database.db.insert(session).values({
+        id: randomUUID(),
+        userId: owner,
+        token,
+        expiresAt: new Date(now.getTime() + 3600000),
+        createdAt: now,
+        updatedAt: now,
+      });
+      const signature = await makeSignature(token, process.env.VANGUARD_E2E_AUTH_TOKEN!);
+      await context.addCookies([
+        {
+          name: "tierlistbase.session_token",
+          value: `${token}.${signature}`,
+          url: "http://127.0.0.1:3197",
+        },
+      ]);
+      const response = await page.goto("/");
+      const html = await response!.text();
+      const serverHeader = html.match(/<header\b[\s\S]*?<\/header>/)?.[0];
+      expect(serverHeader).toContain("Account");
+      expect(serverHeader).not.toContain(">Sign in<");
+      expect(
+        await database.db
+          .select()
+          .from(accountSubjects)
+          .where(eq(accountSubjects.authUserId, owner)),
+      ).toHaveLength(0);
+      await menu();
+      if (width >= 1024)
+        await page.locator("header summary").filter({ hasText: "Account" }).click();
+      await expect(
+        page.locator("header").getByRole("link", { name: "Sign in", exact: true }),
+      ).toHaveCount(0);
+      for (const [name, href] of [
+        ["My Account", "/account"],
+        ["My Vanguard", "/account/vanguard"],
+        ["Security", "/account/security"],
+      ] as const) {
+        await expect(
+          page.locator("header").getByRole("link", { name, exact: true }).filter({ visible: true }),
+        ).toHaveAttribute("href", href);
+      }
+      await page.goto("/limbus-company/tier-list");
+      await expect(page.locator("header summary").filter({ hasText: "Account" })).toBeVisible();
+      await page.locator("header summary").filter({ hasText: "Account" }).click();
+      await expect(
+        page.locator("header").getByRole("link", { name: "My Vanguard", exact: true }),
+      ).toBeVisible();
+      for (const path of ["/account", "/account/vanguard", "/account/security"]) {
+        await page.goto(path);
+        await expect(page).toHaveURL(new RegExp(`${path}$`));
+      }
+      await page.goto("/");
+      await menu();
+      if (width >= 1024)
+        await page.locator("header summary").filter({ hasText: "Account" }).click();
+      await page
+        .locator("header")
+        .getByRole("button", { name: "Sign out", exact: true })
+        .filter({ visible: true })
+        .click();
+      await page.waitForLoadState("load");
+      await expect
+        .poll(
+          async () =>
+            (await database.db.select().from(session).where(eq(session.token, token))).length,
+        )
+        .toBe(0);
+      await expect(page.locator("header").getByText("Account", { exact: true })).toHaveCount(0);
+      await menu();
+      await expect(
+        page
+          .locator("header")
+          .getByRole("link", { name: "Sign in", exact: true })
+          .filter({ visible: true }),
+      ).toBeVisible();
+      for (const path of ["/account", "/account/vanguard", "/account/security"]) {
+        await page.goto(path);
+        await expect(page).toHaveURL(/\/sign-in/);
+      }
+      await page.goto("/wow-forever/vanguard");
+      await expect(page.getByRole("button", { name: "ENTER THE MONUMENT" })).toBeVisible();
+    } finally {
+      await database.db.delete(session).where(eq(session.userId, owner));
+      await database.db.delete(accountSubjects).where(eq(accountSubjects.authUserId, owner));
+      await database.db.delete(user).where(eq(user.id, owner));
+      await database.close();
+    }
+  });
+}

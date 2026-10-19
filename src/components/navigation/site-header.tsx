@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { headers } from "next/headers";
+import { hasCurrentSession } from "@/platform/auth/current-session";
+import { SiteHeaderAccount } from "./site-header-account";
 import Link from "next/link";
 
 import { featuresConfig } from "@/config/features.config";
@@ -32,7 +35,10 @@ export function Brand({ href = "/" }: { href?: string }) {
   );
 }
 
-export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ locale?: string }>) {
+export async function SiteHeader({
+  locale = siteConfig.defaultLocale,
+}: Readonly<{ locale?: string }>) {
+  const authenticated = featuresConfig.auth.enabled && (await hasCurrentSession(await headers()));
   const homeHref = localePath(siteConfig, locale, "/");
   const wowHref = localePath(siteConfig, locale, "/wow-forever/tier-list");
   const genshinHref = localePath(siteConfig, locale, "/genshin-impact/tier-list");
@@ -64,9 +70,9 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
           </SiteHeaderGameLink>
         </nav>
         {featuresConfig.auth.enabled ? (
-          <Link className={navLink + " ml-auto hidden lg:block"} href="/sign-in">
-            Sign in
-          </Link>
+          <div className="ml-auto hidden lg:block">
+            <SiteHeaderAccount authenticated={authenticated} className={navLink} />
+          </div>
         ) : null}
         <details className="group relative ml-auto lg:hidden">
           <summary className="flex cursor-pointer list-none items-center gap-2 rounded-md border border-[#2d5a7e] px-3 py-1.5 text-sm marker:content-none">
@@ -95,9 +101,7 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
               Limbus Company
             </SiteHeaderGameLink>
             {featuresConfig.auth.enabled ? (
-              <Link href="/sign-in" className={navLink}>
-                Sign in
-              </Link>
+              <SiteHeaderAccount authenticated={authenticated} mobile className={navLink} />
             ) : null}
           </nav>
         </details>
@@ -105,5 +109,16 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
     </header>
   );
 
-  return <SiteHeaderVariant brand={<Brand href={homeHref} />}>{header}</SiteHeaderVariant>;
+  return (
+    <SiteHeaderVariant
+      brand={<Brand href={homeHref} />}
+      account={
+        featuresConfig.auth.enabled ? (
+          <SiteHeaderAccount authenticated={authenticated} className={navLink} />
+        ) : null
+      }
+    >
+      {header}
+    </SiteHeaderVariant>
+  );
 }
