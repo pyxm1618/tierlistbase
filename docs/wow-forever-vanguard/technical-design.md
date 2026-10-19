@@ -43,6 +43,8 @@ Vanguard 是 TierListBase 内页。
 - Cloudflare Workers AI Clef Flash 自动图片审核
 - Vanguard Report 邮件通知
 
+当前版本不实现技术补位、system_fill、自动补满脚本或相关后台；该问题留给后续运营决策，不进入 V1 开发范围。
+
 禁止新增：
 
 - 第二套账户系统
@@ -340,7 +342,7 @@ current_stage 永远通过 now、wow_completed_at、总席位状态和 EVENT_CLO
 字段：
 
 - id UUID
-- user_id nullable
+- user_id
 - seat_id
 - phase
 - letter
@@ -352,14 +354,8 @@ current_stage 永远通过 now、wow_completed_at、总席位状态和 EVENT_CLO
 - guild_key nullable
 - battle_cry nullable
 - media_id nullable
-- source
 - status
 - created_at
-
-source：
-
-- user
-- system_fill
 
 status：
 
@@ -370,16 +366,9 @@ status：
 约束：
 
 - seat_id UNIQUE
-- 对 user_id IS NOT NULL 建 partial UNIQUE
-- user inscription 全局最多一条
+- user_id UNIQUE
+- 一个 TierListBase Account 在整个 64,128 Seat 系统中最多一条 inscription
 - seat_id 必须来自固定 layout
-
-system_fill：
-
-- user_id 必须为 NULL
-- source = system_fill
-- 不伪造 Google Account
-- 不计入真实用户参与统计
 
 ### vanguard_seat_holds
 
@@ -516,8 +505,16 @@ Vanguard 不建立自己的登录页面和账户表。
 
 - seatId
 - hold token
-- claim draft
-- 本地已选择图片状态
+- claim 文字草稿
+
+Google 登录返回后必须重新验证 Seat Hold：
+
+- Hold 仍有效：继续
+- Hold 已过期但 Seat 仍为空：重新创建 Hold
+- Seat 已被别人占用：保留全部文字草稿并返回最近空 Seat 建议
+- 不得要求用户重新填写 Vanguard Name / Faction / Class / Guild / Battle Cry
+
+Memory Image 的实际 File 选择、裁切、上传放在 Google 登录完成以后，避免为了 OAuth 跳转额外引入本地 Blob 持久化。
 
 Google / Email 账户资料不得自动显示为 Vanguard Name。
 
@@ -656,13 +653,13 @@ Seat Hold 的 expires_at 即使晚于截止，也不允许截止后最终提交�
 
 ## 13. WOW 完成事务
 
-当用户或 system_fill 写入 WOW inscription 时，在同一业务事务内：
+当真实用户写入 WOW inscription 时，在同一业务事务内：
 
 1. 完成 Seat 占用
 2. 查询 / 维护 WOW occupied count
 3. 如果本次使 WOW 达到 8,016：
    - 锁定 event state row
-   - 如果 wow_completed_at 为空，则写入 now
+   - 如果 wow_completed_at 为空，则写入数据库时间
 4. commit
 
 不得依赖客户端宣布 WOW 满。
@@ -675,37 +672,22 @@ wow_completed_at + 24h
 
 唯一确定。
 
+### 截止时间判定
+
+最终 Inscription 是否有效，以数据库事务内正式写入前取得的数据库时间为准。
+
+- 该时间 < EVENT_CLOSE_AT：允许写入并完成事务；前端动画可以在截止后结束
+- 该时间 >= EVENT_CLOSE_AT：返回 EVENT_SEALED
+- 不使用浏览器本地时间作为权威时钟
+- Seat Hold 的创建时间、按钮按下时间和动画结束时间都不能绕过截止点
+
 ---
 
-## 14. 运营补位
+## 14. 技术补位
 
-该能力只解决“WOW 临近截止仍差少量席位”的运营预案。
+当前版本不实现技术补位、system_fill、自动补满脚本或相关后台。
 
-不开发 UI。
-
-提供一次性脚本：
-
-scripts/vanguard/backfill-wow.ts
-
-要求：
-
-- 默认 dry-run
-- 必须显式 production confirmation
-- 只允许填 WOW 未占 Seat
-- 每条记录 source = system_fill
-- user_id = NULL
-- 使用中性 display_name / Default Emblem
-- 不生成虚构个人图片
-- 不触发 Google Account
-- 输出填充数量和 Seat ID 清单
-- 可以触发 WOW complete 与 24h FOREVER 解锁计时
-
-Analytics 中：
-
-- real_user_seats
-- system_fill_seats
-
-必须分开。
+如果未来运营决定需要补位，另开独立变更设计，不提前进入 V1 数据模型、API、脚本或 Analytics。
 
 ---
 
@@ -806,13 +788,30 @@ Object Key 必须由服务器生成，用户不可指定任意路径。
 
 推荐结构：
 
-    vanguard/{mediaId}/master.webp
-    vanguard/{mediaId}/moderation.webp
-    vanguard/{mediaId}/detail.webp
-    vanguard/{mediaId}/wow-256.webp
-    vanguard/{mediaId}/forever-128.webp
+    vanguard/pending/{mediaId}/master.webp
+    vanguard/pending/{mediaId}/moderation.webp
+
+成功 Inscription 后的长期资产：
+
+    vanguard/permanent/{mediaId}/detail.webp
+    vanguard/permanent/{mediaId}/wow-256.webp
+    vanguard/permanent/{mediaId}/forever-128.webp
 
 未 approved 的对象绝不能进入公共媒体路径。
+
+### 临时媒体清理
+
+R2 的 pending 前缀设置 24 小时生命周期删除规则。
+
+因此以下对象不会长期堆积：
+
+- 用户上传后离开页面
+- Hold 过期后未提交
+- rejected
+- 长期 pending
+- 审核通过但最终没有完成 Inscription 的临时媒体
+
+正式 Inscription 使用的长期公共衍生图必须位于 permanent 前缀，不能被 pending 生命周期删除。
 
 ---
 
@@ -837,6 +836,16 @@ Presigned URL：
 - object key 服务器生成
 - 绑定目标 content type
 - 完成接口再次做大小和 MIME 验证
+- presign API 必须登录且限流，避免被当成任意对象存储入口
+
+R2 Bucket 使用最小化 CORS：
+
+- Production Origin 只允许 https://www.tierlistbase.com
+- 只开放上传实际需要的方法，例如 PUT / HEAD
+- 只开放上传实际需要的请求头，例如 Content-Type
+- Preview / staging origin 单独配置，生产环境不使用无条件 wildcard
+
+Cloudflare / R2 凭据全部保持 server-only，不得进入客户端 Bundle。
 
 ---
 
@@ -967,6 +976,7 @@ POST /api/vanguard/reports
 - media.moderation_status = hidden
 - 公共端立刻回退为中性 Hidden Plate
 - public media 不再返回
+- 同时清除对应 detail / WOW thumbnail / FOREVER thumbnail 的 CDN 缓存，确保旧公共 URL 不继续返回已隐藏图片
 
 ### Email
 
@@ -1005,6 +1015,8 @@ POST /api/vanguard/reports
 - 显示中性 Hidden / Unavailable Plate
 
 数据库不得重新分配该 Seat。
+
+任何 hidden / deleted 操作都必须同步撤销公共媒体可见性并清除对应 CDN 缓存；不能只改数据库状态。
 
 ---
 
@@ -1335,12 +1347,6 @@ Three Canvas 不得是搜索引擎唯一内容。
 - Email
 - Memory Image 内容
 
-system_fill：
-
-不模拟 claim_complete。
-
-内部统计单独读取 source = system_fill。
-
 SAFE_QUERY_KEYS 如需要 seat / class 参数，必须按现有安全逻辑显式加入。
 
 ---
@@ -1372,6 +1378,18 @@ SAFE_QUERY_KEYS 如需要 seat / class 参数，必须按现有安全逻辑显�
 - version / ETag
 
 详情按 Focus 请求。
+
+### Seat Layout 传输
+
+64,128 个 Seat 的渲染布局必须保持紧凑：
+
+- WOW 与 FOREVER 分阶段加载
+- FOREVER 按字母拆分静态布局文件
+- 基础渲染布局只包含 seat index / position / rotation 等必要字段
+- 不把长 Seat ID 字符串和 neighbors 数组重复塞进每个首屏渲染对象
+- 坐标数据优先使用紧凑 JSON 或 TypedArray / ArrayBuffer 等等价紧凑表示
+- neighbors / Stand Beside Me 邻接信息只在 Focus 或需要推荐邻近 Seat 时按需读取
+- 不因 64,128 Seat 把非必要结构塞进首屏 JS Bundle
 
 ### Polling
 
@@ -1593,7 +1611,6 @@ Flows:
 - src/modules/wow-vanguard/**
 - src/modules/wow-vanguard/db/schema.ts
 - src/modules/wow-vanguard/assets/seat-layout/**
-- scripts/vanguard/backfill-wow.ts
 - tests 对应文件
 
 文档：
