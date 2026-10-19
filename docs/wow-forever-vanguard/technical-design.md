@@ -324,11 +324,20 @@ CI 必须硬校验：
 
 ## 7. 数据模型
 
+新增 schema 保持现有模块化方式，放入 Vanguard 模块并注册到 drizzle.config.ts。
+
+数据库迁移必须通过现有：
+
+bun run db:generate
+
+生成并进入现有 migration verification；禁止手写 SQL 迁移冒充生成结果。
+
 ### vanguard_event_state
 
 单例状态记录：
 
 - id
+- wow_claimed_count
 - wow_completed_at nullable
 - created_at
 - updated_at
@@ -337,12 +346,14 @@ CI 必须硬校验：
 
 current_stage 永远通过 now、wow_completed_at、总席位状态和 EVENT_CLOSE_AT 计算。
 
+wow_claimed_count 只增不减，因为成功 Seat 永久不释放。它用于避免 WOW 最后几个并发 Claim 时通过 count(*) 判断满席产生竞态。
+
 ### vanguard_inscriptions
 
 字段：
 
 - id UUID
-- user_id
+- user_id nullable
 - seat_id
 - phase
 - letter
@@ -366,9 +377,14 @@ status：
 约束：
 
 - seat_id UNIQUE
-- user_id UNIQUE
-- 一个 TierListBase Account 在整个 64,128 Seat 系统中最多一条 inscription
+- 对 user_id IS NOT NULL 建 partial UNIQUE
+- 一个仍存在的 TierListBase Account 在整个 64,128 Seat 系统中最多一条 inscription
 - seat_id 必须来自固定 layout
+- Faction 必须校验为 alliance / horde
+- Class 必须直接复用并校验现有 WOW_CLASSES，不建立第二套职业常量
+- guild_key 使用 trim + casefold 等规范化值；guild_name 保留显示原文
+
+user_id 仅在账户删除 / 隐私删除后允许置 NULL；这不会释放 Seat。
 
 ### vanguard_seat_holds
 
@@ -618,6 +634,16 @@ GET /api/vanguard/me
 - Admin API
 - Moderation Dashboard API
 
+### API 通用边界
+
+所有 Vanguard API 必须：
+
+- 使用 zod 做输入校验
+- 复用现有 session / client-ip / rate-limit 边界
+- Write API 使用 no-store
+- 公开 Manifest / Focus 不返回 email、Google name、Google subject、IP、内部 user_id 或其他账户私有字段
+- 错误必须映射为本文定义的稳定 error code，不能依赖自由文本判断
+
 ---
 
 ## 12. 活动截止硬限制
@@ -653,14 +679,16 @@ Seat Hold 的 expires_at 即使晚于截止，也不允许截止后最终提交�
 
 ## 13. WOW 完成事务
 
-当真实用户写入 WOW inscription 时，在同一业务事务内：
+当真实用户写入 WOW inscription 时，在同一数据库事务内：
 
-1. 完成 Seat 占用
-2. 查询 / 维护 WOW occupied count
-3. 如果本次使 WOW 达到 8,016：
-   - 锁定 event state row
-   - 如果 wow_completed_at 为空，则写入数据库时间
-4. commit
+1. 锁定 vanguard_event_state 单例行
+2. 再次验证 Event、账户、Hold 与目标 Seat
+3. 写入 Seat inscription
+4. 原子执行 wow_claimed_count = wow_claimed_count + 1
+5. 如果新值恰好达到 8,016 且 wow_completed_at 为空，则写入数据库时间
+6. commit
+
+不得通过“插入后再 count(*)”来决定第 8,016 个 Seat，避免最后几个并发 Claim 同时提交时漏掉完成状态。
 
 不得依赖客户端宣布 WOW 满。
 
@@ -691,7 +719,24 @@ wow_completed_at + 24h
 
 ---
 
-## 15. 图片输入规则
+## 15. UGC 文本安全
+
+所有 Vanguard Name / Guild / Battle Cry：
+
+- Unicode normalization
+- HTML escape
+- 纯文本存储与渲染
+- 不允许 HTML / Markdown / 富文本
+- Vanguard Name 2–32 字符
+- Guild 最多 48 字符
+- Battle Cry 最多 120 字符
+- 拒绝 URL、Email、手机号、Discord 邀请和明显站外导流内容
+
+服务端必须再次校验，不能只依赖前端。
+
+---
+
+## 15A. 图片输入规则
 
 用户本地选择：
 
@@ -712,6 +757,8 @@ wow_completed_at + 24h
 6. 上传 R2
 
 不要把手机超高分辨率原图原样上传。
+
+可信处理层必须移除 EXIF / GPS 等元数据，不把拍摄位置等信息带入长期公开媒体。
 
 R2 完成接口再次验证：
 
@@ -975,8 +1022,8 @@ POST /api/vanguard/reports
 - inscription.status = hidden
 - media.moderation_status = hidden
 - 公共端立刻回退为中性 Hidden Plate
-- public media 不再返回
-- 同时清除对应 detail / WOW thumbnail / FOREVER thumbnail 的 CDN 缓存，确保旧公共 URL 不继续返回已隐藏图片
+- 删除或撤销对应公开 detail / WOW thumbnail / FOREVER thumbnail 的 R2 公共对象
+- 同时清除这些 URL 的 CDN 缓存，确保旧公共 URL 不继续返回已隐藏图片
 
 ### Email
 
@@ -1016,7 +1063,14 @@ POST /api/vanguard/reports
 
 数据库不得重新分配该 Seat。
 
-任何 hidden / deleted 操作都必须同步撤销公共媒体可见性并清除对应 CDN 缓存；不能只改数据库状态。
+任何 hidden / deleted 操作都必须同步删除 / 撤销公共媒体对象并清除对应 CDN 缓存；不能只改数据库状态。
+
+账户删除时：
+
+- inscription.user_id 置 NULL
+- Seat 与 Seat ID 永久保留
+- 用户公开图片和个人文字按隐私删除规则清除 / 隐藏
+- 不把该 Seat 重新开放
 
 ---
 
@@ -1091,6 +1145,13 @@ SSR 静态 Hero 作为 LCP。
 
 FOREVER 不能一次把 56,112 张纹理送入 GPU。
 
+如果 prefers-reduced-motion 开启：
+
+- 减少非必要镜头飞行
+- 降低 / 关闭 Bloom 与粒子
+- 保留必要的状态切换、成功确认和错误反馈
+- 不因为 reduced motion 改变 Claim 业务结果
+
 ---
 
 ## 25. MediaPipe
@@ -1099,10 +1160,13 @@ FOREVER 不能一次把 56,112 张纹理送入 GPU。
 
 HandLandmarker 仅在：
 
-- 用户允许 camera
 - 用户进入 Monument
+- 用户明确点击启用手势控制
+- 用户允许 camera
 
 以后加载。
+
+页面加载或 ENTER 时不得自动弹 Camera Permission。
 
 手势：
 
@@ -1291,7 +1355,24 @@ SEALED 状态继续保留固定 Tier List 入口。
 
 ---
 
-## 31. SEO
+## 31. 搜索
+
+搜索支持：
+
+- Seat ID 精确匹配
+- Vanguard Name 前缀 / 合理文本匹配
+- Guild 前缀 / 合理文本匹配
+
+要求：
+
+- 复用现有限流
+- 不提供按账户标识、Email、Google 信息查询
+- 不提供无上限批量导出 / 枚举接口
+- 返回结果只包含公开 Seat 信息
+
+---
+
+## 32. SEO
 
 活动唯一索引 URL：
 
@@ -1319,7 +1400,7 @@ Three Canvas 不得是搜索引擎唯一内容。
 
 ---
 
-## 32. Analytics
+## 33. Analytics
 
 复用 GA4 / Clarity / Consent。
 
@@ -1351,7 +1432,7 @@ SAFE_QUERY_KEYS 如需要 seat / class 参数，必须按现有安全逻辑显�
 
 ---
 
-## 33. Performance
+## 34. Performance
 
 ### LCP
 
@@ -1399,7 +1480,7 @@ V1 使用 10–20 秒 ETag polling。
 
 ---
 
-## 34. 缓存
+## 35. 缓存
 
 - Static visual assets：immutable
 - Seat layout：immutable
@@ -1413,7 +1494,7 @@ V1 使用 10–20 秒 ETag polling。
 
 ---
 
-## 35. Error Contract
+## 36. Error Contract
 
 至少支持：
 
@@ -1436,7 +1517,7 @@ V1 使用 10–20 秒 ETag polling。
 
 ---
 
-## 36. 法律配置必须同步更新
+## 37. 法律配置必须同步更新
 
 当前 legal.config.ts 仍描述：
 
@@ -1469,7 +1550,7 @@ Vanguard 上线后这些陈述不再准确。
 
 ---
 
-## 37. 测试
+## 38. 测试
 
 ### Capacity
 
@@ -1483,7 +1564,8 @@ Vanguard 上线后这些陈述不再准确。
 ### Stage
 
 - WOW open
-- WOW 8015 → 8016 atomic completion
+- WOW 8015 → 8016 atomic completion under concurrent claims
+- wow_claimed_count cannot miss / double-count completion
 - 24h waiting
 - FOREVER automatic open
 - no FOREVER before unlock
@@ -1496,6 +1578,9 @@ Vanguard 上线后这些陈述不再准确。
 - same Google account cannot claim second Seat
 - no Magic Link
 - login return preserves claim draft
+- login return with expired Hold but free Seat recreates Hold
+- login return with Seat already claimed preserves draft and recommends nearest Seat
+- account deletion detaches user_id but never reopens Seat
 
 ### Media
 
@@ -1504,8 +1589,11 @@ Vanguard 上线后这些陈述不再准确。
 - <512 rejection
 - normalized master <=2048
 - server hard size check
+- EXIF / GPS removed
 - R2 private pending
+- pending lifecycle cleanup
 - only approved public
+- hidden / deleted media removes public object and purges CDN
 - 1024 / 256 / 128 derivatives
 
 ### Moderation
@@ -1568,7 +1656,7 @@ Flows:
 
 ---
 
-## 38. 实施顺序
+## 39. 实施顺序
 
 1. 冻结 WOW / FOREVER 最终视觉
 2. 冻结 Memory Plate
@@ -1600,7 +1688,7 @@ Flows:
 
 ---
 
-## 39. 建议新增文件
+## 40. 建议新增文件
 
 核心：
 
@@ -1620,7 +1708,7 @@ Flows:
 
 ---
 
-## 40. 预计修改的现有文件
+## 41. 预计修改的现有文件
 
 至少可能涉及：
 
@@ -1641,7 +1729,7 @@ Flows:
 
 ---
 
-## 41. 开发完成定义
+## 42. 开发完成定义
 
 只有满足以下条件才算 Ready：
 
@@ -1670,7 +1758,7 @@ Flows:
 
 ---
 
-## 42. 冻结结论
+## 43. 冻结结论
 
 本技术方案聚焦 Vanguard 活动本身，不增加与目标无关的平台建设。
 
