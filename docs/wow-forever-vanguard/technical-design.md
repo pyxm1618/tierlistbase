@@ -788,13 +788,30 @@ Object Key 必须由服务器生成，用户不可指定任意路径。
 
 推荐结构：
 
-    vanguard/{mediaId}/master.webp
-    vanguard/{mediaId}/moderation.webp
-    vanguard/{mediaId}/detail.webp
-    vanguard/{mediaId}/wow-256.webp
-    vanguard/{mediaId}/forever-128.webp
+    vanguard/pending/{mediaId}/master.webp
+    vanguard/pending/{mediaId}/moderation.webp
+
+成功 Inscription 后的长期资产：
+
+    vanguard/permanent/{mediaId}/detail.webp
+    vanguard/permanent/{mediaId}/wow-256.webp
+    vanguard/permanent/{mediaId}/forever-128.webp
 
 未 approved 的对象绝不能进入公共媒体路径。
+
+### 临时媒体清理
+
+R2 的 pending 前缀设置 24 小时生命周期删除规则。
+
+因此以下对象不会长期堆积：
+
+- 用户上传后离开页面
+- Hold 过期后未提交
+- rejected
+- 长期 pending
+- 审核通过但最终没有完成 Inscription 的临时媒体
+
+正式 Inscription 使用的长期公共衍生图必须位于 permanent 前缀，不能被 pending 生命周期删除。
 
 ---
 
@@ -819,6 +836,16 @@ Presigned URL：
 - object key 服务器生成
 - 绑定目标 content type
 - 完成接口再次做大小和 MIME 验证
+- presign API 必须登录且限流，避免被当成任意对象存储入口
+
+R2 Bucket 使用最小化 CORS：
+
+- Production Origin 只允许 https://www.tierlistbase.com
+- 只开放上传实际需要的方法，例如 PUT / HEAD
+- 只开放上传实际需要的请求头，例如 Content-Type
+- Preview / staging origin 单独配置，生产环境不使用无条件 wildcard
+
+Cloudflare / R2 凭据全部保持 server-only，不得进入客户端 Bundle。
 
 ---
 
@@ -949,6 +976,7 @@ POST /api/vanguard/reports
 - media.moderation_status = hidden
 - 公共端立刻回退为中性 Hidden Plate
 - public media 不再返回
+- 同时清除对应 detail / WOW thumbnail / FOREVER thumbnail 的 CDN 缓存，确保旧公共 URL 不继续返回已隐藏图片
 
 ### Email
 
@@ -987,6 +1015,8 @@ POST /api/vanguard/reports
 - 显示中性 Hidden / Unavailable Plate
 
 数据库不得重新分配该 Seat。
+
+任何 hidden / deleted 操作都必须同步撤销公共媒体可见性并清除对应 CDN 缓存；不能只改数据库状态。
 
 ---
 
@@ -1348,6 +1378,18 @@ SAFE_QUERY_KEYS 如需要 seat / class 参数，必须按现有安全逻辑显�
 - version / ETag
 
 详情按 Focus 请求。
+
+### Seat Layout 传输
+
+64,128 个 Seat 的渲染布局必须保持紧凑：
+
+- WOW 与 FOREVER 分阶段加载
+- FOREVER 按字母拆分静态布局文件
+- 基础渲染布局只包含 seat index / position / rotation 等必要字段
+- 不把长 Seat ID 字符串和 neighbors 数组重复塞进每个首屏渲染对象
+- 坐标数据优先使用紧凑 JSON 或 TypedArray / ArrayBuffer 等等价紧凑表示
+- neighbors / Stand Beside Me 邻接信息只在 Focus 或需要推荐邻近 Seat 时按需读取
+- 不因 64,128 Seat 把非必要结构塞进首屏 JS Bundle
 
 ### Polling
 
