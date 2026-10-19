@@ -67,3 +67,7 @@ Direct dependency changes required by this phase: `three@0.186.1`, `@types/three
 ## Current audio/service continuation
 
 Baseline e8ba0c4; see audio-service-stage.md and live-integration.md for current evidence. The preceding test totals describe the prior commit, not the current verification run. The current phase adds real local HTTP → existing Session → PostgreSQL → test email E2E, audio/production-Claim isolation tests, scoped R2 signature/delete/purge tests and explicit-run sample calibration preparation. Real provider acceptance, physical devices and legal review remain pending non-asset work.
+
+## Nonvisual closeout after 49fb3a0
+
+See [nonvisual-closeout.md](./nonvisual-closeout.md) for the eight-area audit, current-run verification and separately classified BLOCKED_ASSET / BLOCKED_EXTERNAL / HUMAN_REVIEW. Provider preparation and local fixture tests do not constitute real-service acceptance. Production Claim remains closed pending final Mask/layout.
