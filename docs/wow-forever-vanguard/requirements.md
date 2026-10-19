@@ -317,6 +317,18 @@ CTA：
 
 数据库必须保证并发情况下不会重复占位。
 
+### 账户删除
+
+如果用户以后删除 TierListBase Account：
+
+- 已成功的 Seat 不释放
+- Seat ID 不回收
+- 账户与该 Seat 的登录关系解除
+- 个人图片和公开文字按隐私删除规则隐藏 / 删除
+- Monument 中该位置保留为中性 Unavailable Plate
+
+删除账户不能让原 Seat 重新进入可 Claim 状态。
+
 ---
 
 ## 9. Claim 表单
@@ -347,6 +359,18 @@ CTA：
 必须从 TierListBase 现有 WoW Forever 9 个职业中选择。
 
 不复制第二套职业定义。
+
+### 文本字段规则
+
+所有用户文字均为纯文本，不支持 HTML / Markdown / 富文本。
+
+- Vanguard Name：2–32 字符
+- Guild：最多 48 字符
+- Battle Cry：最多 120 字符
+
+Vanguard Name / Guild / Battle Cry 不允许填写 URL、Email、手机号、Discord 邀请或其他明显站外导流信息。
+
+输入必须给出明确的长度 / 格式错误提示，不能等最终提交以后才无说明失败。
 
 ---
 
@@ -731,7 +755,10 @@ SEALED / Archive 状态继续保留 WoW Forever Tier List 入口。
 
 摄像头是增强体验，不是参与门槛。
 
-拒绝 Camera Permission 后必须完整支持浏览、Claim、刻碑和分享。
+- 页面加载时不得主动弹 Camera Permission
+- 只有用户明确点击启用手势控制后才申请摄像头权限
+- 拒绝 Camera Permission 后必须完整支持浏览、Claim、刻碑和分享
+- 系统开启 prefers-reduced-motion 时，减少非必要镜头飞行、Bloom 与粒子动画，但不能隐藏状态变化、错误提示或成功结果
 
 ---
 
