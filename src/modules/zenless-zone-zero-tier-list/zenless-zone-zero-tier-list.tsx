@@ -20,6 +20,7 @@ import {
 import agentDetailMiyabi from "./assets/agent-detail-miyabi.webp";
 import heroArtwork from "./assets/hero.webp";
 import teamMiyabiFreeze from "./assets/team-miyabi-freeze.webp";
+import { agentIcons, bangbooIcons } from "./icons";
 import styles from "./zenless-zone-zero-tier-list.module.css";
 
 const tiers: readonly Tier[] = ["S+", "S", "A", "B"];
@@ -89,6 +90,37 @@ function MiyabiPortrait() {
       className={styles.miyabiPortraitImage}
     />
   );
+}
+
+function AgentPortrait({ name, sizes }: { name: string; sizes: string }) {
+  const agent = agents.find((candidate) => candidate.name === name);
+  if (agent?.id === "miyabi") return <MiyabiPortrait />;
+  const icon = agentIcons[agent?.id ?? ""];
+  return icon ? (
+    <Image src={icon} alt={name} fill sizes={sizes} className={styles.iconImage} />
+  ) : (
+    <MissingArtwork kind="portrait" />
+  );
+}
+
+function BangbooIcons({ names }: { names: string }) {
+  return names.split("/").map((name) => {
+    const label = name.trim();
+    const icon = bangbooIcons[label];
+    return icon ? (
+      <Image
+        key={label}
+        src={icon}
+        alt={label}
+        width={35}
+        height={35}
+        sizes="35px"
+        className={styles.bangbooIcon}
+      />
+    ) : (
+      <MissingArtwork key={label} kind="item" />
+    );
+  });
 }
 
 function SelectFilter({
@@ -170,7 +202,7 @@ function AgentCard({
       aria-label={`${agent.name}, ${tier} tier, ${agent.combatRole}`}
     >
       <span className={styles.agentPortrait}>
-        {agent.id === "miyabi" ? <MiyabiPortrait /> : <MissingArtwork kind="portrait" />}
+        <AgentPortrait name={agent.name} sizes="48px" />
       </span>
       <span className={styles.agentCardName}>{agent.name}</span>
       <span className={styles.agentCardRank}>{agent.rarity === "S-Rank" ? "S" : "A"}</span>
@@ -194,7 +226,7 @@ function AgentDetail({
           {agent.tier}
         </span>
         <div className={styles.agentDetailPortrait}>
-          {agent.id === "miyabi" ? <MiyabiPortrait /> : <MissingArtwork kind="portrait" />}
+          <AgentPortrait name={agent.name} sizes="(max-width: 760px) 58px, 72px" />
         </div>
         <div className={styles.agentIdentity}>
           <div>
@@ -476,11 +508,7 @@ function TeamDetail({
                     {composition.members.map((member) => (
                       <div key={member.name}>
                         <span className={styles.memberPortrait}>
-                          {member.name === "Miyabi" ? (
-                            <MiyabiPortrait />
-                          ) : (
-                            <MissingArtwork kind="portrait" />
-                          )}
+                          <AgentPortrait name={member.name} sizes="48px" />
                         </span>
                         <strong>{member.name}</strong>
                         <small>{member.role}</small>
@@ -514,14 +542,14 @@ function TeamDetail({
             <section>
               <span>Best Bangboo</span>
               <div className={styles.itemLine}>
-                <MissingArtwork kind="item" />
+                <BangbooIcons names={team.bestBangboo} />
                 <strong>{team.bestBangboo}</strong>
               </div>
             </section>
             <section>
               <span>Alternative Bangboo</span>
               <div className={styles.itemLine}>
-                <MissingArtwork kind="item" />
+                <BangbooIcons names={team.alternativeBangboo} />
                 <strong>{team.alternativeBangboo}</strong>
               </div>
             </section>
@@ -572,7 +600,7 @@ function PullAdviceDetail({
           <p>Pull Advice Detail</p>
           <div className={styles.pullDetailIdentity}>
             <span className={styles.pullPortrait}>
-              {advice.name === "Miyabi" ? <MiyabiPortrait /> : <MissingArtwork kind="portrait" />}
+              <AgentPortrait name={advice.name} sizes="64px" />
               <span className={styles.pullRankBadge}>S</span>
             </span>
             <div>
@@ -888,11 +916,7 @@ export function ZenlessZoneZeroTierList() {
                     {advice.bannerStatus}
                   </span>
                   <span className={styles.pullPortrait}>
-                    {advice.name === "Miyabi" ? (
-                      <MiyabiPortrait />
-                    ) : (
-                      <MissingArtwork kind="portrait" />
-                    )}
+                    <AgentPortrait name={advice.name} sizes="80px" />
                     <span className={styles.pullRankBadge}>S</span>
                   </span>
                   <span className={styles.pullSummaryCopy}>

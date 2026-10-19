@@ -1250,7 +1250,8 @@
   gap: 7px;
 }
 
-.itemLine > .missingArtwork {
+.itemLine > .missingArtwork,
+.itemLine > .bangbooIcon {
   position: relative;
   width: 35px;
   height: 35px;
@@ -2052,4 +2053,9 @@
     width: 100%;
     justify-content: space-between;
   }
+}
+
+.iconImage,
+.bangbooIcon {
+  object-fit: contain;
 }
