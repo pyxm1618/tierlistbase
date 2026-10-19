@@ -4,6 +4,7 @@ export type ContentSecurityPolicyInput = Readonly<{
   production: boolean;
   analytics: Readonly<{ ga4: boolean; clarity: boolean }>;
   turnstile: boolean;
+  vanguard?: { uploadOrigin?: string };
 }>;
 
 export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): string {
@@ -42,6 +43,7 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
     "'self'",
     `'nonce-${input.nonce}'`,
     ...(input.development ? ["'unsafe-eval'"] : []),
+    ...(input.vanguard ? ["'wasm-unsafe-eval'"] : []),
     ...cmpScriptOrigins,
     ...(input.analytics.ga4 ? ["https://www.googletagmanager.com"] : []),
     ...(input.analytics.clarity ? ["https://www.clarity.ms", "https://scripts.clarity.ms"] : []),
@@ -49,6 +51,7 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
   ];
   const connectSources = [
     "'self'",
+    ...(input.vanguard?.uploadOrigin ? [input.vanguard.uploadOrigin] : []),
     ...cmpConnectOrigins,
     ...(input.analytics.ga4
       ? ["https://www.google-analytics.com", "https://region1.google-analytics.com"]

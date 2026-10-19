@@ -7,6 +7,11 @@ const enabledTestFeaturesConfig = {
   analytics: { enabled: true, ga4: true, clarity: true, consentRequired: true },
 } as const satisfies ProductConfig["features"];
 
+const vanguardEnabledTestFeaturesConfig = {
+  ...enabledTestFeaturesConfig,
+  auth: { enabled: true, google: true, magicLink: false, password: false },
+} as const satisfies ProductConfig["features"];
+
 const commerceEnabledTestFeaturesConfig = {
   ...enabledTestFeaturesConfig,
   commerce: { enabled: true, oneTime: false, subscriptions: true, credits: true },
@@ -43,12 +48,15 @@ const useAnalyticsEnabledPerformanceProfile =
   process.env.APP_ENV === "test" && process.env.CREAT_WEB_PERFORMANCE_ANALYTICS === "1";
 const useProductionProfile = process.env.APP_ENV === "production";
 
-export const featuresConfig = useCommerceEnabledTestProfile
-  ? commerceEnabledTestFeaturesConfig
-  : useEnabledTestProfile
-    ? enabledTestFeaturesConfig
-    : useAnalyticsEnabledPerformanceProfile
-      ? analyticsEnabledPerformanceFeaturesConfig
-      : useProductionProfile
-        ? productionFeaturesConfig
-        : neutralFeaturesConfig;
+export const featuresConfig =
+  process.env.APP_ENV === "test" && process.env.CREAT_WEB_E2E_VANGUARD === "1"
+    ? vanguardEnabledTestFeaturesConfig
+    : useCommerceEnabledTestProfile
+      ? commerceEnabledTestFeaturesConfig
+      : useEnabledTestProfile
+        ? enabledTestFeaturesConfig
+        : useAnalyticsEnabledPerformanceProfile
+          ? analyticsEnabledPerformanceFeaturesConfig
+          : useProductionProfile
+            ? productionFeaturesConfig
+            : neutralFeaturesConfig;

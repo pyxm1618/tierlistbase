@@ -1,12 +1,14 @@
 import "server-only";
 import { z, ZodError } from "zod";
-import { createVanguardService, VanguardError } from "@/modules/wow-vanguard";
+import { VanguardError } from "@/modules/wow-vanguard";
+import { getVanguardService } from "@/config/vanguard-runtime.config";
 import { getAccountContext } from "@/platform/auth/account-context";
 import { extractTrustedClientIp } from "@/platform/auth/client-ip";
 import { createAuthAttemptLimiter } from "@/platform/auth/attempt-rate-limit";
 import { env } from "@/platform/config/env";
+import { createLogger } from "@/platform/observability/logger";
 import { db } from "@/platform/database/application-database";
-export const vanguard = createVanguardService(db);
+export const vanguard = getVanguardService();
 export async function boundary(
   request: Request,
   scope: string,
@@ -72,6 +74,24 @@ export async function respond(operation: () => Promise<Response>) {
     if (error instanceof VanguardError)
       return json({ error: { code: error.code, ...error.details } }, error.status);
     if (error instanceof ZodError) return json({ error: { code: "INVALID_INPUT" } }, 400);
-    throw error;
+    const databaseError =
+      error && typeof error === "object" && "cause" in error
+        ? (error.cause as { code?: string; constraint_name?: string })
+        : null;
+    if (
+      databaseError?.code === "23505" &&
+      databaseError.constraint_name === "vanguard_account_one_seat"
+    )
+      return json({ error: { code: "ACCOUNT_ALREADY_INSCRIBED" } }, 409);
+    if (
+      databaseError?.code === "23505" &&
+      databaseError.constraint_name === "vanguard_inscriptions_seat_id_unique"
+    )
+      return json({ error: { code: "SEAT_ALREADY_CLAIMED" } }, 409);
+    createLogger({ component: "vanguard-api" }).error("vanguard_request_failed", {
+      errorType: error instanceof Error ? error.name : "unknown",
+      databaseCode: databaseError?.code,
+    });
+    return json({ error: { code: "SERVICE_UNAVAILABLE" } }, 503);
   }
 }

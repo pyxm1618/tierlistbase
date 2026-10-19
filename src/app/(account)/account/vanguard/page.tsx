@@ -4,7 +4,13 @@ import { redirect } from "next/navigation";
 import { AccountShell } from "@/components/account/account-shell";
 import { getAccountContext } from "@/platform/auth/account-context";
 import { db } from "@/platform/database/application-database";
-import { createVanguardService } from "@/modules/wow-vanguard";
+
+import {
+  VanguardMemoryPlate,
+  VanguardSealControl,
+  VanguardShareControl,
+  createVanguardService,
+} from "@/modules/wow-vanguard";
 export default async function MyVanguardPage() {
   const account = await getAccountContext(await headers());
   if (!account) redirect("/sign-in?returnTo=%2Faccount%2Fvanguard");
@@ -18,8 +24,9 @@ export default async function MyVanguardPage() {
       intro="Your permanent place in the Monument."
     >
       {seat ? (
-        <section>
+        <section data-clarity-mask="true">
           <h2>{seat.seatId}</h2>
+          <VanguardMemoryPlate seat={seat} />
           {seat.status === "active" ? (
             <dl>
               {Object.entries({
@@ -38,6 +45,8 @@ export default async function MyVanguardPage() {
           ) : (
             <p>Unavailable Plate</p>
           )}
+          <VanguardSealControl seat={seat} />
+          <VanguardShareControl seatId={seat.seatId} />
           <Link href={`/wow-forever/vanguard?seat=${seat.seatId}`}>View in Monument</Link>
         </section>
       ) : (

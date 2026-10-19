@@ -11,3 +11,6 @@ dist
 .cloudflare
 .wrangler
 .vercel
+
+# Pinned third-party MediaPipe runtime binaries and generated loaders
+public/vendor/vanguard/

@@ -1,4 +1,19 @@
-export type AnalyticsEventName = "page_view" | "cta_click" | "feature_use";
+export type AnalyticsEventName =
+  | "page_view"
+  | "cta_click"
+  | "feature_use"
+  | "vanguard_enter"
+  | "vanguard_focus"
+  | "claim_start"
+  | "auth_start"
+  | "media_upload"
+  | "media_rejected"
+  | "claim_complete"
+  | "seal_save"
+  | "share"
+  | "invite_open"
+  | "tier_list_click"
+  | "report_submit";
 
 export type AnalyticsEventInput = {
   name: AnalyticsEventName;
@@ -16,6 +31,18 @@ const SAFE_LOCALE = /^[A-Za-z0-9-]{2,16}$/;
 const SAFE_TOKEN = /^[A-Za-z0-9 _./:-]{1,128}$/;
 
 const EVENT_PROPERTY_ALLOWLIST: Record<AnalyticsEventName, readonly string[]> = {
+  vanguard_enter: [],
+  vanguard_focus: [],
+  claim_start: [],
+  auth_start: [],
+  media_upload: [],
+  media_rejected: [],
+  claim_complete: [],
+  seal_save: [],
+  share: [],
+  invite_open: [],
+  tier_list_click: [],
+  report_submit: [],
   page_view: ["path", "locale"],
   cta_click: ["cta", "placement"],
   feature_use: ["feature", "action", "outcome"],

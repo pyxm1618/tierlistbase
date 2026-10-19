@@ -18,7 +18,7 @@ const contentByRoute = new Map<string, readonly LandingSection[]>([
   ["/", homeConfig.sections],
   ...seoLandingPages.map((page) => [page.route, page.sections] as const),
 ]);
-const bespokeIndexableRoutes = new Set(["/genshin-impact/tier-list"]);
+const bespokeIndexableRoutes = new Set(["/genshin-impact/tier-list", "/wow-forever/vanguard"]);
 
 function internalLinks(sections: readonly LandingSection[]) {
   const links: { label: string; href: string }[] = [];

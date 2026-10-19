@@ -44,3 +44,19 @@ it("never approves uncalibrated or invalid moderation, irrespective of normal co
   expect(decideVanguardModeration({}, null)).toBe("uncertain");
   expect(decideVanguardModeration({ normal_game_combat: 1 }, null)).toBe("uncertain");
 });
+
+it("removes WebP EXIF, GPS and ICC without exceeding the bounded master", async () => {
+  const input = await sharp({
+    create: { width: 512, height: 512, channels: 3, background: "blue" },
+  })
+    .withMetadata()
+    .webp()
+    .toBuffer();
+  expect((await sharp(input).metadata()).exif).toBeDefined();
+  const output = await normalizeVanguardMaster(input, "image/webp");
+  const metadata = await sharp(output.master).metadata();
+  expect(metadata.exif).toBeUndefined();
+  expect(metadata.icc).toBeUndefined();
+  expect(metadata.width).toBe(512);
+  expect(output.master.length).toBeLessThanOrEqual(input.length);
+});

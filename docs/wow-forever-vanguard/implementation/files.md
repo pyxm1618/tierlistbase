@@ -66,3 +66,84 @@ All paths are relative to this isolated worktree. Both frozen specification file
 | `tests/unit/wow-vanguard/moderation-provider.test.ts` | Vanguard domain, database or browser foundation verification |
 | `tests/unit/wow-vanguard/removal-and-layout.test.ts` | Vanguard domain, database or browser foundation verification |
 | `tests/unit/wow-vanguard/report.test.ts` | Vanguard domain, database or browser foundation verification |
+
+## Continuation file inventory
+
+Exactly 74 changed/added files in this continuation; all reviewed against frozen Vanguard scope.
+
+| File | Purpose | Scope |
+| --- | --- | --- |
+| `.github/workflows/ci.yml` | Run Google-only Vanguard browser profile in existing CI | PASS |
+| `.prettierignore` | Exclude only vendored generated runtime from source lint/format | PASS |
+| `bun.lock` | Pinned Vanguard runtime/type dependencies and repaired incidental lock drift | PASS |
+| `docs/wow-forever-vanguard/implementation/files.md` | This exact continuation file inventory | PASS |
+| `docs/wow-forever-vanguard/implementation/next-stage.md` | Implementation scope, provenance or verification ledger; frozen source documents untouched | PASS |
+| `docs/wow-forever-vanguard/implementation/scope-audit-b976dbb.md` | Implementation scope, provenance or verification ledger; frozen source documents untouched | PASS |
+| `docs/wow-forever-vanguard/implementation/services.md` | Implementation scope, provenance or verification ledger; frozen source documents untouched | PASS |
+| `docs/wow-forever-vanguard/implementation/status.md` | Implementation scope, provenance or verification ledger; frozen source documents untouched | PASS |
+| `eslint.config.mjs` | Exclude only vendored generated runtime from source lint/format | PASS |
+| `next.config.ts` | Required Vanguard composition, read-only account, auth test profile, security/cache or consent integration | PASS |
+| `package.json` | Pinned Vanguard runtime/type dependencies and repaired incidental lock drift | PASS |
+| `playwright.vanguard.config.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `public/vendor/vanguard/.gitattributes` | Preserve upstream generated loader bytes with a vendor-only Git whitespace attribute | PASS |
+| `public/vendor/vanguard/LICENSE-2.0.txt` | Pinned self-hosted MediaPipe technical runtime/model and license; no final visual asset | PASS |
+| `public/vendor/vanguard/README.md` | Pinned self-hosted MediaPipe technical runtime/model and license; no final visual asset | PASS |
+| `public/vendor/vanguard/hand_landmarker-v1.task` | Pinned self-hosted MediaPipe technical runtime/model and license; no final visual asset | PASS |
+| `public/vendor/vanguard/mediapipe-1.1.1/vision_wasm_internal.js` | Pinned self-hosted MediaPipe technical runtime/model and license; no final visual asset | PASS |
+| `public/vendor/vanguard/mediapipe-1.1.1/vision_wasm_internal.wasm` | Pinned self-hosted MediaPipe technical runtime/model and license; no final visual asset | PASS |
+| `public/vendor/vanguard/mediapipe-1.1.1/vision_wasm_module_internal.js` | Pinned self-hosted MediaPipe technical runtime/model and license; no final visual asset | PASS |
+| `public/vendor/vanguard/mediapipe-1.1.1/vision_wasm_module_internal.wasm` | Pinned self-hosted MediaPipe technical runtime/model and license; no final visual asset | PASS |
+| `public/vendor/vanguard/mediapipe-1.1.1/vision_wasm_nosimd_internal.js` | Pinned self-hosted MediaPipe technical runtime/model and license; no final visual asset | PASS |
+| `public/vendor/vanguard/mediapipe-1.1.1/vision_wasm_nosimd_internal.wasm` | Pinned self-hosted MediaPipe technical runtime/model and license; no final visual asset | PASS |
+| `scripts/verify-seo.ts` | Register SSR Vanguard as an existing-validator bespoke indexable page | PASS |
+| `src/app/(account)/account/vanguard/page.tsx` | Required Vanguard composition, read-only account, auth test profile, security/cache or consent integration | PASS |
+| `src/app/(marketing)/wow-forever/vanguard/page.tsx` | Required Vanguard composition, read-only account, auth test profile, security/cache or consent integration | PASS |
+| `src/app/api/vanguard/_runtime.ts` | Existing server boundaries and Vanguard API orchestration | PASS |
+| `src/app/api/vanguard/media/complete/route.ts` | Existing server boundaries and Vanguard API orchestration | PASS |
+| `src/app/api/vanguard/media/presign/route.ts` | Existing server boundaries and Vanguard API orchestration | PASS |
+| `src/app/api/vanguard/reports/route.ts` | Existing server boundaries and Vanguard API orchestration | PASS |
+| `src/config/features.config.ts` | Required Vanguard composition, read-only account, auth test profile, security/cache or consent integration | PASS |
+| `src/config/vanguard-runtime.config.ts` | Required Vanguard composition, read-only account, auth test profile, security/cache or consent integration | PASS |
+| `src/config/vanguard.config.ts` | Required Vanguard composition, read-only account, auth test profile, security/cache or consent integration | PASS |
+| `src/modules/wow-vanguard/client/api.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/canvas.tsx` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/claim.tsx` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/contracts.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/crop.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/entry.tsx` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/experience.tsx` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/plate.tsx` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/response.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/seal.tsx` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/client/tracking.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/db/removal.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/db/reports.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/db/service.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/domain/catalog.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/domain/text.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/domain/validation.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/experience/audio.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/experience/gestures.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/experience/scene.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/experience/thumbnails.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/index.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/media/image-header.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/media/moderation.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/media/normalize.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/media/publish.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/modules/wow-vanguard/media/service.ts` | Frozen Vanguard domain, media, immutable Claim/browse or experience interface implementation | PASS |
+| `src/platform/analytics/events.ts` | Required Vanguard composition, read-only account, auth test profile, security/cache or consent integration | PASS |
+| `src/platform/security/content-security-policy.ts` | Required Vanguard composition, read-only account, auth test profile, security/cache or consent integration | PASS |
+| `src/proxy.ts` | Required Vanguard composition, read-only account, auth test profile, security/cache or consent integration | PASS |
+| `tests/e2e/vanguard-flows.spec.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/e2e/vanguard-foundation.spec.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/integration/vanguard-media.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/integration/vanguard-report.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/integration/vanguard.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/unit/wow-vanguard/analytics-events.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/unit/wow-vanguard/catalog.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/unit/wow-vanguard/client-contracts.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/unit/wow-vanguard/media.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/unit/wow-vanguard/publish.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/unit/wow-vanguard/scene.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |
+| `tests/unit/wow-vanguard/thumbnail.test.ts` | Vanguard automated regression / isolated fixture coverage | PASS |

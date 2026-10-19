@@ -1,3 +1,4 @@
+import type { PublishedMediaKeys } from "../media/publish";
 import { createHash, randomBytes } from "node:crypto";
 import { and, eq, or, sql, type SQL } from "drizzle-orm";
 import type { DatabaseClient, DatabaseTransaction } from "@/platform/database/client";
@@ -18,7 +19,7 @@ import {
 } from "./schema";
 
 type Inscription = typeof vanguardInscriptions.$inferSelect;
-export function publicInscription(row: Inscription) {
+export function publicInscription(row: Inscription, media?: typeof vanguardMedia.$inferSelect) {
   if (row.status !== "active" || row.userId === null)
     return { seatId: row.seatId, status: "unavailable" as const };
   return {
@@ -30,6 +31,18 @@ export function publicInscription(row: Inscription) {
     guildName: row.guildName,
     battleCry: row.battleCry,
     inscribedAt: row.createdAt.toISOString(),
+    image:
+      media?.moderationStatus === "approved" &&
+      media.ownerUserId === row.userId &&
+      media.publicDetailKey === `vanguard/permanent/${media.id}/detail.webp` &&
+      media.publicWowThumbKey === `vanguard/permanent/${media.id}/wow-256.webp` &&
+      media.publicForeverThumbKey === `vanguard/permanent/${media.id}/forever-128.webp`
+        ? {
+            detail: `https://media.tierlistbase.com/${media.publicDetailKey}`,
+            wow: `https://media.tierlistbase.com/${media.publicWowThumbKey}`,
+            forever: `https://media.tierlistbase.com/${media.publicForeverThumbKey}`,
+          }
+        : null,
   };
 }
 export type PublicInscription = ReturnType<typeof publicInscription>;
@@ -38,9 +51,14 @@ export function createVanguardService(
   database: DatabaseClient,
   options: {
     authorityTimeSql?: SQL;
+    publishMedia?: (media: typeof vanguardMedia.$inferSelect) => Promise<PublishedMediaKeys>;
+    revokeMedia?: (keys: readonly string[]) => Promise<void>;
     // Final immutable mask-derived identities and neighbors are supplied by composition.
-    seatExists?: (seatId: string) => boolean;
-    nearestAvailable?: (seatId: string, occupied: ReadonlySet<string>) => string | null;
+    seatExists?: (seatId: string) => boolean | Promise<boolean>;
+    nearestAvailable?: (
+      seatId: string,
+      occupied: ReadonlySet<string>,
+    ) => string | null | Promise<string | null>;
   } = {},
 ) {
   async function authorityNow(transaction: DatabaseTransaction) {
@@ -69,10 +87,10 @@ export function createVanguardService(
     };
     return state;
   }
-  function assertLayoutSeat(seatId: string) {
+  async function assertLayoutSeat(seatId: string) {
     const seat = parseSeatId(seatId);
     if (!options.seatExists) throw new VanguardError("LAYOUT_UNAVAILABLE", 503);
-    if (!options.seatExists(seatId)) throw new VanguardError("INVALID_INPUT", 400);
+    if (!(await options.seatExists(seatId))) throw new VanguardError("INVALID_INPUT", 400);
     return seat;
   }
   async function conflict(transaction: DatabaseTransaction, seatId: string): Promise<never> {
@@ -87,7 +105,7 @@ export function createVanguardService(
       .where(sql`${vanguardSeatHolds.expiresAt} > clock_timestamp()`);
     for (const held of holds) occupied.add(held.seatId);
     throw new VanguardError("SEAT_ALREADY_CLAIMED", 409, {
-      nearestSeatId: options.nearestAvailable?.(seatId, occupied) ?? null,
+      nearestSeatId: (await options.nearestAvailable?.(seatId, occupied)) ?? null,
     });
   }
   async function assertAccountAvailable(transaction: DatabaseTransaction, userId: string | null) {
@@ -130,7 +148,7 @@ export function createVanguardService(
             foreverUnlockAt !== null &&
             Date.parse(foreverUnlockAt) < Date.parse(EVENT_CLOSE_AT) &&
             now.getTime() >= Date.parse(foreverUnlockAt);
-          const phase = showForever ? "forever" : "wow";
+          const phase: "wow" | "forever" = showForever ? "forever" : "wow";
           const letters =
             phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"];
           const perLetter = phase === "wow" ? 2672 : 8016;
@@ -164,9 +182,9 @@ export function createVanguardService(
       const seat = parseSeatId(seatId);
       return database.transaction(async (transaction) => {
         const state = await lockEvent(transaction);
-        const now = await authorityNow(transaction);
+        let now = await authorityNow(transaction);
         assertPhaseOpen(now, state, seat.phase);
-        assertLayoutSeat(seat.seatId);
+        await assertLayoutSeat(seat.seatId);
         await assertAccountAvailable(transaction, userId);
         const [occupied] = await transaction
           .select({ seatId: vanguardInscriptions.seatId })
@@ -184,6 +202,8 @@ export function createVanguardService(
           (!held.userId || held.userId === userId);
         if (held && held.expiresAt > now && !ownsHold) return conflict(transaction, seatId);
         const holdToken = ownsHold ? previousToken! : randomBytes(32).toString("base64url");
+        now = await authorityNow(transaction);
+        assertPhaseOpen(now, state, seat.phase);
         const expiresAt = new Date(Math.min(now.getTime() + 180000, Date.parse(EVENT_CLOSE_AT)));
         await transaction
           .insert(vanguardSeatHolds)
@@ -198,78 +218,95 @@ export function createVanguardService(
     async inscribe(userId: string, rawInput: InscriptionInput) {
       const input = inscriptionSchema.parse(rawInput);
       const seat = parseSeatId(input.seatId);
-      return database.transaction(async (transaction) => {
-        const state = await lockEvent(transaction);
-        let now = await authorityNow(transaction);
-        assertPhaseOpen(now, state, seat.phase);
-        assertLayoutSeat(seat.seatId);
-        await assertAccountAvailable(transaction, userId);
-        const [occupied] = await transaction
-          .select({ seatId: vanguardInscriptions.seatId })
-          .from(vanguardInscriptions)
-          .where(eq(vanguardInscriptions.seatId, input.seatId));
-        if (occupied) return conflict(transaction, input.seatId);
-        const [held] = await transaction
-          .select()
-          .from(vanguardSeatHolds)
-          .where(eq(vanguardSeatHolds.seatId, input.seatId));
-        if (
-          !held ||
-          held.expiresAt <= now ||
-          held.holdTokenHash !== hash(input.holdToken) ||
-          held.userId !== userId
-        )
-          throw new VanguardError("HOLD_EXPIRED", 409);
-        if (input.mediaId) {
-          const [media] = await transaction
+      let published: PublishedMediaKeys | undefined;
+      try {
+        return await database.transaction(async (transaction) => {
+          const state = await lockEvent(transaction);
+          let now = await authorityNow(transaction);
+          assertPhaseOpen(now, state, seat.phase);
+          await assertLayoutSeat(seat.seatId);
+          await assertAccountAvailable(transaction, userId);
+          const [occupied] = await transaction
+            .select({ seatId: vanguardInscriptions.seatId })
+            .from(vanguardInscriptions)
+            .where(eq(vanguardInscriptions.seatId, input.seatId));
+          if (occupied) return conflict(transaction, input.seatId);
+          const [held] = await transaction
             .select()
-            .from(vanguardMedia)
-            .where(eq(vanguardMedia.id, input.mediaId))
-            .for("update");
+            .from(vanguardSeatHolds)
+            .where(eq(vanguardSeatHolds.seatId, input.seatId));
           if (
-            !media ||
-            media.ownerUserId !== userId ||
-            media.moderationStatus !== "approved" ||
-            !media.publicDetailKey ||
-            !media.publicWowThumbKey ||
-            !media.publicForeverThumbKey
+            !held ||
+            held.expiresAt <= now ||
+            held.holdTokenHash !== hash(input.holdToken) ||
+            held.userId !== userId
           )
-            throw new VanguardError("MEDIA_MODERATION_REJECTED", 422);
-        }
-        // Re-read after all row locks and validations, immediately before the formal write.
-        now = await authorityNow(transaction);
-        assertPhaseOpen(now, state, seat.phase);
-        if (held.expiresAt <= now) throw new VanguardError("HOLD_EXPIRED", 409);
-        const [row] = await transaction
-          .insert(vanguardInscriptions)
-          .values({
-            ...seat,
-            userId,
-            displayName: input.displayName,
-            faction: input.faction,
-            className: input.className,
-            guildName: input.guildName || null,
-            guildKey: input.guildName ? guildSearchKey(input.guildName) : null,
-            battleCry: input.battleCry || null,
-            mediaId: input.mediaId ?? null,
-            createdAt: now,
-          })
-          .returning();
-        if (!row) throw new Error("Vanguard inscription insert returned no row");
-        if (seat.phase === "wow")
-          await transaction
-            .update(vanguardEventState)
-            .set({
-              wowClaimedCount: sql`${vanguardEventState.wowClaimedCount} + 1`,
-              wowCompletedAt: sql`case when ${vanguardEventState.wowClaimedCount} + 1 = 8016 and ${vanguardEventState.wowCompletedAt} is null then ${now.toISOString()}::timestamptz else ${vanguardEventState.wowCompletedAt} end`,
-              updatedAt: now,
+            throw new VanguardError("HOLD_EXPIRED", 409);
+          let acceptedMedia: typeof vanguardMedia.$inferSelect | undefined;
+          if (input.mediaId) {
+            const [media] = await transaction
+              .select()
+              .from(vanguardMedia)
+              .where(eq(vanguardMedia.id, input.mediaId))
+              .for("update");
+            if (!media || media.ownerUserId !== userId || media.moderationStatus !== "approved")
+              throw new VanguardError("MEDIA_MODERATION_REJECTED", 422);
+            if (!options.publishMedia || !options.revokeMedia)
+              throw new VanguardError("UPLOAD_FAILED", 503);
+            published = await options.publishMedia(media);
+            acceptedMedia = { ...media, ...published };
+            await transaction
+              .update(vanguardMedia)
+              .set(published)
+              .where(eq(vanguardMedia.id, media.id));
+          }
+          // Re-read after all row locks and validations, immediately before the formal write.
+          now = await authorityNow(transaction);
+          assertPhaseOpen(now, state, seat.phase);
+          if (held.expiresAt <= now) throw new VanguardError("HOLD_EXPIRED", 409);
+          const [row] = await transaction
+            .insert(vanguardInscriptions)
+            .values({
+              ...seat,
+              userId,
+              displayName: input.displayName,
+              faction: input.faction,
+              className: input.className,
+              guildName: input.guildName || null,
+              guildKey: input.guildName ? guildSearchKey(input.guildName) : null,
+              battleCry: input.battleCry || null,
+              mediaId: input.mediaId ?? null,
+              createdAt: now,
             })
-            .where(eq(vanguardEventState.id, 1));
-        await transaction
-          .delete(vanguardSeatHolds)
-          .where(eq(vanguardSeatHolds.seatId, input.seatId));
-        return publicInscription(row);
-      });
+            .returning();
+          if (!row) throw new Error("Vanguard inscription insert returned no row");
+          if (seat.phase === "wow")
+            await transaction
+              .update(vanguardEventState)
+              .set({
+                wowClaimedCount: sql`${vanguardEventState.wowClaimedCount} + 1`,
+                wowCompletedAt: sql`case when ${vanguardEventState.wowClaimedCount} + 1 = 8016 and ${vanguardEventState.wowCompletedAt} is null then ${now.toISOString()}::timestamptz else ${vanguardEventState.wowCompletedAt} end`,
+                updatedAt: now,
+              })
+              .where(eq(vanguardEventState.id, 1));
+          await transaction
+            .delete(vanguardSeatHolds)
+            .where(eq(vanguardSeatHolds.seatId, input.seatId));
+          return publicInscription(row, acceptedMedia);
+        });
+      } catch (error) {
+        if (published) {
+          try {
+            await options.revokeMedia!(Object.values(published));
+          } catch (cleanup) {
+            throw new AggregateError(
+              [error, cleanup],
+              "Vanguard transaction and public media cleanup failed",
+            );
+          }
+        }
+        throw error;
+      }
     },
     async focus(seatId: string) {
       parseSeatId(seatId);
@@ -278,7 +315,17 @@ export function createVanguardService(
         .from(vanguardInscriptions)
         .where(eq(vanguardInscriptions.seatId, seatId))
         .limit(1);
-      return row ? publicInscription(row) : null;
+      if (!row) return null;
+      const media = row.mediaId
+        ? (
+            await database
+              .select()
+              .from(vanguardMedia)
+              .where(eq(vanguardMedia.id, row.mediaId))
+              .limit(1)
+          )[0]
+        : undefined;
+      return publicInscription(row, media);
     },
     async me(userId: string) {
       const [row] = await database
@@ -286,7 +333,17 @@ export function createVanguardService(
         .from(vanguardInscriptions)
         .where(eq(vanguardInscriptions.userId, userId))
         .limit(1);
-      return row ? publicInscription(row) : null;
+      if (!row) return null;
+      const media = row.mediaId
+        ? (
+            await database
+              .select()
+              .from(vanguardMedia)
+              .where(eq(vanguardMedia.id, row.mediaId))
+              .limit(1)
+          )[0]
+        : undefined;
+      return publicInscription(row, media);
     },
     async search(query: string) {
       const prefix =
@@ -314,7 +371,7 @@ export function createVanguardService(
           vanguardInscriptions.seatId,
         )
         .limit(20);
-      return rows.map(publicInscription);
+      return rows.map((row) => publicInscription(row));
     },
   };
 }

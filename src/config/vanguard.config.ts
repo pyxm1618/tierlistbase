@@ -8,3 +8,14 @@ export const vanguardConfig = {
   // Uncalibrated: media must fail closed until real sample calibration is approved.
   moderationThresholds: null,
 } as const;
+
+// Final supplied artwork only. Empty slots keep the scene and final renderer blocked.
+export const vanguardAssets = {
+  hero: {},
+  layouts: {},
+  plate: null,
+  emblems: {},
+  bgm: null,
+  sfx: {},
+  seal: { portrait: null, square: null },
+} satisfies import("@/modules/wow-vanguard").VanguardAssets;

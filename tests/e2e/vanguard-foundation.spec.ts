@@ -21,9 +21,9 @@ for (const width of [390, 768, 1024, 1440, 1920]) {
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(page.getByText("8,016 days connect", { exact: false })).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "WoW Forever Tier List", exact: true }),
+      page.getByRole("link", { name: "WoW Forever Tier List", exact: true }).first(),
     ).toBeVisible();
-    await expect(page.getByText("DEV PLACEHOLDER", { exact: false })).toBeVisible();
+    await expect(page.getByText("DEV PLACEHOLDER", { exact: false }).first()).toBeVisible();
     expect(cameraRequests).toBe(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
@@ -40,4 +40,17 @@ test("Vanguard class deep link selects the existing Tier List class", async ({ p
     "aria-pressed",
     "true",
   );
+});
+test("manifest returns a compact public ETag representation and 304", async ({ request }) => {
+  const response = await request.get("/api/vanguard/manifest");
+  expect(response.status()).toBe(200);
+  const etag = response.headers().etag;
+  expect(etag).toMatch(/^"[a-f0-9]{64}"$/);
+  expect(response.headers()["cache-control"]).toBe("public, max-age=5, must-revalidate");
+  const payload = await response.json();
+  expect(JSON.stringify(payload)).not.toMatch(/email|user_id|google|displayName|guildName/);
+  const unchanged = await request.get("/api/vanguard/manifest", {
+    headers: { "If-None-Match": etag! },
+  });
+  expect(unchanged.status()).toBe(304);
 });

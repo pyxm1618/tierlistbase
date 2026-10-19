@@ -65,6 +65,10 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: "/vendor/vanguard/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
         source: "/brand/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },

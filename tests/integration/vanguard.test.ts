@@ -205,3 +205,90 @@ describe("Vanguard PostgreSQL transactional integrity", () => {
     expect(await service.search("Straße")).toHaveLength(0);
   });
 });
+it("rechecks database cutoff immediately before a new Hold write", async () => {
+  const sequence = `vanguard_hold_clock_${randomUUID().replaceAll("-", "")}`;
+  await database.db.execute(sql.raw(`create sequence ${sequence}`));
+  try {
+    const crossing = createVanguardService(database.db, {
+      seatExists: async () => true,
+      authorityTimeSql: sql.raw(
+        `case when nextval('${sequence}')=1 then '2026-11-04T22:59:59Z'::timestamptz else '2026-11-04T23:00:00Z'::timestamptz end`,
+      ),
+    });
+    await expect(crossing.hold("WOW-W1-0001", first)).rejects.toMatchObject({
+      code: "EVENT_SEALED",
+    });
+    expect(await database.db.select().from(vanguardSeatHolds)).toHaveLength(0);
+  } finally {
+    await database.db.execute(sql.raw(`drop sequence ${sequence}`));
+  }
+});
+it("rolls back an approved media promotion when the final write crosses cutoff", async () => {
+  const sequence = `vanguard_publish_clock_${randomUUID().replaceAll("-", "")}`;
+  await database.db.execute(sql.raw(`create sequence ${sequence}`));
+  const mediaId = randomUUID();
+  const keys = {
+    publicDetailKey: `vanguard/permanent/${mediaId}/detail.webp`,
+    publicWowThumbKey: `vanguard/permanent/${mediaId}/wow-256.webp`,
+    publicForeverThumbKey: `vanguard/permanent/${mediaId}/forever-128.webp`,
+  };
+  let published = false;
+  let revoked: readonly string[] = [];
+  try {
+    const held = await createVanguardService(database.db, {
+      seatExists: () => true,
+      authorityTimeSql: sql`cast('2026-11-04T22:59:59Z' as timestamptz)`,
+    }).hold("WOW-W1-0001", first);
+    await database.db.insert(vanguardMedia).values({
+      id: mediaId,
+      ownerUserId: first,
+      privateMasterKey: `vanguard/pending/${mediaId}/master.webp`,
+      moderationKey: `vanguard/pending/${mediaId}/moderation.webp`,
+      mime: "image/webp",
+      moderationStatus: "approved",
+      sha256: "a".repeat(64),
+    });
+    const crossing = createVanguardService(database.db, {
+      seatExists: () => true,
+      authorityTimeSql: sql.raw(
+        `case when nextval('${sequence}')=1 then '2026-11-04T22:59:59Z'::timestamptz else '2026-11-04T23:00:00Z'::timestamptz end`,
+      ),
+      publishMedia: async () => {
+        published = true;
+        return keys;
+      },
+      revokeMedia: async (keys) => {
+        revoked = keys;
+      },
+    });
+    await expect(
+      crossing.inscribe(first, { ...draft("WOW-W1-0001", held.holdToken), mediaId }),
+    ).rejects.toMatchObject({ code: "EVENT_SEALED" });
+    expect(published).toBe(true);
+    expect(revoked).toEqual(Object.values(keys));
+    expect(await database.db.select().from(vanguardInscriptions)).toHaveLength(0);
+    const [media] = await database.db
+      .select()
+      .from(vanguardMedia)
+      .where(eq(vanguardMedia.id, mediaId));
+    expect(media?.publicDetailKey).toBeNull();
+  } finally {
+    await database.db.delete(vanguardMedia).where(eq(vanguardMedia.id, mediaId));
+    await database.db.execute(sql.raw(`drop sequence ${sequence}`));
+  }
+});
+it("keeps manifest compact and stable until a real inscription changes occupancy", async () => {
+  const empty = await service.manifest();
+  expect(empty.phase).toBe("wow");
+  expect(Buffer.from(empty.occupancy, "base64")).toHaveLength(1002);
+  expect((await service.manifest()).version).toBe(empty.version);
+  const held = await service.hold("WOW-W1-0001", first);
+  await service.inscribe(first, draft("WOW-W1-0001", held.holdToken));
+  const occupied = await service.manifest();
+  expect(occupied.counts).toEqual({ wow: 1, forever: 0, total: 1 });
+  expect(Buffer.from(occupied.occupancy, "base64")[0]).toBe(1);
+  expect(occupied.version).not.toBe(empty.version);
+  expect(JSON.stringify(occupied)).not.toMatch(
+    /displayName|email|userId|Private Google|battleCry|guildName/,
+  );
+});

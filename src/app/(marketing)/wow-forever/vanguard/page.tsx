@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { routeRegistry } from "@/config/routes.config";
 import { metadataForRoute } from "@/platform/seo/metadata";
 import { currentSeoEnvironment } from "@/platform/seo/environment-policy";
-import { createVanguardService } from "@/modules/wow-vanguard";
+import { headers } from "next/headers";
+import { getAccountContext } from "@/platform/auth/account-context";
+import { WOW_CLASSES } from "@/modules/meta-board";
+import { vanguardAssets } from "@/config/vanguard.config";
+import { VanguardEntry, seatIdSchema, createVanguardService } from "@/modules/wow-vanguard";
 import { db } from "@/platform/database/application-database";
 export function generateMetadata(): Metadata {
   return metadataForRoute(routeRegistry, "/wow-forever/vanguard", currentSeoEnvironment());
 }
-export default async function VanguardPage() {
+export default async function VanguardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ seat?: string }>;
+}) {
+  const requested = (await searchParams).seat;
+  const seat = seatIdSchema.safeParse(requested);
+  const account = await getAccountContext(await headers());
   const manifest = await createVanguardService(db).manifest();
   const heading = {
     WOW_OPEN: "8016 Vanguard Monument",
@@ -17,6 +29,11 @@ export default async function VanguardPage() {
     COMPLETE: "THE MONUMENT IS COMPLETE",
     SEALED: "THE MONUMENT IS SEALED",
   }[manifest.stage];
+  const hero: { src: string; width: number; height: number } | undefined = (
+    vanguardAssets.hero as Partial<
+      Record<"wow" | "forever", { src: string; width: number; height: number }>
+    >
+  )[manifest.phase];
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-16">
       <header>
@@ -42,8 +59,26 @@ export default async function VanguardPage() {
         )}
       </header>
       <section aria-label="Monument" className="my-10 border border-slate-500 p-8">
-        <p>DEV PLACEHOLDER · Final Monument artwork and seat layout pending.</p>
+        {hero ? (
+          <Image
+            unoptimized
+            src={hero.src}
+            width={hero.width}
+            height={hero.height}
+            alt=""
+            priority
+          />
+        ) : (
+          <p>DEV PLACEHOLDER · Final Monument artwork and seat layout pending.</p>
+        )}
       </section>
+      <VanguardEntry
+        manifest={manifest}
+        classes={WOW_CLASSES}
+        assets={vanguardAssets}
+        initialSeat={seat.success ? seat.data : null}
+        authenticated={Boolean(account)}
+      />
       <p>
         <Link href="/account/vanguard">My Vanguard</Link>
       </p>

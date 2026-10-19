@@ -21,6 +21,15 @@ export function proxy(request: NextRequest) {
       clarity: featuresConfig.analytics.enabled && featuresConfig.analytics.clarity,
     },
     turnstile: featuresConfig.auth.enabled && featuresConfig.auth.magicLink,
+    ...(request.nextUrl.pathname === "/wow-forever/vanguard"
+      ? {
+          vanguard: /^[a-f0-9]{32}$/.test(process.env.VANGUARD_CLOUDFLARE_ACCOUNT_ID ?? "")
+            ? {
+                uploadOrigin: `https://${process.env.VANGUARD_CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+              }
+            : {},
+        }
+      : {}),
   });
 
   const requestHeaders = new Headers(request.headers);

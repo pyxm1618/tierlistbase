@@ -1,64 +1,64 @@
 # Vanguard implementation ledger
 
-Baseline: origin/main `162284d66e5d0e546f68257a41d0fa77a1f577c1`.
-Branch: `codex/vanguard-monument`. Both frozen source documents remain unchanged.
+Baseline: origin/main `162284d66e5d0e546f68257a41d0fa77a1f577c1`. Foundation: `b976dbb`. Concurrent user audio commit: `8b46067` (preserved, not authored by this continuation).
+Branch: `codex/vanguard-monument`. Frozen requirements/design are unchanged.
 
-This is an implementation foundation, **not the completed Monument and not Ready for launch**.
+This ledger distinguishes implemented code/interfaces from final visual and external service acceptance. **Not Ready for launch.** PASS refers to the explicitly stated local evidence; it never means production provider acceptance.
 
-States: PASS = implemented and verified for the stated stage; IN_PROGRESS = partial implementation with remaining work explicitly identified; DEFERRED = awaiting a named external condition; UNKNOWN = not yet implemented or verified. Nothing is rejected or removed from scope.
-
-| Technical design §39 | State | Evidence / remaining work |
+| Technical design §39 | State | Evidence / remaining condition |
 | --- | --- | --- |
-| 1 Final WOW / FOREVER visual | DEFERRED | BLOCKED_ASSET: final artwork required |
-| 2 Memory Plate | DEFERRED | BLOCKED_ASSET: final layered plate required |
-| 3 Seat Layout | DEFERRED | BLOCKED_ASSET: final masks/shapes required. Identity enumeration is not geometry. Layout validation exists; no fake layout is shipped. |
-| 4 Module / route | PASS | Module and marketing SSR route skeleton exist. Explicit DEV PLACEHOLDER only. This does not claim completed interactive UI. |
-| 5 Schema / migration | PASS | Five tables; generated `0019_exotic_bug.sql` and snapshot. Empty-to-latest, main-chain-to-latest and repeat application passed on isolated local PostgreSQL. |
-| 6 Event Stage / cutoff | PASS | Shared resolver, exact cutoff tests, singleton row lock, post-lock database authority time and final pre-insert time check. Production uses `clock_timestamp()`. |
-| 7 Hold / global account uniqueness | IN_PROGRESS | 180s holds, token hashes, DB uniqueness and race tests implemented. OAuth UI/draft restore and final geometric nearest-seat recommendations pending. No layout configured means Claim fails closed. |
-| 8 Google Auth | IN_PROGRESS | Production flags Google-only, real sign-in button, backend Magic Link plugin disabled, callback allowlist extended. Real Google OAuth verification and Vanguard draft UI pending. Existing legacy test-only profiles are preserved. |
-| 9 R2 | IN_PROGRESS | Concrete presign/read/private write/approved publish/delete+CDN purge adapter and private/public bucket separation. CORS/lifecycle configuration artifacts exist but have NOT been applied or read back from a Cloudflare account. |
-| 10 Crop / normalize | IN_PROGRESS | Server validation, metadata removal and derivatives tested. Browser selection, interactive crop and resize pending. |
-| 11 Presign / complete APIs | UNKNOWN | R2 adapter exists; authenticated upload orchestration and API routes are not yet implemented. |
-| 12 Clef Flash | IN_PROGRESS | Fixed REST adapter and nine risk questions implemented using official schema. Synthetic timeout/429/error/malformed-response tests only. Real provider response and real samples remain unverified. |
-| 13 Moderation calibration | DEFERRED | Real labeled samples required. Thresholds remain null; no image can be approved with uncalibrated thresholds. |
-| 14 WOW Three.js | UNKNOWN | Instanced scene, texture culling and interaction architecture not yet implemented; final geometry is BLOCKED_ASSET. |
-| 15 FOREVER Three.js | UNKNOWN | Per-letter instancing and loading not yet implemented; final geometry is BLOCKED_ASSET. |
-| 16 Automatic unlock | PASS | Unified stage resolver uses completion +24h, no cron, no client stage authority. Exact unlock/cutoff boundary tests pass. |
-| 17 MediaPipe | UNKNOWN | Dynamic integration and self-hosted runtime/model pending. Actual page-specific camera headers are implemented. |
-| 18 Ritual | UNKNOWN | State machine and animation interface pending; final keyframes BLOCKED_ASSET. |
-| 19 Reveal / Seal | UNKNOWN | Reveal and Canvas renderer interface pending; final Seal design BLOCKED_ASSET. |
-| 20 Stand Beside Me | UNKNOWN | Seat link helper exists; fly/focus and nearby highlights pending; geometric neighbors BLOCKED_ASSET. |
-| 21 Class Tier List link | PASS | Existing workspace receives validated WOW_CLASSES selection, role links retain class, existing canonical unchanged. Browser foundation deep-link verification is tracked below. |
-| 22 Report + email | IN_PROGRESS | Fixed reason schema, existing rate limiter, DB insert and existing Resend sender used. No automatic hide. Route and real email delivery acceptance pending. Notification failures return explicit 503 after preserving report. |
-| 23 My Vanguard | IN_PROGRESS | Existing AccountShell/context, read-only details and Monument link implemented. Seal/image/share UI pending. Account deletion hook scrubs text and revokes media; failures block deletion. |
-| 24 Existing Legal | IN_PROGRESS | Only Vanguard-related additions to existing four documents and provider disclosures. Deliberately draft, not falsely marked reviewed; existing release validator continues to block publication. |
-| 25 Tests | IN_PROGRESS | Domain, SQL integrity, normalization and provider-failure tests added. Full feature acceptance still incomplete. |
-| 26 CI / viewport / device acceptance | IN_PROGRESS | Unit/integration/lint/typecheck/migration/build checks run locally. Foundation browser tests cover five widths and security headers; complete workflows, CI, real cameras and real devices remain unverified. |
-| 27 Production launch | DEFERRED | Requires completed implementation, assets, real service calibration/acceptance, reviewed legal content and production authorization. |
+| 1 Final WOW / FOREVER visual | DEFERRED | BLOCKED_ASSET: final artwork; typed phase-specific hero slots only |
+| 2 Memory Plate | DEFERRED | BLOCKED_ASSET: final layered Plate/Focus; approved detail/emblem/unavailable renderer implemented |
+| 3 Seat Layout | DEFERRED | BLOCKED_ASSET: final masks/shapes. Exact identity/capacity validators, compact binary loaders and geometric nearest adapters exist; no fake layout ships |
+| 4 Module / route | PASS | Marketing SSR story, state, disclaimer, ordinary Tier List links, dynamic ENTER boundary and existing header/footer |
+| 5 Schema / migration | PASS | Five tables only; prior 38 tables unchanged; isolated migration paths and repeat application verified |
+| 6 Event Stage / cutoff | PASS | Shared server resolver, event singleton lock, atomic WOW counter and once-only completion; final DB time checks including Hold after layout and inscription after media publication |
+| 7 Hold / global account uniqueness | PASS | 180-second token-hashed holds, DB global unique constraint, real transaction races; text draft/OAuth restore, expired/free/taken recovery; geometric recommendations await actual final layout |
+| 8 Google / Account | PASS | Existing Better Auth Google only in production, Magic Link/password disabled; UI never copies Google identity into Vanguard Name. Real OAuth acceptance remains external |
+| 9 Crop / local upload | PASS | JPEG/PNG/WebP, <=20MB local validation, >=512 square crop, <=2048 WebP master, post-login File selection and explicit error states |
+| 10 R2 pending / permanent | PASS | Existing server composition uses private pending and approved permanent derivatives; fixtures test ownership/hash/rollback. Production CORS/lifecycle/purge readback remains external |
+| 11 Presigned API | PASS | Authenticated/rate-limited strict-zod presign/complete APIs; server-generated key, 120s content-type-bound PUT, no large API proxy |
+| 12 Normalize / derivatives | PASS | Bounded header/decode, metadata stripping and 512/1024/256/128 generation; local Node tests and actual workerd invocation. Sharp is test-only |
+| 13 Moderation | PASS | Fixed Clef Flash server contract, risk questions including QR/promotion, fail closed on unknown/timeout/429/error. Null thresholds intentionally block approval until real-sample calibration |
+| 14 WOW Three.js | IN_PROGRESS | InstancedMesh architecture, exact 8016 capacity, pan/pinch/raycast, texture culling and device budgets tested. Final scene visual acceptance BLOCKED_ASSET |
+| 15 FOREVER Three.js | IN_PROGRESS | Seven per-letter groups / 56112 capacity, staged binary loading and shared interaction architecture. Final geometry/visual acceptance BLOCKED_ASSET |
+| 16 Automatic unlock | PASS | Completion +24h from server authority, no cron or client phase authority; unlock>=cutoff never opens Claim |
+| 17 MediaPipe | PASS | Explicit Enable only, self-hosted pinned WASM/model, 20fps separate timer and cleanup. Real detector starts on a fake browser camera; no-camera fallback tested. Physical gesture accuracy remains external |
+| 18 Ritual | PASS | Accepted-result-only ordered 4s state machine, reduced-motion business parity and independent SFX/audio hooks. Final animation/keyframes BLOCKED_ASSET |
+| 19 Reveal / Seal | PASS | Reveal gives Seal, Stand Beside Me and class Tier List; public-only Seal model/renderer interface. Final Seal renderer/composition BLOCKED_ASSET; no DOM screenshot |
+| 20 Stand Beside Me | PASS | Immutable Seat query, Focus, archived WOW layout selection after FOREVER, geometric nearby candidate interface and open-only recommendations. Final fly/highlight presentation BLOCKED_ASSET |
+| 21 Class Tier List link | PASS | Existing WOW_CLASSES reused; class searchParam selection/role preservation and fixed canonical, browser verified |
+| 22 Report + email | PASS | Five fixed reasons, existing rate/session/IP boundary, DB insert then Resend notification, failure preserves report, no auto-hide/admin. Live delivery remains external |
+| 23 My Vanguard | PASS | Existing AccountShell/context; read-only Plate/details, Seal interface, View in Monument and Share. Account deletion/revocation retains occupied neutral Seat |
+| 24 Existing Legal | DEFERRED | Vanguard-only changes from foundation remain draft; human legal review is an external release gate, not asset work |
+| 25 Tests | PASS | Local unit, PostgreSQL integration, provider/clock fixtures, browser contracts, cache/SEO/security checks; results below distinguish simulated versus actual services |
+| 26 CI / viewport / device acceptance | IN_PROGRESS | Existing CI gains dedicated Google-only Vanguard browser suite. Local five widths, mouse/touch/reduced-motion, fake Camera/No Camera. Remote CI and physical devices not run |
+| 27 Production launch | DEFERRED | No push/deploy. Requires final assets, real service calibration/readback, legal review and production authorization |
 
-Coverage reconciliation: original 27 = PASS 5 + IN_PROGRESS 10 + DEFERRED 5 + UNKNOWN 7.
+Coverage reconciliation: 27 original units = PASS 19 + IN_PROGRESS 3 + DEFERRED 5 + UNKNOWN 0. No unit rejected or removed.
 
-## Verification scope
+## Verification boundary
 
-- Local isolated database created for this task: `vanguard_20261019_test` on localhost. No production database was migrated or changed.
-- Integration authority-time injection and synthetic provider responses are test fixtures, not proof of production execution or moderation accuracy.
-- Final full integration run: 42 files / 290 tests passed; targeted Vanguard suite: 10 tests passed.
-- Foundation build uses APP_ENV=test; it does not verify production Google, R2, Resend, Workers AI credentials, account billing, CORS or lifecycle deployment.
-- Remaining non-asset work includes upload APIs/UI, OAuth draft restore, full Claim UI, scene/gesture/audio architecture, ritual, Reveal/Seal and full Report/media acceptance. These are not mislabeled as asset blockers.
-- Final visual/audio asset blockers: WOW/FOREVER art and masks, layered Memory Plate/Focus, nine original emblems, ritual keyframes, Seal layouts, original BGM and six SFX channels.
+- Local PostgreSQL integration database: `vanguard_20261019_test`; separate local browser fixture database: `vanguard_20261019_e2e`. These are isolated test databases, not a second product database. No production DB migration/write occurred.
+- Browser contracts use real existing Better Auth sessions but intercept Vanguard business APIs to exercise UI deterministically while final layouts are absent. PostgreSQL suites independently exercise real transactional service logic. They are not a claim of full live-provider end-to-end acceptance.
+- Local workerd smoke executed the real WASM normalizer and inspected exact derivative sizes. Browser fake-camera test executes the real self-hosted MediaPipe runtime; synthetic camera frames do not verify physical detection accuracy.
+- R2/Clef/Resend fixtures do not prove production credentials, billing, CORS, lifecycle, deletion/purge, email delivery or moderation accuracy. Thresholds remain null pending the required real sample set.
+- Final assets: WOW/FOREVER art/masks, Memory Plate/Focus, nine class emblems, Scatter/fly/ritual keyframes, Seal compositions, BGM and six SFX are BLOCKED_ASSET. No final art, emblems, coordinates, Seal or audio were fabricated. Five WAV files from user commit `8b46067` are present but final acceptance/six-channel mapping are unverified; audio slots remain unassigned.
+- Legal content remains draft and deliberately blocks the existing production release gate. Remote CI and production feature acceptance are unverified.
 
-Scope outside frozen Vanguard requirements: **No**. No frozen-document edits, admin, CMS, second auth/database, realtime, system fill, unrelated refactor or unrelated dependency upgrades.
+## Final continuation verification
 
-New direct dependencies needed by Vanguard only: `@aws-sdk/client-s3@3.1152.0`, `@aws-sdk/s3-request-presigner@3.1152.0`, `sharp@0.35.5`. New server-only R2 configuration requirements are in `src/config/vanguard-runtime.config.ts`; no credentials are stored in code.
+- Full unit suite: 88 files / 474 tests passed.
+- Full isolated PostgreSQL integration suite: 44 files / 299 tests passed; includes the final Hold cutoff recheck, publication rollback and compact/versioned Manifest cases.
+- Provider contract suite: 1 file / 35 tests passed.
+- Final consolidated browser suite: 24/24 passed, including the real API ETag/304 case and generated runtime test credentials. Five widths 390/768/1024/1440/1920, real existing auth session, default emblem, crop/upload approved/rejected/unavailable, OAuth stolen-seat recovery, immutable Reveal, mouse/touch/reduced motion, Camera denied/fake-camera detector, sealed Focus/Report/share/Tier List and policy checks. Business API interception remains explicitly documented above.
+- Repository ESLint, TypeScript, full Prettier check, migration verification (both paths/idempotence), security, SEO, release-guard and supply-chain checks passed locally. The release-guard test proves draft legal is rejected for production; it does not approve deployment. Supply-chain check retained the repository's existing documented dev-only advisory exception, without introducing an exemption.
+- Existing neutral/fully-enabled feature build matrix passed. Next.js optimized test build and Cloudflare vinext build passed. Local workerd executed the actual normalizer successfully.
+- Frozen source hashes remain requirements `b3cda71e56d4988a548e78a176f1ef60a7bcd0ae7559295d1d3bbdcb9dbbbd26`, technical design `3c49c208576481e71fc05fdff32714df851a5586fda8708e39648241df190841`.
+- Local runtime used installed Bun 1.4.2; repository pin and CI remain Bun 1.3.14. No toolchain configuration was upgraded.
 
-## Final foundation verification
+See next-stage.md for independent review/fix evidence and files.md for the exact 74-file continuation inventory. Remote CI, real production providers and physical-device acceptance remain unverified.
 
-- Unit suite: 82 files / 458 tests passed.
-- Full PostgreSQL integration suite: 42 files / 290 tests passed. Vanguard-only suite: 10 tests passed, including normalized Guild search and hidden exclusion.
-- `typecheck`, repository ESLint and `git diff --check`: passed.
-- `db:verify`: passed against the task-local isolated database, including generated snapshot drift verification and both migration paths.
-- `build:test`: passed (Next.js optimized build under APP_ENV=test).
-- Foundation Playwright suite: 7/7 passed using installed Chrome against the built local server; five requested widths, page-specific camera response headers, no camera request on page load, and class deep-link selection.
-- Full business-flow E2E, production environment build, production feature acceptance and deployment have NOT been completed.
-- Legal review remains draft and intentionally blocks the existing release validator. This is a real release blocker, not a test bypass or asset blocker.
+Scope outside frozen Vanguard requirements: **No**. No frozen-document changes, admin/CMS, second account/product DB, realtime/backfill, unrelated refactor or unrelated dependency upgrades.
+
+Direct dependency changes required by this phase: `three@0.186.1`, `@types/three@0.186.0` (development), `@mediapipe/tasks-vision@1.1.1`, `@cf-wasm/photon@0.4.0`; existing `sharp@0.35.5` moved to development-only fixture/oracle usage for Workers compatibility. Provider configuration is server-only and documented in services.md.
