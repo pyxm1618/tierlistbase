@@ -296,6 +296,7 @@ try {
     schemaPath: [
       path.resolve("src/platform/database/schema.ts"),
       path.resolve("src/modules/meta-board/db/schema.ts"),
+      path.resolve("src/modules/wow-vanguard/db/schema.ts"),
     ],
   });
   await resetDatabase();

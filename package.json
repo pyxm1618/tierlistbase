@@ -40,6 +40,8 @@
     "deploy:vinext": "vinext-cloudflare deploy --config dist/server/wrangler.json"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "3.1152.0",
+    "@aws-sdk/s3-request-presigner": "3.1152.0",
     "@better-auth/drizzle-adapter": "1.6.25",
     "@waffo/pancake-ts": "0.18.0",
     "better-auth": "1.6.25",
@@ -50,6 +52,7 @@
     "react-dom": "19.2.8",
     "resend": "6.18.1",
     "server-only": "0.0.1",
+    "sharp": "0.35.5",
     "zod": "4.1.13"
   },
   "devDependencies": {

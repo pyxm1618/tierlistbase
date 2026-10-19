@@ -1,0 +1,10 @@
+{
+  "Rules": [
+    {
+      "ID": "vanguard-pending-24h",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "vanguard/pending/" },
+      "Expiration": { "Days": 1 }
+    }
+  ]
+}

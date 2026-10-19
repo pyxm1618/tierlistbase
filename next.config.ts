@@ -55,6 +55,16 @@ const nextConfig: NextConfig = {
         headers: [...baselineSecurityHeaders],
       },
       {
+        source: "/wow-forever/vanguard",
+        headers: [
+          {
+            key: "Permissions-Policy",
+            value:
+              "camera=(self), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()",
+          },
+        ],
+      },
+      {
         source: "/brand/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },

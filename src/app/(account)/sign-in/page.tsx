@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import { AccountShell } from "@/components/account/account-shell";
+import { featuresConfig } from "@/config/features.config";
+import { GoogleSignIn } from "./google-sign-in";
 import { env } from "@/platform/config/env";
 
 import { SignInForm } from "./sign-in-form";
@@ -16,9 +18,16 @@ export default function SignInPage() {
       eyebrow="Account access"
       title="Sign in securely"
       titleId="sign-in-title"
-      intro="No password is required. We will send a single-use confirmation link."
+      intro={
+        featuresConfig.auth.google
+          ? "Continue with your Google account."
+          : "No password is required. We will send a single-use confirmation link."
+      }
     >
-      <SignInForm turnstileSiteKey={env.turnstileSiteKey} />
+      {featuresConfig.auth.google ? <GoogleSignIn /> : null}
+      {featuresConfig.auth.magicLink ? (
+        <SignInForm turnstileSiteKey={env.turnstileSiteKey} />
+      ) : null}
     </AccountShell>
   );
 }

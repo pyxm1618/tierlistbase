@@ -28,7 +28,11 @@ const neutralFeaturesConfig = {
 
 const productionFeaturesConfig = {
   ...neutralFeaturesConfig,
-  analytics: { enabled: true, ga4: true, clarity: true, consentRequired: true },
+  auth: { enabled: true, google: true, magicLink: false, password: false },
+  email: { enabled: true },
+  analytics: process.env.GA4_MEASUREMENT_ID
+    ? { enabled: true, ga4: true, clarity: true, consentRequired: true }
+    : neutralFeaturesConfig.analytics,
 } as const satisfies ProductConfig["features"];
 
 const useEnabledTestProfile =
@@ -37,8 +41,7 @@ const useCommerceEnabledTestProfile =
   useEnabledTestProfile && process.env.CREAT_WEB_E2E_COMMERCE === "1";
 const useAnalyticsEnabledPerformanceProfile =
   process.env.APP_ENV === "test" && process.env.CREAT_WEB_PERFORMANCE_ANALYTICS === "1";
-const useProductionProfile =
-  process.env.APP_ENV === "production" && Boolean(process.env.GA4_MEASUREMENT_ID);
+const useProductionProfile = process.env.APP_ENV === "production";
 
 export const featuresConfig = useCommerceEnabledTestProfile
   ? commerceEnabledTestFeaturesConfig

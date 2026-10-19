@@ -7,6 +7,11 @@ import { bodyText, card, cardTitle } from "@/components/ui/styles";
 import { getAccountContext } from "@/platform/auth/account-context";
 
 const destinations = [
+  {
+    href: "/account/vanguard",
+    label: "My Vanguard",
+    body: "Your permanent place in the Monument.",
+  },
   { href: "/account/credits", label: "Credits", body: "Balances and recent ledger activity." },
   {
     href: "/account/billing",

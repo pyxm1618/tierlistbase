@@ -28,6 +28,8 @@ const SAFE_QUERY_KEYS = new Set([
   "utm_term",
   "utm_content",
   "gclid",
+  "seat",
+  "class",
 ]);
 
 function sanitizeString(key: string, value: string): string | null {
@@ -85,6 +87,20 @@ export function isAnalyticsLocationSafe(input: {
   const params = new URLSearchParams(input.search);
   for (const [key, value] of params) {
     if (!SAFE_QUERY_KEYS.has(key)) return false;
+    if (
+      key === "seat" &&
+      (input.pathname !== "/wow-forever/vanguard" ||
+        !/^(?:WOW-(?:W1|O|W2)-(?:000[1-9]|00[1-9]\d|0[1-9]\d{2}|1\d{3}|2[0-5]\d{2}|26[0-6]\d|267[0-2])|FOREVER-(?:F|O|R1|E1|V|E2|R2)-(?:000[1-9]|00[1-9]\d|0[1-9]\d{2}|[1-7]\d{3}|800\d|801[0-6]))$/.test(
+          value,
+        ))
+    )
+      return false;
+    if (
+      key === "class" &&
+      (input.pathname !== "/wow-forever/tier-list" ||
+        !/^(?:Warrior|Paladin|Hunter|Rogue|Priest|Shaman|Mage|Warlock|Druid)$/.test(value))
+    )
+      return false;
     if (!SAFE_TOKEN.test(value) || EMAIL_LIKE.test(value)) return false;
   }
 
