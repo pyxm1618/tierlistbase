@@ -74,6 +74,13 @@ export const routeDefinitions = [
       "Preview the TierListBase NIKKE tier list interface for Campaign, Boss, Raid, PvP, teams, reroll, wishlist, methodology, and character details.",
   },
   {
+    route: "/limbus-company/tier-list",
+    class: "public_noindex",
+    title: "Limbus Company Tier List Preview | TierListBase",
+    description:
+      "Preview the TierListBase Limbus Company tier list interface for Identity, Team, E.G.O, and Sinner-focused recommendations.",
+  },
+  {
     route: "/privacy",
     class: "public_noindex",
     pageType: "Legal",
