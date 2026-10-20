@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { featuresConfig } from "@/config/features.config";
 import { siteConfig } from "@/config/site.config";
+import { hasCurrentSession } from "@/platform/auth/current-session";
 import { localePath } from "@/platform/i18n/routing";
 
 import { SiteHeaderAccount } from "./site-header-account";
@@ -122,7 +123,6 @@ function HeaderShell({
 }
 
 async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
-  const { hasCurrentSession } = await import("@/platform/auth/current-session");
   const authenticated = await hasCurrentSession(await headers());
 
   return (
