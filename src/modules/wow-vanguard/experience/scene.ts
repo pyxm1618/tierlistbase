@@ -166,7 +166,7 @@ export function createVanguardScene(
   let scatterAmount = 0,
     scatterTarget = 0,
     lastMotion = 0;
-  // Conservative bounds cover both endpoints for correct raycasting throughout motion.
+  // Conservative bounds cover both endpoints for correct hit testing throughout motion.
   groups.forEach((group, groupIndex) => {
     const box = meshes[groupIndex]!.boundingBox!;
     const half = (group.scale ?? 1) / 2;

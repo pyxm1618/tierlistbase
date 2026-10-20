@@ -526,10 +526,22 @@ test("Focus image fallback does not leak into the next Seat", async ({ page, con
     });
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
     const focus = page.getByRole("region", { name: "Vanguard Focus", exact: true });
-    await expect(focus.getByAltText("Mage Default Emblem")).toHaveCount(1);
+    await expect(focus.getByAltText("Mage Default Emblem")).toHaveCount(2);
+    await expect(focus.getByAltText("Memory Image")).toHaveCount(0);
     await page.getByLabel("Seat ID", { exact: true }).fill("WOW-W1-0003");
     await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
     await expect(focus.getByAltText("Memory Image")).toHaveCount(2);
+    await expect(focus.getByAltText("Mage Default Emblem")).toHaveCount(0);
+    await expect
+      .poll(() =>
+        focus.getByAltText("Memory Image").evaluateAll((images) =>
+          images.every((image) => {
+            const element = image as HTMLImageElement;
+            return element.complete && element.naturalWidth > 0;
+          }),
+        ),
+      )
+      .toBe(true);
   } finally {
     await cleanup();
   }
