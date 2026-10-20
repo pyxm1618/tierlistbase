@@ -188,9 +188,9 @@ export const sinnerBestIdentities: readonly SinnerBestIdentity[] = [
   {
     sinner: "Gregor",
     bestOverall: {
-      name: "Solemn Lament Gregor",
+      name: "Heishou Pack - Si Branch Gregor",
       context:
-        "Lethal Butterfly executor delivering overwhelming multi-target Sinking/Rupture damage.",
+        "SSS-rated Rupture DPS with S generalist value and low team dependency in the master dataset.",
     },
     bestGeneralist: {
       name: "Edgar Family Heir Gregor",
@@ -258,16 +258,16 @@ export const sinnerBestEgo: readonly SinnerBestEgo[] = [
   {
     sinner: "Ryōshū",
     bestOverall: {
-      name: "Pursuance Ryōshū",
-      context: "Massive Slash damage combined with high-tier emergency team healing.",
+      name: "4th Match Flame Ryōshū",
+      context: "SS-rated Burn burst option with A generalist value and high team importance.",
     },
     bestGeneralist: {
       name: "4th Match Flame Ryōshū",
       context: "Consistent Wrath clash ceiling and high base roll floor.",
     },
     bestForTeam: {
-      name: "Pursuance Ryōshū",
-      context: "Key sustain and burst tool for Slash/Bleed hybrid teams.",
+      name: "Contempt, Awe Ryōshū",
+      context: "Generalist clash and utility option for hybrid teams.",
     },
   },
   {
@@ -350,8 +350,8 @@ export const sinnerBestEgo: readonly SinnerBestEgo[] = [
   {
     sinner: "Sinclair",
     bestOverall: {
-      name: "Binds Sinclair",
-      context: "High-risk, catastrophic damage AoE with immense crowd suppression.",
+      name: "Lantern Sinclair",
+      context: "S-rated HE option with A generalist value for clash winning and utility.",
     },
     bestGeneralist: {
       name: "Branch of Knowledge Sinclair",
