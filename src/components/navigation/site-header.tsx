@@ -38,10 +38,17 @@ export function Brand({ href = "/" }: { href?: string }) {
   );
 }
 
-export async function SiteHeader({
-  locale = siteConfig.defaultLocale,
-}: Readonly<{ locale?: string }>) {
-  const authenticated = featuresConfig.auth.enabled && (await hasCurrentSession(await headers()));
+type SiteHeaderProps = Readonly<{ locale?: string }>;
+
+function SiteHeaderContent({
+  locale,
+  accountEnabled,
+  authenticated,
+}: {
+  locale: string;
+  accountEnabled: boolean;
+  authenticated: boolean;
+}) {
   const homeHref = localePath(siteConfig, locale, "/");
   const wowHref = localePath(siteConfig, locale, "/wow-forever/tier-list");
   const genshinHref = localePath(siteConfig, locale, "/genshin-impact/tier-list");
@@ -72,7 +79,7 @@ export async function SiteHeader({
             Limbus Company
           </SiteHeaderGameLink>
         </nav>
-        {featuresConfig.auth.enabled ? (
+        {accountEnabled ? (
           <div className="ml-auto hidden lg:block">
             <SiteHeaderAccount authenticated={authenticated} className={navLink} />
           </div>
@@ -103,7 +110,7 @@ export async function SiteHeader({
             <SiteHeaderGameLink href={limbusHref} className={navLink}>
               Limbus Company
             </SiteHeaderGameLink>
-            {featuresConfig.auth.enabled ? (
+            {accountEnabled ? (
               <SiteHeaderAccount authenticated={authenticated} mobile className={navLink} />
             ) : null}
           </nav>
@@ -112,16 +119,32 @@ export async function SiteHeader({
     </header>
   );
 
+  if (!accountEnabled)
+    return (
+      <SiteHeaderVariant brand={<Brand href={homeHref} />}>
+        {header}
+      </SiteHeaderVariant>
+    );
+
   return (
     <SiteHeaderVariant
       brand={<Brand href={homeHref} />}
-      account={
-        featuresConfig.auth.enabled ? (
-          <SiteHeaderAccount authenticated={authenticated} className={navLink} />
-        ) : null
-      }
+      account={<SiteHeaderAccount authenticated={authenticated} className={navLink} />}
     >
       {header}
     </SiteHeaderVariant>
   );
+}
+
+async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
+  const authenticated = await hasCurrentSession(await headers());
+  return (
+    <SiteHeaderContent locale={locale} accountEnabled={true} authenticated={authenticated} />
+  );
+}
+
+export function SiteHeader({ locale = siteConfig.defaultLocale }: SiteHeaderProps) {
+  if (!featuresConfig.auth.enabled)
+    return <SiteHeaderContent locale={locale} accountEnabled={false} authenticated={false} />;
+  return <AuthenticatedSiteHeader locale={locale} />;
 }
