@@ -17,19 +17,19 @@ export function SiteHeaderAccount({
   const [failed, setFailed] = useState(false);
   if (!authenticated)
     return (
-      <Link href="/sign-in" className={className}>
+      <Link href="/sign-in" className={className} prefetch={false}>
         Sign in
       </Link>
     );
   const links = (
     <>
-      <Link href="/account" className={className}>
+      <Link href="/account" className={className} prefetch={false}>
         My Account
       </Link>
-      <Link href="/account/vanguard" className={className}>
+      <Link href="/account/vanguard" className={className} prefetch={false}>
         My Vanguard
       </Link>
-      <Link href="/account/security" className={className}>
+      <Link href="/account/security" className={className} prefetch={false}>
         Security
       </Link>
       <button
