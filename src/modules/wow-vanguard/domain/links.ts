@@ -1,4 +1,4 @@
-import { WOW_CLASSES } from "@/modules/meta-board";
+import { WOW_CLASSES } from "@/modules/meta-board/domain/wow-context";
 import { parseSeatId, VanguardError } from "./event";
 export function wowClassFromQuery(value: unknown): (typeof WOW_CLASSES)[number] | null {
   return typeof value === "string" ? (WOW_CLASSES.find((name) => name === value) ?? null) : null;
