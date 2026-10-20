@@ -258,8 +258,8 @@ export const sinnerBestEgo: readonly SinnerBestEgo[] = [
   {
     sinner: "Ryōshū",
     bestOverall: {
-      name: "Contempt, Awe Ryōshū",
-      context: "WAW option with A generalist value and high team importance in the master dataset.",
+      name: "4th Match Flame Ryōshū",
+      context: "SS-rated Burn burst option with A generalist value and high team importance.",
     },
     bestGeneralist: {
       name: "4th Match Flame Ryōshū",

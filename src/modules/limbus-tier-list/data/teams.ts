@@ -291,13 +291,13 @@ export const teamsMasterData: readonly TeamRecord[] = [
     beginnerFriendly: "Medium",
     coreMembers: [
       "Heishou Pack - Mao Branch Ryōshū",
-      "Seven Assoc. South Section 4 Heathcliff",
-      "W Corp. L3 Cleanup Agent Yi Sang",
+      "Heishou Pack - You Branch Adept Heathcliff",
+      "Heishou Pack - Wu Branch Adept Yi Sang",
     ],
     recommendedTeam: [
       "Heishou Pack - Mao Branch Ryōshū",
-      "Seven Assoc. South Section 4 Heathcliff",
-      "W Corp. L3 Cleanup Agent Yi Sang",
+      "Heishou Pack - You Branch Adept Heathcliff",
+      "Heishou Pack - Wu Branch Adept Yi Sang",
       "K Corp. Class 3 Excision Staff Hong Lu",
       "Heishou Pack - Mao Branch Outis",
       "Heishou Pack - Mao Branch Adept Faust",

@@ -54,6 +54,24 @@ describe("Limbus recommendation integrity", () => {
   }
 });
 
+it("Heishou core members belong to the master-defined faction", () => {
+  const team = teamsMasterData.find((team) => team.id === "faction-heishou")!;
+  for (const name of team.coreMembers) {
+    const identity = identitiesMasterData.find(({ fact }) => fact.identityName === name)!;
+    expect(identity.fact.factions, name).toContain("Heishou Pack");
+  }
+});
+
+it("Ryōshū best-overall E.G.O follows the existing master ranking", () => {
+  const pick = sinnerBestEgo.find((pick) => pick.sinner === "Ryōshū")!;
+  const order = ["SSS", "SS", "S", "A", "B", "C", "NEEDS_REVIEW"];
+  const options = egoMasterData.filter(({ fact }) => fact.sinner === pick.sinner);
+  const selected = options.find(({ fact }) => fact.egoName === pick.bestOverall.name)!;
+  expect(order.indexOf(selected.editorial.tier)).toBe(
+    Math.min(...options.map(({ editorial }) => order.indexOf(editorial.tier))),
+  );
+});
+
 describe("Limbus acquisition availability", () => {
   it("shows default-unlocked master assets as available", () => {
     for (const [records, rows] of [
