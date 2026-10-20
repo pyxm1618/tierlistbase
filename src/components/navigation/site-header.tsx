@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { featuresConfig } from "@/config/features.config";
@@ -15,13 +14,16 @@ export function Brand({ href = "/" }: { href?: string }) {
       aria-label="TierListBase home"
       className="inline-flex shrink-0 items-center gap-2 text-white no-underline has-[[data-navigation-pending=true]]:cursor-progress has-[[data-navigation-pending=true]]:opacity-60"
     >
-      <Image
+      {/* eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer */}
+      <img
         src="/brand/tierlistbase-mark-b3364d1d87.webp"
+        srcSet="/brand/tierlistbase-mark-b3364d1d87.webp 72w, /brand/tierlistbase-mark-2c18ba5849.webp 108w"
+        sizes="36px"
         alt=""
         width={36}
         height={34}
         className="shrink-0"
-        unoptimized
+        decoding="async"
       />
       <span className="text-[.95rem] font-extrabold tracking-tight sm:text-[1.05rem]">
         TIERLISTBASE

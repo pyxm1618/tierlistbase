@@ -247,10 +247,54 @@ test("homepage critical CSS delivers only required layout and page styles withou
   await expect(logo).toBeVisible();
   const logoSrc = await logo.getAttribute("src");
   expect(logoSrc).toMatch(/\/brand\/tierlistbase-mark-[a-f0-9]+\.webp/);
+  await expect(logo).toHaveAttribute("srcset", /72w.*108w/);
+  await expect(logo).toHaveAttribute("sizes", "36px");
 
   const logoResponse = await request.get(logoSrc!);
   expect(logoResponse.status()).toBe(200);
   const logoBytes = (await logoResponse.body()).length;
   // Optimized logo must be strictly under 5KB (down from 10.6KB)
   expect(logoBytes).toBeLessThan(5000);
+});
+
+test("header logo delivers dual-tier responsive candidates matching DPR (72w on mobile DPR 1.75 and 108w on DPR 3)", async ({
+  browser,
+  request,
+}) => {
+  // 1. Static asset verification: both hashed candidates exist with controlled bytes
+  const res72 = await request.get("/brand/tierlistbase-mark-b3364d1d87.webp");
+  expect(res72.status()).toBe(200);
+  const bytes72 = (await res72.body()).length;
+  expect(bytes72).toBeLessThan(4500);
+
+  const res108 = await request.get("/brand/tierlistbase-mark-2c18ba5849.webp");
+  expect(res108.status()).toBe(200);
+  const bytes108 = (await res108.body()).length;
+  expect(bytes108).toBeLessThan(6500);
+
+  // 2. Lighthouse Mobile context (DPR ≈ 1.75) must select 72w candidate
+  const mobileContext = await browser.newContext({
+    viewport: { width: 412, height: 823 },
+    deviceScaleFactor: 1.75,
+  });
+  const mobilePage = await mobileContext.newPage();
+  await mobilePage.goto("/", { waitUntil: "domcontentloaded" });
+  const mobileLogo = mobilePage.locator("header img").first();
+  await expect(mobileLogo).toHaveAttribute("srcset", /72w.*108w/);
+  await expect(mobileLogo).toHaveAttribute("sizes", "36px");
+  const mobileCurrentSrc = await mobileLogo.evaluate((el) => (el as HTMLImageElement).currentSrc);
+  expect(mobileCurrentSrc).toContain("tierlistbase-mark-b3364d1d87.webp");
+  await mobileContext.close();
+
+  // 3. Super Retina / 3x DPR context must select 108w candidate
+  const retinaContext = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    deviceScaleFactor: 3.0,
+  });
+  const retinaPage = await retinaContext.newPage();
+  await retinaPage.goto("/", { waitUntil: "domcontentloaded" });
+  const retinaLogo = retinaPage.locator("header img").first();
+  const retinaCurrentSrc = await retinaLogo.evaluate((el) => (el as HTMLImageElement).currentSrc);
+  expect(retinaCurrentSrc).toContain("tierlistbase-mark-2c18ba5849.webp");
+  await retinaContext.close();
 });
