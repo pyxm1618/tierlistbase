@@ -37,7 +37,7 @@ export function SiteFooter() {
               className="text-[.82rem] text-slate-300 hover:text-white"
               href={href}
               key={href}
-              prefetch={href === "/wow-forever/vanguard" ? false : undefined}
+              prefetch={href === "/wow-forever/vanguard" ? false : null}
             >
               {label}
             </Link>
