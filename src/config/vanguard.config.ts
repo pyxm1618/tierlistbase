@@ -1,4 +1,4 @@
-import { WOW_CLASSES } from "@/modules/meta-board";
+import { WOW_CLASSES } from "@/platform/games/wow-classes";
 import foreverLayout from "../../public/wow-forever/vanguard/layouts/forever-layout.json";
 import wowLayout from "../../public/wow-forever/vanguard/layouts/wow-layout.json";
 export const vanguardConfig = {
