@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import {
   identityRows,
+  sinners,
   type Availability,
   type RatingValue,
   type TierValue,
@@ -56,7 +57,7 @@ function AssetSlot() {
 function TierBadge({ value }: { value: TierValue }) {
   return (
     <span className={styles.tierBadge} data-tier={value}>
-      {value}
+      {value === "NEEDS_REVIEW" ? "Review" : value}
     </span>
   );
 }
@@ -83,15 +84,34 @@ export function IdentityRanking() {
 
   const [filterValue, setFilterValue] = useState("");
   const activeField = activeFilter === "All Identities" ? undefined : filterFields[activeFilter];
-  const filterOptions = useMemo(
-    () => (activeField ? [...new Set(identityRows.map((row) => row[activeField]))] : []),
-    [activeField],
-  );
+
+  const filterOptions = useMemo(() => {
+    if (!activeFilter || activeFilter === "All Identities") return [];
+    if (activeFilter === "Damage Type") {
+      return ["Slash", "Pierce", "Blunt"];
+    }
+    if (activeFilter === "Sin Affinity") {
+      return ["Wrath", "Lust", "Sloth", "Gluttony", "Gloom", "Pride", "Envy"];
+    }
+    if (activeFilter === "Sinner") {
+      return [...sinners];
+    }
+    if (activeField) {
+      return [...new Set(identityRows.map((row) => row[activeField]))];
+    }
+    return [];
+  }, [activeFilter, activeField]);
 
   const filteredIdentities = useMemo(() => {
     const query = search.trim().toLowerCase();
     return identityRows.filter((row) => {
-      if (activeField && filterValue && row[activeField] !== filterValue) return false;
+      if (activeFilter === "Damage Type" && filterValue) {
+        if (!row.rawDamageTypes.includes(filterValue)) return false;
+      } else if (activeFilter === "Sin Affinity" && filterValue) {
+        if (!row.rawSinAffinities.includes(filterValue)) return false;
+      } else if (activeField && filterValue && row[activeField] !== filterValue) {
+        return false;
+      }
       return (
         !query ||
         [
@@ -109,7 +129,7 @@ export function IdentityRanking() {
         ].some((value) => value.toLowerCase().includes(query))
       );
     });
-  }, [search, activeField, filterValue]);
+  }, [search, activeFilter, activeField, filterValue]);
 
   return (
     <>
@@ -222,7 +242,7 @@ export function IdentityRanking() {
             {filteredIdentities.length === 0 ? (
               <tr>
                 <td className={styles.emptyState} colSpan={13}>
-                  No mock Identity rows match this search.
+                  No Identity rows match this search.
                 </td>
               </tr>
             ) : null}
