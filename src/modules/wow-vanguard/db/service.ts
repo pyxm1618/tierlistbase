@@ -290,6 +290,7 @@ export function createVanguardService(
 
       try {
         if (input.mediaId && expectedPublished) {
+          const mediaId = input.mediaId;
           if (!options.publishMedia || !options.revokeMedia)
             throw new VanguardError("UPLOAD_FAILED", 503);
 
@@ -316,7 +317,7 @@ export function createVanguardService(
             const [media] = await transaction
               .select()
               .from(vanguardMedia)
-              .where(eq(vanguardMedia.id, input.mediaId))
+              .where(eq(vanguardMedia.id, mediaId))
               .for("update");
             if (!media || media.ownerUserId !== userId || media.moderationStatus !== "approved")
               throw new VanguardError("MEDIA_MODERATION_REJECTED", 422);
