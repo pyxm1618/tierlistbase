@@ -4,7 +4,7 @@ export type ContentSecurityPolicyInput = Readonly<{
   production: boolean;
   analytics: Readonly<{ ga4: boolean; clarity: boolean }>;
   turnstile: boolean;
-  vanguard?: { uploadOrigin?: string };
+  vanguard?: { uploadOrigin?: string | undefined };
 }>;
 
 export function vanguardR2UploadOrigin(
