@@ -230,17 +230,32 @@ test("homepage critical CSS delivers only required layout and page styles withou
 
   // Marketing layout provides globals.css and homepage provides game-home.css.
   // The leaked 35KB wow-tier-list / meta-board CSS must never appear.
-  expect(cssLinks.length, `homepage stylesheets:\n${cssLinks.join("\n")}`).toBeLessThanOrEqual(2);
-
+  const cssDetails: string[] = [];
   for (const href of cssLinks) {
     const res = await request.get(href);
     expect(res.status()).toBe(200);
     const cssText = await res.text();
+    cssDetails.push(
+      [
+        href,
+        `bytes=${Buffer.byteLength(cssText)}`,
+        `home=${cssText.includes("tlb-shell") || cssText.includes("tlb-hero")}`,
+        `headerVariant=${
+          cssText.includes("107,78,63") ||
+          cssText.includes("107, 78, 63") ||
+          cssText.includes("Arial Narrow")
+        }`,
+        `tailwind=${cssText.includes("--tw-")}`,
+      ].join(" "),
+    );
     // Verify no leaked WoW tier board or spec card rules
     expect(cssText).not.toContain("wow-tier-list");
     expect(cssText).not.toContain("specCard");
     expect(cssText).not.toContain("methodology");
   }
+  expect(cssLinks.length, `homepage stylesheets:\n${cssDetails.join("\n")}`).toBeLessThanOrEqual(
+    2,
+  );
 
   // Header logo verification
   const logo = page.locator("header img").first();
