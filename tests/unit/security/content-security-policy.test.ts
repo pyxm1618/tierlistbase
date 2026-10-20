@@ -97,6 +97,8 @@ describe("Vanguard R2 upload CSP", () => {
     expect(tokens).not.toContain("https://*.r2.cloudflarestorage.com");
     expect(tokens).not.toContain("https://r2.cloudflarestorage.com");
     expect(vanguardR2UploadOrigin(accountId, "unrelated.example.com")).toBeUndefined();
-    expect(vanguardR2UploadOrigin("not-an-account", "tierlistbase-vanguard-private")).toBeUndefined();
+    expect(
+      vanguardR2UploadOrigin("not-an-account", "tierlistbase-vanguard-private"),
+    ).toBeUndefined();
   });
 });
