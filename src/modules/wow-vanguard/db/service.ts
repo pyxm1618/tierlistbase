@@ -225,7 +225,6 @@ export function createVanguardService(
             publicForeverThumbKey: `vanguard/permanent/${input.mediaId}/forever-128.webp`,
           }
         : undefined;
-      let published: PublishedMediaKeys | undefined;
       let reservedByThisAttempt = false;
       let publicationStarted = false;
 
@@ -290,12 +289,11 @@ export function createVanguardService(
       }
 
       try {
-        let preparedMedia: typeof vanguardMedia.$inferSelect | undefined;
         if (input.mediaId && expectedPublished) {
           if (!options.publishMedia || !options.revokeMedia)
             throw new VanguardError("UPLOAD_FAILED", 503);
 
-          preparedMedia = await database.transaction(async (transaction) => {
+          const preparedMedia = await database.transaction(async (transaction) => {
             const now = await authorityNow(transaction);
             await assertAccountAvailable(transaction, userId);
             const [occupied] = await transaction
@@ -341,7 +339,6 @@ export function createVanguardService(
           // after the short reservation transaction and before the globally locked commit.
           publicationStarted = true;
           const candidate = await options.publishMedia(preparedMedia);
-          published = candidate;
           if (
             candidate.publicDetailKey !== expectedPublished.publicDetailKey ||
             candidate.publicWowThumbKey !== expectedPublished.publicWowThumbKey ||
