@@ -80,9 +80,7 @@ function HeaderShell({
             Limbus Company
           </SiteHeaderGameLink>
         </nav>
-        {desktopAccount ? (
-          <div className="ml-auto hidden lg:block">{desktopAccount}</div>
-        ) : null}
+        {desktopAccount ? <div className="ml-auto hidden lg:block">{desktopAccount}</div> : null}
         <details className="group relative ml-auto lg:hidden">
           <summary className="flex cursor-pointer list-none items-center gap-2 rounded-md border border-[#2d5a7e] px-3 py-1.5 text-sm marker:content-none">
             Menu <span aria-hidden="true">☰</span>
@@ -139,9 +137,7 @@ async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
   );
 }
 
-export function SiteHeader({
-  locale = siteConfig.defaultLocale,
-}: Readonly<{ locale?: string }>) {
+export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ locale?: string }>) {
   if (!featuresConfig.auth.enabled) return <HeaderShell locale={locale} />;
   return <AuthenticatedSiteHeader locale={locale} />;
 }
