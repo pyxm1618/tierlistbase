@@ -56,10 +56,11 @@ test("Limbus page uses shared shell and stays within page performance budgets", 
 
   // Exercise the real client islands rather than injecting synthetic interaction work.
   const search = page.getByRole("searchbox", { name: "Search Identity" });
-  await search.fill("Priestess");
+  await search.click();
+  await search.fill("Spicebush");
   await expect(page.locator("#identity-tier-list tbody tr")).toHaveCount(1);
   await expect(
-    page.locator("#identity-tier-list tbody").getByText("The Priestess of La Manchaland", {
+    page.locator("#identity-tier-list tbody").getByText("Effloresced E.G.O::Spicebush Yi Sang", {
       exact: true,
     }),
   ).toBeVisible();
@@ -74,8 +75,9 @@ test("Limbus page uses shared shell and stays within page performance budgets", 
   await expect(teamTab).toHaveAttribute("aria-selected", "true");
   await expect(teamTab).toHaveAttribute("data-active", "true");
 
+  await search.click();
   await search.fill("");
-  await expect(page.locator("#identity-tier-list tbody tr")).toHaveCount(5);
+  await expect(page.locator("#identity-tier-list tbody tr")).toHaveCount(190);
   await page.waitForTimeout(100);
 
   const metrics = await page.evaluate(() => {
