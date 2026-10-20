@@ -253,9 +253,10 @@ test("homepage critical CSS delivers only required layout and page styles withou
     expect(cssText).not.toContain("specCard");
     expect(cssText).not.toContain("methodology");
   }
-  expect(cssLinks.length, `homepage stylesheets:\n${cssDetails.join("\n")}`).toBeLessThanOrEqual(
-    2,
-  );
+  expect(
+    cssLinks.length,
+    `homepage stylesheets:\n${cssDetails.join("\n")}`,
+  ).toBeLessThanOrEqual(2);
 
   // Header logo verification
   const logo = page.locator("header img").first();
