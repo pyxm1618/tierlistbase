@@ -46,7 +46,7 @@ function AssetSlot({
 function TierBadge({ value }: { value: TierValue }) {
   return (
     <span className={styles.tierBadge} data-tier={value}>
-      {value}
+      {value === "NEEDS_REVIEW" ? "Review" : value}
     </span>
   );
 }

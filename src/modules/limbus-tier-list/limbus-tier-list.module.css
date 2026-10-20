@@ -546,6 +546,10 @@
   background: #154a76;
 }
 
+.tierBadge[data-tier="NEEDS_REVIEW"] {
+  background: #374151;
+}
+
 .ratingBadge {
   display: inline-flex;
   min-width: 56px;
@@ -616,6 +620,23 @@
 
 .availabilityBadge[data-availability="Shardable"] {
   background: #0870c9;
+}
+
+.availabilityBadge[data-availability="Extractable"] {
+  background: #0284c7;
+}
+
+.availabilityBadge[data-availability="Walpurgisnacht"] {
+  background: #6b21a8;
+}
+
+.availabilityBadge[data-availability="Pass"] {
+  background: #b45309;
+}
+
+.availabilityBadge[data-availability="Temporarily Unavailable"],
+.availabilityBadge[data-availability="Unavailable"] {
+  background: #475569;
 }
 
 .rarityCell {

@@ -1,13 +1,12 @@
-import Image from "next/image";
 import { headers } from "next/headers";
-import { hasCurrentSession } from "@/platform/auth/current-session";
-import { SiteHeaderAccount } from "./site-header-account";
 import Link from "next/link";
 
 import { featuresConfig } from "@/config/features.config";
 import { siteConfig } from "@/config/site.config";
+import { hasCurrentSession } from "@/platform/auth/current-session";
 import { localePath } from "@/platform/i18n/routing";
 
+import { SiteHeaderAccount } from "./site-header-account";
 import { SiteHeaderGameLink, SiteHeaderLinkStatus } from "./site-header-game-link";
 import { SiteHeaderVariant } from "./site-header-variant";
 
@@ -19,13 +18,17 @@ export function Brand({ href = "/" }: { href?: string }) {
       aria-label="TierListBase home"
       className="inline-flex shrink-0 items-center gap-2 text-white no-underline has-[[data-navigation-pending=true]]:cursor-progress has-[[data-navigation-pending=true]]:opacity-60"
     >
-      <Image
-        src="/brand/tierlistbase-mark-fa1e376158.webp"
+      {/* eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer */}
+      <img
+        src="/brand/tierlistbase-mark-b3364d1d87.webp"
+        srcSet="/brand/tierlistbase-mark-b3364d1d87.webp 72w, /brand/tierlistbase-mark-2c18ba5849.webp 108w"
+        sizes="36px"
         alt=""
         width={36}
         height={34}
+        loading="lazy"
         className="shrink-0"
-        unoptimized
+        decoding="async"
       />
       <span className="text-[.95rem] font-extrabold tracking-tight sm:text-[1.05rem]">
         TIERLISTBASE

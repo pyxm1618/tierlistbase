@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 
 import {
   identityRows,
+  sinners,
   type Availability,
   type RatingValue,
   type TierValue,
@@ -56,7 +57,7 @@ function AssetSlot() {
 function TierBadge({ value }: { value: TierValue }) {
   return (
     <span className={styles.tierBadge} data-tier={value}>
-      {value}
+      {value === "NEEDS_REVIEW" ? "Review" : value}
     </span>
   );
 }
@@ -79,19 +80,40 @@ function AvailabilityBadge({ value }: { value: Availability }) {
 
 export function IdentityRanking() {
   const [search, setSearch] = useState("");
+  const deferredSearch = useDeferredValue(search);
   const [activeFilter, setActiveFilter] = useState<IdentityFilter>("All Identities");
 
   const [filterValue, setFilterValue] = useState("");
+  const deferredFilterValue = useDeferredValue(filterValue);
   const activeField = activeFilter === "All Identities" ? undefined : filterFields[activeFilter];
-  const filterOptions = useMemo(
-    () => (activeField ? [...new Set(identityRows.map((row) => row[activeField]))] : []),
-    [activeField],
-  );
+
+  const filterOptions = useMemo(() => {
+    if (!activeFilter || activeFilter === "All Identities") return [];
+    if (activeFilter === "Damage Type") {
+      return ["Slash", "Pierce", "Blunt"];
+    }
+    if (activeFilter === "Sin Affinity") {
+      return ["Wrath", "Lust", "Sloth", "Gluttony", "Gloom", "Pride", "Envy"];
+    }
+    if (activeFilter === "Sinner") {
+      return [...sinners];
+    }
+    if (activeField) {
+      return [...new Set(identityRows.map((row) => row[activeField]))];
+    }
+    return [];
+  }, [activeFilter, activeField]);
 
   const filteredIdentities = useMemo(() => {
-    const query = search.trim().toLowerCase();
+    const query = deferredSearch.trim().toLowerCase();
     return identityRows.filter((row) => {
-      if (activeField && filterValue && row[activeField] !== filterValue) return false;
+      if (activeFilter === "Damage Type" && deferredFilterValue) {
+        if (!row.rawDamageTypes.includes(deferredFilterValue)) return false;
+      } else if (activeFilter === "Sin Affinity" && deferredFilterValue) {
+        if (!row.rawSinAffinities.includes(deferredFilterValue)) return false;
+      } else if (activeField && deferredFilterValue && row[activeField] !== deferredFilterValue) {
+        return false;
+      }
       return (
         !query ||
         [
@@ -109,57 +131,10 @@ export function IdentityRanking() {
         ].some((value) => value.toLowerCase().includes(query))
       );
     });
-  }, [search, activeField, filterValue]);
+  }, [deferredSearch, activeFilter, activeField, deferredFilterValue]);
 
-  return (
-    <>
-      <div className={styles.filterBar} aria-label="Identity filters">
-        <div className={styles.filterScroll}>
-          {identityFilters.map((filter) => (
-            <span className={styles.filterControl} key={filter}>
-              <button
-                className={styles.filterButton}
-                data-active={activeFilter === filter ? "true" : "false"}
-                aria-pressed={activeFilter === filter}
-                type="button"
-                onClick={() => {
-                  setActiveFilter(filter);
-                  setFilterValue("");
-                }}
-              >
-                {filter}
-              </button>
-              {activeFilter === filter && activeField ? (
-                <select
-                  className={[styles.filterButton, styles.filterValue].join(" ")}
-                  aria-label={`${filter} value`}
-                  value={filterValue}
-                  onChange={(event) => setFilterValue(event.target.value)}
-                >
-                  <option value="">All values</option>
-                  {filterOptions.map((value) => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-              ) : null}
-            </span>
-          ))}
-        </div>
-        <label className={styles.inlineSearch}>
-          <span aria-hidden="true">⌕</span>
-          <span className={styles.visuallyHidden}>Search Identity</span>
-          <input
-            type="search"
-            aria-label="Search Identity"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search Identity..."
-          />
-        </label>
-      </div>
-
+  const tableContent = useMemo(
+    () => (
       <div className={styles.tableFrame}>
         <table className={styles.dataTable}>
           <thead>
@@ -222,13 +197,67 @@ export function IdentityRanking() {
             {filteredIdentities.length === 0 ? (
               <tr>
                 <td className={styles.emptyState} colSpan={13}>
-                  No mock Identity rows match this search.
+                  No Identity rows match this search.
                 </td>
               </tr>
             ) : null}
           </tbody>
         </table>
       </div>
+    ),
+    [filteredIdentities],
+  );
+
+  return (
+    <>
+      <div className={styles.filterBar} aria-label="Identity filters">
+        <div className={styles.filterScroll}>
+          {identityFilters.map((filter) => (
+            <span className={styles.filterControl} key={filter}>
+              <button
+                className={styles.filterButton}
+                data-active={activeFilter === filter ? "true" : "false"}
+                aria-pressed={activeFilter === filter}
+                type="button"
+                onClick={() => {
+                  setActiveFilter(filter);
+                  setFilterValue("");
+                }}
+              >
+                {filter}
+              </button>
+              {activeFilter === filter && activeField ? (
+                <select
+                  className={[styles.filterButton, styles.filterValue].join(" ")}
+                  aria-label={`${filter} value`}
+                  value={filterValue}
+                  onChange={(event) => setFilterValue(event.target.value)}
+                >
+                  <option value="">All values</option>
+                  {filterOptions.map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
+              ) : null}
+            </span>
+          ))}
+        </div>
+        <label className={styles.inlineSearch}>
+          <span aria-hidden="true">⌕</span>
+          <span className={styles.visuallyHidden}>Search Identity</span>
+          <input
+            type="search"
+            aria-label="Search Identity"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search Identity..."
+          />
+        </label>
+      </div>
+
+      {tableContent}
     </>
   );
 }
