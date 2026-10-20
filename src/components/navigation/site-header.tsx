@@ -120,11 +120,7 @@ function SiteHeaderContent({
   );
 
   if (!accountEnabled)
-    return (
-      <SiteHeaderVariant brand={<Brand href={homeHref} />}>
-        {header}
-      </SiteHeaderVariant>
-    );
+    return <SiteHeaderVariant brand={<Brand href={homeHref} />}>{header}</SiteHeaderVariant>;
 
   return (
     <SiteHeaderVariant
@@ -138,9 +134,7 @@ function SiteHeaderContent({
 
 async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
   const authenticated = await hasCurrentSession(await headers());
-  return (
-    <SiteHeaderContent locale={locale} accountEnabled={true} authenticated={authenticated} />
-  );
+  return <SiteHeaderContent locale={locale} accountEnabled={true} authenticated={authenticated} />;
 }
 
 export function SiteHeader({ locale = siteConfig.defaultLocale }: SiteHeaderProps) {
