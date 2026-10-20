@@ -230,7 +230,7 @@ test("homepage critical CSS delivers only required layout and page styles withou
 
   // Marketing layout provides globals.css and homepage provides game-home.css.
   // The leaked 35KB wow-tier-list / meta-board CSS must never appear.
-  expect(cssLinks.length).toBeLessThanOrEqual(2);
+  expect(cssLinks.length, `homepage stylesheets:\n${cssLinks.join("\n")}`).toBeLessThanOrEqual(2);
 
   for (const href of cssLinks) {
     const res = await request.get(href);
