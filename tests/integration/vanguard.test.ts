@@ -233,6 +233,7 @@ it("rolls back an approved media promotion when the final write crosses cutoff",
     publicForeverThumbKey: `vanguard/permanent/${mediaId}/forever-128.webp`,
   };
   let published = false;
+  let globalEventLockWasFree = false;
   let revoked: readonly string[] = [];
   try {
     const held = await createVanguardService(database.db, {
@@ -271,6 +272,7 @@ it("rolls back an approved media promotion when the final write crosses cutoff",
       crossing.inscribe(first, { ...draft("WOW-W1-0001", held.holdToken), mediaId }),
     ).rejects.toMatchObject({ code: "EVENT_SEALED" });
     expect(published).toBe(true);
+    expect(globalEventLockWasFree).toBe(true);
     expect(revoked).toEqual(Object.values(keys));
     expect(await database.db.select().from(vanguardInscriptions)).toHaveLength(0);
     const [media] = await database.db
