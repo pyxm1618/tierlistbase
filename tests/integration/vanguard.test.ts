@@ -234,6 +234,7 @@ it("rolls back an approved media promotion when the final write crosses cutoff",
   };
   let published = false;
   let globalEventLockWasFree = false;
+  let mediaRowLockWasFree = false;
   let revoked: readonly string[] = [];
   try {
     const held = await createVanguardService(database.db, {
@@ -259,8 +260,12 @@ it("rolls back an approved media promotion when the final write crosses cutoff",
           await transaction.execute(
             sql`select id from vanguard_event_state where id = 1 for update nowait`,
           );
+          await transaction.execute(
+            sql`select id from vanguard_media where id = ${mediaId} for update nowait`,
+          );
         });
         globalEventLockWasFree = true;
+        mediaRowLockWasFree = true;
         published = true;
         return keys;
       },
@@ -273,6 +278,7 @@ it("rolls back an approved media promotion when the final write crosses cutoff",
     ).rejects.toMatchObject({ code: "EVENT_SEALED" });
     expect(published).toBe(true);
     expect(globalEventLockWasFree).toBe(true);
+    expect(mediaRowLockWasFree).toBe(true);
     expect(revoked).toEqual(Object.values(keys));
     expect(await database.db.select().from(vanguardInscriptions)).toHaveLength(0);
     const [media] = await database.db
