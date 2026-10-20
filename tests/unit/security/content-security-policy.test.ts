@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import {\n  buildContentSecurityPolicy,\n  vanguardR2UploadOrigin,\n} from "@/platform/security/content-security-policy";
+import {
+  buildContentSecurityPolicy,
+  vanguardR2UploadOrigin,
+} from "@/platform/security/content-security-policy";
 
 describe("buildContentSecurityPolicy", () => {
   it("allows only nonce-authorized inline scripts without unsafe-inline", () => {
