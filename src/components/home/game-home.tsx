@@ -137,8 +137,8 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
           src={isWow ? "/images/home/wow.webp" : "/images/home/genshin.webp"}
           srcSet={
             isWow
-              ? "/images/home/wow-384.webp 384w, /images/home/wow-768.webp 768w, /images/home/wow-1080.webp 1080w, /images/home/wow-1440.webp 1440w, /images/home/wow.webp 2048w"
-              : "/images/home/genshin-384.webp 384w, /images/home/genshin-768.webp 768w, /images/home/genshin-1080.webp 1080w, /images/home/genshin-1440.webp 1440w, /images/home/genshin.webp 1774w"
+              ? "/images/home/wow-384.webp 384w, /images/home/wow-640.webp 640w, /images/home/wow-768.webp 768w, /images/home/wow-1080.webp 1080w, /images/home/wow-1440.webp 1440w, /images/home/wow.webp 2048w"
+              : "/images/home/genshin-384.webp 384w, /images/home/genshin-640.webp 640w, /images/home/genshin-768.webp 768w, /images/home/genshin-1080.webp 1080w, /images/home/genshin-1440.webp 1440w, /images/home/genshin.webp 1774w"
           }
           sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 46vw, 901px"
           alt=""
@@ -263,8 +263,8 @@ function UpdateCard({ update }: { update: RecentRatingChangeItem | undefined }) 
             src={isGenshin ? "/images/home/genshin.webp" : "/images/home/wow.webp"}
             srcSet={
               isGenshin
-                ? "/images/home/genshin-384.webp 384w, /images/home/genshin-768.webp 768w, /images/home/genshin-1080.webp 1080w, /images/home/genshin-1440.webp 1440w, /images/home/genshin.webp 1774w"
-                : "/images/home/wow-384.webp 384w, /images/home/wow-768.webp 768w, /images/home/wow-1080.webp 1080w, /images/home/wow-1440.webp 1440w, /images/home/wow.webp 2048w"
+                ? "/images/home/genshin-384.webp 384w, /images/home/genshin-640.webp 640w, /images/home/genshin-768.webp 768w, /images/home/genshin-1080.webp 1080w, /images/home/genshin-1440.webp 1440w, /images/home/genshin.webp 1774w"
+                : "/images/home/wow-384.webp 384w, /images/home/wow-640.webp 640w, /images/home/wow-768.webp 768w, /images/home/wow-1080.webp 1080w, /images/home/wow-1440.webp 1440w, /images/home/wow.webp 2048w"
             }
             sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 31vw, 595px"
             alt=""

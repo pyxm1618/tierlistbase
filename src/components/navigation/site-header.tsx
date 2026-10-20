@@ -16,7 +16,7 @@ export function Brand({ href = "/" }: { href?: string }) {
       className="inline-flex shrink-0 items-center gap-2 text-white no-underline has-[[data-navigation-pending=true]]:cursor-progress has-[[data-navigation-pending=true]]:opacity-60"
     >
       <Image
-        src="/brand/tierlistbase-mark-fa1e376158.webp"
+        src="/brand/tierlistbase-mark-b3364d1d87.webp"
         alt=""
         width={36}
         height={34}

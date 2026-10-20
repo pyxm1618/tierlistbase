@@ -217,3 +217,40 @@ test("cross-route prefetch isolation: Genshin and WoW pages do not leak Home Her
   expect(wowTimings).toEqual([]);
   expect(wowRequests.filter((url) => url.includes("/images/home/hero-"))).toEqual([]);
 });
+
+test("homepage critical CSS delivers only required layout and page styles without meta-board leakage", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+
+  const cssLinks = await page
+    .locator('head link[rel="stylesheet"]')
+    .evaluateAll((elements) => elements.map((el) => (el as HTMLLinkElement).href));
+
+  // Marketing layout provides globals.css and homepage provides game-home.css.
+  // The leaked 35KB wow-tier-list / meta-board CSS must never appear.
+  expect(cssLinks.length).toBeLessThanOrEqual(2);
+
+  for (const href of cssLinks) {
+    const res = await request.get(href);
+    expect(res.status()).toBe(200);
+    const cssText = await res.text();
+    // Verify no leaked WoW tier board or spec card rules
+    expect(cssText).not.toContain("wow-tier-list");
+    expect(cssText).not.toContain("specCard");
+    expect(cssText).not.toContain("methodology");
+  }
+
+  // Header logo verification
+  const logo = page.locator("header img").first();
+  await expect(logo).toBeVisible();
+  const logoSrc = await logo.getAttribute("src");
+  expect(logoSrc).toMatch(/\/brand\/tierlistbase-mark-[a-f0-9]+\.webp/);
+
+  const logoResponse = await request.get(logoSrc!);
+  expect(logoResponse.status()).toBe(200);
+  const logoBytes = (await logoResponse.body()).length;
+  // Optimized logo must be strictly under 5KB (down from 10.6KB)
+  expect(logoBytes).toBeLessThan(5000);
+});
