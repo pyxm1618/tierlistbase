@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 
 import {
   identityRows,
@@ -80,9 +80,11 @@ function AvailabilityBadge({ value }: { value: Availability }) {
 
 export function IdentityRanking() {
   const [search, setSearch] = useState("");
+  const deferredSearch = useDeferredValue(search);
   const [activeFilter, setActiveFilter] = useState<IdentityFilter>("All Identities");
 
   const [filterValue, setFilterValue] = useState("");
+  const deferredFilterValue = useDeferredValue(filterValue);
   const activeField = activeFilter === "All Identities" ? undefined : filterFields[activeFilter];
 
   const filterOptions = useMemo(() => {
@@ -103,13 +105,13 @@ export function IdentityRanking() {
   }, [activeFilter, activeField]);
 
   const filteredIdentities = useMemo(() => {
-    const query = search.trim().toLowerCase();
+    const query = deferredSearch.trim().toLowerCase();
     return identityRows.filter((row) => {
-      if (activeFilter === "Damage Type" && filterValue) {
-        if (!row.rawDamageTypes.includes(filterValue)) return false;
-      } else if (activeFilter === "Sin Affinity" && filterValue) {
-        if (!row.rawSinAffinities.includes(filterValue)) return false;
-      } else if (activeField && filterValue && row[activeField] !== filterValue) {
+      if (activeFilter === "Damage Type" && deferredFilterValue) {
+        if (!row.rawDamageTypes.includes(deferredFilterValue)) return false;
+      } else if (activeFilter === "Sin Affinity" && deferredFilterValue) {
+        if (!row.rawSinAffinities.includes(deferredFilterValue)) return false;
+      } else if (activeField && deferredFilterValue && row[activeField] !== deferredFilterValue) {
         return false;
       }
       return (
@@ -129,57 +131,10 @@ export function IdentityRanking() {
         ].some((value) => value.toLowerCase().includes(query))
       );
     });
-  }, [search, activeFilter, activeField, filterValue]);
+  }, [deferredSearch, activeFilter, activeField, deferredFilterValue]);
 
-  return (
-    <>
-      <div className={styles.filterBar} aria-label="Identity filters">
-        <div className={styles.filterScroll}>
-          {identityFilters.map((filter) => (
-            <span className={styles.filterControl} key={filter}>
-              <button
-                className={styles.filterButton}
-                data-active={activeFilter === filter ? "true" : "false"}
-                aria-pressed={activeFilter === filter}
-                type="button"
-                onClick={() => {
-                  setActiveFilter(filter);
-                  setFilterValue("");
-                }}
-              >
-                {filter}
-              </button>
-              {activeFilter === filter && activeField ? (
-                <select
-                  className={[styles.filterButton, styles.filterValue].join(" ")}
-                  aria-label={`${filter} value`}
-                  value={filterValue}
-                  onChange={(event) => setFilterValue(event.target.value)}
-                >
-                  <option value="">All values</option>
-                  {filterOptions.map((value) => (
-                    <option key={value} value={value}>
-                      {value}
-                    </option>
-                  ))}
-                </select>
-              ) : null}
-            </span>
-          ))}
-        </div>
-        <label className={styles.inlineSearch}>
-          <span aria-hidden="true">⌕</span>
-          <span className={styles.visuallyHidden}>Search Identity</span>
-          <input
-            type="search"
-            aria-label="Search Identity"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search Identity..."
-          />
-        </label>
-      </div>
-
+  const tableContent = useMemo(
+    () => (
       <div className={styles.tableFrame}>
         <table className={styles.dataTable}>
           <thead>
@@ -249,6 +204,60 @@ export function IdentityRanking() {
           </tbody>
         </table>
       </div>
+    ),
+    [filteredIdentities],
+  );
+
+  return (
+    <>
+      <div className={styles.filterBar} aria-label="Identity filters">
+        <div className={styles.filterScroll}>
+          {identityFilters.map((filter) => (
+            <span className={styles.filterControl} key={filter}>
+              <button
+                className={styles.filterButton}
+                data-active={activeFilter === filter ? "true" : "false"}
+                aria-pressed={activeFilter === filter}
+                type="button"
+                onClick={() => {
+                  setActiveFilter(filter);
+                  setFilterValue("");
+                }}
+              >
+                {filter}
+              </button>
+              {activeFilter === filter && activeField ? (
+                <select
+                  className={[styles.filterButton, styles.filterValue].join(" ")}
+                  aria-label={`${filter} value`}
+                  value={filterValue}
+                  onChange={(event) => setFilterValue(event.target.value)}
+                >
+                  <option value="">All values</option>
+                  {filterOptions.map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
+              ) : null}
+            </span>
+          ))}
+        </div>
+        <label className={styles.inlineSearch}>
+          <span aria-hidden="true">⌕</span>
+          <span className={styles.visuallyHidden}>Search Identity</span>
+          <input
+            type="search"
+            aria-label="Search Identity"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search Identity..."
+          />
+        </label>
+      </div>
+
+      {tableContent}
     </>
   );
 }
