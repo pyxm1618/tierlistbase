@@ -1,6 +1,7 @@
 import "server-only";
 
 import { featuresConfig } from "@/config/features.config";
+import { removeVanguardBeforeAccountDeletion } from "@/config/vanguard-runtime.config";
 import { siteConfig } from "@/config/site.config";
 import { createPostgresAccountSubjectRepository } from "@/platform/accounts/postgres-account-subject-repository";
 import { env } from "@/platform/config/env";
@@ -13,11 +14,6 @@ import { sendMagicLinkEmail } from "./magic-link-email";
 
 type AuthInstance = ReturnType<typeof createAuth>;
 let authInstance: AuthInstance | undefined;
-
-async function removeVanguardDataBeforeAccountDeletion(userId: string) {
-  const runtime = await import("@/config/vanguard-runtime.config");
-  await runtime.removeVanguardBeforeAccountDeletion(userId);
-}
 
 export function getAuth(): AuthInstance | null {
   if (!featuresConfig.auth.enabled) return null;
@@ -44,7 +40,7 @@ export function getAuth(): AuthInstance | null {
     database: db,
     schema,
     magicLinkEnabled: featuresConfig.auth.magicLink,
-    beforeDeleteUser: removeVanguardDataBeforeAccountDeletion,
+    beforeDeleteUser: removeVanguardBeforeAccountDeletion,
     ...(google ? { google } : {}),
     sendMagicLink: async ({ email, token, returnTo }) => {
       await sendMagicLinkEmail({ email, token, returnTo });
