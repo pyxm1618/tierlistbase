@@ -120,6 +120,9 @@ export function mapAvailability(
   if (fact.temporarilyUnavailable) {
     return "Temporarily Unavailable";
   }
+  if (releaseContext === "Standard Fare" && fact.acquisitionNote?.includes("unlocked by default")) {
+    return "Available";
+  }
   if (fact.extractableNow && fact.dispensableNow) {
     return "Available";
   }
