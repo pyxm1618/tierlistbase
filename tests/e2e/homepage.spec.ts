@@ -245,8 +245,9 @@ test("homepage critical CSS delivers only required layout and page styles withou
         `tailwind=${cssText.includes("--tw-")}`,
       ].join(" "),
     );
-    // Verify no leaked WoW tier board or spec card rules
+    // Verify no leaked game tier-list board or editorial rules.
     expect(cssText).not.toContain("wow-tier-list");
+    expect(cssText).not.toContain("genshin-tier-list");
     expect(cssText).not.toContain("specCard");
     expect(cssText).not.toContain("methodology");
   }
