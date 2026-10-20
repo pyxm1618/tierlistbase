@@ -129,9 +129,7 @@ async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
     <HeaderShell
       locale={locale}
       desktopAccount={<SiteHeaderAccount authenticated={authenticated} className={navLink} />}
-      mobileAccount={
-        <SiteHeaderAccount authenticated={authenticated} mobile className={navLink} />
-      }
+      mobileAccount={<SiteHeaderAccount authenticated={authenticated} mobile className={navLink} />}
       variantAccount={<SiteHeaderAccount authenticated={authenticated} className={navLink} />}
     />
   );
