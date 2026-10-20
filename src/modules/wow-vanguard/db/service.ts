@@ -217,14 +217,83 @@ export function createVanguardService(
     },
     async inscribe(userId: string, rawInput: InscriptionInput) {
       const input = inscriptionSchema.parse(rawInput);
-      const seat = parseSeatId(input.seatId);
+      const seat = await assertLayoutSeat(input.seatId);
       let published: PublishedMediaKeys | undefined;
       try {
         return await database.transaction(async (transaction) => {
+          let acceptedMedia: typeof vanguardMedia.$inferSelect | undefined;
+          let lockedMedia: typeof vanguardMedia.$inferSelect | undefined;
+
+          if (input.mediaId) {
+            const [media] = await transaction
+              .select()
+              .from(vanguardMedia)
+              .where(eq(vanguardMedia.id, input.mediaId))
+              .for("update");
+            if (!media || media.ownerUserId !== userId || media.moderationStatus !== "approved")
+              throw new VanguardError("MEDIA_MODERATION_REJECTED", 422);
+            if (!options.publishMedia || !options.revokeMedia)
+              throw new VanguardError("UPLOAD_FAILED", 503);
+            lockedMedia = media;
+          }
+
+          // Cheap DB-only checks happen before any external publication. These are repeated
+          // under the global event lock because they may change while media is being prepared.
+          const preflightNow = await authorityNow(transaction);
+          await assertAccountAvailable(transaction, userId);
+          const [preflightOccupied] = await transaction
+            .select({ seatId: vanguardInscriptions.seatId })
+            .from(vanguardInscriptions)
+            .where(eq(vanguardInscriptions.seatId, input.seatId));
+          if (preflightOccupied) return conflict(transaction, input.seatId);
+          const [preflightHold] = await transaction
+            .select()
+            .from(vanguardSeatHolds)
+            .where(eq(vanguardSeatHolds.seatId, input.seatId));
+          if (
+            !preflightHold ||
+            preflightHold.expiresAt <= preflightNow ||
+            preflightHold.holdTokenHash !== hash(input.holdToken) ||
+            preflightHold.userId !== userId
+          )
+            throw new VanguardError("HOLD_EXPIRED", 409);
+
+          if (lockedMedia) {
+            const expectedPublished: PublishedMediaKeys = {
+              publicDetailKey: `vanguard/permanent/${lockedMedia.id}/detail.webp`,
+              publicWowThumbKey: `vanguard/permanent/${lockedMedia.id}/wow-256.webp`,
+              publicForeverThumbKey: `vanguard/permanent/${lockedMedia.id}/forever-128.webp`,
+            };
+            const alreadyPublished =
+              lockedMedia.publicDetailKey === expectedPublished.publicDetailKey &&
+              lockedMedia.publicWowThumbKey === expectedPublished.publicWowThumbKey &&
+              lockedMedia.publicForeverThumbKey === expectedPublished.publicForeverThumbKey;
+            const hasAnyPublishedKey =
+              lockedMedia.publicDetailKey !== null ||
+              lockedMedia.publicWowThumbKey !== null ||
+              lockedMedia.publicForeverThumbKey !== null;
+            if (hasAnyPublishedKey && !alreadyPublished)
+              throw new VanguardError("UPLOAD_FAILED", 503);
+
+            if (alreadyPublished) {
+              acceptedMedia = lockedMedia;
+            } else {
+              // Heavy R2 read/normalization/public writes occur while only this media row is
+              // serialized. The singleton event lock is intentionally acquired afterwards.
+              published = await options.publishMedia!(lockedMedia);
+              if (
+                published.publicDetailKey !== expectedPublished.publicDetailKey ||
+                published.publicWowThumbKey !== expectedPublished.publicWowThumbKey ||
+                published.publicForeverThumbKey !== expectedPublished.publicForeverThumbKey
+              )
+                throw new VanguardError("UPLOAD_FAILED", 503);
+              acceptedMedia = { ...lockedMedia, ...published };
+            }
+          }
+
           const state = await lockEvent(transaction);
           let now = await authorityNow(transaction);
           assertPhaseOpen(now, state, seat.phase);
-          await assertLayoutSeat(seat.seatId);
           await assertAccountAvailable(transaction, userId);
           const [occupied] = await transaction
             .select({ seatId: vanguardInscriptions.seatId })
@@ -242,28 +311,26 @@ export function createVanguardService(
             held.userId !== userId
           )
             throw new VanguardError("HOLD_EXPIRED", 409);
-          let acceptedMedia: typeof vanguardMedia.$inferSelect | undefined;
-          if (input.mediaId) {
-            const [media] = await transaction
-              .select()
-              .from(vanguardMedia)
-              .where(eq(vanguardMedia.id, input.mediaId))
-              .for("update");
-            if (!media || media.ownerUserId !== userId || media.moderationStatus !== "approved")
-              throw new VanguardError("MEDIA_MODERATION_REJECTED", 422);
-            if (!options.publishMedia || !options.revokeMedia)
-              throw new VanguardError("UPLOAD_FAILED", 503);
-            published = await options.publishMedia(media);
-            acceptedMedia = { ...media, ...published };
-            await transaction
-              .update(vanguardMedia)
-              .set(published)
-              .where(eq(vanguardMedia.id, media.id));
-          }
-          // Re-read after all row locks and validations, immediately before the formal write.
+          if (
+            input.mediaId &&
+            (!lockedMedia ||
+              lockedMedia.id !== input.mediaId ||
+              lockedMedia.ownerUserId !== userId ||
+              lockedMedia.moderationStatus !== "approved")
+          )
+            throw new VanguardError("MEDIA_MODERATION_REJECTED", 422);
+
+          // Re-read authoritative time after all publication and locked validations.
           now = await authorityNow(transaction);
           assertPhaseOpen(now, state, seat.phase);
           if (held.expiresAt <= now) throw new VanguardError("HOLD_EXPIRED", 409);
+
+          if (input.mediaId && published)
+            await transaction
+              .update(vanguardMedia)
+              .set(published)
+              .where(eq(vanguardMedia.id, input.mediaId));
+
           const [row] = await transaction
             .insert(vanguardInscriptions)
             .values({

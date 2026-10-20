@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { featuresConfig } from "@/config/features.config";
-import { buildContentSecurityPolicy } from "@/platform/security/content-security-policy";
+import {\n  buildContentSecurityPolicy,\n  vanguardR2UploadOrigin,\n} from "@/platform/security/content-security-policy";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 const isProduction = process.env.APP_ENV === "production";
@@ -23,11 +23,12 @@ export function proxy(request: NextRequest) {
     turnstile: featuresConfig.auth.enabled && featuresConfig.auth.magicLink,
     ...(request.nextUrl.pathname === "/wow-forever/vanguard"
       ? {
-          vanguard: /^[a-f0-9]{32}$/.test(process.env.VANGUARD_CLOUDFLARE_ACCOUNT_ID ?? "")
-            ? {
-                uploadOrigin: `https://${process.env.VANGUARD_CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-              }
-            : {},
+          vanguard: {
+            uploadOrigin: vanguardR2UploadOrigin(
+              process.env.VANGUARD_CLOUDFLARE_ACCOUNT_ID,
+              process.env.VANGUARD_R2_PRIVATE_BUCKET,
+            ),
+          },
         }
       : {}),
   });

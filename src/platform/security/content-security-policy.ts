@@ -7,6 +7,17 @@ export type ContentSecurityPolicyInput = Readonly<{
   vanguard?: { uploadOrigin?: string };
 }>;
 
+export function vanguardR2UploadOrigin(
+  accountId: string | undefined,
+  privateBucket: string | undefined,
+): string | undefined {
+  const account = accountId?.trim() ?? "";
+  const bucket = privateBucket?.trim() ?? "";
+  if (!/^[a-f0-9]{32}$/.test(account)) return undefined;
+  if (!/^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$/.test(bucket)) return undefined;
+  return `https://${bucket}.${account}.r2.cloudflarestorage.com`;
+}
+
 export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): string {
   if (!input.nonce.trim()) throw new Error("CSP nonce is required");
 

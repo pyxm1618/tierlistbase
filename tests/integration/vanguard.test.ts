@@ -254,6 +254,12 @@ it("rolls back an approved media promotion when the final write crosses cutoff",
         `case when nextval('${sequence}')=1 then '2026-11-04T22:59:59Z'::timestamptz else '2026-11-04T23:00:00Z'::timestamptz end`,
       ),
       publishMedia: async () => {
+        await database.db.transaction(async (transaction) => {
+          await transaction.execute(
+            sql`select id from vanguard_event_state where id = 1 for update nowait`,
+          );
+        });
+        globalEventLockWasFree = true;
         published = true;
         return keys;
       },
@@ -277,6 +283,57 @@ it("rolls back an approved media promotion when the final write crosses cutoff",
     await database.db.execute(sql.raw(`drop sequence ${sequence}`));
   }
 });
+it("publishes approved media only once across concurrent duplicate inscription attempts", async () => {
+  const held = await service.hold("WOW-W1-0001", first);
+  const mediaId = randomUUID();
+  const keys = {
+    publicDetailKey: `vanguard/permanent/${mediaId}/detail.webp`,
+    publicWowThumbKey: `vanguard/permanent/${mediaId}/wow-256.webp`,
+    publicForeverThumbKey: `vanguard/permanent/${mediaId}/forever-128.webp`,
+  };
+  await database.db.insert(vanguardMedia).values({
+    id: mediaId,
+    ownerUserId: first,
+    privateMasterKey: `vanguard/pending/${mediaId}/master.webp`,
+    moderationKey: `vanguard/pending/${mediaId}/moderation.webp`,
+    mime: "image/webp",
+    moderationStatus: "approved",
+    sha256: "b".repeat(64),
+  });
+  let publishCalls = 0;
+  const revocations: readonly string[][] = [];
+  const mediaService = createVanguardService(database.db, {
+    seatExists: () => true,
+    authorityTimeSql: sql`cast(${now.toISOString()} as timestamptz)`,
+    publishMedia: async () => {
+      publishCalls++;
+      await new Promise((resolve) => setTimeout(resolve, 25));
+      return keys;
+    },
+    revokeMedia: async (publishedKeys) => {
+      revocations.push([...publishedKeys]);
+    },
+  });
+  const payload = { ...draft("WOW-W1-0001", held.holdToken), mediaId };
+  const results = await Promise.allSettled([
+    mediaService.inscribe(first, payload),
+    mediaService.inscribe(first, payload),
+  ]);
+
+  expect(results.filter((result) => result.status === "fulfilled")).toHaveLength(1);
+  expect(results.filter((result) => result.status === "rejected")).toHaveLength(1);
+  expect(publishCalls).toBe(1);
+  expect(revocations).toEqual([]);
+  const [media] = await database.db
+    .select()
+    .from(vanguardMedia)
+    .where(eq(vanguardMedia.id, mediaId));
+  expect(media?.publicDetailKey).toBe(keys.publicDetailKey);
+  expect((await service.focus("WOW-W1-0001"))?.image?.detail).toBe(
+    `https://media.tierlistbase.com/${keys.publicDetailKey}`,
+  );
+});
+
 it("keeps manifest compact and stable until a real inscription changes occupancy", async () => {
   const empty = await service.manifest();
   expect(empty.phase).toBe("wow");

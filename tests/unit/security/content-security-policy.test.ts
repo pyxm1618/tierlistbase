@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { buildContentSecurityPolicy } from "@/platform/security/content-security-policy";
+import {\n  buildContentSecurityPolicy,\n  vanguardR2UploadOrigin,\n} from "@/platform/security/content-security-policy";
 
 describe("buildContentSecurityPolicy", () => {
   it("allows only nonce-authorized inline scripts without unsafe-inline", () => {
@@ -67,5 +67,34 @@ describe("buildContentSecurityPolicy", () => {
       if (token === "'self'" || token === "data:" || token === "blob:") continue;
       expect(token).toMatch(/^https:\/\/[a-zA-Z0-9.*-]+\.[a-zA-Z]{2,}/);
     }
+  });
+});
+
+
+describe("Vanguard R2 upload CSP", () => {
+  it("allows only the configured private bucket-qualified R2 origin", () => {
+    const accountId = "a".repeat(32);
+    const uploadOrigin = vanguardR2UploadOrigin(accountId, "tierlistbase-vanguard-private");
+    expect(uploadOrigin).toBe(
+      `https://tierlistbase-vanguard-private.${accountId}.r2.cloudflarestorage.com`,
+    );
+
+    const csp = buildContentSecurityPolicy({
+      nonce: "vanguard-nonce",
+      development: false,
+      production: true,
+      analytics: { ga4: false, clarity: false },
+      turnstile: false,
+      vanguard: { uploadOrigin },
+    });
+    const connectDirective = csp.match(/(?:^|; )connect-src ([^;]+)/)?.[1] ?? "";
+    const tokens = connectDirective.split(/\s+/).filter(Boolean);
+
+    expect(tokens).toContain(uploadOrigin);
+    expect(tokens).not.toContain(`https://${accountId}.r2.cloudflarestorage.com`);
+    expect(tokens).not.toContain("https://*.r2.cloudflarestorage.com");
+    expect(tokens).not.toContain("https://r2.cloudflarestorage.com");
+    expect(vanguardR2UploadOrigin(accountId, "unrelated.example.com")).toBeUndefined();
+    expect(vanguardR2UploadOrigin("not-an-account", "tierlistbase-vanguard-private")).toBeUndefined();
   });
 });
