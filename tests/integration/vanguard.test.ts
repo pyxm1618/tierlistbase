@@ -301,7 +301,7 @@ it("publishes approved media only once across concurrent duplicate inscription a
     sha256: "b".repeat(64),
   });
   let publishCalls = 0;
-  const revocations: readonly string[][] = [];
+  const revocations: string[][] = [];
   const mediaService = createVanguardService(database.db, {
     seatExists: () => true,
     authorityTimeSql: sql`cast(${now.toISOString()} as timestamptz)`,
