@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { WOW_CLASSES } from "@/modules/meta-board/domain/wow-context";
+import { WOW_CLASSES } from "@/modules/meta-board";
 import { parseSeatId } from "./event";
 
 import { validateVanguardText } from "./text";
