@@ -200,6 +200,7 @@ export default defineConfig([
     "playwright-report/**",
     "test-results/**",
     "dist/**",
+    "public/vendor/vanguard/**",
     ".vinext/**",
     ".cloudflare/**",
     ".wrangler/**",

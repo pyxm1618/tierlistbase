@@ -1,29 +1,40 @@
 import type { LegalConfig } from "@/platform/legal/types";
 
 export const legalConfig = {
-  releaseStatus: "reviewed",
+  releaseStatus: "draft",
   operator: {
     legalName: "Wang Yufei",
     establishment: "People's Republic of China",
     supportEmail: "support@tierlistbase.com",
   },
   dataCategories: [
+    "Google account identity and session data; Vanguard public text, optional image, inscription and report records",
     "request, network, and security metadata processed by hosting/security infrastructure",
     "support correspondence only when a visitor chooses to email the published support address",
     "optional analytics event and session-interaction data only when a visitor explicitly consents",
   ],
-  authMethods: ["none (authentication disabled in V1)"],
+  authMethods: ["Google OAuth through the existing TierListBase account system"],
   processors: [
+    {
+      name: "Google OAuth",
+      purpose: "Google account sign-in and identity verification for TierListBase accounts.",
+      privacyUrl: "https://policies.google.com/privacy",
+    },
+    {
+      name: "Resend",
+      purpose: "Transactional system and Vanguard report notification email delivery.",
+      privacyUrl: "https://resend.com/legal/privacy-policy",
+    },
     {
       name: "Cloudflare",
       purpose:
-        "Cloudflare Workers hosting and edge delivery/security. Cloudflare may process request and security metadata needed to deliver and protect the site.",
+        "Cloudflare Workers hosting, edge delivery/security, private R2 uploads and approved image storage, and Workers AI automated image screening. Cloudflare may process request and security metadata needed to deliver and protect the site.",
       privacyUrl: "https://www.cloudflare.com/privacypolicy/",
     },
     {
       name: "Neon",
       purpose:
-        "PostgreSQL database hosting for TierListBase game, ranking, source, and evidence data. The application does not intentionally store visitor account profiles in this database in V1.",
+        "PostgreSQL hosting for TierListBase game, ranking and evidence data, existing Google account/session records, Vanguard inscriptions, holds, media metadata and reports. Images are stored in Cloudflare R2, not as database binaries.",
       privacyUrl: "https://neon.com/privacy-policy",
     },
     {
@@ -56,6 +67,18 @@ export const legalConfig = {
   subscriptionTerms: null,
   retentionRules: [
     {
+      category: "Vanguard pending images",
+      period: "24-hour R2 pending-prefix lifecycle",
+      basis: "temporary upload validation and automated screening",
+    },
+    {
+      category: "Completed Vanguard inscriptions",
+      period:
+        "retained for the permanent Monument archive, subject to privacy, legal and moderation removal",
+      basis:
+        "requested public inscription and community tribute; neutral Seat identity is retained after removal",
+    },
+    {
       category: "infrastructure request and security metadata",
       period:
         "no fixed public period is asserted; retention depends on verified provider configuration and operational need",
@@ -63,31 +86,38 @@ export const legalConfig = {
     },
   ],
   accountDeletion: {
-    enabled: false,
+    enabled: true,
     summary:
-      "User account registration and login are disabled in V1. TierListBase does not maintain active user accounts or account profiles.",
+      "Use the existing Account security and account deletion flow, or contact support for privacy or legal removal. Your public Vanguard text and images are removed or hidden; the account binding is detached. The Seat and Seat ID remain occupied as an Unavailable Plate and are never reassigned.",
   },
   internationalTransfers:
     "TierListBase uses infrastructure providers that operate internationally. This notice does not claim that request or security metadata remains in a single country or region.",
   documents: {
-    privacy: { version: "1.1", effectiveDate: "2026-10-17", reviewStatus: "reviewed" },
-    terms: { version: "1.0", effectiveDate: "2026-10-16", reviewStatus: "reviewed" },
-    acceptable_use: { version: "1.0", effectiveDate: "2026-10-09", reviewStatus: "reviewed" },
+    privacy: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "draft" },
+    terms: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "draft" },
+    acceptable_use: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "draft" },
     refund_policy: { version: "1.0", effectiveDate: "2026-10-09", reviewStatus: "reviewed" },
-    account_deletion: { version: "1.0", effectiveDate: "2026-10-09", reviewStatus: "reviewed" },
+    account_deletion: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "draft" },
   },
   content: {
     privacy: [
       {
+        heading: "Vanguard images and reports",
+        paragraphs: [
+          "Selected images are cropped and normalized, screened automatically by Cloudflare Workers AI, and published only after approval. Metadata such as EXIF and GPS is removed. Private pending R2 objects have a 24-hour deletion lifecycle; completed inscriptions use separate permanent storage. Public inscriptions remain browsable after the event closes, subject to privacy, legal and moderation removal.",
+          "Reports contain a fixed reason, Seat ID, timestamp and public Seat link and notify support through Resend. A single report does not automatically hide content. Approved images and public text may be hidden or deleted for policy, privacy or legal reasons.",
+        ],
+      },
+      {
         heading: "Scope and service status",
         paragraphs: [
-          "TierListBase V1 is a public, read-only game ranking and analysis service. User registration, authentication, payments, subscriptions, and ad serving are not enabled in the current production product. Optional Google Analytics (GA4) and Microsoft Clarity analytics are available only if a visitor grants explicit consent.",
+          "TierListBase provides public game rankings and the Vanguard community Monument. Browsing is public. Vanguard participation uses Google sign-in through the existing TierListBase account system. Vanguard seats are free; no payments, subscriptions or credits are required. Optional Google Analytics (GA4) and Microsoft Clarity analytics are available only if a visitor grants explicit consent.",
         ],
       },
       {
         heading: "Information processed",
         paragraphs: [
-          "When you request a page, hosting and security infrastructure may process technical information needed to deliver and protect the service, such as IP address, request and routing metadata, browser or user-agent information, timestamps, and security signals. TierListBase does not intentionally build visitor profiles or store account credentials in its application database in V1.",
+          "When you request a page, hosting and security infrastructure may process technical information needed to deliver and protect the service, such as IP address, request and routing metadata, browser or user-agent information, timestamps, and security signals. Google sign-in creates an account and session. Vanguard stores a separately chosen public name, faction, class, optional guild, battle cry, optional image and permanent Seat ID. Your Google name and email are not automatically used as a public Vanguard Name.",
           "The Contact page is a mailto link, not a web form. If you choose to send an email to the published support address, the sender details and content you include in that email are processed as support correspondence outside the website form flow.",
         ],
       },
@@ -95,22 +125,23 @@ export const legalConfig = {
         heading: "Why this information is processed",
         paragraphs: [
           "Technical request and security information is used to deliver pages, maintain service reliability, prevent abuse, investigate errors, and protect the service. Where UK or EU data-protection law applies, these limited operational and security purposes may rely on legitimate interests, subject to the applicable necessity and balancing requirements.",
+          "Account and session information supports Google sign-in, the global one-account-one-seat rule and account security. Submitted Vanguard text and approved images support the public Monument, Focus, Seal and Seat sharing; image screening and reports support content safety and privacy removal.",
           "Support correspondence is used only to receive and respond to the message and for related operational or legal record-keeping where necessary.",
         ],
       },
       {
         heading: "Infrastructure providers",
         paragraphs: [
-          "Cloudflare provides Cloudflare Workers hosting and edge delivery/security. Cloudflare processes end-user request and security metadata as part of delivering and protecting the site.",
-          "Neon provides the production PostgreSQL database used for game, ranking, source, and evidence data. TierListBase V1 does not use that database for visitor account profiles because accounts are disabled.",
+          "Cloudflare provides Cloudflare Workers hosting, edge delivery/security, private R2 uploads and approved image storage, and Workers AI automated image screening. Cloudflare processes end-user request and security metadata as part of delivering and protecting the site.",
+          "Neon provides the production PostgreSQL database used for game, ranking, source, and evidence data. The same database also stores existing account and session records, Vanguard inscriptions, holds, image metadata and reports.",
           "Dynadot provides email hosting for support correspondence voluntarily sent to support@tierlistbase.com. Dynadot is not used to process general website visits.",
-          "Except for optional Google Analytics and Microsoft Clarity loaded only after explicit visitor consent, no third-party authentication, advertising, or payment service is activated by the TierListBase V1 application runtime.",
+          "Google provides OAuth sign-in. Cloudflare R2 stores images, Workers AI screens images before public display, and Resend delivers system and report notifications. These functional services are separate from optional consent-based analytics.",
         ],
       },
       {
         heading: "Cookies and browser storage",
         paragraphs: [
-          "The TierListBase application does not use advertising or personalization cookies. If you choose to allow optional analytics, Google Analytics and Microsoft Clarity may set analytics measurement cookies, and your consent choice is stored in local browser storage. If analytics consent is declined or withdrawn, analytics cookies are removed and the consent choice remains stored locally so the site can remember your preference.",
+          "TierListBase uses necessary account session cookies. Vanguard may store text drafts across Google sign-in and music preferences in your browser. If you choose to allow optional analytics, Google Analytics and Microsoft Clarity may set analytics measurement cookies, and your consent choice is stored in local browser storage. If analytics consent is declined or withdrawn, analytics cookies are removed and the consent choice remains stored locally so the site can remember your preference.",
           "Cloudflare security features may set strictly necessary security or challenge cookies when needed to protect or deliver the site. The exact cookie depends on the Cloudflare protection feature triggered. TierListBase does not use those cookies for advertising or behavioral profiling.",
         ],
       },
@@ -143,6 +174,12 @@ export const legalConfig = {
     ],
     terms: [
       {
+        heading: "Vanguard display license",
+        paragraphs: [
+          "You retain rights in your uploaded content and confirm that you have the right to submit it. You grant TierListBase a non-exclusive license to store, normalize, screen and display your submitted text and images in the Monument, Focus and Vanguard Seal and related Seat sharing, subject to applicable removal rights. Vanguard is an unofficial community tribute and is not affiliated with, endorsed by, or sponsored by Blizzard Entertainment.",
+        ],
+      },
+      {
         heading: "Service overview",
         paragraphs: [
           "TierListBase provides public game ranking and analysis pages for Genshin Impact and World of Warcraft: Forever. The service combines reviewed source material, performance data where available, and TierListBase editorial analysis.",
@@ -169,9 +206,9 @@ export const legalConfig = {
         ],
       },
       {
-        heading: "No account or paid service in V1",
+        heading: "Accounts and Vanguard participation",
         paragraphs: [
-          "TierListBase V1 is accessible without account registration, login, subscription, payment, or digital credits. TierListBase V1 does not currently offer account registration, billing, payment, subscription, or digital-credit features.",
+          "Browsing is public. Claiming a Vanguard Seat requires Google sign-in. One account may hold only one completed Seat across both stages. A completed inscription is locked and cannot be edited by the participant.",
         ],
       },
       {
@@ -202,6 +239,12 @@ export const legalConfig = {
     ],
     acceptable_use: [
       {
+        heading: "Vanguard content",
+        paragraphs: [
+          "Do not submit sexual or graphic content, hate, harassment, impersonation, unlawful or abusive material, private sensitive information, spam, advertising, QR codes or offsite promotion. Text must be plain text without URLs, email addresses, phone numbers or Discord invitations. Content is screened automatically and may be reported, hidden or deleted. A removed Seat is never reassigned.",
+        ],
+      },
+      {
         heading: "Baseline restrictions",
         paragraphs: [
           "Do not use the service to violate applicable law, disrupt infrastructure availability, circumvent security controls, distribute malware, or perform abusive denial-of-service queries.",
@@ -218,9 +261,9 @@ export const legalConfig = {
     ],
     account_deletion: [
       {
-        heading: "Account Deletion Status",
+        heading: "Deleting your account",
         paragraphs: [
-          "TierListBase V1 does not offer user registration, authentication, or user accounts. Consequently, no user profile or account data is held by the service.",
+          "Use Account → Security and account deletion, or contact support@tierlistbase.com for privacy or legal removal. Account deletion detaches your account from the inscription and removes or hides public personal text and images. Public media is revoked and its CDN cache purged. The Seat and Seat ID remain as a neutral Unavailable Plate and are never released or reassigned.",
         ],
       },
     ],

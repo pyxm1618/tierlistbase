@@ -17,6 +17,7 @@ export default defineConfig({
     command: "bun run build:test && bun run start",
     url: "http://127.0.0.1:3000",
     reuseExistingServer: false,
+    timeout: 180_000,
     env: {
       APP_ENV: "test",
       APP_ORIGIN: "http://127.0.0.1:3000",

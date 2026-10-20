@@ -1,4 +1,19 @@
-export type AnalyticsEventName = "page_view" | "cta_click" | "feature_use";
+export type AnalyticsEventName =
+  | "page_view"
+  | "cta_click"
+  | "feature_use"
+  | "vanguard_enter"
+  | "vanguard_focus"
+  | "claim_start"
+  | "auth_start"
+  | "media_upload"
+  | "media_rejected"
+  | "claim_complete"
+  | "seal_save"
+  | "share"
+  | "invite_open"
+  | "tier_list_click"
+  | "report_submit";
 
 export type AnalyticsEventInput = {
   name: AnalyticsEventName;
@@ -16,6 +31,18 @@ const SAFE_LOCALE = /^[A-Za-z0-9-]{2,16}$/;
 const SAFE_TOKEN = /^[A-Za-z0-9 _./:-]{1,128}$/;
 
 const EVENT_PROPERTY_ALLOWLIST: Record<AnalyticsEventName, readonly string[]> = {
+  vanguard_enter: [],
+  vanguard_focus: [],
+  claim_start: [],
+  auth_start: [],
+  media_upload: [],
+  media_rejected: [],
+  claim_complete: [],
+  seal_save: [],
+  share: [],
+  invite_open: [],
+  tier_list_click: [],
+  report_submit: [],
   page_view: ["path", "locale"],
   cta_click: ["cta", "placement"],
   feature_use: ["feature", "action", "outcome"],
@@ -28,6 +55,8 @@ const SAFE_QUERY_KEYS = new Set([
   "utm_term",
   "utm_content",
   "gclid",
+  "seat",
+  "class",
 ]);
 
 function sanitizeString(key: string, value: string): string | null {
@@ -85,6 +114,20 @@ export function isAnalyticsLocationSafe(input: {
   const params = new URLSearchParams(input.search);
   for (const [key, value] of params) {
     if (!SAFE_QUERY_KEYS.has(key)) return false;
+    if (
+      key === "seat" &&
+      (input.pathname !== "/wow-forever/vanguard" ||
+        !/^(?:WOW-(?:W1|O|W2)-(?:000[1-9]|00[1-9]\d|0[1-9]\d{2}|1\d{3}|2[0-5]\d{2}|26[0-6]\d|267[0-2])|FOREVER-(?:F|O|R1|E1|V|E2|R2)-(?:000[1-9]|00[1-9]\d|0[1-9]\d{2}|[1-7]\d{3}|800\d|801[0-6]))$/.test(
+          value,
+        ))
+    )
+      return false;
+    if (
+      key === "class" &&
+      (input.pathname !== "/wow-forever/tier-list" ||
+        !/^(?:Warrior|Paladin|Hunter|Rogue|Priest|Shaman|Mage|Warlock|Druid)$/.test(value))
+    )
+      return false;
     if (!SAFE_TOKEN.test(value) || EMAIL_LIKE.test(value)) return false;
   }
 

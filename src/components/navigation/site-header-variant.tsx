@@ -6,7 +6,15 @@ import type { ReactNode } from "react";
 
 import styles from "./site-header-variant.module.css";
 
-export function SiteHeaderVariant({ children, brand }: { children: ReactNode; brand: ReactNode }) {
+export function SiteHeaderVariant({
+  children,
+  brand,
+  account,
+}: {
+  children: ReactNode;
+  brand: ReactNode;
+  account?: ReactNode;
+}) {
   const pathname = usePathname();
   if (pathname !== "/limbus-company/tier-list") return children;
 
@@ -25,6 +33,7 @@ export function SiteHeaderVariant({ children, brand }: { children: ReactNode; br
           </span>
         </nav>
         <div className={styles.controls} aria-label="Header controls">
+          {account}
           <button
             type="button"
             disabled

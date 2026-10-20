@@ -6,8 +6,20 @@ import type { WowSpec } from "./model";
 import { SpecDetail } from "./detail";
 import { SpecIcon } from "./spec-icon";
 import styles from "./wow-tier-list.module.css";
-export function WowWorkspace({ specs, children }: { specs: WowSpec[]; children: ReactNode }) {
-  const [className, setClassName] = useState("All Classes");
+export function WowWorkspace({
+  specs,
+  children,
+  initialClass,
+}: {
+  specs: WowSpec[];
+  children: ReactNode;
+  initialClass?: string | undefined;
+}) {
+  const [className, setClassName] = useState(
+    initialClass && WOW_CLASSES.some((name) => name === initialClass)
+      ? initialClass
+      : "All Classes",
+  );
   const [selectedId, setSelectedId] = useState(specs[0]?.id ?? null);
   const [drawerId, setDrawerId] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);

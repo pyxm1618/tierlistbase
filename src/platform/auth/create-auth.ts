@@ -11,6 +11,8 @@ export function createAuth(input: {
   readonly cookiePrefix: string;
   readonly database: DatabaseClient;
   readonly schema?: Record<string, unknown>;
+  readonly magicLinkEnabled?: boolean;
+  readonly beforeDeleteUser?: (userId: string) => Promise<void>;
   readonly google?: { readonly clientId: string; readonly clientSecret: string };
   readonly sendMagicLink: (input: {
     readonly email: string;
@@ -57,6 +59,9 @@ export function createAuth(input: {
     user: {
       deleteUser: {
         enabled: true,
+        ...(input.beforeDeleteUser
+          ? { beforeDelete: async (user: { id: string }) => input.beforeDeleteUser!(user.id) }
+          : {}),
       },
     },
     session: {
@@ -93,6 +98,6 @@ export function createAuth(input: {
           await input.sendMagicLink({ email, token, returnTo });
         },
       }),
-    ],
+    ].filter(() => input.magicLinkEnabled !== false),
   });
 }

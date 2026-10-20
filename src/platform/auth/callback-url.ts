@@ -1,4 +1,11 @@
-const ALLOWED_CALLBACK_PATHS = new Set(["/", "/account", "/account/security", "/pricing"]);
+const ALLOWED_CALLBACK_PATHS = new Set([
+  "/",
+  "/account",
+  "/account/security",
+  "/pricing",
+  "/wow-forever/vanguard",
+  "/account/vanguard",
+]);
 
 export function assertAllowedRelativeCallback(input: string): string {
   if (!input.startsWith("/") || input.startsWith("//") || input.includes("\\")) {

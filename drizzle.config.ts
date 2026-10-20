@@ -5,7 +5,11 @@ if (!databaseUrl) throw new Error("DATABASE_URL is required for Drizzle commands
 
 export default defineConfig({
   dialect: "postgresql",
-  schema: ["./src/platform/database/schema.ts", "./src/modules/meta-board/db/schema.ts"],
+  schema: [
+    "./src/platform/database/schema.ts",
+    "./src/modules/meta-board/db/schema.ts",
+    "./src/modules/wow-vanguard/db/schema.ts",
+  ],
   out: "./drizzle",
   dbCredentials: {
     url: databaseUrl,

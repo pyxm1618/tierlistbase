@@ -4,7 +4,19 @@ export type ContentSecurityPolicyInput = Readonly<{
   production: boolean;
   analytics: Readonly<{ ga4: boolean; clarity: boolean }>;
   turnstile: boolean;
+  vanguard?: { uploadOrigin?: string | undefined };
 }>;
+
+export function vanguardR2UploadOrigin(
+  accountId: string | undefined,
+  privateBucket: string | undefined,
+): string | undefined {
+  const account = accountId?.trim() ?? "";
+  const bucket = privateBucket?.trim() ?? "";
+  if (!/^[a-f0-9]{32}$/.test(account)) return undefined;
+  if (!/^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$/.test(bucket)) return undefined;
+  return `https://${bucket}.${account}.r2.cloudflarestorage.com`;
+}
 
 export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): string {
   if (!input.nonce.trim()) throw new Error("CSP nonce is required");
@@ -42,6 +54,7 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
     "'self'",
     `'nonce-${input.nonce}'`,
     ...(input.development ? ["'unsafe-eval'"] : []),
+    ...(input.vanguard ? ["'wasm-unsafe-eval'"] : []),
     ...cmpScriptOrigins,
     ...(input.analytics.ga4 ? ["https://www.googletagmanager.com"] : []),
     ...(input.analytics.clarity ? ["https://www.clarity.ms", "https://scripts.clarity.ms"] : []),
@@ -49,6 +62,7 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
   ];
   const connectSources = [
     "'self'",
+    ...(input.vanguard?.uploadOrigin ? [input.vanguard.uploadOrigin] : []),
     ...cmpConnectOrigins,
     ...(input.analytics.ga4
       ? ["https://www.google-analytics.com", "https://region1.google-analytics.com"]

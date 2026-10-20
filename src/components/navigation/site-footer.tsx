@@ -4,6 +4,7 @@ import { Brand } from "@/components/navigation/site-header";
 import { PrivacySettingsButton } from "@/components/navigation/privacy-settings-button";
 
 const links = [
+  { label: "Vanguard Monument", href: "/wow-forever/vanguard" },
   { label: "About", href: "/about" },
   { label: "How Rankings Work", href: "/wow-forever/tier-list" },
   { label: "Privacy", href: "/privacy" },
@@ -32,7 +33,12 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3">
           {links.map(({ label, href }) => (
-            <Link className="text-[.82rem] text-slate-300 hover:text-white" href={href} key={href}>
+            <Link
+              className="text-[.82rem] text-slate-300 hover:text-white"
+              href={href}
+              key={href}
+              prefetch={href === "/wow-forever/vanguard" ? false : null}
+            >
               {label}
             </Link>
           ))}

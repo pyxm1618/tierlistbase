@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { featuresConfig } from "@/config/features.config";
-import { buildContentSecurityPolicy } from "@/platform/security/content-security-policy";
+import {
+  buildContentSecurityPolicy,
+  vanguardR2UploadOrigin,
+} from "@/platform/security/content-security-policy";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 const isProduction = process.env.APP_ENV === "production";
@@ -21,6 +24,16 @@ export function proxy(request: NextRequest) {
       clarity: featuresConfig.analytics.enabled && featuresConfig.analytics.clarity,
     },
     turnstile: featuresConfig.auth.enabled && featuresConfig.auth.magicLink,
+    ...(request.nextUrl.pathname === "/wow-forever/vanguard"
+      ? {
+          vanguard: {
+            uploadOrigin: vanguardR2UploadOrigin(
+              process.env.VANGUARD_CLOUDFLARE_ACCOUNT_ID,
+              process.env.VANGUARD_R2_PRIVATE_BUCKET,
+            ),
+          },
+        }
+      : {}),
   });
 
   const requestHeaders = new Headers(request.headers);

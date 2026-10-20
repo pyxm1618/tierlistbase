@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
+import { wowClassFromQuery } from "@/modules/wow-vanguard";
 import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
 import { getGameMetaBoardData, getRecentRatingChanges } from "@/modules/meta-board";
@@ -21,7 +22,13 @@ import { metadataForRoute } from "@/platform/seo/metadata";
 import { webApplicationJsonLd } from "@/platform/seo/structured-data";
 
 type PageProps = {
-  searchParams: Promise<{ role?: string; mode?: string; level?: string; build?: string }>;
+  searchParams: Promise<{
+    role?: string;
+    mode?: string;
+    level?: string;
+    build?: string;
+    class?: string;
+  }>;
 };
 export async function generateMetadata(): Promise<Metadata> {
   return metadataForRoute(routeRegistry, "/wow-forever/tier-list", currentSeoEnvironment());
@@ -51,7 +58,8 @@ const getWowPageData = unstable_cache(
 export default async function WowForeverTierListPage({ searchParams }: PageProps) {
   const route = routeRegistry.get("/wow-forever/tier-list");
   if (route.class !== "public_indexable") throw new Error("WoW tier list must be indexable");
-  const { role } = await searchParams;
+  const { role, class: classQuery } = await searchParams;
+  const selectedClass = wowClassFromQuery(classQuery);
   const { data, changes } = await getWowPageData(role ?? "dps");
   const specs = buildWowSpecs(data);
   const status = summarizeWowStatus(data);
@@ -139,10 +147,12 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
           <WowRoleLinks
             availableRoles={data.availableRoles}
             currentRole={data.activeContext?.role}
+            className={selectedClass ?? undefined}
           />
         </section>
         <WowWorkspace
-          key={`${data.activeContext?.id ?? "none"}:${data.version?.id ?? "none"}`}
+          key={`${data.activeContext?.id ?? "none"}:${data.version?.id ?? "none"}:${selectedClass ?? "all"}`}
+          initialClass={selectedClass ?? undefined}
           specs={specs}
         >
           <WowInsights specs={specs} changes={changes} />

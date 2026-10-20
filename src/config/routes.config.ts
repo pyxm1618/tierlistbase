@@ -5,6 +5,30 @@ import { seoConfig } from "./seo.config";
 
 export const routeDefinitions = [
   {
+    route: "/wow-forever/vanguard",
+    class: "public_indexable",
+    searchIntent: "explore the WoW Forever Vanguard community monument",
+    primaryKeyword: "WoW Forever Vanguard",
+    title: "8016 Vanguard Monument | WoW Forever | TierListBase",
+    description:
+      "Explore the 8016 Vanguard Monument, an unofficial WoW Forever community tribute preserving player memories in 64,128 permanent seats.",
+    h1: "8016 Vanguard Monument",
+    pageType: "WebApplication",
+    relatedRoutes: ["/wow-forever/tier-list", "/privacy", "/terms"],
+    lastModified: "2026-10-19",
+  },
+  { route: "/account/vanguard", class: "private" },
+  ...[
+    "manifest",
+    "holds",
+    "inscriptions",
+    "search",
+    "reports",
+    "me",
+    "media/presign",
+    "media/complete",
+  ].map((path) => ({ route: `/api/vanguard/${path}`, class: "system" as const })),
+  {
     route: "/",
     class: "public_indexable",
     searchIntent:
@@ -16,10 +40,16 @@ export const routeDefinitions = [
       "Explore game tier lists for Genshin Impact and WoW Forever. Compare character and class rankings, follow tier changes, and review supporting evidence.",
     h1: "Tier List",
     pageType: "WebApplication",
-    relatedRoutes: ["/wow-forever/tier-list", "/genshin-impact/tier-list", "/privacy", "/terms"],
+    relatedRoutes: [
+      "/wow-forever/tier-list",
+      "/genshin-impact/tier-list",
+      "/wow-forever/vanguard",
+      "/privacy",
+      "/terms",
+    ],
     lastModified: "2026-10-16",
     reviewStatus: "reviewed",
-    reviewFingerprint: "054218732cd0ed9650201a895fd350b7243b2db2b4b817fa823fd077229a56a2",
+    reviewFingerprint: "19faed5e954bfc672740d6b36585ac4c32fe64db4f2fbbd53ced3a5f5c2a58a1",
   },
   {
     route: "/wow-forever/tier-list",

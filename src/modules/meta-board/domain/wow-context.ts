@@ -1,14 +1,4 @@
-export const WOW_CLASSES = [
-  "Warrior",
-  "Paladin",
-  "Hunter",
-  "Rogue",
-  "Priest",
-  "Shaman",
-  "Mage",
-  "Warlock",
-  "Druid",
-] as const;
+export { WOW_CLASSES } from "@/platform/games/wow-classes";
 export const WOW_DUNGEONS = [
   "City of Dalaran",
   "Excavation Site: Wetlands",

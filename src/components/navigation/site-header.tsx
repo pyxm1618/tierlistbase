@@ -1,11 +1,18 @@
+import { headers } from "next/headers";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import { featuresConfig } from "@/config/features.config";
 import { siteConfig } from "@/config/site.config";
+import { hasCurrentSession } from "@/platform/auth/current-session";
 import { localePath } from "@/platform/i18n/routing";
 
+import { SiteHeaderAccount } from "./site-header-account";
 import { SiteHeaderGameLink, SiteHeaderLinkStatus } from "./site-header-game-link";
 import { SiteHeaderVariant } from "./site-header-variant";
+
+const navLink =
+  "rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400";
 
 export function Brand({ href = "/" }: { href?: string }) {
   return (
@@ -35,15 +42,23 @@ export function Brand({ href = "/" }: { href?: string }) {
   );
 }
 
-export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ locale?: string }>) {
+function HeaderShell({
+  locale,
+  desktopAccount,
+  mobileAccount,
+  variantAccount,
+}: {
+  locale: string;
+  desktopAccount?: ReactNode;
+  mobileAccount?: ReactNode;
+  variantAccount?: ReactNode;
+}) {
   const homeHref = localePath(siteConfig, locale, "/");
   const wowHref = localePath(siteConfig, locale, "/wow-forever/tier-list");
   const genshinHref = localePath(siteConfig, locale, "/genshin-impact/tier-list");
   const nikkeHref = localePath(siteConfig, locale, "/nikke/tier-list");
   const zenlessHref = localePath(siteConfig, locale, "/zenless-zone-zero/tier-list");
   const limbusHref = localePath(siteConfig, locale, "/limbus-company/tier-list");
-  const navLink =
-    "rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400";
 
   const header = (
     <header className="sticky top-0 z-40 border-b border-[#315072]/60 bg-[#020e1d]/95 text-white backdrop-blur-md">
@@ -66,11 +81,7 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
             Limbus Company
           </SiteHeaderGameLink>
         </nav>
-        {featuresConfig.auth.enabled ? (
-          <Link className={navLink + " ml-auto hidden lg:block"} href="/sign-in">
-            Sign in
-          </Link>
-        ) : null}
+        {desktopAccount ? <div className="ml-auto hidden lg:block">{desktopAccount}</div> : null}
         <details className="group relative ml-auto lg:hidden">
           <summary className="flex cursor-pointer list-none items-center gap-2 rounded-md border border-[#2d5a7e] px-3 py-1.5 text-sm marker:content-none">
             Menu <span aria-hidden="true">☰</span>
@@ -97,16 +108,34 @@ export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ loc
             <SiteHeaderGameLink href={limbusHref} className={navLink}>
               Limbus Company
             </SiteHeaderGameLink>
-            {featuresConfig.auth.enabled ? (
-              <Link href="/sign-in" className={navLink}>
-                Sign in
-              </Link>
-            ) : null}
+            {mobileAccount}
           </nav>
         </details>
       </div>
     </header>
   );
 
-  return <SiteHeaderVariant brand={<Brand href={homeHref} />}>{header}</SiteHeaderVariant>;
+  return (
+    <SiteHeaderVariant brand={<Brand href={homeHref} />} account={variantAccount}>
+      {header}
+    </SiteHeaderVariant>
+  );
+}
+
+async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
+  const authenticated = await hasCurrentSession(await headers());
+
+  return (
+    <HeaderShell
+      locale={locale}
+      desktopAccount={<SiteHeaderAccount authenticated={authenticated} className={navLink} />}
+      mobileAccount={<SiteHeaderAccount authenticated={authenticated} mobile className={navLink} />}
+      variantAccount={<SiteHeaderAccount authenticated={authenticated} className={navLink} />}
+    />
+  );
+}
+
+export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ locale?: string }>) {
+  if (!featuresConfig.auth.enabled) return <HeaderShell locale={locale} />;
+  return <AuthenticatedSiteHeader locale={locale} />;
 }
