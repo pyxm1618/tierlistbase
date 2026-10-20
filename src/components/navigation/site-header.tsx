@@ -22,6 +22,7 @@ export function Brand({ href = "/" }: { href?: string }) {
         alt=""
         width={36}
         height={34}
+        loading="lazy"
         className="shrink-0"
         decoding="async"
       />
