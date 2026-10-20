@@ -13,6 +13,11 @@ export type VanguardManifest = {
 export type VanguardAssets = {
   hero: Partial<Record<VanguardPhase, { src: string; width: number; height: number }>>;
   layouts: Partial<Record<string, string>>;
+  layoutScales?: Partial<Record<string, number>>;
+  plates?: Partial<Record<"alliance" | "horde", string>>;
+  focus?: string;
+  ritual?: Partial<Record<"charge" | "form" | "inscribe" | "lock" | "ignite", string>>;
+  effects?: Partial<Record<"alliance" | "horde" | "focus" | "ignite", string>>;
   plate: string | null;
   emblems: Partial<Record<string, string>>;
   bgm: string | null;

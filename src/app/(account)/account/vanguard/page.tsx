@@ -1,3 +1,4 @@
+import { vanguardAssets } from "@/config/vanguard.config";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -26,7 +27,15 @@ export default async function MyVanguardPage() {
       {seat ? (
         <section data-clarity-mask="true">
           <h2>{seat.seatId}</h2>
-          <VanguardMemoryPlate seat={seat} />
+          <VanguardMemoryPlate
+            seat={seat}
+            {...(seat.status === "active"
+              ? {
+                  emblem: vanguardAssets.emblems[seat.className],
+                  frame: vanguardAssets.plates[seat.faction === "alliance" ? "alliance" : "horde"],
+                }
+              : {})}
+          />
           {seat.status === "active" ? (
             <dl>
               {Object.entries({
@@ -45,7 +54,7 @@ export default async function MyVanguardPage() {
           ) : (
             <p>Unavailable Plate</p>
           )}
-          <VanguardSealControl seat={seat} />
+          <VanguardSealControl seat={seat} assets={vanguardAssets} />
           <VanguardShareControl seatId={seat.seatId} />
           <Link href={`/wow-forever/vanguard?seat=${seat.seatId}`}>View in Monument</Link>
         </section>

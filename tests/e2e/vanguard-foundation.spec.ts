@@ -23,7 +23,11 @@ for (const width of [390, 768, 1024, 1440, 1920]) {
     await expect(
       page.getByRole("link", { name: "WoW Forever Tier List", exact: true }).first(),
     ).toBeVisible();
-    await expect(page.getByText("DEV PLACEHOLDER", { exact: false }).first()).toBeVisible();
+    await expect(
+      page
+        .locator('img[src="/wow-forever/vanguard/monument/vanguard-hero-base-desktop.png"]')
+        .first(),
+    ).toBeVisible();
     expect(cameraRequests).toBe(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,

@@ -62,7 +62,9 @@ export function getVanguardService() {
           `/__vanguard_test__/forever-${letter}.f32`,
         ]),
       ])
-    : vanguardAssets.layouts;
+    : Object.keys(vanguardAssets.layouts).length === 10
+      ? vanguardAssets.layouts
+      : {}; // All ten final groups required before production Claim can open.
   const catalog = createVanguardLayoutLookup(layouts, async (path) => {
     const response = await fetch(
       new URL(path, fixture ? "http://127.0.0.1:3199" : runtimeEnv.appOrigin),

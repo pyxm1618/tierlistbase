@@ -53,3 +53,13 @@ it("maps left mouse and one-finger touch to pan when rotation is disabled", asyn
   expect(controls.touches.ONE).toBe(TOUCH.PAN);
   expect(controls.touches.TWO).toBe(TOUCH.DOLLY_PAN);
 });
+it("keeps resolved Alliance and Horde tint through occupancy polling", async () => {
+  const { createVanguardSeatColors } = await import("@/modules/wow-vanguard");
+  const colors = createVanguardSeatColors();
+  colors.setFaction("WOW-W1-0001", "alliance");
+  colors.setFaction("WOW-W1-0002", "horde");
+  expect(colors.color("WOW-W1-0001", true)).toBe(0x589eff);
+  expect(colors.color("WOW-W1-0002", true)).toBe(0xff5353);
+  expect(colors.color("WOW-W1-0001", false)).toBe(0x59616d);
+  expect(colors.color("WOW-W1-0001", true)).toBe(0x589eff);
+});

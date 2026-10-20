@@ -71,3 +71,7 @@ Baseline e8ba0c4; see audio-service-stage.md and live-integration.md for current
 ## Nonvisual closeout after 49fb3a0
 
 See [nonvisual-closeout.md](./nonvisual-closeout.md) for the eight-area audit, current-run verification and separately classified BLOCKED_ASSET / BLOCKED_EXTERNAL / HUMAN_REVIEW. Provider preparation and local fixture tests do not constitute real-service acceptance. Production Claim remains closed pending final Mask/layout.
+
+## Supplied final visual stage after d9b2dbc
+
+See [final-visual-stage.md](./final-visual-stage.md) and [item-level asset inventory](./final-assets-inventory.json). WOW geometry and supplied Plate/Focus/Emblem/Ritual/Seal assets are integrated. FOREVER hero/seven masks and final Scatter movement remain explicitly blocked; user authorized skipping missing files. Production Claim remains closed. Earlier six-group asset ledgers are historical, not the current inventory.

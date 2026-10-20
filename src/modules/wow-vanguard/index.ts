@@ -32,3 +32,7 @@ export {
   validateVanguardCalibrationManifest,
   VANGUARD_CALIBRATION_CATEGORIES,
 } from "./media/calibration";
+
+export { sealTextLines } from "./experience/seal-renderer";
+
+export { createVanguardSeatColors } from "./experience/scene";

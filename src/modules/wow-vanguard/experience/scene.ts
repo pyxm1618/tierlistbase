@@ -3,6 +3,17 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import type { SeatLayoutGroup } from "../domain/layout";
 import { buildSeatId, parseSeatId } from "../domain/event";
+export function createVanguardSeatColors() {
+  const factions = new Map<string, number>();
+  return {
+    setFaction(id: string, faction: string) {
+      factions.set(id, faction === "alliance" ? 0x589eff : 0xff5353);
+    },
+    color(id: string, occupied: boolean) {
+      return occupied ? (factions.get(id) ?? 0xffdc90) : 0x59616d;
+    },
+  };
+}
 export function vanguardDeviceBudget(input: {
   width: number;
   dpr: number;
@@ -36,6 +47,7 @@ export function createVanguardInstances(
         group.positions[offset + 1]!,
         group.positions[offset + 2]!,
       );
+      transform.scale.setScalar(group.scale ?? 1);
       transform.rotation.z = group.positions[offset + 3]!;
       transform.updateMatrix();
       mesh.setMatrixAt(index, transform.matrix);
@@ -67,6 +79,7 @@ export function createVanguardScene(
   groups: readonly SeatLayoutGroup[],
   plate: THREE.Texture,
   options: {
+    background?: THREE.Texture;
     occupied: ReadonlySet<string>;
     reducedMotion: boolean;
     onSeat: (seatId: string) => void;
@@ -85,11 +98,25 @@ export function createVanguardScene(
   renderer.setPixelRatio(budget.dpr);
   const scene = new THREE.Scene();
   const geometry = new THREE.PlaneGeometry(1, 1);
+  plate.colorSpace = THREE.SRGBColorSpace;
+  if (options.background) options.background.colorSpace = THREE.SRGBColorSpace;
   const material = new THREE.MeshBasicMaterial({ map: plate, transparent: true });
   const meshes = createVanguardInstances(groups, geometry, material);
   meshes.forEach((mesh) => scene.add(mesh));
+  if (options.background) {
+    const background = new THREE.Mesh(
+      new THREE.PlaneGeometry(167.2, 94.1),
+      new THREE.MeshBasicMaterial({ map: options.background }),
+    );
+    background.position.z = -0.1;
+    scene.add(background);
+  }
   const bounds = new THREE.Box3();
   meshes.forEach((mesh) => bounds.union(mesh.boundingBox!));
+  if (options.background)
+    bounds
+      .expandByPoint(new THREE.Vector3(-83.6, -47.05, 0))
+      .expandByPoint(new THREE.Vector3(83.6, 47.05, 0));
   const center = bounds.getCenter(new THREE.Vector3());
   const size = bounds.getSize(new THREE.Vector3());
   const camera = new THREE.OrthographicCamera(
@@ -118,6 +145,23 @@ export function createVanguardScene(
   let refreshing = false;
   let visibleIds = new Set<string>();
   let occupied = options.occupied;
+  const seatColors = createVanguardSeatColors();
+  function colorSeats() {
+    for (const [groupIndex, group] of groups.entries()) {
+      for (let i = 0; i < group.positions.length / 4; i++)
+        meshes[groupIndex]!.setColorAt(
+          i,
+          new THREE.Color(
+            seatColors.color(
+              buildSeatId(group.phase, group.letter, i + 1),
+              occupied.has(buildSeatId(group.phase, group.letter, i + 1)),
+            ),
+          ),
+        );
+      meshes[groupIndex]!.instanceColor!.needsUpdate = true;
+    }
+  }
+  colorSeats();
   function resize() {
     const rect = canvas.getBoundingClientRect();
     renderer.setSize(Math.max(1, rect.width), Math.max(1, rect.height), false);
@@ -203,12 +247,16 @@ export function createVanguardScene(
           const url = await thumbnailLookup(id);
           if (!url || stopped || !visibleIds.has(id)) continue;
           const texture = await new THREE.TextureLoader().loadAsync(url);
+          texture.colorSpace = THREE.SRGBColorSpace;
           if (stopped || !visibleIds.has(id) || tiles.size >= budget.maxThumbnails) {
             texture.dispose();
             continue;
           }
           const tile = new THREE.Mesh(
-            new THREE.PlaneGeometry(0.8, 0.8),
+            new THREE.PlaneGeometry(
+              0.8 * (groups.find((g) => g.letter === parseSeatId(id).letter)?.scale ?? 1),
+              0.8 * (groups.find((g) => g.letter === parseSeatId(id).letter)?.scale ?? 1),
+            ),
             new THREE.MeshBasicMaterial({ map: texture }),
           );
           tile.position.copy(position);
@@ -238,8 +286,20 @@ export function createVanguardScene(
   raf = requestAnimationFrame(render);
   return {
     pick,
+    setFaction(seatId: string, faction: string) {
+      const identity = parseSeatId(seatId),
+        index = groups.findIndex((g) => g.phase === identity.phase && g.letter === identity.letter);
+      if (index < 0) return;
+      seatColors.setFaction(seatId, faction);
+      meshes[index]!.setColorAt(
+        identity.localIndex - 1,
+        new THREE.Color(faction === "alliance" ? 0x589eff : 0xff5353),
+      );
+      meshes[index]!.instanceColor!.needsUpdate = true;
+    },
     updateOccupancy(next: ReadonlySet<string>) {
       occupied = next;
+      colorSeats();
     },
     focus(seatId: string) {
       for (const group of groups) {
@@ -278,7 +338,20 @@ export function createVanguardScene(
       geometry.dispose();
       material.dispose();
       plate.dispose();
+      if (options.background) {
+        scene.children
+          .filter(
+            (obj) => !meshes.includes(obj as (typeof meshes)[number]) && obj instanceof THREE.Mesh,
+          )
+          .forEach((obj) => {
+            const mesh = obj as THREE.Mesh<THREE.BufferGeometry, THREE.Material>;
+            mesh.geometry.dispose();
+            mesh.material.dispose();
+          });
+        options.background.dispose();
+      }
       renderer.dispose();
+      renderer.forceContextLoss();
     },
   };
 }

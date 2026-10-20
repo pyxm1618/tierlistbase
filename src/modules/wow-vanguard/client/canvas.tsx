@@ -53,7 +53,11 @@ export function VanguardCanvas({
   useEffect(() => {
     focused.current = focusSeat;
   }, [focusSeat]);
-  const occupancy = () => occupiedSeats(manifest, phase);
+  const occupancy = () => {
+    const occupied = occupiedSeats(manifest, phase);
+    if (focusSeat && parseSeatId(focusSeat).phase === phase) occupied.add(focusSeat);
+    return occupied;
+  };
   const canvas = useRef<HTMLCanvasElement>(null);
   const selection = useRef(onSeat);
   const controllerCallback = useRef(onController);
@@ -83,20 +87,32 @@ export function VanguardCanvas({
             loadVanguardGroup(phase, letter, assets.layouts[`${phase}:${letter}`]!),
           ),
         );
+        groups.forEach((group) => {
+          group.scale = assets.layoutScales?.[`${phase}:${group.letter}`] ?? 1;
+        });
         const plate = await new TextureLoader().loadAsync(assets.plate);
+        const background = assets.hero[phase]
+          ? await new TextureLoader().loadAsync(assets.hero[phase]!.src)
+          : undefined;
         if (cancelled) {
           plate.dispose();
+          background?.dispose();
           return;
         }
         active = createVanguardScene(canvas.current, groups, plate, {
+          ...(background ? { background } : {}),
           occupied: occupancy(),
           reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
           onSeat: (id) => selection.current(id),
           thumbnail: async (id) => {
             const seat = await vanguardRequest<PublicInscription>(`inscriptions/${id}`);
-            return seat.status === "active"
-              ? ((phase === "wow" ? seat.image?.wow : seat.image?.forever) ?? null)
-              : null;
+            if (seat.status !== "active") return null;
+            active?.setFaction(id, seat.faction);
+            return (
+              (phase === "wow" ? seat.image?.wow : seat.image?.forever) ??
+              assets.emblems[seat.className] ??
+              null
+            );
           },
           onError: () =>
             setError(
@@ -136,7 +152,9 @@ export function VanguardCanvas({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, assets]);
   useEffect(() => {
-    controller.current?.updateOccupancy(occupiedSeats(manifest, phase));
+    const occupied = occupiedSeats(manifest, phase);
+    if (focusSeat && parseSeatId(focusSeat).phase === phase) occupied.add(focusSeat);
+    controller.current?.updateOccupancy(occupied);
   }, [manifest, phase, focusSeat]);
   useEffect(() => {
     if (focusSeat) controller.current?.focus(focusSeat);
@@ -165,10 +183,7 @@ export function VanguardCanvas({
   return (
     <section aria-label="Monument canvas">
       {blocked ? (
-        <p>
-          DEV PLACEHOLDER · BLOCKED_ASSET: final Monument, Memory Plate and Mask-derived Seat
-          Layout.
-        </p>
+        <p>MISSING_ASSET: final {phase.toUpperCase()} Monument / Mask-derived Seat Layout.</p>
       ) : (
         <canvas
           ref={canvas}

@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { PublicInscription } from "../db/service";
 import Link from "next/link";
+import { VanguardFocusVisual } from "./focus-visual";
 import { VanguardMemoryPlate } from "./plate";
 import { parseSeatId } from "../domain/event";
 import {
@@ -73,7 +74,11 @@ export function VanguardExperience({
   }, [manifest.foreverUnlockAt]);
   const video = useRef<HTMLVideoElement>(null);
   const stopCamera = useRef<(() => void) | null>(null);
-  const scene = useRef<{ pick: (x: number, y: number) => void; gather: () => void } | null>(null);
+  const scene = useRef<{
+    pick: (x: number, y: number) => void;
+    gather: () => void;
+    focus?: (id: string) => void;
+  } | null>(null);
   const audio = useRef(audioController);
   const select = useRef<(id: string, resume?: boolean) => Promise<void>>(async () => {});
   const ritualLocked = submissionPending || (frame !== null && frame !== "reveal");
@@ -268,7 +273,7 @@ export function VanguardExperience({
         <Link href="/account/vanguard">My Vanguard</Link>
       </div>
       <video ref={video} muted playsInline hidden />
-      {!assets.bgm && <p>DEV PLACEHOLDER · Original BGM/SFX pending.</p>}
+      {!assets.bgm && <p>Background music is unavailable.</p>}
       <p role="status">
         {manifest.stage === "SEALED"
           ? "THE MONUMENT IS SEALED"
@@ -324,8 +329,8 @@ export function VanguardExperience({
       )}
       {scatter && (
         <p>
-          DEV PLACEHOLDER · BLOCKED_ASSET: final Scatter movement. Mouse and touch browsing remain
-          available.
+          AMBIGUOUS_ASSET: final Scatter movement is not defined by the supplied keyframes. Mouse
+          and touch browsing remain available.
         </p>
       )}
       <form onSubmit={search}>
@@ -378,12 +383,16 @@ export function VanguardExperience({
           <h2>{revealed ? "Your place in the Monument" : focus.seatId}</h2>
           {active ? (
             <>
+              <VanguardFocusVisual seat={active} assets={assets} />
               <p>
                 {active.displayName} · {active.seatId}
               </p>
               <VanguardMemoryPlate
                 key={active.seatId}
                 seat={active}
+                {...(assets.plates?.[active.faction === "alliance" ? "alliance" : "horde"]
+                  ? { frame: assets.plates[active.faction === "alliance" ? "alliance" : "horde"] }
+                  : {})}
                 {...(assets.emblems[active.className]
                   ? { emblem: assets.emblems[active.className] }
                   : {})}
@@ -407,7 +416,11 @@ export function VanguardExperience({
                 )}
               </dl>
               {revealed && (
-                <VanguardSealControl seat={active} onSave={() => trackVanguard("seal_save")} />
+                <VanguardSealControl
+                  seat={active}
+                  assets={assets}
+                  onSave={() => trackVanguard("seal_save")}
+                />
               )}
               <button onClick={() => void share(active)}>STAND BESIDE ME</button>
               <p>
@@ -450,11 +463,14 @@ export function VanguardExperience({
           key={selected}
           seatId={selected}
           classes={classes}
+          assets={assets}
           authenticated={authenticated}
           onConflict={setSuggested}
           onPending={setSubmissionPending}
           onFrame={(next) => {
             setFrame(next);
+            if (next === "camera_focus" && selected) scene.current?.focus?.(selected);
+            if (next === "camera_pull_back") scene.current?.gather();
             audio.current?.duck(next !== "reveal");
             const channel = ritualSound(next);
             if (channel)
@@ -473,12 +489,7 @@ export function VanguardExperience({
           }}
         />
       )}
-      {frame && frame !== "reveal" && (
-        <p role="status">
-          Inscription accepted · {frame.replaceAll("_", " ")} · DEV PLACEHOLDER: final animation
-          keyframes pending
-        </p>
-      )}
+
       <p>
         <Link href="/wow-forever/tier-list" onClick={() => trackVanguard("tier_list_click")}>
           WoW Forever Tier List

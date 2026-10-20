@@ -69,7 +69,7 @@ export default async function VanguardPage({
             priority
           />
         ) : (
-          <p>DEV PLACEHOLDER · Final Monument artwork and seat layout pending.</p>
+          <p>MISSING_ASSET: final {manifest.phase.toUpperCase()} Monument artwork.</p>
         )}
       </section>
       <VanguardEntry

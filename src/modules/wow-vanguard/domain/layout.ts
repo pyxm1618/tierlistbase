@@ -9,6 +9,7 @@ export type SeatLayoutGroup = {
   phase: VanguardPhase;
   letter: string;
   positions: Float32Array;
+  scale?: number;
   neighbors: ReadonlyMap<number, readonly number[]>;
 };
 // Position tuple: x,y,z,rotation. No repeated public strings in the render buffer.

@@ -1,4 +1,6 @@
 "use client";
+import { VanguardRitual } from "./ritual";
+import type { VanguardAssets } from "./contracts";
 import { useEffect, useRef, useState } from "react";
 import type { PublicInscription } from "../db/service";
 import { trackVanguard } from "./tracking";
@@ -21,7 +23,9 @@ export function VanguardClaim({
   onConflict,
   onFrame,
   onPending,
+  assets,
 }: {
+  assets?: VanguardAssets;
   seatId: string;
   classes: readonly string[];
   authenticated: boolean;
@@ -42,6 +46,12 @@ export function VanguardClaim({
       ? { ...saved, seatId }
       : { seatId, displayName: "", faction: "", className: "", guildName: "", battleCry: "" };
   });
+  const [acceptedSeat, setAcceptedSeat] = useState<PublicInscription | null>(null);
+  const [ritualFrame, setRitualFrame] = useState<RitualFrame>("camera_focus");
+  const renderFrame = (frame: RitualFrame) => {
+    setRitualFrame(frame);
+    onFrame(frame);
+  };
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
   const [locked, setLocked] = useState(false);
@@ -248,8 +258,9 @@ export function VanguardClaim({
         ...(mediaStatus === "approved" && mediaId ? { mediaId } : {}),
       });
       setLocked(true);
+      setAcceptedSeat(seat);
       sessionStorage.removeItem(DRAFT_KEY);
-      await runVanguardRitual(onFrame, matchMedia("(prefers-reduced-motion: reduce)").matches);
+      await runVanguardRitual(renderFrame, matchMedia("(prefers-reduced-motion: reduce)").matches);
       onComplete(seat);
     } catch (error) {
       report(error); // A lost response never means success: recover only from an actual server-owned inscription.
@@ -257,8 +268,12 @@ export function VanguardClaim({
         const current = await vanguardRequest<{ inscription: PublicInscription | null }>("me");
         if (current.inscription?.seatId === seatId) {
           setLocked(true);
+          setAcceptedSeat(current.inscription);
           sessionStorage.removeItem(DRAFT_KEY);
-          await runVanguardRitual(onFrame, matchMedia("(prefers-reduced-motion: reduce)").matches);
+          await runVanguardRitual(
+            renderFrame,
+            matchMedia("(prefers-reduced-motion: reduce)").matches,
+          );
           onComplete(current.inscription);
         }
       } catch {
@@ -454,6 +469,9 @@ export function VanguardClaim({
         )}
       </fieldset>
       {notice && <p role="alert">{notice}</p>}
+      {locked && acceptedSeat && assets && (
+        <VanguardRitual seat={acceptedSeat} frame={ritualFrame} assets={assets} />
+      )}
       {locked && <p role="status">Your inscription is accepted. Revealing your place…</p>}
     </section>
   );

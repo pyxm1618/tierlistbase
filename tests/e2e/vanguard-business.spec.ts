@@ -1,3 +1,6 @@
+import sharp from "sharp";
+import jsQR from "jsqr";
+import { readFile } from "node:fs/promises";
 import { randomBytes, randomUUID } from "node:crypto";
 import { expect, test } from "@playwright/test";
 import { makeSignature } from "better-auth/crypto";
@@ -59,6 +62,47 @@ test("real API default-emblem Claim → DB → Reveal → Search → Report emai
     await expect(page.getByRole("region", { name: "Vanguard Reveal" })).toBeVisible({
       timeout: 15000,
     });
+    await page.screenshot({ path: "/tmp/vanguard-final-reveal.png", fullPage: true });
+    const enter = page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true });
+    if (await enter.isVisible()) await enter.click();
+    const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+      exact: true,
+    });
+    await expect(canvas).toBeVisible();
+    await expect
+      .poll(() => canvas.evaluate((node) => (node as HTMLCanvasElement).width))
+      .toBeGreaterThan(1);
+    await canvas.screenshot({ path: "/tmp/vanguard-final-scene.png" });
+    await page.getByRole("button", { name: "Continue exploring", exact: true }).click();
+    await canvas.screenshot({ path: "/tmp/vanguard-final-monument.png" });
+    await page.getByRole("button", { name: "VIEW MY SEAT", exact: true }).click();
+    // Reveal exports remain available via My Vanguard after browsing.
+    await page.goto("/account/vanguard");
+    for (const format of ["9:16", "1:1"] as const) {
+      const downloadPromise = page.waitForEvent("download");
+      await page.getByRole("button", { name: `Save ${format}`, exact: true }).click();
+      const download = await downloadPromise;
+      const exportPath = `/tmp/vanguard-final-seal-${format.replace(":", "x")}.png`;
+      await download.saveAs(exportPath);
+      const bytes = await readFile(exportPath);
+      const { info } = await sharp(bytes).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+      expect([info.width, info.height]).toEqual(format === "9:16" ? [1080, 1920] : [1254, 1254]);
+      const qrRegion =
+        format === "9:16"
+          ? { left: 820, top: 1660, width: 145, height: 145 }
+          : { left: 1040, top: 962, width: 150, height: 150 };
+      const decoded = await sharp(bytes)
+        .extract(qrRegion)
+        .ensureAlpha()
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+      const code = jsQR(
+        new Uint8ClampedArray(decoded.data),
+        decoded.info.width,
+        decoded.info.height,
+      );
+      expect(code?.data).toBe(`http://127.0.0.1:3197/wow-forever/vanguard?seat=${seatId}`);
+    }
     const [inscription] = await database.db.execute<{ seat_id: string; media_id: string | null }>(
       sql`select seat_id,media_id from vanguard_inscriptions where user_id=${owner}`,
     );

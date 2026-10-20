@@ -64,6 +64,12 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      ...["monument", "masks", "plates", "emblems", "animation", "seal", "layouts"].map(
+        (folder) => ({
+          source: `/wow-forever/vanguard/${folder}/:path*`,
+          headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+        }),
+      ),
       {
         source: "/wow-forever/vanguard/audio/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],

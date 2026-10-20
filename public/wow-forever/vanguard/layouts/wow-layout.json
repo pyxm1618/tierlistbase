@@ -1,0 +1,44 @@
+{
+  "W1": {
+    "count": 2672,
+    "scale": 0.6314,
+    "spacing": 7.7,
+    "sha256": "e692b704a0b4d1943ae646a562bca0a3370f78a9d7082e6141291900e091cfc8",
+    "maskSha256": "1e83245e7d9eab1c7ecdf6ca718a5f21fe3af68b79aa49589a956607720713c3",
+    "coordinateSystem": {
+      "width": 1672,
+      "height": 941,
+      "worldDivisor": 10,
+      "origin": [836, 470.5]
+    },
+    "ordering": "row-major; deterministic evenly distributed subset"
+  },
+  "O": {
+    "count": 2672,
+    "scale": 0.4141,
+    "spacing": 5.05,
+    "sha256": "ad7c967dbbb110c88340fc866fcc980edcad28f4e1bee40b1bd0a97aef1fc5d8",
+    "maskSha256": "df59568440e23a1a1ba9d28780201e1f0928560b17626bbab47070eedb1f992d",
+    "coordinateSystem": {
+      "width": 1672,
+      "height": 941,
+      "worldDivisor": 10,
+      "origin": [836, 470.5]
+    },
+    "ordering": "row-major; deterministic evenly distributed subset"
+  },
+  "W2": {
+    "count": 2672,
+    "scale": 0.6191,
+    "spacing": 7.55,
+    "sha256": "87cf49852631023ecc790d4bf1d647a68691e0b600ab601a14ad7517e70a4afd",
+    "maskSha256": "1c0079bb531198939b40031dbce27c32b5783f26b5aacf6cafd51a1663153d86",
+    "coordinateSystem": {
+      "width": 1672,
+      "height": 941,
+      "worldDivisor": 10,
+      "origin": [836, 470.5]
+    },
+    "ordering": "row-major; deterministic evenly distributed subset"
+  }
+}

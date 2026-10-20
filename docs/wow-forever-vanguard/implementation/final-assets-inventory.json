@@ -1,0 +1,298 @@
+[
+  {
+    "source": ".DS_Store",
+    "state": "EXCLUDED",
+    "reason": "macOS metadata"
+  },
+  {
+    "source": "vanguard-class-druid.png",
+    "path": "public/wow-forever/vanguard/emblems/vanguard-class-druid.png",
+    "sha256": "6916d48a90a3ed7baf3a911dbac4a9e212e42401c29fd91d7be9e3c30e8ede1e",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-class-hunter.png",
+    "path": "public/wow-forever/vanguard/emblems/vanguard-class-hunter.png",
+    "sha256": "db16528568f21835e3688dda99e3346dfd56a29f11a8defead2ebca3344372f5",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-class-mage.png",
+    "path": "public/wow-forever/vanguard/emblems/vanguard-class-mage.png",
+    "sha256": "7e15b69336363c948381f64dfe3a845d0596859afb04e8fd7fdadf7979c5ab37",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-class-paladin.png",
+    "path": "public/wow-forever/vanguard/emblems/vanguard-class-paladin.png",
+    "sha256": "3a667b8dd17d2698d506930966d56b2ea8e3e64ca35354f4b6a66654adf7bd00",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-class-priest.png",
+    "path": "public/wow-forever/vanguard/emblems/vanguard-class-priest.png",
+    "sha256": "7b6b9241da9ed68486346c1bc223118c9584ac12d9e0ad9d256f2f1eeeda68e9",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-class-rogue.png",
+    "path": "public/wow-forever/vanguard/emblems/vanguard-class-rogue.png",
+    "sha256": "d2d34c62a2d8928e0c9b0727dc74f7189ceba5d9a0dd397d47107c59e6d11251",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-class-shaman.png",
+    "path": "public/wow-forever/vanguard/emblems/vanguard-class-shaman.png",
+    "sha256": "edd33ad2c29200ce9e4fb37c3c894210d038bdd3fe65eb5821f06b62afb7de2d",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-class-warlock.png",
+    "path": "public/wow-forever/vanguard/emblems/vanguard-class-warlock.png",
+    "sha256": "410cf3bcdf125f3000da8a5ab8eb2e50d7918439d1602cedf6850b7c2bcbf0ea",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-class-warrior.png",
+    "path": "public/wow-forever/vanguard/emblems/vanguard-class-warrior.png",
+    "sha256": "18f855f50b3c47830a76b3683c2cb57765d62ed72f342fc6849ce7240639949a",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-focus-panel.png",
+    "path": "public/wow-forever/vanguard/plates/vanguard-focus-panel.png",
+    "sha256": "c7bd2fa9d6f036c4fd8ba9a02c3e564ca8b4bc587baf1e6959c896523520c880",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1774,
+    "height": 887,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-fx-alliance.png",
+    "path": "public/wow-forever/vanguard/animation/vanguard-fx-alliance.png",
+    "sha256": "96c0ba4d5b66896ff4543284148046f89450090eee9c2990b9b7882b706844f4",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1341,
+    "height": 1173,
+    "alphaPixels": 1572993
+  },
+  {
+    "source": "vanguard-fx-focus.png",
+    "path": "public/wow-forever/vanguard/animation/vanguard-fx-focus.png",
+    "sha256": "63426de2bcdf014bbd85742c023689b5320e8435711436b03264b3fc27a098c8",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1341,
+    "height": 1173,
+    "alphaPixels": 1572993
+  },
+  {
+    "source": "vanguard-fx-horde.png",
+    "path": "public/wow-forever/vanguard/animation/vanguard-fx-horde.png",
+    "sha256": "6acd64d1db8ef0e7046ce4bb4af98ad0c9413b9d7ad8d56a324cff1046b94983",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1341,
+    "height": 1173,
+    "alphaPixels": 1572993
+  },
+  {
+    "source": "vanguard-fx-ignite.png",
+    "path": "public/wow-forever/vanguard/animation/vanguard-fx-ignite.png",
+    "sha256": "5e28b95cf3b9283e61883091d24cbfa1779ceb78088a6b330661b586e293869e",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1341,
+    "height": 1173,
+    "alphaPixels": 1572993
+  },
+  {
+    "source": "vanguard-hero-base-desktop.png",
+    "path": "public/wow-forever/vanguard/monument/vanguard-hero-base-desktop.png",
+    "sha256": "7d6d375b8a3fa91dcb9a4134a1edaf533305c531b1300fb61c6ca73ac61fec74",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1672,
+    "height": 941,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-hero-concept-desktop.png",
+    "state": "REFERENCE_ONLY",
+    "reason": "multi-panel annotated reference, not final background"
+  },
+  {
+    "source": "vanguard-inscription-01-charge.png",
+    "path": "public/wow-forever/vanguard/animation/vanguard-inscription-01-charge.png",
+    "sha256": "a1065100b1d4215509b8e1119461ea64181cefefeddd047c5ed0c551a85a2dc0",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-inscription-02-form.png",
+    "path": "public/wow-forever/vanguard/animation/vanguard-inscription-02-form.png",
+    "sha256": "404a344e6b26002d51727dde64c3717dc63003ed6ce03f926db1c89b77221dee",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-inscription-03-inscribe.png",
+    "path": "public/wow-forever/vanguard/animation/vanguard-inscription-03-inscribe.png",
+    "sha256": "c50ccd60ab703f9b2003990864881ab60e42126d779b7c1af53480462b87ce72",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-inscription-04-lock.png",
+    "path": "public/wow-forever/vanguard/animation/vanguard-inscription-04-lock.png",
+    "sha256": "a99e09b4675cd7b62b8d75f41f9c7467be3e60958348673f4c013ffa88aa2183",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-inscription-05-ignite.png",
+    "path": "public/wow-forever/vanguard/animation/vanguard-inscription-05-ignite.png",
+    "sha256": "52e67e6e7b14ff4f0de249b95faf890197d4a35f7bba57d387b6a604683641d2",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-mask-o-center.svg",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-o-center.svg",
+    "sha256": "df59568440e23a1a1ba9d28780201e1f0928560b17626bbab47070eedb1f992d",
+    "state": "COPIED_UNCHANGED",
+    "format": "svg",
+    "width": 1672,
+    "height": 941,
+    "alphaPixels": 1499031
+  },
+  {
+    "source": "vanguard-mask-w-left.svg",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-w-left.svg",
+    "sha256": "1e83245e7d9eab1c7ecdf6ca718a5f21fe3af68b79aa49589a956607720713c3",
+    "state": "COPIED_UNCHANGED",
+    "format": "svg",
+    "width": 1672,
+    "height": 941,
+    "alphaPixels": 1404169
+  },
+  {
+    "source": "vanguard-mask-w-right.svg",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-w-right.svg",
+    "sha256": "1c0079bb531198939b40031dbce27c32b5783f26b5aacf6cafd51a1663153d86",
+    "state": "COPIED_UNCHANGED",
+    "format": "svg",
+    "width": 1672,
+    "height": 941,
+    "alphaPixels": 1411789
+  },
+  {
+    "source": "vanguard-seal-square.png",
+    "path": "public/wow-forever/vanguard/seal/vanguard-seal-square.png",
+    "sha256": "fe0dbe4e9d7551a88d9d3467e140c9b0152e4ef8e1f1149a6f08e23de71511cd",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-seal-story.png",
+    "path": "public/wow-forever/vanguard/seal/vanguard-seal-story.png",
+    "sha256": "ea4e3024e24c328295d27079e244df9f1a759f0ae3f5d582b5f50c5e83f3e246",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 941,
+    "height": 1672,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-seat-alliance.png",
+    "path": "public/wow-forever/vanguard/plates/vanguard-seat-alliance.png",
+    "sha256": "0a381fc5008ff073c434d3d42a696b73fe4ead8c3131e13591b0e7482ce5f6e3",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-seat-base.png",
+    "path": "public/wow-forever/vanguard/plates/vanguard-seat-base.png",
+    "sha256": "63d479691f329541239a9836e2a1231f78b8d548ddda38f6d2fa7b78955ce8f8",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  },
+  {
+    "source": "vanguard-seat-focus-reference.png",
+    "sha256": "3e437127438c99e18607d7963809ea7407a5dba8cdc5d1fe0599840b6d91443a",
+    "state": "REFERENCE_ONLY",
+    "reason": "Explicit Focus reference, not a runtime texture; final Focus panel is separately supplied"
+  },
+  {
+    "source": "vanguard-seat-horde.png",
+    "path": "public/wow-forever/vanguard/plates/vanguard-seat-horde.png",
+    "sha256": "43f590b0fd2dd8ddd9388d4be4b483ee3ba48a1a191300532041df8348723be9",
+    "state": "COPIED_UNCHANGED",
+    "format": "png",
+    "width": 1254,
+    "height": 1254,
+    "alphaPixels": 0
+  }
+]

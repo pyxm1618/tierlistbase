@@ -3,6 +3,7 @@ import { expect, test, type Page, type BrowserContext } from "@playwright/test";
 import { makeSignature } from "better-auth/crypto";
 import { eq } from "drizzle-orm";
 import sharp from "sharp";
+import { readFile } from "node:fs/promises";
 import { createDatabaseClient } from "@/platform/database/client";
 import { user, session, accountSubjects } from "@/platform/database/schema";
 import { assertSafeTestDatabaseUrl } from "../support/test-database-guard";
@@ -61,6 +62,7 @@ async function fixtures(
     stolen?: boolean;
     sealed?: boolean;
     existing?: boolean;
+    longText?: boolean;
     stage?: "COMPLETE" | "WOW_COMPLETE_WAITING";
   } = {},
 ) {
@@ -114,13 +116,16 @@ async function fixtures(
     }
     if (path === "inscriptions") {
       const draft = request.postDataJSON();
-      expect(draft.displayName).toBe("Chosen Vanguard");
+      expect(draft.displayName).toBe(options.longText ? "先锋".repeat(16) : "Chosen Vanguard");
       expect(draft).not.toHaveProperty("email");
       accepted = true;
       return route.fulfill({
         status: 201,
         json: {
           ...publicSeat,
+          displayName: draft.displayName,
+          guildName: draft.guildName || null,
+          battleCry: draft.battleCry || null,
           ...(draft.mediaId
             ? {
                 image: {
@@ -202,8 +207,13 @@ for (const width of [390, 768, 1024, 1440, 1920])
     const cleanup = await account(context);
     try {
       await page.setViewportSize({ width, height: 900 });
-      await fixtures(page);
+      await fixtures(page, { longText: width === 1920 });
       await openClaim(page);
+      if (width === 1920) {
+        await page.getByLabel("Vanguard Name", { exact: true }).fill("先锋".repeat(16));
+        await page.getByLabel("Guild (optional)").fill("公会".repeat(24));
+        await page.getByLabel("Battle Cry (optional)").fill("勇士".repeat(60));
+      }
       await expect(page.getByLabel("Vanguard Name", { exact: true })).not.toHaveValue(
         "Private Google identity",
       );
@@ -214,7 +224,17 @@ for (const width of [390, 768, 1024, 1440, 1920])
       await expect(
         page.getByRole("link", { name: "See how Mage is performing in WoW Forever" }),
       ).toHaveAttribute("href", "/wow-forever/tier-list?class=Mage");
-      await expect(page.getByText("BLOCKED_ASSET: final 9:16", { exact: false })).toBeVisible();
+      await expect(page.getByRole("button", { name: "Save 9:16", exact: true })).toBeEnabled();
+      await expect(page.getByRole("button", { name: "Save 1:1", exact: true })).toBeEnabled();
+      if (width === 1920) {
+        for (const format of ["9:16", "1:1"]) {
+          const pendingDownload = page.waitForEvent("download");
+          await page.getByRole("button", { name: `Save ${format}`, exact: true }).click();
+          await (
+            await pendingDownload
+          ).saveAs(`/tmp/vanguard-long-seal-${format.replace(":", "x")}.png`);
+        }
+      }
     } finally {
       await cleanup();
     }
@@ -410,7 +430,7 @@ test("sealed archive keeps public Focus, report, share and Tier List", async ({ 
   await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
   const focus = page.getByRole("region", { name: "Vanguard Focus", exact: true });
   await expect(focus).toBeVisible();
-  await expect(focus.getByText("Chosen Vanguard", { exact: false })).toBeVisible();
+  await expect(focus.getByText("Chosen Vanguard", { exact: true })).toBeVisible();
   await expect(focus.getByRole("button", { name: "STAND BESIDE ME" })).toBeEnabled();
   await expect(focus.getByRole("link", { name: "View Mage Tier List" })).toHaveAttribute(
     "href",
@@ -471,4 +491,44 @@ test("BGM load failure is explicit and leaves ENTER usable", async ({ page }) =>
     page.getByText("The background music could not load.", { exact: false }),
   ).toBeVisible();
   await expect(page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true })).toBeEnabled();
+});
+test("Focus image fallback does not leak into the next Seat", async ({ page, context }) => {
+  const cleanup = await account(context);
+  try {
+    await fixtures(page, { existing: true });
+    await page.route("https://media.tierlistbase.com/**", async (route) => {
+      if (route.request().url().includes("00000000-0000-4000-8000-000000000001"))
+        return route.fulfill({ status: 404, body: "missing" });
+      return route.fulfill({
+        contentType: "image/png",
+        body: await readFile("public/wow-forever/vanguard/emblems/vanguard-class-mage.png"),
+      });
+    });
+    await page.route("**/api/vanguard/inscriptions/*", (route) => {
+      const first = route.request().url().endsWith(seatId);
+      const mediaId = first
+        ? "00000000-0000-4000-8000-000000000001"
+        : "00000000-0000-4000-8000-000000000002";
+      const base = `https://media.tierlistbase.com/vanguard/permanent/${mediaId}`;
+      return route.fulfill({
+        json: {
+          ...publicSeat,
+          seatId: first ? seatId : "WOW-W1-0003",
+          image: {
+            detail: `${base}/detail.webp`,
+            wow: `${base}/wow-256.webp`,
+            forever: `${base}/forever-128.webp`,
+          },
+        },
+      });
+    });
+    await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+    const focus = page.getByRole("region", { name: "Vanguard Focus", exact: true });
+    await expect(focus.getByAltText("Mage Default Emblem")).toHaveCount(1);
+    await page.getByLabel("Seat ID", { exact: true }).fill("WOW-W1-0003");
+    await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
+    await expect(focus.getByAltText("Memory Image")).toHaveCount(2);
+  } finally {
+    await cleanup();
+  }
 });

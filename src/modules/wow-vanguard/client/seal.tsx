@@ -1,21 +1,32 @@
 "use client";
 import { useState } from "react";
 import type { PublicInscription } from "../db/service";
-import { sealInput, type SealRenderer } from "./contracts";
+import { sealInput, type VanguardAssets, type SealRenderer } from "./contracts";
 export function VanguardSealControl({
   seat,
   renderer,
+  assets,
   onSave,
 }: {
   seat: PublicInscription;
   renderer?: SealRenderer;
+  assets?: VanguardAssets;
   onSave?: () => void;
 }) {
   const [error, setError] = useState("");
+  const ready = Boolean(
+    renderer ||
+    (assets?.seal.portrait &&
+      assets.seal.square &&
+      assets.hero[seat.seatId.startsWith("WOW-") ? "wow" : "forever"]),
+  );
   async function save(format: "9:16" | "1:1") {
-    if (!renderer || seat.status !== "active") return;
+    if (!ready || seat.status !== "active") return;
     try {
-      const blob = await renderer.render(sealInput(seat, location.origin), format);
+      const activeRenderer =
+        renderer ??
+        (await import("../experience/seal-renderer")).createVanguardSealRenderer(assets!);
+      const blob = await activeRenderer.render(sealInput(seat, location.origin), format);
       const url = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = url;
@@ -30,11 +41,15 @@ export function VanguardSealControl({
   return (
     <section aria-label="Vanguard Seal">
       <h3>Vanguard Seal</h3>
-      {!renderer && <p>DEV PLACEHOLDER · BLOCKED_ASSET: final 9:16 and 1:1 Seal.</p>}
-      <button disabled={!renderer || seat.status !== "active"} onClick={() => void save("9:16")}>
+      {!ready && (
+        <p>
+          MISSING_ASSET: the final Monument location artwork/layout for this phase is unavailable.
+        </p>
+      )}
+      <button disabled={!ready || seat.status !== "active"} onClick={() => void save("9:16")}>
         Save 9:16
       </button>
-      <button disabled={!renderer || seat.status !== "active"} onClick={() => void save("1:1")}>
+      <button disabled={!ready || seat.status !== "active"} onClick={() => void save("1:1")}>
         Save 1:1
       </button>
       {error && <p role="alert">{error}</p>}
