@@ -73,7 +73,6 @@ describe("buildContentSecurityPolicy", () => {
   });
 });
 
-
 describe("Vanguard R2 upload CSP", () => {
   it("allows only the configured private bucket-qualified R2 origin", () => {
     const accountId = "a".repeat(32);
