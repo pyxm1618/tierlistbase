@@ -75,8 +75,14 @@ test("Limbus page uses shared shell and stays within page performance budgets", 
   await expect(teamTab).toHaveAttribute("aria-selected", "true");
   await expect(teamTab).toHaveAttribute("data-active", "true");
 
-  await search.click();
-  await search.fill("");
+  await search.evaluate((input: HTMLInputElement) => {
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      "value",
+    )?.set;
+    nativeInputValueSetter?.call(input, "");
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  });
   await expect(page.locator("#identity-tier-list tbody tr")).toHaveCount(190);
   await page.waitForTimeout(100);
 
