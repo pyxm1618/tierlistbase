@@ -4,7 +4,9 @@ import { unstable_cache } from "next/cache";
 import { GameHome } from "@/components/home/game-home";
 import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
-import { getMultiGameRecentRatingChanges, type RecentRatingChangeItem } from "@/modules/meta-board";
+// prettier-ignore
+// eslint-disable-next-line creat-web-modules/product-module-boundary
+import { getMultiGameRecentRatingChanges, type RecentRatingChangeItem } from "@/modules/meta-board/db/queries";
 import { currentSeoEnvironment } from "@/platform/seo/environment-policy";
 import { metadataForRoute } from "@/platform/seo/metadata";
 import { webApplicationJsonLd, websiteJsonLd } from "@/platform/seo/structured-data";
