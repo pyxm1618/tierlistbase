@@ -1,7 +1,6 @@
 import "server-only";
 
 import { featuresConfig } from "@/config/features.config";
-import { removeVanguardBeforeAccountDeletion } from "@/config/vanguard-runtime.config";
 import { siteConfig } from "@/config/site.config";
 import { createPostgresAccountSubjectRepository } from "@/platform/accounts/postgres-account-subject-repository";
 import { env } from "@/platform/config/env";
@@ -40,7 +39,12 @@ export function getAuth(): AuthInstance | null {
     database: db,
     schema,
     magicLinkEnabled: featuresConfig.auth.magicLink,
-    beforeDeleteUser: removeVanguardBeforeAccountDeletion,
+    beforeDeleteUser: async (userId) => {
+      const { removeVanguardBeforeAccountDeletion } = await import(
+        "@/config/vanguard-runtime.config"
+      );
+      await removeVanguardBeforeAccountDeletion(userId);
+    },
     ...(google ? { google } : {}),
     sendMagicLink: async ({ email, token, returnTo }) => {
       await sendMagicLinkEmail({ email, token, returnTo });
