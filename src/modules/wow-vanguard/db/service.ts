@@ -226,6 +226,8 @@ export function createVanguardService(
           }
         : undefined;
       let published: PublishedMediaKeys | undefined;
+      let reservedByThisAttempt = false;
+      let publicationStarted = false;
 
       const reservationMatches = (
         media: typeof vanguardMedia.$inferSelect,
@@ -333,9 +335,11 @@ export function createVanguardService(
               .where(eq(vanguardMedia.id, media.id));
             return media;
           });
+          reservedByThisAttempt = true;
 
           // All R2 reads, normalization, derivative generation and public writes happen
           // after the short reservation transaction and before the globally locked commit.
+          publicationStarted = true;
           const candidate = await options.publishMedia(preparedMedia);
           published = candidate;
           if (
@@ -420,9 +424,9 @@ export function createVanguardService(
           return publicInscription(row, acceptedMedia);
         });
       } catch (error) {
-        if (input.mediaId && expectedPublished) {
+        if (input.mediaId && expectedPublished && reservedByThisAttempt) {
           try {
-            await compensateReservation(input.mediaId, expectedPublished, published !== undefined);
+            await compensateReservation(input.mediaId, expectedPublished, publicationStarted);
           } catch (cleanup) {
             throw new AggregateError(
               [error, cleanup],
