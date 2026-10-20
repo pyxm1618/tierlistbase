@@ -337,13 +337,13 @@ export function createVanguardService(
           // All R2 reads, normalization, derivative generation and public writes happen
           // after the short reservation transaction and before the globally locked commit.
           const candidate = await options.publishMedia(preparedMedia);
+          published = candidate;
           if (
             candidate.publicDetailKey !== expectedPublished.publicDetailKey ||
             candidate.publicWowThumbKey !== expectedPublished.publicWowThumbKey ||
             candidate.publicForeverThumbKey !== expectedPublished.publicForeverThumbKey
           )
             throw new VanguardError("UPLOAD_FAILED", 503);
-          published = candidate;
         }
 
         return await database.transaction(async (transaction) => {
