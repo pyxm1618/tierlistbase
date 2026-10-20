@@ -34,7 +34,7 @@ for (const width of [390, 1440]) {
       );
     });
 
-    test("filters every dimension using current values and combines search with the selection", async ({
+    test("renders full master dataset and filters every dimension using live values", async ({
       page,
     }) => {
       const errors: string[] = [];
@@ -43,19 +43,40 @@ for (const width of [390, 1440]) {
       const rows = page.locator("#identity-tier-list tbody tr");
       const filters = page.getByLabel("Identity filters", { exact: true });
       const search = page.getByRole("searchbox", { name: "Search Identity" });
-      await expect(rows).toHaveCount(5);
+      await expect(rows).toHaveCount(190);
+
+      // Verify other dataset sections
+      const teamRows = page.locator("#team-tier-list tbody tr");
+      await expect(teamRows).toHaveCount(12);
+
+      const egoRows = page.locator("#ego-tier-list tbody tr");
+      await expect(egoRows).toHaveCount(116);
+
+      const sinnerIdentityCards = page.locator("#best-identity-by-sinner article");
+      await expect(sinnerIdentityCards).toHaveCount(12);
+
+      const egoColumns = page.locator("#best-ego-by-sinner article");
+      await expect(egoColumns).toHaveCount(12);
+
+      // Verify featured team details has no placeholder text
+      const teamDetail = page.locator("#team-details");
+      await expect(teamDetail).toContainText("Bleed Team");
+      await expect(teamDetail).not.toContainText("Core A");
+      await expect(teamDetail).not.toContainText("Member A");
+
       const cases = [
-        ["Sinner", "Yi Sang", 1, "W Corp. L3 Cleanup"],
-        ["Rarity", "000", 5, "The Priestess of La Manchaland"],
-        ["Role", "Support", 1, "Dieci Assoc. South Section 4"],
-        ["Team / Archetype", "Tremor", 1, "T Corp. Class 3"],
-        ["Damage Type", "Pierce", 1, "W Corp. L3 Cleanup"],
-        ["Sin Affinity", "Envy", 1, "N Corp. Großhammer"],
-        ["Generalist Value", "B", 1, "Dieci Assoc. South Section 4"],
-        ["Beginner Friendly", "C", 1, "W Corp. L3 Cleanup"],
-        ["Team Dependency", "Low", 1, "Dieci Assoc. South Section 4"],
-        ["Availability", "Shardable", 1, "T Corp. Class 3"],
+        ["Sinner", "Yi Sang", 16, "Effloresced E.G.O::Spicebush Yi Sang"],
+        ["Rarity", "000", 127, "Effloresced E.G.O::Spicebush Yi Sang"],
+        ["Role", "Support", 16, "The One Who Grips Faust"],
+        ["Team / Archetype", "Tremor", 9, "T Corp. Class 3 Collection Staff Don Quixote"],
+        ["Damage Type", "Pierce", 47, "The Ring Pointillist Student Yi Sang"],
+        ["Sin Affinity", "Envy", 80, "Heishou Pack - Wu Branch Adept Yi Sang"],
+        ["Generalist Value", "B", 87, "The Pequod First Mate Yi Sang"],
+        ["Beginner Friendly", "A", 18, "The One Who Grips Faust"],
+        ["Team Dependency", "Low", 38, "The Ring Pointillist Student Yi Sang"],
+        ["Availability", "Shardable", 25, "Heishou Pack - Wu Branch Adept Yi Sang"],
       ] as const;
+
       for (const [dimension, value, count, identity] of cases) {
         await filters.getByRole("button", { name: dimension, exact: true }).click();
         const values = filters.getByRole("combobox", { name: `${dimension} value`, exact: true });
@@ -63,32 +84,44 @@ for (const width of [390, 1440]) {
         await expect(rows).toHaveCount(count);
         await expect(rows.first()).toContainText(identity);
       }
-      await search.fill("Class 3");
+
+      await search.fill("Wu Branch");
       await expect(rows).toHaveCount(1);
-      await expect(rows.first()).toContainText("T Corp. Class 3");
-      await search.fill("Priestess");
+      await expect(rows.first()).toContainText("Heishou Pack - Wu Branch Adept Yi Sang");
+
+      await search.fill("Manager of La Manchaland");
       await expect(
-        page.getByText("No mock Identity rows match this search.", { exact: true }),
+        page.getByText("No Identity rows match this search.", { exact: true }),
       ).toBeVisible();
+
       await filters.getByRole("button", { name: "All Identities", exact: true }).click();
       await expect(rows).toHaveCount(1);
-      await expect(rows.first()).toContainText("The Priestess of La Manchaland");
+      await expect(rows.first()).toContainText("The Manager of La Manchaland Don Quixote");
+
       await search.fill("");
-      await expect(rows).toHaveCount(5);
+      await expect(rows).toHaveCount(190);
+
       await filters.getByRole("button", { name: "Sinner", exact: true }).click();
       const sinners = filters.getByRole("combobox", { name: "Sinner value", exact: true });
       await expect(sinners.locator("option")).toHaveText([
         "All values",
-        "Don Quixote",
         "Yi Sang",
-        "Hong Lu",
+        "Faust",
+        "Don Quixote",
         "Ryōshū",
+        "Meursault",
+        "Hong Lu",
         "Heathcliff",
+        "Ishmael",
+        "Rodion",
+        "Sinclair",
+        "Outis",
+        "Gregor",
       ]);
       await sinners.selectOption("Hong Lu");
-      await expect(rows).toHaveCount(1);
+      await expect(rows).toHaveCount(16);
       await sinners.selectOption("");
-      await expect(rows).toHaveCount(5);
+      await expect(rows).toHaveCount(190);
       expect(errors).toEqual([]);
     });
   });

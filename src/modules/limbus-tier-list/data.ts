@@ -1,3 +1,12 @@
+import {
+  identitiesMasterData,
+  egoMasterData,
+  teamsMasterData,
+  sinnerBestIdentities,
+  sinnerBestEgo,
+} from "./data/index";
+import type { AvailabilityFact, ReleaseContext } from "./data/types";
+
 export const sinners = [
   "Yi Sang",
   "Faust",
@@ -14,9 +23,17 @@ export const sinners = [
 ] as const;
 
 export type SinnerName = (typeof sinners)[number];
-export type TierValue = "SSS" | "SS" | "S" | "A" | "B" | "C";
+export type TierValue = "SSS" | "SS" | "S" | "A" | "B" | "C" | "NEEDS_REVIEW";
 export type RatingValue = "A" | "B" | "C" | "High" | "Medium" | "Low";
-export type Availability = "Available" | "Seasonal" | "Shardable";
+export type Availability =
+  | "Available"
+  | "Extractable"
+  | "Shardable"
+  | "Seasonal"
+  | "Walpurgisnacht"
+  | "Pass"
+  | "Temporarily Unavailable"
+  | "Unavailable";
 export type TeamType = "Status" | "Faction" | "Mechanic" | "Hybrid";
 
 export type IdentityRow = {
@@ -33,6 +50,8 @@ export type IdentityRow = {
   beginnerFriendly: "A" | "B" | "C";
   teamDependency: "High" | "Medium" | "Low";
   availability: Availability;
+  rawDamageTypes: string[];
+  rawSinAffinities: string[];
 };
 
 export type SinnerIdentityPick = {
@@ -93,377 +112,133 @@ export type SinnerEgoPick = {
   bestForTeam: string;
 };
 
-export const identityRows: IdentityRow[] = [
-  {
-    rank: 1,
-    tier: "SSS",
-    identity: "The Priestess of La Manchaland",
-    sinner: "Don Quixote",
-    rarity: "000",
-    role: "DPS",
-    mainTeam: "Bleed",
-    damageType: "Slash",
-    sin: "Wrath",
-    generalistValue: "S",
-    beginnerFriendly: "B",
-    teamDependency: "High",
-    availability: "Available",
-  },
-  {
-    rank: 2,
-    tier: "SSS",
-    identity: "W Corp. L3 Cleanup",
-    sinner: "Yi Sang",
-    rarity: "000",
-    role: "DPS",
-    mainTeam: "Sinking",
-    damageType: "Pierce",
-    sin: "Gloom",
-    generalistValue: "A",
-    beginnerFriendly: "C",
-    teamDependency: "High",
-    availability: "Seasonal",
-  },
-  {
-    rank: 3,
-    tier: "SS",
-    identity: "T Corp. Class 3",
-    sinner: "Hong Lu",
-    rarity: "000",
-    role: "DPS",
-    mainTeam: "Tremor",
-    damageType: "Blunt",
-    sin: "Sloth",
-    generalistValue: "A",
-    beginnerFriendly: "B",
-    teamDependency: "Medium",
-    availability: "Shardable",
-  },
-  {
-    rank: 4,
-    tier: "SS",
-    identity: "Dieci Assoc. South Section 4",
-    sinner: "Ryōshū",
-    rarity: "000",
-    role: "Support",
-    mainTeam: "Poise",
-    damageType: "Slash",
-    sin: "Pride",
-    generalistValue: "B",
-    beginnerFriendly: "A",
-    teamDependency: "Low",
-    availability: "Available",
-  },
-  {
-    rank: 5,
-    tier: "SS",
-    identity: "N Corp. Großhammer",
-    sinner: "Heathcliff",
-    rarity: "000",
-    role: "DPS",
-    mainTeam: "Charge",
-    damageType: "Blunt",
-    sin: "Envy",
-    generalistValue: "A",
-    beginnerFriendly: "B",
-    teamDependency: "Medium",
-    availability: "Available",
-  },
-];
+export function mapAvailability(
+  fact: AvailabilityFact,
+  releaseContext?: ReleaseContext,
+  seasonNumber?: number | null,
+): Availability {
+  if (fact.temporarilyUnavailable) {
+    return "Temporarily Unavailable";
+  }
+  if (fact.extractableNow && fact.dispensableNow) {
+    return "Available";
+  }
+  if (fact.extractableNow && !fact.dispensableNow) {
+    return "Extractable";
+  }
+  if (!fact.extractableNow && fact.dispensableNow) {
+    return "Shardable";
+  }
+  if (!fact.extractableNow && !fact.dispensableNow) {
+    if (fact.isWalpurgisnacht) {
+      return "Walpurgisnacht";
+    }
+    if (releaseContext === "Pass" && seasonNumber === 8) {
+      return "Pass";
+    }
+  }
+  return "Unavailable";
+}
 
-export const bestIdentityBySinner: SinnerIdentityPick[] = [
-  {
-    sinner: "Yi Sang",
-    bestOverall: "W Corp. L3 Cleanup",
-    bestGeneralist: "Seven Assoc.",
-    bestForTeam: "Liu Assoc. (Rupture)",
-  },
-  {
-    sinner: "Faust",
-    bestOverall: "W Corp. Identity",
-    bestGeneralist: "Seven Assoc.",
-    bestForTeam: "Liu Assoc. (Rupture)",
-  },
-  {
-    sinner: "Don Quixote",
-    bestOverall: "The Priestess of La Manchaland",
-    bestGeneralist: "Cinq Assoc.",
-    bestForTeam: "N Corp. (Bleed)",
-  },
-  {
-    sinner: "Ryōshū",
-    bestOverall: "Dieci Assoc. South Section 4",
-    bestGeneralist: "Cinq Assoc.",
-    bestForTeam: "N Corp. (Poise)",
-  },
-  {
-    sinner: "Meursault",
-    bestOverall: "T Corp. Class 3",
-    bestGeneralist: "Liu Assoc.",
-    bestForTeam: "W Corp. (Charge)",
-  },
-  {
-    sinner: "Hong Lu",
-    bestOverall: "T Corp. Class 3",
-    bestGeneralist: "Liu Assoc.",
-    bestForTeam: "Seven Assoc. (Tremor)",
-  },
-  {
-    sinner: "Heathcliff",
-    bestOverall: "N Corp. Großhammer",
-    bestGeneralist: "Liu Assoc.",
-    bestForTeam: "W Corp. (Charge)",
-  },
-  {
-    sinner: "Ishmael",
-    bestOverall: "Cinq Assoc. South Section 5",
-    bestGeneralist: "Liu Assoc.",
-    bestForTeam: "R Corp. (Poise)",
-  },
-  {
-    sinner: "Rodion",
-    bestOverall: "Liu Assoc. South Section 5",
-    bestGeneralist: "Zwei Assoc.",
-    bestForTeam: "Zwei Assoc. (Bleed)",
-  },
-  {
-    sinner: "Sinclair",
-    bestOverall: "Zwei Assoc. South Section 6",
-    bestGeneralist: "Cinq Assoc.",
-    bestForTeam: "T Corp. (Tremor)",
-  },
-  {
-    sinner: "Outis",
-    bestOverall: "Seven Assoc. South Section 6",
-    bestGeneralist: "Liu Assoc.",
-    bestForTeam: "R Corp. (Burn)",
-  },
-  {
-    sinner: "Gregor",
-    bestOverall: "Liu Assoc. South Section 6",
-    bestGeneralist: "Cinq Assoc.",
-    bestForTeam: "G Corp. (Rupture)",
-  },
-];
-
-export const teamRows: TeamRow[] = [
-  {
-    rank: 1,
-    tier: "SSS",
-    team: "Bleed",
-    type: "Status",
-    keyMechanic: "Bleed",
-    power: "SSS",
-    storyGeneral: "S",
-    mirrorDungeon: "SS",
-    railway: "SSS",
-    buildCost: "High",
-    beginnerFriendly: "Low",
-  },
-  {
-    rank: 2,
-    tier: "SSS",
-    team: "Sinking",
-    type: "Status",
-    keyMechanic: "Sinking",
-    power: "SSS",
-    storyGeneral: "S",
-    mirrorDungeon: "SS",
-    railway: "SS",
-    buildCost: "High",
-    beginnerFriendly: "Medium",
-  },
-  {
-    rank: 3,
-    tier: "SS",
-    team: "Tremor",
-    type: "Status",
-    keyMechanic: "Tremor",
-    power: "SS",
-    storyGeneral: "A",
-    mirrorDungeon: "SS",
-    railway: "S",
-    buildCost: "Medium",
-    beginnerFriendly: "Medium",
-  },
-  {
-    rank: 4,
-    tier: "SS",
-    team: "Poise",
-    type: "Status",
-    keyMechanic: "Poise",
-    power: "SS",
-    storyGeneral: "S",
-    mirrorDungeon: "S",
-    railway: "S",
-    buildCost: "Medium",
-    beginnerFriendly: "High",
-  },
-  {
-    rank: 5,
-    tier: "SS",
-    team: "Charge",
-    type: "Status",
-    keyMechanic: "Charge",
-    power: "SS",
-    storyGeneral: "A",
-    mirrorDungeon: "S",
-    railway: "S",
-    buildCost: "Medium",
-    beginnerFriendly: "High",
-  },
-  {
-    rank: 6,
-    tier: "SS",
-    team: "Burn",
-    type: "Status",
-    keyMechanic: "Burn",
-    power: "S",
-    storyGeneral: "A",
-    mirrorDungeon: "S",
-    railway: "S",
-    buildCost: "Medium",
-    beginnerFriendly: "Medium",
-  },
-  {
-    rank: 7,
-    tier: "S",
-    team: "Rupture",
-    type: "Status",
-    keyMechanic: "Rupture",
-    power: "S",
-    storyGeneral: "A",
-    mirrorDungeon: "S",
-    railway: "A",
-    buildCost: "Medium",
-    beginnerFriendly: "Medium",
-  },
-  {
-    rank: 8,
-    tier: "S",
-    team: "N Corp.",
-    type: "Faction",
-    keyMechanic: "N Corp.",
-    power: "S",
-    storyGeneral: "A",
-    mirrorDungeon: "SS",
-    railway: "SS",
-    buildCost: "High",
-    beginnerFriendly: "Low",
-  },
-  {
-    rank: 9,
-    tier: "S",
-    team: "W Corp.",
-    type: "Faction",
-    keyMechanic: "W Corp.",
-    power: "S",
-    storyGeneral: "A",
-    mirrorDungeon: "SS",
-    railway: "S",
-    buildCost: "High",
-    beginnerFriendly: "Low",
-  },
-  {
-    rank: 10,
-    tier: "S",
-    team: "Hybrid",
-    type: "Hybrid",
-    keyMechanic: "Multi-Tool",
-    power: "S",
-    storyGeneral: "S",
-    mirrorDungeon: "S",
-    railway: "S",
-    buildCost: "High",
-    beginnerFriendly: "Medium",
-  },
-];
-
-export const exampleTeamDetail: TeamDetail = {
-  team: "Bleed Team",
-  powerTier: "SSS",
-  storyGeneral: "S",
-  mirrorDungeon: "SS",
-  railwayEndgame: "SSS",
-  buildCost: "High",
-  coreDependency: "High",
-  flexibility: "Medium",
-  easeOfUse: "Medium",
-  beginnerFriendly: "Low",
-  coreMembers: ["Core A", "Core B", "Core C"],
-  recommendedTeam: ["Member A", "Member B", "Member C"],
-  substitutes: ["Alt A", "Alt B", "Alt C", "Alt D", "Alt E"],
-  keyEgo: ["Key E.G.O A", "Key E.G.O B", "Key E.G.O C"],
-  missingOne: "N Corp. Großhammer (Heathcliff)",
+const tierOrder: Record<TierValue, number> = {
+  SSS: 1,
+  SS: 2,
+  S: 3,
+  A: 4,
+  B: 5,
+  C: 6,
+  NEEDS_REVIEW: 7,
 };
 
-export const egoRows: EgoRow[] = [
-  {
-    rank: 1,
-    tier: "SSS",
-    ego: "Fluid Sac",
-    sinner: "Faust",
-    mainTeam: "Sinking",
-    bestUseCase: "Sustain / Support",
-    generalist: "S",
-    teamImportance: "Core",
-    availability: "Available",
-  },
-  {
-    rank: 2,
-    tier: "SSS",
-    ego: "Solemn Lament",
-    sinner: "Yi Sang",
-    mainTeam: "Sinking",
-    bestUseCase: "Nuke / AoE",
-    generalist: "A",
-    teamImportance: "Core",
-    availability: "Seasonal",
-  },
-  {
-    rank: 3,
-    tier: "SS",
-    ego: "Sunshower",
-    sinner: "Ishmael",
-    mainTeam: "Sinking",
-    bestUseCase: "AoE / Count",
-    generalist: "A",
-    teamImportance: "High",
-    availability: "Available",
-  },
-  {
-    rank: 4,
-    tier: "SS",
-    ego: "Ardor Blossom Star",
-    sinner: "Ryōshū",
-    mainTeam: "Bleed",
-    bestUseCase: "Nuke / Debuff",
-    generalist: "B",
-    teamImportance: "Core",
-    availability: "Available",
-  },
-  {
-    rank: 5,
-    tier: "SS",
-    ego: "Branch of Knowledge",
-    sinner: "Don Quixote",
-    mainTeam: "Poise",
-    bestUseCase: "Support / Utility",
-    generalist: "A",
-    teamImportance: "High",
-    availability: "Shardable",
-  },
-];
+export const identityRows: IdentityRow[] = [...identitiesMasterData]
+  .sort((a, b) => tierOrder[a.editorial.overallTier] - tierOrder[b.editorial.overallTier])
+  .map((item, index) => ({
+    rank: index + 1,
+    tier: item.editorial.overallTier,
+    identity: item.fact.identityName,
+    sinner: item.fact.sinner as SinnerName,
+    rarity: item.fact.rarity,
+    role: item.editorial.role,
+    mainTeam: item.editorial.archetype,
+    damageType: item.fact.damageTypes.join(" / "),
+    sin: item.fact.sinAffinities.join(" / "),
+    generalistValue: item.editorial.generalistValue,
+    beginnerFriendly: item.editorial.beginnerFriendly,
+    teamDependency: item.editorial.teamDependency,
+    availability: mapAvailability(
+      item.fact.availability,
+      item.fact.releaseContext,
+      item.fact.seasonNumber,
+    ),
+    rawDamageTypes: item.fact.damageTypes,
+    rawSinAffinities: item.fact.sinAffinities,
+  }));
 
-export const bestEgoBySinner: SinnerEgoPick[] = sinners.map((sinner, index) => {
-  const overall = ["Fluid Sac", "Solemn Lament", "Sunshower", "Ardor Blossom Star"];
-  const generalist = ["Lantern", "Crow's Eye View", "Representation Emitter", "Pursuance"];
-  const team = ["Rime Shank", "Dimension Shredder", "Telepole", "Ya Śūnyatā Tad Rūpam"];
+export const bestIdentityBySinner: SinnerIdentityPick[] = sinnerBestIdentities.map((item) => ({
+  sinner: item.sinner as SinnerName,
+  bestOverall: item.bestOverall.name,
+  bestGeneralist: item.bestGeneralist.name,
+  bestForTeam: item.bestForTeam.name,
+}));
 
-  return {
-    sinner,
-    bestOverall: overall[index % overall.length]!,
-    bestGeneralist: generalist[index % generalist.length]!,
-    bestForTeam: team[index % team.length]!,
-  };
-});
+export const teamRows: TeamRow[] = [...teamsMasterData]
+  .sort((a, b) => tierOrder[a.powerTier] - tierOrder[b.powerTier])
+  .map((team, index) => ({
+    rank: index + 1,
+    tier: team.powerTier,
+    team: team.teamName,
+    type: team.category,
+    keyMechanic: team.keyMechanic,
+    power: team.powerTier,
+    storyGeneral: team.storyGeneral,
+    mirrorDungeon: team.mirrorDungeon,
+    railway: team.railwayEndgame,
+    buildCost: team.buildCost,
+    beginnerFriendly: team.beginnerFriendly,
+  }));
+
+const featuredTeam =
+  teamsMasterData.find((team) => team.id === "status-bleed") ?? teamsMasterData[0]!;
+
+export const exampleTeamDetail: TeamDetail = {
+  team: featuredTeam.teamName,
+  powerTier: featuredTeam.powerTier,
+  storyGeneral: featuredTeam.storyGeneral,
+  mirrorDungeon: featuredTeam.mirrorDungeon,
+  railwayEndgame: featuredTeam.railwayEndgame,
+  buildCost: featuredTeam.buildCost,
+  coreDependency: featuredTeam.coreDependency,
+  flexibility: featuredTeam.flexibility,
+  easeOfUse: featuredTeam.easeOfUse,
+  beginnerFriendly: featuredTeam.beginnerFriendly,
+  coreMembers: [...featuredTeam.coreMembers],
+  recommendedTeam: [...featuredTeam.recommendedTeam],
+  substitutes: [...featuredTeam.substitutes],
+  keyEgo: [...featuredTeam.keyEgo],
+  missingOne: featuredTeam.whatToGetNext,
+};
+
+export const egoRows: EgoRow[] = [...egoMasterData]
+  .sort((a, b) => tierOrder[a.editorial.tier] - tierOrder[b.editorial.tier])
+  .map((item, index) => ({
+    rank: index + 1,
+    tier: item.editorial.tier,
+    ego: item.fact.egoName,
+    sinner: item.fact.sinner as SinnerName,
+    mainTeam: item.editorial.bestTeam,
+    bestUseCase: item.editorial.bestUseCase,
+    generalist: item.editorial.generalist,
+    teamImportance: item.editorial.teamImportance,
+    availability: mapAvailability(
+      item.fact.availability,
+      item.fact.releaseContext,
+      item.fact.seasonNumber,
+    ),
+  }));
+
+export const bestEgoBySinner: SinnerEgoPick[] = sinnerBestEgo.map((item) => ({
+  sinner: item.sinner as SinnerName,
+  bestOverall: item.bestOverall.name,
+  bestGeneralist: item.bestGeneralist.name,
+  bestForTeam: item.bestForTeam.name,
+}));
