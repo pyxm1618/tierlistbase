@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { featuresConfig } from "@/config/features.config";
-import {\n  buildContentSecurityPolicy,\n  vanguardR2UploadOrigin,\n} from "@/platform/security/content-security-policy";
+import {
+  buildContentSecurityPolicy,
+  vanguardR2UploadOrigin,
+} from "@/platform/security/content-security-policy";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 const isProduction = process.env.APP_ENV === "production";
