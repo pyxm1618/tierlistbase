@@ -291,9 +291,6 @@ export function createVanguardService(
       try {
         if (input.mediaId && expectedPublished) {
           const mediaId = input.mediaId;
-          if (!options.publishMedia || !options.revokeMedia)
-            throw new VanguardError("UPLOAD_FAILED", 503);
-
           const preparedMedia = await database.transaction(async (transaction) => {
             const now = await authorityNow(transaction);
             await assertAccountAvailable(transaction, userId);
@@ -321,6 +318,8 @@ export function createVanguardService(
               .for("update");
             if (!media || media.ownerUserId !== userId || media.moderationStatus !== "approved")
               throw new VanguardError("MEDIA_MODERATION_REJECTED", 422);
+            if (!options.publishMedia || !options.revokeMedia)
+              throw new VanguardError("UPLOAD_FAILED", 503);
             if (
               media.publicDetailKey !== null ||
               media.publicWowThumbKey !== null ||
@@ -339,7 +338,7 @@ export function createVanguardService(
           // All R2 reads, normalization, derivative generation and public writes happen
           // after the short reservation transaction and before the globally locked commit.
           publicationStarted = true;
-          const candidate = await options.publishMedia(preparedMedia);
+          const candidate = await options.publishMedia!(preparedMedia);
           if (
             candidate.publicDetailKey !== expectedPublished.publicDetailKey ||
             candidate.publicWowThumbKey !== expectedPublished.publicWowThumbKey ||
