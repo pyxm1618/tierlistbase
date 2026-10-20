@@ -1,6 +1,11 @@
 import { expect, test } from "@playwright/test";
+import { routeRegistry } from "@/config/routes.config";
 for (const width of [390, 768, 1024, 1440, 1920]) {
   test(`Vanguard SSR foundation at ${width}px`, async ({ page }) => {
+    test.skip(
+      !routeRegistry.routes.some((route) => route.route === "/wow-forever/vanguard"),
+      "The neutral product does not register the Vanguard page",
+    );
     await page.setViewportSize({ width, height: 900 });
     let cameraRequests = 0;
     await page.exposeFunction("recordVanguardCameraRequest", () => {
