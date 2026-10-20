@@ -10,9 +10,7 @@ async function AuthenticatedSiteHeaderLoader({ locale }: { locale: string }) {
   return <AuthenticatedSiteHeader locale={locale} />;
 }
 
-export function SiteHeader({
-  locale = siteConfig.defaultLocale,
-}: Readonly<{ locale?: string }>) {
+export function SiteHeader({ locale = siteConfig.defaultLocale }: Readonly<{ locale?: string }>) {
   if (featuresConfig.auth.enabled) return <AuthenticatedSiteHeaderLoader locale={locale} />;
   return <SiteHeaderContent locale={locale} />;
 }
