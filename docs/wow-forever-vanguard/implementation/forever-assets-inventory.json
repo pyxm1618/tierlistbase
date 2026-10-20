@@ -1,0 +1,80 @@
+[
+  {
+    "source": "vanguard-forever-hero-base-desktop.png",
+    "sha256": "78ced6389bf4897ba581b12c76c73de01aba9d952f133c712b772412a83f44d5",
+    "state": "COPIED_UNCHANGED",
+    "path": "public/wow-forever/vanguard/monument/vanguard-forever-hero-base-desktop.png"
+  },
+  {
+    "source": "vanguard-forever-hero-mobile-reference.png",
+    "sha256": "e66d81673cc0098d1dbce4962539920cb745f12107d251471f5b106f376a21e6",
+    "state": "REFERENCE_ONLY",
+    "reason": "Portrait composition reference; not interchangeable with the desktop mask coordinate system"
+  },
+  {
+    "source": "vanguard-mask-f.svg",
+    "sha256": "40295fc71e3c24b8221cc6a21751d0f56a3ef48b428c22b553e4a6899638e4a8",
+    "state": "COPIED_UNCHANGED",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-f.svg"
+  },
+  {
+    "source": "vanguard-mask-o-forever.svg",
+    "sha256": "cf36f2d1df6395b2c87182ce3e8b60b1d2b958edea8ab7e99c1a9336cc04c903",
+    "state": "COPIED_UNCHANGED",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-o-forever.svg"
+  },
+  {
+    "source": "vanguard-mask-r1.svg",
+    "sha256": "b1be8b6e54640a05041ec6b761fcfa87793958f652be12043362ba14ef9acd74",
+    "state": "COPIED_UNCHANGED",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-r1.svg"
+  },
+  {
+    "source": "vanguard-mask-e1.svg",
+    "sha256": "7407ca8ca3fb66e9d4c8c6fce5b78403435f73e9abadde3c9e03168b823aafe6",
+    "state": "COPIED_UNCHANGED",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-e1.svg"
+  },
+  {
+    "source": "vanguard-mask-v.svg",
+    "sha256": "d650b9a38d64b7922edb6ca162722286b2f1fd631752e3150f2f1ddc185413d0",
+    "state": "COPIED_UNCHANGED",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-v.svg"
+  },
+  {
+    "source": "vanguard-mask-e2.svg",
+    "sha256": "9cc24452cf2e072c078c62c39f2d99f5c3d8f24f4e526864b59592f49fe07a98",
+    "state": "COPIED_UNCHANGED",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-e2.svg"
+  },
+  {
+    "source": "vanguard-mask-r2.svg",
+    "sha256": "81d396ed3ac7b02b0875887f5790f0e6c9e0c868b511d7ea0e9713bf8c3f25ff",
+    "state": "COPIED_UNCHANGED",
+    "path": "public/wow-forever/vanguard/masks/vanguard-mask-r2.svg"
+  },
+  {
+    "source": "vanguard-seat-layout-8016-final.json",
+    "sha256": "320a6bc79f739ae7d99d2e87ddba85f84b1e603384ffff7e3678370d452ab8c2",
+    "state": "COPIED_UNCHANGED",
+    "path": "docs/wow-forever-vanguard/implementation/seat-layout/vanguard-seat-layout-8016-final.json"
+  },
+  {
+    "source": "vanguard-seat-layout-8016-final-audit.json",
+    "sha256": "559355ebf0755acb0b31fff511d1b19e5dfe1a8d444618976b2b1a4d0d098872",
+    "state": "COPIED_UNCHANGED",
+    "path": "docs/wow-forever-vanguard/implementation/seat-layout/vanguard-seat-layout-8016-final-audit.json"
+  },
+  {
+    "source": "vanguard-forever-seat-layout-56112.json",
+    "sha256": "4629089e5cebd7b2065caa3d198a34017c1eeeba7f86e5c0951be7d34de6eedf",
+    "state": "COPIED_UNCHANGED",
+    "path": "docs/wow-forever-vanguard/implementation/seat-layout/vanguard-forever-seat-layout-56112.json"
+  },
+  {
+    "source": "vanguard-monument-seat-layout-64128.json",
+    "sha256": "b0614a12cb7ec4afe37a44c411fccafd8b4c3180cd4c9af349d4f88050160ca9",
+    "state": "COPIED_UNCHANGED",
+    "path": "docs/wow-forever-vanguard/implementation/seat-layout/vanguard-monument-seat-layout-64128.json"
+  }
+]

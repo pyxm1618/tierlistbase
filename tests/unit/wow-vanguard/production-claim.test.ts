@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import { afterEach, expect, it, vi } from "vitest";
 const runtime = vi.hoisted(() => ({
   appEnv: "production",
@@ -15,19 +16,23 @@ afterEach(() => {
   vi.unstubAllGlobals();
   runtime.appEnv = "production";
 });
-it("keeps production Claim closed even if all test flags are set", async () => {
+it("uses only the final production catalog even if all test flags are set", async () => {
   vi.stubEnv("CREAT_WEB_E2E_VANGUARD", "1");
   vi.stubEnv("VANGUARD_E2E_LAYOUT_ORIGIN", "http://127.0.0.1:3199");
-  const fetcher = vi.fn();
+  const fetcher = vi.fn(async (url: RequestInfo | URL) => {
+    const parsed = new URL(String(url));
+    expect(parsed.origin).toBe(runtime.appOrigin);
+    expect(parsed.pathname).toMatch(/^\/wow-forever\/vanguard\/layouts\//);
+    return new Response(Uint8Array.from(await readFile(`public${parsed.pathname}`)));
+  });
   vi.stubGlobal("fetch", fetcher);
   const { getVanguardService } = await import("@/config/vanguard-runtime.config");
   const { createVanguardService } = await import("@/modules/wow-vanguard");
   getVanguardService();
   const options = vi.mocked(createVanguardService).mock.calls.at(-1)![1]!;
-  await expect(options.seatExists!("WOW-W1-0001")).rejects.toMatchObject({
-    code: "LAYOUT_UNAVAILABLE",
-  });
-  expect(fetcher).not.toHaveBeenCalled();
+  expect(await options.seatExists!("WOW-W1-0001")).toBe(true);
+  expect(await options.seatExists!("FOREVER-R2-8016")).toBe(true);
+  expect(fetcher).toHaveBeenCalledTimes(10);
 });
 it("allows the explicitly opted-in loopback fixture only in test runtime", async () => {
   runtime.appEnv = "test";

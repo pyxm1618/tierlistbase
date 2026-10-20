@@ -63,7 +63,7 @@ async function fixtures(
     sealed?: boolean;
     existing?: boolean;
     longText?: boolean;
-    stage?: "COMPLETE" | "WOW_COMPLETE_WAITING";
+    stage?: "COMPLETE" | "WOW_COMPLETE_WAITING" | "FOREVER_OPEN";
   } = {},
 ) {
   let accepted = Boolean(options.existing);
@@ -89,8 +89,10 @@ async function fixtures(
           wowCompletedAt: options.stage ? "2026-10-19T12:00:00.000Z" : null,
           foreverUnlockAt: options.stage ? "2026-10-20T12:00:00.000Z" : null,
           eventCloseAt: "2026-11-04T23:00:00Z",
-          phase: "wow",
-          occupancy: Buffer.alloc(1002).toString("base64"),
+          phase: options.stage === "FOREVER_OPEN" ? "forever" : "wow",
+          occupancy: Buffer.alloc(options.stage === "FOREVER_OPEN" ? 7014 : 1002).toString(
+            "base64",
+          ),
           version: "a".repeat(64),
         },
       });
@@ -531,4 +533,36 @@ test("Focus image fallback does not leak into the next Seat", async ({ page, con
   } finally {
     await cleanup();
   }
+});
+
+test("FOREVER uses all seven real final layouts and the supplied background", async ({ page }) => {
+  test.setTimeout(60000);
+  await fixtures(page, { stage: "FOREVER_OPEN" });
+  const layouts = new Set<string>();
+  page.on("request", (request) => {
+    if (/\/layouts\/forever-[A-Z0-9]+\.f32$/.test(request.url())) layouts.add(request.url());
+  });
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  await expect.poll(() => layouts.size, { timeout: 25000 }).toBe(7);
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    exact: true,
+  });
+  await expect(canvas).toBeVisible();
+  await expect
+    .poll(() => canvas.evaluate((node) => (node as HTMLCanvasElement).width))
+    .toBeGreaterThan(1);
+  // A resized canvas can precede the first rendered frame during the phase switch.
+  // Require actual nonblank artwork, rather than accepting only a canvas element.
+  await expect
+    .poll(
+      async () => {
+        const stats = await sharp(await canvas.screenshot()).stats();
+        return stats.channels.slice(0, 3).every((channel) => channel.stdev > 20);
+      },
+      { timeout: 25000 },
+    )
+    .toBe(true);
+  await canvas.screenshot({ path: "/tmp/vanguard-forever-final-scene.png" });
+  await expect(page.getByText("MISSING_ASSET", { exact: false })).toHaveCount(0);
 });

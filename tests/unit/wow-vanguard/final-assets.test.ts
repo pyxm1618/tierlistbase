@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import sharp from "sharp";
 import { vanguardAssets } from "@/config/vanguard.config";
 import { WOW_CLASSES } from "@/modules/meta-board";
-it("maps nine unique supplied emblems and the real WOW hero without inventing FOREVER", async () => {
+it("maps nine unique supplied emblems and the real WOW hero and supplied FOREVER hero", async () => {
   expect(Object.keys(vanguardAssets.emblems).sort()).toEqual([...WOW_CLASSES].sort());
   expect(new Set(Object.values(vanguardAssets.emblems)).size).toBe(9);
   const hashes = await Promise.all(
@@ -16,7 +16,7 @@ it("maps nine unique supplied emblems and the real WOW hero without inventing FO
   );
   expect(new Set(hashes).size).toBe(9);
   expect(vanguardAssets.hero).toHaveProperty("wow.width", 1672);
-  expect(vanguardAssets.hero).not.toHaveProperty("forever");
+  expect(vanguardAssets.hero).toHaveProperty("forever.width", 1774);
 });
 it("binds exact stable WOW IDs to unique mask-contained coordinates, excluding the O hole", async () => {
   const seen = new Set<string>();
@@ -51,7 +51,5 @@ it("uses the shipped compact coordinates for real catalog lookup and nearest Sea
   const nearest = await catalog.nearest("WOW-O-0001", new Set(["WOW-O-0001"]));
   expect(nearest).toMatch(/^WOW-/);
   expect(nearest).not.toBe("WOW-O-0001");
-  await expect(catalog.exists("FOREVER-F-0001")).rejects.toMatchObject({
-    code: "LAYOUT_UNAVAILABLE",
-  });
+  expect(await catalog.exists("FOREVER-F-0001")).toBe(true);
 });

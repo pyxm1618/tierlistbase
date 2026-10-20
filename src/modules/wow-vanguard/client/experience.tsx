@@ -77,6 +77,7 @@ export function VanguardExperience({
   const scene = useRef<{
     pick: (x: number, y: number) => void;
     gather: () => void;
+    scatter: () => void;
     focus?: (id: string) => void;
   } | null>(null);
   const audio = useRef(audioController);
@@ -91,6 +92,8 @@ export function VanguardExperience({
     );
   }
   async function choose(id: string, resume = false) {
+    if (scatter) scene.current?.gather();
+    setScatter(false);
     try {
       parseSeatId(id);
       if (resume && claimOpen && !mine && parseSeatId(id).phase === manifest.phase) {
@@ -102,6 +105,7 @@ export function VanguardExperience({
       const seat = await vanguardRequest<PublicInscription>(
         `inscriptions/${encodeURIComponent(id)}`,
       );
+      scene.current?.focus?.(id);
       setFocus(seat);
       setSelected(null);
       setRevealed(false);
@@ -307,6 +311,7 @@ export function VanguardExperience({
         <VanguardCanvas
           manifest={manifest}
           assets={assets}
+          scatter={scatter}
           onNearby={setNearby}
           focusSeat={focus?.seatId ?? null}
           onSeat={(id) => {
@@ -327,12 +332,7 @@ export function VanguardExperience({
           ))}
         </section>
       )}
-      {scatter && (
-        <p>
-          AMBIGUOUS_ASSET: final Scatter movement is not defined by the supplied keyframes. Mouse
-          and touch browsing remain available.
-        </p>
-      )}
+      {scatter && <p role="status">Scatter view · make a fist to gather the Monument.</p>}
       <form onSubmit={search}>
         <label>
           Search Seat ID, Vanguard Name or Guild
@@ -501,6 +501,7 @@ export function VanguardExperience({
           setFocus(null);
           setSelected(null);
           setRevealed(false);
+          setScatter(false);
           scene.current?.gather();
         }}
       >

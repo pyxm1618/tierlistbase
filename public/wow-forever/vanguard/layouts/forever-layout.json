@@ -1,0 +1,121 @@
+{
+  "F": {
+    "count": 8016,
+    "scale": 0.1,
+    "sha256": "94a0481420cf10e52147adf4ebcc474a83eb0e97a4696b2e3ac0f30feb8787fc",
+    "maskFile": "vanguard-mask-f.svg",
+    "maskSha256": "40295fc71e3c24b8221cc6a21751d0f56a3ef48b428c22b553e4a6899638e4a8",
+    "sourceLayout": "vanguard-forever-seat-layout-56112.json",
+    "sourceSha256": "4629089e5cebd7b2065caa3d198a34017c1eeeba7f86e5c0951be7d34de6eedf",
+    "coordinateSystem": {
+      "width": 1774,
+      "height": 887,
+      "logicalScale": 4,
+      "worldDivisor": 10,
+      "origin": [887, 443.5]
+    },
+    "ordering": "supplied FINAL array order; public local index = row + 1"
+  },
+  "O": {
+    "count": 8016,
+    "scale": 0.1,
+    "sha256": "e1971a0f914346dddbd66c68264f6f39d8390ba7650f52ac3e1cf07f341ac908",
+    "maskFile": "vanguard-mask-o-forever.svg",
+    "maskSha256": "cf36f2d1df6395b2c87182ce3e8b60b1d2b958edea8ab7e99c1a9336cc04c903",
+    "sourceLayout": "vanguard-forever-seat-layout-56112.json",
+    "sourceSha256": "4629089e5cebd7b2065caa3d198a34017c1eeeba7f86e5c0951be7d34de6eedf",
+    "coordinateSystem": {
+      "width": 1774,
+      "height": 887,
+      "logicalScale": 4,
+      "worldDivisor": 10,
+      "origin": [887, 443.5]
+    },
+    "ordering": "supplied FINAL array order; public local index = row + 1"
+  },
+  "R1": {
+    "count": 8016,
+    "scale": 0.1,
+    "sha256": "e2704cb445b5397de37efe33f37deec1fbbe06326d7c971895a981f86af58b23",
+    "maskFile": "vanguard-mask-r1.svg",
+    "maskSha256": "b1be8b6e54640a05041ec6b761fcfa87793958f652be12043362ba14ef9acd74",
+    "sourceLayout": "vanguard-forever-seat-layout-56112.json",
+    "sourceSha256": "4629089e5cebd7b2065caa3d198a34017c1eeeba7f86e5c0951be7d34de6eedf",
+    "coordinateSystem": {
+      "width": 1774,
+      "height": 887,
+      "logicalScale": 4,
+      "worldDivisor": 10,
+      "origin": [887, 443.5]
+    },
+    "ordering": "supplied FINAL array order; public local index = row + 1"
+  },
+  "E1": {
+    "count": 8016,
+    "scale": 0.1,
+    "sha256": "7880ccfd42a9ae7560fc79e1da4ea5cfd0e3a8b262212c9b989e2c73db83f4df",
+    "maskFile": "vanguard-mask-e1.svg",
+    "maskSha256": "7407ca8ca3fb66e9d4c8c6fce5b78403435f73e9abadde3c9e03168b823aafe6",
+    "sourceLayout": "vanguard-forever-seat-layout-56112.json",
+    "sourceSha256": "4629089e5cebd7b2065caa3d198a34017c1eeeba7f86e5c0951be7d34de6eedf",
+    "coordinateSystem": {
+      "width": 1774,
+      "height": 887,
+      "logicalScale": 4,
+      "worldDivisor": 10,
+      "origin": [887, 443.5]
+    },
+    "ordering": "supplied FINAL array order; public local index = row + 1"
+  },
+  "V": {
+    "count": 8016,
+    "scale": 0.1,
+    "sha256": "c5374ffa7b21fb891ab16b72d29f54c0b859f100c23a002a26eb7f61b717606f",
+    "maskFile": "vanguard-mask-v.svg",
+    "maskSha256": "d650b9a38d64b7922edb6ca162722286b2f1fd631752e3150f2f1ddc185413d0",
+    "sourceLayout": "vanguard-forever-seat-layout-56112.json",
+    "sourceSha256": "4629089e5cebd7b2065caa3d198a34017c1eeeba7f86e5c0951be7d34de6eedf",
+    "coordinateSystem": {
+      "width": 1774,
+      "height": 887,
+      "logicalScale": 4,
+      "worldDivisor": 10,
+      "origin": [887, 443.5]
+    },
+    "ordering": "supplied FINAL array order; public local index = row + 1"
+  },
+  "E2": {
+    "count": 8016,
+    "scale": 0.1,
+    "sha256": "0ed92680e5280ecc8744300569c9fa23d0fe787fa55639b01b15c4c9446d6195",
+    "maskFile": "vanguard-mask-e2.svg",
+    "maskSha256": "9cc24452cf2e072c078c62c39f2d99f5c3d8f24f4e526864b59592f49fe07a98",
+    "sourceLayout": "vanguard-forever-seat-layout-56112.json",
+    "sourceSha256": "4629089e5cebd7b2065caa3d198a34017c1eeeba7f86e5c0951be7d34de6eedf",
+    "coordinateSystem": {
+      "width": 1774,
+      "height": 887,
+      "logicalScale": 4,
+      "worldDivisor": 10,
+      "origin": [887, 443.5]
+    },
+    "ordering": "supplied FINAL array order; public local index = row + 1"
+  },
+  "R2": {
+    "count": 8016,
+    "scale": 0.1,
+    "sha256": "023b64d98f8d69037931509d4e0241121b59d8549d37f58afbb778e8fc28e9b9",
+    "maskFile": "vanguard-mask-r2.svg",
+    "maskSha256": "81d396ed3ac7b02b0875887f5790f0e6c9e0c868b511d7ea0e9713bf8c3f25ff",
+    "sourceLayout": "vanguard-forever-seat-layout-56112.json",
+    "sourceSha256": "4629089e5cebd7b2065caa3d198a34017c1eeeba7f86e5c0951be7d34de6eedf",
+    "coordinateSystem": {
+      "width": 1774,
+      "height": 887,
+      "logicalScale": 4,
+      "worldDivisor": 10,
+      "origin": [887, 443.5]
+    },
+    "ordering": "supplied FINAL array order; public local index = row + 1"
+  }
+}

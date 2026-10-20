@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "totalSeats": 64128,
+  "stages": {
+    "wow": {
+      "seatCount": 8016,
+      "idRange": [
+        1,
+        8016
+      ],
+      "layout": "vanguard-seat-layout-8016-final.json",
+      "audit": "vanguard-seat-layout-8016-final-audit.json"
+    },
+    "forever": {
+      "seatCount": 56112,
+      "idRange": [
+        8017,
+        64128
+      ],
+      "layout": "vanguard-forever-seat-layout-56112.json",
+      "logicalMaster": {
+        "width": 7096,
+        "height": 3548
+      }
+    }
+  }
+}

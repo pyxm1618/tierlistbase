@@ -116,8 +116,8 @@ export function createVanguardSealRenderer(assets: VanguardAssets): SealRenderer
       const offset = (identity.localIndex - 1) * 4;
       if (positions.length !== (identity.phase === "wow" ? 2672 : 8016) * 4)
         throw new Error("Seal location layout invalid");
-      const px = (positions[offset]! * 10 + 836) / 1672,
-        py = (470.5 - positions[offset + 1]! * 10) / 941;
+      const px = (positions[offset]! * 10 + hero.width / 2) / hero.width,
+        py = (hero.height / 2 - positions[offset + 1]! * 10) / hero.height;
       ctx.fillStyle = "#fff5b0";
       ctx.strokeStyle = "#09101b";
       ctx.lineWidth = 2;

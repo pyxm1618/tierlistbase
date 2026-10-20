@@ -1,4 +1,5 @@
 import { WOW_CLASSES } from "@/modules/meta-board";
+import foreverLayout from "../../public/wow-forever/vanguard/layouts/forever-layout.json";
 import wowLayout from "../../public/wow-forever/vanguard/layouts/wow-layout.json";
 export const vanguardConfig = {
   eventCloseAt: "2026-11-04T23:00:00Z",
@@ -19,16 +20,26 @@ export const vanguardAssets = {
       width: 1672,
       height: 941,
     },
+    forever: {
+      src: "/wow-forever/vanguard/monument/vanguard-forever-hero-base-desktop.png",
+      width: 1774,
+      height: 887,
+    },
   },
-  layouts: Object.fromEntries(
-    Object.keys(wowLayout).map((letter) => [
+  layouts: Object.fromEntries([
+    ...Object.keys(wowLayout).map((letter) => [
       `wow:${letter}`,
       `/wow-forever/vanguard/layouts/wow-${letter}.f32`,
     ]),
-  ),
-  layoutScales: Object.fromEntries(
-    Object.entries(wowLayout).map(([letter, meta]) => [`wow:${letter}`, meta.scale]),
-  ),
+    ...Object.keys(foreverLayout).map((letter) => [
+      `forever:${letter}`,
+      `/wow-forever/vanguard/layouts/forever-${letter}.f32`,
+    ]),
+  ]),
+  layoutScales: Object.fromEntries([
+    ...Object.entries(wowLayout).map(([letter, meta]) => [`wow:${letter}`, meta.scale]),
+    ...Object.entries(foreverLayout).map(([letter, meta]) => [`forever:${letter}`, meta.scale]),
+  ]),
   plate: "/wow-forever/vanguard/plates/vanguard-seat-base.png",
   plates: {
     alliance: "/wow-forever/vanguard/plates/vanguard-seat-alliance.png",

@@ -1,5 +1,7 @@
 # Supplied visual asset integration — baseline d9b2dbc
 
+Historical snapshot only. Current asset status and final layout evidence are in [final-layout-closeout.md](./final-layout-closeout.md). The prior classification of Scatter as AMBIGUOUS_ASSET was incorrect: it is a code implementation, now completed without requiring another asset or movement specification. FOREVER files and user FINAL layouts have since been supplied and integrated.
+
 Branch codex/vanguard-monument only. No push, PR or deployment. Frozen requirements/design, authentication/Header, database model, event rules, moderation rules, Tier List data and the five final WAVs are unchanged.
 
 ## Inventory gate

@@ -40,8 +40,11 @@ console.log(
     {
       configuration,
       audio,
-      claim: "CLOSED_UNTIL_FINAL_MASK_LAYOUT",
-      layoutConfigured: Object.keys(vanguardAssets.layouts).length > 0,
+      claim:
+        Object.keys(vanguardAssets.layouts).length === 10
+          ? "FINAL_LAYOUT_READY_EXTERNAL_ACCEPTANCE_NOT_VERIFIED"
+          : "CLOSED_UNTIL_FINAL_MASK_LAYOUT",
+      layoutConfigured: Object.keys(vanguardAssets.layouts).length === 10,
       moderationThresholds:
         vanguardConfig.moderationThresholds === null
           ? "UNCALIBRATED_FAIL_CLOSED"

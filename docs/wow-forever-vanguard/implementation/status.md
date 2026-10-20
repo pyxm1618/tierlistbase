@@ -75,3 +75,7 @@ See [nonvisual-closeout.md](./nonvisual-closeout.md) for the eight-area audit, c
 ## Supplied final visual stage after d9b2dbc
 
 See [final-visual-stage.md](./final-visual-stage.md) and [item-level asset inventory](./final-assets-inventory.json). WOW geometry and supplied Plate/Focus/Emblem/Ritual/Seal assets are integrated. FOREVER hero/seven masks and final Scatter movement remain explicitly blocked; user authorized skipping missing files. Production Claim remains closed. Earlier six-group asset ledgers are historical, not the current inventory.
+
+## Final FOREVER/layout/Scatter continuation after 75e5419
+
+Current asset status supersedes the historical asset blockers above: **BLOCKED_ASSET = 0**. See [final-layout-closeout.md](./final-layout-closeout.md) and [new asset inventory](./forever-assets-inventory.json). Both final phase heroes, all ten masks and all 64,128 supplied FINAL coordinates are integrated. Scatter is code, not an asset dependency; open palm scatters deterministically, fist gathers, pinch selects Focus. No additional movement specification file is required. The code-level final-layout prerequisite is satisfied; production opening and provider acceptance are not claimed. External service validation and human acceptance remain separate gates.

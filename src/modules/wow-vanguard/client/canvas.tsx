@@ -34,22 +34,32 @@ export function occupiedSeats(manifest: VanguardManifest, phase = manifest.phase
 export function VanguardCanvas({
   manifest,
   assets,
+  scatter = false,
   focusSeat,
   onSeat,
   onController,
   onNearby,
 }: {
   manifest: VanguardManifest;
+  scatter?: boolean;
   assets: VanguardAssets;
   focusSeat: string | null;
   onSeat: (seatId: string) => void;
   onNearby: (ids: string[]) => void;
   onController: (
-    controller: { pick: (x: number, y: number) => void; gather: () => void } | null,
+    controller: {
+      pick: (x: number, y: number) => void;
+      gather: () => void;
+      scatter: () => void;
+    } | null,
   ) => void;
 }) {
   const phase = focusSeat ? parseSeatId(focusSeat).phase : manifest.phase;
   const focused = useRef(focusSeat);
+  const scattered = useRef(scatter);
+  useEffect(() => {
+    scattered.current = scatter;
+  }, [scatter]);
   useEffect(() => {
     focused.current = focusSeat;
   }, [focusSeat]);
@@ -100,7 +110,15 @@ export function VanguardCanvas({
           return;
         }
         active = createVanguardScene(canvas.current, groups, plate, {
-          ...(background ? { background } : {}),
+          ...(background
+            ? {
+                background,
+                backgroundSize: {
+                  width: assets.hero[phase]!.width / 10,
+                  height: assets.hero[phase]!.height / 10,
+                },
+              }
+            : {}),
           occupied: occupancy(),
           reducedMotion: matchMedia("(prefers-reduced-motion: reduce)").matches,
           onSeat: (id) => selection.current(id),
@@ -129,9 +147,10 @@ export function VanguardCanvas({
             nearbyVanguardSeats(groups, focused.current, occupiedSeats(manifest)),
           );
         }
+        if (scattered.current) active.scatter();
         controller.current = active;
         controllerCallback.current(active);
-        if (focused.current) active.focus(focused.current);
+        if (focused.current && !scattered.current) active.focus(focused.current);
       } catch {
         if (!cancelled)
           setError(
@@ -157,7 +176,13 @@ export function VanguardCanvas({
     controller.current?.updateOccupancy(occupied);
   }, [manifest, phase, focusSeat]);
   useEffect(() => {
-    if (focusSeat) controller.current?.focus(focusSeat);
+    if (scatter) controller.current?.scatter();
+  }, [scatter]);
+  useEffect(() => {
+    // Only a new selection moves the camera; manifest polling preserves Scatter/Gather.
+    if (focusSeat && !scattered.current) controller.current?.focus(focusSeat);
+  }, [focusSeat, phase]);
+  useEffect(() => {
     let cancelled = false;
     if (
       focusSeat &&
@@ -177,6 +202,7 @@ export function VanguardCanvas({
   }, [focusSeat, manifest, phase]);
   const blocked =
     !assets.plate ||
+    !assets.hero[phase] ||
     !(phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"]).every(
       (letter) => assets.layouts[`${phase}:${letter}`],
     );
@@ -186,6 +212,7 @@ export function VanguardCanvas({
         <p>MISSING_ASSET: final {phase.toUpperCase()} Monument / Mask-derived Seat Layout.</p>
       ) : (
         <canvas
+          key={phase}
           ref={canvas}
           aria-label="Interactive Monument. Drag to pan, scroll or pinch to zoom."
           style={{ width: "100%", height: "min(65vh,640px)", touchAction: "none" }}
