@@ -41,7 +41,7 @@ export function getAuth(): AuthInstance | null {
     magicLinkEnabled: featuresConfig.auth.magicLink,
     beforeDeleteUser: async (userId) => {
       const { removeVanguardBeforeAccountDeletion } = await import(
-        "@/config/vanguard-runtime.config"
+        "@/config/vanguard-runtime.config",
       );
       await removeVanguardBeforeAccountDeletion(userId);
     },
