@@ -38,3 +38,17 @@ Use the existing Cloudflare Workers production Worker tierlistbase at https://ww
 Clef currently has only implementation/moderation/samples.template.json, not a real private labeled manifest. No real calibration set/path is assumed; no test image is generated; thresholds and real-sample evaluation remain BLOCKED_EXTERNAL.
 
 Before merge, verify the available Google configuration/return flow, R2 CORS/lifecycle/private-public/delete/purge, real Clef samples/calibration and received Resend notification only when actual configuration and inputs exist. Final Google production callback/session/returnTo acceptance belongs to the post-deployment smoke test. Human review and production acceptance cannot be replaced by local or mocked test success.
+
+## Second complete CI and final bounded corrections
+
+Run https://github.com/pyxm1618/tierlistbase/actions/runs/39369170699 on 634210b finished with quality and performance successful, clean-setup and e2e failed. The initial three defects are resolved: all 35 Vanguard browser tests passed in GitHub. Two newly reachable CI boundaries failed, and the local production SEO rerun then identified one page integration omission:
+
+| Confirmed defect | Evidence | Correction / verification |
+| --- | --- | --- |
+| Product-only auth assertion runs after clean harness replaces product configuration | Neutral template intentionally permits Magic Link; exact failure reproduced in a separate detached temporary checkout | Scope only this TierListBase production assertion to site slug tierlistbase. Neutral template unchanged. Full neutral suite: 497 passed, 1 explicit product-only skip; actual TierListBase: 498 passed, no skip |
+| Production-mode SEO harness lacks credentials required by the existing enabled auth/email configuration | Remote build fails with Cron secret required before browser tests | Generate process-only ephemeral auth/cron/Google/Resend fixture values in this local test harness and use the required Resend transport setting. No production guard relaxed, no production credentials/file, no provider acceptance |
+| Vanguard page omits the existing global structured-data renderer | Once harness starts, real browser assertion fails: /wow-forever/vanguard structured data exists, received 0 | Reuse existing JsonLd and webApplicationJsonLd, fixed registered canonical URL and registered public copy. No new schema strategy or indexable URL. Production-mode browser suite 7/7 passed |
+
+The first local SEO run after fixing Vanguard then found the separate isolated database lacked the existing reviewed Genshin fixture. Existing guarded seedGenshinTestDatabase was run only against localhost/vanguard_20261019_e2e; no Genshin code/test/content change was made. Full 7/7 production-mode SEO pass followed. A pre-existing Genshin fetch-count test also retried successfully in GitHub; it was not modified or treated as the cause of the later production-harness failure.
+
+This correction changes exactly four files: the existing Vanguard page, tests/e2e/start-production-seo-server.ts, tests/unit/wow-vanguard/integration-boundaries.test.ts and this ledger. Four reviewed/in-scope, zero deleted, zero unknown. Cumulative release repair scope: seven files, six evidenced defects, zero feature additions. Local lint, format, typecheck, security and SEO verifier passed; complete GitHub CI must rerun on the final repaired head. External/HUMAN_REVIEW gates above remain unchanged; no merge or deployment.

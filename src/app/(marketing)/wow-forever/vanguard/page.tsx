@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { routeRegistry } from "@/config/routes.config";
+import { JsonLd } from "@/components/seo/json-ld";
+import { webApplicationJsonLd } from "@/platform/seo/structured-data";
 import { metadataForRoute } from "@/platform/seo/metadata";
 import { currentSeoEnvironment } from "@/platform/seo/environment-policy";
 import { headers } from "next/headers";
@@ -18,6 +20,8 @@ export default async function VanguardPage({
 }: {
   searchParams: Promise<{ seat?: string }>;
 }) {
+  const route = routeRegistry.get("/wow-forever/vanguard");
+  if (route.class !== "public_indexable") throw new Error("Vanguard must be indexable");
   const requested = (await searchParams).seat;
   const seat = seatIdSchema.safeParse(requested);
   const account = await getAccountContext(await headers());
@@ -36,6 +40,13 @@ export default async function VanguardPage({
   )[manifest.phase];
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-16">
+      <JsonLd
+        value={webApplicationJsonLd({
+          name: route.h1,
+          url: `${routeRegistry.site.canonicalOrigin}/wow-forever/vanguard`,
+          description: route.description,
+        })}
+      />
       <header>
         <h1 className="text-4xl font-bold">{heading}</h1>
         <p className="mt-6">

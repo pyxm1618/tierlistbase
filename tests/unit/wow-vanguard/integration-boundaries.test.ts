@@ -1,24 +1,28 @@
 import { afterEach, expect, it, vi } from "vitest";
 import nextConfig from "../../../next.config";
+import { siteConfig } from "@/config/site.config";
 import { assertAllowedRelativeCallback } from "@/platform/auth/callback-url";
 import { isAnalyticsLocationSafe } from "@/platform/analytics/events";
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.resetModules();
 });
-it("enables production Google only, with notification email", async () => {
-  vi.stubEnv("APP_ENV", "production");
-  vi.stubEnv("GA4_MEASUREMENT_ID", "G-TEST");
-  vi.resetModules();
-  const { featuresConfig } = await import("@/config/features.config");
-  expect(featuresConfig.auth).toEqual({
-    enabled: true,
-    google: true,
-    magicLink: false,
-    password: false,
-  });
-  expect(featuresConfig.email.enabled).toBe(true);
-});
+it.skipIf(String(siteConfig.slug) !== "tierlistbase")(
+  "enables production Google only, with notification email",
+  async () => {
+    vi.stubEnv("APP_ENV", "production");
+    vi.stubEnv("GA4_MEASUREMENT_ID", "G-TEST");
+    vi.resetModules();
+    const { featuresConfig } = await import("@/config/features.config");
+    expect(featuresConfig.auth).toEqual({
+      enabled: true,
+      google: true,
+      magicLink: false,
+      password: false,
+    });
+    expect(featuresConfig.email.enabled).toBe(true);
+  },
+);
 it("allows only Vanguard camera override", async () => {
   const rules = await nextConfig.headers!();
   const policy = (path: string) =>
