@@ -37,9 +37,9 @@ export function VanguardRitual({
       aria-label="Inscription ritual"
       role="status"
       data-clarity-mask="true"
-      className="mx-auto max-w-sm text-center"
+      className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/85  p-4 text-center select-none animate-in fade-in duration-300"
     >
-      <div className="relative aspect-square">
+      <div className="relative aspect-square w-full max-w-md">
         {art ? (
           <Image
             unoptimized
@@ -47,10 +47,12 @@ export function VanguardRitual({
             alt=""
             width={1254}
             height={1254}
-            className="absolute inset-0 h-full w-full motion-safe:transition-opacity"
+            className="absolute inset-0 h-full w-full object-contain motion-safe:transition-opacity"
           />
         ) : (
-          <p>Animation artwork is unavailable. Your inscription is accepted.</p>
+          <p className="text-amber-200">
+            Animation artwork is unavailable. Your inscription is accepted.
+          </p>
         )}
         <div className="absolute inset-[15%] flex items-center justify-center">
           <VanguardMemoryPlate
@@ -69,9 +71,15 @@ export function VanguardRitual({
           />
         )}
       </div>
-      <p>{seat.displayName}</p>
-      <p>{seat.seatId}</p>
-      <p>Inscription accepted · {frame.replaceAll("_", " ")}</p>
+      <div className="mt-4 space-y-1">
+        <p className="text-xl font-bold uppercase tracking-widest text-[#fff1cf] drop-shadow-md">
+          {seat.displayName}
+        </p>
+        <p className="text-sm font-semibold tracking-wider text-amber-300">{seat.seatId}</p>
+        <p className="text-xs uppercase tracking-widest text-[#cfbe9f]/80">
+          Your place is taking its form
+        </p>
+      </div>
     </section>
   );
 }

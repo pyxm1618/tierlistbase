@@ -1,0 +1,267 @@
+/* Presentation only: the existing art and scene share one stable viewport. */
+.stageRoot {
+  position: relative;
+  width: 100%;
+  height: calc(100svh - 4rem);
+  min-height: 640px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #050608;
+  color: #f7e7c4;
+}
+.stageViewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #050608;
+}
+.experience {
+  position: absolute;
+  inset: 0;
+}
+.heroIntroContent {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1rem 2rem;
+  background: linear-gradient(to top, #050608 0%, rgba(5, 6, 8, 0.9) 12%, transparent 45%);
+  text-align: center;
+  pointer-events: none;
+}
+.heroIntroInner {
+  pointer-events: auto;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+.monumentTitle {
+  margin: 0;
+  color: #fce7ba;
+  font-family: Georgia, serif;
+  font-size: clamp(1.35rem, 2.2vw, 2.5rem);
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px #000;
+}
+.monumentLead {
+  max-width: 560px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #cfbe9f;
+  text-shadow: 0 1px 4px #000;
+}
+.stageOverlayBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  background: rgba(4, 5, 8, 0.48);
+}
+.stageModalPanel {
+  position: relative;
+  width: 440px;
+  max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.5rem;
+  color: #e8dcc4;
+  border: 1px solid #7a6336;
+  border-radius: 2px;
+  background: rgba(12, 14, 18, 0.97);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+.searchPanel {
+  margin: auto;
+}
+.focusPanel {
+  width: 720px;
+}
+.claimPanel {
+  width: 460px;
+}
+.revealPanel {
+  width: 700px;
+  margin: auto;
+}
+.stageRoot :is(button, a, input, select, summary, canvas):focus-visible {
+  outline: 2px solid #e8c980;
+  outline-offset: 4px;
+}
+.stageRoot button {
+  cursor: pointer;
+}
+.stageRoot button:disabled {
+  cursor: default;
+}
+.charge {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+.charge img {
+  height: 80%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+.sealing {
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;
+  z-index: 45;
+  color: #e8c980;
+}
+.cropPreview {
+  width: 128px;
+  height: 128px;
+  touch-action: none;
+  cursor: grab;
+  border: 1px solid #947a46;
+}
+.focusVisual {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  width: 100%;
+}
+.focusVisual > p {
+  position: absolute;
+  left: 43%;
+  right: 8%;
+  color: #f7e7c4;
+  font-size: clamp(11px, 1.1vw, 17px);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.focusName {
+  top: 24%;
+}
+.focusSeat {
+  top: 36%;
+}
+.focusFaction {
+  top: 47%;
+}
+.focusGuild {
+  top: 58%;
+}
+.focusCry {
+  top: 69%;
+  font-size: clamp(10px, 1vw, 15px) !important;
+}
+.stageRoot section[aria-label="Vanguard Seal"] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.stageRoot section[aria-label="Vanguard Seal"] h3 {
+  width: 100%;
+  text-align: center;
+  font-family: Georgia, serif;
+  letter-spacing: 0.12em;
+}
+.stageRoot section[aria-label="Vanguard Seal"] button {
+  padding: 0.6rem 1.25rem;
+  border: 1px solid #947a46;
+  color: #f7e7c4;
+  background: #2a251b;
+  font-size: 0.8rem;
+  min-height: 42px;
+}
+@media (max-width: 767px) {
+  .stageRoot {
+    min-height: 680px;
+  }
+  .heroIntroInner {
+    gap: 0.75rem;
+  }
+  .monumentTitle {
+    font-size: 1.3rem;
+    max-width: 320px;
+  }
+  .monumentLead {
+    max-width: 320px;
+    font-size: 0.75rem;
+  }
+  .stageOverlayBackdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .stageModalPanel {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92%;
+    border-width: 1px 0 0;
+    padding: 1.25rem;
+    border-radius: 0;
+  }
+  .focusPanel,
+  .revealPanel {
+    margin: 0;
+  }
+  .stageRoot header {
+    gap: 0.5rem;
+  }
+  .stageRoot header > div {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .stageRoot header button,
+  .stageRoot header a {
+    min-height: 36px;
+    padding: 0.35rem 0.5rem;
+    font-size: 10px;
+  }
+  .stageRoot header p {
+    font-size: 10px;
+  }
+  .focusVisual {
+    aspect-ratio: 1.6;
+  }
+  .focusVisual > p {
+    font-size: 11px;
+  }
+  .focusCry {
+    font-size: 10px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stageRoot *,
+  .stageRoot *::before,
+  .stageRoot *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.focusFallback {
+  aspect-ratio: auto;
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 0.5rem 1rem;
+}
+.focusFallback > div {
+  position: static;
+  width: 100%;
+  grid-row: span 5;
+}
+.focusFallback > p {
+  position: static;
+  font-size: 14px;
+}
