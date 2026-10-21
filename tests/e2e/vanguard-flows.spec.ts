@@ -215,6 +215,8 @@ for (const width of [390, 768, 1024, 1440, 1920])
     page,
     context,
   }) => {
+    // This viewport also renders and downloads both full-resolution Seal formats.
+    if (width === 1920) test.setTimeout(60000);
     const cleanup = await account(context);
     try {
       await page.setViewportSize({ width, height: 900 });
@@ -894,7 +896,7 @@ test("pending server confirmation cannot show permanent success; a rejected POST
     const button = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
     await button.focus();
     await page.keyboard.down("Space");
-    await page.clock.runFor(4000);
+    await page.clock.fastForward(4000);
     await expect.poll(() => posts).toBe(1);
     await expect(page.getByText("Sealing · awaiting confirmation…", { exact: true })).toBeVisible();
     await expect(page.getByLabel("Inscription ritual", { exact: true })).toHaveCount(0);
@@ -958,7 +960,7 @@ for (const interruption of ["blur", "visibilitychange"] as const)
       const hold = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
       await hold.focus();
       await page.keyboard.down("Space");
-      await page.clock.runFor(2000);
+      await page.clock.fastForward(2000);
       await page.evaluate((event) => {
         if (event === "visibilitychange") {
           Object.defineProperty(document, "visibilityState", {
@@ -968,7 +970,7 @@ for (const interruption of ["blur", "visibilitychange"] as const)
           document.dispatchEvent(new Event("visibilitychange"));
         } else window.dispatchEvent(new Event("blur"));
       }, interruption);
-      await page.clock.runFor(5000);
+      await page.clock.fastForward(5000);
       await page.keyboard.up("Space");
       expect(posts).toBe(0);
       await expect(page.getByRole("progressbar", { name: "Inscription progress" })).toHaveAttribute(
