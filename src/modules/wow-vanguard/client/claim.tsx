@@ -1,5 +1,4 @@
 "use client";
-import styles from "./vanguard.module.css";
 import type { VanguardAssets } from "./contracts";
 import { useEffect, useRef, useState } from "react";
 import type { PublicInscription } from "../db/service";
@@ -521,7 +520,7 @@ export function VanguardClaim({
                   <canvas
                     ref={canvas}
                     aria-label="Square crop preview"
-                    className={styles.cropPreview}
+                    className={"vanguard-cropPreview"}
                     tabIndex={0}
                     onPointerDown={(event) => {
                       event.currentTarget.setPointerCapture(event.pointerId);

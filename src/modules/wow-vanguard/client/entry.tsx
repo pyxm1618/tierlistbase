@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import styles from "./vanguard.module.css";
 import Link from "next/link";
 import { trackVanguard } from "./tracking";
 import { useEffect, useState } from "react";
@@ -89,7 +88,7 @@ export function VanguardEntry(props: {
     }[props.manifest.stage];
 
   return (
-    <section aria-label="Monument Stage" data-monument-stage className={styles.stageRoot}>
+    <section aria-label="Monument Stage" data-monument-stage className={"vanguard-stageRoot"}>
       {Experience && entered ? (
         <>
           <Experience
@@ -106,7 +105,7 @@ export function VanguardEntry(props: {
           )}
         </>
       ) : (
-        <section aria-label="Monument" className={styles.stageViewport}>
+        <section aria-label="Monument" className={"vanguard-stageViewport"}>
           {/* Static Hero Artwork as primary SSR / LCP visual */}
           {props.hero ? (
             <Image
@@ -181,11 +180,11 @@ export function VanguardEntry(props: {
           </header>
 
           {/* Center / Bottom Monument Call-to-Action Layer */}
-          <div className={styles.heroIntroContent}>
-            <div className={styles.heroIntroInner}>
-              <h1 className={styles.monumentTitle}>{headingText}</h1>
+          <div className={"vanguard-heroIntroContent"}>
+            <div className={"vanguard-heroIntroInner"}>
+              <h1 className={"vanguard-monumentTitle"}>{headingText}</h1>
 
-              <p className={styles.monumentLead}>
+              <p className={"vanguard-monumentLead"}>
                 8,016 days connect November 23, 2004 and November 4, 2026. A permanent place for the
                 players and memories that made this journey.
               </p>

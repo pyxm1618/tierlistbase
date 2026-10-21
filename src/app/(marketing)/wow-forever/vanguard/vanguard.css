@@ -1,5 +1,5 @@
 /* Presentation only: the existing art and scene share one stable viewport. */
-.stageRoot {
+.vanguard-stageRoot {
   position: relative;
   width: 100%;
   height: calc(100svh - 4rem);
@@ -9,18 +9,18 @@
   background: #050608;
   color: #f7e7c4;
 }
-.stageViewport {
+.vanguard-stageViewport {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
   background: #050608;
 }
-.experience {
+.vanguard-experience {
   position: absolute;
   inset: 0;
 }
-.heroIntroContent {
+.vanguard-heroIntroContent {
   position: absolute;
   inset: 0;
   z-index: 25;
@@ -33,7 +33,7 @@
   text-align: center;
   pointer-events: none;
 }
-.heroIntroInner {
+.vanguard-heroIntroInner {
   pointer-events: auto;
   max-width: 720px;
   display: flex;
@@ -41,7 +41,7 @@
   align-items: center;
   gap: 0.6rem;
 }
-.monumentTitle {
+.vanguard-monumentTitle {
   margin: 0;
   color: #fce7ba;
   font-family: Georgia, serif;
@@ -51,14 +51,14 @@
   text-transform: uppercase;
   text-shadow: 0 2px 12px #000;
 }
-.monumentLead {
+.vanguard-monumentLead {
   max-width: 560px;
   font-size: 0.85rem;
   line-height: 1.5;
   color: #cfbe9f;
   text-shadow: 0 1px 4px #000;
 }
-.stageOverlayBackdrop {
+.vanguard-stageOverlayBackdrop {
   position: absolute;
   inset: 0;
   z-index: 40;
@@ -68,7 +68,7 @@
   padding: 1.5rem;
   background: rgba(4, 5, 8, 0.48);
 }
-.stageModalPanel {
+.vanguard-stageModalPanel {
   position: relative;
   width: 440px;
   max-width: 100%;
@@ -82,30 +82,30 @@
   background: rgba(12, 14, 18, 0.97);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
 }
-.searchPanel {
+.vanguard-searchPanel {
   margin: auto;
 }
-.focusPanel {
+.vanguard-focusPanel {
   width: 720px;
 }
-.claimPanel {
+.vanguard-claimPanel {
   width: 460px;
 }
-.revealPanel {
+.vanguard-revealPanel {
   width: 700px;
   margin: auto;
 }
-.stageRoot :is(button, a, input, select, summary, canvas):focus-visible {
+.vanguard-stageRoot :is(button, a, input, select, summary, canvas):focus-visible {
   outline: 2px solid #e8c980;
   outline-offset: 4px;
 }
-.stageRoot button {
+.vanguard-stageRoot button {
   cursor: pointer;
 }
-.stageRoot button:disabled {
+.vanguard-stageRoot button:disabled {
   cursor: default;
 }
-.charge {
+.vanguard-charge {
   position: absolute;
   inset: 0;
   z-index: 35;
@@ -115,32 +115,32 @@
   justify-content: center;
   opacity: 0.6;
 }
-.charge img {
+.vanguard-charge img {
   height: 80%;
   width: auto;
   max-width: 100%;
   object-fit: contain;
 }
-.sealing {
+.vanguard-sealing {
   position: absolute;
   bottom: 2rem;
   left: 1rem;
   z-index: 45;
   color: #e8c980;
 }
-.cropPreview {
+.vanguard-cropPreview {
   width: 128px;
   height: 128px;
   touch-action: none;
   cursor: grab;
   border: 1px solid #947a46;
 }
-.focusVisual {
+.vanguard-focusVisual {
   position: relative;
   aspect-ratio: 2 / 1;
   width: 100%;
 }
-.focusVisual > p {
+.vanguard-focusVisual > p {
   position: absolute;
   left: 43%;
   right: 8%;
@@ -149,35 +149,35 @@
   line-height: 1.25;
   overflow-wrap: anywhere;
 }
-.focusName {
+.vanguard-focusName {
   top: 24%;
 }
-.focusSeat {
+.vanguard-focusSeat {
   top: 36%;
 }
-.focusFaction {
+.vanguard-focusFaction {
   top: 47%;
 }
-.focusGuild {
+.vanguard-focusGuild {
   top: 58%;
 }
-.focusCry {
+.vanguard-focusCry {
   top: 69%;
   font-size: clamp(10px, 1vw, 15px) !important;
 }
-.stageRoot section[aria-label="Vanguard Seal"] {
+.vanguard-stageRoot section[aria-label="Vanguard Seal"] {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.75rem;
 }
-.stageRoot section[aria-label="Vanguard Seal"] h3 {
+.vanguard-stageRoot section[aria-label="Vanguard Seal"] h3 {
   width: 100%;
   text-align: center;
   font-family: Georgia, serif;
   letter-spacing: 0.12em;
 }
-.stageRoot section[aria-label="Vanguard Seal"] button {
+.vanguard-stageRoot section[aria-label="Vanguard Seal"] button {
   padding: 0.6rem 1.25rem;
   border: 1px solid #947a46;
   color: #f7e7c4;
@@ -186,25 +186,25 @@
   min-height: 42px;
 }
 @media (max-width: 767px) {
-  .stageRoot {
+  .vanguard-stageRoot {
     min-height: 680px;
   }
-  .heroIntroInner {
+  .vanguard-heroIntroInner {
     gap: 0.75rem;
   }
-  .monumentTitle {
+  .vanguard-monumentTitle {
     font-size: 1.3rem;
     max-width: 320px;
   }
-  .monumentLead {
+  .vanguard-monumentLead {
     max-width: 320px;
     font-size: 0.75rem;
   }
-  .stageOverlayBackdrop {
+  .vanguard-stageOverlayBackdrop {
     padding: 0;
     align-items: flex-end;
   }
-  .stageModalPanel {
+  .vanguard-stageModalPanel {
     width: 100%;
     max-width: 100%;
     max-height: 92%;
@@ -212,56 +212,56 @@
     padding: 1.25rem;
     border-radius: 0;
   }
-  .focusPanel,
-  .revealPanel {
+  .vanguard-focusPanel,
+  .vanguard-revealPanel {
     margin: 0;
   }
-  .stageRoot header {
+  .vanguard-stageRoot header {
     gap: 0.5rem;
   }
-  .stageRoot header > div {
+  .vanguard-stageRoot header > div {
     flex-wrap: wrap;
     gap: 0.35rem;
   }
-  .stageRoot header button,
-  .stageRoot header a {
+  .vanguard-stageRoot header button,
+  .vanguard-stageRoot header a {
     min-height: 36px;
     padding: 0.35rem 0.5rem;
     font-size: 10px;
   }
-  .stageRoot header p {
+  .vanguard-stageRoot header p {
     font-size: 10px;
   }
-  .focusVisual {
+  .vanguard-focusVisual {
     aspect-ratio: 1.6;
   }
-  .focusVisual > p {
+  .vanguard-focusVisual > p {
     font-size: 11px;
   }
-  .focusCry {
+  .vanguard-focusCry {
     font-size: 10px !important;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .stageRoot *,
-  .stageRoot *::before,
-  .stageRoot *::after {
+  .vanguard-stageRoot *,
+  .vanguard-stageRoot *::before,
+  .vanguard-stageRoot *::after {
     animation: none !important;
     transition: none !important;
   }
 }
-.focusFallback {
+.vanguard-focusFallback {
   aspect-ratio: auto;
   display: grid;
   grid-template-columns: 100px minmax(0, 1fr);
   gap: 0.5rem 1rem;
 }
-.focusFallback > div {
+.vanguard-focusFallback > div {
   position: static;
   width: 100%;
   grid-row: span 5;
 }
-.focusFallback > p {
+.vanguard-focusFallback > p {
   position: static;
   font-size: 14px;
 }

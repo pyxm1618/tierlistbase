@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import styles from "./vanguard.module.css";
 import type { PublicInscription } from "../db/service";
 import type { VanguardAssets } from "./contracts";
 import { VanguardMemoryPlate } from "./plate";
@@ -14,7 +13,7 @@ export function VanguardFocusVisual({
   if (seat.status !== "active") return null;
   return (
     <div
-      className={`${styles.focusVisual} ${!assets.focus ? styles.focusFallback : ""}`}
+      className={`vanguard-focusVisual ${!assets.focus ? "vanguard-focusFallback" : ""}`}
       data-clarity-mask="true"
     >
       {assets.focus && (
@@ -34,13 +33,13 @@ export function VanguardFocusVisual({
           {...(assets.emblems[seat.className] ? { emblem: assets.emblems[seat.className] } : {})}
         />
       </div>
-      <p className={styles.focusName}>{seat.displayName}</p>
-      <p className={styles.focusSeat}>{seat.seatId}</p>
-      <p className={styles.focusFaction}>
+      <p className={"vanguard-focusName"}>{seat.displayName}</p>
+      <p className={"vanguard-focusSeat"}>{seat.seatId}</p>
+      <p className={"vanguard-focusFaction"}>
         {seat.faction} · {seat.className}
       </p>
-      <p className={styles.focusGuild}>{seat.guildName}</p>
-      <p className={styles.focusCry}>{seat.battleCry}</p>
+      <p className={"vanguard-focusGuild"}>{seat.guildName}</p>
+      <p className={"vanguard-focusCry"}>{seat.battleCry}</p>
     </div>
   );
 }

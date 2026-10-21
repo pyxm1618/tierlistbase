@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { PublicInscription } from "../db/service";
 import Link from "next/link";
-import styles from "./vanguard.module.css";
 import { VanguardRitual } from "./ritual";
 import Image from "next/image";
 import { VanguardFocusVisual } from "./focus-visual";
@@ -282,7 +281,7 @@ export function VanguardExperience({
     <section
       aria-label="Monument experience"
       data-clarity-mask="true"
-      className={styles.experience}
+      className={"vanguard-experience"}
       onKeyDown={(event) => {
         if (event.key === "Escape" && !ritualLocked) {
           setSearchOpen(false);
@@ -341,7 +340,7 @@ export function VanguardExperience({
       <video ref={video} muted playsInline hidden />
 
       {/* Main Monument Stage Container */}
-      <div className={styles.stageViewport}>
+      <div className={"vanguard-stageViewport"}>
         {/* Interactive WebGL Canvas */}
         {monumentEntered && (
           <VanguardCanvas
@@ -468,9 +467,9 @@ export function VanguardExperience({
             role="dialog"
             aria-modal="true"
             aria-label="Monument panel"
-            className={styles.stageOverlayBackdrop}
+            className={"vanguard-stageOverlayBackdrop"}
           >
-            <div data-stage-panel className={`${styles.stageModalPanel} ${styles.searchPanel}`}>
+            <div data-stage-panel className={`vanguard-stageModalPanel vanguard-searchPanel`}>
               <button
                 type="button"
                 aria-label="Close Search"
@@ -546,12 +545,12 @@ export function VanguardExperience({
             role="dialog"
             aria-modal="true"
             aria-label="Monument panel"
-            className={styles.stageOverlayBackdrop}
+            className={"vanguard-stageOverlayBackdrop"}
           >
             <section
               data-stage-panel
               aria-label="Vanguard Focus"
-              className={`${styles.stageModalPanel} ${styles.focusPanel}`}
+              className={`vanguard-stageModalPanel vanguard-focusPanel`}
             >
               <button
                 type="button"
@@ -636,9 +635,9 @@ export function VanguardExperience({
             role="dialog"
             aria-modal="true"
             aria-label="Monument panel"
-            className={styles.stageOverlayBackdrop}
+            className={"vanguard-stageOverlayBackdrop"}
           >
-            <div data-stage-panel className={`${styles.stageModalPanel} ${styles.claimPanel}`}>
+            <div data-stage-panel className={`vanguard-stageModalPanel vanguard-claimPanel`}>
               <button
                 type="button"
                 aria-label="Close Claim"
@@ -694,12 +693,12 @@ export function VanguardExperience({
         )}
 
         {frame && !acceptedSeat && assets.effects?.focus && (
-          <div aria-label="Inscription charge" className={styles.charge} data-frame={frame}>
+          <div aria-label="Inscription charge" className={"vanguard-charge"} data-frame={frame}>
             <Image unoptimized src={assets.effects?.focus} alt="" width={1254} height={1254} />
           </div>
         )}
         {submissionPending && !acceptedSeat && (
-          <p role="status" className={styles.sealing}>
+          <p role="status" className={"vanguard-sealing"}>
             Sealing · awaiting confirmation…
           </p>
         )}
@@ -712,12 +711,12 @@ export function VanguardExperience({
             role="dialog"
             aria-modal="true"
             aria-label="Monument panel"
-            className={styles.stageOverlayBackdrop}
+            className={"vanguard-stageOverlayBackdrop"}
           >
             <section
               data-stage-panel
               aria-label="Vanguard Reveal"
-              className={`${styles.stageModalPanel} ${styles.revealPanel}`}
+              className={`vanguard-stageModalPanel vanguard-revealPanel`}
             >
               <h2 className="mb-4 text-center text-xl font-bold uppercase tracking-widest text-[#fff1cf] drop-shadow-md">
                 Your place in the Monument
