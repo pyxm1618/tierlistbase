@@ -35,7 +35,7 @@ Coverage: 10 steps = 3 PASS + 5 WAITING + 1 BLOCKED_EXTERNAL + 1 HUMAN_REVIEW; z
 
 Use the existing Cloudflare Workers production Worker tierlistbase at https://www.tierlistbase.com. Production secrets/variables are managed only in Cloudflare Dashboard → Workers & Pages → tierlistbase → Settings → Variables and Secrets. No production secret file is created or requested for the repository or chat. Google/R2/Workers AI/Resend configuration is currently being completed. Corresponding live acceptance remains BLOCKED_EXTERNAL.
 
-Clef currently has only implementation/moderation/samples.template.json, not a real private labeled manifest. No real calibration set/path is assumed; no test image is generated; thresholds and real-sample evaluation remain BLOCKED_EXTERNAL.
+Historical Clef blocker (superseded on 2026-10-20): only implementation/moderation/samples.template.json was initially available. The owner subsequently supplied the private 80-sample manifest. Real API calibration now passes 80/80, with 0 false positives and 0 false negatives; see [the calibration evidence](moderation/calibration-2026-10-20.md). This closes the sample/calibration blocker only; production application smoke and the other release gates remain separate.
 
 Before merge, verify the available Google configuration/return flow, R2 CORS/lifecycle/private-public/delete/purge, real Clef samples/calibration and received Resend notification only when actual configuration and inputs exist. Final Google production callback/session/returnTo acceptance belongs to the post-deployment smoke test. Human review and production acceptance cannot be replaced by local or mocked test success.
 
