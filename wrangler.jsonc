@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tierlistbase",
+  "keep_vars": true,
   "compatibility_date": "2026-10-13",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./cloudflare-worker.ts",
