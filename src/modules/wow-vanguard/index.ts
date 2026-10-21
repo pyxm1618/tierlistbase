@@ -30,6 +30,7 @@ export { occupiedSeats } from "./client/canvas";
 export { createVanguardAudio } from "./experience/audio";
 export {
   validateVanguardCalibrationManifest,
+  shouldRetryVanguardCalibrationTransportFailure,
   VANGUARD_CALIBRATION_CATEGORIES,
 } from "./media/calibration";
 
