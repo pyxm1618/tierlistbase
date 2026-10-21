@@ -786,6 +786,7 @@ test("real Hold control cancels early inputs and sends exactly one POST only aft
     await fixtures(page);
     await openClaim(page);
     await page.clock.install();
+    // Advance real timers without rendering every intermediate software-WebGL frame.
     const hold = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
     await expect(hold).toBeEnabled();
     const rect = await hold.boundingBox();
@@ -793,9 +794,9 @@ test("real Hold control cancels early inputs and sends exactly one POST only aft
     await page.mouse.move(rect.x + rect.width / 2, rect.y + rect.height / 2);
     for (const duration of [1000, 3000]) {
       await page.mouse.down();
-      await page.clock.runFor(duration);
+      await page.clock.fastForward(duration);
       await page.mouse.up();
-      await page.clock.runFor(4200);
+      await page.clock.fastForward(4200);
       expect(posts).toBe(0);
       await expect(page.getByRole("progressbar", { name: "Inscription progress" })).toHaveAttribute(
         "aria-valuenow",
@@ -804,29 +805,29 @@ test("real Hold control cancels early inputs and sends exactly one POST only aft
     }
     for (const event of ["pointercancel", "touchcancel"]) {
       await page.mouse.down();
-      await page.clock.runFor(2000);
+      await page.clock.fastForward(2000);
       await hold.dispatchEvent(event);
       await page.mouse.up();
-      await page.clock.runFor(4200);
+      await page.clock.fastForward(4200);
       expect(posts).toBe(0);
     }
     await hold.focus();
     await page.keyboard.down("Space");
-    await page.clock.runFor(3000);
+    await page.clock.fastForward(3000);
     await page.keyboard.up("Space");
-    await page.clock.runFor(4200);
+    await page.clock.fastForward(4200);
     expect(posts).toBe(0);
     await hold.focus();
     await page.keyboard.down("Space");
-    await page.clock.runFor(3999);
+    await page.clock.fastForward(3999);
     expect(posts).toBe(0);
-    await page.clock.runFor(1);
+    await page.clock.fastForward(1);
     await expect.poll(() => posts).toBe(1);
     await page.keyboard.up("Space");
     await expect(page.getByLabel("Inscription ritual", { exact: true })).toBeVisible();
-    await page.clock.runFor(6000);
+    await page.clock.fastForward(6000);
     await expect(page.getByRole("region", { name: "Vanguard Reveal", exact: true })).toHaveCount(1);
-    await page.clock.runFor(6000);
+    await page.clock.fastForward(6000);
     expect(posts).toBe(1);
   } finally {
     await cleanup();
@@ -1002,7 +1003,7 @@ test("stage closure during charge cancels the Hold and leaves archive Search ava
     });
     await fixtures(page, { sealed: true, manifestGate });
     const nextPoll = page.waitForRequest("**/api/vanguard/manifest");
-    await page.clock.runFor(16000);
+    await page.clock.fastForward(16000);
     await nextPoll;
     const hold = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
     await hold.focus();
@@ -1010,7 +1011,7 @@ test("stage closure during charge cancels the Hold and leaves archive Search ava
     closeStage!();
     await expect(page.getByText("THE MONUMENT IS SEALED", { exact: true })).toBeVisible();
     await page.keyboard.up("Space");
-    await page.clock.runFor(5000);
+    await page.clock.fastForward(5000);
     expect(posts).toBe(0);
     await expect(page.getByRole("button", { name: "Search", exact: true })).toBeEnabled();
     await expect(page.getByLabel("Inscription charge", { exact: true })).toHaveCount(0);
