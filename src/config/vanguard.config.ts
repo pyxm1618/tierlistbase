@@ -8,8 +8,41 @@ export const vanguardConfig = {
   wowCapacity: 8016,
   foreverCapacity: 56112,
   totalCapacity: 64128,
-  // Uncalibrated: media must fail closed until real sample calibration is approved.
-  moderationThresholds: null,
+  // Selected from labelled real-sample scores; release requires the full calibration gate.
+  moderationThresholds: {
+    sexual_explicit: {
+      approveBelow: 0.3,
+      rejectAt: 0.5,
+    },
+    sexual_suggestive: {
+      approveBelow: 0.35,
+      rejectAt: 0.55,
+    },
+    graphic_gore: {
+      approveBelow: 0.28,
+      rejectAt: 0.36,
+    },
+    hate_extremism: {
+      approveBelow: 0.3,
+      rejectAt: 0.5,
+    },
+    illegal_or_abusive: {
+      approveBelow: 0.3,
+      rejectAt: 0.5,
+    },
+    commercial_spam: {
+      approveBelow: 0.245,
+      rejectAt: 0.265,
+    },
+    personal_sensitive_info: {
+      approveBelow: 0.3,
+      rejectAt: 0.5,
+    },
+    offsite_redirect: {
+      approveBelow: 0.3,
+      rejectAt: 0.5,
+    },
+  },
 } as const;
 
 // Final supplied artwork only. Empty slots keep the scene and final renderer blocked.

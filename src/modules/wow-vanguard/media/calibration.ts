@@ -30,3 +30,16 @@ export function validateVanguardCalibrationManifest(input: unknown) {
       throw new Error(`Calibration category missing: ${category}`);
   return result.samples;
 }
+
+// Calibration CLI only. A received HTTP/model response is never retried to select a label.
+export function shouldRetryVanguardCalibrationTransportFailure(
+  failure: { status: number | null; errorName: string | null },
+  completedAttempts: number,
+) {
+  return (
+    completedAttempts > 0 &&
+    completedAttempts < 3 &&
+    failure.status === null &&
+    (failure.errorName === "TypeError" || failure.errorName === "TimeoutError")
+  );
+}
