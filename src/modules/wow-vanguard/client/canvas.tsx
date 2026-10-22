@@ -37,6 +37,7 @@ export function VanguardCanvas({
   scatter = false,
   overview = false,
   focusSeat,
+  focusIsOccupied = false,
   onSeat,
   onController,
   onNearby,
@@ -46,6 +47,7 @@ export function VanguardCanvas({
   overview?: boolean;
   assets: VanguardAssets;
   focusSeat: string | null;
+  focusIsOccupied?: boolean;
   onSeat: (seatId: string) => void;
   onNearby: (ids: string[]) => void;
   onController: (
@@ -71,7 +73,8 @@ export function VanguardCanvas({
   }, [focusSeat]);
   const occupancy = () => {
     const occupied = occupiedSeats(manifest, phase);
-    if (focusSeat && parseSeatId(focusSeat).phase === phase) occupied.add(focusSeat);
+    if (focusIsOccupied && focusSeat && parseSeatId(focusSeat).phase === phase)
+      occupied.add(focusSeat);
     return occupied;
   };
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -158,7 +161,7 @@ export function VanguardCanvas({
         controller.current = active;
         controllerCallback.current(active);
         if (focused.current && !scattered.current && !overviewRef.current)
-          active.focus(focused.current);
+          void active.focus(focused.current);
         requestAnimationFrame(() => {
           if (!cancelled) setReady(true);
         });
@@ -184,16 +187,17 @@ export function VanguardCanvas({
   }, [phase, assets]);
   useEffect(() => {
     const occupied = occupiedSeats(manifest, phase);
-    if (focusSeat && parseSeatId(focusSeat).phase === phase) occupied.add(focusSeat);
+    if (focusIsOccupied && focusSeat && parseSeatId(focusSeat).phase === phase)
+      occupied.add(focusSeat);
     controller.current?.updateOccupancy(occupied);
-  }, [manifest, phase, focusSeat]);
+  }, [manifest, phase, focusSeat, focusIsOccupied]);
   useEffect(() => {
     if (scatter) controller.current?.scatter();
   }, [scatter]);
   useEffect(() => {
     // Only a new selection moves the camera; manifest polling preserves Scatter/Gather.
     if (overview) controller.current?.gather();
-    else if (focusSeat && !scattered.current) controller.current?.focus(focusSeat);
+    else if (focusSeat && !scattered.current) void controller.current?.focus(focusSeat);
   }, [focusSeat, phase, overview]);
   useEffect(() => {
     let cancelled = false;
@@ -222,14 +226,11 @@ export function VanguardCanvas({
   return (
     <section
       aria-label="Monument canvas"
-      className="absolute inset-0 h-full w-full"
+      className="vanguard-canvasShell absolute inset-0 h-full w-full"
       style={
         !ready && assets.hero[phase]
           ? {
               backgroundImage: `url(${assets.hero[phase]!.src})`,
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
             }
           : undefined
       }
