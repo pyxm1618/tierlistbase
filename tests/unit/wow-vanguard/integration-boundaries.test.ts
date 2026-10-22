@@ -77,5 +77,5 @@ it("caches the final immutable audio files without caching the event HTML", asyn
     rules
       .find((rule) => rule.source === "/wow-forever/vanguard")
       ?.headers.some((header) => header.key === "Cache-Control"),
-  ).toBe(false);
+  ).toBeFalsy();
 });
