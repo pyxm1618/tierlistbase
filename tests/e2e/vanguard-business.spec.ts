@@ -151,8 +151,9 @@ test("real API default-emblem Claim → DB → Reveal → Search → Report emai
     await expect(page.getByRole("region", { name: "Vanguard Focus" })).toBeVisible();
     await page.getByRole("button", { name: "Close Focus" }).click();
     await page.getByRole("button", { name: "Search", exact: true }).click();
-    await page.getByLabel("Search Seat ID, Vanguard Name or Guild").fill(seatId);
-    await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
+    await page.getByLabel("Vanguard name or guild").fill("Real API Vanguard");
+    await page.getByRole("button", { name: "Search", exact: true }).last().click();
+    await page.getByRole("button", { name: /Real API Vanguard/ }).click();
     await expect.poll(() => sounds.includes("vanguard-focus-open.wav")).toBe(true);
   } finally {
     // Only this test's records are removed. Counter reconciliation fails closed if another writer intervened.
@@ -284,7 +285,7 @@ for (const width of [390, 1440]) {
         ["Security", "/account/security"],
       ] as const) {
         await expect(
-          page.locator("header").getByRole("link", { name, exact: true }).filter({ visible: true }),
+          page.locator("header").getByRole("menuitem", { name, exact: true }).filter({ visible: true }),
         ).toHaveAttribute("href", href);
       }
       await page.goto("/limbus-company/tier-list");
@@ -299,7 +300,7 @@ for (const width of [390, 1440]) {
       await expect(
         page
           .locator("header")
-          .getByRole("link", { name: "My Vanguard", exact: true })
+          .getByRole("menuitem", { name: "My Vanguard", exact: true })
           .filter({ visible: true }),
       ).toBeVisible();
       for (const path of ["/account", "/account/vanguard", "/account/security"]) {
@@ -315,7 +316,7 @@ for (const width of [390, 1440]) {
           .click();
       await page
         .locator("header")
-        .getByRole("button", { name: "Sign out", exact: true })
+        .getByRole("menuitem", { name: "Sign out", exact: true })
         .filter({ visible: true })
         .click();
       await page.waitForLoadState("load");
