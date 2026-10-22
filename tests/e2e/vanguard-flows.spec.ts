@@ -450,10 +450,7 @@ test("unauthenticated empty Seat click focuses first, keeps the Hold, and shows 
   ).toBeVisible();
   await expect(
     gate.getByRole("link", { name: "Continue with Google", exact: true }),
-  ).toHaveAttribute(
-    "href",
-    "/sign-in?returnTo=%2Fwow-forever%2Fvanguard%3Fseat%3DWOW-W1-0003",
-  );
+  ).toHaveAttribute("href", "/sign-in?returnTo=%2Fwow-forever%2Fvanguard%3Fseat%3DWOW-W1-0003");
   await expect(page.getByLabel("Vanguard Name", { exact: true })).toHaveCount(0);
   await expect(page.getByLabel("Faction", { exact: true })).toHaveCount(0);
   await expect(page.getByLabel("Class", { exact: true })).toHaveCount(0);
@@ -677,9 +674,7 @@ for (const stage of ["COMPLETE", "WOW_COMPLETE_WAITING"] as const)
     ).toBeVisible();
   });
 
-test("Music defaults On without persisting and keeps Focus SFX independent", async ({
-  page,
-}) => {
+test("Music defaults On without persisting and keeps Focus SFX independent", async ({ page }) => {
   const sounds: string[] = [];
   page.on("request", (request) => {
     if (request.url().endsWith(".wav")) sounds.push(request.url().split("/").at(-1)!);
@@ -876,9 +871,9 @@ test("authenticated empty Seat click focuses first and opens the existing Claim 
     await page.mouse.click(point.x, point.y);
     await page.waitForTimeout(200);
     await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
-    await expect(
-      page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true }),
-    ).toBeVisible({ timeout: 1000 });
+    await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible(
+      { timeout: 1000 },
+    );
     await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
   } finally {
     await cleanup();
@@ -993,11 +988,11 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
     const emptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
     await page.mouse.click(emptyPoint.x, emptyPoint.y);
-    await expect(
-      page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true }),
-    ).toBeVisible({
-      timeout: 1500,
-    });
+    await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible(
+      {
+        timeout: 1500,
+      },
+    );
     await page.screenshot({ path: `${screenshotDir}/desktop-07-empty-seat-claim.png` });
     await page.getByLabel("Vanguard Name", { exact: true }).fill("Chosen Vanguard");
     await page.getByLabel("Faction", { exact: true }).selectOption("horde");
@@ -1096,11 +1091,11 @@ test("Capture Mobile visual release suite (390x844)", async ({ page, context }) 
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
     const mobileEmptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
     await page.mouse.click(mobileEmptyPoint.x, mobileEmptyPoint.y);
-    await expect(
-      page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true }),
-    ).toBeVisible({
-      timeout: 1500,
-    });
+    await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible(
+      {
+        timeout: 1500,
+      },
+    );
     await page.screenshot({ path: `${screenshotDir}/mobile-06-claim.png` });
     await page.getByLabel("Vanguard Name", { exact: true }).fill("Chosen Vanguard");
     await page.getByLabel("Faction", { exact: true }).selectOption("horde");

@@ -254,8 +254,7 @@ export function createVanguardScene(
     const subjectWidthAsHeight = (monumentSize.x + 4) / aspect;
     if (!options.background) return Math.max(subjectHeight, subjectWidthAsHeight);
     let backgroundFrame = Math.max(backgroundHeight, backgroundWidth / aspect);
-    if (width >= 768)
-      backgroundFrame = Math.min(backgroundHeight, backgroundWidth / aspect);
+    if (width >= 768) backgroundFrame = Math.min(backgroundHeight, backgroundWidth / aspect);
     return Math.max(backgroundFrame, subjectHeight, subjectWidthAsHeight);
   }
   function resize() {
