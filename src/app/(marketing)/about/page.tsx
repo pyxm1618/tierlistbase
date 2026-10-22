@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import { JsonLd } from "@/components/seo/json-ld";
+import { siteConfig } from "@/config/site.config";
 import { routeRegistry } from "@/config/routes.config";
 import { currentSeoEnvironment } from "@/platform/seo/environment-policy";
 import { metadataForRoute } from "@/platform/seo/metadata";
@@ -192,6 +194,15 @@ function SectionHeading({
 export default function AboutPage() {
   return (
     <main className={styles.page}>
+      <JsonLd
+        value={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: "About TierListBase",
+          description: routeRegistry.get("/about").description,
+          url: `${siteConfig.canonicalOrigin}/about`,
+        }}
+      />
       <section className={styles.hero} aria-labelledby="about-title">
         <div className={styles.heroArtwork} aria-hidden="true">
           <Image
