@@ -34,7 +34,6 @@ export function occupiedSeats(manifest: VanguardManifest, phase = manifest.phase
 export function VanguardCanvas({
   manifest,
   assets,
-  scatter = false,
   overview = false,
   focusSeat,
   focusIsOccupied = false,
@@ -43,7 +42,6 @@ export function VanguardCanvas({
   onNearby,
 }: {
   manifest: VanguardManifest;
-  scatter?: boolean;
   overview?: boolean;
   assets: VanguardAssets;
   focusSeat: string | null;
@@ -54,7 +52,6 @@ export function VanguardCanvas({
     controller: {
       pick: (x: number, y: number) => void;
       gather: () => void;
-      scatter: () => void;
     } | null,
   ) => void;
 }) {
@@ -64,10 +61,6 @@ export function VanguardCanvas({
   useEffect(() => {
     overviewRef.current = overview;
   }, [overview]);
-  const scattered = useRef(scatter);
-  useEffect(() => {
-    scattered.current = scatter;
-  }, [scatter]);
   useEffect(() => {
     focused.current = focusSeat;
   }, [focusSeat]);
@@ -157,11 +150,9 @@ export function VanguardCanvas({
             nearbyVanguardSeats(groups, focused.current, occupiedSeats(manifest)),
           );
         }
-        if (scattered.current) active.scatter();
         controller.current = active;
         controllerCallback.current(active);
-        if (focused.current && !scattered.current && !overviewRef.current)
-          void active.focus(focused.current);
+        if (focused.current && !overviewRef.current) void active.focus(focused.current);
         requestAnimationFrame(() => {
           if (!cancelled) setReady(true);
         });
@@ -192,12 +183,9 @@ export function VanguardCanvas({
     controller.current?.updateOccupancy(occupied);
   }, [manifest, phase, focusSeat, focusIsOccupied]);
   useEffect(() => {
-    if (scatter) controller.current?.scatter();
-  }, [scatter]);
-  useEffect(() => {
     // Only a new selection moves the camera; manifest polling preserves Scatter/Gather.
     if (overview) controller.current?.gather();
-    else if (focusSeat && !scattered.current) void controller.current?.focus(focusSeat);
+    else if (focusSeat) void controller.current?.focus(focusSeat);
   }, [focusSeat, phase, overview]);
   useEffect(() => {
     let cancelled = false;
