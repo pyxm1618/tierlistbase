@@ -103,19 +103,26 @@ export function VanguardExperience({
       setNotice("");
       focusMotion = scene.current?.focus?.(id) ?? Promise.resolve();
 
-      if (resume && claimOpen && !mine && parseSeatId(id).phase === manifest.phase) {
-        await focusMotion;
-        setSelected(id);
-        setFocus(null);
-        setRevealed(false);
-        return;
-      }
+      const returningToClaim =
+        resume &&
+        authenticated &&
+        claimOpen &&
+        !mine &&
+        parseSeatId(id).phase === manifest.phase;
 
       try {
         const seat = await vanguardRequest<PublicInscription>(
           `inscriptions/${encodeURIComponent(id)}`,
         );
         await focusMotion;
+        if (returningToClaim) {
+          setSelected(id);
+          setFocus(null);
+          setSuggested(null);
+          setRevealed(false);
+          trackVanguard("claim_start");
+          return;
+        }
         setFocus(seat);
         setSelected(null);
         setRevealed(false);
