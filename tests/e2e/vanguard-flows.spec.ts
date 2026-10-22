@@ -828,21 +828,30 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
     await page.waitForTimeout(600);
     await page.screenshot({ path: `${screenshotDir}/desktop-05-search.png` });
 
-    // 6. Desktop Occupied Seat Focus
-    await page.keyboard.press("Escape");
+    // 6. Desktop Occupied Seat Focus from an actual Monument click
     await fixtures(page, { existing: true });
-    await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+    await page.goto("/wow-forever/vanguard");
+    await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+    const occupiedPoint = await seatCanvasPoint(page, seatId);
+    await page.mouse.click(occupiedPoint.x, occupiedPoint.y);
     await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible({
-      timeout: 10000,
+      timeout: 1500,
     });
-    await page.waitForTimeout(600);
     await page.screenshot({ path: `${screenshotDir}/desktop-06-occupied-focus.png` });
 
-    // 7. Desktop Empty Seat Focus + Claim
+    // 7. Desktop Empty Seat Focus + Claim from an actual Monument click
     await fixtures(page, { existing: false });
-    await openClaim(page);
-    await page.waitForTimeout(400);
+    await page.goto("/wow-forever/vanguard");
+    await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+    const emptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
+    await page.mouse.click(emptyPoint.x, emptyPoint.y);
+    await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible({
+      timeout: 1500,
+    });
     await page.screenshot({ path: `${screenshotDir}/desktop-07-empty-seat-claim.png` });
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("Chosen Vanguard");
+    await page.getByLabel("Faction", { exact: true }).selectOption("horde");
+    await page.getByLabel("Class", { exact: true }).selectOption("Mage");
 
     // 8. Desktop Hold progress
     const holdBtn = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
@@ -929,14 +938,21 @@ test("Capture Mobile visual release suite (390x844)", async ({ page, context }) 
     await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible({
       timeout: 10000,
     });
-    await page.waitForTimeout(600);
     await page.screenshot({ path: `${screenshotDir}/mobile-05-focus.png` });
 
-    // 6. Mobile Claim
+    // 6. Mobile Claim from an actual Monument click
     await fixtures(page, { existing: false });
-    await openClaim(page);
-    await page.waitForTimeout(400);
+    await page.goto("/wow-forever/vanguard");
+    await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+    const mobileEmptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
+    await page.mouse.click(mobileEmptyPoint.x, mobileEmptyPoint.y);
+    await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible({
+      timeout: 1500,
+    });
     await page.screenshot({ path: `${screenshotDir}/mobile-06-claim.png` });
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("Chosen Vanguard");
+    await page.getByLabel("Faction", { exact: true }).selectOption("horde");
+    await page.getByLabel("Class", { exact: true }).selectOption("Mage");
 
     // 7. Mobile Hold progress
     const mobileHoldBtn = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
