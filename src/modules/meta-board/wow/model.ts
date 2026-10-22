@@ -162,8 +162,9 @@ export function buildWowSpecs(board: MetaBoardData): WowSpec[] {
 export function summarizeWowStatus(
   board: MetaBoardData,
   now = new Date(),
+  prebuiltSpecs?: readonly WowSpec[],
 ): "Current" | "Preliminary" | "Stale" {
-  const specs = buildWowSpecs(board);
+  const specs = prebuiltSpecs ?? buildWowSpecs(board);
   if (
     board.version?.status === "stale" ||
     specs.some(
@@ -175,8 +176,7 @@ export function summarizeWowStatus(
     return "Stale";
   const times = specs.map((s) => (s.retrievedAt ? new Date(s.retrievedAt).getTime() : NaN));
   // Publication policy: Current requires a verified phase snapshot and data checked within 24 hours.
-  if (times.some((time) => Number.isFinite(time) && now.getTime() - time > 24 * 60 * 60 * 1000))
-    return "Stale";
+  // Older observations remain Preliminary unless the stored version or source explicitly says stale.
   const versionNotes = board.version?.notes;
   let review: PublicationReview | null = null;
   if (versionNotes && board.version) {
@@ -230,7 +230,12 @@ export function summarizeWowStatus(
     });
   return verified &&
     board.version?.status === "current" &&
-    times.every((t) => Number.isFinite(t) && now.getTime() >= t)
+    times.every(
+      (t) =>
+        Number.isFinite(t) &&
+        now.getTime() >= t &&
+        now.getTime() - t <= 24 * 60 * 60 * 1000,
+    )
     ? "Current"
     : "Preliminary";
 }

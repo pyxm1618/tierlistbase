@@ -9,22 +9,30 @@ describe("trusted client IP extraction", () => {
     expect(extractTrustedClientIp(headers, "production")).toBe("unknown");
   });
 
-  it("accepts the first platform-forwarded address when Vercel marks the request", () => {
-    const headers = new Headers({
-      "x-vercel-id": "sin1::abc",
-      "x-forwarded-for": "198.51.100.4, 10.0.0.1",
-    });
-    expect(extractTrustedClientIp(headers, "production")).toBe("198.51.100.4");
+  it("accepts a valid Cloudflare client address in staging and production", () => {
+    const headers = new Headers({ "cf-connecting-ip": "198.51.100.42" });
+    expect(extractTrustedClientIp(headers, "staging")).toBe("198.51.100.42");
+    expect(extractTrustedClientIp(headers, "production")).toBe("198.51.100.42");
   });
 
-  it("rejects malformed or untrusted forwarded values", () => {
+  it("rejects missing or malformed Cloudflare client addresses without forwarded fallbacks", () => {
     expect(
-      extractTrustedClientIp(new Headers({ "x-forwarded-for": "198.51.100.4" }), "production"),
+      extractTrustedClientIp(
+        new Headers({
+          "x-vercel-id": "spoofed",
+          "x-forwarded-for": "198.51.100.4, 10.0.0.1",
+        }),
+        "production",
+      ),
     ).toBe("unknown");
     expect(
       extractTrustedClientIp(
-        new Headers({ "x-vercel-id": "sin1::abc", "x-forwarded-for": "not-an-ip" }),
-        "production",
+        new Headers({
+          "cf-connecting-ip": "not-an-ip",
+          "x-vercel-id": "spoofed",
+          "x-forwarded-for": "198.51.100.4",
+        }),
+        "staging",
       ),
     ).toBe("unknown");
   });

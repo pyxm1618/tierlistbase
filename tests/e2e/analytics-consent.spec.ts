@@ -309,3 +309,42 @@ test("6. sensitive sign-in surface does not load analytics even with consent", a
   await expect(page.locator("#creat-web-ga4")).toHaveCount(0);
   await expect(page.locator("#creat-web-clarity")).toHaveCount(0);
 });
+
+test("7. legal pages reopen the same privacy settings without loading analytics", async ({ page }) => {
+  const analyticsRequests: string[] = [];
+  await page.route("**/*", async (route) => {
+    const url = route.request().url();
+    if (isAnalytics(url)) {
+      analyticsRequests.push(url);
+      await route.abort();
+      return;
+    }
+    if (isCmpExternal(url)) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/javascript",
+        body: "// mock cmp",
+      });
+      return;
+    }
+    await route.continue();
+  });
+
+  await page.addInitScript(
+    getMockCmpInitScript({ initialAnalyticsStorage: "granted", initialAdStorage: "denied" }),
+  );
+  await page.goto("/privacy");
+
+  await expect(
+    page.locator('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'),
+  ).toHaveCount(1);
+  const footerButton = page.getByRole("button", { name: "Privacy & cookie settings" });
+  await expect(footerButton).toBeVisible();
+  await footerButton.click();
+  expect(await page.evaluate("window.__mockCmp.reopenCalls")).toBe(1);
+
+  await page.waitForTimeout(300);
+  expect(analyticsRequests).toEqual([]);
+  await expect(page.locator("#creat-web-ga4")).toHaveCount(0);
+  await expect(page.locator("#creat-web-clarity")).toHaveCount(0);
+});

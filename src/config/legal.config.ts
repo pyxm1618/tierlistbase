@@ -21,6 +21,12 @@ export const legalConfig = {
       privacyUrl: "https://policies.google.com/privacy",
     },
     {
+      name: "Google Privacy & Messaging",
+      purpose:
+        "Google publisher and privacy-consent infrastructure used to present and manage visitor privacy choices. TierListBase does not currently render commercial advertising units.",
+      privacyUrl: "https://policies.google.com/privacy",
+    },
+    {
       name: "Resend",
       purpose: "Transactional system and Vanguard report notification email delivery.",
       privacyUrl: "https://resend.com/legal/privacy-policy",
@@ -111,7 +117,7 @@ export const legalConfig = {
       {
         heading: "Scope and service status",
         paragraphs: [
-          "TierListBase provides public game rankings and the Vanguard community Monument. Browsing is public. Vanguard participation uses Google sign-in through the existing TierListBase account system. Vanguard seats are free; no payments, subscriptions or credits are required. Optional Google Analytics (GA4) and Microsoft Clarity analytics are available only if a visitor grants explicit consent.",
+          "TierListBase provides public game rankings and the Vanguard community Monument. Browsing is public. Vanguard participation uses Google sign-in through the existing TierListBase account system. Vanguard seats are free; no payments, subscriptions or credits are required. TierListBase may load Google publisher and privacy-consent infrastructure on public and legal pages so visitors can manage privacy choices; commercial advertising units are not currently rendered. Optional Google Analytics (GA4) and Microsoft Clarity analytics are available only if a visitor grants explicit consent.",
         ],
       },
       {
@@ -149,7 +155,7 @@ export const legalConfig = {
         heading: "Analytics and advertising",
         paragraphs: [
           "Optional Google Analytics (GA4) and Microsoft Clarity are available on TierListBase public pages only after explicit visitor consent. If consent is not granted, or if it is withdrawn, these analytics providers are not loaded. Clarity is used for session and interaction analytics, while GA4 is used for aggregate website measurement.",
-          "TierListBase currently has Google publisher verification or authorization metadata, including ads.txt, but does not load Google ad-serving scripts or display ads in V1. If advertising is enabled later, the relevant privacy disclosures and consent controls must be reviewed before activation.",
+          "TierListBase currently has Google publisher verification or authorization metadata, including ads.txt, and may load Google publisher and privacy-consent infrastructure to support privacy choices. TierListBase does not currently render commercial advertising units or serve display ads. If advertising is enabled later, the relevant privacy disclosures and consent controls must be reviewed before activation.",
         ],
       },
       {

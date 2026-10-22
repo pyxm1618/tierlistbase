@@ -12,7 +12,5 @@ export function extractTrustedClientIp(headers: Headers, environment: AppEnviron
     return validIp(headers.get("x-real-ip")) ?? "unknown";
   }
 
-  if (!headers.get("x-vercel-id")) return "unknown";
-  const forwarded = headers.get("x-forwarded-for")?.split(",")[0] ?? null;
-  return validIp(forwarded) ?? "unknown";
+  return validIp(headers.get("cf-connecting-ip")) ?? "unknown";
 }

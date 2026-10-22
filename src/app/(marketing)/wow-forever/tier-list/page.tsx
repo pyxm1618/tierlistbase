@@ -30,11 +30,18 @@ type PageProps = {
     class?: string;
   }>;
 };
+
+type ValidWowRole = "dps" | "tank" | "healer";
+
+function normalizeWowRole(role: string | undefined): ValidWowRole {
+  return role === "tank" || role === "healer" || role === "dps" ? role : "dps";
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   return metadataForRoute(routeRegistry, "/wow-forever/tier-list", currentSeoEnvironment());
 }
 const getWowPageData = unstable_cache(
-  async (role: string) => {
+  async (role: ValidWowRole) => {
     // Dungeon / Level 30 / current stored version are fixed V1 context dimensions.
     const data = await getGameMetaBoardData({
       gameSlug: "wow-forever",
@@ -42,6 +49,9 @@ const getWowPageData = unstable_cache(
       role,
       levelCap: 30,
     });
+    if (!data.hasData) {
+      throw new Error("WoW ranking data unavailable");
+    }
     const changes =
       data.activeContext && data.version
         ? await getRecentRatingChanges("wow-forever", 10, undefined, {
@@ -60,9 +70,27 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
   if (route.class !== "public_indexable") throw new Error("WoW tier list must be indexable");
   const { role, class: classQuery } = await searchParams;
   const selectedClass = wowClassFromQuery(classQuery);
-  const { data, changes } = await getWowPageData(role ?? "dps");
+  const targetRole = normalizeWowRole(role);
+
+  let pageData: Awaited<ReturnType<typeof getWowPageData>>;
+  try {
+    pageData = await getWowPageData(targetRole);
+  } catch {
+    return (
+      <div className={styles.pageBackground}>
+        <main className={styles.page}>
+          <section className={styles.context} aria-labelledby="wow-unavailable-heading">
+            <h1 id="wow-unavailable-heading">{route.h1}</h1>
+            <p role="status">WoW ranking data is currently unavailable. Please try again later.</p>
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  const { data, changes } = pageData;
   const specs = buildWowSpecs(data);
-  const status = summarizeWowStatus(data);
+  const status = summarizeWowStatus(data, undefined, specs);
   // Conservative publication status also applies to every card and Detail, not only the Hero.
   for (const spec of specs) {
     if (status === "Stale") spec.status = "Stale";

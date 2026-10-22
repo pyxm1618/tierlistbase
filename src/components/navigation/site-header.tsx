@@ -56,9 +56,6 @@ function HeaderShell({
   const homeHref = localePath(siteConfig, locale, "/");
   const wowHref = localePath(siteConfig, locale, "/wow-forever/tier-list");
   const genshinHref = localePath(siteConfig, locale, "/genshin-impact/tier-list");
-  const nikkeHref = localePath(siteConfig, locale, "/nikke/tier-list");
-  const zenlessHref = localePath(siteConfig, locale, "/zenless-zone-zero/tier-list");
-  const limbusHref = localePath(siteConfig, locale, "/limbus-company/tier-list");
 
   const header = (
     <header className="sticky top-0 z-40 border-b border-[#315072]/60 bg-[#020e1d]/95 text-white backdrop-blur-md">
@@ -70,15 +67,6 @@ function HeaderShell({
           </SiteHeaderGameLink>
           <SiteHeaderGameLink href={genshinHref} className={navLink}>
             Genshin Impact
-          </SiteHeaderGameLink>
-          <SiteHeaderGameLink href={nikkeHref} className={navLink}>
-            NIKKE
-          </SiteHeaderGameLink>
-          <SiteHeaderGameLink href={zenlessHref} className={navLink}>
-            Zenless Zone Zero
-          </SiteHeaderGameLink>
-          <SiteHeaderGameLink href={limbusHref} className={navLink}>
-            Limbus Company
           </SiteHeaderGameLink>
         </nav>
         {desktopAccount ? <div className="ml-auto hidden lg:block">{desktopAccount}</div> : null}
@@ -98,15 +86,6 @@ function HeaderShell({
             </SiteHeaderGameLink>
             <SiteHeaderGameLink href={genshinHref} className={navLink}>
               Genshin Impact
-            </SiteHeaderGameLink>
-            <SiteHeaderGameLink href={nikkeHref} className={navLink}>
-              NIKKE
-            </SiteHeaderGameLink>
-            <SiteHeaderGameLink href={zenlessHref} className={navLink}>
-              Zenless Zone Zero
-            </SiteHeaderGameLink>
-            <SiteHeaderGameLink href={limbusHref} className={navLink}>
-              Limbus Company
             </SiteHeaderGameLink>
             {mobileAccount}
           </nav>

@@ -3,33 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { siteConfig } from "@/config/site.config";
-import { currentSeoEnvironment, seoEnvironmentPolicy } from "@/platform/seo/environment-policy";
+import { routeRegistry } from "@/config/routes.config";
+import { currentSeoEnvironment } from "@/platform/seo/environment-policy";
+import { metadataForRoute } from "@/platform/seo/metadata";
 
 import styles from "./about.module.css";
 
 const WOW_HREF = "/wow-forever/tier-list";
 const GENSHIN_HREF = "/genshin-impact/tier-list";
-const ABOUT_DESCRIPTION =
-  "Learn how TierListBase turns game data and evidence into clear, context-aware tier rankings for World of Warcraft: Forever and Genshin Impact.";
-
 export function generateMetadata(): Metadata {
-  const policy = seoEnvironmentPolicy(currentSeoEnvironment());
-  const canonical = `${siteConfig.canonicalOrigin}/about`;
-
-  return {
-    title: { absolute: "About TierListBase" },
-    description: ABOUT_DESCRIPTION,
-    alternates: policy.emitCanonical ? { canonical } : undefined,
-    robots: { index: policy.index, follow: policy.follow },
-    openGraph: {
-      type: "website",
-      title: "About TierListBase",
-      description: ABOUT_DESCRIPTION,
-      url: policy.emitCanonical ? canonical : undefined,
-      siteName: siteConfig.name,
-    },
-  };
+  return metadataForRoute(routeRegistry, "/about", currentSeoEnvironment());
 }
 
 type IconName =
