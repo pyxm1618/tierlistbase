@@ -11,6 +11,7 @@ const stageForFrame = {
   plate_formation: "form",
   name_and_seat: "inscribe",
   stone_carve: "inscribe",
+  metal_resonance: "inscribe",
   plate_insert: "lock",
   seat_ignite: "ignite",
   camera_pull_back: "ignite",
