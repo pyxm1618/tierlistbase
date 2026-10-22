@@ -27,16 +27,17 @@ export function VanguardEntry(props: {
   const [initialSearch, setInitialSearch] = useState(false);
   const [failed, setFailed] = useState(false);
   const [audioError, setAudioError] = useState(false);
-  const [music, setMusic] = useState(false);
+  const [music, setMusic] = useState(true);
   const [entered, setEntered] = useState(Boolean(props.initialSeat));
 
   useEffect(() => {
     let active = true;
     Promise.resolve().then(() => {
       if (active) {
-        const saved = localStorage.getItem("tierlistbase:vanguard:music") === "1";
-        setMusic(saved);
-        void audioController.setMusic(saved);
+        const stored = localStorage.getItem("tierlistbase:vanguard:music");
+        const enabled = stored !== "0";
+        setMusic(enabled);
+        void audioController.setMusic(enabled);
       }
     });
     return () => {
@@ -48,7 +49,10 @@ export function VanguardEntry(props: {
   async function load(enter: boolean) {
     if (enter) {
       setAudioError(false);
-      void audioController.unlock().catch(() => setAudioError(true));
+      void audioController
+        .setMusic(music)
+        .then(() => audioController.unlock())
+        .catch(() => setAudioError(true));
       setEntered(true);
       trackVanguard("vanguard_enter");
     }
@@ -115,7 +119,7 @@ export function VanguardEntry(props: {
               height={props.hero.height}
               alt=""
               priority
-              className="absolute inset-0 h-full w-full object-contain pointer-events-none transition-opacity duration-500"
+              className="vanguard-heroArtwork absolute inset-0 h-full w-full pointer-events-none transition-opacity duration-500"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center text-center text-amber-200">
@@ -128,20 +132,24 @@ export function VanguardEntry(props: {
 
           {/* Top Stage HUD */}
           <header className="pointer-events-auto absolute left-3 right-3 top-3 z-30 flex flex-wrap items-center justify-between gap-2.5">
-            <div className="flex items-center gap-2 rounded border border-[#7a6336]/40 bg-[#0d0f17]/85 px-3 py-1.5 backdrop-blur-md shadow-md">
-              <p
-                role="status"
-                className="text-xs font-semibold uppercase tracking-widest text-[#dfcaa2]"
-              >
-                {props.manifest.stage === "SEALED"
-                  ? "THE MONUMENT IS SEALED"
-                  : props.manifest.stage === "COMPLETE"
-                    ? "THE MONUMENT IS COMPLETE"
-                    : props.manifest.stage === "WOW_COMPLETE_WAITING"
-                      ? "WOW IS COMPLETE"
-                      : `${props.manifest.counts.total.toLocaleString("en-US")} places inscribed`}
-              </p>
-            </div>
+            {props.manifest.stage === "SEALED" ||
+            props.manifest.stage === "COMPLETE" ||
+            props.manifest.stage === "WOW_COMPLETE_WAITING" ? (
+              <div className="flex items-center gap-2 rounded border border-[#7a6336]/40 bg-[#0d0f17]/85 px-3 py-1.5 backdrop-blur-md shadow-md">
+                <p
+                  role="status"
+                  className="text-xs font-semibold uppercase tracking-widest text-[#dfcaa2]"
+                >
+                  {props.manifest.stage === "SEALED"
+                    ? "THE MONUMENT IS SEALED"
+                    : props.manifest.stage === "COMPLETE"
+                      ? "THE MONUMENT IS COMPLETE"
+                      : "WOW IS COMPLETE"}
+                </p>
+              </div>
+            ) : (
+              <span />
+            )}
 
             <div className="flex items-center gap-2">
               <button
@@ -184,11 +192,6 @@ export function VanguardEntry(props: {
             <div className={"vanguard-heroIntroInner"}>
               <h1 className={"vanguard-monumentTitle"}>{headingText}</h1>
 
-              <p className={"vanguard-monumentLead"}>
-                8,016 days connect November 23, 2004 and November 4, 2026. A permanent place for the
-                players and memories that made this journey.
-              </p>
-
               <p className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">
                 {props.manifest.stage === "WOW_OPEN"
                   ? `${props.manifest.counts.total.toLocaleString("en-US")} / 8,016 FOUNDING PLACES INSCRIBED`
@@ -210,13 +213,6 @@ export function VanguardEntry(props: {
                 ENTER THE MONUMENT
               </button>
 
-              {/* Low priority Tier List link */}
-              <Link
-                href="/wow-forever/tier-list"
-                className="mt-1 text-xs text-[#b59f77] underline transition hover:text-[#dfcaa2]"
-              >
-                WoW Forever Tier List
-              </Link>
             </div>
           </div>
 
