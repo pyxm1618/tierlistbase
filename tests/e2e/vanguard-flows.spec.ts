@@ -192,6 +192,56 @@ async function openSearch(page: Page) {
   await page.getByRole("button", { name: "Search", exact: true }).click();
   await expect(page.getByLabel("Vanguard name or guild")).toBeVisible();
 }
+async function seatCanvasPoint(page: Page, targetSeatId: string) {
+  const [, letter, rawIndex] = targetSeatId.split("-");
+  const localIndex = Number(rawIndex) - 1;
+  const letters = ["W1", "O", "W2"] as const;
+  const layouts = await Promise.all(
+    letters.map(async (candidate) => {
+      const bytes = await readFile(`public/wow-forever/vanguard/layouts/wow-${candidate}.f32`);
+      return {
+        letter: candidate,
+        positions: new Float32Array(bytes.buffer, bytes.byteOffset, bytes.byteLength / 4),
+      };
+    }),
+  );
+  let minX = Infinity,
+    maxX = -Infinity,
+    minY = Infinity,
+    maxY = -Infinity;
+  for (const layout of layouts)
+    for (let i = 0; i < layout.positions.length; i += 4) {
+      minX = Math.min(minX, layout.positions[i]!);
+      maxX = Math.max(maxX, layout.positions[i]!);
+      minY = Math.min(minY, layout.positions[i + 1]!);
+      maxY = Math.max(maxY, layout.positions[i + 1]!);
+    }
+  const layout = layouts.find((candidate) => candidate.letter === letter);
+  if (!layout || !Number.isInteger(localIndex) || localIndex < 0) throw new Error("Invalid test Seat");
+  const offset = localIndex * 4;
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    exact: true,
+  });
+  const rect = await canvas.boundingBox();
+  if (!rect) throw new Error("Canvas missing");
+  const aspect = rect.width / rect.height;
+  const backgroundWidth = 167.2;
+  const backgroundHeight = 94.1;
+  const subjectHeight = maxY - minY + 4;
+  const subjectWidthAsHeight = (maxX - minX + 4) / aspect;
+  const backgroundFrame =
+    rect.width < 768
+      ? Math.max(backgroundHeight, backgroundWidth / aspect)
+      : Math.min(backgroundHeight, backgroundWidth / aspect);
+  const frameHeight = Math.max(backgroundFrame, subjectHeight, subjectWidthAsHeight);
+  const worldX = layout.positions[offset]!;
+  const worldY = layout.positions[offset + 1]!;
+  return {
+    x: rect.x + ((worldX / ((frameHeight * aspect) / 2) + 1) / 2) * rect.width,
+    y: rect.y + ((1 - worldY / (frameHeight / 2)) / 2) * rect.height,
+  };
+}
+
 async function openClaim(page: Page) {
   await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
   await expect(page.getByRole("heading", { name: `Claim ${seatId}`, exact: true })).toBeVisible();
@@ -654,6 +704,37 @@ test("Search shows explicit zero-inscription and no-match empty states", async (
   await page.getByLabel("Vanguard name or guild").fill("Nobody");
   await page.getByRole("button", { name: "Search", exact: true }).last().click();
   await expect(page.getByText("No matching Vanguard found.", { exact: true })).toBeVisible();
+});
+
+test("occupied and empty Seat clicks finish smooth focus before opening their panels", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
+
+  await fixtures(page, { existing: true });
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  await expect(
+    page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", { exact: true }),
+  ).toBeVisible();
+  const occupiedPoint = await seatCanvasPoint(page, seatId);
+  await page.mouse.click(occupiedPoint.x, occupiedPoint.y);
+  await page.waitForTimeout(200);
+  await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible({
+    timeout: 1000,
+  });
+
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  const emptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
+  await page.mouse.click(emptyPoint.x, emptyPoint.y);
+  await page.waitForTimeout(200);
+  await expect(page.getByRole("region", { name: "Claim your place", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible({
+    timeout: 1000,
+  });
 });
 
 test("FOREVER uses all seven real final layouts and the supplied background", async ({ page }) => {
