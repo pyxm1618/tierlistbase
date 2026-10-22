@@ -108,7 +108,6 @@ export const RITUAL_POST_FRAMES = [
   "plate_formation",
   "name_and_seat",
   "stone_carve",
-  "metal_resonance",
   "plate_insert",
   "seat_ignite",
   "camera_pull_back",
@@ -137,7 +136,7 @@ export async function runVanguardRitual(
 export async function runPostSuccessRitual(
   render: (frame: RitualFrame, reducedMotion: boolean) => void,
   reducedMotion: boolean,
-  durationMs = 2800,
+  durationMs = 1100,
 ) {
   return runVanguardRitual(render, reducedMotion, RITUAL_POST_FRAMES, durationMs);
 }
