@@ -212,7 +212,6 @@ export function VanguardEntry(props: {
               >
                 ENTER THE MONUMENT
               </button>
-
             </div>
           </div>
 
