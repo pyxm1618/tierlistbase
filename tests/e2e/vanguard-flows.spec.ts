@@ -543,7 +543,10 @@ test("stored Music Off remains Off and stored Music On starts on ENTER", async (
     if (request.url().endsWith(".wav")) sounds.push(request.url().split("/").at(-1)!);
   });
 
-  await page.addInitScript(() => localStorage.setItem("tierlistbase:vanguard:music", "0"));
+  await page.addInitScript(() => {
+    if (localStorage.getItem("tierlistbase:vanguard:music") === null)
+      localStorage.setItem("tierlistbase:vanguard:music", "0");
+  });
   await fixtures(page);
   await page.goto("/wow-forever/vanguard");
   await expect(page.getByRole("button", { name: "Music Off", exact: true })).toBeVisible();
@@ -558,7 +561,7 @@ test("stored Music Off remains Off and stored Music On starts on ENTER", async (
   await expect.poll(() => sounds.includes("vanguard-ambient-theme.wav")).toBe(true);
 });
 
-test("BGM load failure is explicit and leaves ENTER usable", async ({ page }) => {
+test("BGM load failure is explicit and leaves Monument browsing usable", async ({ page }) => {
   await page.route("**/audio/vanguard-ambient-theme.wav", (route) =>
     route.fulfill({ status: 503, body: "fixture unavailable" }),
   );
@@ -567,7 +570,7 @@ test("BGM load failure is explicit and leaves ENTER usable", async ({ page }) =>
   await expect(
     page.getByText("The background music could not load.", { exact: false }),
   ).toBeVisible();
-  await expect(page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true })).toBeEnabled();
+  await expect(page.getByRole("button", { name: "Search", exact: true })).toBeEnabled();
 });
 test("Focus image fallback does not leak into the next Seat", async ({ page, context }) => {
   const cleanup = await account(context);
