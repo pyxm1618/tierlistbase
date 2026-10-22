@@ -2,11 +2,11 @@
   "W1": {
     "count": 2672,
     "scale": 0.4,
-    "sha256": "5688f0415000ea481978471f8500080158fc9f131cb9f0affbc7f4d4f2bbe26c",
+    "sha256": "87f79ac99e9d929ad29d7a355998a8cbeebe728992366dcf00c6652f29541ea0",
     "maskFile": "vanguard-mask-w-left.svg",
-    "maskSha256": "1e83245e7d9eab1c7ecdf6ca718a5f21fe3af68b79aa49589a956607720713c3",
+    "maskSha256": "1832521acff7b1fc4d3ea4476601dfe32894bf44b53d0290719dd5f4042a80e0",
     "sourceLayout": "vanguard-seat-layout-8016-final.json",
-    "sourceSha256": "320a6bc79f739ae7d99d2e87ddba85f84b1e603384ffff7e3678370d452ab8c2",
+    "sourceSha256": "332f2694bbdd30f6ef99eee724b5114494f8e7bdfe41c51bf238bd8f3a1f3ed3",
     "coordinateSystem": {
       "width": 1672,
       "height": 941,
@@ -23,7 +23,7 @@
     "maskFile": "vanguard-mask-o-center.svg",
     "maskSha256": "df59568440e23a1a1ba9d28780201e1f0928560b17626bbab47070eedb1f992d",
     "sourceLayout": "vanguard-seat-layout-8016-final.json",
-    "sourceSha256": "320a6bc79f739ae7d99d2e87ddba85f84b1e603384ffff7e3678370d452ab8c2",
+    "sourceSha256": "332f2694bbdd30f6ef99eee724b5114494f8e7bdfe41c51bf238bd8f3a1f3ed3",
     "coordinateSystem": {
       "width": 1672,
       "height": 941,
@@ -36,11 +36,11 @@
   "W2": {
     "count": 2672,
     "scale": 0.4,
-    "sha256": "3f721c2df6112e66ff608f59ebd2366c9f731ca046942dbf6a409e2924720592",
+    "sha256": "380f3e9e7eaade3add4dc9bf5b17d641ea879b948438d17f7c1a43a4a14e41f0",
     "maskFile": "vanguard-mask-w-right.svg",
-    "maskSha256": "1c0079bb531198939b40031dbce27c32b5783f26b5aacf6cafd51a1663153d86",
+    "maskSha256": "22653c8ae057351e53148ab4fefb31b7dfba0545c9835a543bd3d8a60221fec0",
     "sourceLayout": "vanguard-seat-layout-8016-final.json",
-    "sourceSha256": "320a6bc79f739ae7d99d2e87ddba85f84b1e603384ffff7e3678370d452ab8c2",
+    "sourceSha256": "332f2694bbdd30f6ef99eee724b5114494f8e7bdfe41c51bf238bd8f3a1f3ed3",
     "coordinateSystem": {
       "width": 1672,
       "height": 941,

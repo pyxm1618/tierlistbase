@@ -21,10 +21,10 @@
   "finalIdsExactly1To8016": true,
   "grid": {
     "w_left": {
-      "gridStepPx": 7,
+      "gridStepPx": 6,
       "xOffset": 4,
       "yOffset": 4,
-      "strictCandidateCount": 3337
+      "strictCandidateCount": 2971
     },
     "o_center": {
       "gridStepPx": 5,
@@ -33,10 +33,19 @@
       "strictCandidateCount": 2777
     },
     "w_right": {
-      "gridStepPx": 7,
-      "xOffset": 0,
-      "yOffset": 4,
-      "strictCandidateCount": 3174
+      "gridStepPx": 6,
+      "xOffset": 1,
+      "yOffset": 1,
+      "strictCandidateCount": 2992
     }
+  },
+  "outlineCorrection": {
+    "scope": "WOW W1/W2 visible stone-face masks only",
+    "placementSafetyInsetPx": 1,
+    "safeCandidateCount": {
+      "w_left": 2896,
+      "w_right": 2917
+    },
+    "oCenterChanged": false
   }
 }
