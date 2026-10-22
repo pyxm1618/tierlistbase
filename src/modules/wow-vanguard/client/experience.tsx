@@ -170,14 +170,25 @@ export function VanguardExperience({
   }, [authenticated]);
 
   useEffect(() => {
-    try {
-      const saved = draftFromStorage(sessionStorage.getItem(DRAFT_KEY));
-      const id = initialSeat ?? saved?.seatId;
-      if (id) void select.current(id, saved?.seatId === id);
-      if (initialSeat) trackVanguard("invite_open");
-    } catch {
-      setNotice("Your saved draft could not be read. Select a seat to continue.");
+    let cancelled = false;
+    async function restoreSeat() {
+      try {
+        const saved = draftFromStorage(sessionStorage.getItem(DRAFT_KEY));
+        const id = initialSeat ?? saved?.seatId;
+        if (id) {
+          for (let frame = 0; frame < 180 && !scene.current && !cancelled; frame++)
+            await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+          if (!cancelled) await select.current(id, saved?.seatId === id);
+        }
+        if (initialSeat && !cancelled) trackVanguard("invite_open");
+      } catch {
+        if (!cancelled) setNotice("Your saved draft could not be read. Select a seat to continue.");
+      }
     }
+    void restoreSeat();
+    return () => {
+      cancelled = true;
+    };
   }, [initialSeat]);
 
   useEffect(() => {
