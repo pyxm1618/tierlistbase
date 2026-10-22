@@ -31,7 +31,10 @@ export function SiteHeaderAccount({
     if (window.location.pathname !== VANGUARD_PATH) return;
     const params = new URLSearchParams(window.location.search);
     const seat = params.get("seat");
-    const returnTo = seat && SEAT_ID.test(seat) ? `${VANGUARD_PATH}?seat=${encodeURIComponent(seat)}` : VANGUARD_PATH;
+    const returnTo =
+      seat && SEAT_ID.test(seat)
+        ? `${VANGUARD_PATH}?seat=${encodeURIComponent(seat)}`
+        : VANGUARD_PATH;
     setSignInHref(`/sign-in?returnTo=${encodeURIComponent(returnTo)}`);
   }, []);
 
@@ -43,7 +46,12 @@ export function SiteHeaderAccount({
     };
     const onPointerDown = (event: PointerEvent) => {
       const target = event.target;
-      if (target instanceof Node && !menu.current?.contains(target) && !trigger.current?.contains(target)) close();
+      if (
+        target instanceof Node &&
+        !menu.current?.contains(target) &&
+        !trigger.current?.contains(target)
+      )
+        close();
     };
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -89,13 +97,31 @@ export function SiteHeaderAccount({
 
   const links = (
     <>
-      <Link href="/account/vanguard" role="menuitem" className={linkClass} prefetch={false} onClick={closeMenu}>
+      <Link
+        href="/account/vanguard"
+        role="menuitem"
+        className={linkClass}
+        prefetch={false}
+        onClick={closeMenu}
+      >
         My Vanguard
       </Link>
-      <Link href="/account" role="menuitem" className={linkClass} prefetch={false} onClick={closeMenu}>
+      <Link
+        href="/account"
+        role="menuitem"
+        className={linkClass}
+        prefetch={false}
+        onClick={closeMenu}
+      >
         My Account
       </Link>
-      <Link href="/account/security" role="menuitem" className={linkClass} prefetch={false} onClick={closeMenu}>
+      <Link
+        href="/account/security"
+        role="menuitem"
+        className={linkClass}
+        prefetch={false}
+        onClick={closeMenu}
+      >
         Security
       </Link>
       <button
@@ -118,13 +144,19 @@ export function SiteHeaderAccount({
           {email ? <p className="truncate text-xs text-slate-400">{email}</p> : null}
         </div>
         {links}
-        {failed && <p role="alert" className="px-2 text-xs text-rose-300">Sign out could not be completed. Try again.</p>}
+        {failed && (
+          <p role="alert" className="px-2 text-xs text-rose-300">
+            Sign out could not be completed. Try again.
+          </p>
+        )}
       </div>
     );
 
   function moveMenuFocus(event: KeyboardEvent<HTMLDivElement>) {
     if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
-    const items = Array.from(menu.current?.querySelectorAll<HTMLElement>('[role="menuitem"]:not([disabled])') ?? []);
+    const items = Array.from(
+      menu.current?.querySelectorAll<HTMLElement>('[role="menuitem"]:not([disabled])') ?? [],
+    );
     if (!items.length) return;
     event.preventDefault();
     const current = items.indexOf(document.activeElement as HTMLElement);
@@ -153,7 +185,9 @@ export function SiteHeaderAccount({
           if (event.key === "ArrowDown") {
             event.preventDefault();
             setOpen(true);
-            requestAnimationFrame(() => menu.current?.querySelector<HTMLElement>('[role="menuitem"]')?.focus());
+            requestAnimationFrame(() =>
+              menu.current?.querySelector<HTMLElement>('[role="menuitem"]')?.focus(),
+            );
           }
         }}
       >
@@ -173,7 +207,11 @@ export function SiteHeaderAccount({
             {email ? <p className="truncate text-xs text-slate-400">{email}</p> : null}
           </div>
           {links}
-          {failed && <p role="alert" className="px-2 py-1 text-xs text-rose-300">Sign out could not be completed. Try again.</p>}
+          {failed && (
+            <p role="alert" className="px-2 py-1 text-xs text-rose-300">
+              Sign out could not be completed. Try again.
+            </p>
+          )}
         </div>
       ) : null}
     </div>
