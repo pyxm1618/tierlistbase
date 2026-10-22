@@ -102,11 +102,9 @@ export function validateLocalImage(file: { type: string; size: number }) {
     throw new Error("MEDIA_FORMAT_INVALID");
   if (file.size > 20 * 1024 * 1024) throw new Error("MEDIA_TOO_LARGE");
 }
-export const RITUAL_FRAMES = [
-  "camera_focus",
-  "gather",
-  "memory",
-  "faction_energy",
+export const RITUAL_PRE_FRAMES = ["camera_focus", "gather", "memory", "faction_energy"] as const;
+
+export const RITUAL_POST_FRAMES = [
   "plate_formation",
   "name_and_seat",
   "stone_carve",
@@ -115,22 +113,33 @@ export const RITUAL_FRAMES = [
   "seat_ignite",
   "camera_pull_back",
 ] as const;
+
+export const RITUAL_FRAMES = [...RITUAL_PRE_FRAMES, ...RITUAL_POST_FRAMES] as const;
 export type RitualFrame = (typeof RITUAL_FRAMES)[number] | "reveal";
 export async function runVanguardRitual(
   render: (frame: RitualFrame, reducedMotion: boolean) => void,
   reducedMotion: boolean,
+  frames: readonly (typeof RITUAL_FRAMES)[number][] = RITUAL_FRAMES,
+  durationMs = 4000,
 ) {
-  for (const [index, frame] of RITUAL_FRAMES.entries()) {
+  for (const [index, frame] of frames.entries()) {
     render(frame, reducedMotion);
     await new Promise<void>((resolve) =>
       setTimeout(
         resolve,
-        Math.round(((index + 1) * 4000) / RITUAL_FRAMES.length) -
-          Math.round((index * 4000) / RITUAL_FRAMES.length),
+        Math.round(((index + 1) * durationMs) / frames.length) -
+          Math.round((index * durationMs) / frames.length),
       ),
     );
   }
   render("reveal", reducedMotion);
+}
+export async function runPostSuccessRitual(
+  render: (frame: RitualFrame, reducedMotion: boolean) => void,
+  reducedMotion: boolean,
+  durationMs = 2800,
+) {
+  return runVanguardRitual(render, reducedMotion, RITUAL_POST_FRAMES, durationMs);
 }
 export function sealInput(seat: Extract<PublicInscription, { status: "active" }>, origin: string) {
   return {

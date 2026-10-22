@@ -35,6 +35,7 @@ export function VanguardCanvas({
   manifest,
   assets,
   scatter = false,
+  overview = false,
   focusSeat,
   onSeat,
   onController,
@@ -42,6 +43,7 @@ export function VanguardCanvas({
 }: {
   manifest: VanguardManifest;
   scatter?: boolean;
+  overview?: boolean;
   assets: VanguardAssets;
   focusSeat: string | null;
   onSeat: (seatId: string) => void;
@@ -56,6 +58,10 @@ export function VanguardCanvas({
 }) {
   const phase = focusSeat ? parseSeatId(focusSeat).phase : manifest.phase;
   const focused = useRef(focusSeat);
+  const overviewRef = useRef(overview);
+  useEffect(() => {
+    overviewRef.current = overview;
+  }, [overview]);
   const scattered = useRef(scatter);
   useEffect(() => {
     scattered.current = scatter;
@@ -76,6 +82,7 @@ export function VanguardCanvas({
   const controller = useRef<ReturnType<
     typeof import("../experience/scene").createVanguardScene
   > | null>(null);
+  const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     nearbyCallback.current = onNearby;
@@ -150,7 +157,11 @@ export function VanguardCanvas({
         if (scattered.current) active.scatter();
         controller.current = active;
         controllerCallback.current(active);
-        if (focused.current && !scattered.current) active.focus(focused.current);
+        if (focused.current && !scattered.current && !overviewRef.current)
+          active.focus(focused.current);
+        requestAnimationFrame(() => {
+          if (!cancelled) setReady(true);
+        });
       } catch {
         if (!cancelled)
           setError(
@@ -162,6 +173,7 @@ export function VanguardCanvas({
     return () => {
       cancelled = true;
       active?.dispose();
+      setReady(false);
       loadedGroups.current = [];
       nearbyCallback.current([]);
       controller.current = null;
@@ -180,8 +192,9 @@ export function VanguardCanvas({
   }, [scatter]);
   useEffect(() => {
     // Only a new selection moves the camera; manifest polling preserves Scatter/Gather.
-    if (focusSeat && !scattered.current) controller.current?.focus(focusSeat);
-  }, [focusSeat, phase]);
+    if (overview) controller.current?.gather();
+    else if (focusSeat && !scattered.current) controller.current?.focus(focusSeat);
+  }, [focusSeat, phase, overview]);
   useEffect(() => {
     let cancelled = false;
     if (
@@ -207,18 +220,44 @@ export function VanguardCanvas({
       (letter) => assets.layouts[`${phase}:${letter}`],
     );
   return (
-    <section aria-label="Monument canvas">
+    <section
+      aria-label="Monument canvas"
+      className="absolute inset-0 h-full w-full"
+      style={
+        !ready && assets.hero[phase]
+          ? {
+              backgroundImage: `url(${assets.hero[phase]!.src})`,
+              backgroundSize: "contain",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }
+          : undefined
+      }
+    >
       {blocked ? (
-        <p>MISSING_ASSET: final {phase.toUpperCase()} Monument / Mask-derived Seat Layout.</p>
+        <div className="flex h-full w-full items-center justify-center p-6 text-center text-amber-200">
+          <p>MISSING_ASSET: final {phase.toUpperCase()} Monument / Mask-derived Seat Layout.</p>
+        </div>
       ) : (
         <canvas
           key={phase}
           ref={canvas}
           aria-label="Interactive Monument. Drag to pan, scroll or pinch to zoom."
-          style={{ width: "100%", height: "min(65vh,640px)", touchAction: "none" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            touchAction: "none",
+            display: "block",
+            opacity: ready ? 1 : 0,
+            transition: "opacity .3s ease",
+          }}
         />
       )}
-      {error && <p role="status">{error}</p>}
+      {error && (
+        <p role="status" className="absolute bottom-4 left-4 z-20 text-xs text-amber-300">
+          {error}
+        </p>
+      )}
     </section>
   );
 }

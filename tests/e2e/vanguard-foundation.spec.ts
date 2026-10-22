@@ -20,11 +20,15 @@ for (const width of [390, 768, 1024, 1440, 1920]) {
           throw new DOMException("Denied", "NotAllowedError");
         };
     });
-    const response = await page.goto("/wow-forever/vanguard?seat=WOW-W1-0001");
+    const response = await page.goto("/wow-forever/vanguard");
     expect(response?.status()).toBe(200);
     expect(response?.headers()["permissions-policy"]).toContain("camera=(self)");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.getByText("8,016 days connect", { exact: false })).toBeVisible();
+    await expect(
+      page
+        .getByRole("region", { name: "Monument Stage", exact: true })
+        .getByText("8,016 days connect", { exact: false }),
+    ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "WoW Forever Tier List", exact: true }).first(),
     ).toBeVisible();
@@ -33,6 +37,8 @@ for (const width of [390, 768, 1024, 1440, 1920]) {
         .locator('img[src="/wow-forever/vanguard/monument/vanguard-hero-base-desktop.png"]')
         .first(),
     ).toBeVisible();
+    await expect(page.locator("[data-monument-stage]")).toHaveCount(1);
+    await expect(page.locator("canvas")).toHaveCount(0);
     expect(cameraRequests).toBe(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,

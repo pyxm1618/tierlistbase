@@ -57,7 +57,7 @@ test("real API default-emblem Claim → DB → Reveal → Search → Report emai
     await expect(button).toBeEnabled();
     await button.focus();
     await page.keyboard.down("Space");
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(4150);
     await page.keyboard.up("Space");
     await expect(page.getByRole("region", { name: "Vanguard Reveal" })).toBeVisible({
       timeout: 15000,
@@ -149,7 +149,9 @@ test("real API default-emblem Claim → DB → Reveal → Search → Report emai
     ).toBe("active");
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
     await expect(page.getByRole("region", { name: "Vanguard Focus" })).toBeVisible();
-    await page.getByRole("textbox", { name: "Seat ID", exact: true }).fill(seatId);
+    await page.getByRole("button", { name: "Close Focus" }).click();
+    await page.getByRole("button", { name: "Search", exact: true }).click();
+    await page.getByLabel("Search Seat ID, Vanguard Name or Guild").fill(seatId);
     await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
     await expect.poll(() => sounds.includes("vanguard-focus-open.wav")).toBe(true);
   } finally {

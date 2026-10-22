@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import type { PublicInscription } from "../db/service";
 import { sealInput, type VanguardAssets, type SealRenderer } from "./contracts";
 export function VanguardSealControl({
@@ -7,12 +8,15 @@ export function VanguardSealControl({
   renderer,
   assets,
   onSave,
+  showPreview = false,
 }: {
   seat: PublicInscription;
   renderer?: SealRenderer;
   assets?: VanguardAssets;
   onSave?: () => void;
+  showPreview?: boolean;
 }) {
+  const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState("");
   const ready = Boolean(
     renderer ||
@@ -20,6 +24,30 @@ export function VanguardSealControl({
       assets.seal.square &&
       assets.hero[seat.seatId.startsWith("WOW-") ? "wow" : "forever"]),
   );
+  useEffect(() => {
+    if (!showPreview || !ready || seat.status !== "active") return;
+    const input = sealInput(seat, location.origin);
+    let cancelled = false;
+    let url: string | null = null;
+    async function renderPreview() {
+      try {
+        const activeRenderer =
+          renderer ??
+          (await import("../experience/seal-renderer")).createVanguardSealRenderer(assets!);
+        const blob = await activeRenderer.render(input, "9:16");
+        if (cancelled) return;
+        url = URL.createObjectURL(blob);
+        setPreview(url);
+      } catch {
+        if (!cancelled) setError("The Vanguard Seal could not be rendered. Try again.");
+      }
+    }
+    void renderPreview();
+    return () => {
+      cancelled = true;
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [assets, ready, renderer, seat, showPreview]);
   async function save(format: "9:16" | "1:1") {
     if (!ready || seat.status !== "active") return;
     try {
@@ -41,6 +69,18 @@ export function VanguardSealControl({
   return (
     <section aria-label="Vanguard Seal">
       <h3>Vanguard Seal</h3>
+      {preview && (
+        <div className="flex w-full justify-center">
+          <Image
+            unoptimized
+            src={preview}
+            alt="Your Vanguard Seal"
+            width={144}
+            height={256}
+            className="h-40 w-auto sm:h-56"
+          />
+        </div>
+      )}
       {!ready && (
         <p>
           MISSING_ASSET: the final Monument location artwork/layout for this phase is unavailable.
