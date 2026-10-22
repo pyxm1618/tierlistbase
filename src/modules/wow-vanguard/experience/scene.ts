@@ -3,6 +3,65 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import type { SeatLayoutGroup } from "../domain/layout";
 import { buildSeatId, parseSeatId } from "../domain/event";
+export function createVanguardScatterTargets(
+  groups: readonly SeatLayoutGroup[],
+  reducedMotion: boolean,
+) {
+  const bounds = new THREE.Box3();
+  for (const group of groups)
+    for (let i = 0; i < group.positions.length; i += 4)
+      bounds.expandByPoint(
+        new THREE.Vector3(group.positions[i]!, group.positions[i + 1]!, group.positions[i + 2]!),
+      );
+  const size = bounds.getSize(new THREE.Vector3());
+  const strength = reducedMotion ? 0.12 : 1;
+  return groups.map((group) => {
+    let seed = 2166136261;
+    for (const char of `${group.phase}:${group.letter}`)
+      seed = Math.imul(seed ^ char.charCodeAt(0), 16777619) >>> 0;
+    const targets = group.positions.slice();
+    for (let i = 0; i < targets.length / 4; i++) {
+      let value = Math.imul(seed ^ (i + 1), 2246822519) >>> 0;
+      value = (value ^ (value >>> 13)) >>> 0;
+      const rx = (value & 65535) / 65535 - 0.5,
+        ry = (value >>> 16) / 65535 - 0.5;
+      targets[i * 4] =
+        group.positions[i * 4]! +
+        strength * (group.positions[i * 4]! * 0.12 + rx * Math.max(size.x, 1) * 0.12);
+      targets[i * 4 + 1] =
+        group.positions[i * 4 + 1]! +
+        strength * (group.positions[i * 4 + 1]! * 0.12 + ry * Math.max(size.y, 1) * 0.12);
+    }
+    return targets;
+  });
+}
+export function applyVanguardScatter(
+  meshes: readonly THREE.InstancedMesh[],
+  groups: readonly SeatLayoutGroup[],
+  targets: readonly Float32Array[],
+  amount: number,
+) {
+  if (!Number.isFinite(amount) || amount < 0 || amount > 1)
+    throw new Error("Invalid Scatter interpolation");
+  const transform = new THREE.Object3D();
+  groups.forEach((group, groupIndex) => {
+    const target = targets[groupIndex]!;
+    for (let i = 0; i < group.positions.length / 4; i++) {
+      const offset = i * 4;
+      transform.position.set(
+        group.positions[offset]! + (target[offset]! - group.positions[offset]!) * amount,
+        group.positions[offset + 1]! +
+          (target[offset + 1]! - group.positions[offset + 1]!) * amount,
+        group.positions[offset + 2]!,
+      );
+      transform.rotation.z = group.positions[offset + 3]!;
+      transform.scale.setScalar(group.scale ?? 1);
+      transform.updateMatrix();
+      meshes[groupIndex]!.setMatrixAt(i, transform.matrix);
+    }
+    meshes[groupIndex]!.instanceMatrix.needsUpdate = true;
+  });
+}
 export function createVanguardSeatColors() {
   const factions = new Map<string, number>();
   return {
