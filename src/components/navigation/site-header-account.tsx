@@ -5,8 +5,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { authClient } from "@/platform/auth/auth-client";
 
 const VANGUARD_PATH = "/wow-forever/vanguard";
-const SEAT_ID =
-  /^(?:WOW-(?:W1|O|W2)-[0-9]{4}|FOREVER-(?:F|O|R1|E1|V|E2|R2)-[0-9]{4})$/;
+const SEAT_ID = /^(?:WOW-(?:W1|O|W2)-[0-9]{4}|FOREVER-(?:F|O|R1|E1|V|E2|R2)-[0-9]{4})$/;
 
 export function SiteHeaderAccount({
   authenticated,
