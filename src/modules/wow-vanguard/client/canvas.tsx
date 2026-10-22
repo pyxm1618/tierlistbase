@@ -1,9 +1,10 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { VanguardAssets, VanguardManifest } from "./contracts";
-import { buildSeatId, parseSeatId } from "../domain/event";
+import { buildSeatId, parseSeatId, WOW_LETTERS, FOREVER_LETTERS } from "../domain/event";
 import { vanguardRequest } from "./api";
 import type { PublicInscription } from "../db/service";
+export type VanguardFocusResult = "focused" | "cancelled" | "unavailable";
 export function occupiedSeats(manifest: VanguardManifest, phase = manifest.phase) {
   const bytes = Uint8Array.from(atob(manifest.occupancy), (character) => character.charCodeAt(0));
   // Completed WOW is permanently full; archive occupancy can be reconstructed
@@ -34,48 +35,57 @@ export function occupiedSeats(manifest: VanguardManifest, phase = manifest.phase
 export function VanguardCanvas({
   manifest,
   assets,
-  scatter = false,
   overview = false,
   focusSeat,
+  focusIsOccupied = false,
+  focusVersion = 0,
+  onFocusComplete,
   onSeat,
   onController,
   onNearby,
 }: {
   manifest: VanguardManifest;
-  scatter?: boolean;
   overview?: boolean;
   assets: VanguardAssets;
   focusSeat: string | null;
+  focusIsOccupied?: boolean;
+  focusVersion?: number;
+  onFocusComplete: (version: number, result: VanguardFocusResult) => void;
   onSeat: (seatId: string) => void;
   onNearby: (ids: string[]) => void;
   onController: (
     controller: {
       pick: (x: number, y: number) => void;
       gather: () => void;
-      scatter: () => void;
+      focus: (seatId: string) => Promise<boolean>;
     } | null,
   ) => void;
 }) {
   const phase = focusSeat ? parseSeatId(focusSeat).phase : manifest.phase;
+  const [keyboardIndex, setKeyboardIndex] = useState(0);
+  const [keyboardActive, setKeyboardActive] = useState(false);
+  const keyboardHelpId = useId();
+  const letters = phase === "wow" ? WOW_LETTERS : FOREVER_LETTERS;
+  const perLetter = phase === "wow" ? 2672 : 8016;
+  const seatIndex = keyboardIndex % (letters.length * perLetter);
+  const keyboardSeat = buildSeatId(
+    phase,
+    letters[Math.floor(seatIndex / perLetter)]!,
+    (seatIndex % perLetter) + 1,
+  );
   const focused = useRef(focusSeat);
-  const overviewRef = useRef(overview);
-  useEffect(() => {
-    overviewRef.current = overview;
-  }, [overview]);
-  const scattered = useRef(scatter);
-  useEffect(() => {
-    scattered.current = scatter;
-  }, [scatter]);
   useEffect(() => {
     focused.current = focusSeat;
   }, [focusSeat]);
   const occupancy = () => {
     const occupied = occupiedSeats(manifest, phase);
-    if (focusSeat && parseSeatId(focusSeat).phase === phase) occupied.add(focusSeat);
+    if (focusIsOccupied && focusSeat && parseSeatId(focusSeat).phase === phase)
+      occupied.add(focusSeat);
     return occupied;
   };
   const canvas = useRef<HTMLCanvasElement>(null);
   const selection = useRef(onSeat);
+  const focusCallback = useRef(onFocusComplete);
   const controllerCallback = useRef(onController);
   const nearbyCallback = useRef(onNearby);
   const loadedGroups = useRef<import("../domain/layout").SeatLayoutGroup[]>([]);
@@ -84,15 +94,21 @@ export function VanguardCanvas({
   > | null>(null);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const rendererFailed = useRef(false);
   useEffect(() => {
     nearbyCallback.current = onNearby;
+    focusCallback.current = onFocusComplete;
     selection.current = onSeat;
     controllerCallback.current = onController;
-  }, [onSeat, onController, onNearby]);
+  }, [onSeat, onController, onNearby, onFocusComplete]);
   useEffect(() => {
+    rendererFailed.current = false;
     let cancelled = false;
     let active: typeof controller.current = null;
     async function load() {
+      await Promise.resolve();
+      if (cancelled) return;
+      setError(null);
       if (!canvas.current || !assets.plate) return;
       const letters = phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"];
       if (letters.some((letter) => !assets.layouts[`${phase}:${letter}`])) return;
@@ -154,19 +170,18 @@ export function VanguardCanvas({
             nearbyVanguardSeats(groups, focused.current, occupiedSeats(manifest)),
           );
         }
-        if (scattered.current) active.scatter();
         controller.current = active;
         controllerCallback.current(active);
-        if (focused.current && !scattered.current && !overviewRef.current)
-          active.focus(focused.current);
         requestAnimationFrame(() => {
           if (!cancelled) setReady(true);
         });
       } catch {
-        if (!cancelled)
+        if (!cancelled) {
+          rendererFailed.current = true;
           setError(
             "The Monument renderer could not load. Search and text browsing remain available.",
           );
+        }
       }
     }
     void load();
@@ -184,17 +199,13 @@ export function VanguardCanvas({
   }, [phase, assets]);
   useEffect(() => {
     const occupied = occupiedSeats(manifest, phase);
-    if (focusSeat && parseSeatId(focusSeat).phase === phase) occupied.add(focusSeat);
+    if (focusIsOccupied && focusSeat && parseSeatId(focusSeat).phase === phase)
+      occupied.add(focusSeat);
     controller.current?.updateOccupancy(occupied);
-  }, [manifest, phase, focusSeat]);
+  }, [manifest, phase, focusSeat, focusIsOccupied]);
   useEffect(() => {
-    if (scatter) controller.current?.scatter();
-  }, [scatter]);
-  useEffect(() => {
-    // Only a new selection moves the camera; manifest polling preserves Scatter/Gather.
     if (overview) controller.current?.gather();
-    else if (focusSeat && !scattered.current) controller.current?.focus(focusSeat);
-  }, [focusSeat, phase, overview]);
+  }, [overview]);
   useEffect(() => {
     let cancelled = false;
     if (
@@ -219,17 +230,31 @@ export function VanguardCanvas({
     !(phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"]).every(
       (letter) => assets.layouts[`${phase}:${letter}`],
     );
+  const unavailable = !ready && (blocked || error !== null);
+  useEffect(() => {
+    if (!focusSeat || overview) return;
+    // Text browsing remains usable when the renderer or its assets are unavailable.
+    if (blocked || rendererFailed.current) {
+      focusCallback.current(focusVersion, "unavailable");
+      return;
+    }
+    if (!ready || !controller.current) return;
+    let cancelled = false;
+    void controller.current.focus(focusSeat).then((completed) => {
+      if (!cancelled) focusCallback.current(focusVersion, completed ? "focused" : "cancelled");
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [focusSeat, focusVersion, ready, overview, unavailable, blocked]);
   return (
     <section
       aria-label="Monument canvas"
-      className="absolute inset-0 h-full w-full"
+      className="vanguard-canvasShell absolute inset-0 h-full w-full"
       style={
         !ready && assets.hero[phase]
           ? {
               backgroundImage: `url(${assets.hero[phase]!.src})`,
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
             }
           : undefined
       }
@@ -243,6 +268,40 @@ export function VanguardCanvas({
           key={phase}
           ref={canvas}
           aria-label="Interactive Monument. Drag to pan, scroll or pinch to zoom."
+          aria-describedby={keyboardHelpId}
+          tabIndex={ready ? 0 : -1}
+          className="focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-amber-400"
+          onFocus={() => setKeyboardActive(true)}
+          onBlur={() => setKeyboardActive(false)}
+          onKeyDown={(event) => {
+            if (!ready) return;
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              selection.current(keyboardSeat);
+              return;
+            }
+            if (
+              !["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(
+                event.key,
+              )
+            )
+              return;
+            event.preventDefault();
+            const total = letters.length * perLetter;
+            const next =
+              event.key === "Home"
+                ? 0
+                : event.key === "End"
+                  ? total - 1
+                  : (seatIndex +
+                      (event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1) +
+                      total) %
+                    total;
+            setKeyboardIndex(next);
+            void controller.current?.focus(
+              buildSeatId(phase, letters[Math.floor(next / perLetter)]!, (next % perLetter) + 1),
+            );
+          }}
           style={{
             width: "100%",
             height: "100%",
@@ -253,6 +312,18 @@ export function VanguardCanvas({
           }}
         />
       )}
+      <p
+        id={keyboardHelpId}
+        className={
+          keyboardActive
+            ? "pointer-events-none absolute bottom-4 left-4 right-4 z-20 rounded bg-[#0d0f17]/95 p-2 text-xs text-amber-200"
+            : "sr-only"
+        }
+      >
+        Arrow keys select previous or next Seat. Home / End select the first / last Seat. Enter or
+        Space opens the selected Seat.
+        <span role="status"> Selected Seat {keyboardSeat}</span>
+      </p>
       {error && (
         <p role="status" className="absolute bottom-4 left-4 z-20 text-xs text-amber-300">
           {error}

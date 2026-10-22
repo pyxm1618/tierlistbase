@@ -38,7 +38,6 @@ Vanguard 是 TierListBase 内页。
 
 - Vanguard 业务模块
 - Three.js 2.5D Monument
-- MediaPipe HandLandmarker
 - Cloudflare R2 媒体存储
 - Cloudflare Workers AI Clef Flash 自动图片审核
 - Vanguard Report 邮件通知
@@ -1083,7 +1082,6 @@ SSR 静态 Hero 作为 LCP。
 不加载：
 
 - Three.js
-- MediaPipe
 - 音频大资源
 
 点击 ENTER 后动态加载体验。
@@ -1154,62 +1152,29 @@ FOREVER 不能一次把 56,112 张纹理送入 GPU。
 
 ---
 
-## 25. MediaPipe
+## 25. Input Controls
 
-复用 phototree 已验证思路。
+Vanguard 不使用 Camera、MediaPipe 或 Gesture Control。
 
-HandLandmarker 仅在：
+核心交互由：
 
-- 用户进入 Monument
-- 用户明确点击启用手势控制
-- 用户允许 camera
+- Mouse
+- Touch
+- Keyboard
 
-以后加载。
-
-页面加载或 ENTER 时不得自动弹 Camera Permission。
-
-手势：
-
-- fist
-- open palm
-- pinch / grab
-
-摄像头帧不上传。
-
-手势识别建议：
-
-15–30 fps
-
-Three.js rendering：
-
-requestAnimationFrame
-
-两者解耦。
-
-拒绝 Camera Permission：
-
-回退 mouse / pointer / touch，不影响 Claim。
+完成。prefers-reduced-motion 只减少非必要镜头动画，不改变 Claim 业务结果。
 
 ---
 
 ## 26. Camera Security
 
-全站继续默认：
+Vanguard 不设置 Camera route override。
+
+继续使用全站默认：
 
 camera=()
 
-仅 Vanguard 页面需要：
-
-camera=(self)
-
-必须补自动测试：
-
-- Vanguard camera=(self)
-- 普通页面 camera=()
-
-MediaPipe model / WASM self-host。
-
-不为第三方 CDN 放宽全站 CSP。
+不为 Vanguard 引入 Camera Permission、MediaPipe model / WASM 或第三方视觉运行时。
 
 ---
 
@@ -1443,7 +1408,6 @@ SAFE_QUERY_KEYS 如需要 seat / class 参数，必须按现有安全逻辑显�
 首屏不加载：
 
 - Three.js
-- MediaPipe
 - Clef client
 - 高码率音频
 
@@ -1643,8 +1607,7 @@ Flows:
 
 - mouse
 - touch
-- no camera
-- camera
+- keyboard
 - upload approved
 - upload rejected
 - default emblem
@@ -1674,7 +1637,7 @@ Flows:
 14. 实现 WOW Three.js
 15. 实现 FOREVER Seven-Letter Three.js
 16. 实现 24h automatic unlock
-17. 接入 MediaPipe
+17. 验证 Mouse / Touch / Keyboard 核心输入
 18. 实现 Inscription Ritual
 19. 实现 Reveal / Seal
 20. 实现 Stand Beside Me
@@ -1750,7 +1713,7 @@ Flows:
 - 无 Admin
 - Music Toggle 正常
 - SFX 正常
-- Mouse / Touch / Camera 都可完成核心流程
+- Mouse / Touch / Keyboard 都可完成核心流程
 - Reveal / Seal / Stand Beside Me 完整
 - Class Tier List Deep Link 正常
 - SEO / Legal / Security / Analytics 正确

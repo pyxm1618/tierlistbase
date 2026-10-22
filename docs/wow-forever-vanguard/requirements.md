@@ -571,7 +571,7 @@ WOW 与 FOREVER 使用 **同一套图片上传要求**。
 1. 进入活动页
 2. 直接看到当前阶段 Monument 与已占 Seat 数
 3. 点击 ENTER THE MONUMENT
-4. 使用鼠标、触控或可选手势浏览
+4. 使用鼠标、触控或键盘浏览
 5. 选择空 Seat，并立即创建短时 Seat Hold
 6. 填写 Vanguard Name / Faction / Class
 7. 可选填写 Guild / Battle Cry
@@ -733,12 +733,6 @@ SEALED / Archive 状态继续保留 WoW Forever Tier List 入口。
 
 ## 21. 交互
 
-### 手势
-
-- 握拳：聚合回 Monument
-- 张开手掌：进入 Scatter
-- 捏合 / 抓取：Focus 单个 Seat
-
 ### 鼠标
 
 - 拖拽
@@ -753,11 +747,13 @@ SEALED / Archive 状态继续保留 WoW Forever Tier List 入口。
 - 移动
 - Focus
 
-摄像头是增强体验，不是参与门槛。
+### 键盘
 
-- 页面加载时不得主动弹 Camera Permission
-- 只有用户明确点击启用手势控制后才申请摄像头权限
-- 拒绝 Camera Permission 后必须完整支持浏览、Claim、刻碑和分享
+- Search、Profile Menu、Claim 与核心操作必须可通过键盘完成
+- Focus 与关闭操作必须保留清晰 focus state
+
+Vanguard 不使用 Camera / Gesture Control。核心流程只依赖鼠标、触控与键盘。
+
 - 系统开启 prefers-reduced-motion 时，减少非必要镜头飞行、Bloom 与粒子动画，但不能隐藏状态变化、错误提示或成功结果
 
 ---
@@ -933,7 +929,7 @@ V1 不做：
 - Google 是 V1 唯一登录方式
 - 背景音乐有右上角开关
 - 点亮 / 刻碑音效正常播放
-- 拒绝摄像头不阻塞完整流程
+- Mouse / Touch / Keyboard 均可完成核心流程
 - Vanguard Seal 可保存和分享
 - Stand Beside Me 能正确定位本人 Seat
 - Reveal 能按 Class 导流现有 WoW Forever Tier List
