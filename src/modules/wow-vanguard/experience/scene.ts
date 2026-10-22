@@ -233,7 +233,7 @@ export function createVanguardScene(
   let occupied = options.occupied;
   const seatColors = createVanguardSeatColors();
   function colorSeats() {
-    for (const group of groups) {
+    for (const [groupIndex, group] of groups.entries()) {
       for (let i = 0; i < group.positions.length / 4; i++)
         meshes[groupIndex]!.setColorAt(
           i,
