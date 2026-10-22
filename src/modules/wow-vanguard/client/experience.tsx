@@ -103,19 +103,18 @@ export function VanguardExperience({
       setNotice("");
       focusMotion = scene.current?.focus?.(id) ?? Promise.resolve();
 
-      const returningToClaim =
-        resume &&
-        authenticated &&
-        claimOpen &&
-        !mine &&
-        parseSeatId(id).phase === manifest.phase;
-
       try {
         const seat = await vanguardRequest<PublicInscription>(
           `inscriptions/${encodeURIComponent(id)}`,
         );
         await focusMotion;
-        if (returningToClaim) {
+        if (
+          resume &&
+          authenticated &&
+          claimOpen &&
+          !mine &&
+          parseSeatId(id).phase === manifest.phase
+        ) {
           setSelected(id);
           setFocus(null);
           setSuggested(null);
