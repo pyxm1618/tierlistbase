@@ -90,6 +90,10 @@ export function VanguardEntry(props: {
       COMPLETE: "THE MONUMENT IS COMPLETE",
       SEALED: "THE MONUMENT IS SEALED",
     }[props.manifest.stage];
+  const showEventStatus =
+    props.manifest.stage === "SEALED" ||
+    props.manifest.stage === "COMPLETE" ||
+    props.manifest.stage === "WOW_COMPLETE_WAITING";
 
   return (
     <section aria-label="Monument Stage" data-monument-stage className={"vanguard-stageRoot"}>
@@ -132,9 +136,7 @@ export function VanguardEntry(props: {
 
           {/* Top Stage HUD */}
           <header className="pointer-events-auto absolute left-3 right-3 top-3 z-30 flex flex-wrap items-center justify-between gap-2.5">
-            {props.manifest.stage === "SEALED" ||
-              props.manifest.stage === "COMPLETE" ||
-              props.manifest.stage === "WOW_COMPLETE_WAITING" ? (
+            {showEventStatus ? (
               <div className="flex items-center gap-2 rounded border border-[#7a6336]/40 bg-[#0d0f17]/85 px-3 py-1.5 backdrop-blur-md shadow-md">
                 <p
                   role="status"
