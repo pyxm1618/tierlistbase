@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { authClient } from "@/platform/auth/auth-client";
 
@@ -23,20 +24,10 @@ export function SiteHeaderAccount({
   const [pending, setPending] = useState(false);
   const [failed, setFailed] = useState(false);
   const [open, setOpen] = useState(false);
-  const [signInHref, setSignInHref] = useState("/sign-in");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const trigger = useRef<HTMLButtonElement>(null);
   const menu = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (window.location.pathname !== VANGUARD_PATH) return;
-    const params = new URLSearchParams(window.location.search);
-    const seat = params.get("seat");
-    const returnTo =
-      seat && SEAT_ID.test(seat)
-        ? `${VANGUARD_PATH}?seat=${encodeURIComponent(seat)}`
-        : VANGUARD_PATH;
-    setSignInHref(`/sign-in?returnTo=${encodeURIComponent(returnTo)}`);
-  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -67,6 +58,17 @@ export function SiteHeaderAccount({
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
+
+  const seat = pathname === VANGUARD_PATH ? searchParams.get("seat") : null;
+  const returnTo =
+    pathname === VANGUARD_PATH
+      ? seat && SEAT_ID.test(seat)
+        ? `${VANGUARD_PATH}?seat=${encodeURIComponent(seat)}`
+        : VANGUARD_PATH
+      : null;
+  const signInHref = returnTo
+    ? `/sign-in?returnTo=${encodeURIComponent(returnTo)}`
+    : "/sign-in";
 
   if (!authenticated)
     return (
