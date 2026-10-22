@@ -223,6 +223,10 @@ async function seatCanvasPoint(page: Page, targetSeatId: string) {
   const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
     exact: true,
   });
+  await expect(canvas).toBeVisible();
+  await expect
+    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
+    .toBe(1);
   const rect = await canvas.boundingBox();
   if (!rect) throw new Error("Canvas missing");
   const aspect = rect.width / rect.height;
@@ -394,6 +398,9 @@ test("sealed polling leaves Focus, share and Tier List available and blocks empt
     timeout: 20000,
   });
   await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+  await expect(page.getByText("THE MONUMENT IS SEALED", { exact: true })).toBeVisible({
+    timeout: 20000,
+  });
   await expect(
     page.getByText("The inscription period has ended. The Monument is now sealed.", {
       exact: true,
@@ -820,6 +827,9 @@ test("Search shows explicit zero-inscription and no-match empty states", async (
   await fixtures(page, { existing: true });
   await page.reload();
   await page.getByRole("button", { name: "Search", exact: true }).click();
+  await expect(
+    page.getByText("No Vanguards have been inscribed yet.", { exact: false }),
+  ).toHaveCount(0, { timeout: 20000 });
   await page.route("**/api/vanguard/search**", (route) => route.fulfill({ json: { results: [] } }));
   await page.getByLabel("Vanguard name or guild").fill("Nobody");
   await page.getByRole("button", { name: "Search", exact: true }).last().click();
@@ -1046,7 +1056,9 @@ test("Capture Mobile visual release suite (390x844)", async ({ page, context }) 
     // 2. Mobile Header / Menu
     const mobileMenu = page.locator("header summary").filter({ hasText: "Menu" });
     await mobileMenu.click();
-    await expect(page.getByText("Private Google identity", { exact: true })).toBeVisible();
+    await expect(
+      page.getByLabel("Mobile navigation").getByText("Private Google identity", { exact: true }),
+    ).toBeVisible();
     await page.screenshot({ path: `${screenshotDir}/mobile-02-header-menu.png` });
     await mobileMenu.click();
 
