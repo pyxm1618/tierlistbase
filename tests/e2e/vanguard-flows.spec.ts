@@ -193,6 +193,43 @@ async function fixtures(
     await route.fulfill({ status: 200, body: "" });
   });
 }
+// Measure inside the browser: CI can spend longer than the animation itself
+// between mouse.click(), waitForTimeout(), and a locator query.
+async function observePanelFocusTiming(page: Page, onNavigation = false) {
+  const observe = () => {
+    let startedAt: number | null = null;
+    const originalFetch = window.fetch.bind(window);
+    window.fetch = (...args) => {
+      if (startedAt === null && String(args[0]).includes("/api/vanguard/inscriptions/"))
+        startedAt = performance.now();
+      return originalFetch(...args);
+    };
+    document.addEventListener(
+      "pointerup",
+      (event) => {
+        if (event.target instanceof HTMLCanvasElement) startedAt = performance.now();
+      },
+      true,
+    );
+    new MutationObserver(() => {
+      const panel = document.querySelector<HTMLElement>(
+        '[aria-label="Vanguard Focus"], [aria-label="Claim authentication"], [aria-label="Claim your place"]',
+      );
+      if (panel && startedAt !== null && !panel.hasAttribute("data-test-focus-elapsed"))
+        panel.setAttribute("data-test-focus-elapsed", String(performance.now() - startedAt));
+    }).observe(document, { childList: true, subtree: true });
+  };
+  if (onNavigation) await page.addInitScript(observe);
+  else await page.evaluate(observe);
+}
+
+async function expectFocusedPanel(page: Page, name: string) {
+  const panel = page.getByRole("region", { name, exact: true });
+  await expect(panel).toBeVisible();
+  await expect(panel).toHaveAttribute("data-test-focus-elapsed", /.+/);
+  expect(Number(await panel.getAttribute("data-test-focus-elapsed"))).toBeGreaterThanOrEqual(550);
+}
+
 async function openSearch(page: Page) {
   const close = page.getByRole("button", { name: "Close Focus", exact: true });
   if (await close.isVisible()) await close.click();
@@ -434,6 +471,38 @@ test("Vanguard Header sign-in preserves the route and a valid Seat deep link", a
   );
 });
 
+test("keyboard users can select an empty Seat and reach Claim authentication", async ({ page }) => {
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).press("Enter");
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    exact: true,
+  });
+  await expect
+    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
+    .toBe(1);
+  await canvas.focus();
+  await expect(canvas).toBeFocused();
+  await expect(canvas).toHaveAttribute("tabindex", "0");
+  await canvas.press("End");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Selected Seat WOW-W2-2672" }),
+  ).toBeVisible();
+  await canvas.press("ArrowRight");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Selected Seat WOW-W1-0001" }),
+  ).toBeVisible();
+  await canvas.press("ArrowRight");
+  await expect(
+    page.getByRole("status").filter({ hasText: "Selected Seat WOW-W1-0002" }),
+  ).toBeVisible();
+  await canvas.press("Enter");
+  await expect(page.getByRole("region", { name: "Claim authentication" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Continue with Google", exact: true }),
+  ).toHaveAttribute("href", "/sign-in?returnTo=%2Fwow-forever%2Fvanguard%3Fseat%3DWOW-W1-0002");
+});
+
 test("unauthenticated empty Seat click focuses first, keeps the Hold, and shows only the Authentication Gate", async ({
   page,
 }) => {
@@ -445,10 +514,10 @@ test("unauthenticated empty Seat click focuses first, keeps the Hold, and shows 
   const emptySeat = "WOW-W1-0003";
   const point = await seatCanvasPoint(page, emptySeat);
   const holdRequest = page.waitForRequest("**/api/vanguard/holds");
+  await observePanelFocusTiming(page);
   await page.mouse.click(point.x, point.y);
 
-  await page.waitForTimeout(200);
-  expect(await page.getByRole("region", { name: "Claim authentication" }).count()).toBe(0);
+  await expectFocusedPanel(page, "Claim authentication");
 
   const gate = page.getByRole("region", { name: "Claim authentication" });
   await expect(gate).toBeVisible({ timeout: 1000 });
@@ -493,9 +562,9 @@ test("OAuth return to the original empty Seat revalidates it, focuses it, and op
 
   const cleanup = await account(context);
   try {
+    await observePanelFocusTiming(page, true);
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
-    await page.waitForTimeout(200);
-    expect(await page.getByRole("region", { name: "Claim your place" }).count()).toBe(0);
+    await expectFocusedPanel(page, "Claim your place");
     await expect(page.getByRole("heading", { name: `Claim ${seatId}`, exact: true })).toBeVisible({
       timeout: 1000,
     });
@@ -849,9 +918,9 @@ test("occupied and empty Seat clicks finish smooth focus before opening their pa
     page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", { exact: true }),
   ).toBeVisible();
   const occupiedPoint = await seatCanvasPoint(page, seatId);
+  await observePanelFocusTiming(page);
   await page.mouse.click(occupiedPoint.x, occupiedPoint.y);
-  await page.waitForTimeout(200);
-  expect(await page.getByRole("region", { name: "Vanguard Focus", exact: true }).count()).toBe(0);
+  await expectFocusedPanel(page, "Vanguard Focus");
   await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible({
     timeout: 1000,
   });
@@ -860,9 +929,9 @@ test("occupied and empty Seat clicks finish smooth focus before opening their pa
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
   const emptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
+  await observePanelFocusTiming(page);
   await page.mouse.click(emptyPoint.x, emptyPoint.y);
-  await page.waitForTimeout(200);
-  expect(await page.getByRole("region", { name: "Claim authentication" }).count()).toBe(0);
+  await expectFocusedPanel(page, "Claim authentication");
   await expect(page.getByRole("region", { name: "Claim authentication" })).toBeVisible({
     timeout: 1000,
   });
@@ -879,9 +948,9 @@ test("authenticated empty Seat click focuses first and opens the existing Claim 
     await page.goto("/wow-forever/vanguard");
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
     const point = await seatCanvasPoint(page, "WOW-W1-0003");
+    await observePanelFocusTiming(page);
     await page.mouse.click(point.x, point.y);
-    await page.waitForTimeout(200);
-    expect(await page.getByRole("region", { name: "Claim your place" }).count()).toBe(0);
+    await expectFocusedPanel(page, "Claim your place");
     await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible(
       { timeout: 1000 },
     );

@@ -292,14 +292,10 @@ for (const width of [390, 1440]) {
         ).toHaveAttribute("href", href);
       }
       await page.goto("/limbus-company/tier-list");
-      if (width < 1024) {
-        await page.locator("header summary").filter({ hasText: "Menu" }).click();
-      } else {
-        await page
-          .locator("header")
-          .getByRole("button", { name: "Header private identity", exact: true })
-          .click();
-      }
+      await page
+        .locator("header")
+        .getByRole("button", { name: "Header private identity", exact: true })
+        .click();
       await expect(
         page
           .locator("header")

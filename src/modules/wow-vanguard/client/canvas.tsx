@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { VanguardAssets, VanguardManifest } from "./contracts";
-import { buildSeatId, parseSeatId } from "../domain/event";
+import { buildSeatId, parseSeatId, WOW_LETTERS, FOREVER_LETTERS } from "../domain/event";
 import { vanguardRequest } from "./api";
 import type { PublicInscription } from "../db/service";
 export function occupiedSeats(manifest: VanguardManifest, phase = manifest.phase) {
@@ -57,6 +57,17 @@ export function VanguardCanvas({
   ) => void;
 }) {
   const phase = focusSeat ? parseSeatId(focusSeat).phase : manifest.phase;
+  const [keyboardIndex, setKeyboardIndex] = useState(0);
+  const [keyboardActive, setKeyboardActive] = useState(false);
+  const keyboardHelpId = useId();
+  const letters = phase === "wow" ? WOW_LETTERS : FOREVER_LETTERS;
+  const perLetter = phase === "wow" ? 2672 : 8016;
+  const seatIndex = keyboardIndex % (letters.length * perLetter);
+  const keyboardSeat = buildSeatId(
+    phase,
+    letters[Math.floor(seatIndex / perLetter)]!,
+    (seatIndex % perLetter) + 1,
+  );
   const focused = useRef(focusSeat);
   const overviewRef = useRef(overview);
   useEffect(() => {
@@ -231,6 +242,40 @@ export function VanguardCanvas({
           key={phase}
           ref={canvas}
           aria-label="Interactive Monument. Drag to pan, scroll or pinch to zoom."
+          aria-describedby={keyboardHelpId}
+          tabIndex={ready ? 0 : -1}
+          className="focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-amber-400"
+          onFocus={() => setKeyboardActive(true)}
+          onBlur={() => setKeyboardActive(false)}
+          onKeyDown={(event) => {
+            if (!ready) return;
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              selection.current(keyboardSeat);
+              return;
+            }
+            if (
+              !["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(
+                event.key,
+              )
+            )
+              return;
+            event.preventDefault();
+            const total = letters.length * perLetter;
+            const next =
+              event.key === "Home"
+                ? 0
+                : event.key === "End"
+                  ? total - 1
+                  : (seatIndex +
+                      (event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1) +
+                      total) %
+                    total;
+            setKeyboardIndex(next);
+            void controller.current?.focus(
+              buildSeatId(phase, letters[Math.floor(next / perLetter)]!, (next % perLetter) + 1),
+            );
+          }}
           style={{
             width: "100%",
             height: "100%",
@@ -241,6 +286,18 @@ export function VanguardCanvas({
           }}
         />
       )}
+      <p
+        id={keyboardHelpId}
+        className={
+          keyboardActive
+            ? "pointer-events-none absolute bottom-4 left-4 right-4 z-20 rounded bg-[#0d0f17]/95 p-2 text-xs text-amber-200"
+            : "sr-only"
+        }
+      >
+        Arrow keys select previous or next Seat. Home / End select the first / last Seat. Enter or
+        Space opens the selected Seat.
+        <span role="status"> Selected Seat {keyboardSeat}</span>
+      </p>
       {error && (
         <p role="status" className="absolute bottom-4 left-4 z-20 text-xs text-amber-300">
           {error}
