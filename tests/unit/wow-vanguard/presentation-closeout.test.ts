@@ -61,13 +61,13 @@ describe("Vanguard presentation boundaries", () => {
     await audio.close();
   });
   it.each([false, true])(
-    "accepted Ritual starts with formation, never repeats the four-second charge (reduced=%s)",
+    "accepted Ritual finishes within the usability closeout target without replaying charge (reduced=%s)",
     async (reduced) => {
       vi.useFakeTimers();
       const render = vi.fn();
       const ritual = runPostSuccessRitual(render, reduced);
       expect(render).toHaveBeenCalledWith("plate_formation", reduced);
-      await vi.advanceTimersByTimeAsync(2800);
+      await vi.advanceTimersByTimeAsync(1100);
       await ritual;
       expect(render.mock.calls.map((call) => call[0])).toEqual([...RITUAL_POST_FRAMES, "reveal"]);
       expect(render.mock.calls.filter((call) => call[0] === "reveal")).toHaveLength(1);
