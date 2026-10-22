@@ -536,6 +536,51 @@ test("FOREVER Search waits for the WOW scene to focus before opening a WOW inscr
   );
 });
 
+test("editing Claim fields while the Hold resolves preserves the Hold token", async ({
+  page,
+  context,
+}) => {
+  await page.addInitScript(() => {
+    const originalFetch = window.fetch.bind(window);
+    let injected = false;
+    window.fetch = async (...args) => {
+      const response = await originalFetch(...args);
+      if (!injected && String(args[0]).endsWith("/api/vanguard/holds")) {
+        injected = true;
+        const originalJson = response.json.bind(response);
+        response.json = async () => {
+          const payload = await originalJson();
+          // Place a real field change after the Hold state update is queued but
+          // before React commits its render, reproducing the network/input race.
+          queueMicrotask(() =>
+            queueMicrotask(() =>
+              queueMicrotask(() => {
+                const field = document.querySelector<HTMLSelectElement>(
+                  'select[aria-label="Class"]',
+                );
+                if (!field) throw new Error("Claim Class field is missing");
+                field.value = "Mage";
+                field.dispatchEvent(new Event("change", { bubbles: true }));
+              }),
+            ),
+          );
+          return payload;
+        };
+      }
+      return response;
+    };
+  });
+  const cleanup = await account(context);
+  try {
+    await fixtures(page);
+    await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+    await expect(page.getByLabel("Class", { exact: true })).toHaveValue("Mage");
+    await expect(page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true })).toBeEnabled();
+  } finally {
+    await cleanup();
+  }
+});
+
 test("keyboard users can select an empty Seat and reach Claim authentication", async ({ page }) => {
   await fixtures(page);
   await page.goto("/wow-forever/vanguard");
@@ -1152,15 +1197,18 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
     const holdBtn = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
     await expect(holdBtn).toBeEnabled({ timeout: 10000 });
     await holdBtn.focus();
+    await page.clock.install();
+    await page.clock.pauseAt(new Date(Date.now() + 100));
     await page.keyboard.down("Space");
-    await page.waitForTimeout(2000);
+    await page.clock.fastForward(2000);
     await page.screenshot({ path: `${screenshotDir}/desktop-08-hold-progress.png` });
 
     // 9. Desktop Ritual (continue hold until 4000ms threshold completes, submit triggered)
-    await page.waitForTimeout(2200);
+    await page.clock.fastForward(2000);
     await page.keyboard.up("Space");
     await expect(page.getByLabel("Inscription ritual", { exact: true })).toBeVisible();
     await page.screenshot({ path: `${screenshotDir}/desktop-09-ritual.png` });
+    await page.clock.resume();
 
     // 10. Desktop Reveal
     await expect(page.getByRole("region", { name: "Vanguard Reveal", exact: true })).toBeVisible({

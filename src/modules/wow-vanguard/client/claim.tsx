@@ -406,9 +406,10 @@ export function VanguardClaim({
         maxLength={max * 2}
         required={key === "displayName"}
         minLength={key === "displayName" ? 2 : 0}
-        onChange={(event) =>
-          setDraft({ ...draft, [key]: [...event.target.value].slice(0, max).join("") })
-        }
+        onChange={(event) => {
+          const value = [...event.target.value].slice(0, max).join("");
+          setDraft((current) => ({ ...current, [key]: value }));
+        }}
         className="rounded border border-[#7a6336] bg-[#1a1c24] px-3 py-2 text-sm text-[#f7e7c4] outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]"
       />
     </label>
@@ -475,9 +476,10 @@ export function VanguardClaim({
               aria-label="Faction"
               required
               value={draft.faction}
-              onChange={(event) =>
-                setDraft({ ...draft, faction: event.target.value as ClaimDraft["faction"] })
-              }
+              onChange={(event) => {
+                const faction = event.target.value as ClaimDraft["faction"];
+                setDraft((current) => ({ ...current, faction }));
+              }}
               className="rounded border border-[#7a6336] bg-[#1a1c24] px-3 py-2 text-sm text-[#f7e7c4] outline-none transition focus:border-[#d4af37]"
             >
               <option value="">Choose Faction</option>
@@ -492,7 +494,10 @@ export function VanguardClaim({
               aria-label="Class"
               required
               value={draft.className}
-              onChange={(event) => setDraft({ ...draft, className: event.target.value })}
+              onChange={(event) => {
+                const className = event.target.value;
+                setDraft((current) => ({ ...current, className }));
+              }}
               className="rounded border border-[#7a6336] bg-[#1a1c24] px-3 py-2 text-sm text-[#f7e7c4] outline-none transition focus:border-[#d4af37]"
             >
               <option value="">Choose Class</option>
