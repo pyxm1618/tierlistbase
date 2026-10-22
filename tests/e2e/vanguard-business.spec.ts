@@ -285,7 +285,10 @@ for (const width of [390, 1440]) {
         ["Security", "/account/security"],
       ] as const) {
         await expect(
-          page.locator("header").getByRole("menuitem", { name, exact: true }).filter({ visible: true }),
+          page
+            .locator("header")
+            .getByRole("menuitem", { name, exact: true })
+            .filter({ visible: true }),
         ).toHaveAttribute("href", href);
       }
       await page.goto("/limbus-company/tier-list");
