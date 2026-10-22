@@ -152,8 +152,7 @@ export async function runPostSuccessRitual(
     );
   }
   render("camera_pull_back", reducedMotion);
-  if (pullbackDuration)
-    await new Promise<void>((resolve) => setTimeout(resolve, pullbackDuration));
+  if (pullbackDuration) await new Promise<void>((resolve) => setTimeout(resolve, pullbackDuration));
   render("reveal", reducedMotion);
 }
 export function sealInput(seat: Extract<PublicInscription, { status: "active" }>, origin: string) {
