@@ -556,7 +556,7 @@ for (const stage of ["COMPLETE", "WOW_COMPLETE_WAITING"] as const)
     ).toBeVisible();
   });
 
-test("Music defaults On without persisting until a user toggle and leaves Focus SFX independent", async ({
+test("Music defaults On without persisting and keeps Focus SFX independent", async ({
   page,
 }) => {
   const sounds: string[] = [];
