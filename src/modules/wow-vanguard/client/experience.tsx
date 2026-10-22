@@ -50,15 +50,12 @@ export function VanguardExperience({
   const [searchOpen, setSearchOpen] = useState(initialSearch);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<PublicInscription[]>([]);
+  const [searched, setSearched] = useState(false);
   const [notice, setNotice] = useState("");
   const [frame, setFrame] = useState<RitualFrame | null>(null);
   const [acceptedSeat, setAcceptedSeat] = useState<PublicInscription | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [music, setMusic] = useState(initialMusic);
-  const [camera, setCamera] = useState(false);
-  const [cameraPending, setCameraPending] = useState(false);
-  const cameraGeneration = useRef(0);
-  const [scatter, setScatter] = useState(false);
   const [nearby, setNearby] = useState<string[]>([]);
   const [suggested, setSuggested] = useState<string | null>(null);
   const [reportReason, setReportReason] = useState("privacy");
@@ -80,13 +77,10 @@ export function VanguardExperience({
     return () => clearInterval(timer);
   }, [manifest.foreverUnlockAt]);
 
-  const video = useRef<HTMLVideoElement>(null);
-  const stopCamera = useRef<(() => void) | null>(null);
   const scene = useRef<{
     pick: (x: number, y: number) => void;
     gather: () => void;
-    scatter: () => void;
-    focus?: (id: string) => void;
+    focus?: (id: string) => Promise<void>;
   } | null>(null);
   const audio = useRef(audioController);
   const select = useRef<(id: string, resume?: boolean) => Promise<void>>(async () => {});
@@ -102,48 +96,57 @@ export function VanguardExperience({
   }
 
   async function choose(id: string, resume = false) {
-    if (scatter) scene.current?.gather();
-    setScatter(false);
+    let focusMotion = Promise.resolve();
     try {
       parseSeatId(id);
+      setSearchOpen(false);
+      setNotice("");
+      focusMotion = scene.current?.focus?.(id) ?? Promise.resolve();
+
       if (resume && claimOpen && !mine && parseSeatId(id).phase === manifest.phase) {
+        await focusMotion;
         setSelected(id);
         setFocus(null);
         setRevealed(false);
-        setSearchOpen(false);
         return;
       }
-      const seat = await vanguardRequest<PublicInscription>(
-        `inscriptions/${encodeURIComponent(id)}`,
-      );
-      scene.current?.focus?.(id);
-      setFocus(seat);
-      setSelected(null);
-      setRevealed(false);
-      setSearchOpen(false);
-      trackVanguard("vanguard_focus");
-      await audio.current?.sfx("focus");
-    } catch (cause) {
-      if (cause instanceof VanguardClientError && cause.code === "SEAT_NOT_FOUND") {
-        if (!claimOpen || parseSeatId(id).phase !== manifest.phase) {
-          setNotice(
-            manifest.stage === "SEALED"
-              ? vanguardErrorMessage("EVENT_SEALED")
-              : vanguardErrorMessage("PHASE_NOT_OPEN"),
-          );
-          return;
-        }
-        if (mine) {
-          setNotice(vanguardErrorMessage("ACCOUNT_ALREADY_INSCRIBED"));
-          return;
-        }
-        setSelected(id);
-        setFocus(null);
-        setSuggested(null);
+
+      try {
+        const seat = await vanguardRequest<PublicInscription>(
+          `inscriptions/${encodeURIComponent(id)}`,
+        );
+        await focusMotion;
+        setFocus(seat);
+        setSelected(null);
         setRevealed(false);
-        setSearchOpen(false);
-        trackVanguard("claim_start");
-      } else error(cause);
+        trackVanguard("vanguard_focus");
+        await audio.current?.sfx("focus");
+      } catch (cause) {
+        if (cause instanceof VanguardClientError && cause.code === "SEAT_NOT_FOUND") {
+          if (!claimOpen || parseSeatId(id).phase !== manifest.phase) {
+            setNotice(
+              manifest.stage === "SEALED"
+                ? vanguardErrorMessage("EVENT_SEALED")
+                : vanguardErrorMessage("PHASE_NOT_OPEN"),
+            );
+            return;
+          }
+          if (mine) {
+            setNotice(vanguardErrorMessage("ACCOUNT_ALREADY_INSCRIBED"));
+            return;
+          }
+          await focusMotion;
+          setSelected(id);
+          setFocus(null);
+          setSuggested(null);
+          setRevealed(false);
+          trackVanguard("claim_start");
+        } else {
+          error(cause);
+        }
+      }
+    } catch (cause) {
+      error(cause);
     }
   }
 
@@ -158,11 +161,7 @@ export function VanguardExperience({
       vanguardRequest<{ inscription: PublicInscription | null }>("me")
         .then((value) => setMine(value.inscription))
         .catch(error);
-    return () => {
-      cameraGeneration.current++;
-      stopCamera.current?.();
-    };
-  }, [assets, authenticated]);
+  }, [authenticated]);
 
   useEffect(() => {
     try {
@@ -195,46 +194,6 @@ export function VanguardExperience({
     }
   }
 
-  async function enableCamera() {
-    if (camera) {
-      stopCamera.current?.();
-      stopCamera.current = null;
-      setCamera(false);
-      return;
-    }
-    if (!video.current || cameraPending) return;
-    const generation = ++cameraGeneration.current;
-    setCameraPending(true);
-    try {
-      const { enableVanguardGestures } = await import("../experience/gestures");
-      const stop = await enableVanguardGestures(
-        video.current,
-        (gesture, point) => {
-          if (gesture === "fist") {
-            scene.current?.gather();
-            setScatter(false);
-          }
-          if (gesture === "open_palm") setScatter(true);
-          if (gesture === "pinch") scene.current?.pick(point.x, point.y);
-        },
-        () => {
-          setCamera(false);
-          setNotice("Gesture detection stopped. Continue with mouse, pointer or touch.");
-        },
-      );
-      if (generation !== cameraGeneration.current) {
-        stop();
-        return;
-      }
-      stopCamera.current = stop;
-      setCamera(true);
-    } catch {
-      setCamera(false);
-      setNotice("Gesture control is unavailable. Continue with mouse, pointer or touch.");
-    } finally {
-      if (generation === cameraGeneration.current) setCameraPending(false);
-    }
-  }
 
   async function search(event: FormEvent) {
     event.preventDefault();
@@ -243,6 +202,7 @@ export function VanguardExperience({
         `search?q=${encodeURIComponent(query)}`,
       );
       setResults(result.results);
+      setSearched(true);
     } catch (cause) {
       error(cause);
     }
@@ -337,8 +297,6 @@ export function VanguardExperience({
           .catch(() => setNotice("Audio could not start. Browsing remains available."));
       }}
     >
-      <video ref={video} muted playsInline hidden />
-
       {/* Main Monument Stage Container */}
       <div className={"vanguard-stageViewport"}>
         {/* Interactive WebGL Canvas */}
@@ -346,10 +304,10 @@ export function VanguardExperience({
           <VanguardCanvas
             manifest={manifest}
             assets={assets}
-            scatter={scatter}
             onNearby={setNearby}
             overview={revealed}
-            focusSeat={focus?.seatId ?? null}
+            focusSeat={focus?.seatId ?? selected}
+            focusIsOccupied={Boolean(focus)}
             onSeat={(id) => {
               if (!ritualLocked) void choose(id);
             }}
@@ -364,34 +322,38 @@ export function VanguardExperience({
 
         {/* Top Monument HUD Bar */}
         <header className="pointer-events-auto absolute left-3 right-3 top-3 z-30 flex flex-wrap items-center justify-between gap-2.5">
-          {/* Status & Countdown */}
-          <div className="flex items-center gap-2 rounded border border-[#7a6336]/40 bg-[#0d0f17]/85 px-3 py-1.5 backdrop-blur-md shadow-md">
-            <p
-              role="status"
-              className="text-xs font-semibold uppercase tracking-widest text-[#dfcaa2]"
-            >
-              {manifest.stage === "SEALED"
-                ? "THE MONUMENT IS SEALED"
-                : manifest.stage === "COMPLETE"
-                  ? "THE MONUMENT IS COMPLETE"
-                  : manifest.stage === "WOW_COMPLETE_WAITING"
-                    ? "WOW IS COMPLETE"
-                    : `${manifest.counts.total.toLocaleString("en-US")} places inscribed`}
-            </p>
-            {manifest.stage === "SEALED" && (
-              <span className="hidden text-xs text-[#9d8e78] sm:inline">
-                · The inscription period has ended.
-              </span>
-            )}
-            {manifest.stage === "WOW_COMPLETE_WAITING" && (
-              <span className="text-xs text-amber-300">
-                · FOREVER AWAKENS IN …{" "}
-                <time dateTime={manifest.foreverUnlockAt!}>
-                  {countdown ?? manifest.foreverUnlockAt}
-                </time>
-              </span>
-            )}
-          </div>
+          {/* Event state only; open-stage inscription counts live in the Hero, not the HUD. */}
+          {manifest.stage === "SEALED" ||
+          manifest.stage === "COMPLETE" ||
+          manifest.stage === "WOW_COMPLETE_WAITING" ? (
+            <div className="flex items-center gap-2 rounded border border-[#7a6336]/40 bg-[#0d0f17]/85 px-3 py-1.5 backdrop-blur-md shadow-md">
+              <p
+                role="status"
+                className="text-xs font-semibold uppercase tracking-widest text-[#dfcaa2]"
+              >
+                {manifest.stage === "SEALED"
+                  ? "THE MONUMENT IS SEALED"
+                  : manifest.stage === "COMPLETE"
+                    ? "THE MONUMENT IS COMPLETE"
+                    : "WOW IS COMPLETE"}
+              </p>
+              {manifest.stage === "SEALED" && (
+                <span className="hidden text-xs text-[#9d8e78] sm:inline">
+                  · The inscription period has ended.
+                </span>
+              )}
+              {manifest.stage === "WOW_COMPLETE_WAITING" && (
+                <span className="text-xs text-amber-300">
+                  · FOREVER AWAKENS IN …{" "}
+                  <time dateTime={manifest.foreverUnlockAt!}>
+                    {countdown ?? manifest.foreverUnlockAt}
+                  </time>
+                </span>
+              )}
+            </div>
+          ) : (
+            <span />
+          )}
 
           {/* HUD Action Controls */}
           <div className="flex items-center gap-2">
@@ -401,8 +363,11 @@ export function VanguardExperience({
               data-search-trigger
               onClick={() => {
                 setSearchOpen(true);
+                setSearched(false);
+                setResults([]);
                 setFocus(null);
                 setSelected(null);
+                scene.current?.gather();
               }}
               className="rounded border border-[#7a6336] bg-[#221f18]/85 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#f7e7c4] backdrop-blur-md transition hover:border-[#d4af37] hover:bg-[#332e23] disabled:opacity-40"
             >
@@ -418,15 +383,6 @@ export function VanguardExperience({
 
             <button
               type="button"
-              disabled={!monumentEntered || ritualLocked || cameraPending}
-              onClick={() => void enableCamera()}
-              className="inline-flex rounded border border-[#7a6336]/60 bg-[#161821]/80 px-2.5 py-1 text-xs text-[#cfbe9f] backdrop-blur-md transition hover:border-[#d4af37] disabled:opacity-40"
-            >
-              {camera ? "Disable Gesture Control" : "Enable Gesture Control"}
-            </button>
-
-            <button
-              type="button"
               onClick={() => void toggleMusic()}
               className="rounded border border-[#7a6336] bg-[#221f18]/85 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#f7e7c4] backdrop-blur-md transition hover:border-[#d4af37] hover:bg-[#332e23]"
             >
@@ -434,13 +390,6 @@ export function VanguardExperience({
             </button>
           </div>
         </header>
-
-        {/* Scattered State Notice */}
-        {scatter && (
-          <div className="pointer-events-none absolute bottom-4 left-4 z-20 rounded border border-[#7a6336]/40 bg-[#0d0f17]/90 px-3 py-1 text-xs text-amber-200">
-            <p role="status">Scatter view · make a fist to gather the Monument.</p>
-          </div>
-        )}
 
         {/* Hero CTA fallback if not yet entered */}
         {!monumentEntered && (
@@ -466,7 +415,7 @@ export function VanguardExperience({
           <div
             role="dialog"
             aria-modal="true"
-            aria-label="Monument panel"
+            aria-label="Find a Vanguard"
             className={"vanguard-stageOverlayBackdrop"}
           >
             <div data-stage-panel className={`vanguard-stageModalPanel vanguard-searchPanel`}>
@@ -479,57 +428,74 @@ export function VanguardExperience({
                 <span aria-hidden="true">✕</span>
               </button>
 
-              <h2 className="mb-4 text-base font-bold uppercase tracking-wider text-amber-200">
-                Search the Monument
+              <h2 className="mb-1 text-base font-bold uppercase tracking-wider text-amber-200">
+                FIND A VANGUARD
               </h2>
+              <p className="mb-1 text-xs text-[#cfbe9f]">Search by Vanguard name or guild.</p>
+              <p className="mb-4 text-[11px] text-[#8c7e6c]">
+                You can also paste a Seat ID from a shared Vanguard.
+              </p>
 
               <form onSubmit={search} className="space-y-3">
                 <label className="flex flex-col gap-1 text-xs text-amber-200/90">
-                  <span>Search Seat ID, Vanguard Name or Guild</span>
+                  <span>Vanguard name or guild</span>
                   <input
                     value={query}
                     maxLength={48}
                     minLength={2}
                     required
-                    onChange={(event) => setQuery(event.target.value)}
-                    placeholder="e.g. WOW-W1-0001 or Vanguard"
+                    onChange={(event) => {
+                      setQuery(event.target.value);
+                      setSearched(false);
+                    }}
+                    placeholder="Vanguard name, guild, or shared Seat ID"
                     className="rounded border border-[#7a6336] bg-[#1a1c24] px-3 py-2 text-sm text-[#f7e7c4] outline-none transition focus:border-[#d4af37]"
                   />
                 </label>
-                <div className="flex gap-2">
-                  <button
-                    disabled={ritualLocked}
-                    className="flex-1 rounded border border-[#947a46] bg-[#2a251b] py-2 text-xs font-semibold uppercase tracking-wider text-[#f7e7c4] transition hover:border-[#d4af37] hover:bg-[#3d3527] disabled:opacity-40"
-                  >
-                    Search
-                  </button>
-                  <button
-                    type="button"
-                    disabled={ritualLocked || !query}
-                    onClick={() => {
-                      if (!ritualLocked && query) void choose(query);
-                    }}
-                    className="rounded border border-[#7a6336] bg-[#1a1c24] px-3 py-2 text-xs text-[#cfbe9f] hover:border-[#d4af37]"
-                  >
-                    Focus Seat
-                  </button>
-                </div>
+                <button
+                  disabled={ritualLocked}
+                  className="w-full rounded border border-[#947a46] bg-[#2a251b] py-2 text-xs font-semibold uppercase tracking-wider text-[#f7e7c4] transition hover:border-[#d4af37] hover:bg-[#3d3527] disabled:opacity-40"
+                >
+                  Search
+                </button>
               </form>
 
+              {manifest.counts.total === 0 ? (
+                <p className="mt-4 border-t border-[#7a6336]/40 pt-3 text-sm text-[#cfbe9f]">
+                  No Vanguards have been inscribed yet. Choose a place on the Monument to begin.
+                </p>
+              ) : searched && results.length === 0 ? (
+                <p className="mt-4 border-t border-[#7a6336]/40 pt-3 text-sm text-[#cfbe9f]">
+                  No matching Vanguard found.
+                </p>
+              ) : null}
+
               {results.length > 0 && (
-                <ul className="mt-4 max-h-48 space-y-1.5 overflow-y-auto border-t border-[#7a6336]/40 pt-3">
+                <ul className="mt-4 max-h-56 space-y-1.5 overflow-y-auto border-t border-[#7a6336]/40 pt-3">
                   {results.map((seat) => (
                     <li key={seat.seatId}>
                       <button
                         type="button"
                         disabled={ritualLocked}
                         onClick={() => void choose(seat.seatId)}
-                        className="flex w-full items-center justify-between rounded px-2 py-1.5 text-left text-xs text-[#dfcaa2] transition hover:bg-[#1f222e]"
+                        className="flex w-full flex-col rounded px-2 py-2 text-left transition hover:bg-[#1f222e]"
                       >
-                        <span className="font-semibold">{seat.seatId}</span>
-                        <span className="text-[#a89b84]">
-                          {seat.status === "active" ? seat.displayName : "Unavailable"}
-                        </span>
+                        {seat.status === "active" ? (
+                          <>
+                            <span className="text-sm font-semibold text-[#f7e7c4]">
+                              {seat.displayName}
+                            </span>
+                            {seat.guildName ? (
+                              <span className="text-xs text-[#b9aa91]">{seat.guildName}</span>
+                            ) : null}
+                            <span className="mt-0.5 text-[11px] text-[#8c7e6c]">{seat.seatId}</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-sm text-[#b9aa91]">Unavailable Vanguard</span>
+                            <span className="mt-0.5 text-[11px] text-[#8c7e6c]">{seat.seatId}</span>
+                          </>
+                        )}
                       </button>
                     </li>
                   ))}
@@ -555,7 +521,10 @@ export function VanguardExperience({
               <button
                 type="button"
                 aria-label="Close Focus"
-                onClick={() => setFocus(null)}
+                onClick={() => {
+                  setFocus(null);
+                  scene.current?.gather();
+                }}
                 className="absolute right-3 top-3 z-50 flex h-7 w-7 items-center justify-center rounded border border-[#7a6336]/50 text-sm text-[#cfbe9f] hover:border-[#d4af37] hover:text-white"
               >
                 <span aria-hidden="true">✕</span>
@@ -642,7 +611,10 @@ export function VanguardExperience({
                 type="button"
                 aria-label="Close Claim"
                 disabled={ritualLocked}
-                onClick={() => setSelected(null)}
+                onClick={() => {
+                  setSelected(null);
+                  scene.current?.gather();
+                }}
                 className="absolute right-3 top-3 z-50 flex h-7 w-7 items-center justify-center rounded border border-[#7a6336]/50 text-sm text-[#cfbe9f] hover:border-[#d4af37] hover:text-white"
               >
                 <span aria-hidden="true">✕</span>
@@ -759,7 +731,6 @@ export function VanguardExperience({
                     setFocus(null);
                     setSelected(null);
                     setRevealed(false);
-                    setScatter(false);
                     scene.current?.gather();
                   }}
                   className="mt-2 text-xs text-[#9d8e78] underline hover:text-[#d4af37]"
