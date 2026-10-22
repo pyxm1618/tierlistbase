@@ -194,7 +194,6 @@ export function VanguardExperience({
     }
   }
 
-
   async function search(event: FormEvent) {
     event.preventDefault();
     try {
