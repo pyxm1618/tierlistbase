@@ -80,21 +80,8 @@ function MissingArtwork({ kind }: { kind: "hero" | "portrait" | "team" | "item" 
   );
 }
 
-function MiyabiPortrait() {
-  return (
-    <Image
-      src={agentDetailMiyabi}
-      alt=""
-      fill
-      sizes="96px"
-      className={styles.miyabiPortraitImage}
-    />
-  );
-}
-
 function AgentPortrait({ name, sizes }: { name: string; sizes: string }) {
   const agent = agents.find((candidate) => candidate.name === name);
-  if (agent?.id === "miyabi") return <MiyabiPortrait />;
   const icon = agentIcons[agent?.id ?? ""];
   return icon ? (
     <Image src={icon} alt={name} fill sizes={sizes} className={styles.iconImage} />

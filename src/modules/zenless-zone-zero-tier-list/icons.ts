@@ -22,6 +22,7 @@ import billy from "./assets/agents/billy.png";
 import lucy from "./assets/agents/lucy.png";
 import corin from "./assets/agents/corin.png";
 import seth from "./assets/agents/seth.png";
+import miyabi from "./assets/agents/miyabi.png";
 import sharkboo from "./assets/bangboo/sharkboo.png";
 import butlerboo from "./assets/bangboo/butlerboo.png";
 import rocketboo from "./assets/bangboo/rocketboo.png";
@@ -52,6 +53,7 @@ export const agentIcons: Readonly<Record<string, StaticImageData>> = {
   lucy: lucy,
   corin: corin,
   seth: seth,
+  miyabi: miyabi,
 };
 
 export const bangbooIcons: Readonly<Record<string, StaticImageData>> = {
