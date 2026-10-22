@@ -66,9 +66,7 @@ export function SiteHeaderAccount({
         ? `${VANGUARD_PATH}?seat=${encodeURIComponent(seat)}`
         : VANGUARD_PATH
       : null;
-  const signInHref = returnTo
-    ? `/sign-in?returnTo=${encodeURIComponent(returnTo)}`
-    : "/sign-in";
+  const signInHref = returnTo ? `/sign-in?returnTo=${encodeURIComponent(returnTo)}` : "/sign-in";
 
   if (!authenticated)
     return (
