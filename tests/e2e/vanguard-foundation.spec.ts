@@ -22,7 +22,7 @@ for (const width of [390, 768, 1024, 1440, 1920]) {
     });
     const response = await page.goto("/wow-forever/vanguard");
     expect(response?.status()).toBe(200);
-    expect(response?.headers()["permissions-policy"]).toContain("camera=(self)");
+    expect(response?.headers()["permissions-policy"]).toContain("camera=()");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(
       page
