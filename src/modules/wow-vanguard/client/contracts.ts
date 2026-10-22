@@ -138,7 +138,23 @@ export async function runPostSuccessRitual(
   reducedMotion: boolean,
   durationMs = 1100,
 ) {
-  return runVanguardRitual(render, reducedMotion, RITUAL_POST_FRAMES, durationMs);
+  const pullbackDuration = reducedMotion ? 0 : Math.min(500, durationMs);
+  const leadDuration = Math.max(0, durationMs - pullbackDuration);
+  const leadFrames = RITUAL_POST_FRAMES.slice(0, -1);
+  for (const [index, frame] of leadFrames.entries()) {
+    render(frame, reducedMotion);
+    await new Promise<void>((resolve) =>
+      setTimeout(
+        resolve,
+        Math.round(((index + 1) * leadDuration) / leadFrames.length) -
+          Math.round((index * leadDuration) / leadFrames.length),
+      ),
+    );
+  }
+  render("camera_pull_back", reducedMotion);
+  if (pullbackDuration)
+    await new Promise<void>((resolve) => setTimeout(resolve, pullbackDuration));
+  render("reveal", reducedMotion);
 }
 export function sealInput(seat: Extract<PublicInscription, { status: "active" }>, origin: string) {
   return {
