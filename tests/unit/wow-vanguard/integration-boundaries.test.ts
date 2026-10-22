@@ -23,16 +23,13 @@ it.skipIf(String(siteConfig.slug) !== "tierlistbase")(
     expect(featuresConfig.email.enabled).toBe(true);
   },
 );
-it("allows only Vanguard camera override", async () => {
+it("keeps Vanguard on the global camera-denied policy", async () => {
   const rules = await nextConfig.headers!();
-  const policy = (path: string) =>
-    rules
-      .filter((rule) => rule.source === "/:path*" || rule.source === path)
-      .flatMap((rule) => rule.headers)
-      .filter((h) => h.key === "Permissions-Policy")
-      .at(-1)?.value;
-  expect(policy("/wow-forever/vanguard")).toContain("camera=(self)");
-  expect(policy("/privacy")).toContain("camera=()");
+  const baseline = rules
+    .find((rule) => rule.source === "/:path*")
+    ?.headers.find((header) => header.key === "Permissions-Policy")?.value;
+  expect(baseline).toContain("camera=()");
+  expect(rules.some((rule) => rule.source === "/wow-forever/vanguard")).toBe(false);
 });
 it("allows same-origin Vanguard OAuth return and rejects external return", () => {
   expect(assertAllowedRelativeCallback("/wow-forever/vanguard?seat=WOW-O-0001")).toBe(
