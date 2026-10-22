@@ -114,7 +114,7 @@ test("real API default-emblem Claim → DB → Reveal → Search → Report emai
       "vanguard-monument-ignite.wav",
     ])
       expect(sounds).toContain(sound);
-    expect(sounds).not.toContain("vanguard-ambient-theme.wav");
+    expect(sounds).toContain("vanguard-ambient-theme.wav");
     const duplicate = await page.request.post("/api/vanguard/holds", {
       headers: { Origin: "http://127.0.0.1:3197" },
       data: { seatId: "WOW-W1-2001" },
@@ -271,7 +271,10 @@ for (const width of [390, 1440]) {
       ).toHaveLength(0);
       await menu();
       if (width >= 1024)
-        await page.locator("header summary").filter({ hasText: "Account" }).click();
+        await page
+          .locator("header")
+          .getByRole("button", { name: "Header private identity", exact: true })
+          .click();
       await expect(
         page.locator("header").getByRole("link", { name: "Sign in", exact: true }),
       ).toHaveCount(0);
@@ -285,10 +288,19 @@ for (const width of [390, 1440]) {
         ).toHaveAttribute("href", href);
       }
       await page.goto("/limbus-company/tier-list");
-      await expect(page.locator("header summary").filter({ hasText: "Account" })).toBeVisible();
-      await page.locator("header summary").filter({ hasText: "Account" }).click();
+      if (width < 1024) {
+        await page.locator("header summary").filter({ hasText: "Menu" }).click();
+      } else {
+        await page
+          .locator("header")
+          .getByRole("button", { name: "Header private identity", exact: true })
+          .click();
+      }
       await expect(
-        page.locator("header").getByRole("link", { name: "My Vanguard", exact: true }),
+        page
+          .locator("header")
+          .getByRole("link", { name: "My Vanguard", exact: true })
+          .filter({ visible: true }),
       ).toBeVisible();
       for (const path of ["/account", "/account/vanguard", "/account/security"]) {
         await page.goto(path);
@@ -297,7 +309,10 @@ for (const width of [390, 1440]) {
       await page.goto("/");
       await menu();
       if (width >= 1024)
-        await page.locator("header summary").filter({ hasText: "Account" }).click();
+        await page
+          .locator("header")
+          .getByRole("button", { name: "Header private identity", exact: true })
+          .click();
       await page
         .locator("header")
         .getByRole("button", { name: "Sign out", exact: true })
