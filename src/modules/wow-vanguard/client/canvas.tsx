@@ -52,6 +52,7 @@ export function VanguardCanvas({
     controller: {
       pick: (x: number, y: number) => void;
       gather: () => void;
+      focus: (seatId: string) => Promise<void>;
     } | null,
   ) => void;
 }) {
@@ -183,10 +184,8 @@ export function VanguardCanvas({
     controller.current?.updateOccupancy(occupied);
   }, [manifest, phase, focusSeat, focusIsOccupied]);
   useEffect(() => {
-    // Only a new selection moves the camera; manifest polling preserves Scatter/Gather.
     if (overview) controller.current?.gather();
-    else if (focusSeat) void controller.current?.focus(focusSeat);
-  }, [focusSeat, phase, overview]);
+  }, [overview]);
   useEffect(() => {
     let cancelled = false;
     if (
