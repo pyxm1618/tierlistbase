@@ -323,8 +323,8 @@ export function VanguardExperience({
         <header className="pointer-events-auto absolute left-3 right-3 top-3 z-30 flex flex-wrap items-center justify-between gap-2.5">
           {/* Event state only; open-stage inscription counts live in the Hero, not the HUD. */}
           {manifest.stage === "SEALED" ||
-          manifest.stage === "COMPLETE" ||
-          manifest.stage === "WOW_COMPLETE_WAITING" ? (
+            manifest.stage === "COMPLETE" ||
+            manifest.stage === "WOW_COMPLETE_WAITING" ? (
             <div className="flex items-center gap-2 rounded border border-[#7a6336]/40 bg-[#0d0f17]/85 px-3 py-1.5 backdrop-blur-md shadow-md">
               <p
                 role="status"
