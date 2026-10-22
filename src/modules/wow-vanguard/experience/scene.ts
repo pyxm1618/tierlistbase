@@ -3,6 +3,19 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import type { SeatLayoutGroup } from "../domain/layout";
 import { buildSeatId, parseSeatId } from "../domain/event";
+type VanguardCameraMotion = {
+  startedAt: number;
+  duration: number;
+  fromTarget: THREE.Vector3;
+  toTarget: THREE.Vector3;
+  fromX: number;
+  fromY: number;
+  toX: number;
+  toY: number;
+  fromZoom: number;
+  toZoom: number;
+  resolve: () => void;
+};
 export function createVanguardScatterTargets(
   groups: readonly SeatLayoutGroup[],
   reducedMotion: boolean,
@@ -184,9 +197,8 @@ export function createVanguardScene(
   const monumentSize = monumentBounds.getSize(new THREE.Vector3());
   const backgroundWidth = options.backgroundSize?.width ?? 167.2;
   const backgroundHeight = options.backgroundSize?.height ?? 94.1;
-  const center = options.background
-    ? new THREE.Vector3(0, 0, monumentCenter.z)
-    : monumentCenter.clone();
+  const center = monumentCenter.clone();
+  if (options.background) center.set(0, 0, monumentCenter.z);
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10000);
   camera.position.set(center.x, center.y, monumentBounds.max.z + 100);
   camera.lookAt(center);
@@ -204,21 +216,7 @@ export function createVanguardScene(
   let lastThumb = 0;
   let raf = 0;
   let refreshing = false;
-  let cameraMotion:
-    | {
-        startedAt: number;
-        duration: number;
-        fromTarget: THREE.Vector3;
-        toTarget: THREE.Vector3;
-        fromX: number;
-        fromY: number;
-        toX: number;
-        toY: number;
-        fromZoom: number;
-        toZoom: number;
-        resolve: () => void;
-      }
-    | null = null;
+  let cameraMotion: VanguardCameraMotion | null = null;
   const focusMarkerGeometry = new THREE.RingGeometry(0.62, 0.92, 32);
   const focusMarkerMaterial = new THREE.MeshBasicMaterial({
     color: 0xffd875,
@@ -255,10 +253,9 @@ export function createVanguardScene(
     const subjectHeight = monumentSize.y + 4;
     const subjectWidthAsHeight = (monumentSize.x + 4) / aspect;
     if (!options.background) return Math.max(subjectHeight, subjectWidthAsHeight);
-    const backgroundFrame =
-      width < 768
-        ? Math.max(backgroundHeight, backgroundWidth / aspect)
-        : Math.min(backgroundHeight, backgroundWidth / aspect);
+    let backgroundFrame = Math.max(backgroundHeight, backgroundWidth / aspect);
+    if (width >= 768)
+      backgroundFrame = Math.min(backgroundHeight, backgroundWidth / aspect);
     return Math.max(backgroundFrame, subjectHeight, subjectWidthAsHeight);
   }
   function resize() {
@@ -384,9 +381,8 @@ export function createVanguardScene(
     }
   }
   function cameraEase(progress: number) {
-    return progress < 0.5
-      ? 4 * progress * progress * progress
-      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+    if (progress < 0.5) return 4 * progress * progress * progress;
+    return 1 - Math.pow(-2 * progress + 2, 3) / 2;
   }
   function animateCamera(target: THREE.Vector3, zoom: number, duration = 600) {
     if (cameraMotion) {
@@ -435,10 +431,8 @@ export function createVanguardScene(
   function render(now: number) {
     if (stopped) return;
     if (cameraMotion) {
-      const progress = Math.min(
-        1,
-        Math.max(0, (now - cameraMotion.startedAt) / cameraMotion.duration),
-      );
+      const elapsed = (now - cameraMotion.startedAt) / cameraMotion.duration;
+      const progress = Math.min(1, Math.max(0, elapsed));
       const eased = cameraEase(progress);
       controls.target.lerpVectors(cameraMotion.fromTarget, cameraMotion.toTarget, eased);
       camera.position.x = THREE.MathUtils.lerp(cameraMotion.fromX, cameraMotion.toX, eased);
@@ -480,9 +474,9 @@ export function createVanguardScene(
     },
     focus(seatId: string) {
       const identity = parseSeatId(seatId);
-      const group = groups.find(
-        (candidate) => candidate.phase === identity.phase && candidate.letter === identity.letter,
-      );
+      const group = groups.find((candidate) => {
+        return candidate.phase === identity.phase && candidate.letter === identity.letter;
+      });
       if (!group) return Promise.resolve();
       const index = identity.localIndex - 1;
       const offset = index * 4;
