@@ -471,6 +471,71 @@ test("Vanguard Header sign-in preserves the route and a valid Seat deep link", a
   );
 });
 
+test("Escape during Seat focus cancels the pending panel", async ({ page }) => {
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    exact: true,
+  });
+  await expect
+    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
+    .toBe(1);
+  // One browser task guarantees Escape lands while the focus animation is pending.
+  await canvas.evaluate((node) => {
+    node.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
+    node.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  });
+  await page.waitForTimeout(900);
+  await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+  await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toHaveCount(0);
+});
+
+test("FOREVER Search waits for the WOW scene to focus before opening a WOW inscription", async ({
+  page,
+}) => {
+  test.setTimeout(90000);
+  await fixtures(page, { stage: "FOREVER_OPEN", existing: true });
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    exact: true,
+  });
+  await expect
+    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
+    .toBe(1);
+  await expect(
+    page.getByRole("status").filter({ hasText: "Selected Seat FOREVER-F-0001" }),
+  ).toHaveCount(1, { timeout: 20000 });
+  await expect
+    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
+    .toBe(1);
+  await openSearch(page);
+  await page.getByLabel("Vanguard name or guild").fill("Chosen");
+  await page.getByRole("button", { name: "Search", exact: true }).last().click();
+  let releaseLayout!: () => void;
+  const layoutGate = new Promise<void>((resolve) => {
+    releaseLayout = resolve;
+  });
+  await page.route("**/layouts/wow-*.f32", async (route) => {
+    await layoutGate;
+    await route.continue();
+  });
+  try {
+    const layoutRequest = page.waitForRequest("**/layouts/wow-W1.f32");
+    await page.getByRole("button", { name: /Chosen Vanguard/ }).click();
+    await layoutRequest;
+    await page.waitForTimeout(100);
+    await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toHaveCount(0);
+  } finally {
+    releaseLayout();
+  }
+  await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible();
+  await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toContainText(
+    seatId,
+  );
+});
+
 test("keyboard users can select an empty Seat and reach Claim authentication", async ({ page }) => {
   await fixtures(page);
   await page.goto("/wow-forever/vanguard");

@@ -14,7 +14,7 @@ type VanguardCameraMotion = {
   toY: number;
   fromZoom: number;
   toZoom: number;
-  resolve: () => void;
+  resolve: (completed: boolean) => void;
 };
 export function createVanguardScatterTargets(
   groups: readonly SeatLayoutGroup[],
@@ -385,7 +385,7 @@ export function createVanguardScene(
   }
   function animateCamera(target: THREE.Vector3, zoom: number, duration = 600) {
     if (cameraMotion) {
-      cameraMotion.resolve();
+      cameraMotion.resolve(false);
       cameraMotion = null;
     }
     if (options.reducedMotion) {
@@ -394,10 +394,10 @@ export function createVanguardScene(
       camera.position.y = target.y;
       camera.zoom = zoom;
       camera.updateProjectionMatrix();
-      return Promise.resolve();
+      return Promise.resolve(true);
     }
     controls.enabled = false;
-    return new Promise<void>((resolve) => {
+    return new Promise<boolean>((resolve) => {
       cameraMotion = {
         startedAt: performance.now(),
         duration,
@@ -442,7 +442,7 @@ export function createVanguardScene(
         const resolve = cameraMotion.resolve;
         cameraMotion = null;
         controls.enabled = true;
-        resolve();
+        resolve(true);
       }
     }
     controls.update();
@@ -476,7 +476,7 @@ export function createVanguardScene(
       const group = groups.find((candidate) => {
         return candidate.phase === identity.phase && candidate.letter === identity.letter;
       });
-      if (!group) return Promise.resolve();
+      if (!group) return Promise.resolve(false);
       const index = identity.localIndex - 1;
       const offset = index * 4;
       const target = new THREE.Vector3(
@@ -498,7 +498,7 @@ export function createVanguardScene(
       canvas.removeEventListener("pointerdown", pointerDown);
       canvas.removeEventListener("pointerup", pointerUp);
       if (cameraMotion) {
-        cameraMotion.resolve();
+        cameraMotion.resolve(false);
         cameraMotion = null;
       }
       controls.dispose();

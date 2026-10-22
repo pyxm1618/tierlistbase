@@ -4,6 +4,7 @@ import type { VanguardAssets, VanguardManifest } from "./contracts";
 import { buildSeatId, parseSeatId, WOW_LETTERS, FOREVER_LETTERS } from "../domain/event";
 import { vanguardRequest } from "./api";
 import type { PublicInscription } from "../db/service";
+export type VanguardFocusResult = "focused" | "cancelled" | "unavailable";
 export function occupiedSeats(manifest: VanguardManifest, phase = manifest.phase) {
   const bytes = Uint8Array.from(atob(manifest.occupancy), (character) => character.charCodeAt(0));
   // Completed WOW is permanently full; archive occupancy can be reconstructed
@@ -37,6 +38,8 @@ export function VanguardCanvas({
   overview = false,
   focusSeat,
   focusIsOccupied = false,
+  focusVersion = 0,
+  onFocusComplete,
   onSeat,
   onController,
   onNearby,
@@ -46,13 +49,15 @@ export function VanguardCanvas({
   assets: VanguardAssets;
   focusSeat: string | null;
   focusIsOccupied?: boolean;
+  focusVersion?: number;
+  onFocusComplete: (version: number, result: VanguardFocusResult) => void;
   onSeat: (seatId: string) => void;
   onNearby: (ids: string[]) => void;
   onController: (
     controller: {
       pick: (x: number, y: number) => void;
       gather: () => void;
-      focus: (seatId: string) => Promise<void>;
+      focus: (seatId: string) => Promise<boolean>;
     } | null,
   ) => void;
 }) {
@@ -69,10 +74,6 @@ export function VanguardCanvas({
     (seatIndex % perLetter) + 1,
   );
   const focused = useRef(focusSeat);
-  const overviewRef = useRef(overview);
-  useEffect(() => {
-    overviewRef.current = overview;
-  }, [overview]);
   useEffect(() => {
     focused.current = focusSeat;
   }, [focusSeat]);
@@ -84,6 +85,7 @@ export function VanguardCanvas({
   };
   const canvas = useRef<HTMLCanvasElement>(null);
   const selection = useRef(onSeat);
+  const focusCallback = useRef(onFocusComplete);
   const controllerCallback = useRef(onController);
   const nearbyCallback = useRef(onNearby);
   const loadedGroups = useRef<import("../domain/layout").SeatLayoutGroup[]>([]);
@@ -92,15 +94,21 @@ export function VanguardCanvas({
   > | null>(null);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const rendererFailed = useRef(false);
   useEffect(() => {
     nearbyCallback.current = onNearby;
+    focusCallback.current = onFocusComplete;
     selection.current = onSeat;
     controllerCallback.current = onController;
-  }, [onSeat, onController, onNearby]);
+  }, [onSeat, onController, onNearby, onFocusComplete]);
   useEffect(() => {
+    rendererFailed.current = false;
     let cancelled = false;
     let active: typeof controller.current = null;
     async function load() {
+      await Promise.resolve();
+      if (cancelled) return;
+      setError(null);
       if (!canvas.current || !assets.plate) return;
       const letters = phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"];
       if (letters.some((letter) => !assets.layouts[`${phase}:${letter}`])) return;
@@ -164,15 +172,16 @@ export function VanguardCanvas({
         }
         controller.current = active;
         controllerCallback.current(active);
-        if (focused.current && !overviewRef.current) void active.focus(focused.current);
         requestAnimationFrame(() => {
           if (!cancelled) setReady(true);
         });
       } catch {
-        if (!cancelled)
+        if (!cancelled) {
+          rendererFailed.current = true;
           setError(
             "The Monument renderer could not load. Search and text browsing remain available.",
           );
+        }
       }
     }
     void load();
@@ -221,6 +230,23 @@ export function VanguardCanvas({
     !(phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"]).every(
       (letter) => assets.layouts[`${phase}:${letter}`],
     );
+  const unavailable = !ready && (blocked || error !== null);
+  useEffect(() => {
+    if (!focusSeat || overview) return;
+    // Text browsing remains usable when the renderer or its assets are unavailable.
+    if (blocked || rendererFailed.current) {
+      focusCallback.current(focusVersion, "unavailable");
+      return;
+    }
+    if (!ready || !controller.current) return;
+    let cancelled = false;
+    void controller.current.focus(focusSeat).then((completed) => {
+      if (!cancelled) focusCallback.current(focusVersion, completed ? "focused" : "cancelled");
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [focusSeat, focusVersion, ready, overview, unavailable, blocked]);
   return (
     <section
       aria-label="Monument canvas"

@@ -16,7 +16,7 @@ import {
 } from "./contracts";
 import { VanguardClientError, vanguardRequest, pollVanguardManifest } from "./api";
 import { VanguardClaim, DRAFT_KEY } from "./claim";
-import { VanguardCanvas } from "./canvas";
+import { VanguardCanvas, type VanguardFocusResult } from "./canvas";
 import { VanguardSealControl } from "./seal";
 import { trackVanguard } from "./tracking";
 
@@ -47,6 +47,14 @@ export function VanguardExperience({
   const [focus, setFocus] = useState<PublicInscription | null>(null);
   const [mine, setMine] = useState<PublicInscription | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [focusRequest, setFocusRequest] = useState<{ seatId: string; version: number } | null>(
+    null,
+  );
+  const selectionVersion = useRef(0);
+  const focusWaiter = useRef<{
+    version: number;
+    resolve: (result: VanguardFocusResult) => void;
+  } | null>(null);
   const [searchOpen, setSearchOpen] = useState(initialSearch);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<PublicInscription[]>([]);
@@ -80,7 +88,7 @@ export function VanguardExperience({
   const scene = useRef<{
     pick: (x: number, y: number) => void;
     gather: () => void;
-    focus?: (id: string) => Promise<void>;
+    focus?: (id: string) => Promise<boolean>;
   } | null>(null);
   const audio = useRef(audioController);
   const select = useRef<(id: string, resume?: boolean) => Promise<void>>(async () => {});
@@ -95,19 +103,43 @@ export function VanguardExperience({
     );
   }
 
+  function cancelSelection() {
+    selectionVersion.current++;
+    focusWaiter.current?.resolve("cancelled");
+    focusWaiter.current = null;
+    setFocusRequest(null);
+  }
+
+  useEffect(
+    () => () => {
+      selectionVersion.current++;
+      focusWaiter.current?.resolve("cancelled");
+      focusWaiter.current = null;
+    },
+    [],
+  );
+
   async function choose(id: string, resume = false) {
-    let focusMotion = Promise.resolve();
+    const version = ++selectionVersion.current;
     try {
       parseSeatId(id);
+      focusWaiter.current?.resolve("cancelled");
+      const focusMotion = new Promise<VanguardFocusResult>((resolve) => {
+        focusWaiter.current = { version, resolve };
+      });
+      setFocus(null);
+      setSelected(null);
+      setRevealed(false);
+      setFocusRequest({ seatId: id, version });
+      setMonumentEntered(true);
       setSearchOpen(false);
       setNotice("");
-      focusMotion = scene.current?.focus?.(id) ?? Promise.resolve();
 
       try {
         const seat = await vanguardRequest<PublicInscription>(
           `inscriptions/${encodeURIComponent(id)}`,
         );
-        await focusMotion;
+        if ((await focusMotion) === "cancelled" || version !== selectionVersion.current) return;
         if (
           resume &&
           authenticated &&
@@ -128,6 +160,7 @@ export function VanguardExperience({
         trackVanguard("vanguard_focus");
         await audio.current?.sfx("focus");
       } catch (cause) {
+        if (version !== selectionVersion.current) return;
         if (cause instanceof VanguardClientError && cause.code === "SEAT_NOT_FOUND") {
           if (!claimOpen || parseSeatId(id).phase !== manifest.phase) {
             setNotice(
@@ -141,7 +174,7 @@ export function VanguardExperience({
             setNotice(vanguardErrorMessage("ACCOUNT_ALREADY_INSCRIBED"));
             return;
           }
-          await focusMotion;
+          if ((await focusMotion) === "cancelled" || version !== selectionVersion.current) return;
           setSelected(id);
           setFocus(null);
           setSuggested(null);
@@ -152,7 +185,7 @@ export function VanguardExperience({
         }
       }
     } catch (cause) {
-      error(cause);
+      if (version === selectionVersion.current) error(cause);
     }
   }
 
@@ -176,8 +209,6 @@ export function VanguardExperience({
         const saved = draftFromStorage(sessionStorage.getItem(DRAFT_KEY));
         const id = initialSeat ?? saved?.seatId;
         if (id) {
-          for (let frame = 0; frame < 180 && !scene.current && !cancelled; frame++)
-            await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
           if (!cancelled) await select.current(id, saved?.seatId === id);
         }
         if (initialSeat && !cancelled) trackVanguard("invite_open");
@@ -264,6 +295,7 @@ export function VanguardExperience({
       className={"vanguard-experience"}
       onKeyDown={(event) => {
         if (event.key === "Escape" && !ritualLocked) {
+          cancelSelection();
           setSearchOpen(false);
           setFocus(null);
           setSelected(null);
@@ -326,7 +358,14 @@ export function VanguardExperience({
             assets={assets}
             onNearby={setNearby}
             overview={revealed}
-            focusSeat={focus?.seatId ?? selected}
+            focusSeat={focusRequest?.seatId ?? focus?.seatId ?? selected}
+            focusVersion={focusRequest?.version ?? 0}
+            onFocusComplete={(version, result) => {
+              if (focusWaiter.current?.version === version) {
+                focusWaiter.current.resolve(result);
+                focusWaiter.current = null;
+              }
+            }}
             focusIsOccupied={Boolean(focus)}
             onSeat={(id) => {
               if (!ritualLocked) void choose(id);
@@ -380,6 +419,7 @@ export function VanguardExperience({
               disabled={ritualLocked}
               data-search-trigger
               onClick={() => {
+                cancelSelection();
                 setSearchOpen(true);
                 setSearched(false);
                 setResults([]);
@@ -540,6 +580,7 @@ export function VanguardExperience({
                 type="button"
                 aria-label="Close Focus"
                 onClick={() => {
+                  cancelSelection();
                   setFocus(null);
                   scene.current?.gather();
                 }}
@@ -630,6 +671,7 @@ export function VanguardExperience({
                 aria-label="Close Claim"
                 disabled={ritualLocked}
                 onClick={() => {
+                  cancelSelection();
                   setSelected(null);
                   scene.current?.gather();
                 }}
@@ -746,6 +788,7 @@ export function VanguardExperience({
                   type="button"
                   disabled={ritualLocked}
                   onClick={() => {
+                    cancelSelection();
                     setFocus(null);
                     setSelected(null);
                     setRevealed(false);
