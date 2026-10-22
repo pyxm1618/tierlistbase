@@ -128,9 +128,31 @@ async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
   return (
     <HeaderShell
       locale={locale}
-      desktopAccount={<SiteHeaderAccount authenticated={Boolean(identity)} name={identity?.name ?? null} email={identity?.email ?? null} className={navLink} />}
-      mobileAccount={<SiteHeaderAccount authenticated={Boolean(identity)} name={identity?.name ?? null} email={identity?.email ?? null} mobile className={navLink} />}
-      variantAccount={<SiteHeaderAccount authenticated={Boolean(identity)} name={identity?.name ?? null} email={identity?.email ?? null} className={navLink} />}
+      desktopAccount={
+        <SiteHeaderAccount
+          authenticated={Boolean(identity)}
+          name={identity?.name ?? null}
+          email={identity?.email ?? null}
+          className={navLink}
+        />
+      }
+      mobileAccount={
+        <SiteHeaderAccount
+          authenticated={Boolean(identity)}
+          name={identity?.name ?? null}
+          email={identity?.email ?? null}
+          mobile
+          className={navLink}
+        />
+      }
+      variantAccount={
+        <SiteHeaderAccount
+          authenticated={Boolean(identity)}
+          name={identity?.name ?? null}
+          email={identity?.email ?? null}
+          className={navLink}
+        />
+      }
     />
   );
 }
