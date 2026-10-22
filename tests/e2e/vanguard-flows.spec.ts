@@ -358,6 +358,64 @@ test("Google is the only sign-in action in the Vanguard profile", async ({ page 
   await expect(page.getByLabel("Email address")).toHaveCount(0);
   await expect(page.getByRole("textbox", { name: /password/i })).toHaveCount(0);
 });
+
+test("Vanguard Header sign-in preserves the route and a valid Seat deep link", async ({ page }) => {
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await expect(page.getByRole("link", { name: "Sign in", exact: true })).toHaveAttribute(
+    "href",
+    "/sign-in?returnTo=%2Fwow-forever%2Fvanguard",
+  );
+
+  await page.goto("/wow-forever/vanguard?seat=WOW-W1-0001");
+  await expect(page.getByRole("link", { name: "Sign in", exact: true })).toHaveAttribute(
+    "href",
+    "/sign-in?returnTo=%2Fwow-forever%2Fvanguard%3Fseat%3DWOW-W1-0001",
+  );
+});
+
+test("authenticated Header exposes identity and a controlled keyboard-safe profile menu", async ({
+  page,
+  context,
+}) => {
+  const cleanup = await account(context);
+  try {
+    await fixtures(page);
+    await page.goto("/wow-forever/vanguard");
+    const trigger = page.getByRole("button", { name: /Private Google identity/ });
+    await expect(trigger).toBeVisible();
+    await trigger.click();
+    const menu = page.getByRole("menu", { name: "Account menu" });
+    await expect(menu).toBeVisible();
+    await expect(menu.getByText("Private Google identity", { exact: true })).toBeVisible();
+    await expect(menu.getByText(/@example\.test$/)).toBeVisible();
+
+    await page.locator("main").click({ position: { x: 10, y: 10 } });
+    await expect(menu).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+
+    await trigger.click();
+    await page.keyboard.press("Escape");
+    await expect(menu).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+
+    await trigger.click();
+    await menu.getByRole("menuitem", { name: "My Account", exact: true }).click();
+    await expect(page).toHaveURL(/\/account$/);
+    await expect(menu).toHaveCount(0);
+  } finally {
+    await cleanup();
+  }
+});
+
+test("Vanguard has no Camera or Gesture Control and inherits camera=()", async ({ page }) => {
+  await fixtures(page);
+  const response = await page.goto("/wow-forever/vanguard");
+  expect(response?.headers()["permissions-policy"]).toContain("camera=()");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  await expect(page.getByRole("button", { name: /Gesture Control/ })).toHaveCount(0);
+  await expect(page.locator("video")).toHaveCount(0);
+});
 test("mouse long press commits and locks the inscription", async ({ page, context }) => {
   const cleanup = await account(context);
   try {
@@ -640,9 +698,25 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
     await expect(
       page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }),
     ).toBeVisible();
+    const heroArtwork = page.locator(".vanguard-heroArtwork");
+    await expect(heroArtwork).toBeVisible();
+    expect(await heroArtwork.evaluate((node) => getComputedStyle(node).objectFit)).toBe("cover");
     await page.screenshot({ path: `${screenshotDir}/desktop-01-hero.png` });
 
-    // 2. Desktop Entered Monument
+    // 2. Desktop Header Profile Menu
+    const profileTrigger = page.getByRole("button", { name: /Private Google identity/ });
+    await profileTrigger.click();
+    await expect(page.getByRole("menu", { name: "Account menu" })).toBeVisible();
+    await page.screenshot({ path: `${screenshotDir}/desktop-02-header-menu.png` });
+    await page.keyboard.press("Escape");
+
+    // 3. Ultra-wide Hero
+    await page.setViewportSize({ width: 2560, height: 1080 });
+    expect(await heroArtwork.evaluate((node) => getComputedStyle(node).objectFit)).toBe("cover");
+    await page.screenshot({ path: `${screenshotDir}/desktop-03-hero-2560.png` });
+    await page.setViewportSize({ width: 1920, height: 1080 });
+
+    // 4. Desktop Entered Monument
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
     const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
       exact: true,
@@ -660,17 +734,17 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
         return stats.channels.slice(0, 3).every((channel) => channel.stdev > 15);
       })
       .toBe(true);
-    await page.screenshot({ path: `${screenshotDir}/desktop-02-entered-monument.png` });
+    await page.screenshot({ path: `${screenshotDir}/desktop-04-entered-monument.png` });
 
-    // 3. Desktop Search Overlay
+    // 5. Desktop Search Overlay
     await page.getByRole("button", { name: "Search", exact: true }).click();
     await expect(page.getByLabel("Vanguard name or guild")).toBeVisible();
     await page.getByLabel("Vanguard name or guild").fill("Chosen Vanguard");
     await page.keyboard.press("Enter");
     await page.waitForTimeout(600);
-    await page.screenshot({ path: `${screenshotDir}/desktop-03-search.png` });
+    await page.screenshot({ path: `${screenshotDir}/desktop-05-search.png` });
 
-    // 4. Desktop Focus Overlay
+    // 6. Desktop Occupied Seat Focus
     await page.keyboard.press("Escape");
     await fixtures(page, { existing: true });
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
@@ -678,34 +752,34 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
       timeout: 10000,
     });
     await page.waitForTimeout(600);
-    await page.screenshot({ path: `${screenshotDir}/desktop-04-focus.png` });
+    await page.screenshot({ path: `${screenshotDir}/desktop-06-occupied-focus.png` });
 
-    // 5. Desktop Claim Overlay
+    // 7. Desktop Empty Seat Focus + Claim
     await fixtures(page, { existing: false });
     await openClaim(page);
     await page.waitForTimeout(400);
-    await page.screenshot({ path: `${screenshotDir}/desktop-05-claim.png` });
+    await page.screenshot({ path: `${screenshotDir}/desktop-07-empty-seat-claim.png` });
 
-    // 6. Desktop Hold progress
+    // 8. Desktop Hold progress
     const holdBtn = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
     await expect(holdBtn).toBeEnabled({ timeout: 10000 });
     await holdBtn.focus();
     await page.keyboard.down("Space");
     await page.waitForTimeout(2000);
-    await page.screenshot({ path: `${screenshotDir}/desktop-06-hold-progress.png` });
+    await page.screenshot({ path: `${screenshotDir}/desktop-08-hold-progress.png` });
 
-    // 7. Desktop Ritual (continue hold until 4000ms threshold completes, submit triggered)
+    // 9. Desktop Ritual (continue hold until 4000ms threshold completes, submit triggered)
     await page.waitForTimeout(2200);
     await page.keyboard.up("Space");
     await expect(page.getByLabel("Inscription ritual", { exact: true })).toBeVisible();
-    await page.screenshot({ path: `${screenshotDir}/desktop-07-ritual.png` });
+    await page.screenshot({ path: `${screenshotDir}/desktop-09-ritual.png` });
 
-    // 8. Desktop Reveal
+    // 10. Desktop Reveal
     await expect(page.getByRole("region", { name: "Vanguard Reveal", exact: true })).toBeVisible({
       timeout: 15000,
     });
     await expect(page.getByAltText("Your Vanguard Seal")).toBeVisible();
-    await page.screenshot({ path: `${screenshotDir}/desktop-08-reveal.png` });
+    await page.screenshot({ path: `${screenshotDir}/desktop-10-reveal.png` });
   } finally {
     await cleanup();
   }
@@ -724,9 +798,21 @@ test("Capture Mobile visual release suite (390x844)", async ({ page, context }) 
     await expect(
       page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }),
     ).toBeVisible();
+    const mobileHeroArtwork = page.locator(".vanguard-heroArtwork");
+    await expect(mobileHeroArtwork).toBeVisible();
+    expect(await mobileHeroArtwork.evaluate((node) => getComputedStyle(node).objectFit)).toBe(
+      "contain",
+    );
     await page.screenshot({ path: `${screenshotDir}/mobile-01-hero.png` });
 
-    // 2. Mobile Monument
+    // 2. Mobile Header / Menu
+    const mobileMenu = page.locator("header summary").filter({ hasText: "Menu" });
+    await mobileMenu.click();
+    await expect(page.getByText("Private Google identity", { exact: true })).toBeVisible();
+    await page.screenshot({ path: `${screenshotDir}/mobile-02-header-menu.png` });
+    await mobileMenu.click();
+
+    // 3. Mobile Monument
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
     const mobileCanvas = page.getByLabel(
       "Interactive Monument. Drag to pan, scroll or pinch to zoom.",
@@ -745,39 +831,45 @@ test("Capture Mobile visual release suite (390x844)", async ({ page, context }) 
         return stats.channels.slice(0, 3).every((channel) => channel.stdev > 15);
       })
       .toBe(true);
-    await page.screenshot({ path: `${screenshotDir}/mobile-02-monument.png` });
+    await page.screenshot({ path: `${screenshotDir}/mobile-03-monument.png` });
 
-    // 3. Mobile Focus
+    // 4. Mobile Search
+    await page.getByRole("button", { name: "Search", exact: true }).click();
+    await expect(page.getByLabel("Vanguard name or guild")).toBeVisible();
+    await page.screenshot({ path: `${screenshotDir}/mobile-04-search.png` });
+    await page.keyboard.press("Escape");
+
+    // 5. Mobile Focus
     await fixtures(page, { existing: true });
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
     await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible({
       timeout: 10000,
     });
     await page.waitForTimeout(600);
-    await page.screenshot({ path: `${screenshotDir}/mobile-03-focus.png` });
+    await page.screenshot({ path: `${screenshotDir}/mobile-05-focus.png` });
 
-    // 4. Mobile Claim
+    // 6. Mobile Claim
     await fixtures(page, { existing: false });
     await openClaim(page);
     await page.waitForTimeout(400);
-    await page.screenshot({ path: `${screenshotDir}/mobile-04-claim.png` });
+    await page.screenshot({ path: `${screenshotDir}/mobile-06-claim.png` });
 
-    // 5. Mobile Hold progress
+    // 7. Mobile Hold progress
     const mobileHoldBtn = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
     await expect(mobileHoldBtn).toBeEnabled({ timeout: 10000 });
     await mobileHoldBtn.focus();
     await page.keyboard.down("Space");
     await page.waitForTimeout(2000);
-    await page.screenshot({ path: `${screenshotDir}/mobile-05-hold-progress.png` });
+    await page.screenshot({ path: `${screenshotDir}/mobile-07-hold-progress.png` });
 
-    // 6. Mobile Reveal
+    // 8. Mobile Reveal
     await page.waitForTimeout(2200);
     await page.keyboard.up("Space");
     await expect(page.getByRole("region", { name: "Vanguard Reveal", exact: true })).toBeVisible({
       timeout: 15000,
     });
     await expect(page.getByAltText("Your Vanguard Seal")).toBeVisible();
-    await page.screenshot({ path: `${screenshotDir}/mobile-06-reveal.png` });
+    await page.screenshot({ path: `${screenshotDir}/mobile-08-reveal.png` });
   } finally {
     await cleanup();
   }
