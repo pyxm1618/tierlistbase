@@ -54,16 +54,6 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: [...baselineSecurityHeaders],
       },
-      {
-        source: "/wow-forever/vanguard",
-        headers: [
-          {
-            key: "Permissions-Policy",
-            value:
-              "camera=(self), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()",
-          },
-        ],
-      },
       ...["monument", "masks", "plates", "emblems", "animation", "seal", "layouts"].map(
         (folder) => ({
           source: `/wow-forever/vanguard/${folder}/:path*`,
@@ -72,10 +62,6 @@ const nextConfig: NextConfig = {
       ),
       {
         source: "/wow-forever/vanguard/audio/:path*",
-        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
-      },
-      {
-        source: "/vendor/vanguard/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
       {

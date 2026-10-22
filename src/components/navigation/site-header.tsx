@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { featuresConfig } from "@/config/features.config";
 import { siteConfig } from "@/config/site.config";
-import { hasCurrentSession } from "@/platform/auth/current-session";
+import { readCurrentSessionIdentity } from "@/platform/auth/current-session";
 import { localePath } from "@/platform/i18n/routing";
 
 import { SiteHeaderAccount } from "./site-header-account";
@@ -123,14 +123,36 @@ function HeaderShell({
 }
 
 async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
-  const authenticated = await hasCurrentSession(await headers());
+  const identity = await readCurrentSessionIdentity(await headers());
 
   return (
     <HeaderShell
       locale={locale}
-      desktopAccount={<SiteHeaderAccount authenticated={authenticated} className={navLink} />}
-      mobileAccount={<SiteHeaderAccount authenticated={authenticated} mobile className={navLink} />}
-      variantAccount={<SiteHeaderAccount authenticated={authenticated} className={navLink} />}
+      desktopAccount={
+        <SiteHeaderAccount
+          authenticated={Boolean(identity)}
+          name={identity?.name ?? null}
+          email={identity?.email ?? null}
+          className={navLink}
+        />
+      }
+      mobileAccount={
+        <SiteHeaderAccount
+          authenticated={Boolean(identity)}
+          name={identity?.name ?? null}
+          email={identity?.email ?? null}
+          mobile
+          className={navLink}
+        />
+      }
+      variantAccount={
+        <SiteHeaderAccount
+          authenticated={Boolean(identity)}
+          name={identity?.name ?? null}
+          email={identity?.email ?? null}
+          className={navLink}
+        />
+      }
     />
   );
 }

@@ -41,6 +41,48 @@ it("binds exact stable WOW IDs to unique mask-contained coordinates, excluding t
   }
   expect(count).toBe(8016);
 });
+it("keeps WOW W masks on the visible stone faces instead of sky and glow gaps", async () => {
+  const samples = {
+    "w-left": {
+      outside: [
+        [130, 500],
+        [320, 400],
+        [390, 650],
+        [590, 650],
+      ],
+      inside: [
+        [200, 400],
+        [360, 450],
+        [540, 400],
+        [300, 600],
+        [480, 600],
+      ],
+    },
+    "w-right": {
+      outside: [
+        [1040, 600],
+        [1350, 400],
+        [1282, 650],
+        [1510, 550],
+      ],
+      inside: [
+        [1100, 400],
+        [1272, 430],
+        [1450, 400],
+        [1200, 600],
+        [1370, 600],
+      ],
+    },
+  } as const;
+  for (const [file, points] of Object.entries(samples)) {
+    const { data } = await sharp(`public/wow-forever/vanguard/masks/vanguard-mask-${file}.svg`)
+      .ensureAlpha()
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+    for (const [x, y] of points.outside) expect(data[(y * 1672 + x) * 4 + 3]).toBe(0);
+    for (const [x, y] of points.inside) expect(data[(y * 1672 + x) * 4 + 3]).toBe(255);
+  }
+});
 it("uses the shipped compact coordinates for real catalog lookup and nearest Seat", async () => {
   const { createVanguardLayoutLookup } = await import("@/modules/wow-vanguard");
   const catalog = createVanguardLayoutLookup(vanguardAssets.layouts, async (url) => {

@@ -22,12 +22,12 @@ for (const width of [390, 768, 1024, 1440, 1920]) {
     });
     const response = await page.goto("/wow-forever/vanguard");
     expect(response?.status()).toBe(200);
-    expect(response?.headers()["permissions-policy"]).toContain("camera=(self)");
+    expect(response?.headers()["permissions-policy"]).toContain("camera=()");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(
       page
         .getByRole("region", { name: "Monument Stage", exact: true })
-        .getByText("8,016 days connect", { exact: false }),
+        .getByRole("button", { name: "ENTER THE MONUMENT", exact: true }),
     ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "WoW Forever Tier List", exact: true }).first(),
@@ -45,7 +45,7 @@ for (const width of [390, 768, 1024, 1440, 1920]) {
     );
   });
 }
-test("camera remains disabled outside Vanguard", async ({ request }) => {
+test("camera remains disabled site-wide", async ({ request }) => {
   const response = await request.get("/privacy");
   expect(response.headers()["permissions-policy"]).toContain("camera=()");
 });

@@ -406,13 +406,54 @@ export function VanguardClaim({
         maxLength={max * 2}
         required={key === "displayName"}
         minLength={key === "displayName" ? 2 : 0}
-        onChange={(event) =>
-          setDraft({ ...draft, [key]: [...event.target.value].slice(0, max).join("") })
-        }
+        onChange={(event) => {
+          const value = [...event.target.value].slice(0, max).join("");
+          setDraft((current) => ({ ...current, [key]: value }));
+        }}
         className="rounded border border-[#7a6336] bg-[#1a1c24] px-3 py-2 text-sm text-[#f7e7c4] outline-none transition focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37]"
       />
     </label>
   );
+
+  if (!authenticated) {
+    return (
+      <section
+        aria-label="Claim authentication"
+        data-clarity-mask="true"
+        className="w-full py-4 text-center"
+      >
+        <h2 className="text-xl font-bold uppercase tracking-wider text-amber-200">
+          Claim this place
+        </h2>
+        <p className="mt-2 text-sm text-[#cfbe9f]">
+          Sign in with Google to claim this place in the Monument.
+        </p>
+        <a
+          href={`/sign-in?returnTo=${encodeURIComponent(`/wow-forever/vanguard?seat=${seatId}`)}`}
+          onClick={(event) => {
+            try {
+              sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+            } catch {
+              event.preventDefault();
+              setNotice(
+                "Your browser could not save this Seat before signing in. Enable session storage and try again.",
+              );
+              return;
+            }
+            trackVanguard("auth_start");
+          }}
+          className="mt-4 inline-flex w-full items-center justify-center rounded border border-[#d4af37] bg-gradient-to-b from-[#3d331c] to-[#1e190e] px-4 py-2.5 text-center text-sm font-semibold tracking-wider text-[#fff4d8] shadow-md transition hover:border-[#ffd875] hover:from-[#524424] hover:to-[#2b2414]"
+        >
+          Continue with Google
+        </a>
+        {notice && (
+          <p role="alert" className="mt-3 text-xs text-amber-200">
+            {notice}
+          </p>
+        )}
+      </section>
+    );
+  }
 
   return (
     <section aria-label="Claim your place" data-clarity-mask="true" className="w-full">
@@ -435,9 +476,10 @@ export function VanguardClaim({
               aria-label="Faction"
               required
               value={draft.faction}
-              onChange={(event) =>
-                setDraft({ ...draft, faction: event.target.value as ClaimDraft["faction"] })
-              }
+              onChange={(event) => {
+                const faction = event.target.value as ClaimDraft["faction"];
+                setDraft((current) => ({ ...current, faction }));
+              }}
               className="rounded border border-[#7a6336] bg-[#1a1c24] px-3 py-2 text-sm text-[#f7e7c4] outline-none transition focus:border-[#d4af37]"
             >
               <option value="">Choose Faction</option>
@@ -452,7 +494,10 @@ export function VanguardClaim({
               aria-label="Class"
               required
               value={draft.className}
-              onChange={(event) => setDraft({ ...draft, className: event.target.value })}
+              onChange={(event) => {
+                const className = event.target.value;
+                setDraft((current) => ({ ...current, className }));
+              }}
               className="rounded border border-[#7a6336] bg-[#1a1c24] px-3 py-2 text-sm text-[#f7e7c4] outline-none transition focus:border-[#d4af37]"
             >
               <option value="">Choose Class</option>

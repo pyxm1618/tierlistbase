@@ -16,6 +16,15 @@
   overflow: hidden;
   background: #050608;
 }
+.vanguard-heroArtwork {
+  object-fit: cover;
+  object-position: center;
+}
+.vanguard-canvasShell {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .vanguard-experience {
   position: absolute;
   inset: 0;
@@ -50,13 +59,6 @@
   font-weight: 500;
   text-transform: uppercase;
   text-shadow: 0 2px 12px #000;
-}
-.vanguard-monumentLead {
-  max-width: 560px;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: #cfbe9f;
-  text-shadow: 0 1px 4px #000;
 }
 .vanguard-stageOverlayBackdrop {
   position: absolute;
@@ -192,13 +194,15 @@
   .vanguard-heroIntroInner {
     gap: 0.75rem;
   }
+  .vanguard-heroArtwork {
+    object-fit: contain;
+  }
+  .vanguard-canvasShell {
+    background-size: contain;
+  }
   .vanguard-monumentTitle {
     font-size: 1.3rem;
     max-width: 320px;
-  }
-  .vanguard-monumentLead {
-    max-width: 320px;
-    font-size: 0.75rem;
   }
   .vanguard-stageOverlayBackdrop {
     padding: 0;

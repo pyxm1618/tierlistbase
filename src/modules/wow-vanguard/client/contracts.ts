@@ -108,7 +108,6 @@ export const RITUAL_POST_FRAMES = [
   "plate_formation",
   "name_and_seat",
   "stone_carve",
-  "metal_resonance",
   "plate_insert",
   "seat_ignite",
   "camera_pull_back",
@@ -137,9 +136,24 @@ export async function runVanguardRitual(
 export async function runPostSuccessRitual(
   render: (frame: RitualFrame, reducedMotion: boolean) => void,
   reducedMotion: boolean,
-  durationMs = 2800,
+  durationMs = 1100,
 ) {
-  return runVanguardRitual(render, reducedMotion, RITUAL_POST_FRAMES, durationMs);
+  const pullbackDuration = reducedMotion ? 0 : Math.min(500, durationMs);
+  const leadDuration = Math.max(0, durationMs - pullbackDuration);
+  const leadFrames = RITUAL_POST_FRAMES.slice(0, -1);
+  for (const [index, frame] of leadFrames.entries()) {
+    render(frame, reducedMotion);
+    await new Promise<void>((resolve) =>
+      setTimeout(
+        resolve,
+        Math.round(((index + 1) * leadDuration) / leadFrames.length) -
+          Math.round((index * leadDuration) / leadFrames.length),
+      ),
+    );
+  }
+  render("camera_pull_back", reducedMotion);
+  if (pullbackDuration) await new Promise<void>((resolve) => setTimeout(resolve, pullbackDuration));
+  render("reveal", reducedMotion);
 }
 export function sealInput(seat: Extract<PublicInscription, { status: "active" }>, origin: string) {
   return {

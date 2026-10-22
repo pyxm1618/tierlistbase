@@ -44,7 +44,6 @@
     "@aws-sdk/s3-request-presigner": "3.1152.0",
     "@better-auth/drizzle-adapter": "1.6.25",
     "@cf-wasm/photon": "0.4.0",
-    "@mediapipe/tasks-vision": "1.1.1",
     "@waffo/pancake-ts": "0.18.0",
     "better-auth": "1.6.25",
     "drizzle-orm": "0.45.2",

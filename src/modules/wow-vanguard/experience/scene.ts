@@ -3,6 +3,19 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import type { SeatLayoutGroup } from "../domain/layout";
 import { buildSeatId, parseSeatId } from "../domain/event";
+type VanguardCameraMotion = {
+  startedAt: number;
+  duration: number;
+  fromTarget: THREE.Vector3;
+  toTarget: THREE.Vector3;
+  fromX: number;
+  fromY: number;
+  toX: number;
+  toY: number;
+  fromZoom: number;
+  toZoom: number;
+  resolve: (completed: boolean) => void;
+};
 export function createVanguardScatterTargets(
   groups: readonly SeatLayoutGroup[],
   reducedMotion: boolean,
@@ -162,25 +175,6 @@ export function createVanguardScene(
   if (options.background) options.background.colorSpace = THREE.SRGBColorSpace;
   const material = new THREE.MeshBasicMaterial({ map: plate, transparent: true });
   const meshes = createVanguardInstances(groups, geometry, material);
-  const scatterTargets = createVanguardScatterTargets(groups, options.reducedMotion);
-  let scatterAmount = 0,
-    scatterTarget = 0,
-    lastMotion = 0;
-  // Conservative bounds cover both endpoints for correct hit testing throughout motion.
-  groups.forEach((group, groupIndex) => {
-    const box = meshes[groupIndex]!.boundingBox!;
-    const half = (group.scale ?? 1) / 2;
-    const target = scatterTargets[groupIndex]!;
-    for (let i = 0; i < target.length; i += 4) {
-      box.expandByPoint(
-        new THREE.Vector3(target[i]! - half, target[i + 1]! - half, target[i + 2]!),
-      );
-      box.expandByPoint(
-        new THREE.Vector3(target[i]! + half, target[i + 1]! + half, target[i + 2]!),
-      );
-    }
-    meshes[groupIndex]!.boundingSphere = box.getBoundingSphere(new THREE.Sphere());
-  });
   meshes.forEach((mesh) => scene.add(mesh));
   if (options.background) {
     const background = new THREE.Mesh(
@@ -193,39 +187,20 @@ export function createVanguardScene(
     background.position.z = -0.1;
     scene.add(background);
   }
-  const bounds = new THREE.Box3();
+  const monumentBounds = new THREE.Box3();
   for (const group of groups)
     for (let i = 0; i < group.positions.length; i += 4)
-      bounds.expandByPoint(
+      monumentBounds.expandByPoint(
         new THREE.Vector3(group.positions[i]!, group.positions[i + 1]!, group.positions[i + 2]!),
       );
-  if (options.background)
-    bounds
-      .expandByPoint(
-        new THREE.Vector3(
-          -(options.backgroundSize?.width ?? 167.2) / 2,
-          -(options.backgroundSize?.height ?? 94.1) / 2,
-          0,
-        ),
-      )
-      .expandByPoint(
-        new THREE.Vector3(
-          (options.backgroundSize?.width ?? 167.2) / 2,
-          (options.backgroundSize?.height ?? 94.1) / 2,
-          0,
-        ),
-      );
-  const center = bounds.getCenter(new THREE.Vector3());
-  const size = bounds.getSize(new THREE.Vector3());
-  const camera = new THREE.OrthographicCamera(
-    -size.x / 2 - 2,
-    size.x / 2 + 2,
-    size.y / 2 + 2,
-    -size.y / 2 - 2,
-    0.1,
-    10000,
-  );
-  camera.position.set(center.x, center.y, bounds.max.z + 100);
+  const monumentCenter = monumentBounds.getCenter(new THREE.Vector3());
+  const monumentSize = monumentBounds.getSize(new THREE.Vector3());
+  const backgroundWidth = options.backgroundSize?.width ?? 167.2;
+  const backgroundHeight = options.backgroundSize?.height ?? 94.1;
+  const center = monumentCenter.clone();
+  if (options.background) center.set(0, 0, monumentCenter.z);
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10000);
+  camera.position.set(center.x, center.y, monumentBounds.max.z + 100);
   camera.lookAt(center);
   const controls = new OrbitControls(camera, canvas);
   configureVanguardControls(controls);
@@ -241,6 +216,19 @@ export function createVanguardScene(
   let lastThumb = 0;
   let raf = 0;
   let refreshing = false;
+  let cameraMotion: VanguardCameraMotion | null = null;
+  const focusMarkerGeometry = new THREE.RingGeometry(0.62, 0.92, 32);
+  const focusMarkerMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffd875,
+    transparent: true,
+    opacity: 0.9,
+    side: THREE.DoubleSide,
+    depthTest: false,
+  });
+  const focusMarker = new THREE.Mesh(focusMarkerGeometry, focusMarkerMaterial);
+  focusMarker.visible = false;
+  focusMarker.renderOrder = 20;
+  scene.add(focusMarker);
   let visibleIds = new Set<string>();
   let occupied = options.occupied;
   const seatColors = createVanguardSeatColors();
@@ -260,15 +248,26 @@ export function createVanguardScene(
     }
   }
   colorSeats();
+  function overviewHeight(width: number, height: number) {
+    const aspect = width / Math.max(1, height);
+    const subjectHeight = monumentSize.y + 4;
+    const subjectWidthAsHeight = (monumentSize.x + 4) / aspect;
+    if (!options.background) return Math.max(subjectHeight, subjectWidthAsHeight);
+    let backgroundFrame = Math.max(backgroundHeight, backgroundWidth / aspect);
+    if (width >= 768) backgroundFrame = Math.min(backgroundHeight, backgroundWidth / aspect);
+    return Math.max(backgroundFrame, subjectHeight, subjectWidthAsHeight);
+  }
   function resize() {
     const rect = canvas.getBoundingClientRect();
-    renderer.setSize(Math.max(1, rect.width), Math.max(1, rect.height), false);
-    const aspect = rect.width / Math.max(1, rect.height);
-    const height = Math.max(size.y + 4, (size.x + 4) / aspect);
-    camera.left = (-height * aspect) / 2;
-    camera.right = (height * aspect) / 2;
-    camera.top = height / 2;
-    camera.bottom = -height / 2;
+    const width = Math.max(1, rect.width);
+    const height = Math.max(1, rect.height);
+    renderer.setSize(width, height, false);
+    const aspect = width / height;
+    const frameHeight = overviewHeight(width, height);
+    camera.left = (-frameHeight * aspect) / 2;
+    camera.right = (frameHeight * aspect) / 2;
+    camera.top = frameHeight / 2;
+    camera.bottom = -frameHeight / 2;
     camera.updateProjectionMatrix();
   }
   const observer = new ResizeObserver(resize);
@@ -319,7 +318,7 @@ export function createVanguardScene(
           camera.projectionMatrix,
           camera.matrixWorldInverse,
         );
-        for (const [groupIndex, group] of groups.entries()) {
+        for (const group of groups) {
           for (
             let index = 0;
             index < group.positions.length / 4 && wanted.size < budget.maxThumbnails;
@@ -328,12 +327,9 @@ export function createVanguardScene(
             const id = buildSeatId(group.phase, group.letter, index + 1);
             if (!occupied.has(id)) continue;
             const offset = index * 4;
-            const eased = scatterAmount * scatterAmount * (3 - 2 * scatterAmount);
-            const target = scatterTargets[groupIndex]!;
             const position = new THREE.Vector3(
-              group.positions[offset]! + (target[offset]! - group.positions[offset]!) * eased,
-              group.positions[offset + 1]! +
-                (target[offset + 1]! - group.positions[offset + 1]!) * eased,
+              group.positions[offset]!,
+              group.positions[offset + 1]!,
               group.positions[offset + 2]!,
             );
             const projected = position.clone().applyMatrix4(projection);
@@ -363,15 +359,11 @@ export function createVanguardScene(
             new THREE.MeshBasicMaterial({ map: texture }),
           );
           const identity = parseSeatId(id),
-            groupIndex = groups.findIndex((group) => group.letter === identity.letter),
-            group = groups[groupIndex]!,
-            target = scatterTargets[groupIndex]!,
+            group = groups.find((candidate) => candidate.letter === identity.letter)!,
             offset = (identity.localIndex - 1) * 4;
-          const eased = scatterAmount * scatterAmount * (3 - 2 * scatterAmount);
           tile.position.set(
-            group.positions[offset]! + (target[offset]! - group.positions[offset]!) * eased,
-            group.positions[offset + 1]! +
-              (target[offset + 1]! - group.positions[offset + 1]!) * eased,
+            group.positions[offset]!,
+            group.positions[offset + 1]!,
             group.positions[offset + 2]!,
           );
           tile.position.z += 0.01;
@@ -387,31 +379,72 @@ export function createVanguardScene(
       refreshing = false;
     }
   }
+  function cameraEase(progress: number) {
+    if (progress < 0.5) return 4 * progress * progress * progress;
+    return 1 - Math.pow(-2 * progress + 2, 3) / 2;
+  }
+  function animateCamera(target: THREE.Vector3, zoom: number, duration = 600) {
+    if (cameraMotion) {
+      cameraMotion.resolve(false);
+      cameraMotion = null;
+    }
+    if (options.reducedMotion) {
+      controls.target.copy(target);
+      camera.position.x = target.x;
+      camera.position.y = target.y;
+      camera.zoom = zoom;
+      camera.updateProjectionMatrix();
+      return Promise.resolve(true);
+    }
+    controls.enabled = false;
+    return new Promise<boolean>((resolve) => {
+      cameraMotion = {
+        startedAt: performance.now(),
+        duration,
+        fromTarget: controls.target.clone(),
+        toTarget: target.clone(),
+        fromX: camera.position.x,
+        fromY: camera.position.y,
+        toX: target.x,
+        toY: target.y,
+        fromZoom: camera.zoom,
+        toZoom: zoom,
+        resolve,
+      };
+    });
+  }
+  function showFocusMarker(group: SeatLayoutGroup, index: number) {
+    const offset = index * 4;
+    focusMarker.position.set(
+      group.positions[offset]!,
+      group.positions[offset + 1]!,
+      group.positions[offset + 2]! + 0.03,
+    );
+    focusMarker.scale.setScalar(Math.max(1, group.scale ?? 1));
+    focusMarker.visible = true;
+  }
+  function clearFocusMarker() {
+    focusMarker.visible = false;
+  }
+
   function render(now: number) {
     if (stopped) return;
-    if (scatterAmount !== scatterTarget) {
-      const step =
-        Math.min(50, Math.max(0, now - lastMotion)) / (options.reducedMotion ? 160 : 650);
-      scatterAmount =
-        scatterTarget > scatterAmount
-          ? Math.min(scatterTarget, scatterAmount + step)
-          : Math.max(scatterTarget, scatterAmount - step);
-      const eased = scatterAmount * scatterAmount * (3 - 2 * scatterAmount);
-      applyVanguardScatter(meshes, groups, scatterTargets, eased);
-      for (const [id, tile] of tiles) {
-        const identity = parseSeatId(id),
-          groupIndex = groups.findIndex((group) => group.letter === identity.letter);
-        const group = groups[groupIndex]!,
-          target = scatterTargets[groupIndex]!,
-          offset = (identity.localIndex - 1) * 4;
-        tile.position.x =
-          group.positions[offset]! + (target[offset]! - group.positions[offset]!) * eased;
-        tile.position.y =
-          group.positions[offset + 1]! +
-          (target[offset + 1]! - group.positions[offset + 1]!) * eased;
+    if (cameraMotion) {
+      const elapsed = (now - cameraMotion.startedAt) / cameraMotion.duration;
+      const progress = Math.min(1, Math.max(0, elapsed));
+      const eased = cameraEase(progress);
+      controls.target.lerpVectors(cameraMotion.fromTarget, cameraMotion.toTarget, eased);
+      camera.position.x = THREE.MathUtils.lerp(cameraMotion.fromX, cameraMotion.toX, eased);
+      camera.position.y = THREE.MathUtils.lerp(cameraMotion.fromY, cameraMotion.toY, eased);
+      camera.zoom = THREE.MathUtils.lerp(cameraMotion.fromZoom, cameraMotion.toZoom, eased);
+      camera.updateProjectionMatrix();
+      if (progress >= 1) {
+        const resolve = cameraMotion.resolve;
+        cameraMotion = null;
+        controls.enabled = true;
+        resolve(true);
       }
     }
-    lastMotion = now;
     controls.update();
     renderer.render(scene, camera);
     if (now - lastThumb > 1000) {
@@ -423,9 +456,6 @@ export function createVanguardScene(
   raf = requestAnimationFrame(render);
   return {
     pick,
-    scatter() {
-      scatterTarget = 1;
-    },
     setFaction(seatId: string, faction: string) {
       const identity = parseSeatId(seatId),
         index = groups.findIndex((g) => g.phase === identity.phase && g.letter === identity.letter);
@@ -442,31 +472,24 @@ export function createVanguardScene(
       colorSeats();
     },
     focus(seatId: string) {
-      scatterTarget = 0;
-      for (const group of groups) {
-        for (let index = 0; index < group.positions.length / 4; index++) {
-          if (buildSeatId(group.phase, group.letter, index + 1) !== seatId) continue;
-          const offset = index * 4;
-          controls.target.set(
-            group.positions[offset]!,
-            group.positions[offset + 1]!,
-            group.positions[offset + 2]!,
-          );
-          camera.position.x = controls.target.x;
-          camera.position.y = controls.target.y;
-          camera.zoom = Math.max(8, camera.zoom);
-          camera.updateProjectionMatrix();
-          return;
-        }
-      }
+      const identity = parseSeatId(seatId);
+      const group = groups.find((candidate) => {
+        return candidate.phase === identity.phase && candidate.letter === identity.letter;
+      });
+      if (!group) return Promise.resolve(false);
+      const index = identity.localIndex - 1;
+      const offset = index * 4;
+      const target = new THREE.Vector3(
+        group.positions[offset]!,
+        group.positions[offset + 1]!,
+        group.positions[offset + 2]!,
+      );
+      showFocusMarker(group, index);
+      return animateCamera(target, 8, 600);
     },
     gather() {
-      scatterTarget = 0;
-      controls.target.copy(center);
-      camera.position.x = center.x;
-      camera.position.y = center.y;
-      camera.zoom = 1;
-      camera.updateProjectionMatrix();
+      clearFocusMarker();
+      void animateCamera(center, 1, 500);
     },
     dispose() {
       stopped = true;
@@ -474,8 +497,15 @@ export function createVanguardScene(
       observer.disconnect();
       canvas.removeEventListener("pointerdown", pointerDown);
       canvas.removeEventListener("pointerup", pointerUp);
+      if (cameraMotion) {
+        cameraMotion.resolve(false);
+        cameraMotion = null;
+      }
       controls.dispose();
       for (const id of tiles.keys()) clearTile(id);
+      scene.remove(focusMarker);
+      focusMarkerGeometry.dispose();
+      focusMarkerMaterial.dispose();
       meshes.forEach((mesh) => mesh.dispose());
       geometry.dispose();
       material.dispose();
