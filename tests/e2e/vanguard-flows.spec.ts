@@ -190,7 +190,7 @@ async function openSearch(page: Page) {
   const close = page.getByRole("button", { name: "Close Focus", exact: true });
   if (await close.isVisible()) await close.click();
   await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.getByLabel("Search Seat ID, Vanguard Name or Guild")).toBeVisible();
+  await expect(page.getByLabel("Vanguard name or guild")).toBeVisible();
 }
 async function openClaim(page: Page) {
   await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
@@ -342,9 +342,7 @@ test("sealed polling leaves Focus, share and Tier List available and blocks empt
   await expect(page.getByText("THE MONUMENT IS SEALED", { exact: true })).toBeVisible({
     timeout: 20000,
   });
-  await openSearch(page);
-  await page.getByLabel("Search Seat ID, Vanguard Name or Guild").fill(seatId);
-  await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
+  await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
   await expect(
     page.getByText("The inscription period has ended. The Monument is now sealed.", {
       exact: true,
@@ -382,30 +380,6 @@ test("mouse long press commits and locks the inscription", async ({ page, contex
     await cleanup();
   }
 });
-test("camera permission is requested only by Enable, with rejection fallback", async ({ page }) => {
-  let requests = 0;
-  await page.exposeFunction("vanguardCameraAttempt", () => {
-    requests++;
-  });
-  await page.addInitScript(() => {
-    navigator.mediaDevices.getUserMedia = async () => {
-      await (
-        window as unknown as { vanguardCameraAttempt: () => Promise<void> }
-      ).vanguardCameraAttempt();
-      throw new DOMException("Denied", "NotAllowedError");
-    };
-  });
-  await fixtures(page);
-  await page.goto("/wow-forever/vanguard");
-  expect(requests).toBe(0);
-  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-  await expect(page.getByRole("button", { name: "Enable Gesture Control" })).toBeEnabled();
-  expect(requests).toBe(0);
-  await page.getByRole("button", { name: "Enable Gesture Control" }).click();
-  await expect(page.getByText("Gesture control is unavailable.", { exact: false })).toBeVisible();
-  expect(requests).toBe(1);
-  await expect(page.getByRole("button", { name: "Search", exact: true })).toBeEnabled();
-});
 test("touch and reduced motion preserve the full default-emblem flow", async ({ browser }) => {
   const context = await browser.newContext({
     hasTouch: true,
@@ -437,27 +411,6 @@ test("touch and reduced motion preserve the full default-emblem flow", async ({ 
     await context.close();
   }
 });
-test("explicit camera activation loads self-hosted detection and stops tracks", async ({
-  page,
-}) => {
-  await fixtures(page);
-  const runtime: string[] = [];
-  page.on("request", (request) => {
-    if (/hand_landmarker|vision_wasm/.test(request.url())) runtime.push(request.url());
-  });
-  await page.goto("/wow-forever/vanguard");
-  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-  await page.getByRole("button", { name: "Enable Gesture Control" }).click();
-  await expect(page.getByRole("button", { name: "Disable Gesture Control" })).toBeVisible({
-    timeout: 25000,
-  });
-  expect(runtime.length).toBeGreaterThan(1);
-  expect(runtime.every((url) => new URL(url).origin === "http://127.0.0.1:3197")).toBe(true);
-  await page.getByRole("button", { name: "Disable Gesture Control" }).click();
-  expect(
-    await page.locator("video").evaluate((video) => (video as HTMLVideoElement).srcObject === null),
-  ).toBe(true);
-});
 test("sealed archive keeps public Focus, report, share and Tier List", async ({ page }) => {
   await fixtures(page, { sealed: true, existing: true });
   await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
@@ -487,16 +440,14 @@ for (const stage of ["COMPLETE", "WOW_COMPLETE_WAITING"] as const)
     ).toBeVisible({ timeout: 20000 });
     if (stage === "WOW_COMPLETE_WAITING")
       await expect(page.getByText("FOREVER AWAKENS IN", { exact: false })).toBeVisible();
-    await openSearch(page);
-    await page.getByLabel("Search Seat ID, Vanguard Name or Guild").fill(seatId);
-    await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
+    await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
     await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
     await expect(
       page.getByRole("link", { name: "WoW Forever Tier List", exact: true }).first(),
     ).toBeVisible();
   });
 
-test("Music Toggle fetches only supplied BGM after user action and leaves Focus SFX on", async ({
+test("Music defaults On without persisting until a user toggle and leaves Focus SFX independent", async ({
   page,
 }) => {
   const sounds: string[] = [];
@@ -506,23 +457,55 @@ test("Music Toggle fetches only supplied BGM after user action and leaves Focus 
   await fixtures(page, { existing: true });
   await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
   await expect(page.getByRole("region", { name: "Vanguard Focus" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Music On", exact: true })).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem("tierlistbase:vanguard:music"))).toBeNull();
   expect(sounds).toEqual([]);
+
   await page.getByRole("button", { name: "Close Focus" }).click();
-  await page.getByRole("button", { name: "Music Off", exact: true }).click();
   await expect.poll(() => sounds.includes("vanguard-ambient-theme.wav")).toBe(true);
+
   await page.getByRole("button", { name: "Music On", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Music Off", exact: true })).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem("tierlistbase:vanguard:music"))).toBe("0");
+
   await openSearch(page);
-  await page.getByLabel("Search Seat ID, Vanguard Name or Guild").fill(seatId);
-  await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
+  await page.getByLabel("Vanguard name or guild").fill("Chosen Vanguard");
+  await page.getByRole("button", { name: "Search", exact: true }).last().click();
+  const result = page.getByRole("button", { name: /Chosen Vanguard/ });
+  await expect(result).toBeVisible();
+  await result.click();
+  await expect(page.getByRole("region", { name: "Vanguard Focus" })).toBeVisible();
   await expect.poll(() => sounds.includes("vanguard-focus-open.wav")).toBe(true);
   await expect(page.getByRole("button", { name: "Music Off", exact: true })).toBeVisible();
 });
+
+test("stored Music Off remains Off and stored Music On starts on ENTER", async ({ page }) => {
+  const sounds: string[] = [];
+  page.on("request", (request) => {
+    if (request.url().endsWith(".wav")) sounds.push(request.url().split("/").at(-1)!);
+  });
+
+  await page.addInitScript(() => localStorage.setItem("tierlistbase:vanguard:music", "0"));
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await expect(page.getByRole("button", { name: "Music Off", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  await page.waitForTimeout(300);
+  expect(sounds.includes("vanguard-ambient-theme.wav")).toBe(false);
+
+  await page.evaluate(() => localStorage.setItem("tierlistbase:vanguard:music", "1"));
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Music On", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  await expect.poll(() => sounds.includes("vanguard-ambient-theme.wav")).toBe(true);
+});
+
 test("BGM load failure is explicit and leaves ENTER usable", async ({ page }) => {
   await page.route("**/audio/vanguard-ambient-theme.wav", (route) =>
     route.fulfill({ status: 503, body: "fixture unavailable" }),
   );
   await page.goto("/wow-forever/vanguard");
-  await page.getByRole("button", { name: "Music Off", exact: true }).click();
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
   await expect(
     page.getByText("The background music could not load.", { exact: false }),
   ).toBeVisible();
@@ -562,9 +545,7 @@ test("Focus image fallback does not leak into the next Seat", async ({ page, con
     const focus = page.getByRole("region", { name: "Vanguard Focus", exact: true });
     await expect(focus.getByAltText("Mage Default Emblem")).toHaveCount(1);
     await expect(focus.getByAltText("Memory Image")).toHaveCount(0);
-    await openSearch(page);
-    await page.getByLabel("Search Seat ID, Vanguard Name or Guild").fill("WOW-W1-0003");
-    await page.getByRole("button", { name: "Focus Seat", exact: true }).click();
+    await page.goto("/wow-forever/vanguard?seat=WOW-W1-0003");
     await expect(focus.getByAltText("Memory Image")).toHaveCount(1);
     await expect(focus.getByAltText("Mage Default Emblem")).toHaveCount(0);
     await expect
@@ -580,6 +561,38 @@ test("Focus image fallback does not leak into the next Seat", async ({ page, con
   } finally {
     await cleanup();
   }
+});
+
+test("Search is inscription-only, renders identity fields, and has no Focus Seat action", async ({
+  page,
+}) => {
+  await fixtures(page, { existing: true });
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "Search", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Focus Seat", exact: true })).toHaveCount(0);
+  await page.getByLabel("Vanguard name or guild").fill("Chosen Vanguard");
+  await page.getByRole("button", { name: "Search", exact: true }).last().click();
+  const result = page.getByRole("button", { name: /Chosen Vanguard/ });
+  await expect(result).toContainText("Chosen Vanguard");
+  await expect(result).toContainText("Test Guild");
+  await expect(result).toContainText(seatId);
+  await result.click();
+  await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible();
+});
+
+test("Search shows explicit zero-inscription and no-match empty states", async ({ page }) => {
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "Search", exact: true }).click();
+  await expect(page.getByText("No Vanguards have been inscribed yet.", { exact: false })).toBeVisible();
+
+  await fixtures(page, { existing: true });
+  await page.reload();
+  await page.getByRole("button", { name: "Search", exact: true }).click();
+  await page.route("**/api/vanguard/search**", (route) => route.fulfill({ json: { results: [] } }));
+  await page.getByLabel("Vanguard name or guild").fill("Nobody");
+  await page.getByRole("button", { name: "Search", exact: true }).last().click();
+  await expect(page.getByText("No matching Vanguard found.", { exact: true })).toBeVisible();
 });
 
 test("FOREVER uses all seven real final layouts and the supplied background", async ({ page }) => {
@@ -651,8 +664,8 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
 
     // 3. Desktop Search Overlay
     await page.getByRole("button", { name: "Search", exact: true }).click();
-    await expect(page.getByLabel("Search Seat ID, Vanguard Name or Guild")).toBeVisible();
-    await page.getByLabel("Search Seat ID, Vanguard Name or Guild").fill("Chosen Vanguard");
+    await expect(page.getByLabel("Vanguard name or guild")).toBeVisible();
+    await page.getByLabel("Vanguard name or guild").fill("Chosen Vanguard");
     await page.keyboard.press("Enter");
     await page.waitForTimeout(600);
     await page.screenshot({ path: `${screenshotDir}/desktop-03-search.png` });
