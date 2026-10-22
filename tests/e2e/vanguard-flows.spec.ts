@@ -425,6 +425,125 @@ test("Vanguard Header sign-in preserves the route and a valid Seat deep link", a
   );
 });
 
+test("unauthenticated empty Seat click focuses first, keeps the Hold, and shows only the Authentication Gate", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+
+  const emptySeat = "WOW-W1-0003";
+  const point = await seatCanvasPoint(page, emptySeat);
+  const holdRequest = page.waitForRequest("**/api/vanguard/holds");
+  await page.mouse.click(point.x, point.y);
+
+  await page.waitForTimeout(200);
+  await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+
+  const gate = page.getByRole("region", { name: "Claim authentication" });
+  await expect(gate).toBeVisible({ timeout: 1000 });
+  await holdRequest;
+  await expect(gate.getByRole("heading", { name: "Claim this place", exact: true })).toBeVisible();
+  await expect(
+    gate.getByText("Sign in with Google to claim this place in the Monument.", { exact: true }),
+  ).toBeVisible();
+  await expect(gate.getByRole("link", { name: "Continue with Google", exact: true })).toHaveAttribute(
+    "href",
+    "/sign-in?returnTo=%2Fwow-forever%2Fvanguard%3Fseat%3DWOW-W1-0003",
+  );
+  await expect(page.getByLabel("Vanguard Name", { exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("Faction", { exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("Class", { exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("Guild (optional)")).toHaveCount(0);
+  await expect(page.getByLabel("Battle Cry (optional)")).toHaveCount(0);
+  await expect(page.getByLabel("Choose Memory Image")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true })).toHaveCount(0);
+});
+
+test("OAuth return to the original empty Seat revalidates it, focuses it, and opens Claim only after authentication", async ({
+  page,
+  context,
+}) => {
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+
+  const point = await seatCanvasPoint(page, seatId);
+  await page.mouse.click(point.x, point.y);
+  await expect(page.getByRole("region", { name: "Claim authentication" })).toBeVisible({
+    timeout: 1000,
+  });
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const raw = sessionStorage.getItem("tierlistbase:vanguard:draft");
+        return raw ? JSON.parse(raw).seatId : null;
+      }),
+    )
+    .toBe(seatId);
+
+  const cleanup = await account(context);
+  try {
+    await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+    await page.waitForTimeout(200);
+    await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: `Claim ${seatId}`, exact: true })).toBeVisible({
+      timeout: 1000,
+    });
+    await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+    await expect(page.getByLabel("Vanguard Name", { exact: true })).toBeVisible();
+  } finally {
+    await cleanup();
+  }
+});
+
+test("OAuth return uses existing Seat conflict and nearest-Seat handling if the original Seat was taken", async ({
+  page,
+  context,
+}) => {
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+
+  const point = await seatCanvasPoint(page, seatId);
+  await page.mouse.click(point.x, point.y);
+  await expect(page.getByRole("region", { name: "Claim authentication" })).toBeVisible({
+    timeout: 1000,
+  });
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const raw = sessionStorage.getItem("tierlistbase:vanguard:draft");
+        return raw ? JSON.parse(raw).seatId : null;
+      }),
+    )
+    .toBe(seatId);
+
+  const cleanup = await account(context);
+  try {
+    await page.route(`**/api/vanguard/inscriptions/${seatId}`, (route) =>
+      route.fulfill({ json: publicSeat }),
+    );
+    await page.route("**/api/vanguard/holds", (route) =>
+      route.fulfill({
+        status: 409,
+        json: { error: { code: "SEAT_ALREADY_CLAIMED", nearestSeatId: "WOW-W1-0003" } },
+      }),
+    );
+
+    await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+    await expect(page.getByText("This place was just claimed.", { exact: false })).toBeVisible({
+      timeout: 1500,
+    });
+    await expect(
+      page.getByRole("button", { name: "Choose nearby seat WOW-W1-0003", exact: true }),
+    ).toBeVisible();
+  } finally {
+    await cleanup();
+  }
+});
+
 test("authenticated Header exposes identity and a controlled keyboard-safe profile menu", async ({
   page,
   context,
@@ -690,6 +809,7 @@ test("Search is inscription-only, renders identity fields, and has no Focus Seat
   await expect(result).toContainText(seatId);
   await result.click();
   await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible();
+  await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
 });
 
 test("Search shows explicit zero-inscription and no-match empty states", async ({ page }) => {
@@ -734,10 +854,33 @@ test("occupied and empty Seat clicks finish smooth focus before opening their pa
   const emptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
   await page.mouse.click(emptyPoint.x, emptyPoint.y);
   await page.waitForTimeout(200);
-  await expect(page.getByRole("region", { name: "Claim your place", exact: true })).toHaveCount(0);
-  await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible({
+  await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+  await expect(page.getByRole("region", { name: "Claim authentication" })).toBeVisible({
     timeout: 1000,
   });
+});
+
+test("authenticated empty Seat click focuses first and opens the existing Claim form directly", async ({
+  page,
+  context,
+}) => {
+  const cleanup = await account(context);
+  try {
+    await page.setViewportSize({ width: 1920, height: 1080 });
+    await fixtures(page);
+    await page.goto("/wow-forever/vanguard");
+    await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+    const point = await seatCanvasPoint(page, "WOW-W1-0003");
+    await page.mouse.click(point.x, point.y);
+    await page.waitForTimeout(200);
+    await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
+    await expect(
+      page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true }),
+    ).toBeVisible({ timeout: 1000 });
+    await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+  } finally {
+    await cleanup();
+  }
 });
 
 test("FOREVER uses all seven real final layouts and the supplied background", async ({ page }) => {
@@ -1080,6 +1223,7 @@ test("valid Seat deep link enters automatically and Focus stays inside the one S
   const stage = page.getByRole("region", { name: "Monument Stage", exact: true });
   await expect(stage).toHaveCount(1);
   await expect(stage.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible();
+  await expect(stage.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
   await expect(stage.locator("canvas")).toHaveCount(1);
   await expect(page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true })).toHaveCount(
     0,
