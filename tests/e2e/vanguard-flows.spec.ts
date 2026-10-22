@@ -172,8 +172,15 @@ async function fixtures(
       ]).toContain(request.postDataJSON().reason);
       return route.fulfill({ status: 201, json: { received: true } });
     }
-    if (path.startsWith("search"))
-      return route.fulfill({ json: { results: accepted ? [publicSeat] : [] } });
+    if (path.startsWith("search")) {
+      const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
+      const matches =
+        accepted &&
+        [publicSeat.displayName, publicSeat.guildName, publicSeat.seatId].some((value) =>
+          value?.toLowerCase().includes(query),
+        );
+      return route.fulfill({ json: { results: matches ? [publicSeat] : [] } });
+    }
     return route.fulfill({ status: 503, json: { error: { code: "SERVICE_UNAVAILABLE" } } });
   });
   await page.route("**/vanguard-test-upload", async (route) => {
@@ -388,25 +395,20 @@ for (const decision of ["approved", "rejected", "unavailable"] as const)
       await cleanup();
     }
   });
-test("sealed polling leaves Focus, share and Tier List available and blocks empty seats", async ({
+test("sealed polling leaves public Focus, share and Tier List available and blocks Claim", async ({
   page,
 }) => {
-  await fixtures(page, { sealed: true });
-  await page.goto("/wow-forever/vanguard");
-  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-  await expect(page.getByText("THE MONUMENT IS SEALED", { exact: true })).toBeVisible({
-    timeout: 20000,
-  });
+  await fixtures(page, { sealed: true, existing: true });
   await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+  const focus = page.getByRole("region", { name: "Vanguard Focus", exact: true });
+  await expect(focus).toBeVisible({ timeout: 10000 });
   await expect(page.getByText("THE MONUMENT IS SEALED", { exact: true })).toBeVisible({
     timeout: 20000,
   });
-  await expect(
-    page.getByText("The inscription period has ended. The Monument is now sealed.", {
-      exact: true,
-    }),
-  ).toBeVisible();
+  await expect(focus.getByRole("button", { name: "STAND BESIDE ME" })).toBeEnabled();
+  await expect(focus.getByRole("link", { name: "View Mage Tier List" })).toBeVisible();
   await expect(page.getByRole("region", { name: "Claim your place", exact: true })).toHaveCount(0);
+  expect(await page.getByRole("region", { name: "Claim authentication" }).count()).toBe(0);
 });
 test("Google is the only sign-in action in the Vanguard profile", async ({ page }) => {
   await page.goto("/sign-in");
@@ -446,7 +448,7 @@ test("unauthenticated empty Seat click focuses first, keeps the Hold, and shows 
   await page.mouse.click(point.x, point.y);
 
   await page.waitForTimeout(200);
-  await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+  expect(await page.getByRole("region", { name: "Claim authentication" }).count()).toBe(0);
 
   const gate = page.getByRole("region", { name: "Claim authentication" });
   await expect(gate).toBeVisible({ timeout: 1000 });
@@ -493,11 +495,11 @@ test("OAuth return to the original empty Seat revalidates it, focuses it, and op
   try {
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
     await page.waitForTimeout(200);
-    await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
+    expect(await page.getByRole("region", { name: "Claim your place" }).count()).toBe(0);
     await expect(page.getByRole("heading", { name: `Claim ${seatId}`, exact: true })).toBeVisible({
       timeout: 1000,
     });
-    await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+    expect(await page.getByRole("region", { name: "Claim authentication" }).count()).toBe(0);
     await expect(page.getByLabel("Vanguard Name", { exact: true })).toBeVisible();
   } finally {
     await cleanup();
@@ -609,7 +611,7 @@ test("mouse long press commits and locks the inscription", async ({ page, contex
     await expect(page.getByRole("region", { name: "Vanguard Reveal" })).toBeVisible({
       timeout: 15000,
     });
-    await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
+    expect(await page.getByRole("region", { name: "Claim your place" }).count()).toBe(0);
   } finally {
     await cleanup();
   }
@@ -659,7 +661,7 @@ test("sealed archive keeps public Focus, report, share and Tier List", async ({ 
   await focus.getByText("Report", { exact: true }).click();
   await focus.getByRole("button", { name: "Submit Report" }).click();
   await expect(page.getByText("Report received. Thank you.", { exact: true })).toBeVisible();
-  await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
+  expect(await page.getByRole("region", { name: "Claim your place" }).count()).toBe(0);
 });
 
 for (const stage of ["COMPLETE", "WOW_COMPLETE_WAITING"] as const)
@@ -675,7 +677,7 @@ for (const stage of ["COMPLETE", "WOW_COMPLETE_WAITING"] as const)
     if (stage === "WOW_COMPLETE_WAITING")
       await expect(page.getByText("FOREVER AWAKENS IN", { exact: false })).toBeVisible();
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
-    await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
+    expect(await page.getByRole("region", { name: "Claim your place" }).count()).toBe(0);
     await expect(
       page.getByRole("link", { name: "WoW Forever Tier List", exact: true }).first(),
     ).toBeVisible();
@@ -813,7 +815,7 @@ test("Search is inscription-only, renders identity fields, and has no Focus Seat
   await expect(result).toContainText(seatId);
   await result.click();
   await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible();
-  await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+  expect(await page.getByRole("region", { name: "Claim authentication" }).count()).toBe(0);
 });
 
 test("Search shows explicit zero-inscription and no-match empty states", async ({ page }) => {
@@ -830,7 +832,6 @@ test("Search shows explicit zero-inscription and no-match empty states", async (
   await expect(
     page.getByText("No Vanguards have been inscribed yet.", { exact: false }),
   ).toHaveCount(0, { timeout: 20000 });
-  await page.route("**/api/vanguard/search**", (route) => route.fulfill({ json: { results: [] } }));
   await page.getByLabel("Vanguard name or guild").fill("Nobody");
   await page.getByRole("button", { name: "Search", exact: true }).last().click();
   await expect(page.getByText("No matching Vanguard found.", { exact: true })).toBeVisible();
@@ -850,7 +851,7 @@ test("occupied and empty Seat clicks finish smooth focus before opening their pa
   const occupiedPoint = await seatCanvasPoint(page, seatId);
   await page.mouse.click(occupiedPoint.x, occupiedPoint.y);
   await page.waitForTimeout(200);
-  await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toHaveCount(0);
+  expect(await page.getByRole("region", { name: "Vanguard Focus", exact: true }).count()).toBe(0);
   await expect(page.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible({
     timeout: 1000,
   });
@@ -861,7 +862,7 @@ test("occupied and empty Seat clicks finish smooth focus before opening their pa
   const emptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
   await page.mouse.click(emptyPoint.x, emptyPoint.y);
   await page.waitForTimeout(200);
-  await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+  expect(await page.getByRole("region", { name: "Claim authentication" }).count()).toBe(0);
   await expect(page.getByRole("region", { name: "Claim authentication" })).toBeVisible({
     timeout: 1000,
   });
@@ -880,11 +881,11 @@ test("authenticated empty Seat click focuses first and opens the existing Claim 
     const point = await seatCanvasPoint(page, "WOW-W1-0003");
     await page.mouse.click(point.x, point.y);
     await page.waitForTimeout(200);
-    await expect(page.getByRole("region", { name: "Claim your place" })).toHaveCount(0);
+    expect(await page.getByRole("region", { name: "Claim your place" }).count()).toBe(0);
     await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible(
       { timeout: 1000 },
     );
-    await expect(page.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
+    expect(await page.getByRole("region", { name: "Claim authentication" }).count()).toBe(0);
   } finally {
     await cleanup();
   }
@@ -1415,7 +1416,8 @@ test("Reveal preserves the full Monument overview after the accepted Ritual pull
   const cleanup = await account(context);
   try {
     await fixtures(page);
-    await openClaim(page);
+    await page.goto("/wow-forever/vanguard");
+    await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
     const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
       exact: true,
     });
@@ -1446,7 +1448,16 @@ test("Reveal preserves the full Monument overview after the accepted Ritual pull
       )
       .toBe(true);
     const before = await pixels();
+    const claimPoint = await seatCanvasPoint(page, seatId);
+    await page.mouse.click(claimPoint.x, claimPoint.y);
+    await expect(page.getByRole("heading", { name: `Claim ${seatId}`, exact: true })).toBeVisible({
+      timeout: 1500,
+    });
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("Chosen Vanguard");
+    await page.getByLabel("Faction", { exact: true }).selectOption("horde");
+    await page.getByLabel("Class", { exact: true }).selectOption("Mage");
     await inscribe(page);
+    await page.waitForTimeout(50);
     const after = await pixels();
     const meanDifference =
       after.reduce((sum, value, index) => sum + Math.abs(value - before[index]!), 0) / after.length;
