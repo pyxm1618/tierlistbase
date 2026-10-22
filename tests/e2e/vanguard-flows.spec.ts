@@ -448,7 +448,9 @@ test("unauthenticated empty Seat click focuses first, keeps the Hold, and shows 
   await expect(
     gate.getByText("Sign in with Google to claim this place in the Monument.", { exact: true }),
   ).toBeVisible();
-  await expect(gate.getByRole("link", { name: "Continue with Google", exact: true })).toHaveAttribute(
+  await expect(
+    gate.getByRole("link", { name: "Continue with Google", exact: true }),
+  ).toHaveAttribute(
     "href",
     "/sign-in?returnTo=%2Fwow-forever%2Fvanguard%3Fseat%3DWOW-W1-0003",
   );
