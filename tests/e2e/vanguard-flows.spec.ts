@@ -953,6 +953,7 @@ test("Search is inscription-only, renders identity fields, and has no Focus Seat
 });
 
 test("Search shows explicit zero-inscription and no-match empty states", async ({ page }) => {
+  test.setTimeout(60000);
   await fixtures(page);
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "Search", exact: true }).click();
@@ -962,7 +963,11 @@ test("Search shows explicit zero-inscription and no-match empty states", async (
 
   await fixtures(page, { existing: true });
   await page.reload();
+  // The lazy experience is initially absent. Its absence is not evidence that
+  // the server manifest has refreshed from zero to the fixture's one inscription.
+  const manifestResponse = page.waitForResponse("**/api/vanguard/manifest");
   await page.getByRole("button", { name: "Search", exact: true }).click();
+  await manifestResponse;
   await expect(
     page.getByText("No Vanguards have been inscribed yet.", { exact: false }),
   ).toHaveCount(0, { timeout: 20000 });
