@@ -231,10 +231,7 @@ export function summarizeWowStatus(
   return verified &&
     board.version?.status === "current" &&
     times.every(
-      (t) =>
-        Number.isFinite(t) &&
-        now.getTime() >= t &&
-        now.getTime() - t <= 24 * 60 * 60 * 1000,
+      (t) => Number.isFinite(t) && now.getTime() >= t && now.getTime() - t <= 24 * 60 * 60 * 1000,
     )
     ? "Current"
     : "Preliminary";

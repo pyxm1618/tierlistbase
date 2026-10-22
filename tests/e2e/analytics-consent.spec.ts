@@ -310,7 +310,9 @@ test("6. sensitive sign-in surface does not load analytics even with consent", a
   await expect(page.locator("#creat-web-clarity")).toHaveCount(0);
 });
 
-test("7. legal pages reopen the same privacy settings without loading analytics", async ({ page }) => {
+test("7. legal pages reopen the same privacy settings without loading analytics", async ({
+  page,
+}) => {
   const analyticsRequests: string[] = [];
   await page.route("**/*", async (route) => {
     const url = route.request().url();
