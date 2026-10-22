@@ -481,8 +481,7 @@ export function createVanguardScene(
     focus(seatId: string) {
       const identity = parseSeatId(seatId);
       const group = groups.find(
-        (candidate) =>
-          candidate.phase === identity.phase && candidate.letter === identity.letter,
+        (candidate) => candidate.phase === identity.phase && candidate.letter === identity.letter,
       );
       if (!group) return Promise.resolve();
       const index = identity.localIndex - 1;
