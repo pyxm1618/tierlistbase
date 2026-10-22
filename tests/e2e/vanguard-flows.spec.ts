@@ -217,7 +217,8 @@ async function seatCanvasPoint(page: Page, targetSeatId: string) {
       maxY = Math.max(maxY, layout.positions[i + 1]!);
     }
   const layout = layouts.find((candidate) => candidate.letter === letter);
-  if (!layout || !Number.isInteger(localIndex) || localIndex < 0) throw new Error("Invalid test Seat");
+  if (!layout || !Number.isInteger(localIndex) || localIndex < 0)
+    throw new Error("Invalid test Seat");
   const offset = localIndex * 4;
   const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
     exact: true,
@@ -695,7 +696,9 @@ test("Search shows explicit zero-inscription and no-match empty states", async (
   await fixtures(page);
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "Search", exact: true }).click();
-  await expect(page.getByText("No Vanguards have been inscribed yet.", { exact: false })).toBeVisible();
+  await expect(
+    page.getByText("No Vanguards have been inscribed yet.", { exact: false }),
+  ).toBeVisible();
 
   await fixtures(page, { existing: true });
   await page.reload();
@@ -845,7 +848,9 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
     const emptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
     await page.mouse.click(emptyPoint.x, emptyPoint.y);
-    await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible({
+    await expect(
+      page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true }),
+    ).toBeVisible({
       timeout: 1500,
     });
     await page.screenshot({ path: `${screenshotDir}/desktop-07-empty-seat-claim.png` });
@@ -946,7 +951,9 @@ test("Capture Mobile visual release suite (390x844)", async ({ page, context }) 
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
     const mobileEmptyPoint = await seatCanvasPoint(page, "WOW-W1-0003");
     await page.mouse.click(mobileEmptyPoint.x, mobileEmptyPoint.y);
-    await expect(page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true })).toBeVisible({
+    await expect(
+      page.getByRole("heading", { name: "Claim WOW-W1-0003", exact: true }),
+    ).toBeVisible({
       timeout: 1500,
     });
     await page.screenshot({ path: `${screenshotDir}/mobile-06-claim.png` });
