@@ -5,7 +5,6 @@ import { constantTimeEqual, makeSignature } from "better-auth/crypto";
 import { getAuth } from "./auth";
 
 export type CurrentSessionIdentity = {
-  id: string;
   name: string | null;
   email: string | null;
 };
@@ -30,7 +29,6 @@ export async function readCurrentSessionIdentity(
   const result = await context.internalAdapter.findSession(token);
   if (!result?.user.id || result.session.expiresAt.getTime() <= Date.now()) return null;
   return {
-    id: result.user.id,
     name: typeof result.user.name === "string" && result.user.name.trim() ? result.user.name : null,
     email:
       typeof result.user.email === "string" && result.user.email.trim() ? result.user.email : null,
