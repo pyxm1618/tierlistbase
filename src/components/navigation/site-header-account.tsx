@@ -50,8 +50,9 @@ export function SiteHeaderAccount({
         target instanceof Node &&
         !menu.current?.contains(target) &&
         !trigger.current?.contains(target)
-      )
+      ) {
         close();
+      }
     };
     const onKeyDown = (event: globalThis.KeyboardEvent) => {
       if (event.key === "Escape") {
