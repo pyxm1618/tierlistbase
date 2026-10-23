@@ -205,6 +205,13 @@ export function VanguardEntry(props: {
                         ? `FOREVER AWAKENS IN … ${props.manifest.foreverUnlockAt ?? ""}`
                         : "THE MONUMENT IS COMPLETE"}
               </p>
+              {(props.manifest.stage === "WOW_OPEN" ||
+                props.manifest.stage === "FOREVER_OPEN") && (
+                <p className="max-w-md text-xs text-[#cfbe9f]">
+                  A limited-time community tribute before WoW Forever launches — leave one permanent
+                  Seat.
+                </p>
+              )}
 
               {/* Primary Epic CTA */}
               <button
