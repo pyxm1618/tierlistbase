@@ -152,7 +152,6 @@ Do not add completed-plan documents, PR acceptance reports, progress ledgers, cl
 
 When a task finishes, update the relevant current SSOT if the current facts changed; do not create a new closeout document by default.
 
-
 ## CI-enforced documentation inputs
 
 Some Markdown files are executable release-gate inputs, not optional historical notes.
