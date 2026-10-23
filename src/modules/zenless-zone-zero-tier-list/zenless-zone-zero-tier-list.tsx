@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { useMemo, useState, type ChangeEvent, type ReactNode } from "react";
 
 import {
@@ -20,8 +20,16 @@ import {
 import agentDetailMiyabi from "./assets/agent-detail-miyabi.webp";
 import heroArtwork from "./assets/hero.webp";
 import teamMiyabiFreeze from "./assets/team-miyabi-freeze.webp";
+import teamEvelynHypercarry from "./assets/team-evelyn-hypercarry.webp";
+import teamHarumasaQuicken from "./assets/team-harumasa-quicken.webp";
 import { agentIcons, bangbooIcons } from "./icons";
 import styles from "./zenless-zone-zero-tier-list.module.css";
+
+const teamBanners: Partial<Record<string, { src: StaticImageData; objectPosition?: string }>> = {
+  "miyabi-freeze": { src: teamMiyabiFreeze },
+  "evelyn-hypercarry": { src: teamEvelynHypercarry, objectPosition: "55% 25%" },
+  "harumasa-quicken": { src: teamHarumasaQuicken, objectPosition: "55% 30%" },
+};
 
 const tiers: readonly Tier[] = ["S+", "S", "A", "B"];
 
@@ -370,6 +378,7 @@ function TeamCard({
   selected: boolean;
   onSelect: () => void;
 }) {
+  const banner = teamBanners[team.id];
   return (
     <button
       type="button"
@@ -382,9 +391,10 @@ function TeamCard({
         {tier}
       </span>
       <span className={styles.teamBackdrop}>
-        {team.id === "miyabi-freeze" ? (
+        {banner ? (
           <Image
-            src={teamMiyabiFreeze}
+            src={banner.src}
+            style={{ objectPosition: banner.objectPosition }}
             alt=""
             fill
             sizes="(max-width: 760px) 100vw, 520px"
@@ -422,14 +432,16 @@ function TeamDetail({
   onTabChange: (tab: TeamDetailTab) => void;
   onClose: () => void;
 }) {
+  const banner = teamBanners[team.id];
   const [best, alternative, budget] = team.compositions;
   return (
     <section className={styles.largeDetailPanel} aria-label="Team Detail">
       <div className={styles.detailPanelHeader} data-detail-kind="team">
         <span className={styles.detailHeaderBackdrop} aria-hidden="true">
-          {team.id === "miyabi-freeze" ? (
+          {banner ? (
             <Image
-              src={teamMiyabiFreeze}
+              src={banner.src}
+              style={{ objectPosition: banner.objectPosition }}
               alt=""
               fill
               sizes="(max-width: 1080px) 100vw, 700px"
