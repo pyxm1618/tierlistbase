@@ -111,10 +111,7 @@ async function dbStats() {
   };
 }
 
-async function runPollWindow(
-  service: ReturnType<typeof createVanguardService>,
-  clients: number,
-) {
+async function runPollWindow(service: ReturnType<typeof createVanguardService>, clients: number) {
   const latencies: number[] = [];
   let errors = 0;
   const cpuBefore = process.cpuUsage();
