@@ -6,6 +6,7 @@ import sharp from "sharp";
 import { readFile } from "node:fs/promises";
 import { createDatabaseClient } from "@/platform/database/client";
 import { user, session, accountSubjects } from "@/platform/database/schema";
+import { vanguardInscriptions } from "@/modules/wow-vanguard";
 import { assertSafeTestDatabaseUrl } from "../support/test-database-guard";
 // UI contract fixtures. Real DB transaction/provider evidence is covered separately; these are not live service acceptance.
 test.skip(
@@ -24,7 +25,7 @@ const publicSeat = {
   inscribedAt: "2026-10-20T00:00:00.000Z",
   image: null,
 };
-async function account(context: BrowserContext) {
+async function accountIdentity(context: BrowserContext) {
   const database = createDatabaseClient(assertSafeTestDatabaseUrl());
   const id = randomUUID();
   const token = randomBytes(32).toString("base64url");
@@ -48,12 +49,16 @@ async function account(context: BrowserContext) {
       url: "http://127.0.0.1:3197",
     },
   ]);
-  return async () => {
+  const cleanup = async () => {
     await database.db.delete(session).where(eq(session.userId, id));
     await database.db.delete(accountSubjects).where(eq(accountSubjects.authUserId, id));
     await database.db.delete(user).where(eq(user.id, id));
     await database.close();
   };
+  return { id, database, cleanup };
+}
+async function account(context: BrowserContext) {
+  return (await accountIdentity(context)).cleanup;
 }
 async function fixtures(
   page: Page,
@@ -507,6 +512,36 @@ test("custom Memory Image can be cleared back to the Mage Default Emblem without
     await expect(reveal.getByAltText("Memory Image")).toHaveCount(0);
   } finally {
     await cleanup();
+  }
+});
+
+test("My Vanguard renders the Class Default Emblem when the saved inscription has no media", async ({
+  page,
+  context,
+}) => {
+  const identity = await accountIdentity(context);
+  try {
+    await identity.database.db.insert(vanguardInscriptions).values({
+      userId: identity.id,
+      seatId: "WOW-W1-0009",
+      phase: "wow",
+      letter: "W1",
+      localIndex: 9,
+      displayName: "Account Vanguard",
+      faction: "horde",
+      className: "Mage",
+      guildName: "Test Guild",
+      battleCry: "For Azeroth",
+    });
+    await page.goto("/account/vanguard");
+    await expect(page.getByRole("heading", { name: "My Vanguard", exact: true })).toBeVisible();
+    await expect(page.getByAltText("Mage Default Emblem")).toHaveCount(1);
+    await expect(page.getByAltText("Memory Image")).toHaveCount(0);
+  } finally {
+    await identity.database.db
+      .delete(vanguardInscriptions)
+      .where(eq(vanguardInscriptions.userId, identity.id));
+    await identity.cleanup();
   }
 });
 
