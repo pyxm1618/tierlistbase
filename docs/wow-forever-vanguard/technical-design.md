@@ -1,8 +1,8 @@
 # 8016 Vanguard Monument — 当前技术设计
 
-> 项目：TierListBase · WoW Forever Vanguard  
-> 状态：CURRENT TECHNICAL SSOT  
-> 最近同步：2026-10-23  
+> 项目：TierListBase · WoW Forever Vanguard
+> 状态：CURRENT TECHNICAL SSOT
+> 最近同步：2026-10-23
 > 基线：main @ 5fc2cbe02b7c9a06e31805a7d3ecf44beb57e8de
 
 产品规则以 `requirements.md` 为准。本文只描述当前已经采用的技术边界，不保留开发阶段的实施计划、PR 状态或已废弃方案。

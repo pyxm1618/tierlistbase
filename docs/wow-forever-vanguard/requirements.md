@@ -1,10 +1,10 @@
 # 8016 Vanguard Monument — 产品需求文档
 
-**项目：** TierListBase · WoW Forever 玩家先锋纪念碑  
-**版本：** 1.2 · Current Product SSOT  
-**最近同步：** 2026-10-23  
-**活动页：** /wow-forever/vanguard  
-**核心业务页：** /wow-forever/tier-list  
+**项目：** TierListBase · WoW Forever 玩家先锋纪念碑
+**版本：** 1.2 · Current Product SSOT
+**最近同步：** 2026-10-23
+**活动页：** /wow-forever/vanguard
+**核心业务页：** /wow-forever/tier-list
 
 ---
 

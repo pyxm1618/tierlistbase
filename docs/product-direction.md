@@ -1,6 +1,6 @@
 # TierListBase 产品方向
 
-> 状态：CURRENT PRODUCT DIRECTION  
+> 状态：CURRENT PRODUCT DIRECTION
 > 最近同步：2026-10-23
 
 ## 1. 产品定义

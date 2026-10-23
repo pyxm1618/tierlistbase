@@ -1,6 +1,6 @@
 # WoW Forever 排名数据发布 Runbook
 
-> 状态：CURRENT OPERATING RUNBOOK  
+> 状态：CURRENT OPERATING RUNBOOK
 > 最近同步：2026-10-23
 
 本文件只说明**以后如何安全刷新/发布 WoW Forever 排名数据**。它不保存某次 PR、某次生产 read-back 或某个旧版本的验收历史。
