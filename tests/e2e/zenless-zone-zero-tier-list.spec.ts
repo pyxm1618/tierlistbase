@@ -156,9 +156,34 @@ for (const width of [390, 1440]) {
         await expect(icon).toHaveCSS("object-fit", "contain");
       }
       await expect(teamDetail.locator('[data-kind="portrait"], [data-kind="item"]')).toHaveCount(0);
-      await expect(teamDetail.locator('[data-kind="team"]')).toHaveCount(
-        team === "Miyabi Freeze" ? 0 : 1,
+      const teamCard = page
+        .getByRole("region", { name: "Team Ranking", exact: true })
+        .getByRole("button")
+        .filter({ hasText: team });
+      const bannerName = `team-${team.toLowerCase().replaceAll(" ", "-")}`;
+      for (const [location, container] of [
+        ["card", teamCard],
+        ["detail", teamDetail],
+      ] as const) {
+        await expect(container.locator('[data-kind="team"]')).toHaveCount(0);
+        const banner = container.locator('img[alt=""]');
+        await expect(banner).toHaveAttribute("src", new RegExp(bannerName));
+        await expect(banner).toHaveCSS("object-fit", "cover");
+        await banner.scrollIntoViewIfNeeded();
+        await expect
+          .poll(() =>
+            banner.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0),
+          )
+          .toBe(true);
+        await container.screenshot({
+          path: test.info().outputPath(`${bannerName}-${location}-${width}.png`),
+        });
+      }
+      await expect(teamDetail.locator('img[alt=""]')).toHaveAttribute(
+        "src",
+        (await teamCard.locator('img[alt=""]').getAttribute("src")) ?? "",
       );
+      await page.screenshot({ path: test.info().outputPath(`${bannerName}-${width}.png`) });
       if (team === "Miyabi Freeze")
         await expect(teamDetail.getByText("Butlerboo / Rocketboo", { exact: true })).toBeVisible();
       for (const icon of await teamDetail.locator("img[alt]").all()) {
