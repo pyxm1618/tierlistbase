@@ -124,6 +124,67 @@ for (const width of [390, 1440]) {
       await expect(rows).toHaveCount(190);
       expect(errors).toEqual([]);
     });
+
+    test("renders local Identity and E.G.O artwork without broken or hotlinked images", async ({
+      page,
+    }) => {
+      await page.goto(route);
+
+      // 名称列（第 3 列）全部替换为本地素材
+      const identityArt = page.locator("#identity-tier-list tbody tr td:nth-child(3) img");
+      const egoArt = page.locator("#ego-tier-list tbody tr td:nth-child(3) img");
+      await expect(identityArt).toHaveCount(190);
+      await expect(egoArt).toHaveCount(116);
+
+      // Team Details：1 张 banner + core 3 + recommended 6 + keyEgo 4 + substitutes 3
+      await expect(page.locator("#team-details img")).toHaveCount(17);
+
+      // 占位符只剩 Team Tier List 的 12 个 ICON
+      await expect(page.locator('[aria-label="Artwork asset required"]')).toHaveCount(12);
+      await expect(page.getByText("ART", { exact: true })).toHaveCount(0);
+      await expect(page.getByText("EGO", { exact: true })).toHaveCount(0);
+      await expect(page.getByText("ICON", { exact: true })).toHaveCount(12);
+
+      // 同源交付，无外链 hotlink
+      const srcs = await identityArt.evaluateAll((images) =>
+        images.map((image) => (image as HTMLImageElement).getAttribute("src") ?? ""),
+      );
+      expect(srcs).toHaveLength(190);
+      for (const src of srcs) {
+        expect(src.startsWith("/_next/image?url=")).toBe(true);
+        expect(src).not.toMatch(/^https?:\/\//);
+      }
+
+      // 首行图片必须真正解码成功
+      await expect
+        .poll(() =>
+          page
+            .locator("#identity-tier-list tbody tr")
+            .first()
+            .locator("td")
+            .nth(2)
+            .locator("img")
+            .evaluate((image) => (image as HTMLImageElement).naturalWidth),
+        )
+        .toBeGreaterThan(0);
+
+      // 向下滚动触发懒加载后，不得存在 load 失败（complete 但 naturalWidth=0）的图片
+      for (let step = 0; step < 8; step += 1) {
+        await page.mouse.wheel(0, 1200);
+        await page.waitForTimeout(80);
+      }
+      await expect
+        .poll(() =>
+          page.locator("img").evaluateAll(
+            (images) =>
+              images.filter((image) => {
+                const element = image as HTMLImageElement;
+                return element.complete && element.naturalWidth === 0;
+              }).length,
+          ),
+        )
+        .toBe(0);
+    });
   });
 }
 

@@ -12,36 +12,12 @@ import {
 } from "./data";
 import limbusHero from "./assets/hero.webp";
 import teamBanner from "./assets/team-banner.webp";
+import { AssetSlot } from "./asset-slot";
+import { egoArtwork, identityArtwork, identityArtworkSrc } from "./artwork";
 import { IdentityRanking } from "./identity-ranking";
 import { SinnerPortrait } from "./sinner-portrait";
 import styles from "./limbus-tier-list.module.css";
 import { TeamDetailTabs } from "./team-detail-tabs";
-
-function AssetSlot({
-  compact = false,
-  wide = false,
-  label = "ART",
-}: {
-  compact?: boolean;
-  wide?: boolean;
-  label?: string;
-}) {
-  return (
-    <span
-      className={[
-        styles.assetSlot,
-        compact ? styles.assetSlotCompact : "",
-        wide ? styles.assetSlotWide : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
-      aria-label="Artwork asset required"
-      title="Artwork asset required"
-    >
-      <span>{label}</span>
-    </span>
-  );
-}
 
 function TierBadge({ value }: { value: TierValue }) {
   return (
@@ -140,7 +116,7 @@ export function LimbusTierList() {
             actionHref="#identity-tier-list"
           />
 
-          <IdentityRanking />
+          <IdentityRanking artwork={identityArtworkSrc} />
         </section>
 
         <section className={styles.paperSection} id="best-identity-by-sinner">
@@ -165,15 +141,15 @@ export function LimbusTierList() {
                   <h3>{pick.sinner}</h3>
                 </div>
                 <div className={styles.sinnerPick} title={pick.bestOverall}>
-                  <AssetSlot compact label="ART" />
+                  <AssetSlot compact src={identityArtwork[pick.bestOverall]?.src} alt="" />
                   <span>{pick.bestOverall}</span>
                 </div>
                 <div className={styles.sinnerPick} title={pick.bestGeneralist}>
-                  <AssetSlot compact label="ART" />
+                  <AssetSlot compact src={identityArtwork[pick.bestGeneralist]?.src} alt="" />
                   <span>{pick.bestGeneralist}</span>
                 </div>
                 <div className={styles.sinnerPick} title={pick.bestForTeam}>
-                  <AssetSlot compact label="ART" />
+                  <AssetSlot compact src={identityArtwork[pick.bestForTeam]?.src} alt="" />
                   <span>{pick.bestForTeam}</span>
                 </div>
               </article>
@@ -340,7 +316,7 @@ export function LimbusTierList() {
                   <div className={styles.assetStrip}>
                     {exampleTeamDetail.coreMembers.map((member) => (
                       <span key={member} title={member}>
-                        <AssetSlot compact label="ART" />
+                        <AssetSlot compact src={identityArtwork[member]?.src} alt={member} />
                       </span>
                     ))}
                   </div>
@@ -350,7 +326,7 @@ export function LimbusTierList() {
                   <div className={styles.assetStrip}>
                     {exampleTeamDetail.recommendedTeam.map((member) => (
                       <span key={member} title={member}>
-                        <AssetSlot compact label="ART" />
+                        <AssetSlot compact src={identityArtwork[member]?.src} alt={member} />
                       </span>
                     ))}
                   </div>
@@ -360,7 +336,7 @@ export function LimbusTierList() {
                   <div className={styles.assetStrip}>
                     {exampleTeamDetail.keyEgo.map((ego) => (
                       <span key={ego} title={ego}>
-                        <AssetSlot compact label="EGO" />
+                        <AssetSlot compact src={egoArtwork[ego]?.src} alt={ego} />
                       </span>
                     ))}
                   </div>
@@ -370,7 +346,7 @@ export function LimbusTierList() {
                   <div className={styles.assetStrip}>
                     {exampleTeamDetail.substitutes.map((member) => (
                       <span key={member} title={member}>
-                        <AssetSlot compact label="ART" />
+                        <AssetSlot compact src={identityArtwork[member]?.src} alt={member} />
                       </span>
                     ))}
                   </div>
@@ -422,7 +398,7 @@ export function LimbusTierList() {
                         </td>
                         <td>
                           <div className={styles.nameCell}>
-                            <AssetSlot compact label="EGO" />
+                            <AssetSlot compact src={egoArtwork[row.ego]?.src} alt="" />
                             <strong>{row.ego}</strong>
                           </div>
                         </td>
@@ -465,15 +441,15 @@ export function LimbusTierList() {
                     <h3>{pick.sinner}</h3>
                     <SinnerPortrait sinner={pick.sinner} variant="ego" />
                     <div title={pick.bestOverall}>
-                      <AssetSlot compact label="EGO" />
+                      <AssetSlot compact src={egoArtwork[pick.bestOverall]?.src} alt="" />
                       <span>{pick.bestOverall}</span>
                     </div>
                     <div title={pick.bestGeneralist}>
-                      <AssetSlot compact label="EGO" />
+                      <AssetSlot compact src={egoArtwork[pick.bestGeneralist]?.src} alt="" />
                       <span>{pick.bestGeneralist}</span>
                     </div>
                     <div title={pick.bestForTeam}>
-                      <AssetSlot compact label="EGO" />
+                      <AssetSlot compact src={egoArtwork[pick.bestForTeam]?.src} alt="" />
                       <span>{pick.bestForTeam}</span>
                     </div>
                   </article>
