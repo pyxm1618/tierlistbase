@@ -56,6 +56,7 @@ export function VanguardClaim({
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
   const [locked, setLocked] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [mediaId, setMediaId] = useState<string | null>(null);
   const [mediaStatus, setMediaStatus] = useState<"none" | "pending" | "approved" | "rejected">(
     "none",
@@ -264,13 +265,10 @@ export function VanguardClaim({
     }
   }
 
-  async function inscribe() {
-    if (submission.current || locked || busy) return;
-    if (!draft.displayName || !draft.faction || !draft.className) {
-      setNotice("Choose your Vanguard Name, Faction and Class.");
-      onFrame("reveal");
-      return;
-    }
+  function claimValidationMessage() {
+    if (!draft.displayName) return "Enter a Vanguard Name.";
+    if (!draft.faction) return "Choose a Faction.";
+    if (!draft.className) return "Choose a Class.";
     for (const [label, value, min, max] of [
       ["Vanguard Name", draft.displayName, 2, 32],
       ["Guild", draft.guildName, 0, 48],
@@ -279,19 +277,30 @@ export function VanguardClaim({
       try {
         validateVanguardText(value, min, max);
       } catch {
-        setNotice(
-          `${label}: use plain text (${min}–${max} characters), without links or contact details.`,
-        );
-        onFrame("reveal");
-        return;
+        return `${label}: use plain text (${min}–${max} characters), without links or contact details.`;
       }
     }
-    if (!classes.includes(draft.className)) {
-      setNotice("Choose a valid Class.");
+    if (!classes.includes(draft.className)) return "Choose a valid Class.";
+    if (!(mediaStatus === "none" || mediaStatus === "approved"))
+      return "Finish image verification or use your Class Default Emblem.";
+    return null;
+  }
+
+  const validationMessage = claimValidationMessage();
+  const claimLocked = busy || locked || submitting;
+  const canStartHold = Boolean(draft.holdToken) && validationMessage === null && !claimLocked;
+
+  async function inscribe() {
+    if (submission.current || locked || busy || submitting) return;
+    const invalid = claimValidationMessage();
+    if (invalid) {
+      setNotice(invalid);
       onFrame("reveal");
       return;
     }
     submission.current = true;
+    setSubmitting(true);
+    cropDrag.current = null;
     onPending(true);
     setBusy(true);
     try {
@@ -333,6 +342,7 @@ export function VanguardClaim({
       }
     } finally {
       setBusy(false);
+      setSubmitting(false);
       submission.current = false;
       onPending(false);
       onFrame("reveal");
@@ -340,9 +350,8 @@ export function VanguardClaim({
   }
 
   function startHold() {
-    if (submission.current || locked || busy) return;
+    if (submission.current || !canStartHold) return;
     if (holdStartRef.current !== null) return;
-    if (!draft.holdToken || !(mediaStatus === "none" || mediaStatus === "approved")) return;
 
     hasTriggeredSubmit.current = false;
     const startTime = Date.now();
@@ -466,7 +475,7 @@ export function VanguardClaim({
         </p>
       </div>
 
-      <fieldset disabled={busy || locked} className="space-y-4">
+      <fieldset disabled={claimLocked} className="space-y-4">
         {field("displayName", "Vanguard Name", 32)}
 
         <div className="grid grid-cols-2 gap-3">
@@ -566,8 +575,10 @@ export function VanguardClaim({
                     ref={canvas}
                     aria-label="Square crop preview"
                     className={"vanguard-cropPreview"}
-                    tabIndex={0}
+                    tabIndex={claimLocked ? -1 : 0}
+                    aria-disabled={claimLocked}
                     onPointerDown={(event) => {
+                      if (claimLocked) return;
                       event.currentTarget.setPointerCapture(event.pointerId);
                       cropDrag.current = {
                         x: event.clientX,
@@ -577,6 +588,7 @@ export function VanguardClaim({
                       };
                     }}
                     onPointerMove={(event) => {
+                      if (claimLocked) return;
                       const drag = cropDrag.current;
                       if (!drag) return;
                       const scale = crop.size / event.currentTarget.getBoundingClientRect().width;
@@ -605,6 +617,7 @@ export function VanguardClaim({
                       cropDrag.current = null;
                     }}
                     onKeyDown={(event) => {
+                      if (claimLocked) return;
                       if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key))
                         return;
                       event.preventDefault();
@@ -709,14 +722,26 @@ export function VanguardClaim({
             <button
               type="button"
               onClick={() => {
+                if (previewRef.current) URL.revokeObjectURL(previewRef.current);
+                previewRef.current = null;
+                setPreview(null);
                 setMediaId(null);
                 setMediaStatus("none");
                 setBitmap(null);
+                setCrop({ x: 0, y: 0, size: 512 });
+                cropDrag.current = null;
               }}
               className="text-xs text-[#9d8e78] underline hover:text-[#d4af37]"
             >
               Use Class Default Emblem
             </button>
+            {mediaStatus === "none" && (
+              <p role="status" className="text-[11px] text-[#a89b84]">
+                {draft.className
+                  ? `Using ${draft.className} Default Emblem.`
+                  : "Choose a Class to use its Default Emblem."}
+              </p>
+            )}
           </section>
         )}
 
@@ -735,9 +760,7 @@ export function VanguardClaim({
               <button
                 type="button"
                 aria-label="HOLD TO INSCRIBE"
-                disabled={
-                  !draft.holdToken || !(mediaStatus === "none" || mediaStatus === "approved")
-                }
+                disabled={!canStartHold}
                 onPointerDown={(event) => {
                   if (event.button !== 0 || !event.isPrimary) return;
                   event.preventDefault();
@@ -771,6 +794,11 @@ export function VanguardClaim({
                 </span>
               </button>
             </div>
+            {validationMessage && (
+              <p role="status" className="mt-2 text-xs text-amber-200">
+                {validationMessage}
+              </p>
+            )}
           </div>
         )}
       </fieldset>

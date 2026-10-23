@@ -6,6 +6,7 @@ import sharp from "sharp";
 import { readFile } from "node:fs/promises";
 import { createDatabaseClient } from "@/platform/database/client";
 import { user, session, accountSubjects } from "@/platform/database/schema";
+import { vanguardInscriptions } from "@/modules/wow-vanguard/db/schema";
 import { assertSafeTestDatabaseUrl } from "../support/test-database-guard";
 // UI contract fixtures. Real DB transaction/provider evidence is covered separately; these are not live service acceptance.
 test.skip(
@@ -24,7 +25,7 @@ const publicSeat = {
   inscribedAt: "2026-10-20T00:00:00.000Z",
   image: null,
 };
-async function account(context: BrowserContext) {
+async function accountIdentity(context: BrowserContext) {
   const database = createDatabaseClient(assertSafeTestDatabaseUrl());
   const id = randomUUID();
   const token = randomBytes(32).toString("base64url");
@@ -48,12 +49,16 @@ async function account(context: BrowserContext) {
       url: "http://127.0.0.1:3197",
     },
   ]);
-  return async () => {
+  const cleanup = async () => {
     await database.db.delete(session).where(eq(session.userId, id));
     await database.db.delete(accountSubjects).where(eq(accountSubjects.authUserId, id));
     await database.db.delete(user).where(eq(user.id, id));
     await database.close();
   };
+  return { id, database, cleanup };
+}
+async function account(context: BrowserContext) {
+  return (await accountIdentity(context)).cleanup;
 }
 async function fixtures(
   page: Page,
@@ -65,6 +70,7 @@ async function fixtures(
     longText?: boolean;
     manifestGate?: Promise<void>;
     stage?: "COMPLETE" | "WOW_COMPLETE_WAITING" | "FOREVER_OPEN";
+    expectNoMediaId?: boolean;
   } = {},
 ) {
   let accepted = Boolean(options.existing);
@@ -123,6 +129,7 @@ async function fixtures(
       const draft = request.postDataJSON();
       expect(draft.displayName).toBe(options.longText ? "先锋".repeat(16) : "Chosen Vanguard");
       expect(draft).not.toHaveProperty("email");
+      if (options.expectNoMediaId) expect(draft).not.toHaveProperty("mediaId");
       accepted = true;
       return route.fulfill({
         status: 201,
@@ -264,7 +271,7 @@ async function seatCanvasPoint(page: Page, targetSeatId: string) {
   if (!layout || !Number.isInteger(localIndex) || localIndex < 0)
     throw new Error("Invalid test Seat");
   const offset = localIndex * 4;
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect(canvas).toBeVisible();
@@ -319,7 +326,7 @@ for (const width of [390, 768, 1024, 1440, 1920])
     const cleanup = await account(context);
     try {
       await page.setViewportSize({ width, height: 900 });
-      await fixtures(page, { longText: width === 1920 });
+      await fixtures(page, { longText: width === 1920, expectNoMediaId: true });
       await openClaim(page);
       if (width === 1920) {
         await page.getByLabel("Vanguard Name", { exact: true }).fill("先锋".repeat(16));
@@ -330,6 +337,9 @@ for (const width of [390, 768, 1024, 1440, 1920])
         "Private Google identity",
       );
       await inscribe(page);
+      const reveal = page.getByRole("region", { name: "Vanguard Reveal", exact: true });
+      await expect(reveal.getByAltText("Mage Default Emblem")).toHaveCount(1);
+      await expect(reveal.getByAltText("Your Vanguard Seal")).toBeVisible({ timeout: 15000 });
       await expect(
         page.getByRole("button", { name: "STAND BESIDE ME", exact: true }),
       ).toBeVisible();
@@ -432,6 +442,109 @@ for (const decision of ["approved", "rejected", "unavailable"] as const)
       await cleanup();
     }
   });
+test("pre-HOLD validation blocks every invalid client-verifiable Claim state", async ({
+  page,
+  context,
+}) => {
+  const cleanup = await account(context);
+  try {
+    await fixtures(page);
+    await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+    const hold = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
+    await expect(hold).toBeDisabled();
+
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("A");
+    await page.getByLabel("Faction", { exact: true }).selectOption("horde");
+    await page.getByLabel("Class", { exact: true }).selectOption("Mage");
+    await expect(hold).toBeDisabled();
+
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("Chosen Vanguard");
+    await expect(hold).toBeEnabled();
+
+    await page.getByLabel("Guild (optional)").fill("https://example.com");
+    await expect(hold).toBeDisabled();
+    await page.getByLabel("Guild (optional)").fill("Test Guild");
+    await expect(hold).toBeEnabled();
+
+    await page.getByLabel("Battle Cry (optional)").fill("hero@example.com");
+    await expect(hold).toBeDisabled();
+    await page.getByLabel("Battle Cry (optional)").fill("For Azeroth");
+    await expect(hold).toBeEnabled();
+
+    await page.getByLabel("Faction", { exact: true }).selectOption("");
+    await expect(hold).toBeDisabled();
+    await page.getByLabel("Faction", { exact: true }).selectOption("horde");
+    await page.getByLabel("Class", { exact: true }).selectOption("");
+    await expect(hold).toBeDisabled();
+    await page.getByLabel("Class", { exact: true }).selectOption("Mage");
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("");
+    await expect(hold).toBeDisabled();
+  } finally {
+    await cleanup();
+  }
+});
+
+test("custom Memory Image can be cleared back to the Mage Default Emblem without mediaId", async ({
+  page,
+  context,
+}) => {
+  const cleanup = await account(context);
+  try {
+    await fixtures(page, { media: "approved", expectNoMediaId: true });
+    await openClaim(page);
+    const image = await sharp({
+      create: { width: 1024, height: 768, channels: 3, background: "blue" },
+    })
+      .png()
+      .toBuffer();
+    await page
+      .getByLabel("Choose Memory Image")
+      .setInputFiles({ name: "synthetic.png", mimeType: "image/png", buffer: image });
+    await page.getByRole("button", { name: "Upload square crop" }).click();
+    await expect(page.getByText("Image approved")).toBeVisible();
+    await page.getByRole("button", { name: "Use Class Default Emblem" }).click();
+    await expect(page.getByText("Image approved")).toHaveCount(0);
+    await expect(page.getByText("Using Mage Default Emblem.", { exact: true })).toBeVisible();
+    await expect(page.getByLabel("Square crop preview", { exact: true })).toHaveCount(0);
+    await inscribe(page);
+    const reveal = page.getByRole("region", { name: "Vanguard Reveal", exact: true });
+    await expect(reveal.getByAltText("Mage Default Emblem")).toHaveCount(1);
+    await expect(reveal.getByAltText("Memory Image")).toHaveCount(0);
+  } finally {
+    await cleanup();
+  }
+});
+
+test("My Vanguard renders the Class Default Emblem when the saved inscription has no media", async ({
+  page,
+  context,
+}) => {
+  const identity = await accountIdentity(context);
+  try {
+    await identity.database.db.insert(vanguardInscriptions).values({
+      userId: identity.id,
+      seatId: "WOW-W1-0009",
+      phase: "wow",
+      letter: "W1",
+      localIndex: 9,
+      displayName: "Account Vanguard",
+      faction: "horde",
+      className: "Mage",
+      guildName: "Test Guild",
+      battleCry: "For Azeroth",
+    });
+    await page.goto("/account/vanguard");
+    await expect(page.getByRole("heading", { name: "My Vanguard", exact: true })).toBeVisible();
+    await expect(page.getByAltText("Mage Default Emblem")).toHaveCount(1);
+    await expect(page.getByAltText("Memory Image")).toHaveCount(0);
+  } finally {
+    await identity.database.db
+      .delete(vanguardInscriptions)
+      .where(eq(vanguardInscriptions.userId, identity.id));
+    await identity.cleanup();
+  }
+});
+
 test("sealed polling leaves public Focus, share and Tier List available and blocks Claim", async ({
   page,
 }) => {
@@ -475,7 +588,7 @@ test("Escape during Seat focus cancels the pending panel", async ({ page }) => {
   await fixtures(page);
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect
@@ -498,7 +611,7 @@ test("FOREVER Search waits for the WOW scene to focus before opening a WOW inscr
   await fixtures(page, { stage: "FOREVER_OPEN", existing: true });
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect
@@ -575,6 +688,8 @@ test("editing Claim fields while the Hold resolves preserves the Hold token", as
     await fixtures(page);
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
     await expect(page.getByLabel("Class", { exact: true })).toHaveValue("Mage");
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("Chosen Vanguard");
+    await page.getByLabel("Faction", { exact: true }).selectOption("horde");
     await expect(page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true })).toBeEnabled();
   } finally {
     await cleanup();
@@ -585,7 +700,7 @@ test("keyboard users can select an empty Seat and reach Claim authentication", a
   await fixtures(page);
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).press("Enter");
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect
@@ -1030,7 +1145,7 @@ test("occupied and empty Seat clicks finish smooth focus before opening their pa
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
   await expect(
-    page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", { exact: true }),
+    page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", { exact: true }),
   ).toBeVisible();
   const occupiedPoint = await seatCanvasPoint(page, seatId);
   await observePanelFocusTiming(page);
@@ -1085,7 +1200,7 @@ test("FOREVER uses all seven real final layouts and the supplied background", as
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
   await expect.poll(() => layouts.size, { timeout: 25000 }).toBe(7);
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect(canvas).toBeVisible();
@@ -1140,7 +1255,7 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
 
     // 4. Desktop Entered Monument
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-    const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
       exact: true,
     });
     await expect(canvas).toBeVisible();
@@ -1148,7 +1263,7 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
       .poll(async () => {
         const stats = await sharp(
           await page
-            .getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+            .getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
               exact: true,
             })
             .screenshot(),
@@ -1262,16 +1377,15 @@ test.describe("Mobile visual capture", () => {
 
       // 3. Mobile Monument
       await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-      const mobileCanvas = page.getByLabel(
-        "Interactive Monument. Drag to pan, scroll or pinch to zoom.",
-        { exact: true },
-      );
+      const mobileCanvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
+        exact: true,
+      });
       await expect(mobileCanvas).toBeVisible();
       await expect
         .poll(async () => {
           const stats = await sharp(
             await page
-              .getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+              .getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
                 exact: true,
               })
               .screenshot(),
@@ -1409,6 +1523,12 @@ test("Hero hands the same Stage to Canvas without changing its bounds or scrolli
   const stage = page.getByRole("region", { name: "Monument Stage", exact: true });
   await expect(stage).toHaveCount(1);
   await expect(stage.locator("img").first()).toBeVisible();
+  await expect(
+    stage.getByText(
+      "A limited-time community tribute before WoW Forever launches — leave one permanent Seat.",
+      { exact: true },
+    ),
+  ).toBeVisible();
   await expect(stage.locator("canvas")).toHaveCount(0);
   expect(requests.some((url) => /three|mediapipe|hand_landmarker|vision_wasm/.test(url))).toBe(
     false,
@@ -1423,7 +1543,7 @@ test("Hero hands the same Stage to Canvas without changing its bounds or scrolli
   await expect(page.getByText("Renew Seat Hold", { exact: true })).toHaveCount(0);
 });
 
-test("valid Seat deep link enters automatically and Focus stays inside the one Stage", async ({
+test("valid Seat deep link enters automatically, highlights nearby availability, and clears it on Focus close", async ({
   page,
 }) => {
   await fixtures(page, { existing: true });
@@ -1433,6 +1553,11 @@ test("valid Seat deep link enters automatically and Focus stays inside the one S
   await expect(stage.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible();
   await expect(stage.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
   await expect(stage.locator("canvas")).toHaveCount(1);
+  const nearby = stage.getByRole("complementary", { name: "Nearby available places" });
+  await expect(nearby).toBeVisible();
+  await expect(nearby.getByRole("button")).toHaveCount(4);
+  await stage.getByRole("button", { name: "Close Focus", exact: true }).click();
+  await expect(nearby).toHaveCount(0);
   await expect(page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true })).toHaveCount(
     0,
   );
@@ -1449,8 +1574,20 @@ test("pending server confirmation cannot show permanent success; a rejected POST
   });
   let posts = 0;
   try {
-    await fixtures(page);
+    await fixtures(page, { media: "approved" });
     await openClaim(page);
+    const image = await sharp({
+      create: { width: 1024, height: 768, channels: 3, background: "blue" },
+    })
+      .png()
+      .toBuffer();
+    await page
+      .getByLabel("Choose Memory Image")
+      .setInputFiles({ name: "submission-lock.png", mimeType: "image/png", buffer: image });
+    await page.getByRole("button", { name: "Upload square crop" }).click();
+    await expect(page.getByText("Image approved")).toBeVisible();
+    const cropPreview = page.getByLabel("Square crop preview", { exact: true });
+    await expect(cropPreview).toHaveAttribute("aria-disabled", "false");
     await page.route("**/api/vanguard/inscriptions", async (route) => {
       posts++;
       await confirmation;
@@ -1463,6 +1600,21 @@ test("pending server confirmation cannot show permanent success; a rejected POST
     await page.clock.fastForward(4000);
     await expect.poll(() => posts).toBe(1);
     await expect(page.getByText("Sealing · awaiting confirmation…", { exact: true })).toBeVisible();
+    for (const label of [
+      "Vanguard Name",
+      "Faction",
+      "Class",
+      "Guild (optional)",
+      "Battle Cry (optional)",
+      "Choose Memory Image",
+    ])
+      await expect(page.getByLabel(label, { exact: true })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Use Class Default Emblem" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Upload square crop" })).toBeDisabled();
+    await expect(page.getByRole("slider", { name: "Zoom", exact: true })).toBeDisabled();
+    await expect(cropPreview).toHaveAttribute("aria-disabled", "true");
+    await expect(cropPreview).toHaveAttribute("tabindex", "-1");
+    await expect(button).toBeDisabled();
     await expect(page.getByLabel("Inscription ritual", { exact: true })).toHaveCount(0);
     await expect(page.getByRole("region", { name: "Vanguard Reveal", exact: true })).toHaveCount(0);
     release!();
@@ -1616,7 +1768,7 @@ test("Reveal preserves the full Monument overview after the accepted Ritual pull
     await fixtures(page);
     await page.goto("/wow-forever/vanguard");
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-    const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
       exact: true,
     });
     async function pixels() {
@@ -1663,5 +1815,59 @@ test("Reveal preserves the full Monument overview after the accepted Ritual pull
     expect(meanDifference).toBeLessThan(3);
   } finally {
     await cleanup();
+  }
+});
+
+test("mouse wheel on Vanguard Canvas preserves default scrolling and does not zoom monument", async ({
+  page,
+}) => {
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
+    exact: true,
+  });
+  await expect
+    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
+    .toBe(1);
+
+  const dispatchedNotPrevented = await canvas.evaluate((node) =>
+    node.dispatchEvent(new WheelEvent("wheel", { deltaY: 300, bubbles: true, cancelable: true })),
+  );
+  expect(dispatchedNotPrevented).toBe(true);
+
+  async function pixels() {
+    const url = await canvas.evaluate(
+      (node) =>
+        new Promise<string>((resolve) =>
+          requestAnimationFrame(() => resolve((node as HTMLCanvasElement).toDataURL("image/png"))),
+        ),
+    );
+    return sharp(Buffer.from(url.split(",")[1]!, "base64"))
+      .resize(64, 64)
+      .removeAlpha()
+      .raw()
+      .toBuffer();
+  }
+
+  const before = await pixels();
+  const rect = await canvas.boundingBox();
+  if (!rect) throw new Error("Canvas missing");
+
+  await page.mouse.move(rect.x + rect.width / 2, rect.y + rect.height / 2);
+  await page.mouse.wheel(0, 300);
+  await page.waitForTimeout(100);
+
+  const after = await pixels();
+  const meanDifference =
+    after.reduce((sum, value, index) => sum + Math.abs(value - before[index]!), 0) / after.length;
+  expect(meanDifference).toBe(0);
+
+  const hasScrollableSpace = await page.evaluate(
+    () => document.documentElement.scrollHeight > window.innerHeight,
+  );
+  if (hasScrollableSpace) {
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBeGreaterThan(0);
   }
 });

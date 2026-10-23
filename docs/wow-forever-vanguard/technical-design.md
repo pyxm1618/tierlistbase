@@ -4,7 +4,7 @@
 **版本：** 1.1 · Development Baseline  
 **日期：** 2026-10-19  
 **仓库：** pyxm1618/tierlistbase  
-**基线：** main @ 4ee2adf36107940fa532f86fc359e06cc592fbef  
+**基线：** main @ 96c9ec7b61354ba4104017817c010022b98f5dbc
 **活动页：** /wow-forever/vanguard  
 **核心业务页：** /wow-forever/tier-list  
 
@@ -516,20 +516,20 @@ V1 只开放 Google OAuth。
 
 Vanguard 不建立自己的登录页面和账户表。
 
+正式顺序是先选 Seat 并创建 Hold，再进行 Google 登录，OAuth 返回原 Seat 后才进入 Claim 表单。
+
 登录回跳必须恢复：
 
 - seatId
 - hold token
-- claim 文字草稿
 
 Google 登录返回后必须重新验证 Seat Hold：
 
 - Hold 仍有效：继续
 - Hold 已过期但 Seat 仍为空：重新创建 Hold
-- Seat 已被别人占用：保留全部文字草稿并返回最近空 Seat 建议
-- 不得要求用户重新填写 Vanguard Name / Faction / Class / Guild / Battle Cry
+- Seat 已被别人占用：提示冲突并返回最近空 Seat 建议
 
-Memory Image 的实际 File 选择、裁切、上传放在 Google 登录完成以后，避免为了 OAuth 跳转额外引入本地 Blob 持久化。
+Vanguard Name / Faction / Class / Guild / Battle Cry 的正式填写发生在 Google 登录之后，因此不把“先填完整 Claim 再登录”作为产品流程。Memory Image 的实际 File 选择、裁切、上传同样放在 Google 登录完成以后，避免为了 OAuth 跳转额外引入本地 Blob 持久化。
 
 Google / Email 账户资料不得自动显示为 Vanguard Name。
 
@@ -545,25 +545,33 @@ Google / Email 账户资料不得自动显示为 Vanguard Name。
       ↔ SCATTER
       ↔ FOCUS
       ↓
-    CLAIM_DRAFT
-      ↓
     SEAT_HOLD
       ↓
     AUTH_REQUIRED
       ↓
     AUTHENTICATED
       ↓
-    MEDIA_PREP
+    CLAIM_DRAFT
       ↓
-    MEDIA_MODERATION
+    MEDIA_PREP / DEFAULT_EMBLEM
+      ↓
+    MEDIA_MODERATION (if uploaded)
       ↓
     READY_TO_INSCRIBE
       ↓
-    INSCRIBING
+    HOLD_4_SECONDS
+      ↓
+    SUBMISSION_PENDING (Claim fully locked)
+      ↓
+    INSCRIBING / LOST_RESPONSE_RECOVERY
+      ↓
+    POST_SUCCESS_RITUAL (~1.1s)
       ↓
     REVEAL
       ↓
     SHARE / TIER_LIST / MONUMENT
+
+HOLD TO INSCRIBE 在开始前必须通过全部客户端可验证字段与媒体状态校验；服务端 inscriptionSchema 仍是最终权威验证。达到 4 秒阈值后直到成功、明确失败或 /me lost-response recovery 完成，Claim 字段、上传、裁切、Default Emblem 切换和再次 HOLD 都保持 disabled。
 
 成功 Inscription 后不进入编辑状态。
 
@@ -1401,7 +1409,7 @@ SAFE_QUERY_KEYS 如需要 seat / class 参数，必须按现有安全逻辑显�
 
 ### LCP
 
-静态 Hero。
+静态 Hero。移动端（<= 640px）在构建时从同一正式 Hero 原图等比生成 780px WebP 衍生图；桌面继续使用正式 PNG，不改变构图。
 
 ### JS
 

@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AccountShell } from "@/components/account/account-shell";
+import { buttonSecondary } from "@/components/ui/styles";
 import { getAccountContext } from "@/platform/auth/account-context";
 import { db } from "@/platform/database/application-database";
 
@@ -54,9 +55,13 @@ export default async function MyVanguardPage() {
           ) : (
             <p>Unavailable Plate</p>
           )}
-          <VanguardSealControl seat={seat} assets={vanguardAssets} />
+          <VanguardSealControl seat={seat} assets={vanguardAssets} showPreview={true} />
           <VanguardShareControl seatId={seat.seatId} />
-          <Link href={`/wow-forever/vanguard?seat=${seat.seatId}`}>View in Monument</Link>
+          <div className="mt-4">
+            <Link href={`/wow-forever/vanguard?seat=${seat.seatId}`} className={buttonSecondary}>
+              View in Monument
+            </Link>
+          </div>
         </section>
       ) : (
         <Link href="/wow-forever/vanguard">
