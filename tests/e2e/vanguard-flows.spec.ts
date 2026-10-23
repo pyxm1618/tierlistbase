@@ -688,6 +688,8 @@ test("editing Claim fields while the Hold resolves preserves the Hold token", as
     await fixtures(page);
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
     await expect(page.getByLabel("Class", { exact: true })).toHaveValue("Mage");
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("Chosen Vanguard");
+    await page.getByLabel("Faction", { exact: true }).selectOption("horde");
     await expect(page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true })).toBeEnabled();
   } finally {
     await cleanup();
