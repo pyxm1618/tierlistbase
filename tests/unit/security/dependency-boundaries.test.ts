@@ -49,6 +49,12 @@ describe("Supply Chain & Runtime Dependency Boundary Verification", () => {
     expect(nextVersion).toBe("16.4.1");
     expect(packageJson.devDependencies["eslint-config-next"]).toBe(nextVersion);
 
+    // Vinext uses the separately installed RSC runtime (GHSA-xqc2-xf4c-x3h3).
+    const reactVersion = packageJson.dependencies.react;
+    expect(reactVersion).toBe("19.2.9");
+    expect(packageJson.dependencies["react-dom"]).toBe(reactVersion);
+    expect(packageJson.devDependencies["react-server-dom-webpack"]).toBe(reactVersion);
+
     // Sharp override >= 0.35.4 fixes libheif/librsvg advisories
     const overrides = (packageJson as { overrides?: Record<string, string> }).overrides;
     expect(overrides?.sharp).toBe("0.35.5");
