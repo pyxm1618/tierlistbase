@@ -1,7 +1,7 @@
 import { desc, eq, inArray } from "drizzle-orm";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { AccountShell } from "@/components/account/account-shell";
 import { RefundAction, SubscriptionAction } from "@/components/account/billing-actions";
@@ -21,6 +21,10 @@ import { commerceProducts, orders, payments } from "@/platform/database/commerce
 import { refunds, subscriptions } from "@/platform/database/subscription-schema";
 
 export default async function BillingPage() {
+  if (!featuresConfig.commerce.enabled) {
+    notFound();
+  }
+
   const context = await getAccountContext(await headers());
   if (!context) redirect("/sign-in");
 

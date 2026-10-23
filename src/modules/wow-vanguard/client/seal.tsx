@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { buttonSecondary } from "@/components/ui/styles";
 import type { PublicInscription } from "../db/service";
 import { sealInput, type VanguardAssets, type SealRenderer } from "./contracts";
 export function VanguardSealControl({
@@ -86,12 +87,24 @@ export function VanguardSealControl({
           MISSING_ASSET: the final Monument location artwork/layout for this phase is unavailable.
         </p>
       )}
-      <button disabled={!ready || seat.status !== "active"} onClick={() => void save("9:16")}>
-        Save 9:16
-      </button>
-      <button disabled={!ready || seat.status !== "active"} onClick={() => void save("1:1")}>
-        Save 1:1
-      </button>
+      <div className="mt-4 flex flex-wrap gap-3">
+        <button
+          type="button"
+          className={buttonSecondary}
+          disabled={!ready || seat.status !== "active"}
+          onClick={() => void save("9:16")}
+        >
+          Save 9:16
+        </button>
+        <button
+          type="button"
+          className={buttonSecondary}
+          disabled={!ready || seat.status !== "active"}
+          onClick={() => void save("1:1")}
+        >
+          Save 1:1
+        </button>
+      </div>
       {error && <p role="alert">{error}</p>}
     </section>
   );
@@ -109,8 +122,8 @@ export function VanguardShareControl({ seatId }: { seatId: string }) {
     }
   }
   return (
-    <div>
-      <button type="button" onClick={() => void share()}>
+    <div className="mt-4">
+      <button type="button" className={buttonSecondary} onClick={() => void share()}>
         Share · STAND BESIDE ME
       </button>
       {message && <p role="status">{message}</p>}
