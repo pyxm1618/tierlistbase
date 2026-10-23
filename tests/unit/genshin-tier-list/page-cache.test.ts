@@ -1,4 +1,4 @@
-import { beforeEach, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { MemoryCacheHandler, setDataCacheHandler } from "vinext/shims/cache";
 
 vi.mock("server-only", () => ({}));
@@ -24,6 +24,11 @@ const available = {
 beforeEach(() => {
   reads.load.mockReset();
   setDataCacheHandler(new MemoryCacheHandler());
+  vi.stubEnv("APP_ENV", "production");
+});
+
+afterEach(() => {
+  vi.unstubAllEnvs();
 });
 
 it("retries after an unavailable read instead of caching the failure", async () => {
@@ -40,4 +45,14 @@ it("retries after an unavailable read instead of caching the failure", async () 
   } finally {
     errors.mockRestore();
   }
+});
+
+it("bypasses the shared reviewed-data cache in the test environment", async () => {
+  vi.stubEnv("APP_ENV", "test");
+  reads.load.mockResolvedValue(available);
+
+  await GenshinImpactTierListPage();
+  await GenshinImpactTierListPage();
+
+  expect(reads.load).toHaveBeenCalledTimes(2);
 });

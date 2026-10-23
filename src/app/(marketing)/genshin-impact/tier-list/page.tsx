@@ -23,16 +23,24 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const dynamic = "force-dynamic";
 
-const getReviewedData = unstable_cache(
-  async () => {
-    const result = await loadGenshinData();
-    // A failed read must not become a cached unavailable page.
-    if (result.status === "unavailable") throw new Error("Reviewed ranking data unavailable");
-    return result;
-  },
+const loadReviewedData = async () => {
+  const result = await loadGenshinData();
+  // A failed read must not become a cached unavailable page.
+  if (result.status === "unavailable") throw new Error("Reviewed ranking data unavailable");
+  return result;
+};
+
+const getCachedReviewedData = unstable_cache(
+  loadReviewedData,
   ["tierlistbase-genshin-reviewed-data-v1"],
   { revalidate: 30 },
 );
+
+async function getReviewedData() {
+  // E2E workers share one test server/database; bypass the shared data cache so fixture writes
+  // cannot leak stale Genshin data across test files. Production keeps the existing 30s cache.
+  return process.env.APP_ENV === "test" ? loadReviewedData() : getCachedReviewedData();
+}
 
 export default async function GenshinImpactTierListPage() {
   let result: Awaited<ReturnType<typeof loadGenshinData>>;
