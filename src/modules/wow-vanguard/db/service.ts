@@ -177,9 +177,7 @@ export function createVanguardService(
       { isolationLevel: "repeatable read" },
     );
   }
-  let manifestCache:
-    | { expiresAt: number; value: ReturnType<typeof readManifest> }
-    | undefined;
+  let manifestCache: { expiresAt: number; value: ReturnType<typeof readManifest> } | undefined;
   function invalidateManifest() {
     manifestCache = undefined;
   }
