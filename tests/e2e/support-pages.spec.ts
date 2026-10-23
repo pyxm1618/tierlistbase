@@ -27,6 +27,12 @@ test("About page uses shared site chrome and links to both live tier lists", asy
   await expect(page.getByRole("banner")).toBeVisible();
   await expect(page.getByRole("contentinfo")).toBeVisible();
 
+  const schema = await page.locator('main script[type="application/ld+json"]').textContent();
+  expect(JSON.parse(schema ?? "null")).toMatchObject({
+    "@type": "AboutPage",
+    name: "About TierListBase",
+  });
+
   const footer = page.getByRole("contentinfo");
   await expect(footer.getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
 

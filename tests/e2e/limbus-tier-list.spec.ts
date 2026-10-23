@@ -143,35 +143,34 @@ test("serves registered noindex metadata without canonical or a sitemap entry", 
   expect(await sitemap.text()).not.toContain(route);
 });
 
-test("keeps shared navigation on registered game pages and after client navigation", async ({
+test("keeps shared navigation on public game pages and hides unfinished preview routes from header", async ({
   page,
 }) => {
-  const labels = [
-    "World of Warcraft",
-    "Genshin Impact",
-    "NIKKE",
-    "Zenless Zone Zero",
-    "Limbus Company",
-  ];
-  const registeredGameRoutes = [
-    "/wow-forever/tier-list",
-    "/genshin-impact/tier-list",
-    "/nikke/tier-list",
-    "/zenless-zone-zero/tier-list",
-  ].filter((path) => routeRegistry.routes.some((entry) => entry.route === path));
+  const labels = ["World of Warcraft", "Genshin Impact"];
+  const registeredGameRoutes = ["/wow-forever/tier-list", "/genshin-impact/tier-list"].filter(
+    (path) => routeRegistry.routes.some((entry) => entry.route === path),
+  );
   // The clean-setup template deliberately exposes a smaller registered route inventory.
   for (const path of registeredGameRoutes) {
     await page.goto(path);
     const nav = page.locator('header nav[aria-label="Primary navigation"]');
     await expect(nav.getByRole("link")).toHaveText(labels);
+    const mobileNav = page.locator('header nav[aria-label="Mobile navigation"]');
+    for (const previewRoute of [
+      "/nikke/tier-list",
+      "/zenless-zone-zero/tier-list",
+      "/limbus-company/tier-list",
+    ]) {
+      await expect(mobileNav.locator(`a[href="${previewRoute}"]`)).toHaveCount(0);
+    }
   }
-  await page
-    .locator('header nav[aria-label="Primary navigation"]')
-    .getByRole("link", { name: "Limbus Company", exact: true })
-    .click();
+  await page.goto(route);
   await expect(page).toHaveURL(new RegExp(`${route}$`));
   await expect(page.locator('header nav[aria-label="Primary navigation"]')).toContainText("Games");
-  await page.goBack();
+  await page
+    .locator('header nav[aria-label="Primary navigation"]')
+    .getByRole("link", { name: "Games", exact: true })
+    .click();
   await expect(
     page.locator('header nav[aria-label="Primary navigation"]').getByRole("link"),
   ).toHaveText(labels);

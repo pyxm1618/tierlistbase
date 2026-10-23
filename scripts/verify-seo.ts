@@ -18,7 +18,11 @@ const contentByRoute = new Map<string, readonly LandingSection[]>([
   ["/", homeConfig.sections],
   ...seoLandingPages.map((page) => [page.route, page.sections] as const),
 ]);
-const bespokeIndexableRoutes = new Set(["/genshin-impact/tier-list", "/wow-forever/vanguard"]);
+const bespokeIndexableRoutes = new Set([
+  "/genshin-impact/tier-list",
+  "/wow-forever/vanguard",
+  "/about",
+]);
 
 function internalLinks(sections: readonly LandingSection[]) {
   const links: { label: string; href: string }[] = [];
@@ -121,6 +125,18 @@ if (home.description.length < 100 || home.description.length > 180) {
   throw new Error("homepage description fails strict TDH gate");
 }
 if (home.h1 !== "Tier List") throw new Error("homepage H1 must be Tier List");
+
+const about = routeRegistry.get("/about");
+if (about.class !== "public_indexable") throw new Error("about must be public indexable");
+if (
+  about.title !== "About TierListBase" ||
+  about.description !==
+    "Learn how TierListBase turns game data and evidence into clear, context-aware tier rankings for World of Warcraft: Forever and Genshin Impact." ||
+  about.h1 !== "About TierListBase" ||
+  about.pageType !== "WebApplication"
+) {
+  throw new Error("about SEO registry content drift");
+}
 
 if (process.env.APP_ENV === "production") {
   const releaseStatus: string = seoConfig.releaseStatus;

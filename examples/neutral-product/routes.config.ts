@@ -59,6 +59,13 @@ export const routeDefinitions = [
       "Preview the TierListBase Limbus Company tier list interface for Identity, Team, E.G.O, and Sinner-focused recommendations.",
   },
   {
+    route: "/about",
+    class: "public_noindex",
+    title: "About TierListBase",
+    description:
+      "Learn how TierListBase turns game data and evidence into clear, context-aware tier rankings for World of Warcraft: Forever and Genshin Impact.",
+  },
+  {
     route: "/privacy",
     class: "public_noindex",
     pageType: "Legal",
