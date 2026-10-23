@@ -1,8 +1,10 @@
 import { seedGenshinTestDatabase } from "../genshin-tier-list/database";
+import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 test.beforeAll(seedGenshinTestDatabase);
+test.beforeAll(seedWowPresentationFixtures);
 
 declare global {
   interface Window {

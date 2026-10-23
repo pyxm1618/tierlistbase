@@ -1,10 +1,12 @@
 import { expect, test } from "@playwright/test";
+import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
 
 test.describe("Real Navigation Latency", () => {
   test("Home to WoW Forever Tier List navigates smoothly within budget", async ({
     page,
     isMobile,
   }) => {
+    await seedWowPresentationFixtures();
     await page.goto("/", { waitUntil: "networkidle" });
 
     let link = page.locator(

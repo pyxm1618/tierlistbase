@@ -2,6 +2,13 @@ import { expect, test } from "@playwright/test";
 
 import { routeRegistry } from "@/config/routes.config";
 import { localePath } from "@/platform/i18n/routing";
+import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
+
+test.beforeAll(async () => {
+  if (process.env.TEST_DATABASE_URL) {
+    await seedWowPresentationFixtures();
+  }
+});
 
 function tokenize(value: string): string[] {
   return value.toLocaleLowerCase("en-US").match(/[\p{L}\p{N}]+/gu) ?? [];
@@ -65,6 +72,32 @@ const genshinVisibleCopySelectors = [
   '[data-ia-section="tier-definitions"] dd',
   '[data-ia-section="faq"] h2',
   '[data-ia-section="faq"] summary',
+] as const;
+
+const wowVisibleCopySelectors = [
+  "header[data-wow-hero] h1",
+  "header[data-wow-hero] p",
+  "header[data-wow-hero] dl",
+  'section[aria-labelledby="wow-context-heading"] h2',
+  'section[aria-labelledby="wow-context-heading"] > p',
+  'section[aria-labelledby="wow-context-heading"] dl',
+  'section[aria-labelledby="wow-context-heading"] nav a',
+  'nav[aria-label="Class Navigator"] button',
+  'section[aria-label="Tier Board"] header h2',
+  'section[aria-label="Tier Board"] header > span',
+  'section[aria-label="Tier Board"] div[class*="tierLabel"]',
+  'section[aria-labelledby="wow-insights-heading"] h2',
+  'section[aria-labelledby="wow-insights-heading"] > p',
+  'section[aria-labelledby="wow-insights-heading"] article h3',
+  'section[aria-labelledby="wow-changes-heading"] h2',
+  'section[aria-labelledby="wow-changes-heading"] > p',
+  'section[aria-labelledby="wow-sources-heading"] h2',
+  'section[aria-labelledby="wow-sources-heading"] > p',
+  'section[aria-labelledby="wow-sources-heading"] article strong',
+  'section[aria-labelledby="wow-sources-heading"] article p',
+  'section[aria-labelledby="wow-methodology-heading"] h2',
+  'section[aria-labelledby="wow-methodology-heading"] > p',
+  'section[aria-labelledby="wow-methodology-heading"] summary',
 ] as const;
 
 function decodeXml(value: string): string {
@@ -275,7 +308,12 @@ test("WoW visible main-content keyword group stays within the approved SEO range
   expect(wow.h1).toBe("WoW Tier List");
 
   await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
-  const words = tokenize(await page.locator("main").innerText());
+  const visibleCopy: string[] = [];
+  for (const selector of wowVisibleCopySelectors) {
+    const texts = await page.locator(selector).allInnerTexts();
+    visibleCopy.push(...texts.map((text) => text.trim()).filter(Boolean));
+  }
+  const words = tokenize(visibleCopy.join(" "));
   const primaryOccurrences = countPhrase(words, "wow tier list");
   const variantOccurrences = countPhrase(words, "wow forever tier list");
   const primaryDensity = (primaryOccurrences / Math.max(words.length, 1)) * 100;

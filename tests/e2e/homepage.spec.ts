@@ -1,4 +1,5 @@
 import { seedGenshinTestDatabase } from "../genshin-tier-list/database";
+import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
 import { expect, test } from "@playwright/test";
 
 import { routeRegistry } from "@/config/routes.config";
@@ -124,6 +125,7 @@ for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
 }
 
 test("WoW route remains navigable and ranked content remains intact", async ({ page }) => {
+  await seedWowPresentationFixtures();
   await page.goto("/");
   const link = page.locator("a[href='/wow-forever/tier-list']").first();
   await expect(link).toBeVisible();
@@ -171,6 +173,7 @@ test("cross-route prefetch isolation: Genshin and WoW pages do not leak Home Her
 }) => {
   if (process.env.TEST_DATABASE_URL) {
     await seedGenshinTestDatabase();
+    await seedWowPresentationFixtures();
   }
 
   // B. Directly visit /genshin-impact/tier-list

@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { routeRegistry } from "@/config/routes.config";
+import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
 for (const width of [390, 768, 1024, 1440, 1920]) {
   test(`Vanguard SSR foundation at ${width}px`, async ({ page }) => {
     test.skip(
@@ -50,6 +51,7 @@ test("camera remains disabled site-wide", async ({ request }) => {
   expect(response.headers()["permissions-policy"]).toContain("camera=()");
 });
 test("Vanguard class deep link selects the existing Tier List class", async ({ page }) => {
+  await seedWowPresentationFixtures();
   await page.goto("/wow-forever/tier-list?class=Warrior");
   await expect(page.getByRole("button", { name: "Warrior", exact: true })).toHaveAttribute(
     "aria-pressed",

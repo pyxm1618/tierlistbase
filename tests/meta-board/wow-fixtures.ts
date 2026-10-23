@@ -17,10 +17,12 @@ export async function seedWowPresentationFixtures() {
   const url = process.env.TEST_DATABASE_URL;
   if (!url) throw new Error("TEST_DATABASE_URL required");
   const target = new URL(url);
-  if (
-    !["localhost", "127.0.0.1"].includes(target.hostname) ||
-    !target.pathname.startsWith("/tierlistbase_presentation_test_wow_v1")
-  )
+  const dbName = target.pathname.replace(/^\//, "");
+  const isAllowedHost = ["localhost", "127.0.0.1", "::1"].includes(target.hostname);
+  const isAllowedDb =
+    dbName.startsWith("tierlistbase_presentation_test_wow_v1") ||
+    /(?:^|[_-])(test|e2e|perf|clean)(?:[_-]|$)/i.test(dbName);
+  if (!isAllowedHost || !isAllowedDb)
     throw new Error("Refusing synthetic data outside dedicated local WoW presentation database");
   const database = createDatabaseClient(url);
   try {
