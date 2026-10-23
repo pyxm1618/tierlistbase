@@ -4,7 +4,7 @@
 **版本：** 1.1 · Development Baseline  
 **日期：** 2026-10-19  
 **仓库：** pyxm1618/tierlistbase  
-**基线：** main @ 214c7f93feded0c0b84fd5cf98618e9637a81579
+**基线：** main @ 0cbf85190585b81fdbac7085f729faac55ff4841
 **活动页：** /wow-forever/vanguard  
 **核心业务页：** /wow-forever/tier-list  
 
