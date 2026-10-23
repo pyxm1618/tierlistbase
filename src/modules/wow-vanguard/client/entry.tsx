@@ -118,7 +118,11 @@ export function VanguardEntry(props: {
           {props.hero ? (
             <picture>
               {props.hero.mobileSrc && (
-                <source media="(max-width: 640px)" srcSet={props.hero.mobileSrc} type="image/webp" />
+                <source
+                  media="(max-width: 640px)"
+                  srcSet={props.hero.mobileSrc}
+                  type="image/webp"
+                />
               )}
               <Image
                 unoptimized

@@ -60,7 +60,8 @@ for (const profile of profiles) {
     const metrics = await page.evaluate(() => {
       const resources = performance.getEntriesByType("resource") as PerformanceResourceTiming[];
       const heroResource = resources.find(
-        (entry) => entry.name.includes("/vanguard-") && entry.name.includes("hero-base-mobile.webp"),
+        (entry) =>
+          entry.name.includes("/vanguard-") && entry.name.includes("hero-base-mobile.webp"),
       );
       return {
         lcp: window.__vanguardHeroVitals?.lcp ?? 0,

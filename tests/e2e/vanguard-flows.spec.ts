@@ -1375,10 +1375,9 @@ test.describe("Mobile visual capture", () => {
 
       // 3. Mobile Monument
       await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-      const mobileCanvas = page.getByLabel(
-        "Interactive Monument. Drag to pan or pinch to zoom.",
-        { exact: true },
-      );
+      const mobileCanvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
+        exact: true,
+      });
       await expect(mobileCanvas).toBeVisible();
       await expect
         .poll(async () => {
