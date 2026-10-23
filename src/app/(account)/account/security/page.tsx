@@ -98,6 +98,11 @@ export default async function AccountSecurityPage() {
           This revokes all access and permanently removes your authentication identity. Required
           financial or security records may remain pseudonymized according to the published policy.
         </p>
+        <p className={`mt-2 ${bodyText}`}>
+          Deleting your account will not release your Vanguard Seat; Seat IDs are permanent and
+          never reassigned. Inscribed personal text and images are removed or hidden, and the seat
+          permanently remains as an Unavailable Plate in the Monument.
+        </p>
         <form action="/api/account/delete" method="post" className="mt-5 max-w-sm">
           <label htmlFor="delete-confirmation" className={label}>
             Type DELETE to confirm

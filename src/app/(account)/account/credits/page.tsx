@@ -1,7 +1,7 @@
 import { desc, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { AccountShell } from "@/components/account/account-shell";
 import {
@@ -13,12 +13,17 @@ import {
   panel,
   subTitle,
 } from "@/components/ui/styles";
+import { featuresConfig } from "@/config/features.config";
 import { getAccountContext } from "@/platform/auth/account-context";
 import { getCreditBalance } from "@/platform/credits/application/credit-service";
 import { db } from "@/platform/database/application-database";
 import { creditGrants, creditLedgerEntries } from "@/platform/database/credit-schema";
 
 export default async function CreditsPage() {
+  if (!featuresConfig.commerce.enabled || !featuresConfig.commerce.credits) {
+    notFound();
+  }
+
   const context = await getAccountContext(await headers());
   if (!context) redirect("/sign-in");
 
