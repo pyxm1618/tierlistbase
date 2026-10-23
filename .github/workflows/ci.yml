@@ -6,7 +6,7 @@ on:
   pull_request:
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  group: ci-${{ github.workflow }}-${{ github.event_name == 'push' && github.sha || github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 permissions:
@@ -235,5 +235,14 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Build for Cloudflare
         run: bun run build:vinext
-      - name: Deploy to Production
-        run: bun run deploy:vinext
+      - name: Deploy current main to Production
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --depth=1
+          current_main="$(git rev-parse FETCH_HEAD)"
+          if [ "$GITHUB_SHA" != "$current_main" ]; then
+            echo "::error::Refusing stale production deploy: workflow SHA $GITHUB_SHA is not current main $current_main."
+            exit 1
+          fi
+          bun run deploy:vinext
