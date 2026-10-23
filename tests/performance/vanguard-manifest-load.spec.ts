@@ -2,10 +2,7 @@ import { expect, test } from "@playwright/test";
 import { sql } from "drizzle-orm";
 import { createDatabaseClient } from "@/platform/database/client";
 import { createVanguardService } from "@/modules/wow-vanguard/db/service";
-import {
-  vanguardEventState,
-  vanguardInscriptions,
-} from "@/modules/wow-vanguard/db/schema";
+import { vanguardEventState, vanguardInscriptions } from "@/modules/wow-vanguard/db/schema";
 import { assertSafeTestDatabaseUrl } from "../support/test-database-guard";
 
 const database = createDatabaseClient(
