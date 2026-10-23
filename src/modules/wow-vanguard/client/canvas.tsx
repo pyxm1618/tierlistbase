@@ -111,10 +111,7 @@ export function VanguardCanvas({
       if (cancelled) return;
       setError(null);
       if (!canvas.current || !assets.plate) return;
-      const letters =
-        phase === "wow"
-          ? ["W1", "O", "W2"]
-          : ["F", "O", "R1", "E1", "V", "E2", "R2"];
+      const letters = phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"];
       if (letters.some((letter) => !assets.layouts[`${phase}:${letter}`])) return;
       try {
         const [{ createVanguardScene, loadVanguardGroup, nearbyVanguardSeats }, { TextureLoader }] =
