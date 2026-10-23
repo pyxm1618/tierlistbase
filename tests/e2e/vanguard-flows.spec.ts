@@ -65,6 +65,7 @@ async function fixtures(
     longText?: boolean;
     manifestGate?: Promise<void>;
     stage?: "COMPLETE" | "WOW_COMPLETE_WAITING" | "FOREVER_OPEN";
+    expectNoMediaId?: boolean;
   } = {},
 ) {
   let accepted = Boolean(options.existing);
@@ -123,6 +124,7 @@ async function fixtures(
       const draft = request.postDataJSON();
       expect(draft.displayName).toBe(options.longText ? "先锋".repeat(16) : "Chosen Vanguard");
       expect(draft).not.toHaveProperty("email");
+      if (options.expectNoMediaId) expect(draft).not.toHaveProperty("mediaId");
       accepted = true;
       return route.fulfill({
         status: 201,
@@ -319,7 +321,7 @@ for (const width of [390, 768, 1024, 1440, 1920])
     const cleanup = await account(context);
     try {
       await page.setViewportSize({ width, height: 900 });
-      await fixtures(page, { longText: width === 1920 });
+      await fixtures(page, { longText: width === 1920, expectNoMediaId: true });
       await openClaim(page);
       if (width === 1920) {
         await page.getByLabel("Vanguard Name", { exact: true }).fill("先锋".repeat(16));
@@ -330,6 +332,9 @@ for (const width of [390, 768, 1024, 1440, 1920])
         "Private Google identity",
       );
       await inscribe(page);
+      const reveal = page.getByRole("region", { name: "Vanguard Reveal", exact: true });
+      await expect(reveal.getByAltText("Mage Default Emblem")).toHaveCount(1);
+      await expect(reveal.getByAltText("Your Vanguard Seal")).toBeVisible({ timeout: 15000 });
       await expect(
         page.getByRole("button", { name: "STAND BESIDE ME", exact: true }),
       ).toBeVisible();
@@ -432,6 +437,79 @@ for (const decision of ["approved", "rejected", "unavailable"] as const)
       await cleanup();
     }
   });
+test("pre-HOLD validation blocks every invalid client-verifiable Claim state", async ({
+  page,
+  context,
+}) => {
+  const cleanup = await account(context);
+  try {
+    await fixtures(page);
+    await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+    const hold = page.getByRole("button", { name: "HOLD TO INSCRIBE", exact: true });
+    await expect(hold).toBeDisabled();
+
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("A");
+    await page.getByLabel("Faction", { exact: true }).selectOption("horde");
+    await page.getByLabel("Class", { exact: true }).selectOption("Mage");
+    await expect(hold).toBeDisabled();
+
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("Chosen Vanguard");
+    await expect(hold).toBeEnabled();
+
+    await page.getByLabel("Guild (optional)").fill("https://example.com");
+    await expect(hold).toBeDisabled();
+    await page.getByLabel("Guild (optional)").fill("Test Guild");
+    await expect(hold).toBeEnabled();
+
+    await page.getByLabel("Battle Cry (optional)").fill("hero@example.com");
+    await expect(hold).toBeDisabled();
+    await page.getByLabel("Battle Cry (optional)").fill("For Azeroth");
+    await expect(hold).toBeEnabled();
+
+    await page.getByLabel("Faction", { exact: true }).selectOption("");
+    await expect(hold).toBeDisabled();
+    await page.getByLabel("Faction", { exact: true }).selectOption("horde");
+    await page.getByLabel("Class", { exact: true }).selectOption("");
+    await expect(hold).toBeDisabled();
+    await page.getByLabel("Class", { exact: true }).selectOption("Mage");
+    await page.getByLabel("Vanguard Name", { exact: true }).fill("");
+    await expect(hold).toBeDisabled();
+  } finally {
+    await cleanup();
+  }
+});
+
+test("custom Memory Image can be cleared back to the Mage Default Emblem without mediaId", async ({
+  page,
+  context,
+}) => {
+  const cleanup = await account(context);
+  try {
+    await fixtures(page, { media: "approved", expectNoMediaId: true });
+    await openClaim(page);
+    const image = await sharp({
+      create: { width: 1024, height: 768, channels: 3, background: "blue" },
+    })
+      .png()
+      .toBuffer();
+    await page
+      .getByLabel("Choose Memory Image")
+      .setInputFiles({ name: "synthetic.png", mimeType: "image/png", buffer: image });
+    await page.getByRole("button", { name: "Upload square crop" }).click();
+    await expect(page.getByText("Image approved")).toBeVisible();
+    await page.getByRole("button", { name: "Use Class Default Emblem" }).click();
+    await expect(page.getByText("Image approved")).toHaveCount(0);
+    await expect(page.getByText("Using Mage Default Emblem.", { exact: true })).toBeVisible();
+    await expect(page.getByLabel("Square crop preview", { exact: true })).toHaveCount(0);
+    await inscribe(page);
+    const reveal = page.getByRole("region", { name: "Vanguard Reveal", exact: true });
+    await expect(reveal.getByAltText("Mage Default Emblem")).toHaveCount(1);
+    await expect(reveal.getByAltText("Memory Image")).toHaveCount(0);
+  } finally {
+    await cleanup();
+  }
+});
+
 test("sealed polling leaves public Focus, share and Tier List available and blocks Claim", async ({
   page,
 }) => {
@@ -1423,7 +1501,7 @@ test("Hero hands the same Stage to Canvas without changing its bounds or scrolli
   await expect(page.getByText("Renew Seat Hold", { exact: true })).toHaveCount(0);
 });
 
-test("valid Seat deep link enters automatically and Focus stays inside the one Stage", async ({
+test("valid Seat deep link enters automatically, highlights nearby availability, and clears it on Focus close", async ({
   page,
 }) => {
   await fixtures(page, { existing: true });
@@ -1433,6 +1511,11 @@ test("valid Seat deep link enters automatically and Focus stays inside the one S
   await expect(stage.getByRole("region", { name: "Vanguard Focus", exact: true })).toBeVisible();
   await expect(stage.getByRole("region", { name: "Claim authentication" })).toHaveCount(0);
   await expect(stage.locator("canvas")).toHaveCount(1);
+  const nearby = stage.getByRole("complementary", { name: "Nearby available places" });
+  await expect(nearby).toBeVisible();
+  await expect(nearby.getByRole("button")).toHaveCount(4);
+  await stage.getByRole("button", { name: "Close Focus", exact: true }).click();
+  await expect(nearby).toHaveCount(0);
   await expect(page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true })).toHaveCount(
     0,
   );
@@ -1463,6 +1546,17 @@ test("pending server confirmation cannot show permanent success; a rejected POST
     await page.clock.fastForward(4000);
     await expect.poll(() => posts).toBe(1);
     await expect(page.getByText("Sealing · awaiting confirmation…", { exact: true })).toBeVisible();
+    for (const label of [
+      "Vanguard Name",
+      "Faction",
+      "Class",
+      "Guild (optional)",
+      "Battle Cry (optional)",
+      "Choose Memory Image",
+    ])
+      await expect(page.getByLabel(label, { exact: true })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Use Class Default Emblem" })).toBeDisabled();
+    await expect(button).toBeDisabled();
     await expect(page.getByLabel("Inscription ritual", { exact: true })).toHaveCount(0);
     await expect(page.getByRole("region", { name: "Vanguard Reveal", exact: true })).toHaveCount(0);
     release!();
