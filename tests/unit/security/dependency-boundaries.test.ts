@@ -44,9 +44,10 @@ describe("Supply Chain & Runtime Dependency Boundary Verification", () => {
   });
 
   it("ensures all high/critical direct runtime dependencies are patched and secure", () => {
-    // Next.js patched version >= 16.3.8 fixes all 4 known RCE/SSRF advisories
+    // Next.js 16.4.1 fixes GHSA-p3m5-59mp-jv5r, GHSA-2464-fhr4-w9xw and GHSA-673q-mjm6-r5xr.
     const nextVersion = packageJson.dependencies.next;
-    expect(nextVersion).toBe("16.3.8");
+    expect(nextVersion).toBe("16.4.1");
+    expect(packageJson.devDependencies["eslint-config-next"]).toBe(nextVersion);
 
     // Sharp override >= 0.35.4 fixes libheif/librsvg advisories
     const overrides = (packageJson as { overrides?: Record<string, string> }).overrides;
