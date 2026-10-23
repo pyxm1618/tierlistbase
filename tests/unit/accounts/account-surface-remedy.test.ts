@@ -8,6 +8,19 @@ vi.mock("@/platform/database/application-database", () => ({
   db: {},
 }));
 
+const mockFeaturesConfig = {
+  auth: { enabled: true, google: true, magicLink: false, password: false },
+  email: { enabled: true },
+  commerce: { enabled: false, oneTime: false, subscriptions: false, credits: false },
+  analytics: { enabled: false, ga4: false, clarity: false, consentRequired: true },
+};
+
+vi.mock("@/config/features.config", () => ({
+  get featuresConfig() {
+    return mockFeaturesConfig;
+  },
+}));
+
 const mocks = vi.hoisted(() => ({
   headers: vi.fn(),
   getAccountContext: vi.fn(),
