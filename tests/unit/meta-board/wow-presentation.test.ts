@@ -204,12 +204,15 @@ it("requires a complete, matching reviewed version and source check before Curre
     tiers: [{ tier: "A", items: [currentItem] }],
   };
   const now = new Date("2026-10-15T01:00:00Z");
-  expect(
-    summarizeWowStatus(
-      { ...current, version: { ...current.version, version: "Current Beta" } },
-      now,
-    ),
-  ).toBe("Current");
+  const currentBoard = {
+    ...current,
+    version: { ...current.version, version: "Current Beta" },
+  };
+  const prebuilt = buildWowSpecs(currentBoard);
+  expect(summarizeWowStatus(currentBoard, now, prebuilt)).toBe("Current");
+  expect(summarizeWowStatus(currentBoard, new Date("2026-10-16T01:00:01Z"), prebuilt)).toBe(
+    "Preliminary",
+  );
   expect(summarizeWowStatus(current, now)).toBe("Preliminary");
   expect(
     summarizeWowStatus(

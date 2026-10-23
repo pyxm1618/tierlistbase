@@ -13,8 +13,21 @@ export const metadata: Metadata = rootMetadata();
 
 export default async function LegalLayout({ children }: Readonly<{ children: ReactNode }>) {
   await connection();
+  const shouldLoadCmp =
+    process.env.APP_ENV === "production" || process.env.CREAT_WEB_E2E_ENABLED_FEATURES === "1";
+
   return (
     <html lang={siteConfig.defaultLocale}>
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-2804737462866511" />
+        {shouldLoadCmp ? (
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2804737462866511"
+            crossOrigin="anonymous"
+          />
+        ) : null}
+      </head>
       <body>
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
