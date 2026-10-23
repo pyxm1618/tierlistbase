@@ -208,7 +208,8 @@ export function VanguardEntry(props: {
               {(props.manifest.stage === "WOW_OPEN" ||
                 props.manifest.stage === "FOREVER_OPEN") && (
                 <p className="max-w-md text-xs text-[#cfbe9f]">
-                  A limited-time community tribute before WoW Forever launches — leave one permanent Seat.
+                  A limited-time community tribute before WoW Forever launches — leave one
+                  permanent Seat.
                 </p>
               )}
 
