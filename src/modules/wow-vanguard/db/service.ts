@@ -118,65 +118,84 @@ export function createVanguardService(
     if (existing)
       throw new VanguardError("ACCOUNT_ALREADY_INSCRIBED", 409, { seatId: existing.seatId });
   }
+  async function readManifest() {
+    return database.transaction(
+      async (transaction) => {
+        const [event] = await transaction
+          .select()
+          .from(vanguardEventState)
+          .where(eq(vanguardEventState.id, 1));
+        const rows = await transaction
+          .select({
+            seatId: vanguardInscriptions.seatId,
+            phase: vanguardInscriptions.phase,
+            localIndex: vanguardInscriptions.localIndex,
+            letter: vanguardInscriptions.letter,
+          })
+          .from(vanguardInscriptions);
+        const now = await authorityNow(transaction);
+        const state = {
+          wowClaimedCount: event?.wowClaimedCount ?? 0,
+          wowCompletedAt: event?.wowCompletedAt ?? null,
+          foreverClaimedCount: rows.filter((row) => row.phase === "forever").length,
+        };
+        const stage = resolveVanguardStage(now, state);
+        const foreverUnlockAt = state.wowCompletedAt
+          ? new Date(state.wowCompletedAt.getTime() + 86400000).toISOString()
+          : null;
+        const showForever =
+          foreverUnlockAt !== null &&
+          Date.parse(foreverUnlockAt) < Date.parse(EVENT_CLOSE_AT) &&
+          now.getTime() >= Date.parse(foreverUnlockAt);
+        const phase: "wow" | "forever" = showForever ? "forever" : "wow";
+        const letters =
+          phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"];
+        const perLetter = phase === "wow" ? 2672 : 8016;
+        const bits = new Uint8Array(Math.ceil((phase === "wow" ? 8016 : 56112) / 8));
+        for (const row of rows.filter((row) => row.phase === phase)) {
+          const index = letters.indexOf(row.letter) * perLetter + row.localIndex - 1;
+          bits[index >> 3]! |= 1 << (index & 7);
+        }
+        const payload = {
+          stage,
+          counts: {
+            wow: state.wowClaimedCount,
+            forever: state.foreverClaimedCount,
+            total: state.wowClaimedCount + state.foreverClaimedCount,
+          },
+          wowCompletedAt: state.wowCompletedAt?.toISOString() ?? null,
+          foreverUnlockAt,
+          eventCloseAt: EVENT_CLOSE_AT,
+          phase,
+          occupancy: Buffer.from(bits).toString("base64"),
+        };
+        return {
+          ...payload,
+          version: createHash("sha256").update(JSON.stringify(payload)).digest("hex"),
+        };
+      },
+      { isolationLevel: "repeatable read" },
+    );
+  }
+  let manifestCache:
+    | { expiresAt: number; value: ReturnType<typeof readManifest> }
+    | undefined;
+  function invalidateManifest() {
+    manifestCache = undefined;
+  }
+
   return {
     async manifest() {
-      return database.transaction(
-        async (transaction) => {
-          const [event] = await transaction
-            .select()
-            .from(vanguardEventState)
-            .where(eq(vanguardEventState.id, 1));
-          const rows = await transaction
-            .select({
-              seatId: vanguardInscriptions.seatId,
-              phase: vanguardInscriptions.phase,
-              localIndex: vanguardInscriptions.localIndex,
-              letter: vanguardInscriptions.letter,
-            })
-            .from(vanguardInscriptions);
-          const now = await authorityNow(transaction);
-          const state = {
-            wowClaimedCount: event?.wowClaimedCount ?? 0,
-            wowCompletedAt: event?.wowCompletedAt ?? null,
-            foreverClaimedCount: rows.filter((row) => row.phase === "forever").length,
-          };
-          const stage = resolveVanguardStage(now, state);
-          const foreverUnlockAt = state.wowCompletedAt
-            ? new Date(state.wowCompletedAt.getTime() + 86400000).toISOString()
-            : null;
-          const showForever =
-            foreverUnlockAt !== null &&
-            Date.parse(foreverUnlockAt) < Date.parse(EVENT_CLOSE_AT) &&
-            now.getTime() >= Date.parse(foreverUnlockAt);
-          const phase: "wow" | "forever" = showForever ? "forever" : "wow";
-          const letters =
-            phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"];
-          const perLetter = phase === "wow" ? 2672 : 8016;
-          const bits = new Uint8Array(Math.ceil((phase === "wow" ? 8016 : 56112) / 8));
-          for (const row of rows.filter((row) => row.phase === phase)) {
-            const index = letters.indexOf(row.letter) * perLetter + row.localIndex - 1;
-            bits[index >> 3]! |= 1 << (index & 7);
-          }
-          const payload = {
-            stage,
-            counts: {
-              wow: state.wowClaimedCount,
-              forever: state.foreverClaimedCount,
-              total: state.wowClaimedCount + state.foreverClaimedCount,
-            },
-            wowCompletedAt: state.wowCompletedAt?.toISOString() ?? null,
-            foreverUnlockAt,
-            eventCloseAt: EVENT_CLOSE_AT,
-            phase,
-            occupancy: Buffer.from(bits).toString("base64"),
-          };
-          return {
-            ...payload,
-            version: createHash("sha256").update(JSON.stringify(payload)).digest("hex"),
-          };
-        },
-        { isolationLevel: "repeatable read" },
-      );
+      const now = Date.now();
+      if (manifestCache && manifestCache.expiresAt > now) return manifestCache.value;
+      const value = readManifest();
+      manifestCache = { expiresAt: now + 1000, value };
+      try {
+        return await value;
+      } catch (error) {
+        if (manifestCache?.value === value) manifestCache = undefined;
+        throw error;
+      }
     },
     async hold(seatId: string, userId: string | null, previousToken?: string) {
       const seat = parseSeatId(seatId);
@@ -418,6 +437,7 @@ export function createVanguardService(
           await transaction
             .delete(vanguardSeatHolds)
             .where(eq(vanguardSeatHolds.seatId, input.seatId));
+          invalidateManifest();
           return publicInscription(row, acceptedMedia);
         });
       } catch (error) {
