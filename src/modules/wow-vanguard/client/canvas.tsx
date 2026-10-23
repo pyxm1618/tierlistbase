@@ -224,7 +224,12 @@ export function VanguardCanvas({
       const groups = loadedGroups.current;
       import("../experience/scene").then(({ nearbyVanguardSeats }) => {
         if (cancelled) return;
-        const nearby = nearbyVanguardSeats(groups, focusSeat, occupiedSeats(manifest), 4);
+        const nearby = nearbyVanguardSeats(
+          groups,
+          focusSeat,
+          occupiedSeats(manifest),
+          4,
+        );
         nearbyCallback.current(nearby);
         controller.current?.setNearbyHighlights(nearby);
       });
