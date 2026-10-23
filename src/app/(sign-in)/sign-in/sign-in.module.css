@@ -1,0 +1,156 @@
+.hero {
+  display: grid;
+  place-items: center;
+  min-height: calc(100svh - 55px);
+  padding: 64px 24px;
+  background: #10243b url("/brand/sign-in-background.webp") center center / cover no-repeat;
+}
+
+.panel {
+  width: min(744px, 100%);
+  padding: 72px 106px 40px;
+  border: 1px solid rgb(192 219 247 / 70%);
+  border-radius: 30px;
+  background: linear-gradient(
+    110deg,
+    rgb(22 19 33 / 88%),
+    rgb(0 24 46 / 88%) 56%,
+    rgb(8 36 57 / 84%)
+  );
+  box-shadow:
+    0 14px 48px rgb(1 10 25 / 30%),
+    inset 0 0 0 1px rgb(207 225 255 / 8%);
+  backdrop-filter: blur(8px);
+  text-align: center;
+  color: #f8f9ff;
+  transform: translateY(-10px);
+}
+
+.title {
+  margin: 0 -40px;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 62px;
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -1.4px;
+  white-space: nowrap;
+}
+
+.description {
+  margin: 20px -30px 0;
+  font-size: 24px;
+  line-height: 1.45;
+  color: #dce4f8;
+}
+
+.action {
+  margin-top: 40px;
+}
+
+.googleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 74px;
+  padding: 16px 20px;
+  border: 1px solid #e1e4eb;
+  border-radius: 18px;
+  background: #fff;
+  color: #111;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+  box-shadow: inset 0 0 8px rgb(184 195 210 / 12%);
+  transition:
+    background-color 150ms,
+    box-shadow 150ms;
+}
+
+.googleButton:hover:not(:disabled) {
+  background: #eef3fb;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 20%);
+}
+
+.googleButton:focus-visible {
+  outline: 3px solid #b9dcff;
+  outline-offset: 5px;
+}
+
+.googleButton:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.googleIcon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.supporting {
+  margin: 26px -16px 0;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #cdd8ec;
+}
+
+.error {
+  margin-top: 18px;
+  color: #ffd5d5;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    padding: 48px 20px;
+  }
+
+  .panel {
+    padding: 44px 24px 36px;
+    border-radius: 24px;
+    transform: none;
+  }
+
+  .title {
+    margin: 0;
+    font-size: clamp(29px, 7.5vw, 48px);
+    letter-spacing: -0.8px;
+    white-space: normal;
+  }
+
+  .description {
+    margin: 20px 0 0;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .desktopBreak {
+    display: none;
+  }
+
+  .action {
+    margin-top: 32px;
+  }
+
+  .googleButton {
+    min-height: 62px;
+    padding: 14px 12px;
+    gap: 12px;
+    border-radius: 14px;
+    font-size: 18px;
+  }
+
+  .googleIcon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .supporting {
+    margin: 24px 0 0;
+    font-size: 14px;
+  }
+}
