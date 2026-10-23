@@ -479,11 +479,13 @@ WOW 与 FOREVER 使用 **同一套图片上传要求**。
 
 ## 12. 最终提交与锁定
 
-用户在 HOLD TO INSCRIBE 之前可以修改草稿。
+用户在 HOLD TO INSCRIBE 之前可以修改草稿，但开始 HOLD 前必须先通过全部客户端可验证条件：Vanguard Name、Faction、Class 必填，文字字段继续使用既有 plain-text / length / link / contact 校验，Memory Image 只能处于 none 或 approved。
+
+HOLD 达到 **4 秒** 阈值后即进入 submission pending。此时直到 Inscription 成功、明确失败，或 lost-response 的 /me recovery 完成之前，Claim 全部锁定，包括文字字段、Faction、Class、图片选择、裁切、上传、Default Emblem 切换和再次 HOLD。
 
 一旦最终 Inscription 成功：
 
-**全部锁死。**
+**永久锁死。**
 
 用户不能再自行修改：
 
@@ -515,9 +517,11 @@ WOW 与 FOREVER 使用 **同一套图片上传要求**。
 
 **HOLD TO INSCRIBE**
 
-目标时长：
+提交前持续按住时长：
 
-**3–5 秒**
+**4 秒**
+
+服务器确认成功后继续约 **1.1 秒** 的 post-success Ritual，再进入 Reveal。
 
 过程：
 
@@ -572,21 +576,22 @@ WOW 与 FOREVER 使用 **同一套图片上传要求**。
 2. 直接看到当前阶段 Monument 与已占 Seat 数
 3. 点击 ENTER THE MONUMENT
 4. 使用鼠标、触控或键盘浏览
-5. 选择空 Seat，并立即创建短时 Seat Hold
-6. 填写 Vanguard Name / Faction / Class
-7. 可选填写 Guild / Battle Cry
-8. 最后正式占位前要求 Google 登录
-9. Google 登录返回后重新验证原 Seat：仍为空则继续 / 重新建立 Hold；若已被占，则保留全部文字草稿并推荐最近空 Seat
-10. 登录完成后，可选选择 Memory Image、进行 1:1 裁切、上传并自动审核
+5. 选择空 Seat，并立即创建现有 180 秒 Seat Hold
+6. 未登录用户先进入 Google 登录；此时尚未要求填写 Claim 表单
+7. Google OAuth 返回原 /wow-forever/vanguard?seat=...，重新验证原 Seat / Hold；若 Seat 已被占，则提示冲突并推荐最近空 Seat
+8. 登录完成后填写 Vanguard Name / Faction / Class
+9. 可选填写 Guild / Battle Cry
+10. 可选选择 Memory Image、进行 1:1 裁切、上传并自动审核；也可以直接使用所选 Class 的 Default Emblem
 11. 图片不合格则换图或使用 Default Emblem
-12. HOLD TO INSCRIBE
-13. 数据库事务完成正式占位
-14. 3–5 秒刻碑动画
-15. Reveal
-16. 生成 Vanguard Seal
-17. 用户保存 / 分享 / Stand Beside Me
-18. 展示与所选 Class 对应的 WoW Forever Tier List CTA
-19. 用户之后可以随时回到自己的 Seat，但不能修改
+12. 全部客户端可验证条件通过后，HOLD TO INSCRIBE 才可用
+13. 持续按住 4 秒后进入 submission pending，并锁定整个 Claim
+14. 数据库事务完成正式占位；lost response 继续使用 /me recovery
+15. 成功后约 1.1 秒 post-success Ritual
+16. Reveal
+17. 生成 Vanguard Seal
+18. 用户保存 / 分享 / Stand Beside Me
+19. 展示与所选 Class 对应的 WoW Forever Tier List CTA
+20. 用户之后可以随时回到自己的 Seat，但不能修改
 
 ---
 
