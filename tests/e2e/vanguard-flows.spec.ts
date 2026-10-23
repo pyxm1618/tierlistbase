@@ -6,7 +6,7 @@ import sharp from "sharp";
 import { readFile } from "node:fs/promises";
 import { createDatabaseClient } from "@/platform/database/client";
 import { user, session, accountSubjects } from "@/platform/database/schema";
-import { vanguardInscriptions } from "@/modules/wow-vanguard";
+import { vanguardInscriptions } from "@/modules/wow-vanguard/db/schema";
 import { assertSafeTestDatabaseUrl } from "../support/test-database-guard";
 // UI contract fixtures. Real DB transaction/provider evidence is covered separately; these are not live service acceptance.
 test.skip(
