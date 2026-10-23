@@ -267,7 +267,7 @@ export function VanguardCanvas({
         <canvas
           key={phase}
           ref={canvas}
-          aria-label="Interactive Monument. Drag to pan, scroll or pinch to zoom."
+          aria-label="Interactive Monument. Drag to pan or pinch to zoom."
           aria-describedby={keyboardHelpId}
           tabIndex={ready ? 0 : -1}
           className="focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-amber-400"
