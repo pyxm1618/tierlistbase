@@ -107,6 +107,8 @@ jobs:
         run: bun run test:build-matrix
       - name: Production application build
         run: bun run build
+      - name: Vanguard vinext build verification
+        run: bun run build:vinext
       - name: Release verification
         run: bun run verify:release --mode=test
 
