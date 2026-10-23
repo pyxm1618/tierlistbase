@@ -1,10 +1,32 @@
-# WoW V1 minimal asset ledger
+# WoW Forever asset provenance
 
-| asset name | final filename | original source/path | rights/usage basis | date | transformations | approval status |
-| --- | --- | --- | --- | --- | --- | --- |
-| WoW Hero | hero-3b7bb10711.webp | 素材/wow forever/hero.png (2172 × 724) | Source: user-provided project asset. No external source or copyright ownership asserted. | 2026-10-15 | Existing sharp: WebP quality 85; original dimensions retained; 299436 bytes; SHA-256 filename. No design crop or upscale. | FINAL / approved |
-| Class icon placeholder | neutral-placeholder.webp | Local geometric SVG source encoded to WebP; neutral square and plus sign | Local development placeholder expressly permitted by user; no official WoW imagery or identity claimed. | 2026-10-15 | SVG rasterized once at 128 × 128; WebP. Static import emits content-hashed build URL. | PLACEHOLDER / final assets pending |
-| Spec icon placeholder | neutral-placeholder.webp | Same neutral development asset as Class placeholder | Same user-approved placeholder exception; no external imagery. | 2026-10-15 | Reused static import; no extra asset sizes or infrastructure. | PLACEHOLDER / final assets pending |
-| Approved layout reference | Not shipped | 素材/wow forever/home.png | User-provided Final Design reference only | 2026-10-15 | Viewed for layout. No cropping or extraction into production assets. | Approved design reference |
+This directory contains production-owned WoW Forever presentation assets.
 
-Hero uses next/image with the existing Genshin `priority` convention as the only large preload. Icons are lazy, with 24/36/56px layout bounds and explicit sizes. Static imports provide build-time content hashing and Next immutable build-asset caching. No fixed public URL is made immutable. Text, labels, scores and buttons are DOM content. Final icon assets remain a delivery issue and are visibly labelled on the page.
+## Hero
+
+- `hero-3b7bb10711.webp`
+- source: user-provided project asset `素材/wow forever/hero.png` (2172 × 724)
+- transformation: encoded to WebP with the existing project image pipeline; original dimensions retained
+- status: FINAL
+
+## Class icons
+
+Production includes 9 Class icons under `icons/classes/**`.
+
+They were acquired from Blizzard first-party World of Warcraft icon endpoints by the repository's `scripts/process-wow-icons.mjs` pipeline and converted to WebP without inventing new class identity.
+
+## Spec icons
+
+Production includes 27 Spec/cohort icons under `icons/specs/**`.
+
+The acquisition pipeline uses Blizzard first-party sources where an exact first-party specialization identity exists. Forever-specific cohort labels that do not have a distinct Blizzard specialization icon retain the explicitly reviewed mapped source behavior implemented by the pipeline.
+
+The production renderer imports the 9 Class and 27 Spec WebP files directly. `neutral-placeholder.webp` remains only as a defensive fallback for an unmapped/invalid icon key; it is not the normal production Class/Spec artwork.
+
+## Runtime
+
+The mapping used by the WoW UI is implemented in:
+
+`src/modules/meta-board/wow/spec-icon.tsx`
+
+Do not use old V1 acceptance/evidence documents to decide whether icons are still pending. Current assets and executable mappings are the source of truth.

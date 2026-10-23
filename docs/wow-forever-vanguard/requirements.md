@@ -1,8 +1,8 @@
 # 8016 Vanguard Monument — 产品需求文档
 
 **项目：** TierListBase · WoW Forever 玩家先锋纪念碑  
-**版本：** 1.1 · Development Baseline  
-**日期：** 2026-10-19  
+**版本：** 1.2 · Current Product SSOT  
+**最近同步：** 2026-10-23  
 **活动页：** /wow-forever/vanguard  
 **核心业务页：** /wow-forever/tier-list  
 
@@ -895,21 +895,23 @@ V1 不做：
 
 ---
 
-## 26. 仍需设计提供的资产
+## 26. 当前正式资产状态
 
-产品规则已冻结，但以下美术资产仍需制作：
+本节只记录当前产品依赖，不再保留开发阶段的“待交付素材”清单。
 
-1. WOW Monument 主视觉
-2. FOREVER 展开后的整体主视觉
-3. WOW / FOREVER 中景
-4. Focus 状态
-5. Memory Plate 分层母版
-6. 9 个原创职业 Default Emblem
-7. 3–5 秒 Inscription Ritual 关键帧
-8. Vanguard Seal 9:16
-9. Vanguard Seal 1:1
-10. 原创背景音乐
-11. 刻碑 / 点亮短音效
+当前正式实现已经接入：
+
+1. WOW Monument 桌面与移动端主视觉
+2. FOREVER Monument 桌面与移动端主视觉
+3. WOW / FOREVER 十组最终 Seat Layout
+4. Memory Plate、Alliance / Horde Plate 与 Focus 视觉
+5. 9 个 TierListBase 原创职业 Default Emblem
+6. 5 帧 Inscription Ritual 与配套特效
+7. Vanguard Seal 9:16 与 1:1
+8. 原创背景音乐
+9. Focus、Plate Formation、Plate Insert、Seat Ignite 音效
+
+运行时资产入口以 `src/config/vanguard.config.ts` 为唯一事实源；Seat Layout 的两个 FINAL 源 JSON 保留在 `docs/wow-forever-vanguard/implementation/seat-layout/`，因为生成脚本和单元测试仍直接读取它们。R2 CORS 与 private lifecycle JSON 同理属于当前可复现的外部配置，而不是历史 evidence。
 
 ---
 

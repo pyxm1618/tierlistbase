@@ -1,28 +1,41 @@
 # Security policy
 
-## Supported versions
+TierListBase is an actively maintained public production application. Security support tracks the current `main` branch rather than an inherited starter-version number.
 
-| Starter version            | Security fixes             |
-| -------------------------- | -------------------------- |
-| 0.1.x                      | Supported                  |
-| Earlier/unversioned copies | Manual assessment required |
+## Reporting a vulnerability
 
-Owned products are independent codebases. A fix in this starter does not automatically patch an already-created product; maintainers must follow `docs/参考/扩展与升级.md`.
+Do not open a public issue containing exploit details, credentials, private user data or production payloads.
 
-## Private reporting
+Use GitHub's private security-advisory reporting path for this repository when available. Include:
 
-Do not open a public issue for a suspected vulnerability. Use this repository's private GitHub security-advisory reporting path and include affected commit/version, impact, reproduction conditions, and any evidence needed to validate the issue. If private vulnerability reporting is not enabled for the repository, contact the repository owner through an already-approved private organizational channel rather than publishing exploit details.
+- affected commit or current production behavior;
+- impact and affected surface;
+- minimal reproduction conditions;
+- evidence needed to validate the issue;
+- whether credentials or user data may have been exposed.
 
-Do not include real credentials, production webhook bodies, payment data, private user content, database dumps, or unnecessary personal data in a report.
+If private vulnerability reporting is unavailable, use an already-approved private owner/maintainer channel.
 
-## Triage and handling
+Never place real credentials, database dumps, OAuth secrets, signed webhook bodies, private Vanguard images, email contents or unnecessary personal data in a report.
 
-- **Critical:** exploitable authentication/authorization bypass, credential disclosure, arbitrary payment/credit mutation, remote code execution, or broad private-data exposure. Stop affected release/rollout, rotate exposed credentials where relevant, and prioritize containment and patch verification.
-- **High:** material integrity/confidentiality failures with realistic exploitation but narrower impact. Block release until patched or explicitly mitigated.
-- **Medium/Low:** bounded defense-in-depth or reliability issues. Track with an owner and verification plan; do not mislabel them as resolved before tests and affected owned projects are assessed.
+## Severity
 
-For every security/platform fix, record affected modules/files, migrations, environment/provider changes, verification commands, rollback considerations, and whether owned products require a manual port or cherry-pick. Update `CHANGELOG.md` when the starter version changes.
+- **Critical** — exploitable auth/authorization bypass, credential disclosure, remote code execution, broad private-data exposure, or an integrity failure that can materially compromise production.
+- **High** — realistic confidentiality/integrity failure with narrower impact.
+- **Medium / Low** — bounded security or defense-in-depth defect without the above impact.
 
-## Disclosure
+Critical and High issues should block affected releases until contained and verified.
 
-This repository does not promise a fixed public-disclosure deadline. Coordinate disclosure only after the issue is validated, affected maintainers have a practical remediation path, and disclosure will not unnecessarily increase user risk.
+## Handling
+
+For a security fix:
+
+1. contain active exposure first;
+2. rotate affected credentials when relevant;
+3. preserve evidence without copying sensitive payloads into tickets/chat;
+4. patch the smallest affected boundary;
+5. run the relevant security, unit, integration and browser gates;
+6. verify production configuration when the issue involves OAuth, Cloudflare, R2, Workers AI, database access or deployment;
+7. document only current operational guidance in the repository.
+
+Do not restore a leaked secret merely to make rollback easier. Roll back only to configurations that remain safe and valid.

@@ -1,343 +1,165 @@
-# TierListBase 产品方向与需求大纲
+# TierListBase 产品方向
 
-> 状态：产品方向草案  
-> **V1 范围已锁定：首发游戏为 World of Warcraft: Forever。详细范围以 `docs/v1-scope.md` 为最高优先级。**  
-> 本文保留长期产品方向；如与 V1 Scope 冲突，以 V1 Scope 为准。
+> 状态：CURRENT PRODUCT DIRECTION  
+> 最近同步：2026-10-23
 
-## 1. 项目定位
+## 1. 产品定义
 
-TierListBase 不应只是“再做一个 Tier List 网站”，也不应在第一阶段直接做成 TierMaker 式的 UGC 排名工具。
+TierListBase 的核心不是“做很多 Tier List 页面”，也不是做一个 Wiki、媒体站或通用 UGC 排名工具。
 
-当前更合理的方向是：
+核心定义：
 
-> **TierListBase = 一个结构化排名数据库，告诉用户谁更好、为什么更好、在什么条件下更好，以及其他可信来源怎么看。**
+> **TierListBase = 帮玩家快速看懂一个游戏当前 Meta 的视觉化、可验证排名系统。**
 
-英文可概括为：
+它需要回答四类真实问题：
 
-> **A structured ranking database that shows what is best, why, under what conditions, and what credible sources think.**
+1. **Orientation** — 当前环境里谁强、谁弱、整体格局是什么。
+2. **Decision** — 我应该选什么角色、职业、专精、队伍或其他决策对象。
+3. **Monitoring** — 版本变化以后，哪些排名真的改变了。
+4. **Validation** — 为什么这样排，依据是什么，不同来源为什么可能不同。
 
-“Base”意味着核心资产不是某一张榜，而是底层可复用的排名数据、上下文、来源和版本记录。
+“Base”的价值是可复用的排名实体、版本、上下文、来源、证据与变化记录，而不是某一张静态榜单。
 
----
+## 2. 当前产品状态
 
-## 2. 首个切入点
+当前产品已经不是单游戏 V1。
 
-V1 已正式锁定为：
+当前 indexable 核心页面包括：
 
-- **World of Warcraft: Forever Tier List**
+- TierListBase 首页
+- WoW Forever Tier List
+- Genshin Impact Tier List
+- WoW Forever Vanguard
+- About
 
-原因不是 WoW Forever 长期一定比原神更大，而是它处于新版本上线前窗口，Tier List 需求正在快速形成，同时 Class / Spec × Role × Content × Version 的结构非常适合验证 TierListBase 的通用 Ranking Database 模型。
+ZZZ、NIKKE、Limbus Company 已存在独立游戏模块/公开页面，但当前路由策略为 public noindex。是否转为 indexable 应按实际内容完整度、搜索意图和 SEO 验收单独决定，而不是因为模块已经存在就自动开放索引。
 
-V1 只支持 World of Warcraft: Forever。首页与 WoW Forever Tier List 是固定核心页面；只有真实关键词数据证明存在独立搜索意图、独立用户任务和实质不同内容时，才允许增加 WoW SEO 子页，不同时开发其他游戏。
+Vanguard 是 WoW Forever 的社区纪念活动，与 Tier List 主业务联动，但不是 TierListBase 的通用产品形态替代品。
 
-第二个验证游戏计划为：
+## 3. 核心产品单位：Game Meta Board
 
-- **Genshin Impact Tier List**
+长期最重要的产品单位是每个游戏的 **Game Meta Board**。
 
-原神用于验证同一套底层结构是否能进一步支持 Character × Constellation × Mode × Investment × Team Context 等更复杂条件。
+一个成熟的游戏页优先包含：
 
-TierListBase 的底层结构应继续保证后续可扩展到：
+- Current Rankings
+- Context / Mode / Version
+- Best For / Use Case
+- Changes
+- Why This Tier
+- Sources / Evidence
+- Freshness / Last Updated
 
-- Honkai: Star Rail
-- Wuthering Waves
-- Zenless Zone Zero
-- League of Legends
-- Valorant
-- Brawl Stars
-- Marvel Rivals
-- 其他游戏
+第一屏必须先帮助用户得到答案；解释和证据服务于信任，而不是抢占主榜单。
 
-动漫、影视、音乐、体育、Food 等“观点型 Tier List”可以作为更后期方向，不应成为 MVP 重点。
+## 4. 排名必须带上下文
 
----
+“谁最强”通常不是无条件问题。
 
-## 3. 对 Tier List 用户需求的核心理解
+排名至少要能够表达：
 
-用户搜索 “tier list” 表面是在问：
+- 游戏版本
+- 模式 / 内容类型
+- 角色、职业、专精或其他被排名实体
+- 职责 / Role
+- 数据或编辑证据
+- 新鲜度
+- 适用条件与局限
 
-> 谁最强？
+不同上下文需要不同榜单或筛选，不要把本质不同的对象硬塞进一张榜。
 
-实际上通常在问：
+## 5. 数据与可信度原则
 
-- 我应该抽谁？
-- 我应该练谁？
-- 当前版本谁最强？
-- 谁最适合我的账号？
-- 谁适合 F2P / 低投入？
-- 谁适合特定模式？
-- 没有某个关键队友还能不能用？
-- 某角色为什么是 S Tier？
-- 为什么不同网站排名不一样？
-- 新版本里谁升了、谁降了？
-- 两个角色到底该选谁？
+正式排名与证据必须可区分：
 
-因此，Tier List 本质上不是简单的排名内容，而是一种：
+- 已审阅事实
+- 数据观察
+- 编辑判断
+- 暂无足够证据 / Pending
+- 社区意见（未来如启用）
 
-> **决策界面。**
+缺数据时展示未知或 Pending，不伪造确定性。
 
-用户完整行为链更接近：
+来源数量本身不是目标。优先保留能解释排名、可追溯且与当前版本匹配的来源。
 
-> **发现 → 理解 → 比较 → 决策**
+## 6. Freshness 是核心能力
 
----
+Tier List 最大问题之一是过期。
 
-## 4. Tier List 的两大类型
+产品应该让用户知道：
 
-### 4.1 Utility Tier List
+- 当前版本是什么；
+- 数据/来源何时检查；
+- 排名何时发布；
+- 是否仍满足当前 freshness policy；
+- 与上一个有效版本相比发生了什么。
 
-用于真实决策。
+更新机制应优先于无限增加静态 SEO 页面。
 
-典型场景：
+## 7. 首页方向
 
-- 原神：抽谁、练谁、不同模式谁更强；
-- LoL：当前版本、位置、段位下谁更强；
-- Valorant：地图、段位、版本下谁更适合；
-- Brawl Stars：基于真实胜率、选取率判断 Meta。
+首页长期应成为整个 TierListBase 的 Meta 入口，而不是简单游戏目录。
 
-这是 TierListBase 第一阶段应该重点服务的类型。
+优先结构：
 
-### 4.2 Opinion Tier List
+- Current / Trending Games
+- Recently Updated
+- Biggest Meta Changes
+- Explore Games
 
-用于表达观点和社交。
+只有已有真实数据时才展示“变化”和“最近更新”，不要用假动态填充首页。
 
-例如：
+## 8. 社区方向
 
-- 最喜欢的动漫角色；
-- 最强反派；
-- 最好看的角色设计；
-- 最佳电影；
-- 最喜欢的水果。
+长期可以有社区层，但只能围绕 Ranking 服务。
 
-这种需求更接近 TierMaker 的 UGC 模型。
+可接受方向包括：
 
-第一阶段不建议把它作为核心。
+- Community Rating / Vote
+- 对正式榜单的讨论
+- 对证据或变化的反馈
 
----
+正式 Rating 与 Community Rating 必须分离。社区意见不能静默覆盖正式排名。
 
-## 5. 当前产品原则
+不把 TierListBase 做成 Reddit / Discord 替代品，也不为了社区而增加与排名无关的通用社交功能。
 
-### 5.1 第一层极简
+## 9. 内容扩张原则
 
-用户进入页面后，应在几秒钟内看到真正的 Tier List。
+是否新增一个游戏、榜单或 SEO 页面，看它是否解决独立用户任务，而不是“能不能做”。
 
-不能因为加入复杂条件而把首页做成 Excel。
+值得新增通常需要同时满足：
 
-首屏应快速提供：
+- 存在独立搜索或浏览需求；
+- 排名对象/上下文有清晰边界；
+- 有足够真实数据或可审阅依据；
+- 页面能比现有页提供新的决策价值；
+- 有持续更新路径。
 
-- 当前版本；
-- Tier List；
-- 角色头像；
-- S / A / B / C 等等级；
-- 基础筛选。
+同义关键词不应拆成多个低价值页面。
 
-### 5.2 第二层解释
+## 10. 当前非目标
 
-点击角色后，用户应知道：
+除非有独立需求验证，不优先做：
 
-- 为什么是这个 Tier；
-- 角色适合什么定位；
-- 适合什么模式；
-- 是否依赖特定队友；
-- 投入要求高不高；
-- 操作难度如何。
+- 大型 Wiki；
+- 泛游戏新闻；
+- 通用论坛/私信系统；
+- AI 问答替代整个浏览体验；
+- 大量低差异 SEO 页；
+- 为了“功能完整”而开启支付、积分、订阅等当前没有产品需求的能力。
 
-### 5.3 第三层决策
+## 11. 终局
 
-进一步回答：
+TierListBase 的终局不是“Tier List 搜索引擎”，而是：
 
-- 值不值得抽；
-- 值不值得练；
-- 与另一个角色相比应该选谁；
-- 是否适合当前账号；
-- 当前版本是否值得投入资源。
+> **The place players go to see, understand, and verify the current meta.**
 
----
+竞争力来自五件事：
 
-## 6. 原神页面的核心信息结构
+1. **Visual Meta Experience**
+2. **Freshness**
+3. **Trust / Evidence**
+4. **History / Changes**
+5. **Ranking-centered Community**
 
-第一版不一定全部实现，但底层方向应支持：
-
-### 6.1 Tier List 主体
-
-- Overall
-- Spiral Abyss
-- Stygian Onslaught
-- Exploration（可后置）
-
-角色维度：
-
-- Main DPS
-- Sub DPS / Damage Support
-- Support / Sustain
-
-筛选：
-
-- Search
-- Element
-- Rarity
-- Weapon
-- Constellation（后续）
-
-### 6.2 角色卡 / 详情
-
-建议逐步支持：
-
-- Overall Tier
-- Role Tier
-- Mode Tier
-- Constellation context
-- Investment level
-- Team dependency
-- Skill requirement
-- Best partners
-- Flexibility
-- Pull Value
-- Build Value
-- Account Value
-- Why this tier
-- Pros / Cons
-- Version
-- Last updated
-- Tier change
-- Reason for change
-- Sources
-
----
-
-## 7. 最大的用户痛点
-
-### 7.1 Tier List 缺少上下文
-
-同一个角色在不同条件下结果可能不同：
-
-- C0 vs C2
-- 有无专武
-- 有无关键队友
-- Abyss vs Stygian
-- 高手 vs 普通玩家
-- 高投入 vs 低投入
-
-因此不能简单理解为：
-
-> Character = Tier
-
-更合理的是：
-
-> **Entity × Context → Rating**
-
----
-
-### 7.2 不同网站排名不一致
-
-用户会问：
-
-> 为什么这个站是 S，另一个站是 A？
-
-这会直接产生信任问题。
-
-TierListBase 应明确：
-
-- 评级依据；
-- 来源；
-- 更新时间；
-- 版本；
-- 评分条件；
-- 是否存在来源分歧。
-
----
-
-### 7.3 榜单容易过期
-
-游戏 Tier List 对版本高度敏感。
-
-必须长期展示：
-
-- Game Version
-- Last Updated
-- Changelog
-- Tier movement
-- Source freshness
-
-过期的 Tier List 价值极低。
-
----
-
-## 8. Consensus Tier List 是重要方向
-
-TierListBase 不必声称：
-
-> “我们的主观判断一定最正确。”
-
-可以引入多个可信来源形成共识。
-
-例如：
-
-- Source A: S
-- Source B: S+
-- Source C: A
-- Source D: S
-
-标准化后得到：
-
-- Consensus score
-- Consensus tier
-- Source count
-- Source disagreement
-
-未来可形成：
-
-- Expert Rating
-- Data Rating
-- Consensus Rating
-- TierListBase Rating
-
-这是 TierListBase 与普通攻略站之间最有潜力形成差异化的部分之一。
-
----
-
-## 9. 不建议第一阶段做的事情
-
-暂不把以下内容作为核心：
-
-- 大规模 Community Voting；
-- Tier List Maker；
-- 用户拖拽制作自己的榜单；
-- Anime / Movies / Food 等泛娱乐分类；
-- AI 自动决定 Tier；
-- 过度复杂的个性化账号分析。
-
-这些都可以后续扩展，但会显著分散第一阶段注意力。
-
----
-
-## 10. 当前产品定义
-
-现阶段可以把 TierListBase 定义为：
-
-> **一个可信、透明、带上下文、可持续更新的 Tier List 数据库。**
-
-它需要回答四个问题：
-
-1. **谁更强？**
-2. **为什么？**
-3. **在什么条件下？**
-4. **其他可信来源怎么看？**
-
----
-
-## 11. 第一阶段成功标准
-
-第一阶段先证明：
-
-- 用户打开 WoW Forever Tier List 后能快速得到答案；
-- 排名结果有明确上下文；
-- 用户能理解为什么某角色处于某个 Tier；
-- 榜单明确标注版本和更新时间；
-- 来源和评级规则透明；
-- 数据结构可以复制到第二个游戏，而不是为原神单独重写。
-
-如果首个页面验证成功，再扩展：
-
-> WoW Forever → Genshin Impact（第二种游戏模型验证）→ HSR / WuWa / ZZZ / 其他游戏
-
-而不是一开始追求覆盖所有 Tier List 领域。
+任何新功能都应至少增强其中一项，否则默认不进入产品范围。
