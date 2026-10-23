@@ -92,9 +92,14 @@ The repository deliberately keeps only documentation that remains operationally 
 - `docs/wow-forever-publication.md` — WoW Forever ranking-data publication runbook.
 - `docs/wow-forever-vanguard/requirements.md` — Vanguard product SSOT.
 - `docs/wow-forever-vanguard/technical-design.md` — Vanguard current technical design.
-- `docs/运维/故障处理.md` — production operations, rollback, recovery and credential rotation.
+- `docs/运维/故障处理.md` — incidents, rollback and database recovery.
+- `docs/运维/上线检查清单.md` — current production release checklist.
+- `docs/运维/密钥轮换.md` — current credential-rotation procedures.
+- `docs/运维/交易与积分.md` — dormant commerce/credits safety boundary; production remains disabled.
+- `docs/参考/扩展与升级.md` — rules for changing dormant platform capabilities.
+- `docs/参考/waffo-合约与验收.md` — CI-enforced Waffo contract safety gate; relevant only if commerce is activated.
 
-Data- or asset-local README files remain beside the data/assets they describe.
+Data- or asset-local README files remain beside the data/assets they describe. Some operational/contract documents are retained because the current release-verification scripts read them directly; deleting those files requires a separately scoped code-gate change.
 
 Historical PR acceptance reports, implementation ledgers, screenshots, temporary performance evidence and completed development plans are intentionally not retained in the working tree. Git history is the historical record.
 

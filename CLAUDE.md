@@ -151,3 +151,21 @@ A document belongs in the working tree only if it is one of:
 Do not add completed-plan documents, PR acceptance reports, progress ledgers, closeout reports, screenshots, one-off benchmark evidence or duplicate historical inventories. Git history and CI are the history/evidence system.
 
 When a task finishes, update the relevant current SSOT if the current facts changed; do not create a new closeout document by default.
+
+
+## CI-enforced documentation inputs
+
+Some Markdown files are executable release-gate inputs, not optional historical notes.
+
+Current code directly reads:
+
+- `CHANGELOG.md`
+- `docs/建站手册.md`
+- `docs/运维/故障处理.md`
+- `docs/运维/密钥轮换.md`
+- `docs/运维/交易与积分.md`
+- `docs/运维/上线检查清单.md`
+- `docs/参考/扩展与升级.md`
+- `docs/参考/waffo-合约与验收.md`
+
+`scripts/verify-commerce.ts` also validates required Waffo contract language. Do not delete or casually rename these files in a docs-only task. Removing one requires an explicit, separately reviewed change to the verification code.
