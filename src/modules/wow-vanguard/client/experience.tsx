@@ -582,6 +582,7 @@ export function VanguardExperience({
                 onClick={() => {
                   cancelSelection();
                   setFocus(null);
+                  setNearby([]);
                   scene.current?.gather();
                 }}
                 className="absolute right-3 top-3 z-50 flex h-7 w-7 items-center justify-center rounded border border-[#7a6336]/50 text-sm text-[#cfbe9f] hover:border-[#d4af37] hover:text-white"
@@ -673,6 +674,7 @@ export function VanguardExperience({
                 onClick={() => {
                   cancelSelection();
                   setSelected(null);
+                  setNearby([]);
                   scene.current?.gather();
                 }}
                 className="absolute right-3 top-3 z-50 flex h-7 w-7 items-center justify-center rounded border border-[#7a6336]/50 text-sm text-[#cfbe9f] hover:border-[#d4af37] hover:text-white"
@@ -792,6 +794,7 @@ export function VanguardExperience({
                     setFocus(null);
                     setSelected(null);
                     setRevealed(false);
+                    setNearby([]);
                     scene.current?.gather();
                   }}
                   className="mt-2 text-xs text-[#9d8e78] underline hover:text-[#d4af37]"
