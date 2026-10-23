@@ -8,7 +8,9 @@ import {
 } from "@/modules/wow-vanguard/db/schema";
 import { assertSafeTestDatabaseUrl } from "../support/test-database-guard";
 
-const database = createDatabaseClient(assertSafeTestDatabaseUrl());
+const database = createDatabaseClient(
+  assertSafeTestDatabaseUrl({ ...process.env, DATABASE_URL: "" }),
+);
 const service = createVanguardService(database.db);
 const seatCounts = [0, 8016, 32000, 64128] as const;
 const clientCounts = [100, 500, 1000] as const;
