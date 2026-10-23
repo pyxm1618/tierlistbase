@@ -448,8 +448,7 @@ export function createVanguardScene(
     ids.slice(0, nearbyMarkers.length).forEach((seatId, markerIndex) => {
       const identity = parseSeatId(seatId);
       const group = groups.find(
-        (candidate) =>
-          candidate.phase === identity.phase && candidate.letter === identity.letter,
+        (candidate) => candidate.phase === identity.phase && candidate.letter === identity.letter,
       );
       if (!group) return;
       const index = identity.localIndex - 1;
