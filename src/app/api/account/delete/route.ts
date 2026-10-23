@@ -22,7 +22,14 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   const context = await requireAccountContext(request.headers);
-  assertFreshSession({ authenticatedAt: new Date(context.session.createdAt) }, new Date());
+  try {
+    assertFreshSession({ authenticatedAt: new Date(context.session.createdAt) }, new Date());
+  } catch {
+    return Response.redirect(
+      new URL("/sign-in?returnTo=%2Faccount%2Fsecurity", env.appOrigin),
+      303,
+    );
+  }
 
   const form = await request.formData();
   if (form.get("confirmation") !== "DELETE") {

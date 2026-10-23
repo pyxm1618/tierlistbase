@@ -12,12 +12,6 @@ const destinations = [
     label: "My Vanguard",
     body: "Your permanent place in the Monument.",
   },
-  { href: "/account/credits", label: "Credits", body: "Balances and recent ledger activity." },
-  {
-    href: "/account/billing",
-    label: "Billing history",
-    body: "Subscriptions, payments and refunds.",
-  },
   {
     href: "/account/security",
     label: "Security and account deletion",
