@@ -52,14 +52,16 @@ for (const profile of profiles) {
 
     const response = await page.goto("/wow-forever/vanguard", { waitUntil: "networkidle" });
     expect(response?.status()).toBe(200);
-    const hero = page.locator('img[src*="vanguard-hero"]').first();
+    const hero = page.locator("img.vanguard-heroArtwork").first();
     await expect(hero).toBeVisible();
     await expect(hero).toHaveJSProperty("complete", true);
     await page.waitForTimeout(250);
 
     const metrics = await page.evaluate(() => {
       const resources = performance.getEntriesByType("resource") as PerformanceResourceTiming[];
-      const heroResource = resources.find((entry) => entry.name.includes("/vanguard-hero"));
+      const heroResource = resources.find(
+        (entry) => entry.name.includes("/vanguard-") && entry.name.includes("hero-base-desktop"),
+      );
       return {
         lcp: window.__vanguardHeroVitals?.lcp ?? 0,
         cls: window.__vanguardHeroVitals?.cls ?? 0,
