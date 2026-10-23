@@ -271,7 +271,7 @@ async function seatCanvasPoint(page: Page, targetSeatId: string) {
   if (!layout || !Number.isInteger(localIndex) || localIndex < 0)
     throw new Error("Invalid test Seat");
   const offset = localIndex * 4;
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect(canvas).toBeVisible();
@@ -588,7 +588,7 @@ test("Escape during Seat focus cancels the pending panel", async ({ page }) => {
   await fixtures(page);
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect
@@ -611,7 +611,7 @@ test("FOREVER Search waits for the WOW scene to focus before opening a WOW inscr
   await fixtures(page, { stage: "FOREVER_OPEN", existing: true });
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect
@@ -698,7 +698,7 @@ test("keyboard users can select an empty Seat and reach Claim authentication", a
   await fixtures(page);
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).press("Enter");
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect
@@ -1143,7 +1143,7 @@ test("occupied and empty Seat clicks finish smooth focus before opening their pa
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
   await expect(
-    page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", { exact: true }),
+    page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", { exact: true }),
   ).toBeVisible();
   const occupiedPoint = await seatCanvasPoint(page, seatId);
   await observePanelFocusTiming(page);
@@ -1198,7 +1198,7 @@ test("FOREVER uses all seven real final layouts and the supplied background", as
   await page.goto("/wow-forever/vanguard");
   await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
   await expect.poll(() => layouts.size, { timeout: 25000 }).toBe(7);
-  const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
     exact: true,
   });
   await expect(canvas).toBeVisible();
@@ -1253,7 +1253,7 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
 
     // 4. Desktop Entered Monument
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-    const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
       exact: true,
     });
     await expect(canvas).toBeVisible();
@@ -1261,7 +1261,7 @@ test("Capture Desktop visual release suite (1920x1080)", async ({ page, context 
       .poll(async () => {
         const stats = await sharp(
           await page
-            .getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+            .getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
               exact: true,
             })
             .screenshot(),
@@ -1376,7 +1376,7 @@ test.describe("Mobile visual capture", () => {
       // 3. Mobile Monument
       await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
       const mobileCanvas = page.getByLabel(
-        "Interactive Monument. Drag to pan, scroll or pinch to zoom.",
+        "Interactive Monument. Drag to pan or pinch to zoom.",
         { exact: true },
       );
       await expect(mobileCanvas).toBeVisible();
@@ -1384,7 +1384,7 @@ test.describe("Mobile visual capture", () => {
         .poll(async () => {
           const stats = await sharp(
             await page
-              .getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+              .getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
                 exact: true,
               })
               .screenshot(),
@@ -1767,7 +1767,7 @@ test("Reveal preserves the full Monument overview after the accepted Ritual pull
     await fixtures(page);
     await page.goto("/wow-forever/vanguard");
     await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
-    const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
       exact: true,
     });
     async function pixels() {
@@ -1814,5 +1814,59 @@ test("Reveal preserves the full Monument overview after the accepted Ritual pull
     expect(meanDifference).toBeLessThan(3);
   } finally {
     await cleanup();
+  }
+});
+
+test("mouse wheel on Vanguard Canvas preserves default scrolling and does not zoom monument", async ({
+  page,
+}) => {
+  await fixtures(page);
+  await page.goto("/wow-forever/vanguard");
+  await page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true }).click();
+  const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
+    exact: true,
+  });
+  await expect
+    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
+    .toBe(1);
+
+  const dispatchedNotPrevented = await canvas.evaluate((node) =>
+    node.dispatchEvent(new WheelEvent("wheel", { deltaY: 300, bubbles: true, cancelable: true })),
+  );
+  expect(dispatchedNotPrevented).toBe(true);
+
+  async function pixels() {
+    const url = await canvas.evaluate(
+      (node) =>
+        new Promise<string>((resolve) =>
+          requestAnimationFrame(() => resolve((node as HTMLCanvasElement).toDataURL("image/png"))),
+        ),
+    );
+    return sharp(Buffer.from(url.split(",")[1]!, "base64"))
+      .resize(64, 64)
+      .removeAlpha()
+      .raw()
+      .toBuffer();
+  }
+
+  const before = await pixels();
+  const rect = await canvas.boundingBox();
+  if (!rect) throw new Error("Canvas missing");
+
+  await page.mouse.move(rect.x + rect.width / 2, rect.y + rect.height / 2);
+  await page.mouse.wheel(0, 300);
+  await page.waitForTimeout(100);
+
+  const after = await pixels();
+  const meanDifference =
+    after.reduce((sum, value, index) => sum + Math.abs(value - before[index]!), 0) / after.length;
+  expect(meanDifference).toBe(0);
+
+  const hasScrollableSpace = await page.evaluate(
+    () => document.documentElement.scrollHeight > window.innerHeight,
+  );
+  if (hasScrollableSpace) {
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBeGreaterThan(0);
   }
 });

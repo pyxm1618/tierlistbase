@@ -65,7 +65,7 @@ test("real API default-emblem Claim → DB → Reveal → Search → Report emai
     await page.screenshot({ path: "/tmp/vanguard-final-reveal.png", fullPage: true });
     const enter = page.getByRole("button", { name: "ENTER THE MONUMENT", exact: true });
     if (await enter.isVisible()) await enter.click();
-    const canvas = page.getByLabel("Interactive Monument. Drag to pan, scroll or pinch to zoom.", {
+    const canvas = page.getByLabel("Interactive Monument. Drag to pan or pinch to zoom.", {
       exact: true,
     });
     await expect(canvas).toBeVisible();
