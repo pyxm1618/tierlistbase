@@ -8,7 +8,6 @@ import { assertSafeTestDatabaseUrl } from "../support/test-database-guard";
 const database = createDatabaseClient(
   assertSafeTestDatabaseUrl({ ...process.env, DATABASE_URL: "" }),
 );
-const service = createVanguardService(database.db);
 const seatCounts = [0, 8016, 32000, 64128] as const;
 const clientCounts = [100, 500, 1000] as const;
 const pollWindowMs = 15_000;
@@ -112,7 +111,10 @@ async function dbStats() {
   };
 }
 
-async function runPollWindow(clients: number) {
+async function runPollWindow(
+  service: ReturnType<typeof createVanguardService>,
+  clients: number,
+) {
   const latencies: number[] = [];
   let errors = 0;
   const cpuBefore = process.cpuUsage();
@@ -167,6 +169,7 @@ test("Vanguard Manifest production-like polling load", async ({}, testInfo) => {
   const results: unknown[] = [];
   for (const seatCount of seatCounts) {
     await seedManifestRows(seatCount);
+    const service = createVanguardService(database.db);
     const dbStart = performance.now();
     await database.db.execute(sql`
       select seat_id, phase, local_index, letter
@@ -175,7 +178,7 @@ test("Vanguard Manifest production-like polling load", async ({}, testInfo) => {
     const dbQueryLatency = performance.now() - dbStart;
 
     for (const clients of clientCounts) {
-      const metrics = await runPollWindow(clients);
+      const metrics = await runPollWindow(service, clients);
       const result = { seatCount, dbQueryLatency, ...metrics };
       results.push(result);
       console.log("VANGUARD_MANIFEST_LOAD", JSON.stringify(result));
