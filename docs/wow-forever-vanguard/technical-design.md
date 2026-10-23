@@ -1409,7 +1409,7 @@ SAFE_QUERY_KEYS 如需要 seat / class 参数，必须按现有安全逻辑显�
 
 ### LCP
 
-静态 Hero。
+静态 Hero。移动端（<= 640px）在构建时从同一正式 Hero 原图等比生成 780px WebP 衍生图；桌面继续使用正式 PNG，不改变构图。
 
 ### JS
 

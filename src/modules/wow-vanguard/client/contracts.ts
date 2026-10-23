@@ -11,7 +11,9 @@ export type VanguardManifest = {
   version: string;
 };
 export type VanguardAssets = {
-  hero: Partial<Record<VanguardPhase, { src: string; width: number; height: number }>>;
+  hero: Partial<
+    Record<VanguardPhase, { src: string; mobileSrc?: string; width: number; height: number }>
+  >;
   layouts: Partial<Record<string, string>>;
   layoutScales?: Partial<Record<string, number>>;
   plates?: Partial<Record<"alliance" | "horde", string>>;

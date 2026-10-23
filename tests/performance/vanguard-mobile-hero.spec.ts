@@ -60,11 +60,12 @@ for (const profile of profiles) {
     const metrics = await page.evaluate(() => {
       const resources = performance.getEntriesByType("resource") as PerformanceResourceTiming[];
       const heroResource = resources.find(
-        (entry) => entry.name.includes("/vanguard-") && entry.name.includes("hero-base-desktop"),
+        (entry) => entry.name.includes("/vanguard-") && entry.name.includes("hero-base-mobile.webp"),
       );
       return {
         lcp: window.__vanguardHeroVitals?.lcp ?? 0,
         cls: window.__vanguardHeroVitals?.cls ?? 0,
+        heroResourceName: heroResource?.name ?? "",
         heroLoadTime: heroResource?.duration ?? 0,
         heroBytes: heroResource?.encodedBodySize || heroResource?.transferSize || 0,
         transferredBytes: resources.reduce(
@@ -83,6 +84,8 @@ for (const profile of profiles) {
       contentType: "application/json",
     });
 
+    expect(metrics.heroResourceName).toContain("hero-base-mobile.webp");
+    expect(metrics.heroBytes).toBeGreaterThan(0);
     expect(metrics.lcp).toBeGreaterThan(0);
     expect(metrics.cls).toBeLessThanOrEqual(0.1);
     expect(metrics.lcp).toBeLessThanOrEqual(profile.lcpBudget);

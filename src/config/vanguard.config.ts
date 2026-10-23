@@ -50,11 +50,13 @@ export const vanguardAssets = {
   hero: {
     wow: {
       src: "/wow-forever/vanguard/monument/vanguard-hero-base-desktop.png",
+      mobileSrc: "/wow-forever/vanguard/monument/vanguard-hero-base-mobile.webp",
       width: 1672,
       height: 941,
     },
     forever: {
       src: "/wow-forever/vanguard/monument/vanguard-forever-hero-base-desktop.png",
+      mobileSrc: "/wow-forever/vanguard/monument/vanguard-forever-hero-base-mobile.webp",
       width: 1774,
       height: 887,
     },

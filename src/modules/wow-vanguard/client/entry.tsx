@@ -13,7 +13,7 @@ export function VanguardEntry(props: {
   initialSeat: string | null;
   authenticated: boolean;
   heading?: string | undefined;
-  hero?: { src: string; width: number; height: number } | undefined;
+  hero?: { src: string; mobileSrc?: string; width: number; height: number } | undefined;
 }) {
   const [Experience, setExperience] = useState<React.ComponentType<
     typeof props & {
@@ -116,15 +116,21 @@ export function VanguardEntry(props: {
         <section aria-label="Monument" className={"vanguard-stageViewport"}>
           {/* Static Hero Artwork as primary SSR / LCP visual */}
           {props.hero ? (
-            <Image
-              unoptimized
-              src={props.hero.src}
-              width={props.hero.width}
-              height={props.hero.height}
-              alt=""
-              priority
-              className="vanguard-heroArtwork absolute inset-0 h-full w-full pointer-events-none transition-opacity duration-500"
-            />
+            <picture>
+              {props.hero.mobileSrc && (
+                <source media="(max-width: 640px)" srcSet={props.hero.mobileSrc} type="image/webp" />
+              )}
+              <Image
+                unoptimized
+                src={props.hero.src}
+                width={props.hero.width}
+                height={props.hero.height}
+                alt=""
+                loading="eager"
+                fetchPriority="high"
+                className="vanguard-heroArtwork absolute inset-0 h-full w-full pointer-events-none transition-opacity duration-500"
+              />
+            </picture>
           ) : (
             <div className="flex h-full w-full items-center justify-center text-center text-amber-200">
               <p>MISSING_ASSET: final {props.manifest.phase.toUpperCase()} Monument artwork.</p>

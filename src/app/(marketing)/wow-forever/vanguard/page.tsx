@@ -35,9 +35,14 @@ export default async function VanguardPage({
     COMPLETE: "THE MONUMENT IS COMPLETE",
     SEALED: "THE MONUMENT IS SEALED",
   }[manifest.stage];
-  const hero: { src: string; width: number; height: number } | undefined = (
+  const hero:
+    | { src: string; mobileSrc?: string; width: number; height: number }
+    | undefined = (
     vanguardAssets.hero as Partial<
-      Record<"wow" | "forever", { src: string; width: number; height: number }>
+      Record<
+        "wow" | "forever",
+        { src: string; mobileSrc?: string; width: number; height: number }
+      >
     >
   )[manifest.phase];
 
