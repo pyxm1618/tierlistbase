@@ -1678,20 +1678,10 @@ test("mouse wheel on Vanguard Canvas preserves default scrolling and does not zo
     .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
     .toBe(1);
 
-  await page.evaluate(() => {
-    (window as unknown as { __wheelEvents: { defaultPrevented: boolean }[] }).__wheelEvents = [];
-    window.addEventListener(
-      "wheel",
-      (event) => {
-        (
-          window as unknown as { __wheelEvents: { defaultPrevented: boolean }[] }
-        ).__wheelEvents.push({
-          defaultPrevented: event.defaultPrevented,
-        });
-      },
-      { passive: true, capture: true },
-    );
-  });
+  const dispatchedNotPrevented = await canvas.evaluate((node) =>
+    node.dispatchEvent(new WheelEvent("wheel", { deltaY: 300, bubbles: true, cancelable: true })),
+  );
+  expect(dispatchedNotPrevented).toBe(true);
 
   async function pixels() {
     const url = await canvas.evaluate(
@@ -1719,14 +1709,6 @@ test("mouse wheel on Vanguard Canvas preserves default scrolling and does not zo
   const meanDifference =
     after.reduce((sum, value, index) => sum + Math.abs(value - before[index]!), 0) / after.length;
   expect(meanDifference).toBe(0);
-
-  const tracked = await page.evaluate(
-    () =>
-      (window as unknown as { __wheelEvents?: { defaultPrevented: boolean }[] }).__wheelEvents ??
-      [],
-  );
-  expect(tracked.length).toBeGreaterThan(0);
-  expect(tracked.every((event) => !event.defaultPrevented)).toBe(true);
 
   const hasScrollableSpace = await page.evaluate(
     () => document.documentElement.scrollHeight > window.innerHeight,
