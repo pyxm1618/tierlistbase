@@ -366,7 +366,7 @@ export function createVanguardService(
             throw new VanguardError("UPLOAD_FAILED", 503);
         }
 
-        return await database.transaction(async (transaction) => {
+        const inscription = await database.transaction(async (transaction) => {
           const state = await lockEvent(transaction);
           let now = await authorityNow(transaction);
           assertPhaseOpen(now, state, seat.phase);
@@ -437,9 +437,10 @@ export function createVanguardService(
           await transaction
             .delete(vanguardSeatHolds)
             .where(eq(vanguardSeatHolds.seatId, input.seatId));
-          invalidateManifest();
           return publicInscription(row, acceptedMedia);
         });
+        invalidateManifest();
+        return inscription;
       } catch (error) {
         if (input.mediaId && expectedPublished && reservedByThisAttempt) {
           try {
