@@ -7,6 +7,7 @@ import bossRaidArt from "./assets/boss-raid.avif";
 import campaignTowerArt from "./assets/campaign-tower.avif";
 import heroArt from "./assets/hero.avif";
 import pvpArenaArt from "./assets/pvp-arena.avif";
+import { getCharacterAvatar } from "./character-avatars";
 import styles from "./nikke-tier-list.module.css";
 
 type ModeKey = "campaign" | "boss" | "pvp";
@@ -379,21 +380,39 @@ const navItems = [
   ["changelog", "Changelog"],
 ] as const;
 
-function Placeholder({ label, compact = false }: { label: string; compact?: boolean }) {
-  return (
-    <div
-      className={compact ? styles.placeholderCompact : styles.placeholder}
-      aria-label={`${label} image placeholder`}
-    >
-      <span>{label}</span>
-    </div>
-  );
-}
+function CharacterAvatar({
+  name,
+  variant = "portrait",
+  priority = false,
+}: {
+  name: string;
+  variant?: "portrait" | "compact" | "feature";
+  priority?: boolean;
+}) {
+  const avatar = getCharacterAvatar(name);
+  const containerClass =
+    variant === "compact"
+      ? styles.detailAvatar
+      : variant === "feature"
+        ? styles.featureAvatar
+        : styles.characterPortrait;
 
-function MiniPortrait({ name }: { name: string }) {
   return (
-    <div className={styles.miniPortrait} aria-label={`${name} placeholder portrait`}>
-      <span>{name.slice(0, 2).toUpperCase()}</span>
+    <div className={containerClass} aria-label={`${name} avatar`}>
+      <Image
+        src={avatar}
+        alt={name}
+        fill
+        sizes={
+          variant === "compact"
+            ? "92px"
+            : variant === "feature"
+              ? "(max-width: 768px) 132px, 256px"
+              : "(max-width: 768px) 60px, 80px"
+        }
+        priority={priority}
+        className={styles.avatarImage}
+      />
     </div>
   );
 }
@@ -447,7 +466,7 @@ function CharacterCard({
       onClick={onSelect}
       aria-pressed={selected}
     >
-      <MiniPortrait name={character.name} />
+      <CharacterAvatar name={character.name} />
       <strong>{character.name}</strong>
       <div className={styles.ratingStrip}>
         <span>{character.ratings.campaign}</span>
@@ -463,7 +482,7 @@ function DetailPanel({ character }: { character: Character }) {
   return (
     <aside className={styles.detailPanel} aria-label="Character Detail">
       <div className={styles.detailHeader}>
-        <Placeholder label={character.name} compact />
+        <CharacterAvatar name={character.name} variant="compact" />
         <div>
           <h3>{character.name}</h3>
           <strong className={styles.rarity}>{character.rarity}</strong>
@@ -575,7 +594,7 @@ function TeamPanel({ mode }: { mode: ModeKey }) {
       <div className={styles.teamLineup}>
         {content.lineup.map((name) => (
           <div key={name}>
-            <MiniPortrait name={name} />
+            <CharacterAvatar name={name} />
             <strong>{name}</strong>
           </div>
         ))}
@@ -765,7 +784,7 @@ export function NikkeTierListPage() {
                         });
                       }}
                     >
-                      <MiniPortrait name={name} />
+                      <CharacterAvatar name={name} />
                       <span>{name}</span>
                     </button>
                   ))}
@@ -945,7 +964,7 @@ export function NikkeTierListPage() {
 
               <div className={styles.characterInfo}>
                 <div className={styles.characterFeature}>
-                  <Placeholder label={selected.name} />
+                  <CharacterAvatar name={selected.name} variant="feature" priority />
                   <div>
                     <h3>{selected.name}</h3>
                     <p>
@@ -1018,7 +1037,7 @@ export function NikkeTierListPage() {
                   <h4>Core Partners</h4>
                   <div className={styles.partnerRow}>
                     {["Liter", "Naga", "Crown", "Modernia"].map((name) => (
-                      <MiniPortrait key={name} name={name} />
+                      <CharacterAvatar key={name} name={name} />
                     ))}
                   </div>
                 </section>
@@ -1026,7 +1045,7 @@ export function NikkeTierListPage() {
                   <h4>Replacement / Alternatives</h4>
                   <div className={styles.partnerRow}>
                     {["Scarlet", "Alice", "Maxwell", "Drake"].map((name) => (
-                      <MiniPortrait key={name} name={name} />
+                      <CharacterAvatar key={name} name={name} />
                     ))}
                   </div>
                 </section>
@@ -1126,7 +1145,7 @@ export function NikkeTierListPage() {
             <div className={styles.rerollRow}>
               {["Red Hood", "Modernia", "Scarlet", "Liter"].map((name) => (
                 <div key={name}>
-                  <MiniPortrait name={name} />
+                  <CharacterAvatar name={name} />
                   <strong>{name}</strong>
                   <span>Excellent</span>
                 </div>
@@ -1153,7 +1172,7 @@ export function NikkeTierListPage() {
             <div className={styles.wishlistRow}>
               {["Liter", "Naga", "Crown", "Modernia"].map((name, index) => (
                 <div key={name}>
-                  <MiniPortrait name={name} />
+                  <CharacterAvatar name={name} />
                   <strong>{name}</strong>
                   <span>
                     {wishlist} · {index < 2 ? "High" : "Medium"}
@@ -1229,7 +1248,7 @@ export function NikkeTierListPage() {
           <section id="current-banner" className={styles.panel}>
             <h2>▣ Current Banner Advice</h2>
             <div className={styles.bannerBody}>
-              <MiniPortrait name="Red Hood" />
+              <CharacterAvatar name="Red Hood" />
               <div>
                 <div className={styles.bannerBadges}>
                   <span>Worth Pulling</span>
