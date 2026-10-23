@@ -295,6 +295,10 @@ export function createVanguardScene(
   };
   canvas.addEventListener("pointerdown", pointerDown);
   canvas.addEventListener("pointerup", pointerUp);
+  const preventWheelZoom = (event: WheelEvent) => {
+    event.stopImmediatePropagation();
+  };
+  canvas.addEventListener("wheel", preventWheelZoom, { capture: true, passive: true });
   function clearTile(id: string) {
     const tile = tiles.get(id);
     if (tile) {
@@ -497,6 +501,7 @@ export function createVanguardScene(
       observer.disconnect();
       canvas.removeEventListener("pointerdown", pointerDown);
       canvas.removeEventListener("pointerup", pointerUp);
+      canvas.removeEventListener("wheel", preventWheelZoom, { capture: true });
       if (cameraMotion) {
         cameraMotion.resolve(false);
         cameraMotion = null;
