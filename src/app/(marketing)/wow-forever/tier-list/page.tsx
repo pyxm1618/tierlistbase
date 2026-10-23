@@ -49,6 +49,9 @@ const getWowPageData = unstable_cache(
       role,
       levelCap: 30,
     });
+    if (!data.hasData) {
+      throw new Error("WoW ranking data unavailable");
+    }
     const changes =
       data.activeContext && data.version
         ? await getRecentRatingChanges("wow-forever", 10, undefined, {
