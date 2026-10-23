@@ -111,7 +111,10 @@ export function VanguardCanvas({
       if (cancelled) return;
       setError(null);
       if (!canvas.current || !assets.plate) return;
-      const letters = phase === "wow" ? ["W1", "O", "W2"] : ["F", "O", "R1", "E1", "V", "E2", "R2"];
+      const letters =
+        phase === "wow"
+          ? ["W1", "O", "W2"]
+          : ["F", "O", "R1", "E1", "V", "E2", "R2"];
       if (letters.some((letter) => !assets.layouts[`${phase}:${letter}`])) return;
       try {
         const [{ createVanguardScene, loadVanguardGroup, nearbyVanguardSeats }, { TextureLoader }] =
@@ -167,12 +170,7 @@ export function VanguardCanvas({
           phase === manifest.phase &&
           (manifest.stage === "WOW_OPEN" || manifest.stage === "FOREVER_OPEN")
         ) {
-          const nearby = nearbyVanguardSeats(
-            groups,
-            focused.current,
-            occupiedSeats(manifest),
-            4,
-          );
+          const nearby = nearbyVanguardSeats(groups, focused.current, occupiedSeats(manifest), 4);
           nearbyCallback.current(nearby);
           active.setNearbyHighlights(nearby);
         }
@@ -224,12 +222,7 @@ export function VanguardCanvas({
       const groups = loadedGroups.current;
       import("../experience/scene").then(({ nearbyVanguardSeats }) => {
         if (cancelled) return;
-        const nearby = nearbyVanguardSeats(
-          groups,
-          focusSeat,
-          occupiedSeats(manifest),
-          4,
-        );
+        const nearby = nearbyVanguardSeats(groups, focusSeat, occupiedSeats(manifest), 4);
         nearbyCallback.current(nearby);
         controller.current?.setNearbyHighlights(nearby);
       });
