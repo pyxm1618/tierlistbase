@@ -229,6 +229,21 @@ export function createVanguardScene(
   focusMarker.visible = false;
   focusMarker.renderOrder = 20;
   scene.add(focusMarker);
+  const nearbyMarkerGeometry = new THREE.RingGeometry(0.52, 0.76, 24);
+  const nearbyMarkerMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffd875,
+    transparent: true,
+    opacity: 0.4,
+    side: THREE.DoubleSide,
+    depthTest: false,
+  });
+  const nearbyMarkers = Array.from({ length: 4 }, () => {
+    const marker = new THREE.Mesh(nearbyMarkerGeometry, nearbyMarkerMaterial);
+    marker.visible = false;
+    marker.renderOrder = 19;
+    scene.add(marker);
+    return marker;
+  });
   let visibleIds = new Set<string>();
   let occupied = options.occupied;
   const seatColors = createVanguardSeatColors();
@@ -430,6 +445,31 @@ export function createVanguardScene(
   function clearFocusMarker() {
     focusMarker.visible = false;
   }
+  function setNearbyMarkers(ids: readonly string[]) {
+    nearbyMarkers.forEach((marker) => {
+      marker.visible = false;
+    });
+    ids.slice(0, nearbyMarkers.length).forEach((seatId, markerIndex) => {
+      const identity = parseSeatId(seatId);
+      const group = groups.find(
+        (candidate) => candidate.phase === identity.phase && candidate.letter === identity.letter,
+      );
+      if (!group) return;
+      const index = identity.localIndex - 1;
+      const offset = index * 4;
+      const marker = nearbyMarkers[markerIndex]!;
+      marker.position.set(
+        group.positions[offset]!,
+        group.positions[offset + 1]!,
+        group.positions[offset + 2]! + 0.025,
+      );
+      marker.scale.setScalar(Math.max(0.9, group.scale ?? 1));
+      marker.visible = true;
+    });
+  }
+  function clearNearbyMarkers() {
+    setNearbyMarkers([]);
+  }
 
   function render(now: number) {
     if (stopped) return;
@@ -475,6 +515,9 @@ export function createVanguardScene(
       occupied = next;
       colorSeats();
     },
+    setNearbyHighlights(ids: readonly string[]) {
+      setNearbyMarkers(ids);
+    },
     focus(seatId: string) {
       const identity = parseSeatId(seatId);
       const group = groups.find((candidate) => {
@@ -493,6 +536,7 @@ export function createVanguardScene(
     },
     gather() {
       clearFocusMarker();
+      clearNearbyMarkers();
       void animateCamera(center, 1, 500);
     },
     dispose() {
@@ -509,8 +553,11 @@ export function createVanguardScene(
       controls.dispose();
       for (const id of tiles.keys()) clearTile(id);
       scene.remove(focusMarker);
+      nearbyMarkers.forEach((marker) => scene.remove(marker));
       focusMarkerGeometry.dispose();
       focusMarkerMaterial.dispose();
+      nearbyMarkerGeometry.dispose();
+      nearbyMarkerMaterial.dispose();
       meshes.forEach((mesh) => mesh.dispose());
       geometry.dispose();
       material.dispose();

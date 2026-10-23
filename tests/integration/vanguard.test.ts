@@ -61,9 +61,11 @@ describe("Vanguard PostgreSQL transactional integrity", () => {
     expect(loser.reason.status).toBe(409);
   });
   it("commits once, rejects an account's second seat globally and never leaks identity", async () => {
+    expect((await service.manifest()).counts.total).toBe(0);
     const held = await service.hold("WOW-W1-0001", first);
     const result = await service.inscribe(first, draft("WOW-W1-0001", held.holdToken));
     expect(result.seatId).toBe("WOW-W1-0001");
+    expect((await service.manifest()).counts.total).toBe(1);
     expect(JSON.stringify(result)).not.toMatch(/email|userId|Private Google|holdToken|@example/);
     await expect(service.hold("WOW-O-0001", first)).rejects.toMatchObject({
       code: "ACCOUNT_ALREADY_INSCRIBED",

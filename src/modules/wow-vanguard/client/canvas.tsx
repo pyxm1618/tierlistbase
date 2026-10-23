@@ -58,6 +58,7 @@ export function VanguardCanvas({
       pick: (x: number, y: number) => void;
       gather: () => void;
       focus: (seatId: string) => Promise<boolean>;
+      setNearbyHighlights: (ids: readonly string[]) => void;
     } | null,
   ) => void;
 }) {
@@ -166,9 +167,9 @@ export function VanguardCanvas({
           phase === manifest.phase &&
           (manifest.stage === "WOW_OPEN" || manifest.stage === "FOREVER_OPEN")
         ) {
-          nearbyCallback.current(
-            nearbyVanguardSeats(groups, focused.current, occupiedSeats(manifest)),
-          );
+          const nearby = nearbyVanguardSeats(groups, focused.current, occupiedSeats(manifest), 4);
+          nearbyCallback.current(nearby);
+          active.setNearbyHighlights(nearby);
         }
         controller.current = active;
         controllerCallback.current(active);
@@ -209,6 +210,7 @@ export function VanguardCanvas({
   useEffect(() => {
     let cancelled = false;
     if (
+      !overview &&
       focusSeat &&
       loadedGroups.current.length &&
       phase === manifest.phase &&
@@ -216,14 +218,19 @@ export function VanguardCanvas({
     ) {
       const groups = loadedGroups.current;
       import("../experience/scene").then(({ nearbyVanguardSeats }) => {
-        if (!cancelled)
-          nearbyCallback.current(nearbyVanguardSeats(groups, focusSeat, occupiedSeats(manifest)));
+        if (cancelled) return;
+        const nearby = nearbyVanguardSeats(groups, focusSeat, occupiedSeats(manifest), 4);
+        nearbyCallback.current(nearby);
+        controller.current?.setNearbyHighlights(nearby);
       });
-    } else nearbyCallback.current([]);
+    } else {
+      nearbyCallback.current([]);
+      controller.current?.setNearbyHighlights([]);
+    }
     return () => {
       cancelled = true;
     };
-  }, [focusSeat, manifest, phase]);
+  }, [focusSeat, manifest, overview, phase]);
   const blocked =
     !assets.plate ||
     !assets.hero[phase] ||
