@@ -11,6 +11,7 @@ import {
   type IdentityRow,
 } from "./data";
 import styles from "./limbus-tier-list.module.css";
+import { AssetSlot } from "./asset-slot";
 import { SinnerPortrait } from "./sinner-portrait";
 
 const identityFilters = [
@@ -42,18 +43,6 @@ const filterFields = {
   Availability: "availability",
 } as const satisfies Record<Exclude<IdentityFilter, "All Identities">, keyof IdentityRow>;
 
-function AssetSlot() {
-  return (
-    <span
-      className={[styles.assetSlot, styles.assetSlotCompact].join(" ")}
-      aria-label="Artwork asset required"
-      title="Artwork asset required"
-    >
-      <span>ART</span>
-    </span>
-  );
-}
-
 function TierBadge({ value }: { value: TierValue }) {
   return (
     <span className={styles.tierBadge} data-tier={value}>
@@ -78,7 +67,12 @@ function AvailabilityBadge({ value }: { value: Availability }) {
   );
 }
 
-export function IdentityRanking() {
+export function IdentityRanking({
+  artwork,
+}: {
+  /** canonical Identity name → 同源图片 URL；由服务端预先解析，避免把素材元数据打进客户端 bundle。 */
+  artwork: Readonly<Record<string, string>>;
+}) {
   const [search, setSearch] = useState("");
   const deferredSearch = useDeferredValue(search);
   const [activeFilter, setActiveFilter] = useState<IdentityFilter>("All Identities");
@@ -163,7 +157,7 @@ export function IdentityRanking() {
                 </td>
                 <td>
                   <div className={styles.nameCell}>
-                    <AssetSlot />
+                    <AssetSlot compact src={artwork[row.identity]} alt="" />
                     <strong>{row.identity}</strong>
                   </div>
                 </td>
@@ -205,7 +199,7 @@ export function IdentityRanking() {
         </table>
       </div>
     ),
-    [filteredIdentities],
+    [filteredIdentities, artwork],
   );
 
   return (
