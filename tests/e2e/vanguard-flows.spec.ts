@@ -1487,6 +1487,12 @@ test("Hero hands the same Stage to Canvas without changing its bounds or scrolli
   const stage = page.getByRole("region", { name: "Monument Stage", exact: true });
   await expect(stage).toHaveCount(1);
   await expect(stage.locator("img").first()).toBeVisible();
+  await expect(
+    stage.getByText(
+      "A limited-time community tribute before WoW Forever launches — leave one permanent Seat.",
+      { exact: true },
+    ),
+  ).toBeVisible();
   await expect(stage.locator("canvas")).toHaveCount(0);
   expect(requests.some((url) => /three|mediapipe|hand_landmarker|vision_wasm/.test(url))).toBe(
     false,
@@ -1532,8 +1538,20 @@ test("pending server confirmation cannot show permanent success; a rejected POST
   });
   let posts = 0;
   try {
-    await fixtures(page);
+    await fixtures(page, { media: "approved" });
     await openClaim(page);
+    const image = await sharp({
+      create: { width: 1024, height: 768, channels: 3, background: "blue" },
+    })
+      .png()
+      .toBuffer();
+    await page
+      .getByLabel("Choose Memory Image")
+      .setInputFiles({ name: "submission-lock.png", mimeType: "image/png", buffer: image });
+    await page.getByRole("button", { name: "Upload square crop" }).click();
+    await expect(page.getByText("Image approved")).toBeVisible();
+    const cropPreview = page.getByLabel("Square crop preview", { exact: true });
+    await expect(cropPreview).toHaveAttribute("aria-disabled", "false");
     await page.route("**/api/vanguard/inscriptions", async (route) => {
       posts++;
       await confirmation;
@@ -1556,6 +1574,10 @@ test("pending server confirmation cannot show permanent success; a rejected POST
     ])
       await expect(page.getByLabel(label, { exact: true })).toBeDisabled();
     await expect(page.getByRole("button", { name: "Use Class Default Emblem" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Upload square crop" })).toBeDisabled();
+    await expect(page.getByRole("slider", { name: "Zoom", exact: true })).toBeDisabled();
+    await expect(cropPreview).toHaveAttribute("aria-disabled", "true");
+    await expect(cropPreview).toHaveAttribute("tabindex", "-1");
     await expect(button).toBeDisabled();
     await expect(page.getByLabel("Inscription ritual", { exact: true })).toHaveCount(0);
     await expect(page.getByRole("region", { name: "Vanguard Reveal", exact: true })).toHaveCount(0);
