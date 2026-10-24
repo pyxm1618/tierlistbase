@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { afterEach, expect, it, vi } from "vitest";
 import nextConfig from "../../../next.config";
 import { siteConfig } from "@/config/site.config";
@@ -78,4 +79,9 @@ it("caches the final immutable audio files without caching the event HTML", asyn
       .find((rule) => rule.source === "/wow-forever/vanguard")
       ?.headers.some((header) => header.key === "Cache-Control"),
   ).toBeFalsy();
+});
+
+it("keeps Vanguard layout fetch compatible with Cloudflare Workers", () => {
+  const source = readFileSync("src/config/vanguard-runtime.config.ts", "utf8");
+  expect(source).not.toContain('cache: "force-cache"');
 });
