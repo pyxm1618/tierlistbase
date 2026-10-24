@@ -68,7 +68,6 @@ export function getVanguardService() {
   const catalog = createVanguardLayoutLookup(layouts, async (path) => {
     const response = await fetch(
       new URL(path, fixture ? "http://127.0.0.1:3199" : runtimeEnv.appOrigin),
-      { cache: "force-cache" },
     );
     if (!response.ok) throw new VanguardError("LAYOUT_UNAVAILABLE", 503);
     return response.arrayBuffer();
