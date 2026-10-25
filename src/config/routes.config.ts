@@ -123,7 +123,7 @@ export const routeDefinitions = [
   {
     route: "/nikke/tier-list",
     class: "public_noindex",
-    title: "NIKKE Tier List – Best Characters Ranked",
+    title: "NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE",
     description:
       "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
   },
