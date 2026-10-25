@@ -123,9 +123,9 @@ export const routeDefinitions = [
   {
     route: "/nikke/tier-list",
     class: "public_noindex",
-    title: "NIKKE Tier List Preview | TierListBase",
+    title: "NIKKE Tier List – Best Characters Ranked",
     description:
-      "Preview the TierListBase NIKKE tier list interface for Campaign, Boss, Raid, PvP, teams, reroll, wishlist, methodology, and character details.",
+      "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
   },
   {
     route: "/limbus-company/tier-list",
