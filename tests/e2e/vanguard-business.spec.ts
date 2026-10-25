@@ -128,7 +128,7 @@ test("real API default-emblem Claim → DB → Reveal → Search → Report emai
     expect(JSON.stringify(results)).not.toMatch(/Private OAuth|@example|userId/);
     const report = await page.request.post("/api/vanguard/reports", {
       headers: { Origin: "http://127.0.0.1:3197" },
-      data: { seatId, reason: "privacy" },
+      data: { operationId: crypto.randomUUID(), seatId, reason: "privacy" },
     });
     expect(report.status()).toBe(201);
     expect(report.headers()["cache-control"]).toBe("no-store");

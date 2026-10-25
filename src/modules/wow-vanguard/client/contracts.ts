@@ -92,8 +92,12 @@ const MESSAGES: Record<string, string> = {
     "The final Monument layout is awaiting its approved assets. Browsing remains available.",
   SEAT_NOT_FOUND: "No inscription was found at this Seat ID.",
   MEDIA_NOT_FOUND: "This image is no longer available. Choose it again.",
+  IDEMPOTENCY_CONFLICT:
+    "This report does not match the earlier submission. Please start a new report.",
+  REPORT_NOTIFICATION_REVIEW_REQUIRED:
+    "Your report is saved, but support notification is unconfirmed. Please contact support.",
   REPORT_NOTIFICATION_FAILED:
-    "Your report was saved, but support could not be notified. Please contact support.",
+    "Your report was saved, but support notification is unconfirmed. Please try again.",
   SERVICE_UNAVAILABLE: "The service is temporarily unavailable. Try again.",
 };
 export function vanguardErrorMessage(code: string) {

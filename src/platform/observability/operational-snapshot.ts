@@ -197,3 +197,33 @@ export async function collectOperationalAlertSnapshot(
     oldestRetainedWebhookAgeSeconds: webhookRetention.oldestRetainedPayloadAgeSeconds,
   };
 }
+
+export type AccountDeletionSnapshot = Readonly<{
+  jobBacklog: number;
+  oldestJobAgeSeconds: number;
+  failed: number;
+  deadLetters: number;
+}>;
+
+export async function collectAccountDeletionSnapshot(
+  database: DatabaseClient,
+  now = new Date(),
+): Promise<AccountDeletionSnapshot> {
+  const [queue, counts] = await Promise.all([
+    queueSnapshot(database, "account_deletion"),
+    database
+      .select({
+        failed: sql<number>`count(*) filter (where ${accountDeletionRequests.status} = 'failed')::int`,
+        deadLetters: sql<number>`count(*) filter (where ${accountDeletionRequests.status} = 'dead_letter')::int`,
+      })
+      .from(accountDeletionRequests),
+  ]);
+  return {
+    jobBacklog: queue.count,
+    oldestJobAgeSeconds: queue.oldestAt
+      ? Math.max(0, Math.floor((now.getTime() - new Date(queue.oldestAt).getTime()) / 1000))
+      : 0,
+    failed: Number(counts[0]?.failed ?? 0),
+    deadLetters: Number(counts[0]?.deadLetters ?? 0),
+  };
+}

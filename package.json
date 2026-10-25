@@ -38,7 +38,8 @@
     "build:vinext": "bun run generate:vanguard-hero && vite build",
     "start:vinext": "wrangler dev --config dist/server/wrangler.json",
     "deploy:vinext": "vinext-cloudflare deploy --config dist/server/wrangler.json",
-    "generate:vanguard-hero": "bun scripts/generate-vanguard-hero-derivatives.ts"
+    "generate:vanguard-hero": "bun scripts/generate-vanguard-hero-derivatives.ts",
+    "test:runtime:cloudflare": "bun scripts/smoke-cloudflare-runtime.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1152.0",

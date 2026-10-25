@@ -1871,3 +1871,36 @@ test("mouse wheel on Vanguard Canvas preserves default scrolling and does not zo
     expect(scrollY).toBeGreaterThan(0);
   }
 });
+
+test("Report retries and fast repeated clicks keep one operation; reopening starts another", async ({
+  page,
+}) => {
+  await fixtures(page, { sealed: true, existing: true });
+  const submissions: Array<{ operationId: string; reason: string }> = [];
+  await page.route("**/api/vanguard/reports", (route) => {
+    submissions.push(route.request().postDataJSON());
+    return route.fulfill(
+      submissions.length === 1
+        ? { status: 503, json: { error: { code: "REPORT_NOTIFICATION_FAILED" } } }
+        : { status: 201, json: { received: true } },
+    );
+  });
+  await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+  const focus = page.getByRole("region", { name: "Vanguard Focus", exact: true });
+  const report = focus.getByText("Report", { exact: true });
+  const submit = focus.getByRole("button", { name: "Submit Report" });
+  await report.click();
+  await submit.click();
+  await expect(submit).toBeEnabled();
+  await submit.click();
+  await expect(page.getByText("Report received. Thank you.", { exact: true })).toBeVisible();
+  await submit.click();
+  await expect.poll(() => submissions.length).toBe(3);
+  expect(new Set(submissions.map((value) => value.operationId)).size).toBe(1);
+  expect(submissions[0]!.operationId).toMatch(/^[a-f0-9-]{36}$/);
+  await report.click();
+  await report.click();
+  await submit.click();
+  await expect.poll(() => submissions.length).toBe(4);
+  expect(submissions[3]!.operationId).not.toBe(submissions[0]!.operationId);
+});

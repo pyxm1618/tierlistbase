@@ -54,6 +54,7 @@ export const inscriptionSchema = z
 export type InscriptionInput = z.infer<typeof inscriptionSchema>;
 export const reportSchema = z
   .object({
+    operationId: z.uuid(),
     seatId: seatIdSchema,
     reason: z.enum(["sexual_graphic", "hate_impersonation", "privacy", "spam_promotion", "other"]),
   })

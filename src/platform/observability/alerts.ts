@@ -1,4 +1,8 @@
+import type { AccountDeletionSnapshot } from "./operational-snapshot";
+
 export type OperationalAlertCode =
+  | "account_deletion_failed"
+  | "account_deletion_dead_letter"
   | "dead_letter_created"
   | "magic_link_volume_spike"
   | "webhook_invalid_signature_spike"
@@ -125,4 +129,30 @@ export function emitOperationalAlerts(
   write: (line: string) => void = console.error,
 ): void {
   for (const item of alerts) write(JSON.stringify(item));
+}
+
+export function evaluateAccountDeletionAlerts(
+  snapshot: AccountDeletionSnapshot,
+): OperationalAlert[] {
+  const alerts: OperationalAlert[] = [];
+  if (snapshot.failed > 0)
+    alerts.push(alert("account_deletion_failed", "warning", snapshot.failed, 1));
+  if (snapshot.deadLetters > 0)
+    alerts.push(alert("account_deletion_dead_letter", "critical", snapshot.deadLetters, 1));
+  if (
+    snapshot.jobBacklog >= DEFAULT_OPERATIONAL_ALERT_THRESHOLDS.jobBacklog ||
+    snapshot.oldestJobAgeSeconds >= DEFAULT_OPERATIONAL_ALERT_THRESHOLDS.oldestJobAgeSeconds
+  )
+    alerts.push(
+      alert(
+        "job_backlog_stale",
+        "critical",
+        Math.max(
+          snapshot.jobBacklog / DEFAULT_OPERATIONAL_ALERT_THRESHOLDS.jobBacklog,
+          snapshot.oldestJobAgeSeconds / DEFAULT_OPERATIONAL_ALERT_THRESHOLDS.oldestJobAgeSeconds,
+        ),
+        1,
+      ),
+    );
+  return alerts;
 }

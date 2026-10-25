@@ -68,6 +68,12 @@ export function VanguardExperience({
   const [suggested, setSuggested] = useState<string | null>(null);
   const [reportReason, setReportReason] = useState("privacy");
   const [reporting, setReporting] = useState(false);
+  const reportOperation = useRef<{
+    payload: string;
+    operationId: string;
+    received?: boolean;
+  } | null>(null);
+  const reportInFlight = useRef(false);
   const [countdown, setCountdown] = useState<string | null>(null);
 
   useEffect(() => {
@@ -268,15 +274,25 @@ export function VanguardExperience({
   }
 
   async function report() {
-    if (!focus) return;
+    if (!focus || reportInFlight.current) return;
+    reportInFlight.current = true;
+    const payload = JSON.stringify([focus.seatId, reportReason]);
+    if (reportOperation.current?.payload !== payload)
+      reportOperation.current = { payload, operationId: crypto.randomUUID() };
     setReporting(true);
     try {
-      await vanguardRequest("reports", { seatId: focus.seatId, reason: reportReason });
+      await vanguardRequest("reports", {
+        seatId: focus.seatId,
+        reason: reportReason,
+        operationId: reportOperation.current.operationId,
+      });
+      reportOperation.current.received = true;
       setNotice("Report received. Thank you.");
       trackVanguard("report_submit");
     } catch (cause) {
       error(cause);
     } finally {
+      reportInFlight.current = false;
       setReporting(false);
     }
   }
@@ -620,7 +636,19 @@ export function VanguardExperience({
                     </div>
 
                     {/* Low-priority Report Accordion */}
-                    <details className="text-xs text-[#8c7e6c]">
+                    <details
+                      className="text-xs text-[#8c7e6c]"
+                      onToggle={(event) => {
+                        // Reopening a completed report form is a new explicit submission.
+                        // Failed and ambiguous submissions retain their operation for retry.
+                        if (
+                          event.currentTarget.open &&
+                          !reportInFlight.current &&
+                          reportOperation.current?.received
+                        )
+                          reportOperation.current = null;
+                      }}
+                    >
                       <summary className="cursor-pointer hover:text-amber-200">Report</summary>
                       <div className="mt-2 flex flex-col gap-2 rounded border border-[#7a6336]/30 bg-[#0d0e14] p-2">
                         <label className="flex flex-col gap-1">

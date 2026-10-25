@@ -14,6 +14,7 @@ export function createVanguardMediaService(
   database: DatabaseClient,
   input: {
     storage: MediaStorage;
+    consumeModeration: (userId: string) => Promise<void>;
     moderate: (image: Buffer) => Promise<{
       decision: "approved" | "rejected" | "uncertain";
       probabilities: Record<string, number>;
@@ -73,6 +74,8 @@ export function createVanguardMediaService(
         if (media.moderationStatus === "approved") return { mediaId, status: "approved" as const };
         if (media.moderationStatus === "rejected")
           return { error: new VanguardError("MEDIA_MODERATION_REJECTED", 422) };
+        if (media.moderatedAt && media.moderationResult)
+          return { error: new VanguardError("MODERATION_UNAVAILABLE", 503) };
         let bytes: Buffer;
         try {
           bytes = await input.storage.readPending(media.privateMasterKey);
@@ -93,6 +96,7 @@ export function createVanguardMediaService(
         await input.storage.writePrivate(media.privateMasterKey, normalized.master);
         await input.storage.writePrivate(media.moderationKey, normalized.moderation);
         let moderation: Awaited<ReturnType<typeof input.moderate>>;
+        await input.consumeModeration(userId);
         try {
           moderation = await input.moderate(normalized.moderation);
         } catch (error) {

@@ -5,10 +5,15 @@ export type TransactionalEmailTemplate =
   | "vanguard-report";
 
 export type TransactionalEmail = {
+  readonly idempotencyKey?: string;
   readonly to: string;
   readonly template: TransactionalEmailTemplate;
   readonly subject: string;
   readonly html: string;
+};
+
+export type EmailSendOptions = {
+  readonly signal?: AbortSignal;
 };
 
 export type EmailSendResult = {
@@ -16,5 +21,5 @@ export type EmailSendResult = {
 };
 
 export interface EmailSender {
-  send(message: TransactionalEmail): Promise<EmailSendResult>;
+  send(message: TransactionalEmail, options?: EmailSendOptions): Promise<EmailSendResult>;
 }

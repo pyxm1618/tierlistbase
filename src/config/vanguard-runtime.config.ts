@@ -2,6 +2,7 @@ import "server-only";
 import { z } from "zod";
 import {
   VanguardError,
+  createVanguardModerationLimiter,
   createVanguardR2,
   removeVanguardAccount,
   createVanguardService,
@@ -85,6 +86,11 @@ export function getVanguardMediaService() {
   if (!accountId || !token) throw new VanguardError("MODERATION_UNAVAILABLE", 503);
   return createVanguardMediaService(db, {
     storage: getVanguardR2(),
+    consumeModeration: createVanguardModerationLimiter(
+      runtimeEnv.databaseUrl,
+      runtimeEnv.betterAuthSecret ?? "",
+      vanguardConfig.moderationLimit,
+    ),
     moderate: (image) =>
       moderateVanguardImage({
         accountId,

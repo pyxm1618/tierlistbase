@@ -39,3 +39,5 @@ export { sealTextLines } from "./experience/seal-renderer";
 export { createVanguardSeatColors } from "./experience/scene";
 
 export { createVanguardScatterTargets, applyVanguardScatter } from "./experience/scene";
+
+export { createVanguardModerationLimiter } from "./media/moderation-limit";

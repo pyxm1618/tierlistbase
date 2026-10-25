@@ -4,6 +4,7 @@ import wowLayout from "../../public/wow-forever/vanguard/layouts/wow-layout.json
 export const vanguardConfig = {
   eventCloseAt: "2026-11-04T23:00:00Z",
   holdSeconds: 180,
+  moderationLimit: { max: 20, windowMs: 24 * 60 * 60 * 1000 },
   foreverDelayMs: 24 * 60 * 60 * 1000,
   wowCapacity: 8016,
   foreverCapacity: 56112,
