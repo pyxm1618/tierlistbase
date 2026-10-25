@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
+import Link from "next/link";
 import { wowClassFromQuery } from "@/modules/wow-vanguard";
 import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
@@ -35,6 +36,17 @@ type ValidWowRole = "dps" | "tank" | "healer";
 
 function normalizeWowRole(role: string | undefined): ValidWowRole {
   return role === "tank" || role === "healer" || role === "dps" ? role : "dps";
+}
+
+function VanguardMonumentLink() {
+  return (
+    <Link
+      href="/wow-forever/vanguard"
+      className="font-semibold text-amber-300 underline-offset-4 hover:underline"
+    >
+      Vanguard Monument
+    </Link>
+  );
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -132,12 +144,7 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
                 Beta context.
               </p>
               <p className="mt-4">
-                <a
-                  href="/wow-forever/vanguard"
-                  className="font-semibold text-amber-300 underline-offset-4 hover:underline"
-                >
-                  Vanguard Monument
-                </a>
+                <VanguardMonumentLink />
               </p>
             </div>
             <dl className={styles.heroFacts}>
