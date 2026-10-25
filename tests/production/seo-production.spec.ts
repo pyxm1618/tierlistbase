@@ -369,15 +369,12 @@ test("WoW visible main-content keyword group stays within the approved SEO range
   );
 });
 
-test("NIKKE SEO copy is staged while mock data keeps the route non-indexable", async ({
-  page,
-  request,
-}) => {
+test("NIKKE production SEO staging remains noindex", async ({ page, request }) => {
   const nikke = routeRegistry.get("/nikke/tier-list");
   expect(nikke.class).toBe("public_noindex");
   expect(nikke.title).toBe("NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE");
   expect(nikke.description).toBe(
-    "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
+    "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and team context for the best NIKKE characters.",
   );
 
   const response = await page.goto("/nikke/tier-list", { waitUntil: "networkidle" });
@@ -385,7 +382,7 @@ test("NIKKE SEO copy is staged while mock data keeps the route non-indexable", a
   await expect(page).toHaveTitle("NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
-    "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
+    "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and team context for the best NIKKE characters.",
   );
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.locator("h1")).toHaveText("NIKKE Tier List");
@@ -399,8 +396,9 @@ test("NIKKE SEO copy is staged while mock data keeps the route non-indexable", a
     visibleCopy.push(...texts.map((text) => text.trim()).filter(Boolean));
   }
   const words = tokenize(visibleCopy.join(" "));
+  const counts = countNonOverlappingPhrases(words, nikkeKeywordGroup);
   const phraseStats = nikkeKeywordGroup.map((phrase) => {
-    const occurrences = countPhrase(words, phrase);
+    const occurrences = counts[phrase]!;
     return {
       phrase,
       occurrences,
@@ -432,7 +430,7 @@ test("NIKKE SEO copy is staged while mock data keeps the route non-indexable", a
   }
 
   const bodyText = await page.locator("body").innerText();
-  expect(bodyText).toMatch(/Mock summary|Mock date|Coming Soon/);
+  expect(bodyText).not.toMatch(/Mock summary|Mock date|Coming Soon/);
 
   const sitemap = await (await request.get("/sitemap.xml")).text();
   expect(sitemap).not.toContain("/nikke/tier-list");

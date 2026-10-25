@@ -2,6 +2,7 @@ import { existsSync, readdirSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
+import nikkeData from "../../../nikke-real-data.json";
 import {
   RENDERED_CHARACTER_AVATARS,
   getCharacterAvatar,
@@ -24,37 +25,17 @@ describe("NIKKE Character Avatars", () => {
     }
   });
 
-  it("strictly maps all 18 currently rendered characters without missing entries", () => {
-    const renderedNames = [
-      "Alice",
-      "Blanc",
-      "Centi",
-      "Crown",
-      "Dorothy",
-      "Drake",
-      "Helm",
-      "Liter",
-      "Maxwell",
-      "Miranda",
-      "Modernia",
-      "Naga",
-      "Noir",
-      "Noise",
-      "Privaty",
-      "Rapunzel",
-      "Red Hood",
-      "Scarlet",
-    ];
+  it("maps every production dataset character to an existing local avatar", () => {
+    expect(Object.keys(RENDERED_CHARACTER_AVATARS)).toHaveLength(203);
+    expect(nikkeData.characters).toHaveLength(203);
 
-    expect(Object.keys(RENDERED_CHARACTER_AVATARS)).toHaveLength(18);
-
-    for (const name of renderedNames) {
-      const avatar = getCharacterAvatar(name);
+    for (const character of nikkeData.characters) {
+      const avatar = getCharacterAvatar(character.name);
       expect(avatar).toBeDefined();
     }
   });
 
-  it("throws clear error when querying an unmapped character instead of silent fallback", () => {
+  it("throws a clear error for an unknown character instead of using a silent fallback", () => {
     expect(() => getCharacterAvatar("NonExistentCharacter")).toThrowError(
       'Missing verified avatar asset for rendered character: "NonExistentCharacter"',
     );

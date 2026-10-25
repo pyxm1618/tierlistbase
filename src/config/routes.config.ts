@@ -126,7 +126,7 @@ export const routeDefinitions = [
     class: "public_noindex",
     title: "NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE",
     description:
-      "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
+      "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and team context for the best NIKKE characters.",
   },
   {
     route: "/limbus-company/tier-list",
