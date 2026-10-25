@@ -3,10 +3,21 @@ import vinextWorker from "vinext/server/fetch-handler";
 import { runWithRequestDatabase } from "./src/platform/database/application-database";
 
 type WorkerContext = { waitUntil(promise: Promise<unknown>): void };
+type AssetBinding = { fetch(request: Request): Promise<Response> };
+type WorkerEnv = Record<string, unknown> & { ASSETS?: AssetBinding };
 
 const worker = {
-  fetch(request: Request, env: Record<string, unknown>, ctx: WorkerContext): Promise<Response> {
+  fetch(request: Request, env: WorkerEnv, ctx: WorkerContext): Promise<Response> {
     const pathname = new URL(request.url).pathname;
+    const isVanguardLayoutAsset =
+      request.method === "GET" &&
+      /^\/wow-forever\/vanguard\/layouts\/(?:wow-(?:W1|O|W2)|forever-(?:F|O|R1|E1|V|E2|R2))\.f32$/.test(
+        pathname,
+      );
+    if (isVanguardLayoutAsset) {
+      if (!env.ASSETS) return Promise.resolve(new Response("Asset binding unavailable", { status: 503 }));
+      return env.ASSETS.fetch(request);
+    }
     const isPublicPageRead =
       request.method === "GET" &&
       ["/", "/genshin-impact/tier-list", "/wow-forever/tier-list"].includes(pathname);
