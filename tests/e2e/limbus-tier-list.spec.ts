@@ -290,79 +290,79 @@ for (const width of [390, 1440]) {
     test(
       "renders local Identity, E.G.O, and Team artwork without broken or hotlinked images",
       async ({ page }) => {
-      await page.goto(route);
+        await page.goto(route);
 
-      // 名称列（第 3 列）全部替换为本地素材
-      const identityArt = page.locator("#identity-tier-list tbody tr td:nth-child(3) img");
-      const egoArt = page.locator("#ego-tier-list tbody tr td:nth-child(3) img");
-      const teamArt = page.locator("#team-tier-list tbody tr td:nth-child(3) img");
-      await expect(identityArt).toHaveCount(190);
-      await expect(egoArt).toHaveCount(116);
-      await expect(teamArt).toHaveCount(12);
+        // 名称列（第 3 列）全部替换为本地素材
+        const identityArt = page.locator("#identity-tier-list tbody tr td:nth-child(3) img");
+        const egoArt = page.locator("#ego-tier-list tbody tr td:nth-child(3) img");
+        const teamArt = page.locator("#team-tier-list tbody tr td:nth-child(3) img");
+        await expect(identityArt).toHaveCount(190);
+        await expect(egoArt).toHaveCount(116);
+        await expect(teamArt).toHaveCount(12);
 
-      // Team Details 图片验证（切换 Tab 确认无破图）
-      await expect(page.locator("#team-details img")).toHaveCount(1); // Overview banner
-      await page.getByRole("tab", { name: "Core & Team" }).click();
-      await expect(page.locator("#team-details img")).toHaveCount(13); // banner + 12 identities
-      await page.getByRole("tab", { name: "Key E.G.O" }).click();
-      await expect(page.locator("#team-details img")).toHaveCount(5); // banner + 4 ego
+        // Team Details 图片验证（切换 Tab 确认无破图）
+        await expect(page.locator("#team-details img")).toHaveCount(1); // Overview banner
+        await page.getByRole("tab", { name: "Core & Team" }).click();
+        await expect(page.locator("#team-details img")).toHaveCount(13); // banner + 12 identities
+        await page.getByRole("tab", { name: "Key E.G.O" }).click();
+        await expect(page.locator("#team-details img")).toHaveCount(5); // banner + 4 ego
 
-      // Team Tier List 的 12 个 ICON placeholder 全部由 PR #98 的固定映射替换。
-      await expect(page.locator('[aria-label="Artwork asset required"]')).toHaveCount(0);
-      await expect(page.getByText("ART", { exact: true })).toHaveCount(0);
-      await expect(page.getByText("EGO", { exact: true })).toHaveCount(0);
-      await expect(page.getByText("ICON", { exact: true })).toHaveCount(0);
+        // Team Tier List 的 12 个 ICON placeholder 全部由 PR #98 的固定映射替换。
+        await expect(page.locator('[aria-label="Artwork asset required"]')).toHaveCount(0);
+        await expect(page.getByText("ART", { exact: true })).toHaveCount(0);
+        await expect(page.getByText("EGO", { exact: true })).toHaveCount(0);
+        await expect(page.getByText("ICON", { exact: true })).toHaveCount(0);
 
-      for (const [team, assetStem] of expectedTeamArtwork) {
-        const row = page.locator("#team-tier-list tbody tr").filter({ hasText: team });
-        await expect(row).toHaveCount(1);
-        const src = await row.locator("td:nth-child(3) img").getAttribute("src");
-        expect(decodeURIComponent(src ?? "")).toContain(assetStem);
-      }
+        for (const [team, assetStem] of expectedTeamArtwork) {
+          const row = page.locator("#team-tier-list tbody tr").filter({ hasText: team });
+          await expect(row).toHaveCount(1);
+          const src = await row.locator("td:nth-child(3) img").getAttribute("src");
+          expect(decodeURIComponent(src ?? "")).toContain(assetStem);
+        }
 
-      // Identity / E.G.O / Team artwork 均为同源交付，无外链 hotlink。
-      const srcs = await page
-        .locator(
-          "#identity-tier-list tbody tr td:nth-child(3) img, #ego-tier-list tbody tr td:nth-child(3) img, #team-tier-list tbody tr td:nth-child(3) img",
-        )
-        .evaluateAll((images) =>
-          images.map((image) => (image as HTMLImageElement).getAttribute("src") ?? ""),
-        );
-      expect(srcs).toHaveLength(318);
-      for (const src of srcs) {
-        expect(src.startsWith("/_next/image?url=")).toBe(true);
-        expect(src).not.toMatch(/^https?:\/\//);
-      }
+        // Identity / E.G.O / Team artwork 均为同源交付，无外链 hotlink。
+        const srcs = await page
+          .locator(
+            "#identity-tier-list tbody tr td:nth-child(3) img, #ego-tier-list tbody tr td:nth-child(3) img, #team-tier-list tbody tr td:nth-child(3) img",
+          )
+          .evaluateAll((images) =>
+            images.map((image) => (image as HTMLImageElement).getAttribute("src") ?? ""),
+          );
+        expect(srcs).toHaveLength(318);
+        for (const src of srcs) {
+          expect(src.startsWith("/_next/image?url=")).toBe(true);
+          expect(src).not.toMatch(/^https?:\/\//);
+        }
 
-      // 首行图片必须真正解码成功
-      await expect
-        .poll(() =>
-          page
-            .locator("#identity-tier-list tbody tr")
-            .first()
-            .locator("td")
-            .nth(2)
-            .locator("img")
-            .evaluate((image) => (image as HTMLImageElement).naturalWidth),
-        )
-        .toBeGreaterThan(0);
+        // 首行图片必须真正解码成功
+        await expect
+          .poll(() =>
+            page
+              .locator("#identity-tier-list tbody tr")
+              .first()
+              .locator("td")
+              .nth(2)
+              .locator("img")
+              .evaluate((image) => (image as HTMLImageElement).naturalWidth),
+          )
+          .toBeGreaterThan(0);
 
-      // 向下滚动触发懒加载后，不得存在 load 失败（complete 但 naturalWidth=0）的图片
-      for (let step = 0; step < 8; step += 1) {
-        await page.mouse.wheel(0, 1200);
-        await page.waitForTimeout(80);
-      }
-      await expect
-        .poll(() =>
-          page.locator("img").evaluateAll(
-            (images) =>
-              images.filter((image) => {
-                const element = image as HTMLImageElement;
-                return element.complete && element.naturalWidth === 0;
-              }).length,
-          ),
-        )
-        .toBe(0);
+        // 向下滚动触发懒加载后，不得存在 load 失败（complete 但 naturalWidth=0）的图片
+        for (let step = 0; step < 8; step += 1) {
+          await page.mouse.wheel(0, 1200);
+          await page.waitForTimeout(80);
+        }
+        await expect
+          .poll(() =>
+            page.locator("img").evaluateAll(
+              (images) =>
+                images.filter((image) => {
+                  const element = image as HTMLImageElement;
+                  return element.complete && element.naturalWidth === 0;
+                }).length,
+            ),
+          )
+          .toBe(0);
       },
     );
   });
