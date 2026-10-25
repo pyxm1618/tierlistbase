@@ -74,6 +74,34 @@ const genshinVisibleCopySelectors = [
   '[data-ia-section="faq"] summary',
 ] as const;
 
+const nikkeKeywordGroup = [
+  "nikke tier list",
+  "goddess of victory nikke tier list",
+  "nikke character tier list",
+  "goddess of victory nikke character tier list",
+] as const;
+
+const nikkeVisibleCopySelectors = [
+  'section[aria-label="NIKKE hero"] h1',
+  'section[aria-label="NIKKE hero"] strong',
+  'section[aria-label="NIKKE hero"] p',
+  "#quick-picks h2",
+  "#quick-picks p",
+  "#quick-picks h3",
+  "#tier-list h2",
+  '#tier-list div[class*="sectionTitle"] p',
+  "#teams h2",
+  "#teams h3",
+  "#reroll h2",
+  "#reroll h3",
+  "#wishlist h2",
+  "#methodology h2",
+  "#methodology > p",
+  "#methodology li",
+  "#changelog h2",
+  "#changelog > p",
+] as const;
+
 const wowVisibleCopySelectors = [
   "header[data-wow-hero] h1",
   "header[data-wow-hero] p",
@@ -339,6 +367,75 @@ test("WoW visible main-content keyword group stays within the approved SEO range
   expect(JSON.stringify(schemas.map((schema) => JSON.parse(schema)))).toContain(
     '"name":"WoW Tier List"',
   );
+});
+
+test("NIKKE SEO copy is staged while mock data keeps the route non-indexable", async ({
+  page,
+  request,
+}) => {
+  const nikke = routeRegistry.get("/nikke/tier-list");
+  expect(nikke.class).toBe("public_noindex");
+  expect(nikke.title).toBe("NIKKE Tier List – Best Characters Ranked");
+  expect(nikke.description).toBe(
+    "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
+  );
+
+  const response = await page.goto("/nikke/tier-list", { waitUntil: "networkidle" });
+  expect(response?.status()).toBe(200);
+  await expect(page).toHaveTitle("NIKKE Tier List – Best Characters Ranked");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
+  );
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.locator("h1")).toHaveText("NIKKE Tier List");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/i);
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(0);
+
+  const visibleCopy: string[] = [];
+  for (const selector of nikkeVisibleCopySelectors) {
+    const texts = await page.locator(selector).allInnerTexts();
+    visibleCopy.push(...texts.map((text) => text.trim()).filter(Boolean));
+  }
+  const words = tokenize(visibleCopy.join(" "));
+  const phraseStats = nikkeKeywordGroup.map((phrase) => {
+    const occurrences = countPhrase(words, phrase);
+    return {
+      phrase,
+      occurrences,
+      densityPct: Number(((occurrences / Math.max(words.length, 1)) * 100).toFixed(3)),
+    };
+  });
+  const combinedOccurrences = phraseStats.reduce((sum, phrase) => sum + phrase.occurrences, 0);
+  const combinedDensityPct = Number(
+    ((combinedOccurrences / Math.max(words.length, 1)) * 100).toFixed(3),
+  );
+
+  console.log(
+    JSON.stringify({
+      event: "nikke_keyword_group_audit",
+      visibleMainContentWords: words.length,
+      phraseStats,
+      combinedOccurrences,
+      combinedDensityPct,
+    }),
+  );
+
+  expect(combinedDensityPct).toBeGreaterThanOrEqual(3);
+  expect(combinedDensityPct).toBeLessThanOrEqual(5);
+  const primaryOccurrences = phraseStats[0]!.occurrences;
+  for (const variant of phraseStats.slice(1)) {
+    expect(primaryOccurrences, `primary keyword must outrank ${variant.phrase}`).toBeGreaterThan(
+      variant.occurrences,
+    );
+  }
+
+  const bodyText = await page.locator("body").innerText();
+  expect(bodyText).toMatch(/Mock summary|Mock date|Coming Soon/);
+
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  expect(sitemap).not.toContain("/nikke/tier-list");
 });
 
 test("production sitemap is exactly the registered localized indexable surface", async ({
