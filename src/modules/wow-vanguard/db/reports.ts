@@ -81,8 +81,7 @@ export function createVanguardReportService(
           const activeClaim =
             record.notificationClaimToken &&
             record.notificationClaimedAt &&
-            now.getTime() - record.notificationClaimedAt.getTime() <
-              NOTIFICATION_CLAIM_LEASE_MS;
+            now.getTime() - record.notificationClaimedAt.getTime() < NOTIFICATION_CLAIM_LEASE_MS;
           if (activeClaim) {
             return {
               kind: "wait" as const,
@@ -92,8 +91,7 @@ export function createVanguardReportService(
 
           if (
             record.notificationStartedAt &&
-            now.getTime() - record.notificationStartedAt.getTime() >=
-              NOTIFICATION_RETRY_WINDOW_MS
+            now.getTime() - record.notificationStartedAt.getTime() >= NOTIFICATION_RETRY_WINDOW_MS
           ) {
             return {
               kind: "error" as const,
@@ -136,18 +134,14 @@ export function createVanguardReportService(
             const sameClaimStillActive =
               record.notificationClaimToken === decision.claimToken &&
               record.notificationClaimedAt &&
-              Date.now() - record.notificationClaimedAt.getTime() <
-                NOTIFICATION_CLAIM_LEASE_MS;
+              Date.now() - record.notificationClaimedAt.getTime() < NOTIFICATION_CLAIM_LEASE_MS;
             if (!sameClaimStillActive) break;
           }
           continue;
         }
 
         const controller = new AbortController();
-        const timeout = setTimeout(
-          () => controller.abort(),
-          NOTIFICATION_PROVIDER_TIMEOUT_MS,
-        );
+        const timeout = setTimeout(() => controller.abort(), NOTIFICATION_PROVIDER_TIMEOUT_MS);
         try {
           await input.notify({
             seatId: request.seatId,
@@ -163,10 +157,7 @@ export function createVanguardReportService(
               .from(vanguardReports)
               .where(eq(vanguardReports.operationId, request.operationId))
               .for("update");
-            if (
-              record?.notificationClaimToken === decision.claimToken &&
-              !record.notifiedAt
-            ) {
+            if (record?.notificationClaimToken === decision.claimToken && !record.notifiedAt) {
               await tx
                 .update(vanguardReports)
                 .set({
