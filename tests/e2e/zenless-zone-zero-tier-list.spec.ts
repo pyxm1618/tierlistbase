@@ -58,8 +58,7 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
     .toLowerCase()
     .replace(/\s+/g, " ")
     .trim();
-  const wordCount =
-    visibleMainCopy.match(/[a-z0-9]+(?:[-'][a-z0-9]+)*/g)?.length ?? 0;
+  const wordCount = visibleMainCopy.match(/[a-z0-9]+(?:[-'][a-z0-9]+)*/g)?.length ?? 0;
   const phrases = [
     "zzz tier list",
     "zzz character tier list",
@@ -85,7 +84,6 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
     counts["zenless zone zero character tier list"],
   );
 });
-
 
 test("ZZZ uses the shared marketing shell and preserves the frozen decision architecture", async ({
   page,
