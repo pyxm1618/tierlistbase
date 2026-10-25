@@ -8,7 +8,7 @@ test("ZZZ SEO pre-closeout stays noindex with the approved metadata", async ({ p
   await expect(page).toHaveTitle("ZZZ Tier List – Best Zenless Zone Zero Characters Ranked");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
-    "Explore the Zenless Zone Zero Tier List with current character rankings, best agents, team-building insights, and pull decisions to guide your investment.",
+    "Explore the Zenless Zone Zero Tier List with current character rankings, best characters and agents, team-building insights, and pull decisions.",
   );
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
