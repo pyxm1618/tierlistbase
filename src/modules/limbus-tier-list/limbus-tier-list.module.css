@@ -730,6 +730,42 @@
   padding: 4px 6px;
 }
 
+.teamTable tr[data-selected="true"] {
+  background: rgba(214, 26, 35, 0.12);
+  box-shadow: inset 2px 0 0 var(--red);
+}
+
+.teamSelectBtn {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.teamSelectBtn:hover strong {
+  color: #ff525a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.teamSelectBtn:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.teamSelectBtn[aria-pressed="true"] strong {
+  color: #ff4750;
+  text-shadow: 0 0 6px rgba(214, 26, 35, 0.4);
+}
+
 .teamDetail {
   align-self: start;
   overflow: hidden;
@@ -936,6 +972,25 @@
 
 .missingNext p span {
   font-size: 22px;
+}
+
+.teamTabPanel[hidden] {
+  display: none;
+}
+
+.teamPiecesSingle {
+  margin: 6px;
+  padding: 6px;
+  border: 1px solid #273d47;
+  background: #0a1a23;
+}
+
+.teamPiecesSingle h4 {
+  margin: 0 0 5px;
+  color: #cdd6d9;
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .egoWorkspace {

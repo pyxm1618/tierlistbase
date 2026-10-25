@@ -60,9 +60,15 @@ for (const width of [390, 1440]) {
 
       // Verify featured team details has no placeholder text
       const teamDetail = page.locator("#team-details");
-      await expect(teamDetail).toContainText("Bleed Team");
+      await expect(teamDetail.getByRole("heading", { level: 3 })).toHaveText("Bleed Team");
+      await expect(teamDetail).toContainText("TEAM DETAILS");
+      await expect(teamDetail).not.toContainText("TEAM DETAILS (EXAMPLE)");
       await expect(teamDetail).not.toContainText("Core A");
       await expect(teamDetail).not.toContainText("Member A");
+
+      // Verify all 12 teams have selectable buttons
+      const teamSelectButtons = page.locator("#team-tier-list tbody tr button");
+      await expect(teamSelectButtons).toHaveCount(12);
 
       const cases = [
         ["Sinner", "Yi Sang", 16, "Effloresced E.G.O::Spicebush Yi Sang"],
@@ -125,6 +131,105 @@ for (const width of [390, 1440]) {
       expect(errors).toEqual([]);
     });
 
+    test("supports selecting all 12 teams and dynamically switches details and 4 tab panels", async ({
+      page,
+    }) => {
+      await page.goto(route);
+      const teamDetail = page.locator("#team-details");
+      const teamTable = page.locator("#team-tier-list tbody tr");
+
+      await expect(teamTable).toHaveCount(12);
+      const selectButtons = teamTable.locator("button");
+      await expect(selectButtons).toHaveCount(12);
+
+      // 默认选中 Bleed Team
+      await expect(teamDetail.getByRole("heading", { level: 3 })).toHaveText("Bleed Team");
+      await expect(teamDetail).toContainText("TEAM DETAILS");
+      await expect(teamDetail).not.toContainText("TEAM DETAILS (EXAMPLE)");
+
+      // 4 个 Tabs 控件
+      const overviewTab = page.getByRole("tab", { name: "Overview" });
+      const coreTeamTab = page.getByRole("tab", { name: "Core & Team" });
+      const egoTab = page.getByRole("tab", { name: "Key E.G.O" });
+      const nextTab = page.getByRole("tab", { name: "What to Get Next" });
+
+      const overviewPanel = page.locator("#team-detail-panel-0");
+      const coreTeamPanel = page.locator("#team-detail-panel-1");
+      const egoPanel = page.locator("#team-detail-panel-2");
+      const nextPanel = page.locator("#team-detail-panel-3");
+
+      // 1. Overview 默认显示
+      await expect(overviewPanel).toBeVisible();
+      await expect(coreTeamPanel).toBeHidden();
+      await expect(egoPanel).toBeHidden();
+      await expect(nextPanel).toBeHidden();
+      await expect(overviewPanel).toContainText("Power Tier");
+      await expect(overviewPanel).toContainText("Build Cost");
+
+      // 2. Core & Team 切换
+      await coreTeamTab.click();
+      await expect(overviewPanel).toBeHidden();
+      await expect(coreTeamPanel).toBeVisible();
+      await expect(egoPanel).toBeHidden();
+      await expect(nextPanel).toBeHidden();
+      await expect(coreTeamPanel).toContainText("Core Members");
+      await expect(coreTeamPanel).toContainText("Recommended Team");
+      await expect(coreTeamPanel).toContainText("Substitutes / Alternatives");
+      await expect(coreTeamPanel.locator("img")).toHaveCount(12);
+
+      // 3. Key E.G.O 切换
+      await egoTab.click();
+      await expect(overviewPanel).toBeHidden();
+      await expect(coreTeamPanel).toBeHidden();
+      await expect(egoPanel).toBeVisible();
+      await expect(nextPanel).toBeHidden();
+      await expect(egoPanel).toContainText("Key E.G.O");
+      await expect(egoPanel.locator("img")).toHaveCount(4);
+
+      // 4. What to Get Next 切换
+      await nextTab.click();
+      await expect(overviewPanel).toBeHidden();
+      await expect(coreTeamPanel).toBeHidden();
+      await expect(egoPanel).toBeHidden();
+      await expect(nextPanel).toBeVisible();
+      await expect(nextPanel).toContainText("Missing One / What to Get Next");
+      const bleedNextText = await nextPanel.innerText();
+
+      // 切换另外 3 个队伍：Sinking Team, Burn Team, Tremor Team
+      const targetTeams = [
+        { name: "Sinking Team", expectedIdentities: 12, expectedEgo: 4 },
+        { name: "Burn Team", expectedIdentities: 11, expectedEgo: 4 },
+        { name: "Tremor Team", expectedIdentities: 11, expectedEgo: 3 },
+      ];
+
+      for (const target of targetTeams) {
+        const teamBtn = teamTable.locator("button").filter({ hasText: target.name });
+        await teamBtn.click();
+        await expect(teamBtn).toHaveAttribute("aria-pressed", "true");
+        await expect(teamDetail.getByRole("heading", { level: 3 })).toHaveText(target.name);
+
+        // 验证 What to Get Next 内容随队伍切换而改变
+        await nextTab.click();
+        await expect(nextPanel).toBeVisible();
+        const nextContent = await nextPanel.innerText();
+        expect(nextContent).not.toEqual(bleedNextText);
+
+        // 验证 Core & Team 角色图片渲染
+        await coreTeamTab.click();
+        await expect(coreTeamPanel).toBeVisible();
+        await expect(coreTeamPanel.locator("img")).toHaveCount(target.expectedIdentities);
+
+        // 验证 Key E.G.O 存在
+        await egoTab.click();
+        await expect(egoPanel).toBeVisible();
+        await expect(egoPanel.locator("img")).toHaveCount(target.expectedEgo);
+
+        // 验证 Overview 指标切换
+        await overviewTab.click();
+        await expect(overviewPanel).toBeVisible();
+      }
+    });
+
     test("renders local Identity and E.G.O artwork without broken or hotlinked images", async ({
       page,
     }) => {
@@ -136,8 +241,12 @@ for (const width of [390, 1440]) {
       await expect(identityArt).toHaveCount(190);
       await expect(egoArt).toHaveCount(116);
 
-      // Team Details：1 张 banner + core 3 + recommended 6 + keyEgo 4 + substitutes 3
-      await expect(page.locator("#team-details img")).toHaveCount(17);
+      // Team Details 图片验证（切换 Tab 确认无破图）
+      await expect(page.locator("#team-details img")).toHaveCount(1); // Overview banner
+      await page.getByRole("tab", { name: "Core & Team" }).click();
+      await expect(page.locator("#team-details img")).toHaveCount(13); // banner + 12 identities
+      await page.getByRole("tab", { name: "Key E.G.O" }).click();
+      await expect(page.locator("#team-details img")).toHaveCount(5); // banner + 4 ego
 
       // 占位符只剩 Team Tier List 的 12 个 ICON
       await expect(page.locator('[aria-label="Artwork asset required"]')).toHaveCount(12);
