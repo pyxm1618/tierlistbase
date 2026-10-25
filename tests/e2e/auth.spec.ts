@@ -282,7 +282,7 @@ test("magic link confirmation is scanner-safe and single-use", async ({ page, re
   expect(verificationResponse.status()).toBeLessThan(400);
   expect((await verificationResponse.headerValue("set-cookie")) ?? "").toContain("session_token");
   await expect(page).toHaveURL(/\/account$/);
-  await expect(page.getByRole("heading", { name: /Welcome/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "My Account" })).toBeVisible();
 
   const replay = await request.post("/api/auth/magic-link/confirm", {
     headers: {
@@ -342,4 +342,90 @@ test("magic link email rate limits follow a valid challenge", async ({ request }
 test("protected account pages redirect unauthenticated users", async ({ page }) => {
   await page.goto("/account/security");
   await expect(page).toHaveURL(/\/sign-in$/);
+});
+
+
+test("account IA keeps My Vanguard in WoW Forever context", async ({ browser, request }) => {
+  const page = await signInWithMagicLink({
+    browser,
+    request,
+    email: `account-ia-${Date.now()}@example.com`,
+  });
+
+  await expect(page.getByRole("heading", { name: "My Account" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Security" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "My Vanguard" })).toHaveCount(0);
+
+  const accountMenu = page.locator('button[aria-haspopup="menu"]');
+  await expect(accountMenu).toBeVisible();
+  await accountMenu.click();
+  await expect(page.getByRole("menuitem", { name: "My Account" })).toBeVisible();
+  await expect(page.getByRole("menuitem", { name: "Security" })).toBeVisible();
+  await expect(page.getByRole("menuitem", { name: "My Vanguard" })).toHaveCount(0);
+
+  await page.goto("/account/vanguard");
+  await expect(page).toHaveURL(/\/wow-forever\/vanguard\/my$/);
+  await expect(page.getByRole("heading", { name: "My Vanguard" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Vanguard Monument" })).toBeVisible();
+
+  await page.goto("/wow-forever/vanguard");
+  await expect(page.getByRole("link", { name: "My Vanguard" })).toBeVisible();
+
+  await page.context().close();
+});
+
+test("Security remains loadable after the 15-minute fresh-session window", async ({
+  browser,
+  request,
+}) => {
+  const page = await signInWithMagicLink({
+    browser,
+    request,
+    email: `stale-security-${Date.now()}@example.com`,
+  });
+  const context = page.context();
+  const currentSessionResponse = await context.request.get("/api/auth/get-session");
+  const currentSession = (await currentSessionResponse.json()) as { session: { id: string } };
+  const databaseUrl = process.env.TEST_DATABASE_URL;
+  if (!databaseUrl) throw new Error("TEST_DATABASE_URL is required");
+  const database = createDatabaseClient(databaseUrl);
+  try {
+    const updated = await database.db
+      .update(session)
+      .set({ createdAt: new Date(Date.now() - 16 * 60 * 1000) })
+      .where(eq(session.id, currentSession.session.id))
+      .returning({ id: session.id });
+    expect(updated).toEqual([{ id: currentSession.session.id }]);
+  } finally {
+    await database.close();
+  }
+
+  await page.goto("/account/security");
+  await expect(page).toHaveURL(/\/account\/security$/);
+  await expect(page.getByRole("heading", { name: "Security" })).toBeVisible();
+  await expect(page.getByText("Current session")).toBeVisible();
+
+  await context.close();
+});
+
+test("modified account surfaces have no mobile horizontal overflow", async ({ browser, request }) => {
+  const page = await signInWithMagicLink({
+    browser,
+    request,
+    email: `account-mobile-${Date.now()}@example.com`,
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  for (const route of ["/account", "/account/security", "/wow-forever/vanguard/my"]) {
+    await page.goto(route);
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () => document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+        ),
+      )
+      .toBe(true);
+  }
+
+  await page.context().close();
 });
