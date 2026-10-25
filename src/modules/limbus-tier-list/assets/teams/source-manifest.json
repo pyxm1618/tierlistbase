@@ -1,0 +1,134 @@
+[
+  {
+    "teamId": "status-sinking",
+    "teamName": "Sinking Team",
+    "assetStrategy": "official_game_icon",
+    "assetPath": "src/modules/limbus-tier-list/assets/teams/status-sinking.png",
+    "sourceUrl": "https://raw.githubusercontent.com/eldritchtools/limbus-assets/4ec58330a74288d154c54501d44332c3e66dbdd8/assets/icons/Sinking.png",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Sinking",
+    "sourceClassification": "official_game_status_icon",
+    "verification": "Limbus Company Wiki identifies Sinking.png as the in-game Sinking status icon. The collected file is the original PNG preserved before the source asset mirror converted its images to WebP; the mirror states the Limbus assets are Project Moon assets.",
+    "notes": "Collected without resizing, cropping, recompression, or format conversion."
+  },
+  {
+    "teamId": "status-bleed",
+    "teamName": "Bleed Team",
+    "assetStrategy": "official_game_icon",
+    "assetPath": "src/modules/limbus-tier-list/assets/teams/status-bleed.png",
+    "sourceUrl": "https://raw.githubusercontent.com/eldritchtools/limbus-assets/4ec58330a74288d154c54501d44332c3e66dbdd8/assets/icons/Bleed.png",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Bleed",
+    "sourceClassification": "official_game_status_icon",
+    "verification": "Limbus Company Wiki identifies Bleed.png as the in-game Bleed status icon. The collected file is the original PNG preserved before the source asset mirror converted its images to WebP; the mirror states the Limbus assets are Project Moon assets.",
+    "notes": "Collected without resizing, cropping, recompression, or format conversion."
+  },
+  {
+    "teamId": "status-burn",
+    "teamName": "Burn Team",
+    "assetStrategy": "official_game_icon",
+    "assetPath": "src/modules/limbus-tier-list/assets/teams/status-burn.png",
+    "sourceUrl": "https://raw.githubusercontent.com/eldritchtools/limbus-assets/4ec58330a74288d154c54501d44332c3e66dbdd8/assets/icons/Burn.png",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Burn",
+    "sourceClassification": "official_game_status_icon",
+    "verification": "The wiki's status documentation uses Burn.png as the Burn status icon. The collected file is the original PNG preserved before the source asset mirror converted its images to WebP; the mirror states the Limbus assets are Project Moon assets.",
+    "notes": "Collected without resizing, cropping, recompression, or format conversion."
+  },
+  {
+    "teamId": "status-tremor",
+    "teamName": "Tremor Team",
+    "assetStrategy": "official_game_icon",
+    "assetPath": "src/modules/limbus-tier-list/assets/teams/status-tremor.png",
+    "sourceUrl": "https://raw.githubusercontent.com/eldritchtools/limbus-assets/4ec58330a74288d154c54501d44332c3e66dbdd8/assets/icons/Tremor.png",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Tremor",
+    "sourceClassification": "official_game_status_icon",
+    "verification": "The wiki's status documentation uses Tremor.png as the Tremor status icon. The collected file is the original PNG preserved before the source asset mirror converted its images to WebP; the mirror states the Limbus assets are Project Moon assets.",
+    "notes": "Collected without resizing, cropping, recompression, or format conversion."
+  },
+  {
+    "teamId": "status-rupture",
+    "teamName": "Rupture Team",
+    "assetStrategy": "official_game_icon",
+    "assetPath": "src/modules/limbus-tier-list/assets/teams/status-rupture.png",
+    "sourceUrl": "https://raw.githubusercontent.com/eldritchtools/limbus-assets/4ec58330a74288d154c54501d44332c3e66dbdd8/assets/icons/Rupture.png",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Rupture",
+    "sourceClassification": "official_game_status_icon",
+    "verification": "The wiki's status documentation uses Rupture.png as the Rupture status icon. The collected file is the original PNG preserved before the source asset mirror converted its images to WebP; the mirror states the Limbus assets are Project Moon assets.",
+    "notes": "Collected without resizing, cropping, recompression, or format conversion."
+  },
+  {
+    "teamId": "status-poise",
+    "teamName": "Poise Team",
+    "assetStrategy": "official_game_icon",
+    "assetPath": "src/modules/limbus-tier-list/assets/teams/status-poise.png",
+    "sourceUrl": "https://raw.githubusercontent.com/eldritchtools/limbus-assets/4ec58330a74288d154c54501d44332c3e66dbdd8/assets/icons/Poise.png",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Poise",
+    "sourceClassification": "official_game_status_icon",
+    "verification": "The wiki's status documentation uses Poise.png as the Poise status icon. The collected file is the original PNG preserved before the source asset mirror converted its images to WebP; the mirror states the Limbus assets are Project Moon assets.",
+    "notes": "Collected without resizing, cropping, recompression, or format conversion."
+  },
+  {
+    "teamId": "status-charge",
+    "teamName": "Charge Team",
+    "assetStrategy": "official_game_icon",
+    "assetPath": "src/modules/limbus-tier-list/assets/teams/status-charge.png",
+    "sourceUrl": "https://raw.githubusercontent.com/eldritchtools/limbus-assets/4ec58330a74288d154c54501d44332c3e66dbdd8/assets/icons/Charge.png",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Charge",
+    "sourceClassification": "official_game_status_icon",
+    "verification": "The wiki's status documentation uses Charge.png as the Charge status icon. The collected file is the original PNG preserved before the source asset mirror converted its images to WebP; the mirror states the Limbus assets are Project Moon assets.",
+    "notes": "Collected without resizing, cropping, recompression, or format conversion."
+  },
+  {
+    "teamId": "faction-heishou",
+    "teamName": "Heishou Team",
+    "assetStrategy": "existing_identity_fallback",
+    "assetPath": "src/modules/limbus-tier-list/assets/identities/heishou-pack-mao-branch-ryoshu.png",
+    "sourceUrl": "",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Category:World_of_H_Corp.",
+    "sourceClassification": "existing_repository_identity_fallback",
+    "verification": "teams.ts coreMembers[0] is Heishou Pack - Mao Branch Ryōshū and the corresponding repository Identity artwork exists. The wiki explicitly states the World of H Corp. name and icon are unofficial, so no wiki-made world icon is collected.",
+    "notes": "coreMembers[0]: Heishou Pack - Mao Branch Ryōshū. Existing Identity artwork is reused; no duplicate file is created."
+  },
+  {
+    "teamId": "faction-the-middle",
+    "teamName": "The Middle Team",
+    "assetStrategy": "existing_identity_fallback",
+    "assetPath": "src/modules/limbus-tier-list/assets/identities/the-middle-little-brother-meursault.png",
+    "sourceUrl": "",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Category:Unofficial_Assets",
+    "sourceClassification": "existing_repository_identity_fallback",
+    "verification": "teams.ts coreMembers[0] is The Middle Little Brother Meursault and the corresponding repository Identity artwork exists. The Middle Logo.png is listed in the wiki's Unofficial Assets category, so it is rejected.",
+    "notes": "coreMembers[0]: The Middle Little Brother Meursault. Existing Identity artwork is reused; no duplicate file is created."
+  },
+  {
+    "teamId": "faction-dieci",
+    "teamName": "Dieci Discard Team",
+    "assetStrategy": "existing_identity_fallback",
+    "assetPath": "src/modules/limbus-tier-list/assets/identities/dieci-assoc-south-section-4-rodion.png",
+    "sourceUrl": "",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Category:World_of_the_Dieci_Association_Southern_Branch",
+    "sourceClassification": "existing_repository_identity_fallback",
+    "verification": "teams.ts coreMembers[0] is Dieci Assoc. South Section 4 Rodion and the corresponding repository Identity artwork exists. The wiki confirms that the historical World of the Dieci Association Southern Branch name and icon were official but are no longer accessible in-game. The separate Dieci Logo files are wiki-made Unofficial Assets. Because this sourcing pass did not obtain the historical official icon's original file body from a canonical reproducible source, it was not collected.",
+    "notes": "coreMembers[0]: Dieci Assoc. South Section 4 Rodion. Existing Identity artwork is reused; no duplicate file is created. Historical official Mirror World icon intentionally not downloaded because its original file body could not be verified to the task's source-quality standard."
+  },
+  {
+    "teamId": "mechanic-envy-resonance",
+    "teamName": "Envy Resonance Team",
+    "assetStrategy": "official_game_icon",
+    "assetPath": "src/modules/limbus-tier-list/assets/teams/mechanic-envy-resonance.png",
+    "sourceUrl": "https://raw.githubusercontent.com/eldritchtools/limbus-assets/4ec58330a74288d154c54501d44332c3e66dbdd8/assets/icons/envy.png",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Sin#Envy",
+    "sourceClassification": "official_game_sin_affinity_icon",
+    "verification": "The wiki's Sin documentation identifies LcbSinEnvy.png as the Envy Sin Affinity icon, and its Icon Images category lists that game icon. The collected file is the original PNG preserved before the source asset mirror converted its images to WebP; the mirror states the Limbus assets are Project Moon assets.",
+    "notes": "Uses the formal Envy Sin Affinity icon, not a team logo or character image. Collected without resizing, cropping, recompression, or format conversion."
+  },
+  {
+    "teamId": "hybrid-house-of-spiders",
+    "teamName": "House of Spiders Hybrid Team",
+    "assetStrategy": "existing_identity_fallback",
+    "assetPath": "src/modules/limbus-tier-list/assets/identities/blade-of-the-house-of-spiders-ryoshu.png",
+    "sourceUrl": "",
+    "sourcePage": "https://limbuscompany.wiki.gg/wiki/Category:World_of_the_House_of_Spiders",
+    "sourceClassification": "existing_repository_identity_fallback",
+    "verification": "teams.ts coreMembers[0] is Blade of the House of Spiders Ryōshū and the corresponding repository Identity artwork exists. The wiki explicitly states the World of the House of Spiders name and icon are unofficial, so that icon is rejected.",
+    "notes": "coreMembers[0]: Blade of the House of Spiders Ryōshū. Existing Identity artwork is reused; no duplicate file is created."
+  }
+]
