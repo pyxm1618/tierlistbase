@@ -69,9 +69,7 @@ export default async function AccountSecurityPage() {
                 <p className="text-sm font-medium text-foreground">
                   {current ? "Current session" : "Other session"}
                 </p>
-                <p className={`mt-1 ${metaText}`}>
-                  {sessionRecord.userAgent ?? "Unknown browser"}
-                </p>
+                <p className={`mt-1 ${metaText}`}>{sessionRecord.userAgent ?? "Unknown browser"}</p>
                 <p className={`mt-1 ${metaText}`}>
                   Created {formatDate(sessionRecord.createdAt)} · Expires{" "}
                   {formatDate(sessionRecord.expiresAt)}
