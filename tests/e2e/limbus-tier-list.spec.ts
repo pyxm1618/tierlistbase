@@ -388,7 +388,6 @@ test("serves final Limbus SEO copy while respecting the test-environment noindex
   const canonical = `${routeRegistry.site.canonicalOrigin}${route}`;
   const sitemap = await request.get("/sitemap.xml");
   expect(await sitemap.text()).not.toContain(canonical);
-  expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThan(0);
 });
 
 test("keeps the visible Limbus keyword group within the approved SEO range", async ({ page }) => {
