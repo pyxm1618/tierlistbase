@@ -367,7 +367,10 @@ for (const width of [390, 1440]) {
   });
 }
 
-test("serves final Limbus SEO copy as an indexable launch", async ({ page, request }) => {
+test("serves final Limbus SEO copy while respecting the test-environment noindex policy", async ({
+  page,
+  request,
+}) => {
   const response = await page.goto(route);
   expect(response?.status()).toBe(200);
   await expect(page).toHaveTitle(limbusRouteDefinition.title);
@@ -376,14 +379,13 @@ test("serves final Limbus SEO copy as an indexable launch", async ({ page, reque
     "content",
     limbusRouteDefinition.description,
   );
-  const robots = (await page.locator('meta[name="robots"]').getAttribute("content")) ?? "";
-  expect(robots).toMatch(/index/i);
-  expect(robots).not.toMatch(/noindex/i);
+
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex, nofollow/i);
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
 
   const canonical = `${routeRegistry.site.canonicalOrigin}${route}`;
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", canonical);
   const sitemap = await request.get("/sitemap.xml");
-  expect(await sitemap.text()).toContain(canonical);
+  expect(await sitemap.text()).not.toContain(canonical);
   expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThan(0);
 });
 
