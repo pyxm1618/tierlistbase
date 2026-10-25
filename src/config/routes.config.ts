@@ -132,7 +132,8 @@ export const routeDefinitions = [
   {
     route: "/limbus-company/tier-list",
     class: "public_indexable",
-    searchIntent:\n      "compare Limbus Company Identity, team, and E.G.O rankings to decide what to build",
+    searchIntent:
+      "compare Limbus Company Identity, team, and E.G.O rankings to decide what to build",
     primaryKeyword: "limbus company tier list",
     secondaryKeywords: [
       "limbus tier list",
