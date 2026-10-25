@@ -15,7 +15,8 @@ const worker = {
         pathname,
       );
     if (isVanguardLayoutAsset) {
-      if (!env.ASSETS) return Promise.resolve(new Response("Asset binding unavailable", { status: 503 }));
+      if (!env.ASSETS)
+        return Promise.resolve(new Response("Asset binding unavailable", { status: 503 }));
       return env.ASSETS.fetch(request);
     }
     const isPublicPageRead =
