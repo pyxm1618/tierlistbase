@@ -86,12 +86,11 @@ it("keeps Vanguard layout fetch compatible with Cloudflare Workers", () => {
   expect(source).not.toContain('cache: "force-cache"');
 });
 
-
 it("routes production Vanguard layout binaries through the Cloudflare asset binding", () => {
   const source = readFileSync("cloudflare-worker.ts", "utf8");
   expect(source).toContain("env.ASSETS.fetch(request)");
   expect(source).toContain("/wow-forever\\/vanguard\\/layouts");
   expect(source.indexOf("env.ASSETS.fetch(request)")).toBeLessThan(
-    source.indexOf("runWithRequestDatabase"),
+    source.indexOf("return runWithRequestDatabase"),
   );
 });
