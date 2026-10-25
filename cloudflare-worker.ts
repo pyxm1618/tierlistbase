@@ -11,9 +11,8 @@ const worker = {
     const pathname = new URL(request.url).pathname;
     const isVanguardLayoutAsset =
       request.method === "GET" &&
-      /^\/wow-forever\/vanguard\/layouts\/(?:wow-(?:W1|O|W2)|forever-(?:F|O|R1|E1|V|E2|R2))\.f32$/.test(
-        pathname,
-      );
+      pathname.startsWith("/wow-forever/vanguard/layouts/") &&
+      pathname.endsWith(".f32");
     if (isVanguardLayoutAsset) {
       if (!env.ASSETS)
         return Promise.resolve(new Response("Asset binding unavailable", { status: 503 }));
