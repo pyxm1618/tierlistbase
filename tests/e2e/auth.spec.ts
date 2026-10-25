@@ -407,7 +407,10 @@ test("Security remains loadable after the 15-minute fresh-session window", async
   await context.close();
 });
 
-test("modified account surfaces have no mobile horizontal overflow", async ({ browser, request }) => {
+test("modified account surfaces have no mobile horizontal overflow", async ({
+  browser,
+  request,
+}) => {
   const page = await signInWithMagicLink({
     browser,
     request,
