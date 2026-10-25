@@ -34,18 +34,12 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
   const heroHeading = page.getByRole("heading", { level: 1, name: "ZZZ Tier List" });
   const heroCopy = await heroHeading.locator("..").innerText();
 
-  const pullSummary = page.getByRole("region", {
-    name: "Current Pull Advice",
-    exact: true,
-  });
+  const pullSummary = page.getByRole("region", { name: "Current Pull Advice", exact: true });
   const pullSummaryText = await pullSummary.innerText();
   const pullSummaryLines = pullSummaryText.split("\n").filter(Boolean);
   const pullSummaryCopy = pullSummaryLines.slice(0, 2).join(" ");
 
-  const agentRegion = page.getByRole("region", {
-    name: "Agent Ranking",
-    exact: true,
-  });
+  const agentRegion = page.getByRole("region", { name: "Agent Ranking", exact: true });
   const agentHeading = agentRegion.getByRole("heading", {
     level: 2,
     name: "ZZZ Character Tier List",
@@ -54,30 +48,15 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
 
   const primary = page.locator('nav[aria-label="Tier list primary sections"]');
   await primary.getByRole("tab", { name: /^Teams/ }).click();
-  const teamRegion = page.getByRole("region", {
-    name: "Team Ranking",
-    exact: true,
-  });
-  const teamHeading = teamRegion.getByRole("heading", {
-    level: 2,
-    name: "Team Ranking",
-  });
+  const teamRegion = page.getByRole("region", { name: "Team Ranking", exact: true });
+  const teamHeading = teamRegion.getByRole("heading", { level: 2, name: "Team Ranking" });
   const teamCopy = await teamHeading.locator("..").innerText();
 
   await primary.getByRole("tab", { name: /^Pull Advice/ }).click();
-  const pullDetail = page.getByRole("region", {
-    name: "Pull Advice Detail",
-    exact: true,
-  });
+  const pullDetail = page.getByRole("region", { name: "Pull Advice Detail", exact: true });
   await pullDetail.getByRole("button", { name: "Close Pull Advice Detail" }).click();
-  const pullRegion = page.getByRole("region", {
-    name: "Pull Advice",
-    exact: true,
-  });
-  const pullHeading = pullRegion.getByRole("heading", {
-    level: 2,
-    name: "Current Pull Advice",
-  });
+  const pullRegion = page.getByRole("region", { name: "Pull Advice", exact: true });
+  const pullHeading = pullRegion.getByRole("heading", { level: 2, name: "Current Pull Advice" });
   const pullCopy = await pullHeading.locator("..").innerText();
 
   const visibleMainCopy = [heroCopy, pullSummaryCopy, agentCopy, teamCopy, pullCopy]
@@ -95,8 +74,7 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
     visibleMainCopy,
     "zenless zone zero character tier list",
   );
-  const combinedOccurrences =
-    primaryCount + characterCount + fullCount + fullCharacterCount;
+  const combinedOccurrences = primaryCount + characterCount + fullCount + fullCharacterCount;
   const combinedDensity = (combinedOccurrences / wordCount) * 100;
 
   expect(wordCount).toBe(145);
