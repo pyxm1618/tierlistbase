@@ -3,6 +3,8 @@ import { makeSignature } from "better-auth/crypto";
 import { eq, sql } from "drizzle-orm";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
 
+import { removeVanguardAccount } from "@/modules/wow-vanguard";
+import { vanguardInscriptions, vanguardMedia } from "@/modules/wow-vanguard/db/schema";
 import { createAccountDeletionService } from "@/platform/accounts/account-deletion-service";
 import { createBetterAuthIdentityDeletion } from "@/platform/accounts/better-auth-identity-deletion";
 import { createPlatformAccountDeletionCoordinator } from "@/platform/accounts/platform-account-deletion-coordinator";
@@ -227,6 +229,92 @@ describe("account deletion workflow", () => {
       authUserId: "delete_commerce_pending",
       status: "deletion_pending",
     });
+  });
+
+  it("scrubs Vanguard personal data before deleting the auth identity", async () => {
+    const authUserId = "delete_vanguard_privacy";
+    const subject = await seedIdentity(authUserId);
+    const [media] = await database.db
+      .insert(vanguardMedia)
+      .values({
+        ownerUserId: authUserId,
+        privateMasterKey: "private/master",
+        moderationKey: "private/moderation",
+        publicDetailKey: "public/detail",
+        publicWowThumbKey: "public/wow",
+        publicForeverThumbKey: "public/forever",
+        mime: "image/webp",
+        moderationStatus: "approved",
+      })
+      .returning();
+    if (!media) throw new Error("Vanguard media seed failed");
+    await database.db.insert(vanguardInscriptions).values({
+      userId: authUserId,
+      seatId: "WOW-W1-0001",
+      phase: "wow",
+      letter: "W1",
+      localIndex: 1,
+      displayName: "Private Champion",
+      faction: "alliance",
+      className: "Warrior",
+      guildName: "Private Guild",
+      guildKey: "private-guild",
+      battleCry: "Private battle cry",
+      mediaId: media.id,
+    });
+
+    const revokedKeys: string[] = [];
+    const identityDeletion = {
+      async prepareForDeletion(userId: string) {
+        await removeVanguardAccount(database.db, userId, async (keys) => {
+          revokedKeys.push(...keys);
+        });
+        await betterAuthIdentityDeletion.prepareForDeletion?.(userId);
+      },
+      deleteUser: (userId: string) => betterAuthIdentityDeletion.deleteUser(userId),
+    };
+    const service = createAccountDeletionService({
+      database: database.db,
+      subjects,
+      coordinator: { prepare: async () => undefined },
+      identityDeletion,
+    });
+
+    const request = await service.request({ subjectId: subject.id, authUserId });
+    await expect(service.run(request.id)).resolves.toMatchObject({
+      status: "completed",
+      step: "completed",
+    });
+
+    expect(revokedKeys.sort()).toEqual(["public/detail", "public/forever", "public/wow"]);
+    expect(
+      await database.db
+        .select()
+        .from(vanguardInscriptions)
+        .where(eq(vanguardInscriptions.seatId, "WOW-W1-0001")),
+    ).toMatchObject([
+      {
+        userId: null,
+        status: "deleted",
+        displayName: "",
+        guildName: null,
+        guildKey: null,
+        battleCry: null,
+        mediaId: null,
+      },
+    ]);
+    expect(
+      await database.db.select().from(vanguardMedia).where(eq(vanguardMedia.id, media.id)),
+    ).toMatchObject([
+      {
+        ownerUserId: null,
+        moderationStatus: "hidden",
+        publicDetailKey: null,
+        publicWowThumbKey: null,
+        publicForeverThumbKey: null,
+        moderationResult: null,
+      },
+    ]);
   });
 
   it("uses Better Auth to hard delete identity while retaining the pseudonymous subject", async () => {

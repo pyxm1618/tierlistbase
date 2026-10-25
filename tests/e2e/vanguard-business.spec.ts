@@ -236,7 +236,12 @@ for (const width of [390, 1440]) {
           .filter({ visible: true }),
       ).toHaveAttribute("href", "/sign-in");
       await expect(page.locator("header").getByText("Account", { exact: true })).toHaveCount(0);
-      for (const path of ["/account", "/account/vanguard", "/account/security"]) {
+      for (const path of [
+        "/account",
+        "/account/vanguard",
+        "/account/security",
+        "/wow-forever/vanguard/my",
+      ]) {
         await page.goto(path);
         await expect(page).toHaveURL(/\/sign-in/);
       }
@@ -281,7 +286,6 @@ for (const width of [390, 1440]) {
       ).toHaveCount(0);
       for (const [name, href] of [
         ["My Account", "/account"],
-        ["My Vanguard", "/account/vanguard"],
         ["Security", "/account/security"],
       ] as const) {
         await expect(
@@ -291,21 +295,23 @@ for (const width of [390, 1440]) {
             .filter({ visible: true }),
         ).toHaveAttribute("href", href);
       }
+      await expect(
+        page.locator("header").getByRole("menuitem", { name: "My Vanguard", exact: true }),
+      ).toHaveCount(0);
       await page.goto("/limbus-company/tier-list");
       await page
         .locator("header")
         .getByRole("button", { name: "Header private identity", exact: true })
         .click();
       await expect(
-        page
-          .locator("header")
-          .getByRole("menuitem", { name: "My Vanguard", exact: true })
-          .filter({ visible: true }),
-      ).toBeVisible();
-      for (const path of ["/account", "/account/vanguard", "/account/security"]) {
+        page.locator("header").getByRole("menuitem", { name: "My Vanguard", exact: true }),
+      ).toHaveCount(0);
+      for (const path of ["/account", "/account/security", "/wow-forever/vanguard/my"]) {
         await page.goto(path);
         await expect(page).toHaveURL(new RegExp(`${path}$`));
       }
+      await page.goto("/account/vanguard");
+      await expect(page).toHaveURL(/\/wow-forever\/vanguard\/my$/);
       await page.goto("/");
       await menu();
       if (width >= 1024)
@@ -333,7 +339,12 @@ for (const width of [390, 1440]) {
           .getByRole("link", { name: "Sign in", exact: true })
           .filter({ visible: true }),
       ).toBeVisible();
-      for (const path of ["/account", "/account/vanguard", "/account/security"]) {
+      for (const path of [
+        "/account",
+        "/account/vanguard",
+        "/account/security",
+        "/wow-forever/vanguard/my",
+      ]) {
         await page.goto(path);
         await expect(page).toHaveURL(/\/sign-in/);
       }

@@ -872,11 +872,13 @@ export function ZenlessZoneZeroTierList() {
             <div className={styles.heroCopy}>
               <p>ZENLESS ZONE ZERO</p>
               <h1>
-                TIER <em>LIST</em>
+                ZZZ <em>Tier List</em>
               </h1>
               <strong>Build better teams. Make smarter pulls.</strong>
               <span>
-                Find out who to build, what teams to play, and who to pull in Zenless Zone Zero.
+                Use this ZZZ Tier List to compare current character rankings, identify the best
+                agents for your roster, and make clearer team-building and pull decisions before
+                investing resources.
               </span>
             </div>
             <div className={styles.heroArt}>
@@ -995,8 +997,8 @@ export function ZenlessZoneZeroTierList() {
             <section className={styles.rankingSection} aria-label="Agent Ranking">
               <SectionHeading
                 eyebrow=""
-                title="Agent Ranking"
-                description="Compare agents across multiple criteria and find the best ones for your account."
+                title="ZZZ Character Tier List"
+                description="Compare agents by role, attribute, and endgame value. The ZZZ Tier List helps you judge which characters deserve build priority while keeping official Agent terminology in the ranking experience."
               />
               <div className={styles.rankingTabs} role="tablist" aria-label="Agent ranking views">
                 {agentRankingViews.map((view) => (
@@ -1103,7 +1105,7 @@ export function ZenlessZoneZeroTierList() {
                 eyebrow=""
                 title="Team Ranking"
                 description={
-                  "Rank complete team concepts, then open a team to compare premium, alternative, and F2P versions."
+                  "Use the Zenless Zone Zero Tier List alongside team rankings to see how highly ranked agents fit into premium, alternative, and F2P cores before committing upgrade materials."
                 }
               />
               <div className={styles.rankingTabs} role="tablist" aria-label="Team ranking views">
@@ -1144,7 +1146,7 @@ export function ZenlessZoneZeroTierList() {
                 eyebrow=""
                 title="Current Pull Advice"
                 description={
-                  "Select a current or upcoming banner above to open the account-focused pull decision detail."
+                  "Read pull advice together with the Zenless Zone Zero Character Tier List to judge roster fit, team-building value, resource cost, and whether a featured agent is worth pulling."
                 }
               />
             </section>
