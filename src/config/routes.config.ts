@@ -118,7 +118,7 @@ export const routeDefinitions = [
     class: "public_noindex",
     title: "ZZZ Tier List – Best Zenless Zone Zero Characters Ranked",
     description:
-      "Explore the Zenless Zone Zero Tier List with current character rankings, best agents, team-building insights, and pull decisions to guide your investment.",
+      "Explore the Zenless Zone Zero Tier List with current character rankings, best characters and agents, team-building insights, and pull decisions.",
   },
   {
     route: "/nikke/tier-list",
