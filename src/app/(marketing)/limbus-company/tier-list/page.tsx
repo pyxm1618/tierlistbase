@@ -15,19 +15,18 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function LimbusCompanyTierListPage() {
   const definition = routeRegistry.get(route);
-  if (definition.class !== "public_indexable") {
-    throw new Error("Limbus Company tier list must be indexable");
-  }
 
   return (
     <>
-      <JsonLd
-        value={webApplicationJsonLd({
-          name: definition.h1,
-          url: `${routeRegistry.site.canonicalOrigin}${route}`,
-          description: definition.description,
-        })}
-      />
+      {definition.class === "public_indexable" ? (
+        <JsonLd
+          value={webApplicationJsonLd({
+            name: definition.h1,
+            url: `${routeRegistry.site.canonicalOrigin}${route}`,
+            description: definition.description,
+          })}
+        />
+      ) : null}
       <LimbusTierList />
     </>
   );
