@@ -3,8 +3,8 @@ export {
   bestEgoBySinner,
   bestIdentityBySinner,
   egoRows,
-  exampleTeamDetail,
   identityRows,
   sinners,
+  teamDetails,
   teamRows,
 } from "./data";

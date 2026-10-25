@@ -62,6 +62,7 @@ export type SinnerIdentityPick = {
 };
 
 export type TeamRow = {
+  id: string;
   rank: number;
   tier: TierValue;
   team: string;
@@ -76,7 +77,10 @@ export type TeamRow = {
 };
 
 export type TeamDetail = {
+  id: string;
   team: string;
+  category: TeamType;
+  keyMechanic: string;
   powerTier: TierValue;
   storyGeneral: TierValue;
   mirrorDungeon: TierValue;
@@ -187,6 +191,7 @@ export const bestIdentityBySinner: SinnerIdentityPick[] = sinnerBestIdentities.m
 export const teamRows: TeamRow[] = [...teamsMasterData]
   .sort((a, b) => tierOrder[a.powerTier] - tierOrder[b.powerTier])
   .map((team, index) => ({
+    id: team.id,
     rank: index + 1,
     tier: team.powerTier,
     team: team.teamName,
@@ -200,26 +205,26 @@ export const teamRows: TeamRow[] = [...teamsMasterData]
     beginnerFriendly: team.beginnerFriendly,
   }));
 
-const featuredTeam =
-  teamsMasterData.find((team) => team.id === "status-bleed") ?? teamsMasterData[0]!;
-
-export const exampleTeamDetail: TeamDetail = {
-  team: featuredTeam.teamName,
-  powerTier: featuredTeam.powerTier,
-  storyGeneral: featuredTeam.storyGeneral,
-  mirrorDungeon: featuredTeam.mirrorDungeon,
-  railwayEndgame: featuredTeam.railwayEndgame,
-  buildCost: featuredTeam.buildCost,
-  coreDependency: featuredTeam.coreDependency,
-  flexibility: featuredTeam.flexibility,
-  easeOfUse: featuredTeam.easeOfUse,
-  beginnerFriendly: featuredTeam.beginnerFriendly,
-  coreMembers: [...featuredTeam.coreMembers],
-  recommendedTeam: [...featuredTeam.recommendedTeam],
-  substitutes: [...featuredTeam.substitutes],
-  keyEgo: [...featuredTeam.keyEgo],
-  missingOne: featuredTeam.whatToGetNext,
-};
+export const teamDetails: TeamDetail[] = teamsMasterData.map((team) => ({
+  id: team.id,
+  team: team.teamName,
+  category: team.category,
+  keyMechanic: team.keyMechanic,
+  powerTier: team.powerTier,
+  storyGeneral: team.storyGeneral,
+  mirrorDungeon: team.mirrorDungeon,
+  railwayEndgame: team.railwayEndgame,
+  buildCost: team.buildCost,
+  coreDependency: team.coreDependency,
+  flexibility: team.flexibility,
+  easeOfUse: team.easeOfUse,
+  beginnerFriendly: team.beginnerFriendly,
+  coreMembers: [...team.coreMembers],
+  recommendedTeam: [...team.recommendedTeam],
+  substitutes: [...team.substitutes],
+  keyEgo: [...team.keyEgo],
+  missingOne: team.whatToGetNext,
+}));
 
 export const egoRows: EgoRow[] = [...egoMasterData]
   .sort((a, b) => tierOrder[a.editorial.tier] - tierOrder[b.editorial.tier])
