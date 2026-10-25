@@ -99,15 +99,6 @@ export function SiteHeaderAccount({
   const links = (
     <>
       <Link
-        href="/account/vanguard"
-        role="menuitem"
-        className={linkClass}
-        prefetch={false}
-        onClick={closeMenu}
-      >
-        My Vanguard
-      </Link>
-      <Link
         href="/account"
         role="menuitem"
         className={linkClass}
