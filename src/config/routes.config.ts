@@ -123,16 +123,16 @@ export const routeDefinitions = [
   {
     route: "/nikke/tier-list",
     class: "public_noindex",
-    title: "NIKKE Tier List Preview | TierListBase",
+    title: "NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE",
     description:
-      "Preview the TierListBase NIKKE tier list interface for Campaign, Boss, Raid, PvP, teams, reroll, wishlist, methodology, and character details.",
+      "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
   },
   {
     route: "/limbus-company/tier-list",
     class: "public_noindex",
-    title: "Limbus Company Tier List Preview | TierListBase",
+    title: "Limbus Company Tier List – Best Identities & E.G.O Ranked",
     description:
-      "Preview the TierListBase Limbus Company tier list interface for Identity, Team, E.G.O, and Sinner-focused recommendations.",
+      "Use the Limbus Company Tier List to compare Identity, team, and E.G.O rankings, identify the strongest options, and decide what is worth building for your account.",
   },
   {
     route: "/privacy",
