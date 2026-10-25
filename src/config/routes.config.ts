@@ -18,6 +18,7 @@ export const routeDefinitions = [
     lastModified: "2026-10-19",
   },
   { route: "/account/vanguard", class: "private" },
+  { route: "/wow-forever/vanguard/my", class: "private" },
   ...[
     "manifest",
     "holds",

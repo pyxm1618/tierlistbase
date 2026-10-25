@@ -175,7 +175,7 @@ export function VanguardEntry(props: {
                 Search
               </button>
               <Link
-                href="/account/vanguard"
+                href="/wow-forever/vanguard/my"
                 className="rounded border border-[#7a6336] bg-[#221f18]/85 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[#f7e7c4] backdrop-blur-md transition hover:border-[#d4af37] hover:bg-[#332e23]"
               >
                 My Vanguard

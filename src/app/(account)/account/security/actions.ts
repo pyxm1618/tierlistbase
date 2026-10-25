@@ -1,11 +1,14 @@
 "use server";
 
+import { and, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 import { requireAccountContext } from "@/platform/auth/account-context";
 import { getAuth } from "@/platform/auth/auth";
+import { db } from "@/platform/database/application-database";
+import { session } from "@/platform/database/schema";
 
 async function authenticatedRequest() {
   const requestHeaders = await headers();
@@ -27,8 +30,11 @@ export async function revokeSessionAction(formData: FormData): Promise<void> {
 
   const { context, requestHeaders } = await authenticatedRequest();
   const auth = requireAuth();
-  const sessions = await auth.api.listSessions({ headers: requestHeaders });
-  const matched = sessions.filter((session) => session.id === sessionId);
+  const matched = await db
+    .select({ id: session.id, token: session.token })
+    .from(session)
+    .where(and(eq(session.id, sessionId), eq(session.userId, context.user.id)))
+    .limit(2);
   if (matched.length !== 1 || !matched[0]) throw new Error("session not found");
   if (matched[0].id === context.session.id) throw new Error("current session cannot be revoked");
 
