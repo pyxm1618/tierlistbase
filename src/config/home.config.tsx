@@ -19,6 +19,7 @@ export const homeConfig = {
       h1: homeRoute.h1,
       lead: "TierListBase provides transparent, auditable game meta tier lists built from multi-source editorial consensus and documented evidence rather than opaque formulas.",
       primaryCta: { label: "View WoW Forever Tier List", href: "/wow-forever/tier-list" },
+      secondaryCta: { label: "View Limbus Company Tier List", href: "/limbus-company/tier-list" },
     },
     {
       type: "tool-demo",

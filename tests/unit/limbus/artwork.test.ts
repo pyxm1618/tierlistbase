@@ -4,13 +4,14 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 import manifest from "@/modules/limbus-tier-list/assets/asset-manifest.json";
-import { egoArtwork, identityArtwork } from "@/modules/limbus-tier-list/artwork";
+import { egoArtwork, identityArtwork, teamArtwork } from "@/modules/limbus-tier-list/artwork";
 import {
   bestEgoBySinner,
   bestIdentityBySinner,
   egoRows,
   identityRows,
   teamDetails,
+  teamRows,
 } from "@/modules/limbus-tier-list/data";
 
 const moduleDir = fileURLToPath(new URL("../../../src/modules/limbus-tier-list/", import.meta.url));
@@ -50,6 +51,15 @@ describe("Limbus artwork map", () => {
       for (const name of [pick.bestOverall, pick.bestGeneralist, pick.bestForTeam]) {
         expect(egoArtwork[name], `best ego: ${name}`).toBeDefined();
       }
+    }
+  });
+
+  it("12 个 Team artwork 全部按冻结 ID 精确解析", () => {
+    expect(teamRows).toHaveLength(12);
+    expect(Object.keys(teamArtwork)).toHaveLength(12);
+
+    for (const row of teamRows) {
+      expect(teamArtwork[row.id], `team artwork: ${row.id}`).toBeDefined();
     }
   });
 
