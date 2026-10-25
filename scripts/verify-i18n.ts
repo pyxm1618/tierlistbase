@@ -7,6 +7,7 @@ const PLACEHOLDER = /\b(todo|tbd|placeholder|replace[ -]?me|lorem ipsum)\b/i;
 const indexable = routeRegistry.indexable();
 const bespokeIndexableRoutes = new Set([
   "/genshin-impact/tier-list",
+  "/limbus-company/tier-list",
   "/wow-forever/vanguard",
   "/about",
 ]);
