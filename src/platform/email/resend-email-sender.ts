@@ -12,7 +12,10 @@ export type ResendClientLike = {
   readonly emails: {
     send(
       input: ResendSendInput,
-      options?: { readonly idempotencyKey: string },
+      options?: {
+        readonly idempotencyKey?: string;
+        readonly signal?: AbortSignal;
+      },
     ): Promise<{
       readonly data: { readonly id: string } | null;
       readonly error: { readonly name?: string } | null;
@@ -26,7 +29,7 @@ export function createResendEmailSender(input: {
   readonly client: ResendClientLike;
 }): EmailSender {
   return {
-    async send(message) {
+    async send(message, options) {
       const payload = {
         from: input.from,
         to: [message.to],
@@ -34,9 +37,14 @@ export function createResendEmailSender(input: {
         subject: message.subject,
         html: message.html,
       };
-      const result = message.idempotencyKey
-        ? await input.client.emails.send(payload, { idempotencyKey: message.idempotencyKey })
-        : await input.client.emails.send(payload);
+      const requestOptions = {
+        ...(message.idempotencyKey ? { idempotencyKey: message.idempotencyKey } : {}),
+        ...(options?.signal ? { signal: options.signal } : {}),
+      };
+      const result =
+        Object.keys(requestOptions).length > 0
+          ? await input.client.emails.send(payload, requestOptions)
+          : await input.client.emails.send(payload);
 
       if (result.error || !result.data?.id) {
         throw new Error(`email delivery failed: ${result.error?.name ?? "unknown_error"}`);
@@ -59,6 +67,8 @@ export async function createProductionResendEmailSender(input: {
     replyTo: input.replyTo,
     client: {
       emails: {
+        // Resend 6.18.1 forwards unknown request options into fetch RequestInit at runtime.
+        // Keeping the local type explicit lets Vanguard bound provider I/O without upgrading dependencies.
         send: (message, options) => resend.emails.send(message, options),
       },
     },

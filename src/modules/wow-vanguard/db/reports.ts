@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { eq } from "drizzle-orm";
 import type { z } from "zod";
 import type { DatabaseClient } from "@/platform/database/client";
@@ -9,6 +9,14 @@ import { vanguardInscriptions, vanguardReports } from "./schema";
 // Resend retains keys for 24h. Leave an hour of margin; an ambiguous older send
 // needs operator review, never a fresh automatic notification.
 const NOTIFICATION_RETRY_WINDOW_MS = 23 * 60 * 60 * 1000;
+const NOTIFICATION_PROVIDER_TIMEOUT_MS = 30 * 1000;
+const NOTIFICATION_CLAIM_LEASE_MS = 60 * 1000;
+const NOTIFICATION_WAIT_POLL_MS = 100;
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export function createVanguardReportService(
   database: DatabaseClient,
   input: {
@@ -17,6 +25,7 @@ export function createVanguardReportService(
       reason: string;
       timestamp: string;
       idempotencyKey: string;
+      signal: AbortSignal;
     }) => Promise<void>;
   },
 ) {
@@ -26,6 +35,7 @@ export function createVanguardReportService(
       const payloadHash = createHash("sha256")
         .update(JSON.stringify([request.seatId, request.reason, reporterUserId]))
         .digest("hex");
+
       // Persist before provider I/O so email failure cannot discard the report.
       await database.transaction(async (tx) => {
         const [existing] = await tx
@@ -55,54 +65,144 @@ export function createVanguardReportService(
           })
           .onConflictDoNothing({ target: vanguardReports.operationId });
       });
-      // Persist the first possible send time independently of the send transaction.
-      // A crash/timeout after provider acceptance must not reset the retry window.
-      await database.transaction(async (tx) => {
-        const [record] = await tx
-          .select()
-          .from(vanguardReports)
-          .where(eq(vanguardReports.operationId, request.operationId))
-          .for("update");
-        if (!record || record.payloadHash !== payloadHash)
-          throw new VanguardError("IDEMPOTENCY_CONFLICT", 409);
-        if (!record.notificationStartedAt)
+
+      while (true) {
+        const decision = await database.transaction(async (tx) => {
+          const [record] = await tx
+            .select()
+            .from(vanguardReports)
+            .where(eq(vanguardReports.operationId, request.operationId))
+            .for("update");
+          if (!record || record.payloadHash !== payloadHash)
+            throw new VanguardError("IDEMPOTENCY_CONFLICT", 409);
+          if (record.notifiedAt) return { kind: "complete" as const };
+
+          const now = new Date();
+          const activeClaim =
+            record.notificationClaimToken &&
+            record.notificationClaimedAt &&
+            now.getTime() - record.notificationClaimedAt.getTime() <
+              NOTIFICATION_CLAIM_LEASE_MS;
+          if (activeClaim) {
+            return {
+              kind: "wait" as const,
+              claimToken: record.notificationClaimToken,
+            };
+          }
+
+          if (
+            record.notificationStartedAt &&
+            now.getTime() - record.notificationStartedAt.getTime() >=
+              NOTIFICATION_RETRY_WINDOW_MS
+          ) {
+            return {
+              kind: "error" as const,
+              error: new VanguardError("REPORT_NOTIFICATION_REVIEW_REQUIRED", 503),
+            };
+          }
+
+          const claimToken = randomUUID();
           await tx
             .update(vanguardReports)
-            .set({ notificationStartedAt: new Date() })
+            .set({
+              notificationStartedAt: record.notificationStartedAt ?? now,
+              notificationClaimToken: claimToken,
+              notificationClaimedAt: now,
+            })
             .where(eq(vanguardReports.id, record.id));
-      });
-      const result = await database.transaction(async (tx) => {
-        const [record] = await tx
-          .select()
-          .from(vanguardReports)
-          .where(eq(vanguardReports.operationId, request.operationId))
-          .for("update");
-        if (!record || record.payloadHash !== payloadHash)
-          throw new VanguardError("IDEMPOTENCY_CONFLICT", 409);
-        if (record.notifiedAt) return { received: true as const };
-        if (
-          !record.notificationStartedAt ||
-          Date.now() - record.notificationStartedAt.getTime() >= NOTIFICATION_RETRY_WINDOW_MS
-        )
-          return { error: new VanguardError("REPORT_NOTIFICATION_REVIEW_REQUIRED", 503) };
+          return {
+            kind: "send" as const,
+            claimToken,
+            id: record.id,
+            reason: record.reason,
+            createdAt: record.createdAt,
+          };
+        });
+
+        if (decision.kind === "complete") return { received: true as const };
+        if (decision.kind === "error") throw decision.error;
+
+        if (decision.kind === "wait") {
+          while (true) {
+            await delay(NOTIFICATION_WAIT_POLL_MS);
+            const [record] = await database
+              .select()
+              .from(vanguardReports)
+              .where(eq(vanguardReports.operationId, request.operationId));
+            if (!record || record.payloadHash !== payloadHash)
+              throw new VanguardError("IDEMPOTENCY_CONFLICT", 409);
+            if (record.notifiedAt) return { received: true as const };
+
+            const sameClaimStillActive =
+              record.notificationClaimToken === decision.claimToken &&
+              record.notificationClaimedAt &&
+              Date.now() - record.notificationClaimedAt.getTime() <
+                NOTIFICATION_CLAIM_LEASE_MS;
+            if (!sameClaimStillActive) break;
+          }
+          continue;
+        }
+
+        const controller = new AbortController();
+        const timeout = setTimeout(
+          () => controller.abort(),
+          NOTIFICATION_PROVIDER_TIMEOUT_MS,
+        );
         try {
           await input.notify({
             seatId: request.seatId,
-            reason: record.reason,
-            timestamp: record.createdAt.toISOString(),
-            idempotencyKey: `vanguard-report/${record.id}`,
+            reason: decision.reason,
+            timestamp: decision.createdAt.toISOString(),
+            idempotencyKey: `vanguard-report/${decision.id}`,
+            signal: controller.signal,
           });
         } catch {
-          return { error: new VanguardError("REPORT_NOTIFICATION_FAILED", 503) };
+          await database.transaction(async (tx) => {
+            const [record] = await tx
+              .select()
+              .from(vanguardReports)
+              .where(eq(vanguardReports.operationId, request.operationId))
+              .for("update");
+            if (
+              record?.notificationClaimToken === decision.claimToken &&
+              !record.notifiedAt
+            ) {
+              await tx
+                .update(vanguardReports)
+                .set({
+                  notificationClaimToken: null,
+                  notificationClaimedAt: null,
+                })
+                .where(eq(vanguardReports.id, record.id));
+            }
+          });
+          throw new VanguardError("REPORT_NOTIFICATION_FAILED", 503);
+        } finally {
+          clearTimeout(timeout);
         }
-        await tx
-          .update(vanguardReports)
-          .set({ notifiedAt: new Date() })
-          .where(eq(vanguardReports.id, record.id));
-        return { received: true as const };
-      });
-      if ("error" in result) throw result.error;
-      return result;
+
+        const finalized = await database.transaction(async (tx) => {
+          const [record] = await tx
+            .select()
+            .from(vanguardReports)
+            .where(eq(vanguardReports.operationId, request.operationId))
+            .for("update");
+          if (!record || record.payloadHash !== payloadHash)
+            throw new VanguardError("IDEMPOTENCY_CONFLICT", 409);
+          if (record.notifiedAt) return true;
+          if (record.notificationClaimToken !== decision.claimToken) return false;
+          await tx
+            .update(vanguardReports)
+            .set({
+              notifiedAt: new Date(),
+              notificationClaimToken: null,
+              notificationClaimedAt: null,
+            })
+            .where(eq(vanguardReports.id, record.id));
+          return true;
+        });
+        if (finalized) return { received: true as const };
+      }
     },
   };
 }

@@ -110,6 +110,8 @@ export const vanguardReports = pgTable(
     operationId: uuid("operation_id").unique(),
     payloadHash: text("payload_hash"),
     notificationStartedAt: timestamp("notification_started_at", { withTimezone: true }),
+    notificationClaimToken: uuid("notification_claim_token"),
+    notificationClaimedAt: timestamp("notification_claimed_at", { withTimezone: true }),
     notifiedAt: timestamp("notified_at", { withTimezone: true }),
     inscriptionId: uuid("inscription_id")
       .notNull()

@@ -12,10 +12,14 @@ export type TransactionalEmail = {
   readonly html: string;
 };
 
+export type EmailSendOptions = {
+  readonly signal?: AbortSignal;
+};
+
 export type EmailSendResult = {
   readonly providerMessageId: string;
 };
 
 export interface EmailSender {
-  send(message: TransactionalEmail): Promise<EmailSendResult>;
+  send(message: TransactionalEmail, options?: EmailSendOptions): Promise<EmailSendResult>;
 }

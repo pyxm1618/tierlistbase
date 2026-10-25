@@ -5544,6 +5544,18 @@
           "primaryKey": false,
           "notNull": false
         },
+        "notification_claim_token": {
+          "name": "notification_claim_token",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notification_claimed_at": {
+          "name": "notification_claimed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
         "notified_at": {
           "name": "notified_at",
           "type": "timestamp with time zone",
