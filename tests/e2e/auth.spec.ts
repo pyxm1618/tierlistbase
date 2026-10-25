@@ -365,7 +365,7 @@ test("account IA keeps My Vanguard in WoW Forever context", async ({ browser, re
   await page.goto("/account/vanguard");
   await expect(page).toHaveURL(/\/wow-forever\/vanguard\/my$/);
   await expect(page.getByRole("heading", { name: "My Vanguard" })).toBeVisible();
-  await expect(page.locator('main a[href="/wow-forever/vanguard"]')).toBeVisible();
+  await expect(page.locator("main").getByRole("link", { name: "Vanguard Monument" })).toBeVisible();
 
   await page.goto("/wow-forever/vanguard");
   await expect(page.getByRole("link", { name: "My Vanguard" })).toBeVisible();
