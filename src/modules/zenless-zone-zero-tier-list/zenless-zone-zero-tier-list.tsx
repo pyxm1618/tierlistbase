@@ -231,7 +231,7 @@ function AgentDetail({
           </div>
         </div>
         <div className={styles.agentHeroArt}>
-          {agent.id === "miyabi" ? (
+          {agent.id === "hoshimi-miyabi" ? (
             <Image
               src={agentDetailMiyabi}
               alt=""
@@ -250,7 +250,7 @@ function AgentDetail({
           <Metric label="Overall Rating" value={agent.overallRating} strong />
           <Metric label="New Player Value" value={agent.newPlayerValue} />
           <Metric label="Investment Level" value={agent.investmentLevel} />
-          <Metric label="Team Flexibility" value={agent.teamFlexibility} />
+          <Metric label="Team Flexibility" value={agent.teamFlexibility ?? "—"} />
           <Metric label="Signature Dependency" value={agent.signatureDependency} />
         </section>
         <section className={styles.detailCard}>
@@ -259,7 +259,7 @@ function AgentDetail({
           <Metric label="Deadly Assault" value={agent.deadlyAssault} />
           <div className={styles.cycleSuitability}>
             <span>Current Cycle Suitability</span>
-            <strong>{agent.currentCycleSuitability}</strong>
+            <strong>{agent.currentCycleSuitability ?? "—"}</strong>
           </div>
         </section>
       </div>
@@ -357,10 +357,6 @@ function AgentDetail({
       {tab === "details" ? (
         <div className={styles.textPanel}>
           <h4>Agent Detail</h4>
-          <p>
-            This mock detail state keeps the frozen decision fields visible without asserting live
-            ZZZ meta accuracy. Production ranking evidence will be handled in the later data phase.
-          </p>
         </div>
       ) : null}
     </aside>
@@ -433,7 +429,6 @@ function TeamDetail({
   onClose: () => void;
 }) {
   const banner = teamBanners[team.id];
-  const [best, alternative, budget] = team.compositions;
   return (
     <section className={styles.largeDetailPanel} aria-label="Team Detail">
       <div className={styles.detailPanelHeader} data-detail-kind="team">
@@ -496,27 +491,34 @@ function TeamDetail({
         <>
           <h4 className={styles.subheading}>Team Compositions</h4>
           <div className={styles.compositionGrid}>
-            {[best, alternative, budget].map((composition, index) =>
-              composition ? (
-                <section key={composition.label} data-variant={index}>
-                  <div>
-                    <strong>{composition.label}</strong>
-                    <span>{composition.subtitle}</span>
-                  </div>
-                  <div className={styles.compositionMembers}>
-                    {composition.members.map((member) => (
-                      <div key={member.name}>
-                        <span className={styles.memberPortrait}>
-                          <AgentPortrait name={member.name} sizes="48px" />
-                        </span>
-                        <strong>{member.name}</strong>
-                        <small>{member.role}</small>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null,
-            )}
+            {team.compositions.map((composition, index) => (
+              <section key={`${composition.label}-${index}`} data-variant={index}>
+                <div>
+                  <strong>{composition.label}</strong>
+                  <span>{composition.subtitle}</span>
+                </div>
+                <div className={styles.compositionMembers}>
+                  {composition.members.map((member) => (
+                    <div key={`${composition.label}-${member.name}`}>
+                      <span className={styles.memberPortrait}>
+                        <AgentPortrait name={member.name} sizes="48px" />
+                      </span>
+                      <strong>{member.name}</strong>
+                      <small>{member.role}</small>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
+            {team.budgetF2pNote ? (
+              <section data-variant="budget-note">
+                <div>
+                  <strong>Budget / F2P</strong>
+                  <span>No credible budget version</span>
+                </div>
+                <p>{team.budgetF2pNote}</p>
+              </section>
+            ) : null}
           </div>
         </>
       )}
@@ -739,9 +741,9 @@ export function ZenlessZoneZeroTierList() {
   const [attribute, setAttribute] = useState("All");
   const [faction, setFaction] = useState("All");
   const [rarity, setRarity] = useState("All");
-  const [selectedAgentId, setSelectedAgentId] = useState("miyabi");
-  const [selectedTeamId, setSelectedTeamId] = useState("miyabi-freeze");
-  const [selectedPullId, setSelectedPullId] = useState("miyabi-pull");
+  const [selectedAgentId, setSelectedAgentId] = useState("hoshimi-miyabi");
+  const [selectedTeamId, setSelectedTeamId] = useState("phoenix-vortex");
+  const [selectedPullId, setSelectedPullId] = useState("phoenix-current-3-3");
   const [agentDetailTab, setAgentDetailTab] = useState<AgentDetailTab>("build");
   const [teamDetailTab, setTeamDetailTab] = useState<TeamDetailTab>("overview");
   const [pullDetailTab, setPullDetailTab] = useState<PullDetailTab>("decision");
