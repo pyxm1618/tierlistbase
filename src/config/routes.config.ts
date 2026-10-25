@@ -117,9 +117,9 @@ export const routeDefinitions = [
   {
     route: "/zenless-zone-zero/tier-list",
     class: "public_noindex",
-    title: "Zenless Zone Zero Tier List | TierListBase",
+    title: "ZZZ Tier List – Best Zenless Zone Zero Characters Ranked",
     description:
-      "Zenless Zone Zero agent rankings, team rankings, and account-focused pull advice.",
+      "Explore the Zenless Zone Zero Tier List with current character rankings, best characters and agents, team-building insights, and pull decisions.",
   },
   {
     route: "/nikke/tier-list",
