@@ -4,7 +4,7 @@ import {
   bestEgoBySinner,
   bestIdentityBySinner,
   egoRows,
-  exampleTeamDetail,
+  teamDetails,
   teamRows,
   type Availability,
   type RatingValue,
@@ -13,11 +13,11 @@ import {
 import limbusHero from "./assets/hero.webp";
 import teamBanner from "./assets/team-banner.webp";
 import { AssetSlot } from "./asset-slot";
-import { egoArtwork, identityArtwork, identityArtworkSrc } from "./artwork";
+import { egoArtwork, egoArtworkSrc, identityArtwork, identityArtworkSrc } from "./artwork";
 import { IdentityRanking } from "./identity-ranking";
 import { SinnerPortrait } from "./sinner-portrait";
 import styles from "./limbus-tier-list.module.css";
-import { TeamDetailTabs } from "./team-detail-tabs";
+import { TeamWorkspace } from "./team-workspace";
 
 function TierBadge({ value }: { value: TierValue }) {
   return (
@@ -166,201 +166,13 @@ export function LimbusTierList() {
             action="View Guide"
             actionHref="#team-tier-list"
           />
-          <div className={styles.teamWorkspace}>
-            <div className={styles.tableFrame}>
-              <table className={[styles.dataTable, styles.teamTable].join(" ")}>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Tier</th>
-                    <th>Team / Build</th>
-                    <th>Type</th>
-                    <th>Key Mechanic</th>
-                    <th>Power</th>
-                    <th>Story / General</th>
-                    <th>MD</th>
-                    <th>Railway</th>
-                    <th>Build Cost</th>
-                    <th>Beginner Friendly</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {teamRows.map((row) => (
-                    <tr key={row.rank}>
-                      <td className={styles.rankCell}>{row.rank}</td>
-                      <td>
-                        <TierBadge value={row.tier} />
-                      </td>
-                      <td>
-                        <div className={styles.nameCell}>
-                          <AssetSlot compact label="ICON" />
-                          <strong>{row.team}</strong>
-                        </div>
-                      </td>
-                      <td>{row.type}</td>
-                      <td>
-                        <span className={styles.mechanicText}>{row.keyMechanic}</span>
-                      </td>
-                      <td>
-                        <RatingBadge value={row.power} compact />
-                      </td>
-                      <td>
-                        <RatingBadge value={row.storyGeneral} compact />
-                      </td>
-                      <td>
-                        <RatingBadge value={row.mirrorDungeon} compact />
-                      </td>
-                      <td>
-                        <RatingBadge value={row.railway} compact />
-                      </td>
-                      <td>
-                        <RatingBadge value={row.buildCost} compact />
-                      </td>
-                      <td>
-                        <RatingBadge value={row.beginnerFriendly} compact />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <article className={styles.teamDetail} id="team-details">
-              <div className={styles.teamDetailHeader}>
-                <span className={styles.detailNumber}>02</span>
-                <strong>TEAM DETAILS (EXAMPLE)</strong>
-                <a href="#team-tier-list">View All Teams →</a>
-              </div>
-              <div className={styles.teamDetailHero}>
-                <Image
-                  src={teamBanner}
-                  alt=""
-                  fill
-                  sizes="(max-width: 760px) calc(100vw - 28px), 420px"
-                  className={styles.teamBannerImage}
-                />
-                <div className={styles.teamBannerShade} />
-                <div className={styles.teamDetailTitle}>
-                  <h3>{exampleTeamDetail.team}</h3>
-                  <div>
-                    <TierBadge value={exampleTeamDetail.powerTier} />
-                    <span className={styles.typeChip}>Status</span>
-                    <span className={styles.mechanicText}>Bleed</span>
-                  </div>
-                </div>
-              </div>
-              <TeamDetailTabs />
-              <div className={styles.teamMetrics}>
-                <dl>
-                  <div>
-                    <dt>Power Tier</dt>
-                    <dd>
-                      <RatingBadge value={exampleTeamDetail.powerTier} compact />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Story / General</dt>
-                    <dd>
-                      <RatingBadge value={exampleTeamDetail.storyGeneral} compact />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Mirror Dungeon</dt>
-                    <dd>
-                      <RatingBadge value={exampleTeamDetail.mirrorDungeon} compact />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Railway / Endgame</dt>
-                    <dd>
-                      <RatingBadge value={exampleTeamDetail.railwayEndgame} compact />
-                    </dd>
-                  </div>
-                </dl>
-                <dl>
-                  <div>
-                    <dt>Build Cost</dt>
-                    <dd>
-                      <RatingBadge value={exampleTeamDetail.buildCost} compact />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Core Dependency</dt>
-                    <dd>
-                      <RatingBadge value={exampleTeamDetail.coreDependency} compact />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Flexibility</dt>
-                    <dd>
-                      <RatingBadge value={exampleTeamDetail.flexibility} compact />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Ease of Use</dt>
-                    <dd>
-                      <RatingBadge value={exampleTeamDetail.easeOfUse} compact />
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Beginner Friendly</dt>
-                    <dd>
-                      <RatingBadge value={exampleTeamDetail.beginnerFriendly} compact />
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-              <div className={styles.teamPieces}>
-                <div>
-                  <h4>Core Members</h4>
-                  <div className={styles.assetStrip}>
-                    {exampleTeamDetail.coreMembers.map((member) => (
-                      <span key={member} title={member}>
-                        <AssetSlot compact src={identityArtwork[member]?.src} alt={member} />
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <h4>Recommended Team</h4>
-                  <div className={styles.assetStrip}>
-                    {exampleTeamDetail.recommendedTeam.map((member) => (
-                      <span key={member} title={member}>
-                        <AssetSlot compact src={identityArtwork[member]?.src} alt={member} />
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <h4>Key E.G.O</h4>
-                  <div className={styles.assetStrip}>
-                    {exampleTeamDetail.keyEgo.map((ego) => (
-                      <span key={ego} title={ego}>
-                        <AssetSlot compact src={egoArtwork[ego]?.src} alt={ego} />
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <h4>Substitutes / Alternatives</h4>
-                  <div className={styles.assetStrip}>
-                    {exampleTeamDetail.substitutes.map((member) => (
-                      <span key={member} title={member}>
-                        <AssetSlot compact src={identityArtwork[member]?.src} alt={member} />
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className={styles.missingNext}>
-                  <h4>Missing One / What to Get Next</h4>
-                  <p>
-                    {exampleTeamDetail.missingOne}
-                    <span aria-hidden="true">›</span>
-                  </p>
-                </div>
-              </div>
-            </article>
-          </div>
+          <TeamWorkspace
+            teamRows={teamRows}
+            teamDetails={teamDetails}
+            identityArtwork={identityArtworkSrc}
+            egoArtwork={egoArtworkSrc}
+            bannerImage={teamBanner}
+          />
         </section>
 
         <section className={styles.paperSection} id="ego-tier-list">

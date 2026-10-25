@@ -648,3 +648,7 @@ export function artworkFor(kind: ArtworkKind, name: string): StaticImageData | u
 export const identityArtworkSrc: Readonly<Record<string, string>> = Object.fromEntries(
   Object.entries(identityArtwork).map(([name, art]) => [name, art.src]),
 );
+
+export const egoArtworkSrc: Readonly<Record<string, string>> = Object.fromEntries(
+  Object.entries(egoArtwork).map(([name, art]) => [name, art.src]),
+);
