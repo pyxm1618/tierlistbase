@@ -341,13 +341,13 @@ test("serves final Limbus SEO copy while remaining noindex until Team artwork is
   request,
 }) => {
   await page.goto(route);
-  await expect(page).toHaveTitle(limbusRouteDefinition.title);
+  await expect(page).toHaveTitle(limbusRouteDefinition.title!);
   await expect(
     page.getByRole("heading", { level: 1, name: "LIMBUS COMPANY TIER LIST" }),
   ).toHaveCount(1);
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
-    limbusRouteDefinition.description,
+    limbusRouteDefinition.description!,
   );
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
