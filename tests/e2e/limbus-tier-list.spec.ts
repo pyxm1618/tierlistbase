@@ -4,6 +4,24 @@ import { routeRegistry } from "../../src/config/routes.config";
 
 const route = "/limbus-company/tier-list";
 const limbusRouteDefinition = routeRegistry.get(route);
+if (limbusRouteDefinition.class !== "public_indexable") {
+  throw new Error("Limbus route must be indexable");
+}
+
+const expectedTeamArtwork = [
+  ["Sinking Team", "status-sinking"],
+  ["Bleed Team", "status-bleed"],
+  ["Burn Team", "status-burn"],
+  ["Tremor Team", "status-tremor"],
+  ["Rupture Team", "status-rupture"],
+  ["Poise Team", "status-poise"],
+  ["Charge Team", "status-charge"],
+  ["Heishou Team", "heishou-pack-mao-branch-ryoshu"],
+  ["The Middle Team", "the-middle-little-brother-meursault"],
+  ["Dieci Discard Team", "dieci-assoc-south-section-4-rodion"],
+  ["Envy Resonance Team", "mechanic-envy-resonance"],
+  ["House of Spiders Hybrid Team", "blade-of-the-house-of-spiders-ryoshu"],
+] as const;
 
 const limbusKeywordGroup = [
   "limbus company tier list",
@@ -269,7 +287,7 @@ for (const width of [390, 1440]) {
       }
     });
 
-    test("renders local Identity and E.G.O artwork without broken or hotlinked images", async ({
+    test("renders local Identity, E.G.O, and Team artwork without broken or hotlinked images", async ({
       page,
     }) => {
       await page.goto(route);
@@ -277,8 +295,10 @@ for (const width of [390, 1440]) {
       // 名称列（第 3 列）全部替换为本地素材
       const identityArt = page.locator("#identity-tier-list tbody tr td:nth-child(3) img");
       const egoArt = page.locator("#ego-tier-list tbody tr td:nth-child(3) img");
+      const teamArt = page.locator("#team-tier-list tbody tr td:nth-child(3) img");
       await expect(identityArt).toHaveCount(190);
       await expect(egoArt).toHaveCount(116);
+      await expect(teamArt).toHaveCount(12);
 
       // Team Details 图片验证（切换 Tab 确认无破图）
       await expect(page.locator("#team-details img")).toHaveCount(1); // Overview banner
@@ -287,17 +307,28 @@ for (const width of [390, 1440]) {
       await page.getByRole("tab", { name: "Key E.G.O" }).click();
       await expect(page.locator("#team-details img")).toHaveCount(5); // banner + 4 ego
 
-      // 占位符只剩 Team Tier List 的 12 个 ICON
-      await expect(page.locator('[aria-label="Artwork asset required"]')).toHaveCount(12);
+      // Team Tier List 的 12 个 ICON placeholder 全部由 PR #98 的固定映射替换。
+      await expect(page.locator('[aria-label="Artwork asset required"]')).toHaveCount(0);
       await expect(page.getByText("ART", { exact: true })).toHaveCount(0);
       await expect(page.getByText("EGO", { exact: true })).toHaveCount(0);
-      await expect(page.getByText("ICON", { exact: true })).toHaveCount(12);
+      await expect(page.getByText("ICON", { exact: true })).toHaveCount(0);
 
-      // 同源交付，无外链 hotlink
-      const srcs = await identityArt.evaluateAll((images) =>
-        images.map((image) => (image as HTMLImageElement).getAttribute("src") ?? ""),
-      );
-      expect(srcs).toHaveLength(190);
+      for (const [team, assetStem] of expectedTeamArtwork) {
+        const row = page.locator("#team-tier-list tbody tr").filter({ hasText: team });
+        await expect(row).toHaveCount(1);
+        const src = await row.locator("td:nth-child(3) img").getAttribute("src");
+        expect(decodeURIComponent(src ?? "")).toContain(assetStem);
+      }
+
+      // Identity / E.G.O / Team artwork 均为同源交付，无外链 hotlink。
+      const srcs = await page
+        .locator(
+          "#identity-tier-list tbody tr td:nth-child(3) img, #ego-tier-list tbody tr td:nth-child(3) img, #team-tier-list tbody tr td:nth-child(3) img",
+        )
+        .evaluateAll((images) =>
+          images.map((image) => (image as HTMLImageElement).getAttribute("src") ?? ""),
+        );
+      expect(srcs).toHaveLength(318);
       for (const src of srcs) {
         expect(src.startsWith("/_next/image?url=")).toBe(true);
         expect(src).not.toMatch(/^https?:\/\//);
@@ -336,23 +367,24 @@ for (const width of [390, 1440]) {
   });
 }
 
-test("serves final Limbus SEO copy while remaining noindex until Team artwork is complete", async ({
-  page,
-  request,
-}) => {
-  await page.goto(route);
-  await expect(page).toHaveTitle(limbusRouteDefinition.title!);
-  await expect(
-    page.getByRole("heading", { level: 1, name: "LIMBUS COMPANY TIER LIST" }),
-  ).toHaveCount(1);
+test("serves final Limbus SEO copy as an indexable launch", async ({ page, request }) => {
+  const response = await page.goto(route);
+  expect(response?.status()).toBe(200);
+  await expect(page).toHaveTitle(limbusRouteDefinition.title);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(limbusRouteDefinition.h1);
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
-    limbusRouteDefinition.description!,
+    limbusRouteDefinition.description,
   );
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
-  await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+  const robots = (await page.locator('meta[name="robots"]').getAttribute("content")) ?? "";
+  expect(robots).toMatch(/index/i);
+  expect(robots).not.toMatch(/noindex/i);
+
+  const canonical = `${routeRegistry.site.canonicalOrigin}${route}`;
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", canonical);
   const sitemap = await request.get("/sitemap.xml");
-  expect(await sitemap.text()).not.toContain(route);
+  expect(await sitemap.text()).toContain(canonical);
+  expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThan(0);
 });
 
 test("keeps the visible Limbus keyword group within the approved SEO range", async ({ page }) => {
@@ -394,7 +426,7 @@ test("keeps the visible Limbus keyword group within the approved SEO range", asy
   expect(phraseStats[1]!.occurrences).toBeGreaterThan(phraseStats[3]!.occurrences);
 });
 
-test("keeps shared navigation on public game pages and hides unfinished preview routes from header", async ({
+test("keeps shared navigation on public game pages and hides remaining preview routes from header", async ({
   page,
 }) => {
   const labels = ["World of Warcraft", "Genshin Impact"];
@@ -407,11 +439,7 @@ test("keeps shared navigation on public game pages and hides unfinished preview 
     const nav = page.locator('header nav[aria-label="Primary navigation"]');
     await expect(nav.getByRole("link")).toHaveText(labels);
     const mobileNav = page.locator('header nav[aria-label="Mobile navigation"]');
-    for (const previewRoute of [
-      "/nikke/tier-list",
-      "/zenless-zone-zero/tier-list",
-      "/limbus-company/tier-list",
-    ]) {
+    for (const previewRoute of ["/nikke/tier-list", "/zenless-zone-zero/tier-list"]) {
       await expect(mobileNav.locator(`a[href="${previewRoute}"]`)).toHaveCount(0);
     }
   }

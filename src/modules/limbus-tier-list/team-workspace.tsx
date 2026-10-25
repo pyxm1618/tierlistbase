@@ -38,12 +38,14 @@ function RatingBadge({
 export function TeamWorkspace({
   teamRows,
   teamDetails,
+  teamArtwork,
   identityArtwork,
   egoArtwork,
   bannerImage,
 }: {
   teamRows: TeamRow[];
   teamDetails: TeamDetail[];
+  teamArtwork: Readonly<Record<string, string>>;
   identityArtwork: Readonly<Record<string, string>>;
   egoArtwork: Readonly<Record<string, string>>;
   bannerImage: StaticImageData;
@@ -83,7 +85,7 @@ export function TeamWorkspace({
                   </td>
                   <td>
                     <div className={styles.nameCell}>
-                      <AssetSlot compact label="ICON" />
+                      <AssetSlot compact src={teamArtwork[row.id]} />
                       <button
                         type="button"
                         className={styles.teamSelectBtn}

@@ -1,5 +1,14 @@
 import type { StaticImageData } from "next/image";
 
+import teamEnvyResonance from "./assets/teams/mechanic-envy-resonance.png";
+import teamBleed from "./assets/teams/status-bleed.png";
+import teamBurn from "./assets/teams/status-burn.png";
+import teamCharge from "./assets/teams/status-charge.png";
+import teamPoise from "./assets/teams/status-poise.png";
+import teamRupture from "./assets/teams/status-rupture.png";
+import teamSinking from "./assets/teams/status-sinking.png";
+import teamTremor from "./assets/teams/status-tremor.png";
+
 import lcbSinnerYiSang from "./assets/identities/lcb-sinner-yi-sang.png";
 import sevenAssocSouthSection6YiSang from "./assets/identities/seven-assoc-south-section-6-yi-sang.png";
 import molarOfficeFixerYiSang from "./assets/identities/molar-office-fixer-yi-sang.png";
@@ -512,6 +521,22 @@ export const identityArtwork: Readonly<Record<string, StaticImageData>> = {
   "Öufi Assoc. South Section 3 Heathcliff": oufiAssocSouthSection3Heathcliff,
 };
 
+/** Team Tier List artwork, keyed by the frozen teams.ts IDs and PR #98 manifest. */
+export const teamArtwork: Readonly<Record<string, StaticImageData>> = {
+  "status-sinking": teamSinking,
+  "status-bleed": teamBleed,
+  "status-burn": teamBurn,
+  "status-tremor": teamTremor,
+  "status-rupture": teamRupture,
+  "status-poise": teamPoise,
+  "status-charge": teamCharge,
+  "faction-heishou": heishouPackMaoBranchRyoshu,
+  "faction-the-middle": theMiddleLittleBrotherMeursault,
+  "faction-dieci": dieciAssocSouthSection4Rodion,
+  "mechanic-envy-resonance": teamEnvyResonance,
+  "hybrid-house-of-spiders": bladeOfTheHouseOfSpidersRyoshu,
+};
+
 /**
  * E.G.O 图标映射：canonical name → 本地静态素材。同上，仅限服务端引用。
  */
@@ -651,4 +676,8 @@ export const identityArtworkSrc: Readonly<Record<string, string>> = Object.fromE
 
 export const egoArtworkSrc: Readonly<Record<string, string>> = Object.fromEntries(
   Object.entries(egoArtwork).map(([name, art]) => [name, art.src]),
+);
+
+export const teamArtworkSrc: Readonly<Record<string, string>> = Object.fromEntries(
+  Object.entries(teamArtwork).map(([id, art]) => [id, art.src]),
 );

@@ -5,6 +5,7 @@ import { PrivacySettingsButton } from "@/components/navigation/privacy-settings-
 
 const links = [
   { label: "Vanguard Monument", href: "/wow-forever/vanguard" },
+  { label: "Limbus Company", href: "/limbus-company/tier-list" },
   { label: "About", href: "/about" },
   { label: "How Rankings Work", href: "/about#about-process-title" },
   { label: "Privacy", href: "/privacy" },
