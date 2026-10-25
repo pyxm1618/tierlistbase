@@ -375,14 +375,14 @@ test("NIKKE SEO copy is staged while mock data keeps the route non-indexable", a
 }) => {
   const nikke = routeRegistry.get("/nikke/tier-list");
   expect(nikke.class).toBe("public_noindex");
-  expect(nikke.title).toBe("NIKKE Tier List – Best Characters Ranked");
+  expect(nikke.title).toBe("NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE");
   expect(nikke.description).toBe(
     "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
   );
 
   const response = await page.goto("/nikke/tier-list", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
-  await expect(page).toHaveTitle("NIKKE Tier List – Best Characters Ranked");
+  await expect(page).toHaveTitle("NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
     "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and evidence for the best NIKKE characters.",
