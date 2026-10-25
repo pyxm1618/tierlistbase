@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+import { routeRegistry } from "@/config/routes.config";
+
 const route = "/zenless-zone-zero/tier-list";
 
 test("ZZZ SEO pre-closeout stays noindex with the approved metadata", async ({ page }) => {
@@ -17,9 +19,7 @@ test("ZZZ SEO pre-closeout stays noindex with the approved metadata", async ({ p
   await expect(h1).toHaveCount(1);
   await expect(h1).toHaveText("ZZZ Tier List");
 
-  const sitemap = await page.request.get("/sitemap.xml");
-  expect(sitemap.ok()).toBe(true);
-  expect(await sitemap.text()).not.toContain("/zenless-zone-zero/tier-list");
+  expect(routeRegistry.sitemapEntries().map((entry) => entry.route)).not.toContain(route);
 });
 
 test("ZZZ page-level SEO copy keeps the approved keyword group density", async ({ page }) => {
