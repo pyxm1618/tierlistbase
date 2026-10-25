@@ -1,27 +1,32 @@
 "use client";
 
-import { useState } from "react";
-
 import styles from "./limbus-tier-list.module.css";
 
-const detailTabs = ["Overview", "Core & Team", "Key E.G.O", "What to Get Next"] as const;
+export const detailTabs = ["Overview", "Core & Team", "Key E.G.O", "What to Get Next"] as const;
 
-export function TeamDetailTabs() {
-  const [activeTab, setActiveTab] = useState<(typeof detailTabs)[number]>("Overview");
+export type DetailTab = (typeof detailTabs)[number];
 
+export function TeamDetailTabs({
+  activeTab,
+  onTabChange,
+}: {
+  activeTab: DetailTab;
+  onTabChange: (tab: DetailTab) => void;
+}) {
   return (
     <>
       <div className={styles.detailTabs} role="tablist" aria-label="Team detail sections">
         {detailTabs.map((tab, index) => (
           <button
             key={tab}
-            id={`team-detail-${index}-tab`}
+            id={`team-detail-tab-${index}`}
             type="button"
             role="tab"
             aria-selected={activeTab === tab}
+            aria-controls={`team-detail-panel-${index}`}
             tabIndex={activeTab === tab ? 0 : -1}
             data-active={activeTab === tab ? "true" : "false"}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => onTabChange(tab)}
             onKeyDown={(event) => {
               let next: number | undefined;
               if (event.key === "ArrowRight") next = (index + 1) % detailTabs.length;
@@ -33,8 +38,8 @@ export function TeamDetailTabs() {
 
               event.preventDefault();
               const nextTab = detailTabs[next]!;
-              setActiveTab(nextTab);
-              document.getElementById(`team-detail-${next}-tab`)?.focus();
+              onTabChange(nextTab);
+              document.getElementById(`team-detail-tab-${next}`)?.focus();
             }}
           >
             {tab}

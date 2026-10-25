@@ -9,8 +9,8 @@ import {
   bestEgoBySinner,
   bestIdentityBySinner,
   egoRows,
-  exampleTeamDetail,
   identityRows,
+  teamDetails,
 } from "@/modules/limbus-tier-list/data";
 
 const moduleDir = fileURLToPath(new URL("../../../src/modules/limbus-tier-list/", import.meta.url));
@@ -53,16 +53,15 @@ describe("Limbus artwork map", () => {
     }
   });
 
-  it("Team Details 的 Core / Recommended / Substitutes 与 Key E.G.O 全部可解析", () => {
-    for (const name of [
-      ...exampleTeamDetail.coreMembers,
-      ...exampleTeamDetail.recommendedTeam,
-      ...exampleTeamDetail.substitutes,
-    ]) {
-      expect(identityArtwork[name], `team identity: ${name}`).toBeDefined();
-    }
-    for (const name of exampleTeamDetail.keyEgo) {
-      expect(egoArtwork[name], `team key ego: ${name}`).toBeDefined();
+  it("全部 12 个 Team Details 的 Core / Recommended / Substitutes 与 Key E.G.O 全部可解析", () => {
+    expect(teamDetails).toHaveLength(12);
+    for (const team of teamDetails) {
+      for (const name of [...team.coreMembers, ...team.recommendedTeam, ...team.substitutes]) {
+        expect(identityArtwork[name], `team identity in ${team.team}: ${name}`).toBeDefined();
+      }
+      for (const name of team.keyEgo) {
+        expect(egoArtwork[name], `team key ego in ${team.team}: ${name}`).toBeDefined();
+      }
     }
   });
 
