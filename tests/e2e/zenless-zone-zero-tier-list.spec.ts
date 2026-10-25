@@ -35,15 +35,13 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
   const heroCopy = await heroHeading.locator("..").innerText();
 
   const pullSummary = page.getByRole("region", { name: "Current Pull Advice", exact: true });
-  const pullSummaryTitle = await pullSummary
-    .getByText("Current Pull Advice", { exact: true })
-    .innerText();
-  const pullSummaryDescription = await pullSummary
-    .getByText(
-      "Based on current and upcoming banners. Get personalized pull recommendations.",
-      { exact: true },
-    )
-    .innerText();
+  const pullSummaryTitleLocator = pullSummary.getByText("Current Pull Advice", { exact: true });
+  const pullSummaryTitle = await pullSummaryTitleLocator.innerText();
+  const pullSummaryDescriptionLocator = pullSummary.getByText(
+    "Based on current and upcoming banners. Get personalized pull recommendations.",
+    { exact: true },
+  );
+  const pullSummaryDescription = await pullSummaryDescriptionLocator.innerText();
   const pullSummaryCopy = `${pullSummaryTitle} ${pullSummaryDescription}`;
 
   const agentRegion = page.getByRole("region", { name: "Agent Ranking", exact: true });
