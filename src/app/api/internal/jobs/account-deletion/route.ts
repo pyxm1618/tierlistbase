@@ -1,4 +1,10 @@
 import { getAccountDeletionService } from "@/platform/accounts/account-deletion-runtime";
+import { db } from "@/platform/database/application-database";
+import { collectAccountDeletionSnapshot } from "@/platform/observability/operational-snapshot";
+import {
+  emitOperationalAlerts,
+  evaluateAccountDeletionAlerts,
+} from "@/platform/observability/alerts";
 import { env } from "@/platform/config/env";
 import {
   authenticateInternalRequest,
@@ -20,5 +26,11 @@ export async function GET(request: Request): Promise<Response> {
     run: async (job) => service.runDueBatch(job.batchLimit),
   });
 
-  return Response.json(result, { headers: { "cache-control": "no-store" } });
+  const snapshot = await collectAccountDeletionSnapshot(db);
+  emitOperationalAlerts(evaluateAccountDeletionAlerts(snapshot));
+
+  return Response.json(
+    { ...result, snapshot, alertsEvaluated: true },
+    { headers: { "cache-control": "no-store" } },
+  );
 }

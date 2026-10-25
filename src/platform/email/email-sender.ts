@@ -5,6 +5,7 @@ export type TransactionalEmailTemplate =
   | "vanguard-report";
 
 export type TransactionalEmail = {
+  readonly idempotencyKey?: string;
   readonly to: string;
   readonly template: TransactionalEmailTemplate;
   readonly subject: string;

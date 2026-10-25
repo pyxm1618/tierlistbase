@@ -17,6 +17,7 @@ export function POST(request: Request) {
         const sender = await getEmailSender();
         const link = `${env.appOrigin}${vanguardSeatLink(report.seatId)}`;
         await sender.send({
+          idempotencyKey: report.idempotencyKey,
           to: env.supportEmail,
           template: "vanguard-report",
           subject: `Vanguard report: ${report.seatId}`,

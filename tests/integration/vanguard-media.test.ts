@@ -5,7 +5,12 @@ import { migrate } from "drizzle-orm/postgres-js/migrator";
 import sharp from "sharp";
 import { createDatabaseClient } from "@/platform/database/client";
 import { user } from "@/platform/database/auth-schema";
-import { createVanguardMediaService, vanguardMedia } from "@/modules/wow-vanguard";
+import {
+  createVanguardService,
+  createVanguardMediaService,
+  vanguardMedia,
+  VanguardError,
+} from "@/modules/wow-vanguard";
 import { assertSafeTestDatabaseUrl } from "../support/test-database-guard";
 const database = createDatabaseClient(assertSafeTestDatabaseUrl());
 const owner = randomUUID();
@@ -31,6 +36,7 @@ const now = sql`cast('2026-10-20T00:00:00Z' as timestamptz)`;
 const service = (decision: "approved" | "rejected" | "uncertain" = "approved", clock = now) =>
   createVanguardMediaService(database.db, {
     storage,
+    consumeModeration: async () => {},
     moderate: async () => ({ decision, probabilities: {} }),
     authorityTimeSql: clock,
   });
@@ -99,4 +105,126 @@ it("rejects new presign and completion at the exact database cutoff", async () =
   await expect(closed.complete(owner, result.mediaId)).rejects.toMatchObject({
     code: "EVENT_SEALED",
   });
+});
+
+it("caches decided media under concurrent complete and keeps unavailable retryable", async () => {
+  let calls = 0;
+  let unavailable = true;
+  let decision: "approved" | "rejected" | "uncertain" = "approved";
+  const checked = createVanguardMediaService(database.db, {
+    storage,
+    authorityTimeSql: now,
+    consumeModeration: async () => {},
+    moderate: async () => {
+      calls++;
+      if (unavailable) throw new VanguardError("MODERATION_UNAVAILABLE", 503);
+      return { decision, probabilities: {} };
+    },
+  });
+  async function upload() {
+    const media = await checked.presign(owner);
+    objects.set(
+      `vanguard/pending/${media.mediaId}/master.webp`,
+      await sharp({ create: { width: 512, height: 512, channels: 3, background: "blue" } })
+        .webp()
+        .toBuffer(),
+    );
+    return media.mediaId;
+  }
+  const id = await upload();
+  await expect(checked.complete(owner, id)).rejects.toMatchObject({
+    code: "MODERATION_UNAVAILABLE",
+  });
+  unavailable = false;
+  await Promise.all([checked.complete(owner, id), checked.complete(owner, id)]);
+  expect(calls).toBe(2);
+  for (const result of ["rejected", "uncertain"] as const) {
+    decision = result;
+    const replacement = await upload();
+    const before = calls;
+    await expect(checked.complete(owner, replacement)).rejects.toBeInstanceOf(VanguardError);
+    await expect(checked.complete(owner, replacement)).rejects.toBeInstanceOf(VanguardError);
+    expect(calls).toBe(before + 1);
+  }
+  decision = "approved";
+  await expect(checked.complete(owner, await upload())).resolves.toMatchObject({
+    status: "approved",
+  });
+});
+
+it("limits only provider invocations per account over the configured long window", async () => {
+  const { createVanguardModerationLimiter } = await import("@/modules/wow-vanguard");
+  const { vanguardConfig } = await import("@/config/vanguard.config");
+  const consume = createVanguardModerationLimiter(
+    assertSafeTestDatabaseUrl(),
+    "closeout-test-secret-at-least-thirty-two-characters",
+    vanguardConfig.moderationLimit,
+  );
+  let calls = 0;
+  const guarded = createVanguardMediaService(database.db, {
+    storage,
+    authorityTimeSql: now,
+    consumeModeration: consume,
+    moderate: async () => {
+      calls++;
+      throw new VanguardError("MODERATION_UNAVAILABLE", 503);
+    },
+  });
+  async function upload(account: string) {
+    const result = await guarded.presign(account);
+    objects.set(
+      `vanguard/pending/${result.mediaId}/master.webp`,
+      await sharp({ create: { width: 512, height: 512, channels: 3, background: "blue" } })
+        .webp()
+        .toBuffer(),
+    );
+    return result.mediaId;
+  }
+  const id = await upload(owner);
+  for (let i = 0; i < vanguardConfig.moderationLimit.max; i++)
+    await expect(guarded.complete(owner, id)).rejects.toMatchObject({
+      code: "MODERATION_UNAVAILABLE",
+    });
+  await expect(guarded.complete(owner, id)).rejects.toMatchObject({ code: "RATE_LIMITED" });
+  expect(calls).toBe(vanguardConfig.moderationLimit.max);
+  await expect(createVanguardService(database.db).manifest()).resolves.toHaveProperty("version");
+  await expect(guarded.presign(owner)).resolves.toHaveProperty("mediaId");
+  await expect(guarded.complete(other, await upload(other))).rejects.toMatchObject({
+    code: "MODERATION_UNAVAILABLE",
+  });
+  expect(calls).toBe(vanguardConfig.moderationLimit.max + 1);
+});
+
+it("does not starve a saturated media connection pool while reserving moderation quota", async () => {
+  const { createVanguardModerationLimiter } = await import("@/modules/wow-vanguard");
+  const small = createDatabaseClient(assertSafeTestDatabaseUrl(), 1);
+  const isolated = createVanguardMediaService(small.db, {
+    storage,
+    authorityTimeSql: now,
+    consumeModeration: createVanguardModerationLimiter(
+      assertSafeTestDatabaseUrl(),
+      "pool-test-secret-at-least-thirty-two-characters",
+      { max: 20, windowMs: 86400_000 },
+    ),
+    moderate: async () => ({ decision: "approved", probabilities: {} }),
+  });
+  const media = await isolated.presign(other);
+  objects.set(
+    `vanguard/pending/${media.mediaId}/master.webp`,
+    await sharp({ create: { width: 512, height: 512, channels: 3, background: "blue" } })
+      .webp()
+      .toBuffer(),
+  );
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    await Promise.race([
+      isolated.complete(other, media.mediaId),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error("moderation quota starved media pool")), 2000);
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+    await small.close();
+  }
 });

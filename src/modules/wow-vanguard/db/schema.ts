@@ -107,6 +107,10 @@ export const vanguardReports = pgTable(
   "vanguard_reports",
   {
     id: uuid("id").primaryKey().defaultRandom(),
+    operationId: uuid("operation_id").unique(),
+    payloadHash: text("payload_hash"),
+    notificationStartedAt: timestamp("notification_started_at", { withTimezone: true }),
+    notifiedAt: timestamp("notified_at", { withTimezone: true }),
     inscriptionId: uuid("inscription_id")
       .notNull()
       .references(() => vanguardInscriptions.id),

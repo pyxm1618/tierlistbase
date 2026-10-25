@@ -53,3 +53,22 @@ describe("Resend email sender", () => {
     ).rejects.toThrow("email delivery failed: validation_error");
   });
 });
+
+it("forwards report idempotency keys to the provider options", async () => {
+  const send = vi.fn().mockResolvedValue({ data: { id: "report-email" }, error: null });
+  const sender = createResendEmailSender({
+    from: "from@example.test",
+    replyTo: "support@example.test",
+    client: { emails: { send } },
+  });
+  await sender.send({
+    to: "support@example.test",
+    template: "vanguard-report",
+    subject: "Report",
+    html: "<p>Report</p>",
+    idempotencyKey: "vanguard-report/123",
+  });
+  expect(send).toHaveBeenCalledWith(expect.objectContaining({ subject: "Report" }), {
+    idempotencyKey: "vanguard-report/123",
+  });
+});

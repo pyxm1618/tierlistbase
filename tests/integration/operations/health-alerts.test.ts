@@ -5,6 +5,8 @@ import { afterAll, beforeAll, expect, it } from "vitest";
 import { GET as live } from "@/app/api/health/live/route";
 import { createDatabaseClient } from "@/platform/database/client";
 import {
+  accountDeletionRequests,
+  accountSubjects,
   authSecurityEvents,
   creditReconciliationIncidents,
   fulfillmentJobs,
@@ -13,9 +15,13 @@ import {
 import {
   DEFAULT_OPERATIONAL_ALERT_THRESHOLDS,
   evaluateOperationalAlerts,
+  evaluateAccountDeletionAlerts,
 } from "@/platform/observability/alerts";
 import { checkReadiness } from "@/platform/observability/health";
-import { collectOperationalAlertSnapshot } from "@/platform/observability/operational-snapshot";
+import {
+  collectOperationalAlertSnapshot,
+  collectAccountDeletionSnapshot,
+} from "@/platform/observability/operational-snapshot";
 import { inspectDeadLetters, retryDeadLetter } from "@/platform/operations/dead-letters";
 
 const databaseUrl = process.env.TEST_DATABASE_URL;
@@ -204,4 +210,31 @@ it("inspects dead letters without business payloads and requeues with immutable 
 
   const audits = await database.db.select().from(authSecurityEvents);
   expect(audits).toHaveLength(1);
+});
+
+it("discovers durable account deletion failures and dead letters independently of commerce", async () => {
+  const subjects = await database.db.insert(accountSubjects).values([{}, {}]).returning();
+  const now = new Date();
+  await database.db.insert(accountDeletionRequests).values([
+    { subjectId: subjects[0]!.id, status: "failed", createdAt: new Date(now.getTime() - 1800_000) },
+    {
+      subjectId: subjects[1]!.id,
+      status: "dead_letter",
+      createdAt: new Date(now.getTime() - 86400_000),
+    },
+  ]);
+  const snapshot = await collectAccountDeletionSnapshot(database.db, now);
+  expect(snapshot).toMatchObject({
+    jobBacklog: 1,
+    oldestJobAgeSeconds: 1800,
+    failed: 1,
+    deadLetters: 1,
+  });
+  expect(evaluateAccountDeletionAlerts(snapshot).map((alert) => alert.code)).toEqual(
+    expect.arrayContaining([
+      "account_deletion_failed",
+      "account_deletion_dead_letter",
+      "job_backlog_stale",
+    ]),
+  );
 });
