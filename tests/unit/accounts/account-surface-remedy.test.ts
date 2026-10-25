@@ -189,9 +189,7 @@ describe("Account Surface & Feature-Gating Regression", () => {
   it("renders Security from existing session storage without requiring a fresh-session list call", async () => {
     const createdAt = new Date("2026-10-25T00:00:00Z");
     const expiresAt = new Date("2026-11-01T00:00:00Z");
-    mocks.sessionRows = [
-      { id: "s1", createdAt, expiresAt, userAgent: "Test browser" },
-    ];
+    mocks.sessionRows = [{ id: "s1", createdAt, expiresAt, userAgent: "Test browser" }];
     mocks.headers.mockResolvedValueOnce(new Headers());
     mocks.getAccountContext.mockResolvedValueOnce({
       user: { id: "u1", name: "User" },
