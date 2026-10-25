@@ -30,6 +30,17 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
     .locator("..")
     .innerText();
 
+  const pullSummary = page.getByRole("region", { name: "Current Pull Advice", exact: true });
+  const pullSummaryCopy = [
+    await pullSummary.getByText("Current Pull Advice", { exact: true }).innerText(),
+    await pullSummary
+      .getByText(
+        "Based on current and upcoming banners. Get personalized pull recommendations.",
+        { exact: true },
+      )
+      .innerText(),
+  ].join(" ");
+
   const agentRegion = page.getByRole("region", { name: "Agent Ranking", exact: true });
   const agentCopy = await agentRegion
     .getByRole("heading", { level: 2, name: "ZZZ Character Tier List" })
@@ -53,7 +64,7 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
     .locator("..")
     .innerText();
 
-  const visibleMainCopy = [heroCopy, agentCopy, teamCopy, pullCopy]
+  const visibleMainCopy = [heroCopy, pullSummaryCopy, agentCopy, teamCopy, pullCopy]
     .join(" ")
     .toLowerCase()
     .replace(/\s+/g, " ")
@@ -71,7 +82,7 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
   const combinedOccurrences = phrases.reduce((total, phrase) => total + counts[phrase], 0);
   const combinedDensity = (combinedOccurrences / wordCount) * 100;
 
-  expect(wordCount).toBe(132);
+  expect(wordCount).toBe(145);
   expect(counts["zzz tier list"]).toBe(3);
   expect(counts["zzz character tier list"]).toBe(1);
   expect(counts["zenless zone zero tier list"]).toBe(1);
