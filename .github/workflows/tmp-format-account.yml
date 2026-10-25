@@ -1,0 +1,20 @@
+name: Temporary account formatting diagnostic
+
+on:
+  push:
+    branches:
+      - fix/account-vanguard-ia
+
+jobs:
+  format-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.4
+      - run: bun install --frozen-lockfile
+      - name: Print exact Prettier diff
+        run: |
+          bunx prettier --config .prettierrc.json --write             'src/app/(account)/account/security/page.tsx'             'tests/e2e/auth.spec.ts'             'tests/unit/accounts/account-surface-remedy.test.ts'
+          git diff --             'src/app/(account)/account/security/page.tsx'             'tests/e2e/auth.spec.ts'             'tests/unit/accounts/account-surface-remedy.test.ts'
