@@ -726,7 +726,9 @@ export function NikkeTierListPage() {
             <span className={styles.gameEyebrow}>GODDESS OF VICTORY</span>
             <strong>Compare NIKKE characters across Campaign, Boss, Raid, and PvP.</strong>
             <p>
-              Use this Goddess of Victory NIKKE tier list to review character rankings by mode. This NIKKE character tier list also highlights team fit, reroll value, and investment context.
+              Use this Goddess of Victory NIKKE tier list to review character rankings by mode. This
+              NIKKE character tier list also highlights team fit, reroll value, and investment
+              context.
             </p>
           </div>
         </div>
@@ -798,7 +800,10 @@ export function NikkeTierListPage() {
           <div className={styles.sectionTitleRow}>
             <div className={styles.sectionTitle}>
               <h2>🎮 Characters &amp; Tier List</h2>
-              <p>Compare the NIKKE tier list across Campaign, Boss and PvP, then filter characters by role, weapon, element, rarity and investment needs.</p>
+              <p>
+                Compare the NIKKE tier list across Campaign, Boss and PvP, then filter characters by
+                role, weapon, element, rarity and investment needs.
+              </p>
             </div>
             <div className={styles.topControls}>
               <label>
@@ -1184,7 +1189,10 @@ export function NikkeTierListPage() {
 
           <section id="methodology" className={styles.panel}>
             <h2>♜ Ranking Methodology</h2>
-            <p>The Goddess of Victory NIKKE character tier list evaluates character performance by game mode, team flexibility, investment requirements, and new-player value.</p>
+            <p>
+              The Goddess of Victory NIKKE character tier list evaluates character performance by
+              game mode, team flexibility, investment requirements, and new-player value.
+            </p>
             <div className={styles.panelTabs}>
               <button
                 type="button"
