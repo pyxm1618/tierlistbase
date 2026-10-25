@@ -349,7 +349,10 @@ test("protected account pages redirect unauthenticated users", async ({ page }) 
 });
 
 test("account IA keeps My Vanguard in WoW Forever context", async ({ browser, request }) => {
-  test.skip(!hasVanguardProjectRoute, "WoW Forever account IA is not part of the neutral clean setup");
+  test.skip(
+    !hasVanguardProjectRoute,
+    "WoW Forever account IA is not part of the neutral clean setup",
+  );
   const page = await signInWithMagicLink({
     browser,
     request,
