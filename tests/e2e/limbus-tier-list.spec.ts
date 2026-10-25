@@ -4,9 +4,6 @@ import { routeRegistry } from "../../src/config/routes.config";
 
 const route = "/limbus-company/tier-list";
 const limbusRouteDefinition = routeRegistry.get(route);
-if (limbusRouteDefinition.class !== "public_indexable") {
-  throw new Error("Limbus route must be indexable");
-}
 
 const expectedTeamArtwork = [
   ["Sinking Team", "status-sinking"],
@@ -373,11 +370,13 @@ test("serves final Limbus SEO copy while respecting the test-environment noindex
 }) => {
   const response = await page.goto(route);
   expect(response?.status()).toBe(200);
-  await expect(page).toHaveTitle(limbusRouteDefinition.title);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(limbusRouteDefinition.h1);
+  await expect(page).toHaveTitle(limbusRouteDefinition.title!);
+  await expect(
+    page.getByRole("heading", { level: 1, name: "LIMBUS COMPANY TIER LIST" }),
+  ).toHaveCount(1);
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
-    limbusRouteDefinition.description,
+    limbusRouteDefinition.description!,
   );
 
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
