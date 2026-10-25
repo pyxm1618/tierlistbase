@@ -8,6 +8,7 @@ import "./game-home.css";
 
 const wowHref = "/wow-forever/tier-list";
 const genshinHref = "/genshin-impact/tier-list";
+const nikkeHref = "/nikke/tier-list";
 
 type IconName =
   | "chart"
@@ -236,6 +237,14 @@ const popular: {
     ready: true,
     tone: "ice",
     href: genshinHref,
+  },
+  {
+    title: "NIKKE",
+    subtitle: "Characters",
+    icon: "star",
+    ready: true,
+    tone: "ice",
+    href: nikkeHref,
   },
   { title: "Spiral", subtitle: "Abyss", icon: "swirl", ready: false, tone: "blue" },
   { title: "Exploration", subtitle: "", icon: "compass", ready: false, tone: "gold" },
