@@ -45,7 +45,7 @@ test("homepage renders the approved game-discovery information architecture", as
 
   const popular = page.locator("#popular-rankings");
   const readyRankings = popular.locator("a.tlb-popular-item");
-  await expect(readyRankings).toHaveCount(2);
+  await expect(readyRankings).toHaveCount(3);
   await expect(popular.getByRole("link", { name: "Open WoW ranking: DPS" })).toHaveAttribute(
     "href",
     "/wow-forever/tier-list?mode=dungeon&role=dps&level=30",
@@ -53,6 +53,10 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(
     popular.getByRole("link", { name: "Open Genshin ranking: Characters" }),
   ).toHaveAttribute("href", "/genshin-impact/tier-list");
+  await expect(popular.getByRole("link", { name: "Open NIKKE ranking: Characters" })).toHaveAttribute(
+    "href",
+    "/nikke/tier-list",
+  );
   await expect(popular.getByLabel("WoW PvP: coming soon")).toBeVisible();
   await expect(popular.getByLabel("WoW Leveling: coming soon")).toBeVisible();
   await expect(popular.getByLabel("Spiral Abyss: coming soon")).toBeVisible();
