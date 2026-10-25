@@ -287,7 +287,12 @@ describe("account deletion workflow", () => {
     });
 
     expect(revokedKeys.sort()).toEqual(["public/detail", "public/forever", "public/wow"]);
-    expect(await database.db.select().from(vanguardInscriptions).where(eq(vanguardInscriptions.seatId, "WOW-W1-0001"))).toMatchObject([
+    expect(
+      await database.db
+        .select()
+        .from(vanguardInscriptions)
+        .where(eq(vanguardInscriptions.seatId, "WOW-W1-0001")),
+    ).toMatchObject([
       {
         userId: null,
         status: "deleted",
@@ -298,7 +303,9 @@ describe("account deletion workflow", () => {
         mediaId: null,
       },
     ]);
-    expect(await database.db.select().from(vanguardMedia).where(eq(vanguardMedia.id, media.id))).toMatchObject([
+    expect(
+      await database.db.select().from(vanguardMedia).where(eq(vanguardMedia.id, media.id)),
+    ).toMatchObject([
       {
         ownerUserId: null,
         moderationStatus: "hidden",
