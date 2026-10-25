@@ -287,9 +287,9 @@ for (const width of [390, 1440]) {
       }
     });
 
-    test("renders local Identity, E.G.O, and Team artwork without broken or hotlinked images", async ({
-      page,
-    }) => {
+    test(
+      "renders local Identity, E.G.O, and Team artwork without broken or hotlinked images",
+      async ({ page }) => {
       await page.goto(route);
 
       // 名称列（第 3 列）全部替换为本地素材
@@ -363,7 +363,8 @@ for (const width of [390, 1440]) {
           ),
         )
         .toBe(0);
-    });
+      },
+    );
   });
 }
 
