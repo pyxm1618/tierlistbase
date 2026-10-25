@@ -102,6 +102,12 @@ try {
   let started = false;
   for (let attempt = 0; attempt < 120; attempt++) {
     if (child.exitCode !== null) throw startupError();
+    // A pre-existing listener must never make an unstarted artifact look healthy.
+    // Wrangler prints this only after its own local server has bound this port.
+    if (!diagnostics.includes(`Ready on http://127.0.0.1:${port}`)) {
+      await delay(500);
+      continue;
+    }
     try {
       const response = await fetch(`http://127.0.0.1:${port}/api/health/live`);
       if (response.status === 200) {
@@ -143,6 +149,7 @@ try {
       JSON.stringify({ event: "cloudflare_runtime_smoke", path, status: response.status }),
     );
   }
+  if (child.exitCode !== null) throw startupError();
   child.kill();
   await exited;
 } finally {
