@@ -722,11 +722,11 @@ export function NikkeTierListPage() {
         <div className={styles.heroShade} aria-hidden="true" />
         <div className={styles.heroContent}>
           <div className={styles.heroTitle}>
-            <h1>NIKKE</h1>
+            <h1>NIKKE Tier List</h1>
             <span className={styles.gameEyebrow}>GODDESS OF VICTORY</span>
-            <strong>Find the right NIKKE for your journey</strong>
+            <strong>Compare NIKKE characters across Campaign, Boss, Raid, and PvP.</strong>
             <p>
-              Complete tier lists, team recommendations, and in-depth analysis for every game mode.
+              Use this Goddess of Victory NIKKE tier list to review character rankings by mode. This NIKKE character tier list also highlights team fit, reroll value, and investment context.
             </p>
           </div>
         </div>
@@ -798,7 +798,7 @@ export function NikkeTierListPage() {
           <div className={styles.sectionTitleRow}>
             <div className={styles.sectionTitle}>
               <h2>🎮 Characters &amp; Tier List</h2>
-              <p>Compare NIKKE performance across Campaign, Boss and PvP.</p>
+              <p>Compare the NIKKE tier list across Campaign, Boss and PvP, then filter characters by role, weapon, element, rarity and investment needs.</p>
             </div>
             <div className={styles.topControls}>
               <label>
@@ -1184,7 +1184,7 @@ export function NikkeTierListPage() {
 
           <section id="methodology" className={styles.panel}>
             <h2>♜ Ranking Methodology</h2>
-            <p>How we evaluate characters in each game mode.</p>
+            <p>The Goddess of Victory NIKKE character tier list evaluates character performance by game mode, team flexibility, investment requirements, and new-player value.</p>
             <div className={styles.panelTabs}>
               <button
                 type="button"
@@ -1220,7 +1220,7 @@ export function NikkeTierListPage() {
 
           <section id="changelog" className={styles.panel}>
             <h2>◴ Changelog / Tier History</h2>
-            <p>Recent changes to tier list and important updates.</p>
+            <p>Track material NIKKE tier list changes and important ranking updates.</p>
             <div className={styles.changeList}>
               <div>
                 <span>Mock date</span>
