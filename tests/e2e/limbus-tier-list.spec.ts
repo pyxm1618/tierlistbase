@@ -381,7 +381,10 @@ test("serves final Limbus SEO copy while respecting the test-environment noindex
     limbusRouteDefinition.description,
   );
 
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex, nofollow/i);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    /noindex, nofollow/i,
+  );
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
 
   const canonical = `${routeRegistry.site.canonicalOrigin}${route}`;
