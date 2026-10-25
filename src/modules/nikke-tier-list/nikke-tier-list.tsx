@@ -8,27 +8,20 @@ import campaignTowerArt from "./assets/campaign-tower.avif";
 import heroArt from "./assets/hero.avif";
 import pvpArenaArt from "./assets/pvp-arena.avif";
 import { getCharacterAvatar } from "./character-avatars";
+import {
+  characters,
+  currentBanner,
+  quickPicks,
+  recommendedTeams,
+  rerollTargets,
+  snapshot,
+  sourceSummary,
+  wishlistData,
+  type Character,
+  type ModeKey,
+  type Rating,
+} from "./data";
 import styles from "./nikke-tier-list.module.css";
-
-type ModeKey = "campaign" | "boss" | "pvp";
-type Rating = "SSS" | "SS" | "S" | "A" | "B" | "C" | "D";
-
-type Character = {
-  name: string;
-  rarity: "SSR" | "SR";
-  burst: "Burst I" | "Burst II" | "Burst III";
-  cooldown: "20s" | "40s" | "60s";
-  element: "Fire" | "Water" | "Wind" | "Iron" | "Electric";
-  weapon: "AR" | "SMG" | "SG" | "SR" | "RL" | "MG";
-  classType: "Attacker" | "Defender" | "Supporter";
-  manufacturer: "Elysion" | "Missilis" | "Tetra" | "Pilgrim";
-  availability: "Standard" | "Limited";
-  favoriteItem: boolean;
-  roles: string[];
-  ratings: Record<ModeKey, Rating>;
-  newPlayer: "Excellent" | "Good" | "Medium";
-  investment: "Low" | "Medium" | "High";
-};
 
 const modes: Array<{
   key: ModeKey;
@@ -60,297 +53,6 @@ const modes: Array<{
   },
 ];
 
-const characters: Character[] = [
-  {
-    name: "Red Hood",
-    rarity: "SSR",
-    burst: "Burst III",
-    cooldown: "40s",
-    element: "Fire",
-    weapon: "SR",
-    classType: "Attacker",
-    manufacturer: "Pilgrim",
-    availability: "Limited",
-    favoriteItem: false,
-    roles: ["Main DPS", "Burst Generation", "Core Damage"],
-    ratings: { campaign: "SSS", boss: "SSS", pvp: "A" },
-    newPlayer: "Good",
-    investment: "High",
-  },
-  {
-    name: "Modernia",
-    rarity: "SSR",
-    burst: "Burst III",
-    cooldown: "40s",
-    element: "Fire",
-    weapon: "MG",
-    classType: "Attacker",
-    manufacturer: "Pilgrim",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Main DPS", "Sustain", "Parts Damage"],
-    ratings: { campaign: "SSS", boss: "S", pvp: "B" },
-    newPlayer: "Excellent",
-    investment: "High",
-  },
-  {
-    name: "Scarlet",
-    rarity: "SSR",
-    burst: "Burst III",
-    cooldown: "40s",
-    element: "Electric",
-    weapon: "AR",
-    classType: "Attacker",
-    manufacturer: "Pilgrim",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Main DPS", "Burst Generation"],
-    ratings: { campaign: "SSS", boss: "A", pvp: "S" },
-    newPlayer: "Excellent",
-    investment: "High",
-  },
-  {
-    name: "Liter",
-    rarity: "SSR",
-    burst: "Burst I",
-    cooldown: "20s",
-    element: "Iron",
-    weapon: "SMG",
-    classType: "Supporter",
-    manufacturer: "Missilis",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Support", "Buffer", "CDR", "Cover Recovery"],
-    ratings: { campaign: "SSS", boss: "S", pvp: "A" },
-    newPlayer: "Excellent",
-    investment: "Medium",
-  },
-  {
-    name: "Crown",
-    rarity: "SSR",
-    burst: "Burst II",
-    cooldown: "20s",
-    element: "Iron",
-    weapon: "MG",
-    classType: "Defender",
-    manufacturer: "Pilgrim",
-    availability: "Limited",
-    favoriteItem: false,
-    roles: ["Buffer", "Shielder", "Support", "Invulnerability"],
-    ratings: { campaign: "SSS", boss: "S", pvp: "S" },
-    newPlayer: "Excellent",
-    investment: "High",
-  },
-  {
-    name: "Noir",
-    rarity: "SSR",
-    burst: "Burst III",
-    cooldown: "40s",
-    element: "Wind",
-    weapon: "SG",
-    classType: "Attacker",
-    manufacturer: "Tetra",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Sub DPS", "Support"],
-    ratings: { campaign: "S", boss: "A", pvp: "SSS" },
-    newPlayer: "Good",
-    investment: "Medium",
-  },
-  {
-    name: "Blanc",
-    rarity: "SSR",
-    burst: "Burst II",
-    cooldown: "60s",
-    element: "Wind",
-    weapon: "AR",
-    classType: "Defender",
-    manufacturer: "Tetra",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Support", "Healer", "Shielder"],
-    ratings: { campaign: "A", boss: "A", pvp: "SSS" },
-    newPlayer: "Good",
-    investment: "Medium",
-  },
-  {
-    name: "Naga",
-    rarity: "SSR",
-    burst: "Burst II",
-    cooldown: "20s",
-    element: "Electric",
-    weapon: "SG",
-    classType: "Supporter",
-    manufacturer: "Missilis",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Support", "Buffer", "Core Damage", "Element Support"],
-    ratings: { campaign: "S", boss: "S", pvp: "B" },
-    newPlayer: "Excellent",
-    investment: "Medium",
-  },
-  {
-    name: "Alice",
-    rarity: "SSR",
-    burst: "Burst III",
-    cooldown: "40s",
-    element: "Fire",
-    weapon: "SR",
-    classType: "Attacker",
-    manufacturer: "Tetra",
-    availability: "Standard",
-    favoriteItem: true,
-    roles: ["Main DPS", "Pierce"],
-    ratings: { campaign: "A", boss: "S", pvp: "B" },
-    newPlayer: "Medium",
-    investment: "High",
-  },
-  {
-    name: "Privaty",
-    rarity: "SSR",
-    burst: "Burst III",
-    cooldown: "40s",
-    element: "Water",
-    weapon: "AR",
-    classType: "Attacker",
-    manufacturer: "Elysion",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Sub DPS", "Control"],
-    ratings: { campaign: "S", boss: "B", pvp: "B" },
-    newPlayer: "Good",
-    investment: "Medium",
-  },
-  {
-    name: "Dorothy",
-    rarity: "SSR",
-    burst: "Burst I",
-    cooldown: "20s",
-    element: "Water",
-    weapon: "AR",
-    classType: "Supporter",
-    manufacturer: "Pilgrim",
-    availability: "Limited",
-    favoriteItem: false,
-    roles: ["Support", "Debuffer", "Burst Generation", "Parts Damage"],
-    ratings: { campaign: "SSS", boss: "S", pvp: "A" },
-    newPlayer: "Good",
-    investment: "High",
-  },
-  {
-    name: "Rapunzel",
-    rarity: "SSR",
-    burst: "Burst I",
-    cooldown: "40s",
-    element: "Iron",
-    weapon: "RL",
-    classType: "Supporter",
-    manufacturer: "Pilgrim",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Healer", "Support"],
-    ratings: { campaign: "A", boss: "B", pvp: "B" },
-    newPlayer: "Good",
-    investment: "Medium",
-  },
-  {
-    name: "Maxwell",
-    rarity: "SSR",
-    burst: "Burst III",
-    cooldown: "40s",
-    element: "Iron",
-    weapon: "SR",
-    classType: "Attacker",
-    manufacturer: "Missilis",
-    availability: "Standard",
-    favoriteItem: true,
-    roles: ["Sub DPS", "Buffer"],
-    ratings: { campaign: "A", boss: "S", pvp: "B" },
-    newPlayer: "Medium",
-    investment: "High",
-  },
-  {
-    name: "Helm",
-    rarity: "SSR",
-    burst: "Burst III",
-    cooldown: "40s",
-    element: "Water",
-    weapon: "SR",
-    classType: "Attacker",
-    manufacturer: "Elysion",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Healer", "Sub DPS"],
-    ratings: { campaign: "A", boss: "S", pvp: "B" },
-    newPlayer: "Good",
-    investment: "Medium",
-  },
-  {
-    name: "Drake",
-    rarity: "SSR",
-    burst: "Burst III",
-    cooldown: "40s",
-    element: "Fire",
-    weapon: "SG",
-    classType: "Attacker",
-    manufacturer: "Missilis",
-    availability: "Standard",
-    favoriteItem: true,
-    roles: ["Sub DPS", "Burst Generation"],
-    ratings: { campaign: "S", boss: "A", pvp: "B" },
-    newPlayer: "Good",
-    investment: "Medium",
-  },
-  {
-    name: "Noise",
-    rarity: "SSR",
-    burst: "Burst I",
-    cooldown: "40s",
-    element: "Electric",
-    weapon: "RL",
-    classType: "Supporter",
-    manufacturer: "Tetra",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Healer", "Taunt", "Arena Specialist"],
-    ratings: { campaign: "B", boss: "B", pvp: "SS" },
-    newPlayer: "Medium",
-    investment: "Medium",
-  },
-  {
-    name: "Centi",
-    rarity: "SSR",
-    burst: "Burst II",
-    cooldown: "20s",
-    element: "Iron",
-    weapon: "RL",
-    classType: "Defender",
-    manufacturer: "Missilis",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Shielder", "Burst Generation"],
-    ratings: { campaign: "S", boss: "A", pvp: "B" },
-    newPlayer: "Good",
-    investment: "Low",
-  },
-  {
-    name: "Miranda",
-    rarity: "SSR",
-    burst: "Burst I",
-    cooldown: "20s",
-    element: "Fire",
-    weapon: "SMG",
-    classType: "Supporter",
-    manufacturer: "Elysion",
-    availability: "Standard",
-    favoriteItem: false,
-    roles: ["Buffer", "Support"],
-    ratings: { campaign: "B", boss: "B", pvp: "C" },
-    newPlayer: "Medium",
-    investment: "Low",
-  },
-];
-
 const ratingScore: Record<Rating, number> = {
   SSS: 7,
   SS: 6,
@@ -360,14 +62,6 @@ const ratingScore: Record<Rating, number> = {
   C: 2,
   D: 1,
 };
-
-const quickPicks = [
-  { title: "Best Campaign Characters", names: ["Liter", "Crown", "Modernia"], tone: "red" },
-  { title: "Best Boss Characters", names: ["Red Hood", "Scarlet", "Alice"], tone: "purple" },
-  { title: "Best PvP Characters", names: ["Noir", "Blanc", "Crown"], tone: "blue" },
-  { title: "Best New Player Picks", names: ["Liter", "Naga", "Privaty"], tone: "green" },
-  { title: "Best Reroll Targets", names: ["Red Hood", "Modernia", "Scarlet"], tone: "orange" },
-];
 
 const navItems = [
   ["tier-list", "Tier List"],
@@ -532,79 +226,55 @@ function DetailPanel({ character }: { character: Character }) {
 
       <section className={styles.detailBlock}>
         <h4>Quick Info</h4>
-        <p>Mock summary for layout validation. Final NIKKE data will be added in the data phase.</p>
+        <p>{character.summary}</p>
       </section>
 
-      <section className={styles.detailBlock}>
-        <h4>Why this tier?</h4>
-        <p>
-          Placement text is intentionally local mock copy. It exists only to preserve the design
-          density and information hierarchy.
-        </p>
-      </section>
+      {character.whyThisTier ? (
+        <section className={styles.detailBlock}>
+          <h4>Why this tier?</h4>
+          <p>{character.whyThisTier}</p>
+        </section>
+      ) : null}
 
-      <section className={styles.detailBlock}>
-        <h4>Dependencies</h4>
-        <div className={styles.tagRow}>
-          <span>Needs specific team</span>
-          <span>High investment</span>
-          <span>Manual play recommended</span>
-        </div>
-      </section>
+      {character.dependencies.length > 0 ? (
+        <section className={styles.detailBlock}>
+          <h4>Dependencies</h4>
+          <div className={styles.tagRow}>
+            {character.dependencies.map((dependency) => (
+              <span key={dependency}>{dependency}</span>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </aside>
   );
 }
 
 function TeamPanel({ mode }: { mode: ModeKey }) {
-  const content =
-    mode === "campaign"
-      ? {
-          title: "Campaign Team",
-          subtabs: ["Best Core", "Meta Team", "Easy to Build", "Low Investment"],
-          lineup: ["Liter", "Crown", "Modernia", "Naga", "Privaty"],
-          extras: ["Flex Slot Options", "Replacement Options"],
-          note: "Team Notes — preserve the frozen Campaign recommendation structure.",
-        }
-      : mode === "boss"
-        ? {
-            title: "Boss / Raid Team",
-            subtabs: ["Best Cores", "General Team", "Main DPS Options", "Support Options"],
-            lineup: ["Liter", "Red Hood", "Crown", "Maxwell", "Alice"],
-            extras: ["Element-specific Alternatives", "Replacement Options"],
-            note: "Team Notes — preserve the frozen Boss / Raid recommendation structure.",
-          }
-        : {
-            title: "PvP Team",
-            subtabs: ["Burst Rush", "Sustain", "Stall", "Counter", "Attack", "Defense"],
-            lineup: ["Naga", "Noir", "Blanc", "Scarlet", "Crown"],
-            extras: ["Alternative Options"],
-            note: "Team Notes — preserve the frozen PvP archetype structure.",
-          };
+  const teams = recommendedTeams[mode];
+  const primaryTeam = teams[0]!;
+  const title =
+    mode === "campaign" ? "Campaign Team" : mode === "boss" ? "Boss / Raid Team" : "PvP Team";
 
   return (
     <div className={styles.teamPanel}>
-      <h3>{content.title}</h3>
+      <h3>{title}</h3>
       <div className={styles.subtabs}>
-        {content.subtabs.map((tab, index) => (
-          <span key={tab} data-active={index === 0}>
-            {tab}
+        {teams.map((team, index) => (
+          <span key={team.teamName} data-active={index === 0}>
+            {team.teamName}
           </span>
         ))}
       </div>
       <div className={styles.teamLineup}>
-        {content.lineup.map((name) => (
+        {primaryTeam.members.map((name) => (
           <div key={name}>
             <CharacterAvatar name={name} />
             <strong>{name}</strong>
           </div>
         ))}
       </div>
-      <div className={styles.teamExtras}>
-        {content.extras.map((item) => (
-          <span key={item}>{item}</span>
-        ))}
-      </div>
-      <p>{content.note}</p>
+      <p>Primary verified lineup: {primaryTeam.teamName}.</p>
     </div>
   );
 }
@@ -621,7 +291,6 @@ export function NikkeTierListPage() {
   const [manufacturer, setManufacturer] = useState("All");
   const [rarity, setRarity] = useState("All");
   const [availability, setAvailability] = useState("All");
-  const [mechanic, setMechanic] = useState("All");
   const [favoriteItem, setFavoriteItem] = useState("All");
   const [teamMode, setTeamMode] = useState<ModeKey>("campaign");
   const [wishlist, setWishlist] = useState("New Player");
@@ -630,6 +299,16 @@ export function NikkeTierListPage() {
 
   const selected =
     characters.find((character) => character.name === selectedName) ?? characters[0]!;
+  const skillLevels = selected.skillInvestment?.recommended.split("/") ?? [];
+  const wishlistKey =
+    wishlist === "New Player"
+      ? "newPlayer"
+      : wishlist === "General PvE"
+        ? "generalPvE"
+        : wishlist === "Raid"
+          ? "raid"
+          : "pvp";
+  const wishlistEntries = wishlistData[wishlistKey];
 
   const methodologyItems: Record<ModeKey, string[]> = {
     campaign: [
@@ -664,7 +343,6 @@ export function NikkeTierListPage() {
         (manufacturer === "All" || character.manufacturer === manufacturer) &&
         (rarity === "All" || character.rarity === rarity) &&
         (availability === "All" || character.availability === availability) &&
-        (mechanic === "All" || character.roles.includes(mechanic)) &&
         (favoriteItem === "All" ||
           (favoriteItem === "Has Favorite Item" ? character.favoriteItem : !character.favoriteItem))
       );
@@ -686,7 +364,6 @@ export function NikkeTierListPage() {
     element,
     favoriteItem,
     manufacturer,
-    mechanic,
     mode,
     rarity,
     search,
@@ -703,7 +380,6 @@ export function NikkeTierListPage() {
     setManufacturer("All");
     setRarity("All");
     setAvailability("All");
-    setMechanic("All");
     setFavoriteItem("All");
   }
 
@@ -750,10 +426,10 @@ export function NikkeTierListPage() {
             ))}
           </div>
           <div className={styles.versionInfo}>
-            <span>Game Version</span>
-            <strong>v1.26.0</strong>
-            <span>Last Updated</span>
-            <strong>Mock</strong>
+            <span>Data Snapshot</span>
+            <strong>{snapshot.data_snapshot_date}</strong>
+            <span>Roster</span>
+            <strong>{snapshot.collected_characters} Characters</strong>
           </div>
         </div>
       </nav>
@@ -802,7 +478,7 @@ export function NikkeTierListPage() {
               <h2>🎮 Characters &amp; Tier List</h2>
               <p>
                 Compare the NIKKE tier list across Campaign, Boss and PvP, then filter characters by
-                role, weapon, element, rarity and investment needs.
+                burst type, weapon, element, rarity and availability.
               </p>
             </div>
             <div className={styles.topControls}>
@@ -875,7 +551,7 @@ export function NikkeTierListPage() {
               </label>
               <FilterButtons
                 label="Burst Type"
-                values={["All", "Burst I", "Burst II", "Burst III"]}
+                values={["All", "Burst I", "Burst II", "Burst III", "Burst I/II/III"]}
                 value={burst}
                 onChange={setBurst}
               />
@@ -899,48 +575,21 @@ export function NikkeTierListPage() {
               />
               <FilterButtons
                 label="Manufacturer"
-                values={["All", "Elysion", "Missilis", "Tetra", "Pilgrim"]}
+                values={["All", "Elysion", "Missilis", "Tetra", "Pilgrim", "Abnormal"]}
                 value={manufacturer}
                 onChange={setManufacturer}
               />
               <FilterButtons
                 label="Rarity"
-                values={["All", "SSR", "SR"]}
+                values={["All", "SSR", "SR", "R"]}
                 value={rarity}
                 onChange={setRarity}
               />
               <FilterButtons
                 label="Availability"
-                values={["All", "Standard", "Limited"]}
+                values={["All", "Standard", "Limited", "Collaboration", "Event / Welfare"]}
                 value={availability}
                 onChange={setAvailability}
-              />
-              <FilterButtons
-                label="Role / Mechanic"
-                values={[
-                  "All",
-                  "Main DPS",
-                  "Sub DPS",
-                  "Support",
-                  "Healer",
-                  "Buffer",
-                  "Debuffer",
-                  "Shielder",
-                  "CDR",
-                  "Burst Generation",
-                  "Taunt",
-                  "Control",
-                  "Cover Recovery",
-                  "Pierce",
-                  "Core Damage",
-                  "Parts Damage",
-                  "Sustain",
-                  "Invulnerability",
-                  "Element Support",
-                  "Arena Specialist",
-                ]}
-                value={mechanic}
-                onChange={setMechanic}
               />
               <FilterButtons
                 label="Favorite Item / Treasure"
@@ -1020,51 +669,67 @@ export function NikkeTierListPage() {
                   </dl>
                 </div>
 
-                <div className={styles.strengths}>
-                  <h4>Strengths &amp; Weaknesses</h4>
-                  <strong>Strengths</strong>
-                  <ul>
-                    <li>Mock high-value performance note</li>
-                    <li>Mock burst and sustained damage note</li>
-                    <li>Mock team compatibility note</li>
-                  </ul>
-                  <strong>Weaknesses</strong>
-                  <ul>
-                    <li>Mock investment requirement</li>
-                    <li>Mock team dependency</li>
-                    <li>Mock availability limitation</li>
-                  </ul>
-                </div>
+                {selected.strengths.length > 0 || selected.weaknesses.length > 0 ? (
+                  <div className={styles.strengths}>
+                    <h4>Strengths &amp; Weaknesses</h4>
+                    {selected.strengths.length > 0 ? (
+                      <>
+                        <strong>Strengths</strong>
+                        <ul>
+                          {selected.strengths.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : null}
+                    {selected.weaknesses.length > 0 ? (
+                      <>
+                        <strong>Weaknesses</strong>
+                        <ul>
+                          {selected.weaknesses.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
 
-              <div className={styles.relationshipGrid}>
-                <section>
-                  <h4>Core Partners</h4>
-                  <div className={styles.partnerRow}>
-                    {["Liter", "Naga", "Crown", "Modernia"].map((name) => (
-                      <CharacterAvatar key={name} name={name} />
-                    ))}
-                  </div>
-                </section>
-                <section>
-                  <h4>Replacement / Alternatives</h4>
-                  <div className={styles.partnerRow}>
-                    {["Scarlet", "Alice", "Maxwell", "Drake"].map((name) => (
-                      <CharacterAvatar key={name} name={name} />
-                    ))}
-                  </div>
-                </section>
-                <section>
-                  <h4>Best Use</h4>
-                  <div className={styles.tagRow}>
-                    <span>Boss</span>
-                    <span>Raid</span>
-                    <span>Interception</span>
-                    <span>Core Damage</span>
-                    <span>Manual Play</span>
-                  </div>
-                </section>
-              </div>
+              {selected.corePartners.length > 0 ||
+              selected.alternatives.length > 0 ||
+              selected.bestUse ? (
+                <div className={styles.relationshipGrid}>
+                  {selected.corePartners.length > 0 ? (
+                    <section>
+                      <h4>Core Partners</h4>
+                      <div className={styles.partnerRow}>
+                        {selected.corePartners.map((name) => (
+                          <CharacterAvatar key={name} name={name} />
+                        ))}
+                      </div>
+                    </section>
+                  ) : null}
+                  {selected.alternatives.length > 0 ? (
+                    <section>
+                      <h4>Replacement / Alternatives</h4>
+                      <div className={styles.partnerRow}>
+                        {selected.alternatives.map((name) => (
+                          <CharacterAvatar key={name} name={name} />
+                        ))}
+                      </div>
+                    </section>
+                  ) : null}
+                  {selected.bestUse ? (
+                    <section>
+                      <h4>Best Use</h4>
+                      <div className={styles.tagRow}>
+                        <span>{selected.bestUse}</span>
+                      </div>
+                    </section>
+                  ) : null}
+                </div>
+              ) : null}
             </section>
 
             <DetailPanel character={selected} />
@@ -1109,54 +774,56 @@ export function NikkeTierListPage() {
             <h2>◉ Investment Details</h2>
             <div className={styles.metricRow}>
               <span>Overall Investment</span>
-              <strong>High</strong>
+              <strong>{selected.investment}</strong>
             </div>
-            <h3>Recommended Skill Investment</h3>
-            <div className={styles.skillGrid}>
-              <span>
-                Skill 1<br />
-                <strong>7+</strong>
-              </span>
-              <span>
-                Skill 2<br />
-                <strong>7+</strong>
-              </span>
-              <span>
-                Burst
-                <br />
-                <strong>10</strong>
-              </span>
-            </div>
-            <div className={styles.metricRow}>
-              <span>Overload Gear</span>
-              <strong>High Priority</strong>
-            </div>
-            <div className={styles.metricRow}>
-              <span>Cube</span>
-              <strong>Resilience / Charge</strong>
-            </div>
+            {selected.skillInvestment ? (
+              <>
+                <h3>Recommended Skill Investment</h3>
+                <div className={styles.skillGrid}>
+                  <span>
+                    Skill 1<br />
+                    <strong>{skillLevels[0] ?? "—"}</strong>
+                  </span>
+                  <span>
+                    Skill 2<br />
+                    <strong>{skillLevels[1] ?? "—"}</strong>
+                  </span>
+                  <span>
+                    Burst
+                    <br />
+                    <strong>{skillLevels[2] ?? "—"}</strong>
+                  </span>
+                </div>
+                <div className={styles.metricRow}>
+                  <span>Priority</span>
+                  <strong>{selected.skillInvestment.priorityOrder}</strong>
+                </div>
+              </>
+            ) : null}
+            {selected.cubeRecommendation.length > 0 ? (
+              <div className={styles.metricRow}>
+                <span>Cube</span>
+                <strong>{selected.cubeRecommendation.join(" / ")}</strong>
+              </div>
+            ) : null}
             <div className={styles.metricRow}>
               <span>Favorite Item / Treasure</span>
-              <strong>Recommended</strong>
+              <strong>{selected.favoriteItem ? "Available" : "None"}</strong>
             </div>
-            <p className={styles.warning}>
-              High investment note retained for final data replacement.
-            </p>
           </section>
 
           <section id="reroll" className={styles.panel}>
             <h2>🎁 Reroll Guide</h2>
             <h3>Best Reroll Targets</h3>
             <div className={styles.rerollRow}>
-              {["Red Hood", "Modernia", "Scarlet", "Liter"].map((name) => (
-                <div key={name}>
-                  <CharacterAvatar name={name} />
-                  <strong>{name}</strong>
-                  <span>Excellent</span>
+              {rerollTargets.map((entry) => (
+                <div key={entry.character}>
+                  <CharacterAvatar name={entry.character} />
+                  <strong>{entry.character}</strong>
+                  <span>{entry.priority}</span>
                 </div>
               ))}
             </div>
-            <div className={styles.primaryButton}>View Reroll Guide</div>
           </section>
 
           <section id="wishlist" className={styles.panel}>
@@ -1175,12 +842,12 @@ export function NikkeTierListPage() {
               ))}
             </div>
             <div className={styles.wishlistRow}>
-              {["Liter", "Naga", "Crown", "Modernia"].map((name, index) => (
-                <div key={name}>
-                  <CharacterAvatar name={name} />
-                  <strong>{name}</strong>
+              {wishlistEntries.map((entry) => (
+                <div key={entry.character}>
+                  <CharacterAvatar name={entry.character} />
+                  <strong>{entry.character}</strong>
                   <span>
-                    {wishlist} · {index < 2 ? "High" : "Medium"}
+                    {wishlist} · {entry.priority}
                   </span>
                 </div>
               ))}
@@ -1231,24 +898,12 @@ export function NikkeTierListPage() {
             <p>Track material NIKKE tier list changes and important ranking updates.</p>
             <div className={styles.changeList}>
               <div>
-                <span>Mock date</span>
-                <strong>Red Hood</strong>
-                <em>New character / tier update</em>
-              </div>
-              <div>
-                <span>Mock date</span>
-                <strong>Modernia</strong>
-                <em>Tier adjusted</em>
-              </div>
-              <div>
-                <span>Mock date</span>
-                <strong>Scarlet</strong>
-                <em>Favorite Item change</em>
-              </div>
-              <div>
-                <span>Mock date</span>
-                <strong>Arena Meta</strong>
-                <em>Meta / version change</em>
+                <span>{snapshot.data_snapshot_date}</span>
+                <strong>Production data snapshot</strong>
+                <em>
+                  {snapshot.collected_characters} characters refreshed across Campaign, Boss and
+                  PvP.
+                </em>
               </div>
             </div>
           </section>
@@ -1256,42 +911,35 @@ export function NikkeTierListPage() {
           <section id="current-banner" className={styles.panel}>
             <h2>▣ Current Banner Advice</h2>
             <div className={styles.bannerBody}>
-              <CharacterAvatar name="Red Hood" />
+              <CharacterAvatar name={currentBanner.character} />
               <div>
                 <div className={styles.bannerBadges}>
-                  <span>Worth Pulling</span>
-                  <span>Limited</span>
-                  <span>NEW</span>
+                  <span>{currentBanner.pullRecommendation}</span>
+                  <span>{currentBanner.limitedStatus}</span>
                 </div>
-                <strong>Red Hood</strong>
+                <strong>{currentBanner.character}</strong>
                 <ul>
-                  <li>Top tier for Campaign and Boss</li>
-                  <li>Good value for most players</li>
-                  <li>Limited character placeholder</li>
-                  <li>Highly recommended for new players</li>
+                  <li>{currentBanner.bannerName}</li>
+                  <li>
+                    {currentBanner.startDate} – {currentBanner.endDate}
+                  </li>
+                  <li>Official banner status checked {currentBanner.asOf}.</li>
                 </ul>
               </div>
             </div>
           </section>
 
           <section className={styles.panel}>
-            <h2>▤ Data &amp; Evidence (Coming Soon)</h2>
-            <p>More data will be added in future updates.</p>
+            <h2>▤ Data Sources</h2>
+            <p>
+              Rankings use the {snapshot.data_snapshot_date} production data snapshot and its
+              audited source log.
+            </p>
             <div className={styles.evidenceGrid}>
-              {[
-                "Raid Pick Rate",
-                "Arena Win Rate",
-                "Team Usage",
-                "Boss Performance",
-                "Season Data",
-                "Sample Size",
-              ].map((item) => (
-                <span key={item}>{item}</span>
+              {sourceSummary.map((source) => (
+                <span key={source.url}>{source.name}</span>
               ))}
             </div>
-            <button type="button" className={styles.disabledButton} disabled>
-              Coming in Future Updates
-            </button>
           </section>
         </section>
       </div>
