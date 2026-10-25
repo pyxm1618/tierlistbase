@@ -70,6 +70,14 @@ export default async function VanguardPage({
           >
             WoW Forever Tier List
           </Link>
+          {account ? (
+            <Link
+              href="/wow-forever/vanguard/my"
+              className="text-[#b59f77] transition-colors hover:text-[#dfcaa2]"
+            >
+              My Vanguard
+            </Link>
+          ) : null}
         </div>
 
         <p className="mx-auto max-w-2xl text-[#9d8e78]">
