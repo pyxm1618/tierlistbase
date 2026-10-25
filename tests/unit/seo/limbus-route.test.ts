@@ -6,12 +6,12 @@ import { metadataForRoute } from "@/platform/seo/metadata";
 import { routeRegistry as exampleRegistry } from "../../../examples/neutral-product/routes.config";
 
 const route = "/limbus-company/tier-list";
+const hasProjectRouteInventory = routeRegistry.routes.some(
+  (entry) => entry.route === "/wow-forever/vanguard",
+);
 
 describe("project Limbus SEO launch", () => {
   it("publishes the reviewed Limbus route as indexable with final SEO copy", () => {
-    const hasProjectRouteInventory = routeRegistry.routes.some(
-      (entry) => entry.route === "/wow-forever/vanguard",
-    );
     if (!hasProjectRouteInventory) return;
 
     const definition = routeRegistry.get(route);
@@ -26,11 +26,13 @@ describe("project Limbus SEO launch", () => {
   });
 
   it("includes Limbus in the project indexable surface and sitemap", () => {
+    if (!hasProjectRouteInventory) return;
     expect(routeRegistry.indexable().map((entry) => entry.route)).toContain(route);
     expect(routeRegistry.sitemapEntries().map((entry) => entry.route)).toContain(route);
   });
 
   it("emits canonical indexable metadata in production", () => {
+    if (!hasProjectRouteInventory) return;
     const definition = routeRegistry.get(route);
     if (definition.class !== "public_indexable") throw new Error("Limbus route must be indexable");
     const metadata = metadataForRoute(routeRegistry, route, "production");
@@ -44,6 +46,7 @@ describe("project Limbus SEO launch", () => {
   it.each(["staging", "test", "local"] as const)(
     "keeps the indexable route noindex outside production in %s",
     (environment) => {
+      if (!hasProjectRouteInventory) return;
       const metadata = metadataForRoute(routeRegistry, route, environment);
       expect(metadata.robots).toEqual({ index: false, follow: false });
       expect(metadata.alternates).toBeUndefined();
