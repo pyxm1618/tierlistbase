@@ -19,11 +19,11 @@ export default function ZenlessZoneZeroTierListPage() {
     <>
       <JsonLd
         value={webApplicationJsonLd({
-          name: "Zenless Zone Zero Tier List",
+          name: "ZZZ Tier List",
           url: canonicalUrl,
           description:
             route.description ??
-            "Zenless Zone Zero agent rankings, team rankings, and account-focused pull advice.",
+            "Explore the Zenless Zone Zero Tier List with current character rankings, best agents, team-building insights, and pull decisions to guide your investment.",
         })}
       />
       <ZenlessZoneZeroTierList />
