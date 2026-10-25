@@ -96,7 +96,10 @@ export function LimbusTierList() {
             <span>LIMBUS COMPANY</span>
             <em>TIER LIST</em>
           </h1>
-          <p>Know what&apos;s strong. Know what fits your account. Know what to build next.</p>
+          <p>
+            Use this Limbus Company Tier List to compare the strongest Identities, teams, and E.G.O
+            for your account and decide what to build next.
+          </p>
         </div>
         <p className={styles.heroGraffiti} aria-hidden="true">
           FACE THE SIN,
@@ -111,7 +114,7 @@ export function LimbusTierList() {
             number="01"
             title="IDENTITY TIER LIST"
             question="Which Identities are the strongest in the current meta?"
-            description="Ranked by overall combat strength. Generalist value, beginner friendliness, team dependency, and availability stay separate from the core tier."
+            description="This Limbus Company Tier List ranks Identities by overall combat strength. Use the Limbus Tier List to compare generalist value, beginner friendliness, team dependency, and availability without mixing those factors into the core tier."
             action="View Guide"
             actionHref="#identity-tier-list"
           />
@@ -124,6 +127,7 @@ export function LimbusTierList() {
             number="02"
             title="BEST IDENTITY BY SINNER"
             question="If you want to use this Sinner, which Identity should you choose?"
+            description="The Limbus Company Tier List also shows the strongest Identity choices for each Sinner, including generalist and team-focused options."
             action="View All"
             actionHref="#best-identity-by-sinner"
           />
@@ -162,7 +166,7 @@ export function LimbusTierList() {
             number="02"
             title="TEAM TIER LIST"
             question="Which complete teams / builds are the strongest?"
-            description="Power is ranked at full build. Cost, dependency, flexibility, ease of use, and beginner friendliness remain separate decision signals."
+            description="Use the Limbus Company Tier List to compare complete team strength while keeping cost, dependency, flexibility, ease of use, and beginner friendliness as separate decision signals."
             action="View Guide"
             actionHref="#team-tier-list"
           />
@@ -178,9 +182,9 @@ export function LimbusTierList() {
         <section className={styles.paperSection} id="ego-tier-list">
           <SectionHeader
             number="03"
-            title="E.G.O TIER LIST"
+            title="LIMBUS COMPANY E.G.O TIER LIST"
             question="Which E.G.O are the most valuable?"
-            description="Ranked by overall combat value, with use case, team importance, generalist value, and availability kept visible."
+            description="The Limbus Company EGO Tier List ranks E.G.O by overall combat value, best use case, generalist value, team importance, and availability. Use the Limbus Tier List to identify which E.G.O add the most value to your chosen team."
             action="View Guide"
             actionHref="#ego-tier-list"
           />
@@ -281,7 +285,9 @@ export function LimbusTierList() {
               <strong>1</strong>
               <div>
                 <h3>Find strong Identities</h3>
-                <p>Check the Identity Tier List and the detailed ratings.</p>
+                <p>
+                  Use the Limbus Company Tier List to compare Identity ranks and detailed ratings.
+                </p>
               </div>
               <span aria-hidden="true">→</span>
             </li>
@@ -289,7 +295,10 @@ export function LimbusTierList() {
               <strong>2</strong>
               <div>
                 <h3>Choose a Team to build</h3>
-                <p>Use Team Tier List and the Team Details block.</p>
+                <p>
+                  Use the Limbus Tier List to compare complete teams and open the Team Details
+                  block.
+                </p>
               </div>
               <span aria-hidden="true">→</span>
             </li>
@@ -297,7 +306,10 @@ export function LimbusTierList() {
               <strong>3</strong>
               <div>
                 <h3>Get key members &amp; E.G.O</h3>
-                <p>Review the missing pieces and key E.G.O for your chosen team.</p>
+                <p>
+                  Review the Limbus Company E.G.O Tier List for the key E.G.O that support your
+                  chosen team.
+                </p>
               </div>
             </li>
           </ol>
