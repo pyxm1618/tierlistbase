@@ -65,7 +65,7 @@ export const routeDefinitions = [
       "Explore the WoW Forever Tier List for Level 30 beta dungeon DPS, tank and healer specializations, with performance scores, sample sizes and linked evidence.",
     h1: "WoW Tier List",
     pageType: "WebApplication",
-    relatedRoutes: ["/", "/wow-forever/vanguard", "/privacy", "/terms"],
+    relatedRoutes: ["/", "/privacy", "/terms"],
     lastModified: "2026-10-16",
     reviewStatus: "reviewed",
     reviewFingerprint: "f7f699edb4c56724470e18d5415d3827d13b6bfe7df025a64181a0a1c4ce4f6e",
