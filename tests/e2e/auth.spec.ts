@@ -1,10 +1,14 @@
 import { expect, test, type APIRequestContext, type Browser, type Page } from "@playwright/test";
 import { eq } from "drizzle-orm";
 
+import { routeRegistry } from "@/config/routes.config";
 import { createDatabaseClient } from "@/platform/database/client";
 import { session } from "@/platform/database/schema";
 
 const TURNSTILE_TEST_TOKEN = "XXXX.DUMMY.TOKEN.XXXX";
+const hasVanguardProjectRoute = routeRegistry.routes.some(
+  (entry) => entry.route === "/wow-forever/vanguard",
+);
 
 function extractConfirmationUrl(html: string): string {
   const match = html.match(/href="([^"]+)"/);
@@ -345,6 +349,7 @@ test("protected account pages redirect unauthenticated users", async ({ page }) 
 });
 
 test("account IA keeps My Vanguard in WoW Forever context", async ({ browser, request }) => {
+  test.skip(!hasVanguardProjectRoute, "WoW Forever account IA is not part of the neutral clean setup");
   const page = await signInWithMagicLink({
     browser,
     request,
