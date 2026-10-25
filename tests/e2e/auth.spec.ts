@@ -344,7 +344,6 @@ test("protected account pages redirect unauthenticated users", async ({ page }) 
   await expect(page).toHaveURL(/\/sign-in$/);
 });
 
-
 test("account IA keeps My Vanguard in WoW Forever context", async ({ browser, request }) => {
   const page = await signInWithMagicLink({
     browser,
