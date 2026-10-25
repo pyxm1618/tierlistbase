@@ -135,11 +135,7 @@ export const routeDefinitions = [
     searchIntent:
       "compare Limbus Company Identity, team, and E.G.O rankings to decide what to build",
     primaryKeyword: "limbus company tier list",
-    secondaryKeywords: [
-      "limbus tier list",
-      "limbus company ego tier list",
-      "ego tier list limbus",
-    ],
+    secondaryKeywords: ["limbus tier list", "limbus company ego tier list", "ego tier list limbus"],
     title: "Limbus Company Tier List – Best Identities & E.G.O Ranked",
     description:
       "Use the Limbus Company Tier List to compare Identity, team, and E.G.O rankings, identify the strongest options, and decide what is worth building for your account.",
