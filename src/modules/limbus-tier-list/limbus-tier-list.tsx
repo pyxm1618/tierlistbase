@@ -99,7 +99,7 @@ export function LimbusTierList() {
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>MANAGER DOSSIER // COMBAT INDEX</p>
           <h1 id="limbus-title">
-            <span>LIMBUS COMPANY</span>
+            <span>LIMBUS COMPANY</span>{" "}
             <em>TIER LIST</em>
           </h1>
           <p>
