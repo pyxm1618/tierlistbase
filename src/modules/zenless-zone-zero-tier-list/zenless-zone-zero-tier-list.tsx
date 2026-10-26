@@ -19,17 +19,10 @@ import {
 } from "./data";
 import agentDetailMiyabi from "./assets/agent-detail-miyabi.webp";
 import heroArtwork from "./assets/hero.webp";
-import teamMiyabiFreeze from "./assets/team-miyabi-freeze.webp";
-import teamEvelynHypercarry from "./assets/team-evelyn-hypercarry.webp";
-import teamHarumasaQuicken from "./assets/team-harumasa-quicken.webp";
 import { agentIcons, bangbooIcons } from "./icons";
 import styles from "./zenless-zone-zero-tier-list.module.css";
 
-const teamBanners: Partial<Record<string, { src: StaticImageData; objectPosition?: string }>> = {
-  "miyabi-freeze": { src: teamMiyabiFreeze },
-  "evelyn-hypercarry": { src: teamEvelynHypercarry, objectPosition: "55% 25%" },
-  "harumasa-quicken": { src: teamHarumasaQuicken, objectPosition: "55% 30%" },
-};
+const teamBanners: Partial<Record<string, { src: StaticImageData; objectPosition?: string }>> = {};
 
 const tiers: readonly Tier[] = ["S+", "S", "A", "B"];
 
@@ -89,7 +82,9 @@ function MissingArtwork({ kind }: { kind: "hero" | "portrait" | "team" | "item" 
 }
 
 function AgentPortrait({ name, sizes }: { name: string; sizes: string }) {
-  const agent = agents.find((candidate) => candidate.name === name);
+  const agent = agents.find(
+    (candidate) => candidate.name === name || candidate.officialName === name,
+  );
   const icon = agentIcons[agent?.id ?? ""];
   return icon ? (
     <Image src={icon} alt={name} fill sizes={sizes} className={styles.iconImage} />
@@ -231,7 +226,7 @@ function AgentDetail({
           </div>
         </div>
         <div className={styles.agentHeroArt}>
-          {agent.id === "miyabi" ? (
+          {agent.id === "hoshimi-miyabi" ? (
             <Image
               src={agentDetailMiyabi}
               alt=""
@@ -250,7 +245,7 @@ function AgentDetail({
           <Metric label="Overall Rating" value={agent.overallRating} strong />
           <Metric label="New Player Value" value={agent.newPlayerValue} />
           <Metric label="Investment Level" value={agent.investmentLevel} />
-          <Metric label="Team Flexibility" value={agent.teamFlexibility} />
+          <Metric label="Team Flexibility" value={agent.teamFlexibility ?? "—"} />
           <Metric label="Signature Dependency" value={agent.signatureDependency} />
         </section>
         <section className={styles.detailCard}>
@@ -259,7 +254,7 @@ function AgentDetail({
           <Metric label="Deadly Assault" value={agent.deadlyAssault} />
           <div className={styles.cycleSuitability}>
             <span>Current Cycle Suitability</span>
-            <strong>{agent.currentCycleSuitability}</strong>
+            <strong>{agent.currentCycleSuitability ?? "—"}</strong>
           </div>
         </section>
       </div>
@@ -357,10 +352,6 @@ function AgentDetail({
       {tab === "details" ? (
         <div className={styles.textPanel}>
           <h4>Agent Detail</h4>
-          <p>
-            This mock detail state keeps the frozen decision fields visible without asserting live
-            ZZZ meta accuracy. Production ranking evidence will be handled in the later data phase.
-          </p>
         </div>
       ) : null}
     </aside>
@@ -433,7 +424,6 @@ function TeamDetail({
   onClose: () => void;
 }) {
   const banner = teamBanners[team.id];
-  const [best, alternative, budget] = team.compositions;
   return (
     <section className={styles.largeDetailPanel} aria-label="Team Detail">
       <div className={styles.detailPanelHeader} data-detail-kind="team">
@@ -496,7 +486,7 @@ function TeamDetail({
         <>
           <h4 className={styles.subheading}>Team Compositions</h4>
           <div className={styles.compositionGrid}>
-            {[best, alternative, budget].map((composition, index) =>
+            {team.compositions.map((composition, index) =>
               composition ? (
                 <section key={composition.label} data-variant={index}>
                   <div>
@@ -739,9 +729,9 @@ export function ZenlessZoneZeroTierList() {
   const [attribute, setAttribute] = useState("All");
   const [faction, setFaction] = useState("All");
   const [rarity, setRarity] = useState("All");
-  const [selectedAgentId, setSelectedAgentId] = useState("miyabi");
-  const [selectedTeamId, setSelectedTeamId] = useState("miyabi-freeze");
-  const [selectedPullId, setSelectedPullId] = useState("miyabi-pull");
+  const [selectedAgentId, setSelectedAgentId] = useState(agents[0]?.id ?? "");
+  const [selectedTeamId, setSelectedTeamId] = useState(teams[0]?.id ?? "");
+  const [selectedPullId, setSelectedPullId] = useState(pullAdvices[0]?.id ?? "");
   const [agentDetailTab, setAgentDetailTab] = useState<AgentDetailTab>("build");
   const [teamDetailTab, setTeamDetailTab] = useState<TeamDetailTab>("overview");
   const [pullDetailTab, setPullDetailTab] = useState<PullDetailTab>("decision");
