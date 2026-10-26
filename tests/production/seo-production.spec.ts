@@ -369,13 +369,21 @@ test("WoW visible main-content keyword group stays within the approved SEO range
   );
 });
 
-test("NIKKE production SEO staging remains noindex", async ({ page, request }) => {
+test("NIKKE production SEO is indexable", async ({ page, request }) => {
   const nikke = routeRegistry.get("/nikke/tier-list");
-  expect(nikke.class).toBe("public_noindex");
+  expect(nikke.class).toBe("public_indexable");
+  if (nikke.class !== "public_indexable") throw new Error("NIKKE route must be indexable");
+  expect(nikke.primaryKeyword).toBe("nikke tier list");
+  expect(nikke.secondaryKeywords).toEqual([
+    "nikke character tier list",
+    "goddess of victory nikke tier list",
+    "goddess of victory nikke character tier list",
+  ]);
   expect(nikke.title).toBe("NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE");
   expect(nikke.description).toBe(
     "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and team context for the best NIKKE characters.",
   );
+  expect(nikke.h1).toBe("NIKKE Tier List");
 
   const response = await page.goto("/nikke/tier-list", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
@@ -386,9 +394,24 @@ test("NIKKE production SEO staging remains noindex", async ({ page, request }) =
   );
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.locator("h1")).toHaveText("NIKKE Tier List");
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/i);
-  await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
-  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(0);
+
+  const robots = (
+    (await page.locator('meta[name="robots"]').getAttribute("content")) ?? ""
+  ).toLocaleLowerCase("en-US");
+  expect(robots).not.toContain("noindex");
+  expect(robots).toContain("index");
+  expect(robots).toContain("follow");
+
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    "https://www.tierlistbase.com/nikke/tier-list",
+  );
+
+  const schemas = await page.locator('script[type="application/ld+json"]').allTextContents();
+  expect(schemas.length).toBeGreaterThan(0);
+  const serializedSchemas = JSON.stringify(schemas.map((schema) => JSON.parse(schema)));
+  expect(serializedSchemas).toContain('"@type":"WebApplication"');
+  expect(serializedSchemas).not.toMatch(/AggregateRating|Review|Offer|FAQPage|BreadcrumbList/);
 
   const visibleCopy: string[] = [];
   for (const selector of nikkeVisibleCopySelectors) {
@@ -430,10 +453,12 @@ test("NIKKE production SEO staging remains noindex", async ({ page, request }) =
   }
 
   const bodyText = await page.locator("body").innerText();
-  expect(bodyText).not.toMatch(/Mock summary|Mock date|Coming Soon/);
+  expect(bodyText).not.toMatch(
+    /Mock summary|Mock date|Coming Soon|layout validation|placeholder ranking/i,
+  );
 
   const sitemap = await (await request.get("/sitemap.xml")).text();
-  expect(sitemap).not.toContain("/nikke/tier-list");
+  expect(sitemap).toContain("https://www.tierlistbase.com/nikke/tier-list");
 });
 
 test("production sitemap is exactly the registered localized indexable surface", async ({

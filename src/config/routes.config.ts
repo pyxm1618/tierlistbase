@@ -44,6 +44,7 @@ export const routeDefinitions = [
     relatedRoutes: [
       "/wow-forever/tier-list",
       "/genshin-impact/tier-list",
+      "/nikke/tier-list",
       "/wow-forever/vanguard",
       "/about",
       "/privacy",
@@ -51,7 +52,7 @@ export const routeDefinitions = [
     ],
     lastModified: "2026-10-16",
     reviewStatus: "reviewed",
-    reviewFingerprint: "c2db3bfb9b5d21ea54b6cfd3513871d6a87c66276b1d4a215160a0aec3fd5990",
+    reviewFingerprint: "36332bebd1c95a832e85f87948e855553556d9728e9a8c9d9c2a2f635df9c150",
   },
   {
     route: "/wow-forever/tier-list",
@@ -123,10 +124,24 @@ export const routeDefinitions = [
   },
   {
     route: "/nikke/tier-list",
-    class: "public_noindex",
+    class: "public_indexable",
+    searchIntent:
+      "Users want current NIKKE character tier rankings and guidance on which characters are strongest across the supported game modes and account contexts.",
+    primaryKeyword: "nikke tier list",
+    secondaryKeywords: [
+      "nikke character tier list",
+      "goddess of victory nikke tier list",
+      "goddess of victory nikke character tier list",
+    ],
     title: "NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE",
     description:
       "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and team context for the best NIKKE characters.",
+    h1: "NIKKE Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-10-25",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "815693650d6887f5a88ebe27abd1cf183216496905e8ffe25bc2d4a8119eb0f7",
   },
   {
     route: "/limbus-company/tier-list",
