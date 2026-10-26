@@ -13,7 +13,13 @@ import {
 import limbusHero from "./assets/hero.webp";
 import teamBanner from "./assets/team-banner.webp";
 import { AssetSlot } from "./asset-slot";
-import { egoArtwork, egoArtworkSrc, identityArtwork, identityArtworkSrc } from "./artwork";
+import {
+  egoArtwork,
+  egoArtworkSrc,
+  identityArtwork,
+  identityArtworkSrc,
+  teamArtworkSrc,
+} from "./artwork";
 import { IdentityRanking } from "./identity-ranking";
 import { SinnerPortrait } from "./sinner-portrait";
 import styles from "./limbus-tier-list.module.css";
@@ -173,6 +179,7 @@ export function LimbusTierList() {
           <TeamWorkspace
             teamRows={teamRows}
             teamDetails={teamDetails}
+            teamArtwork={teamArtworkSrc}
             identityArtwork={identityArtworkSrc}
             egoArtwork={egoArtworkSrc}
             bannerImage={teamBanner}

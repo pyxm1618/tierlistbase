@@ -44,6 +44,7 @@ export const routeDefinitions = [
     relatedRoutes: [
       "/wow-forever/tier-list",
       "/genshin-impact/tier-list",
+      "/limbus-company/tier-list",
       "/nikke/tier-list",
       "/wow-forever/vanguard",
       "/about",
@@ -52,7 +53,7 @@ export const routeDefinitions = [
     ],
     lastModified: "2026-10-16",
     reviewStatus: "reviewed",
-    reviewFingerprint: "36332bebd1c95a832e85f87948e855553556d9728e9a8c9d9c2a2f635df9c150",
+    reviewFingerprint: "6ca511ddbfd6d86c5b96ee4576fb540f1af496d72dfc676b986bec6d81c28d49",
   },
   {
     route: "/wow-forever/tier-list",
@@ -145,10 +146,20 @@ export const routeDefinitions = [
   },
   {
     route: "/limbus-company/tier-list",
-    class: "public_noindex",
+    class: "public_indexable",
+    searchIntent:
+      "compare Limbus Company Identity, team, and E.G.O rankings to decide what to build",
+    primaryKeyword: "limbus company tier list",
+    secondaryKeywords: ["limbus tier list", "limbus company ego tier list", "ego tier list limbus"],
     title: "Limbus Company Tier List – Best Identities & E.G.O Ranked",
     description:
       "Use the Limbus Company Tier List to compare Identity, team, and E.G.O rankings, identify the strongest options, and decide what is worth building for your account.",
+    h1: "LIMBUS COMPANY TIER LIST",
+    pageType: "WebApplication",
+    relatedRoutes: ["/"],
+    lastModified: "2026-10-25",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "ad8c87ce5846da9c45f0c12a385a6ab70193e78c54dbea364cf0ce17cbc20dd7",
   },
   {
     route: "/privacy",

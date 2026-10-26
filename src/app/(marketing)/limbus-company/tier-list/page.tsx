@@ -1,14 +1,33 @@
 import type { Metadata } from "next";
 
+import { JsonLd } from "@/components/seo/json-ld";
 import { routeRegistry } from "@/config/routes.config";
 import { LimbusTierList } from "@/modules/limbus-tier-list";
 import { currentSeoEnvironment } from "@/platform/seo/environment-policy";
 import { metadataForRoute } from "@/platform/seo/metadata";
+import { webApplicationJsonLd } from "@/platform/seo/structured-data";
+
+const route = "/limbus-company/tier-list";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return metadataForRoute(routeRegistry, "/limbus-company/tier-list", currentSeoEnvironment());
+  return metadataForRoute(routeRegistry, route, currentSeoEnvironment());
 }
 
 export default function LimbusCompanyTierListPage() {
-  return <LimbusTierList />;
+  const definition = routeRegistry.get(route);
+
+  return (
+    <>
+      {definition.class === "public_indexable" ? (
+        <JsonLd
+          value={webApplicationJsonLd({
+            name: definition.h1,
+            url: `${routeRegistry.site.canonicalOrigin}${route}`,
+            description: definition.description,
+          })}
+        />
+      ) : null}
+      <LimbusTierList />
+    </>
+  );
 }
