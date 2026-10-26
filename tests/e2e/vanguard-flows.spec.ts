@@ -839,8 +839,7 @@ test("OAuth return uses existing Seat conflict and nearest-Seat handling if the 
     );
 
     const conflictResponse = page.waitForResponse(
-      (response) =>
-        response.url().endsWith("/api/vanguard/holds") && response.status() === 409,
+      (response) => response.url().endsWith("/api/vanguard/holds") && response.status() === 409,
     );
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
     await conflictResponse;
