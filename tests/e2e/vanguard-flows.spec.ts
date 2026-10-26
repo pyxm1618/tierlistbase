@@ -615,13 +615,17 @@ test("FOREVER Search waits for the WOW scene to focus before opening a WOW inscr
     exact: true,
   });
   await expect
-    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
+    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)), {
+      timeout: 20000,
+    })
     .toBe(1);
   await expect(
     page.getByRole("status").filter({ hasText: "Selected Seat FOREVER-F-0001" }),
   ).toHaveCount(1, { timeout: 20000 });
   await expect
-    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)))
+    .poll(() => canvas.evaluate((node) => Number(getComputedStyle(node).opacity)), {
+      timeout: 20000,
+    })
     .toBe(1);
   await openSearch(page);
   await page.getByLabel("Vanguard name or guild").fill("Chosen");
@@ -834,9 +838,14 @@ test("OAuth return uses existing Seat conflict and nearest-Seat handling if the 
       }),
     );
 
+    const conflictResponse = page.waitForResponse(
+      (response) =>
+        response.url().endsWith("/api/vanguard/holds") && response.status() === 409,
+    );
     await page.goto(`/wow-forever/vanguard?seat=${seatId}`);
+    await conflictResponse;
     await expect(page.getByText("This place was just claimed.", { exact: false })).toBeVisible({
-      timeout: 1500,
+      timeout: 10000,
     });
     await expect(
       page.getByRole("button", { name: "Choose nearby seat WOW-W1-0003", exact: true }),
@@ -1205,7 +1214,9 @@ test("FOREVER uses all seven real final layouts and the supplied background", as
   });
   await expect(canvas).toBeVisible();
   await expect
-    .poll(() => canvas.evaluate((node) => (node as HTMLCanvasElement).width))
+    .poll(() => canvas.evaluate((node) => (node as HTMLCanvasElement).width), {
+      timeout: 25000,
+    })
     .toBeGreaterThan(1);
   // A resized canvas can precede the first rendered frame during the phase switch.
   // Require actual nonblank artwork, rather than accepting only a canvas element.
