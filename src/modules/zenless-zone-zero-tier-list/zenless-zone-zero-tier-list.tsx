@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 import { useMemo, useState, type ChangeEvent, type ReactNode } from "react";
 
 import {
@@ -17,12 +17,9 @@ import {
   type TeamRankingView,
   type Tier,
 } from "./data";
-import agentDetailMiyabi from "./assets/agent-detail-miyabi.webp";
 import heroArtwork from "./assets/hero.webp";
-import { agentIcons, bangbooIcons } from "./icons";
+import { agentDetailArtwork, agentIcons, bangbooIcons, getWEngineIcon, teamVisuals } from "./icons";
 import styles from "./zenless-zone-zero-tier-list.module.css";
-
-const teamBanners: Partial<Record<string, { src: StaticImageData; objectPosition?: string }>> = {};
 
 const tiers: readonly Tier[] = ["S+", "S", "A", "B"];
 
@@ -90,6 +87,22 @@ function AgentPortrait({ name, sizes }: { name: string; sizes: string }) {
     <Image src={icon} alt={name} fill sizes={sizes} className={styles.iconImage} />
   ) : (
     <MissingArtwork kind="portrait" />
+  );
+}
+
+function WEngineIcon({ name }: { name: string }) {
+  const icon = getWEngineIcon(name);
+  return icon ? (
+    <Image
+      src={icon}
+      alt={name}
+      width={35}
+      height={35}
+      sizes="35px"
+      className={styles.bangbooIcon}
+    />
+  ) : (
+    <MissingArtwork kind="item" />
   );
 }
 
@@ -209,6 +222,7 @@ function AgentDetail({
   tab: AgentDetailTab;
   onTabChange: (tab: AgentDetailTab) => void;
 }) {
+  const artwork = agentDetailArtwork[agent.id];
   return (
     <aside className={styles.agentDetail} aria-label="Agent Detail">
       <div className={styles.agentDetailHero}>
@@ -226,9 +240,14 @@ function AgentDetail({
           </div>
         </div>
         <div className={styles.agentHeroArt}>
-          {agent.id === "hoshimi-miyabi" ? (
+          {artwork ? (
             <Image
-              src={agentDetailMiyabi}
+              src={artwork}
+              style={
+                agent.id === "hoshimi-miyabi"
+                  ? undefined
+                  : { objectFit: "contain", objectPosition: "right center" }
+              }
               alt=""
               sizes="(max-width: 1080px) 100vw, 420px"
               className={styles.agentDetailArtwork}
@@ -301,21 +320,21 @@ function AgentDetail({
           <section>
             <span>Best W-Engine</span>
             <div className={styles.itemLine}>
-              <MissingArtwork kind="item" />
+              <WEngineIcon name={agent.bestWEngine} />
               <strong>{agent.bestWEngine}</strong>
             </div>
           </section>
           <section>
             <span>Best Alternative</span>
             <div className={styles.itemLine}>
-              <MissingArtwork kind="item" />
+              <WEngineIcon name={agent.bestAlternative} />
               <strong>{agent.bestAlternative}</strong>
             </div>
           </section>
           <section>
             <span>Best F2P Option</span>
             <div className={styles.itemLine}>
-              <MissingArtwork kind="item" />
+              <WEngineIcon name={agent.bestF2pOption} />
               <strong>{agent.bestF2pOption}</strong>
             </div>
           </section>
@@ -369,7 +388,7 @@ function TeamCard({
   selected: boolean;
   onSelect: () => void;
 }) {
-  const banner = teamBanners[team.id];
+  const visual = teamVisuals[team.id];
   return (
     <button
       type="button"
@@ -382,10 +401,10 @@ function TeamCard({
         {tier}
       </span>
       <span className={styles.teamBackdrop}>
-        {banner ? (
+        {visual ? (
           <Image
-            src={banner.src}
-            style={{ objectPosition: banner.objectPosition }}
+            src={visual}
+            style={{ objectFit: "contain", objectPosition: "right center" }}
             alt=""
             fill
             sizes="(max-width: 760px) 100vw, 520px"
@@ -423,15 +442,15 @@ function TeamDetail({
   onTabChange: (tab: TeamDetailTab) => void;
   onClose: () => void;
 }) {
-  const banner = teamBanners[team.id];
+  const visual = teamVisuals[team.id];
   return (
     <section className={styles.largeDetailPanel} aria-label="Team Detail">
       <div className={styles.detailPanelHeader} data-detail-kind="team">
         <span className={styles.detailHeaderBackdrop} aria-hidden="true">
-          {banner ? (
+          {visual ? (
             <Image
-              src={banner.src}
-              style={{ objectPosition: banner.objectPosition }}
+              src={visual}
+              style={{ objectFit: "contain", objectPosition: "right center" }}
               alt=""
               fill
               sizes="(max-width: 1080px) 100vw, 700px"
