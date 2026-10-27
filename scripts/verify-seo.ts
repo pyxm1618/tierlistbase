@@ -19,6 +19,7 @@ const contentByRoute = new Map<string, readonly LandingSection[]>([
   ...seoLandingPages.map((page) => [page.route, page.sections] as const),
 ]);
 const bespokeIndexableRoutes = new Set([
+  "/zenless-zone-zero/tier-list",
   "/genshin-impact/tier-list",
   "/limbus-company/tier-list",
   "/nikke/tier-list",
