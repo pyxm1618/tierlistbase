@@ -4047,9 +4047,7 @@
       "sha256": "abcb4f7a570e91fd3db7de0f7d9388afbccff23ffa0fb82fd0d8126cd04a8eb6",
       "byteSize": 156036,
       "gateRequired": true,
-      "rawValues": [
-        "Angel in the Shell"
-      ],
+      "rawValues": ["Angel in the Shell"],
       "references": [
         {
           "agentId": "aria",
@@ -4099,9 +4097,7 @@
       "sha256": "13913a74005b76e82f4147e4bc448462d682ebb1242ab1711dfd684d6d55f732",
       "byteSize": 152666,
       "gateRequired": true,
-      "rawValues": [
-        "Bashful Demon"
-      ],
+      "rawValues": ["Bashful Demon"],
       "references": [
         {
           "agentId": "astra-yao",
@@ -4151,9 +4147,7 @@
       "sha256": "8afb1ecebb49bf515b6c70bb9c014ce22e1139f7ecb522e347612a13bc6faa97",
       "byteSize": 179714,
       "gateRequired": true,
-      "rawValues": [
-        "Bellicose Blaze"
-      ],
+      "rawValues": ["Bellicose Blaze"],
       "references": [
         {
           "agentId": "cissia",
@@ -4208,9 +4202,7 @@
       "sha256": "d4e400d236fca1c95237a2d1a8eb0443517d3dcacbdd093861d24dab87e23bb7",
       "byteSize": 170515,
       "gateRequired": true,
-      "rawValues": [
-        "Big Cylinder"
-      ],
+      "rawValues": ["Big Cylinder"],
       "references": [
         {
           "agentId": "ben-bigger",
@@ -4255,9 +4247,7 @@
       "sha256": "46ed63f7bfdb6a286a361f5e660182248a3ad4666f7281b366e91cab766cb5e3",
       "byteSize": 200653,
       "gateRequired": true,
-      "rawValues": [
-        "Blazing Laurel"
-      ],
+      "rawValues": ["Blazing Laurel"],
       "references": [
         {
           "agentId": "dialyn",
@@ -4327,9 +4317,7 @@
       "sha256": "111a94edbaa4a3e77b623e9488ac3a3855c54d769fea343e3300b93dc0fb1e95",
       "byteSize": 167107,
       "gateRequired": true,
-      "rawValues": [
-        "Bloodmarrow Coffer"
-      ],
+      "rawValues": ["Bloodmarrow Coffer"],
       "references": [
         {
           "agentId": "claret",
@@ -4374,9 +4362,7 @@
       "sha256": "26c2761ff5200579e03d371d84e846628c31c22f562d3d529e1437aced63cb54",
       "byteSize": 190967,
       "gateRequired": true,
-      "rawValues": [
-        "Box Cutter"
-      ],
+      "rawValues": ["Box Cutter"],
       "references": [
         {
           "agentId": "ju-fufu",
@@ -4426,9 +4412,7 @@
       "sha256": "039f042ba9f9917e209fd8a53fbf102c7bbbceb234fca203ab7206fe825a79f3",
       "byteSize": 156250,
       "gateRequired": true,
-      "rawValues": [
-        "Bunny Band"
-      ],
+      "rawValues": ["Bunny Band"],
       "references": [
         {
           "agentId": "ben-bigger",
@@ -4478,9 +4462,7 @@
       "sha256": "8c152f150e88190c88ec1168151fbf86ae25585bb15e702675e98e41c9b9704d",
       "byteSize": 180004,
       "gateRequired": true,
-      "rawValues": [
-        "Cannon Rotor"
-      ],
+      "rawValues": ["Cannon Rotor"],
       "references": [
         {
           "agentId": "evelyn-chevalier",
@@ -4535,9 +4517,7 @@
       "sha256": "bb150530427159d4816bec4485f2fe5a16840fdc264b4099f1eb4c3b840b9bbc",
       "byteSize": 175757,
       "gateRequired": true,
-      "rawValues": [
-        "Catty Luck"
-      ],
+      "rawValues": ["Catty Luck"],
       "references": [
         {
           "agentId": "claret",
@@ -4582,9 +4562,7 @@
       "sha256": "8caa4f44c381ce694bae44ecc7c5ae0df35bb3beb3e43c927ac4035484eca06f",
       "byteSize": 167019,
       "gateRequired": true,
-      "rawValues": [
-        "Cauldron of Clarity"
-      ],
+      "rawValues": ["Cauldron of Clarity"],
       "references": [
         {
           "agentId": "yidhari",
@@ -4639,9 +4617,7 @@
       "sha256": "d200085e7fdb14d24282d83768c26140c26294fcc8e790b0b859dc193d88dbb8",
       "byteSize": 175440,
       "gateRequired": true,
-      "rawValues": [
-        "Chief Sidekick"
-      ],
+      "rawValues": ["Chief Sidekick"],
       "references": [
         {
           "agentId": "norma",
@@ -4691,9 +4667,7 @@
       "sha256": "8522e0e951eccb5084d3152d5fb57cd34210645ebddfba8500e538b4519e563e",
       "byteSize": 189510,
       "gateRequired": true,
-      "rawValues": [
-        "Cloudcleave Radiance"
-      ],
+      "rawValues": ["Cloudcleave Radiance"],
       "references": [
         {
           "agentId": "ye-shunguang",
@@ -4738,9 +4712,7 @@
       "sha256": "6f61df840430052207c1389eeffcc9eed7941cb4f15ac6da1e9be8a7c553dadb",
       "byteSize": 169001,
       "gateRequired": true,
-      "rawValues": [
-        "Cordis Germina"
-      ],
+      "rawValues": ["Cordis Germina"],
       "references": [
         {
           "agentId": "asaba-harumasa",
@@ -4820,9 +4792,7 @@
       "sha256": "3b64c33890d9bd667ef9a4694c7cd03f0a231b1a9134111fb69b68b14b0e472e",
       "byteSize": 207960,
       "gateRequired": true,
-      "rawValues": [
-        "Crimson Moon Casket"
-      ],
+      "rawValues": ["Crimson Moon Casket"],
       "references": [
         {
           "agentId": "roxy",
@@ -4872,9 +4842,7 @@
       "sha256": "f43604bef56299d2371111f97de3807564fb9417427aee251ad81bfa634e0c45",
       "byteSize": 145388,
       "gateRequired": true,
-      "rawValues": [
-        "Crimson Thirst"
-      ],
+      "rawValues": ["Crimson Thirst"],
       "references": [
         {
           "agentId": "claret",
@@ -4919,9 +4887,7 @@
       "sha256": "f861ad1cc37580f5d035d7935f8d2925780a2011dccc0b2b65524ef7e2623e9c",
       "byteSize": 152165,
       "gateRequired": true,
-      "rawValues": [
-        "Deep Sea Visitor"
-      ],
+      "rawValues": ["Deep Sea Visitor"],
       "references": [
         {
           "agentId": "ellen-joe",
@@ -4976,9 +4942,7 @@
       "sha256": "59d8c0ad46f44da9a123b09fc805a65ae75d70763389b77ddbdd91403853b44b",
       "byteSize": 216379,
       "gateRequired": true,
-      "rawValues": [
-        "Dreamlit Hearth"
-      ],
+      "rawValues": ["Dreamlit Hearth"],
       "references": [
         {
           "agentId": "lucia",
@@ -5023,9 +4987,7 @@
       "sha256": "4c37e8c9cd150818a2df6adf8d53085498189bbcbcda2d9d8c4fc0c6e21f4b8a",
       "byteSize": 204488,
       "gateRequired": true,
-      "rawValues": [
-        "Drill Rig - Red Axis"
-      ],
+      "rawValues": ["Drill Rig - Red Axis"],
       "references": [
         {
           "agentId": "cissia",
@@ -5070,9 +5032,7 @@
       "sha256": "c2ab1ec8edb04978d6e2f93722ce56c01174a48e920e629365cf677c7c8189cf",
       "byteSize": 138580,
       "gateRequired": true,
-      "rawValues": [
-        "Electro-Lip Gloss"
-      ],
+      "rawValues": ["Electro-Lip Gloss"],
       "references": [
         {
           "agentId": "burnice-white",
@@ -5117,9 +5077,7 @@
       "sha256": "a4c23153f4f7f972c93a20141e232d46b816803629bfa8708492846588758684",
       "byteSize": 189628,
       "gateRequired": true,
-      "rawValues": [
-        "Elegant Vanity"
-      ],
+      "rawValues": ["Elegant Vanity"],
       "references": [
         {
           "agentId": "astra-yao",
@@ -5164,9 +5122,7 @@
       "sha256": "674217881d69383ccc83807b9288a20f7b21920f468eb52dbd982bfef18464e6",
       "byteSize": 167319,
       "gateRequired": true,
-      "rawValues": [
-        "Flamemaker Shaker"
-      ],
+      "rawValues": ["Flamemaker Shaker"],
       "references": [
         {
           "agentId": "burnice-white",
@@ -5211,9 +5167,7 @@
       "sha256": "1786c98992a6ec145c6525a6364b09c21b8d134cc14d543a2e5b95d4bc93b0a9",
       "byteSize": 184455,
       "gateRequired": true,
-      "rawValues": [
-        "Flight of Fancy"
-      ],
+      "rawValues": ["Flight of Fancy"],
       "references": [
         {
           "agentId": "aria",
@@ -5263,9 +5217,7 @@
       "sha256": "8c0e277b81fe7aa3f8d72b790510ce88ddbf57539bce719a117e34bf7bcd050e",
       "byteSize": 168979,
       "gateRequired": true,
-      "rawValues": [
-        "Frostfall Sickle"
-      ],
+      "rawValues": ["Frostfall Sickle"],
       "references": [
         {
           "agentId": "promeia",
@@ -5310,9 +5262,7 @@
       "sha256": "a922ce03a1634540ee816e5b37f3bf13fb7c4b72bfcc89b1235079dc2ba6928b",
       "byteSize": 184178,
       "gateRequired": true,
-      "rawValues": [
-        "Fusion Compiler"
-      ],
+      "rawValues": ["Fusion Compiler"],
       "references": [
         {
           "agentId": "grace-howard",
@@ -5372,10 +5322,7 @@
       "sha256": "bd4c815cc16d738f7961d8fb5db22b56c9155094457de1b5f4c8d23b0038665b",
       "byteSize": 217508,
       "gateRequired": true,
-      "rawValues": [
-        "Gilded Blossom",
-        "Gilded Blossom (P5 baseline)"
-      ],
+      "rawValues": ["Gilded Blossom", "Gilded Blossom (P5 baseline)"],
       "references": [
         {
           "agentId": "sigrid-de-l-azur",
@@ -5425,9 +5372,7 @@
       "sha256": "a5c235e4b8d3dc37a8c4d6080326f0149d3b707e651d0535402fb0e549f6472a",
       "byteSize": 26562,
       "gateRequired": true,
-      "rawValues": [
-        "Grill O'Wisp"
-      ],
+      "rawValues": ["Grill O'Wisp"],
       "references": [
         {
           "agentId": "komano-manato",
@@ -5472,9 +5417,7 @@
       "sha256": "4e860f6652232fb4372ee6ec01f32ffb325c93b8c5852fdb21fb61574659d68b",
       "byteSize": 203736,
       "gateRequired": true,
-      "rawValues": [
-        "Hailstorm Shrine"
-      ],
+      "rawValues": ["Hailstorm Shrine"],
       "references": [
         {
           "agentId": "hoshimi-miyabi",
@@ -5519,9 +5462,7 @@
       "sha256": "80682c643d67f48bcc96133e7cae00b20a76b84439b340ce2f2145a4b015c01a",
       "byteSize": 201656,
       "gateRequired": true,
-      "rawValues": [
-        "Half-Sugar Bunny"
-      ],
+      "rawValues": ["Half-Sugar Bunny"],
       "references": [
         {
           "agentId": "zhao",
@@ -5566,9 +5507,7 @@
       "sha256": "69101dc64c75411c28a654ab891d9ec9a3e9453b12cf92ffe141b21345c0ffef",
       "byteSize": 172934,
       "gateRequired": true,
-      "rawValues": [
-        "Heartstring Nocturne"
-      ],
+      "rawValues": ["Heartstring Nocturne"],
       "references": [
         {
           "agentId": "evelyn-chevalier",
@@ -5633,9 +5572,7 @@
       "sha256": "69419f36779e7649e13f8e44131bb2b90deb252682a25ca528b0437ba803210f",
       "byteSize": 196042,
       "gateRequired": true,
-      "rawValues": [
-        "Hellfire Gears"
-      ],
+      "rawValues": ["Hellfire Gears"],
       "references": [
         {
           "agentId": "koleda-belobog",
@@ -5685,9 +5622,7 @@
       "sha256": "144f4e8fd30df8a0ed2288a5fa05fc78a584e41805d9e4b5180b1b7b5fc9ea2d",
       "byteSize": 196864,
       "gateRequired": true,
-      "rawValues": [
-        "Ice-Jade Teapot"
-      ],
+      "rawValues": ["Ice-Jade Teapot"],
       "references": [
         {
           "agentId": "lighter",
@@ -5742,9 +5677,7 @@
       "sha256": "5e670d371247025aff5730ef634c0f506ef7e60440d0ebaa6177d47a0eb1203b",
       "byteSize": 212793,
       "gateRequired": true,
-      "rawValues": [
-        "Joyau Dore"
-      ],
+      "rawValues": ["Joyau Dore"],
       "references": [
         {
           "agentId": "velina-airgid",
@@ -5789,9 +5722,7 @@
       "sha256": "4f5f46af8383e6a4f52a4c99c00fb1aa819853e325b2f009770f22f0b641ada5",
       "byteSize": 183463,
       "gateRequired": true,
-      "rawValues": [
-        "Kaboom the Cannon"
-      ],
+      "rawValues": ["Kaboom the Cannon"],
       "references": [
         {
           "agentId": "astra-yao",
@@ -5856,9 +5787,7 @@
       "sha256": "dbcd256762ab32c76e1f2efdc3e92f1208b4a1ef4b6e3d7b682cc4be2cb8ead7",
       "byteSize": 210966,
       "gateRequired": true,
-      "rawValues": [
-        "Knight's Extolment"
-      ],
+      "rawValues": ["Knight's Extolment"],
       "references": [
         {
           "agentId": "sigrid-de-l-azur",
@@ -5903,9 +5832,7 @@
       "sha256": "3e840bfe54da5d6432a1cf59e1af3ab3996f093afbde36e5c9a0ced5dde98820",
       "byteSize": 185282,
       "gateRequired": true,
-      "rawValues": [
-        "Kraken's Cradle"
-      ],
+      "rawValues": ["Kraken's Cradle"],
       "references": [
         {
           "agentId": "yidhari",
@@ -5950,9 +5877,7 @@
       "sha256": "a76b4924189bc07c88e00a2c008641a7cbc9bf09991a069e5e1993299f1997d6",
       "byteSize": 196089,
       "gateRequired": true,
-      "rawValues": [
-        "Marcato Desire"
-      ],
+      "rawValues": ["Marcato Desire"],
       "references": [
         {
           "agentId": "orphie-and-magus",
@@ -5997,9 +5922,7 @@
       "sha256": "95303862b7a89032a43a0f2d8580ba9a70696add680d7b86941e1881598f8d7d",
       "byteSize": 137174,
       "gateRequired": true,
-      "rawValues": [
-        "Metanukimorphosis"
-      ],
+      "rawValues": ["Metanukimorphosis"],
       "references": [
         {
           "agentId": "ukinami-yuzuha",
@@ -6044,9 +5967,7 @@
       "sha256": "6fdb3d3fa6e9151d145ec578e5e2de629da211a5cd87e7d648bf8322fd616f8e",
       "byteSize": 171638,
       "gateRequired": true,
-      "rawValues": [
-        "Myriad Eclipse"
-      ],
+      "rawValues": ["Myriad Eclipse"],
       "references": [
         {
           "agentId": "ellen-joe",
@@ -6096,9 +6017,7 @@
       "sha256": "6fb1f9aa38c6263630e450b49bbf20e73971752c5f4e27627a9af22385633f88",
       "byteSize": 184714,
       "gateRequired": true,
-      "rawValues": [
-        "Neon Fantasies"
-      ],
+      "rawValues": ["Neon Fantasies"],
       "references": [
         {
           "agentId": "nangong-yu",
@@ -6148,9 +6067,7 @@
       "sha256": "48c44123de734749fb4170f66415e96adf46179da6933a854f9759daa5f2e9fd",
       "byteSize": 160725,
       "gateRequired": true,
-      "rawValues": [
-        "Ode of Resurrected Wings"
-      ],
+      "rawValues": ["Ode of Resurrected Wings"],
       "references": [
         {
           "agentId": "remielle-dan",
@@ -6195,9 +6112,7 @@
       "sha256": "fead11aeec5674a54ed746e16220b3a6e0fb276d9d322230f173d37428d44f04",
       "byteSize": 109067,
       "gateRequired": true,
-      "rawValues": [
-        "Original Transmorpher"
-      ],
+      "rawValues": ["Original Transmorpher"],
       "references": [
         {
           "agentId": "caesar-king",
@@ -6262,9 +6177,7 @@
       "sha256": "31e7db9940ea7e5223b807151664cc69d95c3c1bcf8119cac03a36756b6de8e2",
       "byteSize": 190175,
       "gateRequired": true,
-      "rawValues": [
-        "Peacekeeper - Specialized"
-      ],
+      "rawValues": ["Peacekeeper - Specialized"],
       "references": [
         {
           "agentId": "pan-yinhu",
@@ -6314,9 +6227,7 @@
       "sha256": "ad42e3ab1f089270731b369d026b6a4e533c94d715df75cc9425e642069be895",
       "byteSize": 147144,
       "gateRequired": true,
-      "rawValues": [
-        "Plume of Rebirth"
-      ],
+      "rawValues": ["Plume of Rebirth"],
       "references": [
         {
           "agentId": "phoenix",
@@ -6361,9 +6272,7 @@
       "sha256": "742fb807c7f5fbb0ea05c06126ce1ae20e7a09d717a485d5b6184ca406920918",
       "byteSize": 197604,
       "gateRequired": true,
-      "rawValues": [
-        "Practiced Perfection"
-      ],
+      "rawValues": ["Practiced Perfection"],
       "references": [
         {
           "agentId": "alice-thymefield",
@@ -6418,9 +6327,7 @@
       "sha256": "1951e747a4fd8f6c4da418991f23510e8fb6b9776ac0cac8b02fa1c8ced2a4b0",
       "byteSize": 124415,
       "gateRequired": true,
-      "rawValues": [
-        "Precious Fossilized Core"
-      ],
+      "rawValues": ["Precious Fossilized Core"],
       "references": [
         {
           "agentId": "koleda-belobog",
@@ -6480,9 +6387,7 @@
       "sha256": "2929ffcdad86e2c7f76a4798b76a6616380fd63bf5a59a5117a1103dc0bddc2d",
       "byteSize": 6269474,
       "gateRequired": true,
-      "rawValues": [
-        "Puzzle Sphere"
-      ],
+      "rawValues": ["Puzzle Sphere"],
       "references": [
         {
           "agentId": "banyue",
@@ -6547,9 +6452,7 @@
       "sha256": "4957c3b12d72e7784a36a7e7052fbcf74f6045745c857bc1ab60c2ab78c4c6f7",
       "byteSize": 195342,
       "gateRequired": true,
-      "rawValues": [
-        "Qingming Birdcage"
-      ],
+      "rawValues": ["Qingming Birdcage"],
       "references": [
         {
           "agentId": "banyue",
@@ -6599,9 +6502,7 @@
       "sha256": "9719c3a371325c4aaf1c92a9002e8bfc1a67c529e0c4e4e5d2c05dfd9830eb7f",
       "byteSize": 4780176,
       "gateRequired": true,
-      "rawValues": [
-        "Radiowave Journey"
-      ],
+      "rawValues": ["Radiowave Journey"],
       "references": [
         {
           "agentId": "starlight-billy",
@@ -6646,9 +6547,7 @@
       "sha256": "f987d3c033287890c472fca0dba5ff13c9ac4ea1ee5f9b501a7a4e3364f68173",
       "byteSize": 135910,
       "gateRequired": true,
-      "rawValues": [
-        "Rainforest Gourmet"
-      ],
+      "rawValues": ["Rainforest Gourmet"],
       "references": [
         {
           "agentId": "aria",
@@ -6698,9 +6597,7 @@
       "sha256": "829658e6724cb8321b350fc5473c4c2316da8003879eabc601f15083eb05406a",
       "byteSize": 173425,
       "gateRequired": true,
-      "rawValues": [
-        "Riot Suppressor Mark VI"
-      ],
+      "rawValues": ["Riot Suppressor Mark VI"],
       "references": [
         {
           "agentId": "pyrois",
@@ -6745,9 +6642,7 @@
       "sha256": "e091092b1e45ee655a49d0ee0c7bb1d7a1aa6fa02b15161b4d2cbc6546180632",
       "byteSize": 196532,
       "gateRequired": true,
-      "rawValues": [
-        "Roaring Fur-nace"
-      ],
+      "rawValues": ["Roaring Fur-nace"],
       "references": [
         {
           "agentId": "ju-fufu",
@@ -6797,9 +6692,7 @@
       "sha256": "523f7a4a80810984af6e4faf8df240b466fa6a7668d54660cf6be1d82b0e1ab5",
       "byteSize": 196104,
       "gateRequired": true,
-      "rawValues": [
-        "Serpentine Seeker"
-      ],
+      "rawValues": ["Serpentine Seeker"],
       "references": [
         {
           "agentId": "cissia",
@@ -6844,9 +6737,7 @@
       "sha256": "9f67f23f8d28d245817d24abe7b93a3a0b8fa80f48d5387670ac488708225e97",
       "byteSize": 191193,
       "gateRequired": true,
-      "rawValues": [
-        "Severed Innocence"
-      ],
+      "rawValues": ["Severed Innocence"],
       "references": [
         {
           "agentId": "soldier-0-anby",
@@ -6891,9 +6782,7 @@
       "sha256": "18991205e37850d5c09538161055fb2ef07f03c97cedfcc0ca52d38a8d917332",
       "byteSize": 177244,
       "gateRequired": true,
-      "rawValues": [
-        "Sharpened Stinger"
-      ],
+      "rawValues": ["Sharpened Stinger"],
       "references": [
         {
           "agentId": "alice-thymefield",
@@ -6943,9 +6832,7 @@
       "sha256": "ece200e44dbf80437d0dfde8995b6fd0d349254c8b6fa257aa48fc239a863349",
       "byteSize": 165030,
       "gateRequired": true,
-      "rawValues": [
-        "Slice of Time"
-      ],
+      "rawValues": ["Slice of Time"],
       "references": [
         {
           "agentId": "alexandrina-sebastiane",
@@ -7005,9 +6892,7 @@
       "sha256": "60d29a0744daaa1436b0d841c367c89071081a7f6940dd958c8f43c449c4ad86",
       "byteSize": 172498,
       "gateRequired": true,
-      "rawValues": [
-        "Sol Exuvia"
-      ],
+      "rawValues": ["Sol Exuvia"],
       "references": [
         {
           "agentId": "pyrois",
@@ -7057,9 +6942,7 @@
       "sha256": "24ddd4966876f95b1a1d9390c5460ac135d6a294cf8ea0855a66987a15122e29",
       "byteSize": 158341,
       "gateRequired": true,
-      "rawValues": [
-        "Spectral Gaze"
-      ],
+      "rawValues": ["Spectral Gaze"],
       "references": [
         {
           "agentId": "ju-fufu",
@@ -7109,9 +6992,7 @@
       "sha256": "958cfd921db6701ee72700e2da1cb744e9e39494f70bed18d1820969ffdedade",
       "byteSize": 160550,
       "gateRequired": true,
-      "rawValues": [
-        "Spring Embrace"
-      ],
+      "rawValues": ["Spring Embrace"],
       "references": [
         {
           "agentId": "pan-yinhu",
@@ -7161,9 +7042,7 @@
       "sha256": "0e1830c8831894f018cea00d9f9a3feac4d83ce8ff4512fa849164f6d6dc4397",
       "byteSize": 152262,
       "gateRequired": true,
-      "rawValues": [
-        "Starlight Engine"
-      ],
+      "rawValues": ["Starlight Engine"],
       "references": [
         {
           "agentId": "asaba-harumasa",
@@ -7258,9 +7137,7 @@
       "sha256": "2991bad068f4ac77bd6a5e64ea91c79d534da43f8578334d5d3b9e9a04d1ad4d",
       "byteSize": 181974,
       "gateRequired": true,
-      "rawValues": [
-        "Starlight Engine Replica"
-      ],
+      "rawValues": ["Starlight Engine Replica"],
       "references": [
         {
           "agentId": "billy-kid",
@@ -7305,9 +7182,7 @@
       "sha256": "d5dab95720e8b4660095d637b5cd08848ec11d323fdc6958866ec770535a0cc3",
       "byteSize": 128266,
       "gateRequired": true,
-      "rawValues": [
-        "Starlight Rider Faceplate"
-      ],
+      "rawValues": ["Starlight Rider Faceplate"],
       "references": [
         {
           "agentId": "starlight-billy",
@@ -7352,9 +7227,7 @@
       "sha256": "554ac592c9675ae15a974a96e5dcda631dfeb208f25482279b56dd37e7f9c3c2",
       "byteSize": 185186,
       "gateRequired": true,
-      "rawValues": [
-        "Steam Oven"
-      ],
+      "rawValues": ["Steam Oven"],
       "references": [
         {
           "agentId": "dialyn",
@@ -7439,9 +7312,7 @@
       "sha256": "d8a993653aeebae167d2d775541972ac4e24422f5ec36b528267b88ec0aa59a7",
       "byteSize": 172658,
       "gateRequired": true,
-      "rawValues": [
-        "Steel Cushion"
-      ],
+      "rawValues": ["Steel Cushion"],
       "references": [
         {
           "agentId": "nekomata",
@@ -7496,9 +7367,7 @@
       "sha256": "7388eaf1c76c6509c6bc2e154a40b32ac697c499d9a538dcf4719fdf6ac665bd",
       "byteSize": 160518,
       "gateRequired": true,
-      "rawValues": [
-        "The Brimstone"
-      ],
+      "rawValues": ["The Brimstone"],
       "references": [
         {
           "agentId": "ye-shunguang",
@@ -7548,9 +7417,7 @@
       "sha256": "54cf4976cdd203f382c8142cf5e937688977346a6b7ff5435974286878a135be",
       "byteSize": 207873,
       "gateRequired": true,
-      "rawValues": [
-        "The Restrained"
-      ],
+      "rawValues": ["The Restrained"],
       "references": [
         {
           "agentId": "qingyi",
@@ -7600,9 +7467,7 @@
       "sha256": "645454abc087877c1a45c783f7e173fec26bbd414941cb31dca5a7110cb6de21",
       "byteSize": 213913,
       "gateRequired": true,
-      "rawValues": [
-        "The Vault"
-      ],
+      "rawValues": ["The Vault"],
       "references": [
         {
           "agentId": "lucia",
@@ -7652,9 +7517,7 @@
       "sha256": "dbc8321e84a6d180b43fd27f6a72af26dbd1c5dbdf37b6a33b498f08a627c21d",
       "byteSize": 204121,
       "gateRequired": true,
-      "rawValues": [
-        "Thoughtbop"
-      ],
+      "rawValues": ["Thoughtbop"],
       "references": [
         {
           "agentId": "sunna",
@@ -7699,9 +7562,7 @@
       "sha256": "809a0d9d83e98110e187bb1628d340628c7a595e82ac464b74e478d56fdc2b27",
       "byteSize": 168114,
       "gateRequired": true,
-      "rawValues": [
-        "Timeweaver"
-      ],
+      "rawValues": ["Timeweaver"],
       "references": [
         {
           "agentId": "grace-howard",
@@ -7751,9 +7612,7 @@
       "sha256": "a2fa7d1f46b150f3043ad5223b293b6a1a56a4eb3d4daaa9f9d038a839a77046",
       "byteSize": 224738,
       "gateRequired": true,
-      "rawValues": [
-        "Tremor Trigram Vessel"
-      ],
+      "rawValues": ["Tremor Trigram Vessel"],
       "references": [
         {
           "agentId": "pan-yinhu",
@@ -7798,9 +7657,7 @@
       "sha256": "e44f0382b0c50a9dc1b0522bcc115564bf1bd987d76e292b126482bb07781f1e",
       "byteSize": 201397,
       "gateRequired": true,
-      "rawValues": [
-        "Tusks of Fury"
-      ],
+      "rawValues": ["Tusks of Fury"],
       "references": [
         {
           "agentId": "caesar-king",
@@ -7845,9 +7702,7 @@
       "sha256": "27c04a821358a5b1eb6fb41eefba0cc28d3b8eb3867c8e7352e4640ce14786c5",
       "byteSize": 180493,
       "gateRequired": true,
-      "rawValues": [
-        "Weeping Cradle"
-      ],
+      "rawValues": ["Weeping Cradle"],
       "references": [
         {
           "agentId": "alexandrina-sebastiane",
@@ -7917,9 +7772,7 @@
       "sha256": "947c003c0bb209849f8207e0b735c639e2fbd0415a00d14f2e3bb17342d15517",
       "byteSize": 161560,
       "gateRequired": true,
-      "rawValues": [
-        "Weeping Gemini"
-      ],
+      "rawValues": ["Weeping Gemini"],
       "references": [
         {
           "agentId": "alice-thymefield",
@@ -8029,9 +7882,7 @@
       "sha256": "94ad030f5a98e7013335aa7132442db2dfb744cbde2deb6bb1697de86bce2e53",
       "byteSize": 194644,
       "gateRequired": true,
-      "rawValues": [
-        "Wrathful Vajra"
-      ],
+      "rawValues": ["Wrathful Vajra"],
       "references": [
         {
           "agentId": "banyue",
@@ -8081,9 +7932,7 @@
       "sha256": "7dce4dc2a5831bb524ae7792bc579d99ba9ec510e855eb4f508b4d1734152f5d",
       "byteSize": 195732,
       "gateRequired": true,
-      "rawValues": [
-        "Yesterday Calls"
-      ],
+      "rawValues": ["Yesterday Calls"],
       "references": [
         {
           "agentId": "dialyn",
@@ -8128,9 +7977,7 @@
       "sha256": "378145e21a734ca6c9e28401c2724ddd79565f2401b833954a63214d7c072f38",
       "byteSize": 166944,
       "gateRequired": true,
-      "rawValues": [
-        "Zanshin Herb Case"
-      ],
+      "rawValues": ["Zanshin Herb Case"],
       "references": [
         {
           "agentId": "asaba-harumasa",
@@ -8185,9 +8032,7 @@
       "sha256": "ef65db8042bcd3cd550231d609311ca867a40e3ec137657e85e12de69bb50645",
       "byteSize": 136593,
       "gateRequired": true,
-      "rawValues": [
-        "[Reverb] Mark II"
-      ],
+      "rawValues": ["[Reverb] Mark II"],
       "references": [
         {
           "agentId": "nicole-demara",
@@ -9134,82 +8979,55 @@
         "filename": "src/modules/zenless-zone-zero-tier-list/assets/teams/team-visual-phoenix.png",
         "teamId": "phoenix-vortex",
         "agentId": "phoenix",
-        "uses": [
-          "teamVisual",
-          "optionalAgentDetailArtwork"
-        ]
+        "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       },
       {
         "filename": "src/modules/zenless-zone-zero-tier-list/assets/teams/team-visual-claret.png",
         "teamId": "claret-laceration",
         "agentId": "claret",
-        "uses": [
-          "teamVisual",
-          "optionalAgentDetailArtwork"
-        ]
+        "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       },
       {
         "filename": "src/modules/zenless-zone-zero-tier-list/assets/teams/team-visual-seed.png",
         "teamId": "seed-obol-electric",
         "agentId": "seed",
-        "uses": [
-          "teamVisual",
-          "optionalAgentDetailArtwork"
-        ]
+        "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       },
       {
         "filename": "src/modules/zenless-zone-zero-tier-list/assets/teams/team-visual-promeia.png",
         "teamId": "promeia-velina-anomaly",
         "agentId": "promeia",
-        "uses": [
-          "teamVisual",
-          "optionalAgentDetailArtwork"
-        ]
+        "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       },
       {
         "filename": "src/modules/zenless-zone-zero-tier-list/assets/teams/team-visual-aria.png",
         "teamId": "aria-anomaly",
         "agentId": "aria",
-        "uses": [
-          "teamVisual",
-          "optionalAgentDetailArtwork"
-        ]
+        "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       },
       {
         "filename": "src/modules/zenless-zone-zero-tier-list/assets/teams/team-visual-ye-shunguang.png",
         "teamId": "ye-enlightened",
         "agentId": "ye-shunguang",
-        "uses": [
-          "teamVisual",
-          "optionalAgentDetailArtwork"
-        ]
+        "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       },
       {
         "filename": "src/modules/zenless-zone-zero-tier-list/assets/teams/team-visual-yixuan.png",
         "teamId": "yixuan-rupture",
         "agentId": "yixuan",
-        "uses": [
-          "teamVisual",
-          "optionalAgentDetailArtwork"
-        ]
+        "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       },
       {
         "filename": "src/modules/zenless-zone-zero-tier-list/assets/teams/team-visual-banyue.png",
         "teamId": "banyue-rupture",
         "agentId": "banyue",
-        "uses": [
-          "teamVisual",
-          "optionalAgentDetailArtwork"
-        ]
+        "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       },
       {
         "filename": "src/modules/zenless-zone-zero-tier-list/assets/teams/team-visual-pyrois.png",
         "teamId": "pyrois-crit",
         "agentId": "pyrois",
-        "uses": [
-          "teamVisual",
-          "optionalAgentDetailArtwork"
-        ]
+        "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       }
     ],
     "existingFilesUnchanged": true,

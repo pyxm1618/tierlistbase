@@ -5,7 +5,7 @@
 - Base SHA: `5ecc42ea89cadf514dcac64ecfb5675a41fac095`, fetched from origin/main before implementation and refreshed before PR.
 - Branch: `codex/zzz-production-assets`.
 - Fresh managed worktree had HEAD == origin/main and a clean working tree before branching. The earlier sourcing worktree was preserved unchanged.
-- Frozen truth: `zzz-asset-manifest.json`, `zzz-asset-audit.md` and the original verified images from `/Users/milushangdi/.codex/worktrees/zzz-asset-sourcing/tier list`. Source manifest and audit were copied byte-for-byte, retaining their historical sourcing base SHA.
+- Frozen truth: `zzz-asset-manifest.json`, `zzz-asset-audit.md` and the original verified images from `/Users/milushangdi/.codex/worktrees/zzz-asset-sourcing/tier list`. Source manifest and audit retain their historical sourcing base SHA and frozen content; only repository formatting was applied before final handoff.
 - No external asset search, download, transformation, dependency change or build/deployment configuration change.
 
 ## Bounded plan and completion ledger
@@ -17,13 +17,13 @@
 - [x] Run lint, typecheck, full units, build, ZZZ E2E and actual 390px/1440px visual inspection.
 - [x] Obtain independent read-only review, resolve its coverage/scope findings, and inspect the final bounded diff.
 
-| P0 category | Required | Approved source | Integrated | Missing | Unreviewed |
-|---|---:|---:|---:|---:|---:|
-| Released Agent portraits | 61 | 61 | 61 | 0 | 0 |
-| Actually used Bangboo | 14 | 14 | 14 | 0 | 0 |
-| Unique W-Engines | 77 | 77 | 77 | 0 | 0 |
-| Current Team visuals | 9 | 9 | 9 | 0 | 0 |
-| Total | 161 | 161 | 161 | 0 | 0 |
+| P0 category              | Required | Approved source | Integrated | Missing | Unreviewed |
+| ------------------------ | -------: | --------------: | ---------: | ------: | ---------: |
+| Released Agent portraits |       61 |              61 |         61 |       0 |          0 |
+| Actually used Bangboo    |       14 |              14 |         14 |       0 |          0 |
+| Unique W-Engines         |       77 |              77 |         77 |       0 |          0 |
+| Current Team visuals     |        9 |               9 |          9 |       0 |          0 |
+| Total                    |      161 |             161 |        161 |       0 |          0 |
 
 - Initial states: 161 approved source items, 161 pending integration, 0 rejected/delete, 0 unreviewed source.
 - Final P0 states: 161 approved/integrated, 0 deferred, 0 rejected/deleted, 0 unreviewed. Total reconciles to 161.
@@ -43,17 +43,18 @@
 
 ## Verification
 
-| Check | Result |
-|---|---|
-| ZZZ targeted units | 12/12 passed (6 existing data + 6 new asset checks) |
-| Full unit suite | 691/691 passed across 109 files |
-| `bun run lint` | Pass: 0 errors; 2 pre-existing unrelated Vanguard warnings |
-| `bun run typecheck` | Pass |
-| `bun run build` with local test environment | Pass: compiled, TypeScript, page generation and trace collection completed |
-| Repository enabled-profile `build:test` | Pass; used for the browser server |
-| Existing + new ZZZ E2E | 8/8 passed using project Playwright Chromium |
-| `git diff --check` | Pass |
-| Image integrity | 170/170 source hashes/bytes match; 34 existing + 136 new; no duplicate filename/hash |
+| Check                                       | Result                                                                               |
+| ------------------------------------------- | ------------------------------------------------------------------------------------ |
+| ZZZ targeted units                          | 12/12 passed (6 existing data + 6 new asset checks)                                  |
+| Full unit suite                             | 691/691 passed across 109 files                                                      |
+| `bun run lint`                              | Pass: 0 errors; 2 pre-existing unrelated Vanguard warnings                           |
+| `bun run typecheck`                         | Pass                                                                                 |
+| `bun run build` with local test environment | Pass: compiled, TypeScript, page generation and trace collection completed           |
+| Repository enabled-profile `build:test`     | Pass; used for the browser server                                                    |
+| Existing + new ZZZ E2E                      | 8/8 passed using project Playwright Chromium                                         |
+| `bun run format:check`                      | Pass after formatting the three new manifest/audit documents                         |
+| `git diff --check`                          | Pass                                                                                 |
+| Image integrity                             | 170/170 source hashes/bytes match; 34 existing + 136 new; no duplicate filename/hash |
 
 The first bare build lacked required APP_ENV/APP_ORIGIN/DATABASE_URL values and failed environment validation after compilation. It was rerun successfully with explicit local test values, without loading production credentials or changing environment requirements. No database/API operation was performed. There is no `test` script; the actual repository unit script is `test:unit`.
 
@@ -61,10 +62,10 @@ The new browser coverage iterates all 61 released Agent details and waits for po
 
 ## Visual regression
 
-| Viewport | Overflow | Portraits | W-Engines | Bangboo | Team visuals |
-|---|---|---|---|---|---|
-| 390px | document width 390px | Pass | Pass, existing 35px containers | Pass | Pass, contained original art |
-| 1440px | document width 1440px | Pass | Pass, existing 35px containers | Pass | Pass, contained original art |
+| Viewport | Overflow              | Portraits | W-Engines                      | Bangboo | Team visuals                 |
+| -------- | --------------------- | --------- | ------------------------------ | ------- | ---------------------------- |
+| 390px    | document width 390px  | Pass      | Pass, existing 35px containers | Pass    | Pass, contained original art |
+| 1440px   | document width 1440px | Pass      | Pass, existing 35px containers | Pass    | Pass, contained original art |
 
 Actual viewport and detail screenshots were inspected under:
 `/Users/milushangdi/.codex/visualizations/2026/10/26/01a17615-4c3a-7a62-8ec3-fecffc8cd9d5/zzz-assets/`.
