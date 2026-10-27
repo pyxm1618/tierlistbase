@@ -56,9 +56,10 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(
     popular.getByRole("link", { name: "Open NIKKE ranking: Characters" }),
   ).toHaveAttribute("href", "/nikke/tier-list");
-  await expect(
-    popular.getByRole("link", { name: "Open ZZZ ranking: Characters" }),
-  ).toHaveAttribute("href", "/zenless-zone-zero/tier-list");
+  await expect(popular.getByRole("link", { name: "Open ZZZ ranking: Characters" })).toHaveAttribute(
+    "href",
+    "/zenless-zone-zero/tier-list",
+  );
   await expect(
     popular.getByRole("link", { name: "Open Limbus Company ranking: Identities" }),
   ).toHaveAttribute("href", "/limbus-company/tier-list");
