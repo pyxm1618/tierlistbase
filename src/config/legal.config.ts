@@ -1,7 +1,7 @@
 import type { LegalConfig } from "@/platform/legal/types";
 
 export const legalConfig = {
-  releaseStatus: "draft",
+  releaseStatus: "reviewed",
   operator: {
     legalName: "Wang Yufei",
     establishment: "People's Republic of China",
@@ -23,7 +23,7 @@ export const legalConfig = {
     {
       name: "Google Privacy & Messaging",
       purpose:
-        "Google publisher and privacy-consent infrastructure used to present and manage visitor privacy choices. TierListBase does not currently render commercial advertising units.",
+        "Google publisher and privacy-consent infrastructure used to present and manage visitor privacy choices. This infrastructure may receive technical request, browser, device, and network information needed to load and operate those controls. TierListBase does not currently render commercial advertising units.",
       privacyUrl: "https://policies.google.com/privacy",
     },
     {
@@ -99,11 +99,11 @@ export const legalConfig = {
   internationalTransfers:
     "TierListBase uses infrastructure providers that operate internationally. This notice does not claim that request or security metadata remains in a single country or region.",
   documents: {
-    privacy: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "draft" },
-    terms: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "draft" },
-    acceptable_use: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "draft" },
+    privacy: { version: "1.3", effectiveDate: "2026-10-27", reviewStatus: "reviewed" },
+    terms: { version: "1.3", effectiveDate: "2026-10-27", reviewStatus: "reviewed" },
+    acceptable_use: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "reviewed" },
     refund_policy: { version: "1.0", effectiveDate: "2026-10-09", reviewStatus: "reviewed" },
-    account_deletion: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "draft" },
+    account_deletion: { version: "1.2", effectiveDate: "2026-10-19", reviewStatus: "reviewed" },
   },
   content: {
     privacy: [
@@ -117,7 +117,7 @@ export const legalConfig = {
       {
         heading: "Scope and service status",
         paragraphs: [
-          "TierListBase provides public game rankings and the Vanguard community Monument. Browsing is public. Vanguard participation uses Google sign-in through the existing TierListBase account system. Vanguard seats are free; no payments, subscriptions or credits are required. TierListBase may load Google publisher and privacy-consent infrastructure on public and legal pages so visitors can manage privacy choices; commercial advertising units are not currently rendered. Optional Google Analytics (GA4) and Microsoft Clarity analytics are available only if a visitor grants explicit consent.",
+          "TierListBase provides public game rankings and the Vanguard community Monument. Browsing is public. Vanguard participation uses Google sign-in through the existing TierListBase account system. Vanguard seats are free; no payments, subscriptions or credits are required. In production, TierListBase loads Google publisher and privacy-consent infrastructure on public marketing and legal pages so visitors can manage privacy choices; commercial advertising units are not currently rendered. Optional Google Analytics (GA4) and Microsoft Clarity analytics are available only if a visitor grants explicit consent.",
         ],
       },
       {
@@ -155,7 +155,9 @@ export const legalConfig = {
         heading: "Analytics and advertising",
         paragraphs: [
           "Optional Google Analytics (GA4) and Microsoft Clarity are available on TierListBase public pages only after explicit visitor consent. If consent is not granted, or if it is withdrawn, these analytics providers are not loaded. Clarity is used for session and interaction analytics, while GA4 is used for aggregate website measurement.",
-          "TierListBase currently has Google publisher verification or authorization metadata, including ads.txt, and may load Google publisher and privacy-consent infrastructure to support privacy choices. TierListBase does not currently render commercial advertising units or serve display ads. If advertising is enabled later, the relevant privacy disclosures and consent controls must be reviewed before activation.",
+          "TierListBase currently publishes Google publisher verification or authorization metadata, including ads.txt, and loads Google publisher and Privacy & Messaging infrastructure on public marketing and legal pages in production. That infrastructure may receive technical information needed to load and operate, including IP address, browser or device identifiers, user-agent or device information, and network or request metadata. Google may use this information for publisher functionality, privacy and consent management, fraud or abuse prevention, and related reporting or measurement. TierListBase does not currently render commercial advertising units or serve display ads.",
+          "If commercial advertising is enabled later, Google or other third-party advertising technology providers involved in serving ads may place or read cookies in a visitor's browser, or use web beacons, IP addresses, browser or device identifiers, and similar technologies to deliver and measure advertising, prevent fraud or abuse, manage consent, provide publisher functionality, and produce reporting or measurement. This describes processing that may occur only after commercial advertising is enabled; it does not state that ad serving or advertising cookies are active today.",
+          "Where consent is applicable, visitors can manage their choices through the existing Privacy & cookie settings control. Any future activation of commercial advertising requires review of the then-current provider configuration, disclosures, and consent controls before activation.",
         ],
       },
       {
@@ -188,7 +190,7 @@ export const legalConfig = {
       {
         heading: "Service overview",
         paragraphs: [
-          "TierListBase provides public game ranking and analysis pages for Genshin Impact and World of Warcraft: Forever. The service combines reviewed source material, performance data where available, and TierListBase editorial analysis.",
+          "TierListBase provides public game ranking, tier-list, comparison, and analysis pages across supported games. The service combines reviewed source material, performance data where available, and TierListBase editorial analysis.",
         ],
       },
       {
