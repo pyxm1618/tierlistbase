@@ -2,7 +2,8 @@
 
 ## Base and scope
 
-- Base SHA: `5ecc42ea89cadf514dcac64ecfb5675a41fac095`, fetched from origin/main before implementation and refreshed before PR.
+- Initial Base SHA: `5ecc42ea89cadf514dcac64ecfb5675a41fac095`, fetched from origin/main before implementation.
+- Latest synchronized main / PR base SHA: `6b5763dec5138eeba7ddaed9cd7ccc67b3933878`. Merged upstream PR #105 (Vanguard E2E stability only) into this branch without rewriting published history. The PR diff against main remains confined to the 144 approved ZZZ asset/source/test/audit files.
 - Branch: `codex/zzz-production-assets`.
 - Fresh managed worktree had HEAD == origin/main and a clean working tree before branching. The earlier sourcing worktree was preserved unchanged.
 - Frozen truth: `zzz-asset-manifest.json`, `zzz-asset-audit.md` and the original verified images from `/Users/milushangdi/.codex/worktrees/zzz-asset-sourcing/tier list`. Source manifest and audit retain their historical sourcing base SHA and frozen content; only repository formatting was applied before final handoff.
@@ -79,6 +80,14 @@ The existing mobile stylesheet hides detail hero art; that behavior is unchanged
 - Tool ruling: browse's pinned Chromium was unavailable. Used the already-installed project Playwright runtime for browser verification and screenshots; no browser/dependency installation. The alternative would have added unnecessary tooling.
 - Test ruling: default desktop auxiliary panels are closed through their existing buttons before Agent-card interactions; Upcoming is selected from its actual Current Pull Advice card. Product UI behavior was not changed to accommodate test assumptions.
 - No unresolved Important/Critical findings; no deferred minor findings. No merge/deployment performed.
+
+## Post-main-sync verification
+
+After synchronizing main `6b5763dec5138eeba7ddaed9cd7ccc67b3933878`, format:check, lint (0 errors / the same two unrelated warnings), typecheck, the full 691-test unit suite, the standard local-test-environment build, and all eight ZZZ E2E cases passed again. The browser suite rebuilt the application using the repository's enabled test profile; both 390px/1440px cases passed.
+
+The prior remote CI run at `0d91f37` failed formatting/clean-setup on the three new documents and three Vanguard flow cases. The document formatting is corrected; the Vanguard test updates are taken unchanged from main PR #105. This records the old failure and applied updates, not a claim that the new remote CI run has completed. No additional Vanguard edits were made by this branch.
+
+Manifest structured content still matches the frozen source exactly after formatting. All 170 image hashes are unchanged, CSS/SEO files match main, and the PR diff remains the original 144 allowed ZZZ files. Remote CI status must be read from the current PR head.
 
 ## Final integration gate
 
