@@ -10,6 +10,7 @@ const wowHref = "/wow-forever/tier-list";
 const genshinHref = "/genshin-impact/tier-list";
 const nikkeHref = "/nikke/tier-list";
 const limbusHref = "/limbus-company/tier-list";
+const zzzHref = "/zenless-zone-zero/tier-list";
 
 type IconName =
   | "chart"
@@ -246,6 +247,14 @@ const popular: {
     ready: true,
     tone: "ice",
     href: nikkeHref,
+  },
+  {
+    title: "ZZZ",
+    subtitle: "Characters",
+    icon: "star",
+    ready: true,
+    tone: "ice",
+    href: zzzHref,
   },
   {
     title: "Limbus Company",

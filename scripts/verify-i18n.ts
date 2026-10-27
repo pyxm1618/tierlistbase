@@ -6,6 +6,7 @@ import { buildLanguageAlternates, localePath } from "@/platform/i18n/routing";
 const PLACEHOLDER = /\b(todo|tbd|placeholder|replace[ -]?me|lorem ipsum)\b/i;
 const indexable = routeRegistry.indexable();
 const bespokeIndexableRoutes = new Set([
+  "/zenless-zone-zero/tier-list",
   "/genshin-impact/tier-list",
   "/limbus-company/tier-list",
   "/nikke/tier-list",

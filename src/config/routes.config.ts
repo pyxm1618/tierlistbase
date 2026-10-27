@@ -50,10 +50,11 @@ export const routeDefinitions = [
       "/about",
       "/privacy",
       "/terms",
+      "/zenless-zone-zero/tier-list",
     ],
     lastModified: "2026-10-16",
     reviewStatus: "reviewed",
-    reviewFingerprint: "6ca511ddbfd6d86c5b96ee4576fb540f1af496d72dfc676b986bec6d81c28d49",
+    reviewFingerprint: "357f39fb748d56e849ed02c08901db6d65c071752a16eac095cbe932b3696245",
   },
   {
     route: "/wow-forever/tier-list",
@@ -118,10 +119,24 @@ export const routeDefinitions = [
   },
   {
     route: "/zenless-zone-zero/tier-list",
-    class: "public_noindex",
+    class: "public_indexable",
     title: "ZZZ Tier List – Best Zenless Zone Zero Characters Ranked",
     description:
       "Explore the Zenless Zone Zero Tier List with current character rankings, best characters and agents, team-building insights, and pull decisions.",
+    searchIntent:
+      "compare current ZZZ character tier rankings across game modes, teams, investment and pull decisions",
+    primaryKeyword: "zzz tier list",
+    secondaryKeywords: [
+      "zzz character tier list",
+      "zenless zone zero tier list",
+      "zenless zone zero character tier list",
+    ],
+    h1: "ZZZ Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/genshin-impact/tier-list"],
+    lastModified: "2026-10-27",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "a3e2ac43dcc14bf2eb1d3c0c58df0572639279bdece5752e72196a84ae299ef0",
   },
   {
     route: "/nikke/tier-list",

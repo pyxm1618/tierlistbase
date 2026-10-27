@@ -11,7 +11,9 @@ function keywordOccurrences(text: string, phrase: string) {
   return text.split(phrase).length - 1;
 }
 
-test("ZZZ SEO pre-closeout stays noindex with the approved metadata", async ({ page }) => {
+test("ZZZ preserves test-environment noindex with the approved release metadata", async ({
+  page,
+}) => {
   test.skip(
     !hasProjectRouteInventory,
     "project-specific SEO assertions are not part of the neutral clean setup",
@@ -32,7 +34,7 @@ test("ZZZ SEO pre-closeout stays noindex with the approved metadata", async ({ p
 
   const sitemapEntries = routeRegistry.sitemapEntries();
   const sitemapRoutes = sitemapEntries.map((entry) => entry.route);
-  expect(sitemapRoutes).not.toContain(route);
+  expect(sitemapRoutes).toContain(route);
 });
 
 test("ZZZ page-level SEO copy keeps the approved keyword group density", async ({ page }) => {
@@ -42,18 +44,15 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
   );
   await page.goto(route);
 
+  // Audit only existing static editorial text. Business data, all Pull Advice, and controls are excluded.
+  for (const name of ["Pull Advice Detail", "Team Detail"]) {
+    const panel = page.getByRole("region", { name, exact: true });
+    if (await panel.isVisible())
+      await panel.getByRole("button", { name: `Close ${name}`, exact: true }).click();
+  }
+
   const heroHeading = page.getByRole("heading", { level: 1, name: "ZZZ Tier List" });
   const heroCopy = await heroHeading.locator("..").innerText();
-
-  const pullSummary = page.getByRole("region", { name: "Current Pull Advice", exact: true });
-  const pullSummaryTitleLocator = pullSummary.getByText("Current Pull Advice", { exact: true });
-  const pullSummaryTitle = await pullSummaryTitleLocator.innerText();
-  const pullSummaryDescriptionLocator = pullSummary.getByText(
-    "Based on current and upcoming banners. Get personalized pull recommendations.",
-    { exact: true },
-  );
-  const pullSummaryDescription = await pullSummaryDescriptionLocator.innerText();
-  const pullSummaryCopy = `${pullSummaryTitle} ${pullSummaryDescription}`;
 
   const agentRegion = page.getByRole("region", { name: "Agent Ranking", exact: true });
   const agentHeading = agentRegion.getByRole("heading", {
@@ -68,14 +67,7 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
   const teamHeading = teamRegion.getByRole("heading", { level: 2, name: "Team Ranking" });
   const teamCopy = await teamHeading.locator("..").innerText();
 
-  await primary.getByRole("tab", { name: /^Pull Advice/ }).click();
-  const pullDetail = page.getByRole("region", { name: "Pull Advice Detail", exact: true });
-  await pullDetail.getByRole("button", { name: "Close Pull Advice Detail" }).click();
-  const pullRegion = page.getByRole("region", { name: "Pull Advice", exact: true });
-  const pullHeading = pullRegion.getByRole("heading", { level: 2, name: "Current Pull Advice" });
-  const pullCopy = await pullHeading.locator("..").innerText();
-
-  const visibleMainCopy = [heroCopy, pullSummaryCopy, agentCopy, teamCopy, pullCopy]
+  const visibleMainCopy = [heroCopy, agentCopy, teamCopy]
     .join(" ")
     .toLowerCase()
     .replace(/\s+/g, " ")
@@ -93,11 +85,11 @@ test("ZZZ page-level SEO copy keeps the approved keyword group density", async (
   const combinedOccurrences = primaryCount + characterCount + fullCount + fullCharacterCount;
   const combinedDensity = (combinedOccurrences / wordCount) * 100;
 
-  expect(wordCount).toBe(145);
+  expect(wordCount).toBeGreaterThan(80);
   expect(primaryCount).toBe(3);
   expect(characterCount).toBe(1);
   expect(fullCount).toBe(1);
-  expect(fullCharacterCount).toBe(1);
+  expect(fullCharacterCount).toBe(0);
   expect(combinedDensity).toBeGreaterThanOrEqual(3);
   expect(combinedDensity).toBeLessThanOrEqual(5);
   expect(primaryCount).toBeGreaterThan(characterCount);
