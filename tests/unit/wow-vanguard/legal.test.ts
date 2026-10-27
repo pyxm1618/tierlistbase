@@ -7,5 +7,6 @@ it("describes the existing Google account, deletion, same database and UGC witho
   );
   for (const key of ["privacy", "terms", "acceptable_use", "account_deletion"] as const)
     expect(legalConfig.content[key].length).toBeGreaterThan(0);
-  if (legalConfig.operator.legalName === "Wang Yufei")\n    expect(legalConfig.releaseStatus).toBe("reviewed");
+  if (legalConfig.operator.legalName === "Wang Yufei")
+    expect(legalConfig.releaseStatus).toBe("reviewed");
 });
