@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { featuresConfig } from "@/config/features.config";
+import { navigationGames } from "@/config/games.config";
 import { siteConfig } from "@/config/site.config";
 import { readCurrentSessionIdentity } from "@/platform/auth/current-session";
 import { localePath } from "@/platform/i18n/routing";
@@ -54,20 +55,21 @@ function HeaderShell({
   variantAccount?: ReactNode;
 }) {
   const homeHref = localePath(siteConfig, locale, "/");
-  const wowHref = localePath(siteConfig, locale, "/wow-forever/tier-list");
-  const genshinHref = localePath(siteConfig, locale, "/genshin-impact/tier-list");
 
   const header = (
     <header className="sticky top-0 z-40 border-b border-[#315072]/60 bg-[#020e1d]/95 text-white backdrop-blur-md">
       <div className="mx-auto flex h-[54px] w-[calc(100%_-_32px)] items-center gap-6 px-4 sm:w-[93.4%] max-w-[1820px] sm:px-0">
         <Brand href={homeHref} />
         <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary navigation">
-          <SiteHeaderGameLink href={wowHref} className={navLink}>
-            World of Warcraft
-          </SiteHeaderGameLink>
-          <SiteHeaderGameLink href={genshinHref} className={navLink}>
-            Genshin Impact
-          </SiteHeaderGameLink>
+          {navigationGames.map((game) => (
+            <SiteHeaderGameLink
+              key={game.slug}
+              href={localePath(siteConfig, locale, game.tierListHref)}
+              className={navLink}
+            >
+              {game.name}
+            </SiteHeaderGameLink>
+          ))}
         </nav>
         {desktopAccount ? <div className="ml-auto hidden lg:block">{desktopAccount}</div> : null}
         <details className="group relative ml-auto lg:hidden">
@@ -81,12 +83,15 @@ function HeaderShell({
             <Link href={homeHref} className={navLink} prefetch={true}>
               Home
             </Link>
-            <SiteHeaderGameLink href={wowHref} className={navLink}>
-              World of Warcraft
-            </SiteHeaderGameLink>
-            <SiteHeaderGameLink href={genshinHref} className={navLink}>
-              Genshin Impact
-            </SiteHeaderGameLink>
+            {navigationGames.map((game) => (
+              <SiteHeaderGameLink
+                key={game.slug}
+                href={localePath(siteConfig, locale, game.tierListHref)}
+                className={navLink}
+              >
+                {game.name}
+              </SiteHeaderGameLink>
+            ))}
             {mobileAccount}
           </nav>
         </details>
