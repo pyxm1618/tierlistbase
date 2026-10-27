@@ -133,10 +133,10 @@ export const routeDefinitions = [
     ],
     h1: "ZZZ Tier List",
     pageType: "WebApplication",
-    relatedRoutes: ["/", "/genshin-impact/tier-list", "/nikke/tier-list"],
+    relatedRoutes: ["/", "/genshin-impact/tier-list"],
     lastModified: "2026-10-27",
     reviewStatus: "reviewed",
-    reviewFingerprint: "0ae7f081963437243819c9bc0de807ff70de13bb3ca21ea630b98d6e479df749",
+    reviewFingerprint: "a3e2ac43dcc14bf2eb1d3c0c58df0572639279bdece5752e72196a84ae299ef0",
   },
   {
     route: "/nikke/tier-list",
