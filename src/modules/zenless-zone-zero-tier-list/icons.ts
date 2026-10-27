@@ -165,7 +165,6 @@ import teamYeEnlightened from "./assets/teams/team-visual-ye-shunguang.png";
 import teamYixuanRupture from "./assets/teams/team-visual-yixuan.png";
 import teamBanyueRupture from "./assets/teams/team-visual-banyue.png";
 import teamPyroisCrit from "./assets/teams/team-visual-pyrois.png";
-import detailHoshimiMiyabi from "./assets/agent-detail-miyabi.webp";
 
 export const agentIcons: Readonly<Partial<Record<string, StaticImageData>>> = {
   "alexandrina-sebastiane": rina,
@@ -343,19 +342,6 @@ export const teamVisuals: Readonly<Partial<Record<string, StaticImageData>>> = {
   "seed-obol-electric": teamSeedObolElectric,
   "ye-enlightened": teamYeEnlightened,
   "yixuan-rupture": teamYixuanRupture,
-};
-
-export const agentDetailArtwork: Readonly<Partial<Record<string, StaticImageData>>> = {
-  aria: teamAriaAnomaly,
-  banyue: teamBanyueRupture,
-  claret: teamClaretLaceration,
-  "hoshimi-miyabi": detailHoshimiMiyabi,
-  phoenix: teamPhoenixVortex,
-  promeia: teamPromeiaVelinaAnomaly,
-  pyrois: teamPyroisCrit,
-  seed: teamSeedObolElectric,
-  "ye-shunguang": teamYeEnlightened,
-  yixuan: teamYixuanRupture,
 };
 
 // Only this refinement label is an audited alias; unknown names stay unresolved.
