@@ -48,7 +48,8 @@ describe("games.config registry", () => {
     expect(siteHeaderSource).not.toContain('"/wow-forever/tier-list"');
     expect(siteHeaderSource).not.toContain('"/genshin-impact/tier-list"');
 
-    expect(siteHeaderSource).toMatch(/Primary navigation[\s\S]*?navigationGames\.map/);
-    expect(siteHeaderSource).toMatch(/Mobile navigation[\s\S]*?navigationGames\.map/);
+    expect(siteHeaderSource).toContain('aria-label="Primary navigation"');
+    expect(siteHeaderSource).toContain('aria-label="Mobile navigation"');
+    expect(siteHeaderSource).toContain("navigationGames.map");
   });
 });
