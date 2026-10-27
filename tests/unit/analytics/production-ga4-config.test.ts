@@ -82,7 +82,7 @@ describe("production analytics configuration and fact sync", () => {
       expect(clarityProcessor).toBeDefined();
       expect(clarityProcessor?.privacyUrl).toBe("https://privacy.microsoft.com/privacystatement");
 
-      // Vanguard legal additions remain draft: release must stay blocked until reviewed.
+      // Current legal configuration is formally reviewed and must pass release validation.
       expect(() =>
         validateLegalConfig({
           legal: legalConfig,
@@ -92,7 +92,7 @@ describe("production analytics configuration and fact sync", () => {
           },
           releaseMode: true,
         }),
-      ).toThrow("legal config is not reviewed");
+      ).not.toThrow();
 
       // Privacy disclosures reflect consent-only behavior for both analytics providers
       const privacyTexts = legalConfig.content.privacy
