@@ -24,13 +24,26 @@ it("rejects subscription products without cancellation terms", () => {
 it("permits draft sample facts outside production release mode", () => {
   expect(
     validateLegalConfig({
-      legal: legalConfig,
+      legal: { ...legalConfig, releaseStatus: "draft" },
       features: {
         subscriptions: legalConfig.subscriptions,
         credits: legalConfig.credits,
       },
     }),
   ).toBeTruthy();
+});
+
+it("accepts the current reviewed legal config in production release mode", () => {
+  expect(() =>
+    validateLegalConfig({
+      legal: legalConfig,
+      features: {
+        subscriptions: legalConfig.subscriptions,
+        credits: legalConfig.credits,
+      },
+      releaseMode: true,
+    }),
+  ).not.toThrow();
 });
 
 it("rejects draft and placeholder facts in production release mode", () => {
