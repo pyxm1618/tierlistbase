@@ -18,10 +18,7 @@ type ReviewedAsset = {
 };
 const manifest = JSON.parse(
   readFileSync(new URL("../../../zzz-asset-manifest.json", import.meta.url), "utf8"),
-) as Record<
-  "agentPortraits" | "bangboo" | "wEngines" | "teamVisuals",
-  ReviewedAsset[]
->;
+) as Record<"agentPortraits" | "bangboo" | "wEngines" | "teamVisuals", ReviewedAsset[]>;
 
 function expectReviewedAsset(image: StaticImageData | undefined, entry: ReviewedAsset) {
   expect(entry.verified).toBe(true);
