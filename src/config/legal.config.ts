@@ -130,7 +130,7 @@ export const legalConfig = {
       {
         heading: "Why this information is processed",
         paragraphs: [
-          "Technical request and security information is used to deliver pages, maintain service reliability, prevent abuse, investigate errors, and protect the service. Where UK or EU data-protection law applies, these limited operational and security purposes may rely on legitimate interests, subject to the applicable necessity and balancing requirements.",
+          "Technical request and security information is used to deliver pages, maintain service reliability, prevent abuse, investigate errors, and protect the service.",
           "Account and session information supports Google sign-in, the global one-account-one-seat rule and account security. Submitted Vanguard text and approved images support the public Monument, Focus, Seal and Seat sharing; image screening and reports support content safety and privacy removal.",
           "Support correspondence is used only to receive and respond to the message and for related operational or legal record-keeping where necessary.",
         ],
