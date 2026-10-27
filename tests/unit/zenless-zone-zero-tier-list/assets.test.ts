@@ -18,10 +18,7 @@ type ReviewedAsset = {
 };
 const manifest = JSON.parse(
   readFileSync(new URL("../../../zzz-asset-manifest.json", import.meta.url), "utf8"),
-) as Record<
-  "agentPortraits" | "bangboo" | "wEngines" | "teamVisuals" | "agentDetailArtwork",
-  ReviewedAsset[]
->;
+) as Record<"agentPortraits" | "bangboo" | "wEngines" | "teamVisuals", ReviewedAsset[]>;
 
 function expectReviewedAsset(image: StaticImageData | undefined, entry: ReviewedAsset) {
   expect(entry.verified).toBe(true);
@@ -92,18 +89,6 @@ describe("ZZZ audited production asset mappings", () => {
       const entry = manifest.teamVisuals.find((asset) => asset.entityId === team.id)!;
       expectReviewedAsset(assets.teamVisuals[team.id], entry);
     }
-  });
-
-  it("integrates only the ten explicitly approved optional detail-art IDs", () => {
-    const approved = manifest.agentDetailArtwork.filter((entry) => entry.verified);
-    expect(approved).toHaveLength(10);
-    expect(Object.keys(assets.agentDetailArtwork).sort()).toEqual(
-      approved.map((entry) => entry.entityId).sort(),
-    );
-    for (const entry of approved) {
-      expectReviewedAsset(assets.agentDetailArtwork[entry.entityId], entry);
-    }
-    expect(manifest.agentDetailArtwork.filter((entry) => !entry.verified)).toHaveLength(51);
   });
 
   it("keeps the unapproved upcoming Severian portrait unmapped", () => {

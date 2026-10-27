@@ -18,7 +18,7 @@ import {
   type Tier,
 } from "./data";
 import heroArtwork from "./assets/hero.webp";
-import { agentDetailArtwork, agentIcons, bangbooIcons, getWEngineIcon, teamVisuals } from "./icons";
+import { agentIcons, bangbooIcons, getWEngineIcon, teamVisuals } from "./icons";
 import styles from "./zenless-zone-zero-tier-list.module.css";
 
 const tiers: readonly Tier[] = ["S+", "S", "A", "B"];
@@ -67,7 +67,7 @@ function Pills({ items }: { items: readonly string[] }) {
   );
 }
 
-function MissingArtwork({ kind }: { kind: "hero" | "portrait" | "team" | "item" }) {
+function MissingArtwork({ kind }: { kind: "portrait" | "team" | "item" }) {
   return (
     <span
       className={styles.missingArtwork}
@@ -222,7 +222,6 @@ function AgentDetail({
   tab: AgentDetailTab;
   onTabChange: (tab: AgentDetailTab) => void;
 }) {
-  const artwork = agentDetailArtwork[agent.id];
   return (
     <aside className={styles.agentDetail} aria-label="Agent Detail">
       <div className={styles.agentDetailHero}>
@@ -238,23 +237,6 @@ function AgentDetail({
             <p>{agent.faction}</p>
             <Pills items={[agent.combatRole, agent.specialty, agent.attribute, agent.rarity]} />
           </div>
-        </div>
-        <div className={styles.agentHeroArt}>
-          {artwork ? (
-            <Image
-              src={artwork}
-              style={
-                agent.id === "hoshimi-miyabi"
-                  ? undefined
-                  : { objectFit: "contain", objectPosition: "right center" }
-              }
-              alt=""
-              sizes="(max-width: 1080px) 100vw, 420px"
-              className={styles.agentDetailArtwork}
-            />
-          ) : (
-            <MissingArtwork kind="hero" />
-          )}
         </div>
       </div>
 

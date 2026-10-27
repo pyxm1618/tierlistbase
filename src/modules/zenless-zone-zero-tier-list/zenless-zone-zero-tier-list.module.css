@@ -977,7 +977,7 @@
 .agentDetailHero {
   position: relative;
   display: grid;
-  grid-template-columns: 48px 72px minmax(0, 1fr) minmax(150px, 0.95fr);
+  grid-template-columns: 48px 72px minmax(0, 1fr);
   min-height: 126px;
   overflow: hidden;
   border-bottom: 1px solid #263543;
@@ -1031,27 +1031,6 @@
   margin: 2px 0 8px;
   color: #9cabba;
   font-size: 10px;
-}
-
-.agentHeroArt {
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 70% 38%, rgba(47, 220, 245, 0.2), transparent 26%),
-    linear-gradient(140deg, rgba(255, 59, 143, 0.04), #0d1720);
-}
-
-.agentHeroArt::after {
-  content: "FEEDBACK";
-  position: absolute;
-  right: 8px;
-  bottom: 8px;
-  color: var(--zzz-cyan);
-  font-size: 16px;
-  font-weight: 1000;
-  font-style: italic;
-  transform: rotate(-8deg);
-  opacity: 0.75;
 }
 
 .pills {
@@ -1788,18 +1767,9 @@
   z-index: 3;
 }
 
-.agentDetailArtwork,
 .teamDetailArtwork,
 .teamCardArtwork {
   object-fit: cover;
-}
-
-.agentDetailArtwork {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-position: 64% 39%;
 }
 
 .teamDetailArtwork {
@@ -1992,10 +1962,6 @@
 
   .agentDetailHero {
     grid-template-columns: 44px 58px minmax(0, 1fr);
-  }
-
-  .agentHeroArt {
-    display: none;
   }
 
   .agentIdentity h3 {

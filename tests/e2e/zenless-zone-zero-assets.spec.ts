@@ -1,16 +1,8 @@
-import { readFileSync } from "node:fs";
-
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
 import { agents, teams } from "@/modules/zenless-zone-zero-tier-list/data";
 
 const route = "/zenless-zone-zero/tier-list";
-const manifest = JSON.parse(
-  readFileSync(new URL("../../zzz-asset-manifest.json", import.meta.url), "utf8"),
-) as { agentDetailArtwork: { entityId: string; verified: boolean }[] };
-const approvedHeroes = new Set(
-  manifest.agentDetailArtwork.filter((entry) => entry.verified).map((entry) => entry.entityId),
-);
 const pending = (kind: string) => `[data-asset-pending="true"][data-kind="${kind}"]`;
 
 async function expectLoadedImages(images: Locator, count: number) {
@@ -62,7 +54,6 @@ test("ZZZ renders all released portraits/build items and every team without P0 f
     const engines = detail.locator('img[width="35"][height="35"]');
     await engines.first().scrollIntoViewIfNeeded();
     await expectLoadedImages(engines, 3);
-    await expect(detail.locator(pending("hero"))).toHaveCount(approvedHeroes.has(agent.id) ? 0 : 1);
   }
   const primary = page.locator('nav[aria-label="Tier list primary sections"]');
   await primary.getByRole("tab", { name: /^Teams/ }).click();
@@ -117,7 +108,6 @@ for (const width of [390, 1440]) {
       expect(box?.height).toBe(35);
     }
     await expect(detail.locator(pending("portrait"))).toHaveCount(0);
-    await expect(detail.locator(pending("hero"))).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );
