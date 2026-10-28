@@ -1,3 +1,4 @@
+import { routeRegistry as neutralRegistry } from "../../../examples/neutral-product/routes.config";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { routeRegistry } from "@/config/routes.config";
@@ -140,4 +141,13 @@ it("keeps the fusion ingredient separate from Metallic Alchemist forms", () => {
   const metallic = units.find((unit) => unit.id === "metallic-alchemist")!;
   expect(metallic.forms.map((form) => form.name)).not.toContain("Suited Alchemist");
   expect(units.find((unit) => unit.id === "suited-alchemist")?.baseName).toBe("Suited Alchemist");
+});
+
+it("registers the neutral clean-setup route as noindex as well", () => {
+  expect(neutralRegistry.get("/anime-expeditions/tier-list").class).toBe("public_noindex");
+  expect(
+    neutralRegistry
+      .sitemapEntries()
+      .some((entry) => entry.route === "/anime-expeditions/tier-list"),
+  ).toBe(false);
 });

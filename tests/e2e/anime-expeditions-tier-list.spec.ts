@@ -132,7 +132,7 @@ for (const width of [390, 1440, 1920, 2560])
     for (const id of ["units", "traits", "equipment", "teams", "evolution", "faq"]) {
       await page
         .locator(`#${id}`)
-        .evaluate((element) => element.scrollIntoView({ block: "start" }));
+        .evaluate((element) => element.scrollIntoView({ block: "start", behavior: "instant" }));
       await page.waitForFunction(() =>
         Array.from(document.images)
           .filter((image) => {
