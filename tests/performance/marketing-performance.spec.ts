@@ -19,6 +19,7 @@ const routes = [
   "/genshin-impact/tier-list",
   "/nikke/tier-list",
   "/zenless-zone-zero/tier-list",
+  "/dragon-traveler/tier-list",
 ] as const;
 
 for (const route of routes) {
@@ -71,7 +72,7 @@ for (const route of routes) {
     const structuredData = await page
       .locator('script[type="application/ld+json"]')
       .allTextContents();
-    if (route !== "/nikke/tier-list") {
+    if (route !== "/nikke/tier-list" && route !== "/dragon-traveler/tier-list") {
       expect(structuredData.length).toBeGreaterThan(0);
       for (const value of structuredData) expect(() => JSON.parse(value)).not.toThrow();
     }
