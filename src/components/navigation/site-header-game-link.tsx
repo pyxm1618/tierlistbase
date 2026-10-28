@@ -29,7 +29,7 @@ export function SiteHeaderGameLink({
         " has-[[data-navigation-pending=true]]:cursor-progress has-[[data-navigation-pending=true]]:opacity-60 has-[[data-navigation-pending=true]]:transition-none" +
         (active ? " border-b-2 border-amber-400 text-amber-300" : "")
       }
-      prefetch={true}
+      prefetch={false}
       aria-current={active ? "page" : undefined}
     >
       {children}
