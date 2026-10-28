@@ -55,6 +55,18 @@ function trendLabel(ranking: ChampionRoleRanking) {
   return "—";
 }
 
+function percent(value: number | null): string {
+  return value === null ? "N/A" : `${value.toFixed(1)}%`;
+}
+
+function compactRate(value: number | null, label: "WR" | "PR" | "BR"): string {
+  return value === null ? `N/A ${label}` : `${value.toFixed(1)} ${label}`;
+}
+
+function sortMetric(value: number | null): number {
+  return value ?? -1;
+}
+
 function ChampionPortrait({
   championId,
   sizes,
@@ -132,9 +144,9 @@ function ChampionDetail({
       </div>
 
       <div className={styles.detailMetrics}>
-        <Metric label="Win Rate" value={`${ranking.winRate.toFixed(1)}%`} emphasis />
-        <Metric label="Pick Rate" value={`${ranking.pickRate.toFixed(1)}%`} />
-        <Metric label="Ban Rate" value={`${ranking.banRate.toFixed(1)}%`} />
+        <Metric label="Win Rate" value={percent(ranking.winRate)} emphasis />
+        <Metric label="Pick Rate" value={percent(ranking.pickRate)} />
+        <Metric label="Ban Rate" value={percent(ranking.banRate)} />
         <Metric label="Trend" value={trendLabel(ranking)} />
       </div>
 
@@ -361,7 +373,7 @@ function AllRolesOverview({ onRoleChange }: { onRoleChange: (role: RoleKey) => v
             .sort(
               (a, b) =>
                 (tierOrder.get(a.tier) ?? 99) - (tierOrder.get(b.tier) ?? 99) ||
-                b.winRate - a.winRate,
+                sortMetric(b.winRate) - sortMetric(a.winRate),
             )
             .slice(0, 3);
           return (
@@ -385,7 +397,7 @@ function AllRolesOverview({ onRoleChange }: { onRoleChange: (role: RoleKey) => v
                       </span>
                       <span>
                         <strong>{champion.name}</strong>
-                        <small>{ranking.winRate.toFixed(1)}% WR</small>
+                        <small>{compactRate(ranking.winRate, "WR")}</small>
                       </span>
                       <span className={styles.tierBadge} data-tier={ranking.tier}>
                         {ranking.tier}
@@ -508,11 +520,11 @@ function TierBoard({
                       data-tier={ranking.tier}
                       data-selected={selectedChampionId === ranking.championId}
                       aria-pressed={selectedChampionId === ranking.championId}
-                      aria-label={`${champion.name}, ${ranking.tier} tier, ${roleLabels[role]}, ${ranking.winRate.toFixed(
-                        1,
-                      )}% win rate, ${ranking.pickRate.toFixed(
-                        1,
-                      )}% pick rate, ${ranking.banRate.toFixed(1)}% ban rate`}
+                      aria-label={`${champion.name}, ${ranking.tier} tier, ${roleLabels[role]}, ${percent(
+                        ranking.winRate,
+                      )} win rate, ${percent(ranking.pickRate)} pick rate, ${percent(
+                        ranking.banRate,
+                      )} ban rate`}
                       onClick={() => onSelect(ranking.championId)}
                     >
                       <span className={styles.cardPortrait}>
@@ -526,10 +538,10 @@ function TierBoard({
                           </span>
                         </span>
                         <span className={styles.cardPrimaryMetric}>
-                          {ranking.winRate.toFixed(1)} <small>WR</small>
+                          {compactRate(ranking.winRate, "WR")}
                         </span>
                         <span className={styles.cardSecondaryMetrics}>
-                          {ranking.pickRate.toFixed(1)} PR · {ranking.banRate.toFixed(1)} BR
+                          {compactRate(ranking.pickRate, "PR")} · {compactRate(ranking.banRate, "BR")}
                         </span>
                       </span>
                     </button>
