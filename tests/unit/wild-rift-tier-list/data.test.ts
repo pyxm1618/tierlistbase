@@ -1,3 +1,6 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
 import { describe, expect, it } from "vitest";
 
 import { routeRegistry } from "@/config/routes.config";
@@ -39,6 +42,13 @@ describe("Wild Rift reviewed snapshot", () => {
     expect(sources.some((source) => source.type === "official_patch")).toBe(true);
     expect(sources.some((source) => source.type === "ranked_statistics")).toBe(true);
     expect(sources.some((source) => source.type === "editorial_review")).toBe(true);
+  });
+
+  it("ships a local portrait asset for every reviewed champion", () => {
+    for (const champion of champions) {
+      expect(champion.portrait.startsWith("/images/wild-rift/champions/")).toBe(true);
+      expect(existsSync(join(process.cwd(), "public", champion.portrait.slice(1)))).toBe(true);
+    }
   });
 
   it("keeps champion ids and Champion × Role placements unique and valid", () => {
