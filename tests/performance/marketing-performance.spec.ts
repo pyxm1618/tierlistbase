@@ -72,7 +72,7 @@ for (const route of routes) {
     const structuredData = await page
       .locator('script[type="application/ld+json"]')
       .allTextContents();
-    if (\n      route !== "/nikke/tier-list" &&\n      route !== "/dragon-traveler/tier-list"\n    ) {
+    if (route !== "/nikke/tier-list" && route !== "/dragon-traveler/tier-list") {
       expect(structuredData.length).toBeGreaterThan(0);
       for (const value of structuredData) expect(() => JSON.parse(value)).not.toThrow();
     }
