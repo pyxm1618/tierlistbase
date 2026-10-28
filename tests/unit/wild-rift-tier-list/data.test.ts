@@ -131,7 +131,7 @@ describe("Wild Rift reviewed snapshot", () => {
   });
 });
 
-describe.skipIf(!hasProjectRouteInventory)("Wild Rift SEO contract", () => {
+describe("Wild Rift SEO contract", () => {
   const route = "/wild-rift/tier-list";
 
   it("registers one public indexable canonical route with the frozen search intent", () => {
