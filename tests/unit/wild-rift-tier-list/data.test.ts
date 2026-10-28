@@ -5,6 +5,7 @@ import {
   championForId,
   champions,
   changes,
+  expectedRoleCounts,
   otherViableRoles,
   quickInsights,
   quickPickChampionIds,
@@ -42,7 +43,9 @@ describe("Wild Rift reviewed snapshot", () => {
   });
 
   it("keeps champion ids and Champion × Role placements unique and valid", () => {
-    expect(championIds.size).toBe(champions.length);
+    expect(championIds.size).toBe(142);
+    expect(champions).toHaveLength(142);
+    expect(rankings).toHaveLength(208);
 
     const placements = new Set<string>();
     for (const ranking of rankings) {
@@ -53,10 +56,17 @@ describe("Wild Rift reviewed snapshot", () => {
       expect(placements.has(key)).toBe(false);
       placements.add(key);
 
-      for (const value of [ranking.winRate, ranking.pickRate, ranking.banRate]) {
+      const metrics = [ranking.winRate, ranking.pickRate, ranking.banRate];
+      const missingMetrics = metrics.filter((value) => value === null);
+      expect(missingMetrics.length === 0 || missingMetrics.length === 3).toBe(true);
+      for (const value of metrics) {
+        if (value === null) continue;
         expect(Number.isFinite(value)).toBe(true);
         expect(value).toBeGreaterThanOrEqual(0);
         expect(value).toBeLessThanOrEqual(100);
+      }
+      if (missingMetrics.length) {
+        expect(ranking.whyThisTier).toContain("without inventing missing statistics");
       }
 
       expect(ranking.whyThisTier.trim()).not.toBe("");
@@ -72,7 +82,7 @@ describe("Wild Rift reviewed snapshot", () => {
     expect(roleKeys).toEqual(["baron", "jungle", "mid", "dragon", "support"]);
     for (const role of roleKeys) {
       const roleRankings = rankingsForRole(role);
-      expect(roleRankings.length).toBeGreaterThan(0);
+      expect(roleRankings).toHaveLength(expectedRoleCounts[role]);
       expect(new Set(roleRankings.map((ranking) => ranking.tier))).toEqual(new Set(tiers));
     }
     expect(rankings.every((ranking) => roleSet.has(ranking.role))).toBe(true);
