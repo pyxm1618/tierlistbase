@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 
 import heroImage from "./assets/dragon-traveler-hero.webp";
 import { accountDecisions } from "./account-decisions";
@@ -69,17 +69,27 @@ export function DragonTravelerTierListPage() {
   const [selectedId, setSelectedId] = useState(globalSnapshot.luminaries[0]?.id ?? "");
   const [teamMode, setTeamMode] = useState<"pve" | "pvp">("pve");
 
-  const snapshot = snapshots[server];
+  const deferredServer = useDeferredValue(server);
+  const deferredMode = useDeferredValue(mode);
+  const deferredClassFilter = useDeferredValue(classFilter);
+  const deferredFactionFilter = useDeferredValue(factionFilter);
+  const deferredRarityFilter = useDeferredValue(rarityFilter);
+  const snapshot = snapshots[deferredServer];
 
   const filtered = useMemo(
     () =>
       snapshot.luminaries.filter((luminary) => {
-        if (classFilter !== "all" && luminary.classKey !== classFilter) return false;
-        if (factionFilter !== "all" && !luminary.factionKeys.includes(factionFilter)) return false;
-        if (rarityFilter !== "all" && luminary.rarityKey !== rarityFilter) return false;
+        if (deferredClassFilter !== "all" && luminary.classKey !== deferredClassFilter) return false;
+        if (
+          deferredFactionFilter !== "all" &&
+          !luminary.factionKeys.includes(deferredFactionFilter)
+        )
+          return false;
+        if (deferredRarityFilter !== "all" && luminary.rarityKey !== deferredRarityFilter)
+          return false;
         return true;
       }),
-    [snapshot, classFilter, factionFilter, rarityFilter],
+    [snapshot, deferredClassFilter, deferredFactionFilter, deferredRarityFilter],
   );
 
   const selected =
@@ -88,9 +98,11 @@ export function DragonTravelerTierListPage() {
     snapshot.luminaries[0];
 
   const quickPicks = useMemo(() => {
-    const best = snapshot.luminaries.filter((luminary) => rankOf(luminary, mode) === "S+");
+    const best = snapshot.luminaries.filter(
+      (luminary) => rankOf(luminary, deferredMode) === "S+",
+    );
     return (best.length > 0 ? best : snapshot.luminaries).slice(0, 4);
-  }, [snapshot, mode]);
+  }, [snapshot, deferredMode]);
 
   const teams = teamRecommendations.filter(
     (team) => team.server === server && team.mode === teamMode,
@@ -163,7 +175,7 @@ export function DragonTravelerTierListPage() {
             </div>
             <p>
               Highest-value options in the selected{" "}
-              {modes.find((entry) => entry.key === mode)?.label} context.
+              {modes.find((entry) => entry.key === deferredMode)?.label} context.
             </p>
           </div>
           <div className={styles.quickGrid}>
@@ -179,7 +191,7 @@ export function DragonTravelerTierListPage() {
                   <strong>{luminary.name}</strong>
                   <small>{luminary.classKey}</small>
                 </span>
-                <b>{rankOf(luminary, mode)}</b>
+                <b>{rankOf(luminary, deferredMode)}</b>
               </button>
             ))}
           </div>
@@ -258,7 +270,7 @@ export function DragonTravelerTierListPage() {
           <div className={styles.workspace}>
             <div className={styles.board} aria-label="Luminary ranking board">
               {tiers.map((tier) => {
-                const members = filtered.filter((luminary) => rankOf(luminary, mode) === tier);
+                const members = filtered.filter((luminary) => rankOf(luminary, deferredMode) === tier);
                 return (
                   <div className={styles.tierRow} key={tier}>
                     <div className={styles.tierLabel}>{tier}</div>
