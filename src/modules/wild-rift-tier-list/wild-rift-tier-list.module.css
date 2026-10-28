@@ -272,6 +272,20 @@
   object-position: center 18%;
 }
 
+.portraitFallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(77, 198, 239, 0.2), transparent 55%),
+    #0b2a3f;
+  color: #9de1f7;
+  font-size: clamp(16px, 2vw, 28px);
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
 .quickPickPortrait::after {
   position: absolute;
   inset: 0;
@@ -308,8 +322,7 @@
   font-weight: 850;
 }
 
-.tierBadge[data-tier="S+"],
-.tierLabel:has(+ .championGrid) strong[data-tier="S+"] {
+.tierBadge[data-tier="S+"] {
   color: #f1ca69;
 }
 
