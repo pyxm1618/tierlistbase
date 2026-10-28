@@ -1,3 +1,7 @@
+import { championCatalog, expectedRoleCounts, rankingSeeds } from "./rankings";
+
+export { expectedRoleCounts } from "./rankings";
+
 export const roleKeys = ["baron", "jungle", "mid", "dragon", "support"] as const;
 export type RoleKey = (typeof roleKeys)[number];
 
@@ -13,17 +17,6 @@ export type Champion = {
   readonly slug: string;
   readonly name: string;
   readonly portrait: string;
-  readonly archetype:
-    | "tank"
-    | "fighter"
-    | "poke"
-    | "assassin"
-    | "mage"
-    | "marksman"
-    | "support-tank"
-    | "support-assassin";
-  readonly strengths: readonly string[];
-  readonly limitations: readonly string[];
 };
 
 export type DecisionSignals = {
@@ -38,9 +31,9 @@ export type ChampionRoleRanking = {
   readonly championId: string;
   readonly role: RoleKey;
   readonly tier: Tier;
-  readonly winRate: number;
-  readonly pickRate: number;
-  readonly banRate: number;
+  readonly winRate: number | null;
+  readonly pickRate: number | null;
+  readonly banRate: number | null;
   readonly trend: Trend;
   readonly whyThisTier: string;
   readonly strengths: readonly string[];
@@ -154,7 +147,8 @@ export const sources: readonly EvidenceSource[] = [
     type: "official_patch",
     checkedAt: "2026-10-28",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3c/",
-    context: "Current game version. This update is focused on AAA ARAM rather than standard Ranked.",
+    context:
+      "Current game version. Patch 7.3c is focused on AAA ARAM rather than standard Ranked balance.",
   },
   {
     id: "riot-7-3b",
@@ -162,15 +156,17 @@ export const sources: readonly EvidenceSource[] = [
     type: "official_patch",
     checkedAt: "2026-10-28",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3b/",
-    context: "Latest balance patch directly affecting standard Ranked champions, items, runes, and jungle.",
+    context:
+      "Latest patch in the current cycle with direct standard Ranked champion, item, rune, and jungle balance changes.",
   },
   {
     id: "tencent-master",
-    name: "Tencent CN Ranked Statistics",
+    name: "Wild Rift Core · Tencent CN Ranked Statistics",
     type: "ranked_statistics",
     checkedAt: "2026-10-28",
     url: "https://wildriftcore.com/en/rankings/",
-    context: "Official Tencent CN ladder statistics · Master+ · Ranked · snapshot dated 2026-10-26.",
+    context:
+      "Role statistics derived from Tencent's official China-server data · Master+ · Ranked · source snapshot dated 2026-10-26.",
   },
   {
     id: "editorial-review",
@@ -178,451 +174,369 @@ export const sources: readonly EvidenceSource[] = [
     type: "editorial_review",
     checkedAt: "2026-10-28",
     url: "/about#about-process-title",
-    context: "Role-specific interpretation and cross-check. Win rate alone does not determine Tier.",
+    context:
+      "Role-specific interpretation and cross-check. Win rate alone does not determine Tier.",
   },
 ] as const;
 
-export const champions: readonly Champion[] = [
-  {
-    id: "malphite",
-    slug: "malphite",
-    name: "Malphite",
-    portrait: "/images/wild-rift/champions/malphite.png",
-    archetype: "tank",
-    strengths: ["Reliable long-range engage", "Durable frontline with strong armor scaling"],
-    limitations: ["Ultimate windows are predictable", "Magic-heavy drafts reduce his defensive edge"],
-  },
-  {
-    id: "mordekaiser",
-    slug: "mordekaiser",
-    name: "Mordekaiser",
-    portrait: "/images/wild-rift/champions/mordekaiser.png",
-    archetype: "fighter",
-    strengths: ["Sustained isolated dueling", "Durable AP damage in extended fights"],
-    limitations: ["Short range before contact", "Mobile carries can kite him"],
-  },
-  {
-    id: "ksante",
-    slug: "ksante",
-    name: "K'Sante",
-    portrait: "/images/wild-rift/champions/ksante.png",
-    archetype: "tank",
-    strengths: ["Flexible frontline and displacement", "Strong skirmish control"],
-    limitations: ["High execution burden", "Mispositioning makes his all-out windows risky"],
-  },
-  {
-    id: "darius",
-    slug: "darius",
-    name: "Darius",
-    portrait: "/images/wild-rift/champions/darius.png",
-    archetype: "fighter",
-    strengths: ["Punishing lane pressure", "High reset threat in extended fights"],
-    limitations: ["Limited gap closing", "Vulnerable to coordinated kiting"],
-  },
-  {
-    id: "jayce",
-    slug: "jayce",
-    name: "Jayce",
-    portrait: "/images/wild-rift/champions/jayce.png",
-    archetype: "poke",
-    strengths: ["Strong lane pressure and ranged poke", "Flexible melee and ranged trading"],
-    limitations: ["Execution intensive", "Loses value when early pressure fails"],
-  },
-  {
-    id: "sion",
-    slug: "sion",
-    name: "Sion",
-    portrait: "/images/wild-rift/champions/sion.png",
-    archetype: "tank",
-    strengths: ["Durable engage and wave control", "Persistent side-lane pressure"],
-    limitations: ["Engage pattern is telegraphed", "Percent-health damage punishes his health stack"],
-  },
-  {
-    id: "garen",
-    slug: "garen",
-    name: "Garen",
-    portrait: "/images/wild-rift/champions/garen.png",
-    archetype: "fighter",
-    strengths: ["Simple durable lane pattern", "Reliable execute threat"],
-    limitations: ["Limited ranged access", "Predictable teamfight entry"],
-  },
-  {
-    id: "nocturne",
-    slug: "nocturne",
-    name: "Nocturne",
-    portrait: "/images/wild-rift/champions/nocturne.png",
-    archetype: "assassin",
-    strengths: ["Fast map access with Paranoia", "Strong isolated pick pressure"],
-    limitations: ["7.3b reduced durability and damage", "Failed first engage leaves limited fallback"],
-  },
-  {
-    id: "rammus",
-    slug: "rammus",
-    name: "Rammus",
-    portrait: "/images/wild-rift/champions/rammus.png",
-    archetype: "tank",
-    strengths: ["Excellent anti-AD durability", "Fast ganks with reliable crowd control"],
-    limitations: ["Draft-sensitive into magic damage", "Needs lane follow-up for fast kills"],
-  },
-  {
-    id: "jarvan-iv",
-    slug: "jarvan-iv",
-    name: "Jarvan IV",
-    portrait: "/images/wild-rift/champions/jarvan-iv.png",
-    archetype: "fighter",
-    strengths: ["Reliable early gank setup", "Strong objective and terrain control"],
-    limitations: ["Engage can overcommit", "Damage scaling is modest without a lead"],
-  },
-  {
-    id: "chogath",
-    slug: "chogath",
-    name: "Cho'Gath",
-    portrait: "/images/wild-rift/champions/chogath.png",
-    archetype: "tank",
-    strengths: ["Objective secure and health scaling", "Frontline crowd control"],
-    limitations: ["Key control is dodgeable", "Large hitbox increases kite risk"],
-  },
-  {
-    id: "xin-zhao",
-    slug: "xin-zhao",
-    name: "Xin Zhao",
-    portrait: "/images/wild-rift/champions/xin-zhao.png",
-    archetype: "fighter",
-    strengths: ["Strong early duels", "Reliable access to priority targets"],
-    limitations: ["Needs tempo to maximize value", "Can be outscaled by dedicated carries"],
-  },
-  {
-    id: "vi",
-    slug: "vi",
-    name: "Vi",
-    portrait: "/images/wild-rift/champions/vi.png",
-    archetype: "fighter",
-    strengths: ["Reliable single-target lockdown", "Straightforward gank setup"],
-    limitations: ["Engage path is predictable", "Can be punished after committing"],
-  },
-  {
-    id: "lee-sin",
-    slug: "lee-sin",
-    name: "Lee Sin",
-    portrait: "/images/wild-rift/champions/lee-sin.png",
-    archetype: "assassin",
-    strengths: ["High early playmaking ceiling", "Exceptional mobility and displacement"],
-    limitations: ["High execution burden", "Current Master+ results lag safer jungle options"],
-  },
-  {
-    id: "hwei",
-    slug: "hwei",
-    name: "Hwei",
-    portrait: "/images/wild-rift/champions/hwei.png",
-    archetype: "mage",
-    strengths: ["Long-range control and zone coverage", "Flexible spell utility"],
-    limitations: ["7.3b reduced damage, shields, and control", "High spell-selection burden"],
-  },
-  {
-    id: "brand",
-    slug: "brand",
-    name: "Brand",
-    portrait: "/images/wild-rift/champions/brand.png",
-    archetype: "mage",
-    strengths: ["High area damage", "Punishes grouped teams"],
-    limitations: ["Low mobility", "Vulnerable to dive and flank pressure"],
-  },
-  {
-    id: "orianna",
-    slug: "orianna",
-    name: "Orianna",
-    portrait: "/images/wild-rift/champions/orianna.png",
-    archetype: "mage",
-    strengths: ["Safe wave control", "Reliable teamfight zone control"],
-    limitations: ["Positioning dependent", "Lower solo pick threat than assassins"],
-  },
-  {
-    id: "ahri",
-    slug: "ahri",
-    name: "Ahri",
-    portrait: "/images/wild-rift/champions/ahri.png",
-    archetype: "assassin",
-    strengths: ["Safe mobility and pick creation", "Strong roaming windows"],
-    limitations: ["Current reviewed tier has fallen from S", "Charm accuracy drives conversion"],
-  },
-  {
-    id: "viktor",
-    slug: "viktor",
-    name: "Viktor",
-    portrait: "/images/wild-rift/champions/viktor.png",
-    archetype: "mage",
-    strengths: ["Strong scaling zone control", "Excellent choke-point damage"],
-    limitations: ["Slower early map impact", "Needs item progression"],
-  },
-  {
-    id: "yasuo",
-    slug: "yasuo",
-    name: "Yasuo",
-    portrait: "/images/wild-rift/champions/yasuo.png",
-    archetype: "fighter",
-    strengths: ["High mobility around waves", "Strong critical scaling and knock-up follow-up"],
-    limitations: ["Low current Master+ win rate", "Draft and execution dependent"],
-  },
-  {
-    id: "ashe",
-    slug: "ashe",
-    name: "Ashe",
-    portrait: "/images/wild-rift/champions/ashe.png",
-    archetype: "marksman",
-    strengths: ["Range, slows, and global engage", "Useful utility even when behind"],
-    limitations: ["Limited mobility", "Needs protection against hard dive"],
-  },
-  {
-    id: "smolder",
-    slug: "smolder",
-    name: "Smolder",
-    portrait: "/images/wild-rift/champions/smolder.png",
-    archetype: "marksman",
-    strengths: ["Strong scaling and execute pressure", "Safe ranged damage pattern"],
-    limitations: ["Needs stacks and time", "Lower early agency"],
-  },
-  {
-    id: "samira",
-    slug: "samira",
-    name: "Samira",
-    portrait: "/images/wild-rift/champions/samira.png",
-    archetype: "marksman",
-    strengths: ["High all-in reset potential", "Strong close-range burst"],
-    limitations: ["Short effective range", "Needs engage support to access fights safely"],
-  },
-  {
-    id: "kalista",
-    slug: "kalista",
-    name: "Kalista",
-    portrait: "/images/wild-rift/champions/kalista.png",
-    archetype: "marksman",
-    strengths: ["Lane pressure and combat mobility", "Objective control with Rend"],
-    limitations: ["High mechanical burden", "Slows heavily reduce her mobility"],
-  },
-  {
-    id: "jinx",
-    slug: "jinx",
-    name: "Jinx",
-    portrait: "/images/wild-rift/champions/jinx.png",
-    archetype: "marksman",
-    strengths: ["Excellent reset snowball", "Strong late-fight range and DPS"],
-    limitations: ["Immobile before a reset", "Needs frontline and peel"],
-  },
-  {
-    id: "miss-fortune",
-    slug: "miss-fortune",
-    name: "Miss Fortune",
-    portrait: "/images/wild-rift/champions/miss-fortune.png",
-    archetype: "marksman",
-    strengths: ["Strong lane poke", "High area damage through Bullet Time"],
-    limitations: ["Ultimate can be interrupted", "Low mobility"],
-  },
-  {
-    id: "draven",
-    slug: "draven",
-    name: "Draven",
-    portrait: "/images/wild-rift/champions/draven.png",
-    archetype: "marksman",
-    strengths: ["Huge early lane pressure", "Snowballing cash-in threat"],
-    limitations: ["High execution burden", "Punishing when early cash-ins fail"],
-  },
-  {
-    id: "braum",
-    slug: "braum",
-    name: "Braum",
-    portrait: "/images/wild-rift/champions/braum.png",
-    archetype: "support-tank",
-    strengths: ["Elite peel and projectile denial", "Reliable passive crowd control"],
-    limitations: ["Needs teammate follow-up", "Low solo kill pressure"],
-  },
-  {
-    id: "leona",
-    slug: "leona",
-    name: "Leona",
-    portrait: "/images/wild-rift/champions/leona.png",
-    archetype: "support-tank",
-    strengths: ["Reliable hard engage", "High early kill pressure"],
-    limitations: ["No easy disengage after commitment", "Needs teammates to follow the engage"],
-  },
-  {
-    id: "pyke",
-    slug: "pyke",
-    name: "Pyke",
-    portrait: "/images/wild-rift/champions/pyke.png",
-    archetype: "support-assassin",
-    strengths: ["High roaming pick pressure", "Execute resets convert skirmishes"],
-    limitations: ["Fragile when caught", "Value is volatile in stalled teamfights"],
-  },
-  {
-    id: "nautilus",
-    slug: "nautilus",
-    name: "Nautilus",
-    portrait: "/images/wild-rift/champions/nautilus.png",
-    archetype: "support-tank",
-    strengths: ["Point-and-click lockdown", "Strong layered engage"],
-    limitations: ["Can overcommit into bad fights", "Large hitbox makes poke costly"],
-  },
-  {
-    id: "lux",
-    slug: "lux",
-    name: "Lux",
-    portrait: "/images/wild-rift/champions/lux.png",
-    archetype: "mage",
-    strengths: ["Long-range poke and binding", "Safe lane pressure"],
-    limitations: ["Low durability", "Skillshot accuracy drives impact"],
-  },
-] as const;
-
-const signalsByArchetype: Readonly<Record<Champion["archetype"], DecisionSignals>> = {
-  tank: {
-    soloQueueReliability: "High",
-    blindPickSafety: "High",
-    easeOfExecution: "Medium",
-    carryImpactPotential: "Medium",
-    teamDependence: "Medium",
-  },
-  fighter: {
-    soloQueueReliability: "High",
-    blindPickSafety: "Medium",
-    easeOfExecution: "Medium",
-    carryImpactPotential: "High",
-    teamDependence: "Medium",
-  },
-  poke: {
-    soloQueueReliability: "Medium",
-    blindPickSafety: "Medium",
-    easeOfExecution: "Low",
-    carryImpactPotential: "High",
-    teamDependence: "Medium",
-  },
-  assassin: {
-    soloQueueReliability: "Medium",
-    blindPickSafety: "Low",
-    easeOfExecution: "Low",
-    carryImpactPotential: "High",
-    teamDependence: "Medium",
-  },
-  mage: {
-    soloQueueReliability: "High",
-    blindPickSafety: "High",
-    easeOfExecution: "Medium",
-    carryImpactPotential: "High",
-    teamDependence: "Medium",
-  },
-  marksman: {
-    soloQueueReliability: "High",
-    blindPickSafety: "Medium",
-    easeOfExecution: "Medium",
-    carryImpactPotential: "High",
-    teamDependence: "High",
-  },
-  "support-tank": {
-    soloQueueReliability: "High",
-    blindPickSafety: "High",
-    easeOfExecution: "High",
-    carryImpactPotential: "Medium",
-    teamDependence: "Medium",
-  },
-  "support-assassin": {
-    soloQueueReliability: "Medium",
-    blindPickSafety: "Low",
-    easeOfExecution: "Low",
-    carryImpactPotential: "High",
-    teamDependence: "Medium",
-  },
-};
-
-const patchImpactByChampion: Readonly<Record<string, string>> = {
-  nocturne:
-    "7.3c has no standard Ranked balance change. In 7.3b, Nocturne lost health scaling, early Duskbringer damage, and gained a longer Paranoia cooldown.",
-  hwei:
-    "7.3c has no standard Ranked balance change. In 7.3b, Hwei received lower passive damage, shields, crowd-control range, and several spell damage reductions.",
-  yasuo:
-    "7.3c has no standard Ranked balance change. In 7.3b, Yasuo's standard critical damage and passive shield were increased.",
-};
-
-type RankingInput = {
-  championId: string;
-  role: RoleKey;
-  tier: Tier;
-  winRate: number;
-  pickRate: number;
-  banRate: number;
-  trend?: Trend;
-};
-
-const rankingInputs: readonly RankingInput[] = [
-  { championId: "malphite", role: "baron", tier: "S+", winRate: 54.8, pickRate: 8.0, banRate: 44.5 },
-  { championId: "mordekaiser", role: "baron", tier: "S+", winRate: 51.3, pickRate: 10.9, banRate: 34.1 },
-  { championId: "ksante", role: "baron", tier: "S", winRate: 51.4, pickRate: 8.0, banRate: 18.2 },
-  { championId: "darius", role: "baron", tier: "A", winRate: 49.3, pickRate: 15.3, banRate: 13.4 },
-  { championId: "jayce", role: "baron", tier: "A", winRate: 50.8, pickRate: 4.6, banRate: 3.1, trend: "up" },
-  { championId: "sion", role: "baron", tier: "B", winRate: 49.4, pickRate: 2.4, banRate: 0.3, trend: "down" },
-  { championId: "garen", role: "baron", tier: "C", winRate: 48.6, pickRate: 12.3, banRate: 2.3, trend: "down" },
-
-  { championId: "nocturne", role: "jungle", tier: "S+", winRate: 52.7, pickRate: 6.7, banRate: 67.4 },
-  { championId: "rammus", role: "jungle", tier: "S+", winRate: 56.2, pickRate: 4.2, banRate: 7.7 },
-  { championId: "jarvan-iv", role: "jungle", tier: "S", winRate: 52.5, pickRate: 7.3, banRate: 0.5 },
-  { championId: "chogath", role: "jungle", tier: "S", winRate: 50.1, pickRate: 8.2, banRate: 38.4, trend: "up" },
-  { championId: "xin-zhao", role: "jungle", tier: "A", winRate: 50.7, pickRate: 9.1, banRate: 1.6 },
-  { championId: "vi", role: "jungle", tier: "B", winRate: 49.4, pickRate: 5.0, banRate: 0.9, trend: "down" },
-  { championId: "lee-sin", role: "jungle", tier: "C", winRate: 46.6, pickRate: 12.9, banRate: 7.2 },
-
-  { championId: "hwei", role: "mid", tier: "S+", winRate: 52.5, pickRate: 6.0, banRate: 51.9 },
-  { championId: "brand", role: "mid", tier: "S+", winRate: 52.5, pickRate: 10.8, banRate: 10.4 },
-  { championId: "orianna", role: "mid", tier: "S", winRate: 51.7, pickRate: 4.9, banRate: 0.3 },
-  { championId: "malphite", role: "mid", tier: "S", winRate: 50.6, pickRate: 1.0, banRate: 44.5, trend: "up" },
-  { championId: "ahri", role: "mid", tier: "A", winRate: 50.4, pickRate: 4.6, banRate: 0.1, trend: "down" },
-  { championId: "viktor", role: "mid", tier: "B", winRate: 49.9, pickRate: 3.0, banRate: 0.5 },
-  { championId: "yasuo", role: "mid", tier: "C", winRate: 46.9, pickRate: 8.3, banRate: 8.7 },
-
-  { championId: "ashe", role: "dragon", tier: "S+", winRate: 53.4, pickRate: 9.6, banRate: 0.2, trend: "up" },
-  { championId: "smolder", role: "dragon", tier: "S+", winRate: 52.3, pickRate: 8.9, banRate: 3.7, trend: "up" },
-  { championId: "samira", role: "dragon", tier: "S", winRate: 51.0, pickRate: 11.9, banRate: 11.2, trend: "up" },
-  { championId: "kalista", role: "dragon", tier: "S", winRate: 50.6, pickRate: 7.6, banRate: 10.2, trend: "up" },
-  { championId: "jinx", role: "dragon", tier: "A", winRate: 50.5, pickRate: 13.3, banRate: 0.5 },
-  { championId: "miss-fortune", role: "dragon", tier: "B", winRate: 48.6, pickRate: 12.8, banRate: 2.0, trend: "down" },
-  { championId: "draven", role: "dragon", tier: "C", winRate: 46.8, pickRate: 5.1, banRate: 1.7 },
-
-  { championId: "malphite", role: "support", tier: "S+", winRate: 51.4, pickRate: 9.2, banRate: 44.5 },
-  { championId: "hwei", role: "support", tier: "S+", winRate: 51.8, pickRate: 1.4, banRate: 51.9, trend: "up" },
-  { championId: "braum", role: "support", tier: "S+", winRate: 52.5, pickRate: 4.9, banRate: 1.3 },
-  { championId: "leona", role: "support", tier: "S", winRate: 51.9, pickRate: 11.2, banRate: 7.2 },
-  { championId: "pyke", role: "support", tier: "A", winRate: 50.0, pickRate: 3.6, banRate: 2.6, trend: "up" },
-  { championId: "nautilus", role: "support", tier: "B", winRate: 49.4, pickRate: 13.7, banRate: 4.4, trend: "down" },
-  { championId: "lux", role: "support", tier: "C", winRate: 49.1, pickRate: 8.0, banRate: 13.9 },
-] as const;
+export const champions: readonly Champion[] = championCatalog.map((champion) => ({
+  ...champion,
+  portrait: `/images/wild-rift/champions/${champion.slug}.png`,
+}));
 
 const championById = new Map(champions.map((champion) => [champion.id, champion]));
 
-function makeRanking(input: RankingInput): ChampionRoleRanking {
-  const champion = championById.get(input.championId);
-  if (!champion) throw new Error(`Unknown Wild Rift champion: ${input.championId}`);
-  const criteria = roleCriteria[input.role];
-  const patchImpact =
-    patchImpactByChampion[input.championId] ??
-    "No direct Ranked change in 7.3b. Patch 7.3c is AAA ARAM-only, so this placement is based on the current Ranked snapshot and role review.";
+export const changes: readonly RankingChange[] = [
+  {
+    championId: "malphite",
+    role: "mid",
+    from: "B",
+    to: "S",
+    type: "Data trend",
+    date: "2026-10-27",
+    reason: "The latest reviewed Mid snapshot supports substantially higher priority than earlier in 7.3.",
+  },
+  {
+    championId: "garen",
+    role: "baron",
+    from: "S",
+    to: "C",
+    type: "Data trend",
+    date: "2026-10-27",
+    reason: "The current Baron snapshot shows a sustained drop in relative priority.",
+  },
+  {
+    championId: "ahri",
+    role: "mid",
+    from: "S+",
+    to: "A",
+    type: "Data trend",
+    date: "2026-10-27",
+    reason: "Stable utility remains, but current results and draft priority sit below the S group.",
+  },
+  {
+    championId: "kalista",
+    role: "dragon",
+    from: "B",
+    to: "S",
+    type: "Data trend",
+    date: "2026-10-25",
+    reason: "Lane pressure and objective conversion improved enough to hold an S placement.",
+  },
+  {
+    championId: "sion",
+    role: "baron",
+    from: "S",
+    to: "B",
+    type: "Data trend",
+    date: "2026-10-21",
+    reason: "Current Master+ performance no longer supports the earlier S placement.",
+  },
+  {
+    championId: "jayce",
+    role: "baron",
+    from: "C",
+    to: "A",
+    type: "Meta shift",
+    date: "2026-10-19",
+    reason: "Recent lane and ranked results improved enough to support an A placement.",
+  },
+  {
+    championId: "ashe",
+    role: "dragon",
+    from: "A",
+    to: "S+",
+    type: "Meta shift",
+    date: "2026-10-17",
+    reason: "Utility plus sustained damage became one of the most reliable Dragon Lane packages.",
+  },
+  {
+    championId: "yone",
+    role: "baron",
+    from: "S+",
+    to: "A",
+    type: "Data trend",
+    date: "2026-10-17",
+    reason: "Current Baron results and draft value no longer support the prior top-band placement.",
+  },
+  {
+    championId: "nautilus",
+    role: "support",
+    from: "S",
+    to: "B",
+    type: "Meta shift",
+    date: "2026-10-15",
+    reason: "Engage remains reliable, but current support alternatives deliver more consistent value.",
+  },
+  {
+    championId: "olaf",
+    role: "baron",
+    from: "S",
+    to: "B",
+    type: "Data trend",
+    date: "2026-10-11",
+    reason: "The current Baron snapshot places Olaf below the highest-priority lane options.",
+  },
+  {
+    championId: "twitch",
+    role: "dragon",
+    from: "C",
+    to: "A",
+    type: "Meta shift",
+    date: "2026-10-09",
+    reason: "Current Dragon Lane results support a materially stronger carry placement.",
+  },
+  {
+    championId: "dr-mundo",
+    role: "baron",
+    from: "C",
+    to: "A",
+    type: "Data trend",
+    date: "2026-10-03",
+    reason: "The reviewed Baron snapshot now supports a stable A-tier placement.",
+  },
+  {
+    championId: "miss-fortune",
+    role: "dragon",
+    from: "S+",
+    to: "B",
+    type: "Data trend",
+    date: "2026-10-03",
+    reason: "Current Dragon Lane results have fallen well below the former top-band placement.",
+  },
+  {
+    championId: "volibear",
+    role: "baron",
+    from: "S+",
+    to: "B",
+    type: "Meta shift",
+    date: "2026-10-03",
+    reason: "The current Baron environment values safer and more consistent alternatives.",
+  },
+  {
+    championId: "chogath",
+    role: "jungle",
+    from: "B",
+    to: "S",
+    type: "Meta shift",
+    date: "2026-10-01",
+    reason: "Objective control and frontline reliability gained value after the 7.3 jungle changes.",
+  },
+  {
+    championId: "samira",
+    role: "dragon",
+    from: "B",
+    to: "S",
+    type: "Data trend",
+    date: "2026-10-01",
+    reason: "Current lane and fight conversion support a stronger S-tier Dragon placement.",
+  },
+] as const;
+
+const trendByPlacement = new Map(
+  changes.map((change) => [
+    `${change.championId}:${change.role}`,
+    change.to === change.from ? ("flat" as const) : ("up" as const),
+  ]),
+);
+for (const change of changes) {
+  const order = new Map<Tier, number>(tiers.map((tier, index) => [tier, index]));
+  trendByPlacement.set(
+    `${change.championId}:${change.role}`,
+    (order.get(change.to) ?? 99) < (order.get(change.from) ?? 99) ? "up" : "down",
+  );
+}
+
+const directPatchImpact: Readonly<Record<string, string>> = {
+  nocturne:
+    "Patch 7.3b directly nerfed Nocturne's durability, early Duskbringer damage, and Paranoia availability. Patch 7.3c has no standard Ranked follow-up.",
+  hwei:
+    "Patch 7.3b directly reduced multiple Hwei damage, shield, and control values. Patch 7.3c has no standard Ranked follow-up.",
+  yasuo:
+    "Patch 7.3b directly buffed Yasuo's standard critical damage and passive shield. Patch 7.3c has no standard Ranked follow-up.",
+  volibear:
+    "Patch 7.3b directly adjusted Volibear upward. The current placement also reflects the post-change Master+ snapshot.",
+  yunara:
+    "Patch 7.3b directly reduced Yunara's passive damage and later ultimate availability. The current Dragon placement includes that change.",
+  senna:
+    "Patch 7.3b directly reduced Senna's critical damage, Mist attack-damage gain, and Q damage. The current placement includes that change.",
+};
+
+const lowExecutionChampions = new Set([
+  "akali",
+  "akshan",
+  "camille",
+  "draven",
+  "fiora",
+  "irelia",
+  "jayce",
+  "kalista",
+  "katarina",
+  "khazix",
+  "lee-sin",
+  "nidalee",
+  "pyke",
+  "riven",
+  "samira",
+  "yasuo",
+  "yone",
+  "zed",
+  "zoe",
+]);
+
+const easyExecutionChampions = new Set([
+  "amumu",
+  "ashe",
+  "braum",
+  "garen",
+  "leona",
+  "malphite",
+  "rammus",
+  "sona",
+]);
+
+function tierSignal(tier: Tier): SignalLevel {
+  if (tier === "S+" || tier === "S") return "High";
+  if (tier === "A" || tier === "B") return "Medium";
+  return "Low";
+}
+
+function signalsFor(
+  championId: string,
+  role: RoleKey,
+  tier: Tier,
+): DecisionSignals {
+  const baseline = tierSignal(tier);
+  const execution: SignalLevel = lowExecutionChampions.has(championId)
+    ? "Low"
+    : easyExecutionChampions.has(championId)
+      ? "High"
+      : "Medium";
+
   return {
-    ...input,
-    trend: input.trend ?? "unavailable",
-    whyThisTier: `${champion.name} is ${input.tier} in ${roleLabels[input.role]} after combining ${input.winRate.toFixed(
-      1,
-    )}% WR, ${input.pickRate.toFixed(1)}% PR and ${input.banRate.toFixed(
-      1,
-    )}% BR with ${criteria[0].toLowerCase()}, ${criteria[1].toLowerCase()}, and solo-queue reliability.`,
-    strengths: champion.strengths,
-    limitations: champion.limitations,
-    decisionSignals: signalsByArchetype[champion.archetype],
-    patchImpact,
+    soloQueueReliability: baseline,
+    blindPickSafety: tier === "S+" ? "High" : tier === "S" || tier === "A" ? "Medium" : "Low",
+    easeOfExecution: execution,
+    carryImpactPotential:
+      role === "jungle" || role === "mid" || role === "dragon" ? baseline : "Medium",
+    teamDependence: role === "dragon" ? "High" : role === "support" ? "Medium" : "Low",
+  };
+}
+
+function stat(value: number | null, label: string): string {
+  return value === null ? `N/A ${label}` : `${value.toFixed(1)}% ${label}`;
+}
+
+function strengthsFor(
+  tier: Tier,
+  winRate: number | null,
+  pickRate: number | null,
+  banRate: number | null,
+  role: RoleKey,
+): readonly string[] {
+  const strengths: string[] = [];
+  if (tier === "S+" || tier === "S") {
+    strengths.push(`${tier} role placement in the reviewed Master+ snapshot.`);
+  }
+  if (winRate !== null && winRate >= 52) {
+    strengths.push(`Strong current Master+ win-rate signal (${winRate.toFixed(1)}%).`);
+  }
+  if (pickRate !== null && pickRate >= 8) {
+    strengths.push(`Established current role presence (${pickRate.toFixed(1)}% pick rate).`);
+  }
+  if (banRate !== null && banRate >= 10) {
+    strengths.push(`Meaningful current draft pressure (${banRate.toFixed(1)}% ban rate).`);
+  }
+  strengths.push(
+    `Role review explicitly weights ${roleCriteria[role][0].toLowerCase()} and ${roleCriteria[
+      role
+    ][1].toLowerCase()}.`,
+  );
+  if (strengths.length < 2) {
+    strengths.push("The placement is retained after cross-checking role context against the current patch.");
+  }
+  return strengths.slice(0, 4);
+}
+
+function limitationsFor(
+  winRate: number | null,
+  pickRate: number | null,
+  role: RoleKey,
+): readonly string[] {
+  const limitations: string[] = [];
+  if (winRate === null || pickRate === null) {
+    limitations.push(
+      "Complete WR / PR / BR values are unavailable for this source entry; no statistics are backfilled.",
+    );
+  } else {
+    if (winRate < 50) {
+      limitations.push(
+        `Current Master+ win rate is below 50% (${winRate.toFixed(1)}%), so the tier is not a win-rate endorsement.`,
+      );
+    }
+    if (pickRate < 2) {
+      limitations.push(
+        `Low current pick rate (${pickRate.toFixed(1)}%) makes the role sample less robust than high-volume picks.`,
+      );
+    }
+  }
+  limitations.push(
+    "This placement is specific to China-server Master+ Ranked and should not be read as a global all-ranks result.",
+  );
+  if (limitations.length < 2) {
+    limitations.push(
+      `${roleLabels[role]} value can change when draft needs differ from this reviewed solo-queue context.`,
+    );
+  }
+  return limitations.slice(0, 4);
+}
+
+function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
+  const role = seed.role as RoleKey;
+  const tier = seed.tier as Tier;
+  const champion = championById.get(seed.championId);
+  if (!champion) throw new Error(`Unknown Wild Rift champion: ${seed.championId}`);
+
+  const hasCompleteStats =
+    seed.winRate !== null && seed.pickRate !== null && seed.banRate !== null;
+  const whyThisTier = hasCompleteStats
+    ? `${champion.name} is ${tier} in ${roleLabels[role]} after combining ${stat(
+        seed.winRate,
+        "WR",
+      )}, ${stat(seed.pickRate, "PR")}, and ${stat(
+        seed.banRate,
+        "BR",
+      )} with role-specific review of ${roleCriteria[role][0].toLowerCase()}, ${roleCriteria[
+        role
+      ][1].toLowerCase()}, execution burden, and solo-queue reliability.`
+    : `${champion.name} is ${tier} in ${roleLabels[
+        role
+      ]} in the reviewed role snapshot. The source entry does not expose complete WR / PR / BR values, so the tier is retained without inventing missing statistics and is cross-checked against role context.`;
+
+  return {
+    championId: seed.championId,
+    role,
+    tier,
+    winRate: seed.winRate,
+    pickRate: seed.pickRate,
+    banRate: seed.banRate,
+    trend: trendByPlacement.get(`${seed.championId}:${role}`) ?? "unavailable",
+    whyThisTier,
+    strengths: strengthsFor(tier, seed.winRate, seed.pickRate, seed.banRate, role),
+    limitations: limitationsFor(seed.winRate, seed.pickRate, role),
+    decisionSignals: signalsFor(seed.championId, role, tier),
+    patchImpact:
+      directPatchImpact[seed.championId] ??
+      "No direct standard Ranked change is recorded for this champion in 7.3b. Patch 7.3c is AAA ARAM-focused, so the current placement is driven by the reviewed Ranked snapshot and role context.",
     sourceIds: [
       "tencent-master",
       "editorial-review",
-      ...(patchImpactByChampion[input.championId] ? ["riot-7-3b"] : []),
+      ...(directPatchImpact[seed.championId] ? ["riot-7-3b"] : []),
     ],
   };
 }
 
-export const rankings: readonly ChampionRoleRanking[] = rankingInputs.map(makeRanking);
+export const rankings: readonly ChampionRoleRanking[] = rankingSeeds.map(makeRanking);
 
 export const quickPickChampionIds: Readonly<Record<RoleKey, string>> = {
   baron: "malphite",
@@ -647,120 +561,122 @@ export const quickInsights: Readonly<
   >
 > = {
   baron: [
-    { label: "Best Blind Pick", championId: "malphite", reason: "Reliable engage and a 54.8% Master+ win rate keep him stable across drafts." },
-    { label: "Best Easy Climb Pick", championId: "darius", reason: "Straightforward lane punishment and reset threat reward consistent execution." },
-    { label: "Highest Draft Priority", championId: "mordekaiser", reason: "High pick and ban pressure reflects strong current Baron relevance." },
-    { label: "Biggest Riser", championId: "jayce", reason: "The reviewed role snapshot moved Jayce from C to A on Oct 19." },
+    {
+      label: "Best Blind Pick",
+      championId: "malphite",
+      reason: "S+ placement, strong Master+ results, and broad engage value keep the pick stable.",
+    },
+    {
+      label: "Best Easy Climb Pick",
+      championId: "darius",
+      reason: "High current role presence and a straightforward punish-and-reset win condition.",
+    },
+    {
+      label: "Highest Draft Priority",
+      championId: "mordekaiser",
+      reason: "S+ placement with substantial pick and ban pressure in the current snapshot.",
+    },
+    {
+      label: "Biggest Riser",
+      championId: "jayce",
+      reason: "The reviewed Baron snapshot moved Jayce from C to A on October 19.",
+    },
   ],
   jungle: [
-    { label: "Best Blind Pick", championId: "jarvan-iv", reason: "Reliable gank setup and terrain control keep value even without a snowball." },
-    { label: "Best Easy Climb Pick", championId: "rammus", reason: "Simple engage patterns and 56.2% Master+ WR make him a high-floor choice." },
-    { label: "Highest Draft Priority", championId: "nocturne", reason: "Paranoia pressure remains draft-warping despite the 7.3b nerf." },
-    { label: "Biggest Riser", championId: "chogath", reason: "The reviewed role snapshot moved Cho'Gath from B to S during patch 7.3." },
+    {
+      label: "Best Blind Pick",
+      championId: "jarvan-iv",
+      reason: "Reliable gank setup and terrain control retain value without requiring a snowball.",
+    },
+    {
+      label: "Best Easy Climb Pick",
+      championId: "rammus",
+      reason: "S+ placement and a 56.2% Master+ win rate give Rammus a strong current floor.",
+    },
+    {
+      label: "Highest Draft Priority",
+      championId: "nocturne",
+      reason: "S+ placement and very high ban pressure remain significant after the 7.3b nerf.",
+    },
+    {
+      label: "Biggest Riser",
+      championId: "chogath",
+      reason: "The reviewed Jungle snapshot moved Cho'Gath from B to S during patch 7.3.",
+    },
   ],
   mid: [
-    { label: "Best Blind Pick", championId: "orianna", reason: "Wave control and teamfight utility give her a stable answer into many drafts." },
-    { label: "Best Easy Climb Pick", championId: "brand", reason: "High area damage converts grouped fights without requiring complex mobility." },
-    { label: "Highest Draft Priority", championId: "hwei", reason: "52.5% WR with 51.9% ban rate keeps Hwei highly contested after 7.3b." },
-    { label: "Biggest Riser", championId: "malphite", reason: "Malphite moved from B to S in the reviewed Mid snapshot on Oct 27." },
+    {
+      label: "Best Blind Pick",
+      championId: "orianna",
+      reason: "S placement plus stable wave and teamfight value make her a flexible current option.",
+    },
+    {
+      label: "Best Easy Climb Pick",
+      championId: "brand",
+      reason: "S+ placement and strong current results reward direct area-damage execution.",
+    },
+    {
+      label: "Highest Draft Priority",
+      championId: "hwei",
+      reason: "S+ placement with 51.9% ban pressure keeps Hwei highly contested after 7.3b.",
+    },
+    {
+      label: "Biggest Riser",
+      championId: "malphite",
+      reason: "Malphite moved from B to S in the reviewed Mid snapshot on October 27.",
+    },
   ],
   dragon: [
-    { label: "Best Blind Pick", championId: "ashe", reason: "Range, utility, and 53.4% WR make Ashe useful across many support pairings." },
-    { label: "Best Easy Climb Pick", championId: "jinx", reason: "Clear front-to-back execution and reset scaling offer a simple win condition." },
-    { label: "Highest Draft Priority", championId: "smolder", reason: "S+ scaling and safe damage give Smolder strong current carry priority." },
-    { label: "Biggest Riser", championId: "kalista", reason: "Kalista moved from B to S in the reviewed Dragon snapshot on Oct 25." },
+    {
+      label: "Best Blind Pick",
+      championId: "ashe",
+      reason: "S+ placement, range, and utility keep Ashe useful across many support pairings.",
+    },
+    {
+      label: "Best Easy Climb Pick",
+      championId: "jinx",
+      reason: "A-tier placement and high role presence support a clear front-to-back win condition.",
+    },
+    {
+      label: "Highest Draft Priority",
+      championId: "smolder",
+      reason: "S+ placement and strong current results give Smolder high carry priority.",
+    },
+    {
+      label: "Biggest Riser",
+      championId: "kalista",
+      reason: "Kalista moved from B to S in the reviewed Dragon snapshot on October 25.",
+    },
   ],
   support: [
-    { label: "Best Blind Pick", championId: "braum", reason: "Peel, projectile denial, and strong Master+ results fit many team shapes." },
-    { label: "Best Easy Climb Pick", championId: "leona", reason: "Reliable engage and a simple CC chain make fight starts easy to communicate." },
-    { label: "Highest Draft Priority", championId: "hwei", reason: "The current snapshot marks support Hwei S+ with very high shared ban pressure." },
-    { label: "Biggest Riser", championId: "pyke", reason: "The current reviewed snapshot marks Pyke up from B into A." },
+    {
+      label: "Best Blind Pick",
+      championId: "braum",
+      reason: "S+ placement and strong current results fit a wide range of team shapes.",
+    },
+    {
+      label: "Best Easy Climb Pick",
+      championId: "leona",
+      reason: "S placement and a simple hard-engage pattern make fight starts easy to communicate.",
+    },
+    {
+      label: "Highest Draft Priority",
+      championId: "hwei",
+      reason: "The current reviewed Support snapshot places Hwei S+ with high shared ban pressure.",
+    },
+    {
+      label: "Biggest Riser",
+      championId: "pyke",
+      reason: "Current Support evidence keeps Pyke in A with meaningful roaming and pick value.",
+    },
   ],
 };
 
-export const changes: readonly RankingChange[] = [
-  {
-    championId: "jayce",
-    role: "baron",
-    from: "C",
-    to: "A",
-    type: "Meta shift",
-    date: "2026-10-19",
-    reason: "Recent ranked results and lane pressure improved enough to hold an A placement.",
-  },
-  {
-    championId: "sion",
-    role: "baron",
-    from: "S",
-    to: "B",
-    type: "Data trend",
-    date: "2026-10-21",
-    reason: "Current Master+ performance no longer supports his earlier S placement.",
-  },
-  {
-    championId: "garen",
-    role: "baron",
-    from: "S",
-    to: "C",
-    type: "Data trend",
-    date: "2026-10-27",
-    reason: "The latest reviewed Baron snapshot shows a sustained drop in relative priority.",
-  },
-  {
-    championId: "chogath",
-    role: "jungle",
-    from: "B",
-    to: "S",
-    type: "Meta shift",
-    date: "2026-10-01",
-    reason: "Objective control and frontline reliability gained value after the 7.3 jungle changes.",
-  },
-  {
-    championId: "malphite",
-    role: "mid",
-    from: "B",
-    to: "S",
-    type: "Data trend",
-    date: "2026-10-27",
-    reason: "The current Master+ sample supports substantially higher Mid impact than earlier in 7.3.",
-  },
-  {
-    championId: "ahri",
-    role: "mid",
-    from: "S",
-    to: "A",
-    type: "Data trend",
-    date: "2026-10-27",
-    reason: "Stable utility remains, but current results and priority are below the S group.",
-  },
-  {
-    championId: "ashe",
-    role: "dragon",
-    from: "A",
-    to: "S+",
-    type: "Meta shift",
-    date: "2026-10-17",
-    reason: "Utility plus sustained damage became one of the most reliable Dragon Lane packages.",
-  },
-  {
-    championId: "kalista",
-    role: "dragon",
-    from: "B",
-    to: "S",
-    type: "Data trend",
-    date: "2026-10-25",
-    reason: "Lane pressure and objective conversion improved enough to hold an S placement.",
-  },
-  {
-    championId: "nautilus",
-    role: "support",
-    from: "S",
-    to: "B",
-    type: "Meta shift",
-    date: "2026-10-15",
-    reason: "Engage remains reliable, but current support alternatives deliver more consistent value.",
-  },
-] as const;
+if (
+  roleKeys.some((role) => rankings.filter((ranking) => ranking.role === role).length !== expectedRoleCounts[role])
+) {
+  throw new Error("Wild Rift role roster count drift");
+}
 
 export function championForId(id: string): Champion {
   const champion = championById.get(id);
