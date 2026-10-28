@@ -1,13 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 
 import {
   championForId,
@@ -285,13 +279,13 @@ function MobileDetail({
   );
 }
 
-function QuickPicks({
-  onPick,
-}: {
-  onPick: (role: RoleKey, championId: string) => void;
-}) {
+function QuickPicks({ onPick }: { onPick: (role: RoleKey, championId: string) => void }) {
   return (
-    <section className={styles.quickPicks} data-ia-section="quick-picks" aria-labelledby="quick-picks-title">
+    <section
+      className={styles.quickPicks}
+      data-ia-section="quick-picks"
+      aria-labelledby="quick-picks-title"
+    >
       <div className={styles.sectionTitleInline}>
         <h2 id="quick-picks-title">Quick Picks</h2>
         <p>Best current picks by role from the reviewed snapshot.</p>
@@ -363,9 +357,7 @@ function RoleNavigation({
 }
 
 function AllRolesOverview({ onRoleChange }: { onRoleChange: (role: RoleKey) => void }) {
-  const tierOrder = new Map<Tier, number>(
-    tiers.map((tier, index) => [tier, index] as const),
-  );
+  const tierOrder = new Map<Tier, number>(tiers.map((tier, index) => [tier, index] as const));
   return (
     <section
       className={styles.allRoles}
@@ -554,7 +546,8 @@ function TierBoard({
                           {compactRate(ranking.winRate, "WR")}
                         </span>
                         <span className={styles.cardSecondaryMetrics}>
-                          {compactRate(ranking.pickRate, "PR")} · {compactRate(ranking.banRate, "BR")}
+                          {compactRate(ranking.pickRate, "PR")} ·{" "}
+                          {compactRate(ranking.banRate, "BR")}
                         </span>
                       </span>
                     </button>
@@ -573,7 +566,11 @@ function TierBoard({
 function QuickInsights({ role }: { role: RoleView }) {
   if (role === "all") {
     return (
-      <section className={styles.insights} data-ia-section="quick-insights" aria-labelledby="insights-title">
+      <section
+        className={styles.insights}
+        data-ia-section="quick-insights"
+        aria-labelledby="insights-title"
+      >
         <div className={styles.sectionTitleInline}>
           <h2 id="insights-title">Quick Insights</h2>
           <p>Select a role to see its Blind Pick, Easy Climb, Draft Priority, and Biggest Riser.</p>
@@ -583,7 +580,11 @@ function QuickInsights({ role }: { role: RoleView }) {
   }
 
   return (
-    <section className={styles.insights} data-ia-section="quick-insights" aria-labelledby="insights-title">
+    <section
+      className={styles.insights}
+      data-ia-section="quick-insights"
+      aria-labelledby="insights-title"
+    >
       <div className={styles.sectionTitleInline}>
         <h2 id="insights-title">Quick Insights</h2>
         <p>Key takeaways for {roleLabels[role]} in the current Ranked snapshot.</p>
@@ -615,9 +616,14 @@ function QuickInsights({ role }: { role: RoleView }) {
 }
 
 function WhatChanged({ role }: { role: RoleView }) {
-  const visible = role === "all" ? changes.slice(0, 6) : changes.filter((change) => change.role === role);
+  const visible =
+    role === "all" ? changes.slice(0, 6) : changes.filter((change) => change.role === role);
   return (
-    <section className={styles.changed} data-ia-section="what-changed" aria-labelledby="changed-title">
+    <section
+      className={styles.changed}
+      data-ia-section="what-changed"
+      aria-labelledby="changed-title"
+    >
       <div className={styles.changedHeader}>
         <div>
           <h2 id="changed-title">What Changed</h2>
@@ -650,7 +656,9 @@ function WhatChanged({ role }: { role: RoleView }) {
           })}
         </div>
       ) : (
-        <p className={styles.noChanges}>No dated reviewed tier movement is recorded for this role.</p>
+        <p className={styles.noChanges}>
+          No dated reviewed tier movement is recorded for this role.
+        </p>
       )}
     </section>
   );

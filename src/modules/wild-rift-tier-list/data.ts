@@ -114,14 +114,7 @@ export const roleCriteria: Readonly<Record<RoleKey, readonly string[]>> = {
     "Path reliability",
     "Fallback value",
   ],
-  mid: [
-    "Wave control",
-    "Lane pressure",
-    "Roaming",
-    "Map influence",
-    "Burst or control",
-    "Scaling",
-  ],
+  mid: ["Wave control", "Lane pressure", "Roaming", "Map influence", "Burst or control", "Scaling"],
   dragon: [
     "Lane stability",
     "Sustained DPS",
@@ -181,8 +174,7 @@ export const sources: readonly EvidenceSource[] = [
 
 export const champions: readonly Champion[] = championCatalog.map((champion) => ({
   ...champion,
-  portrait:
-    champion.id === "norra" ? null : `/images/wild-rift/champions/${champion.slug}.png`,
+  portrait: champion.id === "norra" ? null : `/images/wild-rift/champions/${champion.slug}.png`,
 }));
 
 const championById = new Map(champions.map((champion) => [champion.id, champion]));
@@ -195,7 +187,8 @@ export const changes: readonly RankingChange[] = [
     to: "S",
     type: "Data trend",
     date: "2026-10-27",
-    reason: "The latest reviewed Mid snapshot supports substantially higher priority than earlier in 7.3.",
+    reason:
+      "The latest reviewed Mid snapshot supports substantially higher priority than earlier in 7.3.",
   },
   {
     championId: "garen",
@@ -267,7 +260,8 @@ export const changes: readonly RankingChange[] = [
     to: "B",
     type: "Meta shift",
     date: "2026-10-15",
-    reason: "Engage remains reliable, but current support alternatives deliver more consistent value.",
+    reason:
+      "Engage remains reliable, but current support alternatives deliver more consistent value.",
   },
   {
     championId: "olaf",
@@ -321,7 +315,8 @@ export const changes: readonly RankingChange[] = [
     to: "S",
     type: "Meta shift",
     date: "2026-10-01",
-    reason: "Objective control and frontline reliability gained value after the 7.3 jungle changes.",
+    reason:
+      "Objective control and frontline reliability gained value after the 7.3 jungle changes.",
   },
   {
     championId: "samira",
@@ -354,8 +349,7 @@ for (const change of changes) {
 const directPatchImpact: Readonly<Record<string, string>> = {
   nocturne:
     "Patch 7.3b directly nerfed Nocturne's durability, early Duskbringer damage, and Paranoia availability. Patch 7.3c has no standard Ranked follow-up.",
-  hwei:
-    "Patch 7.3b directly reduced multiple Hwei damage, shield, and control values. Patch 7.3c has no standard Ranked follow-up.",
+  hwei: "Patch 7.3b directly reduced multiple Hwei damage, shield, and control values. Patch 7.3c has no standard Ranked follow-up.",
   yasuo:
     "Patch 7.3b directly buffed Yasuo's standard critical damage and passive shield. Patch 7.3c has no standard Ranked follow-up.",
   volibear:
@@ -405,11 +399,7 @@ function tierSignal(tier: Tier): SignalLevel {
   return "Low";
 }
 
-function signalsFor(
-  championId: string,
-  role: RoleKey,
-  tier: Tier,
-): DecisionSignals {
+function signalsFor(championId: string, role: RoleKey, tier: Tier): DecisionSignals {
   const baseline = tierSignal(tier);
   const execution: SignalLevel = lowExecutionChampions.has(championId)
     ? "Low"
@@ -457,7 +447,9 @@ function strengthsFor(
     ][1].toLowerCase()}.`,
   );
   if (strengths.length < 2) {
-    strengths.push("The placement is retained after cross-checking role context against the current patch.");
+    strengths.push(
+      "The placement is retained after cross-checking role context against the current patch.",
+    );
   }
   return strengths.slice(0, 4);
 }
@@ -501,8 +493,7 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
   const champion = championById.get(seed.championId);
   if (!champion) throw new Error(`Unknown Wild Rift champion: ${seed.championId}`);
 
-  const hasCompleteStats =
-    seed.winRate !== null && seed.pickRate !== null && seed.banRate !== null;
+  const hasCompleteStats = seed.winRate !== null && seed.pickRate !== null && seed.banRate !== null;
   const whyThisTier = hasCompleteStats
     ? `${champion.name} is ${tier} in ${roleLabels[role]} after combining ${stat(
         seed.winRate,
@@ -513,9 +504,9 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
       )} with role-specific review of ${roleCriteria[role][0].toLowerCase()}, ${roleCriteria[
         role
       ][1].toLowerCase()}, execution burden, and solo-queue reliability.`
-    : `${champion.name} is ${tier} in ${roleLabels[
-        role
-      ]} in the reviewed role snapshot. The source entry does not expose complete WR / PR / BR values, so the tier is retained without inventing missing statistics and is cross-checked against role context.`;
+    : `${champion.name} is ${tier} in ${
+        roleLabels[role]
+      } in the reviewed role snapshot. The source entry does not expose complete WR / PR / BR values, so the tier is retained without inventing missing statistics and is cross-checked against role context.`;
 
   return {
     championId: seed.championId,
@@ -612,7 +603,8 @@ export const quickInsights: Readonly<
     {
       label: "Best Blind Pick",
       championId: "orianna",
-      reason: "S placement plus stable wave and teamfight value make her a flexible current option.",
+      reason:
+        "S placement plus stable wave and teamfight value make her a flexible current option.",
     },
     {
       label: "Best Easy Climb Pick",
@@ -639,7 +631,8 @@ export const quickInsights: Readonly<
     {
       label: "Best Easy Climb Pick",
       championId: "jinx",
-      reason: "A-tier placement and high role presence support a clear front-to-back win condition.",
+      reason:
+        "A-tier placement and high role presence support a clear front-to-back win condition.",
     },
     {
       label: "Highest Draft Priority",
@@ -677,7 +670,10 @@ export const quickInsights: Readonly<
 };
 
 if (
-  roleKeys.some((role) => rankings.filter((ranking) => ranking.role === role).length !== expectedRoleCounts[role])
+  roleKeys.some(
+    (role) =>
+      rankings.filter((ranking) => ranking.role === role).length !== expectedRoleCounts[role],
+  )
 ) {
   throw new Error("Wild Rift role roster count drift");
 }

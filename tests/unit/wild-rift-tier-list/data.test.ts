@@ -137,7 +137,8 @@ describe("Wild Rift SEO contract", () => {
   it("registers one public indexable canonical route with the frozen search intent", () => {
     const definition = routeRegistry.get(route);
     expect(definition.class).toBe("public_indexable");
-    if (definition.class !== "public_indexable") throw new Error("Wild Rift route must be indexable");
+    if (definition.class !== "public_indexable")
+      throw new Error("Wild Rift route must be indexable");
 
     expect(definition.primaryKeyword).toBe("wild rift tier list");
     expect(definition.secondaryKeywords).toEqual([
@@ -166,7 +167,8 @@ describe("Wild Rift SEO contract", () => {
 
   it("produces valid WebApplication JSON-LD for the canonical route", () => {
     const definition = routeRegistry.get(route);
-    if (definition.class !== "public_indexable") throw new Error("Wild Rift route must be indexable");
+    if (definition.class !== "public_indexable")
+      throw new Error("Wild Rift route must be indexable");
     const value = webApplicationJsonLd({
       name: "Wild Rift Tier List",
       url: `${routeRegistry.site.canonicalOrigin}${route}`,

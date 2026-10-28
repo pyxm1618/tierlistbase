@@ -71,7 +71,9 @@ test("all five frozen role tabs render their own Tier Board and preserve Champio
     await expect(page.getByRole("heading", { level: 2, name: `${role} Tier List` })).toBeVisible();
     await expect(page.locator('[data-ia-section="role-tier-workspace"]')).toBeVisible();
     for (const tier of ["S+", "S", "A", "B", "C"]) {
-      await expect(page.locator(`[data-ia-section="role-tier-workspace"] [data-tier="${tier}"]`).first()).toBeVisible();
+      await expect(
+        page.locator(`[data-ia-section="role-tier-workspace"] [data-tier="${tier}"]`).first(),
+      ).toBeVisible();
     }
   }
 
@@ -159,7 +161,11 @@ for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
     await page.evaluate(async () => {
       await document.fonts.ready;
     });
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    await expect(page.getByRole("heading", { level: 1, name: "Wild Rift Tier List" })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Wild Rift Tier List" }),
+    ).toBeVisible();
   });
 }
