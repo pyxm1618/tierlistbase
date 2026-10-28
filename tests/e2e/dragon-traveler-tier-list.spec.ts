@@ -51,7 +51,14 @@ test("Dragon Traveler keeps the frozen architecture and server-specific taxonomy
   await taiwan.click();
   await expect(taiwan).toHaveAttribute("aria-pressed", "true");
   await expect(faction.locator("option")).toContainText(["聖堂榮光", "曠野之靈", "幻境秘影"]);
-  await expect(rarity.locator("option")).toContainText(["傳說·神話", "傳說+", "傳說", "史詩", "菁英", "普通"]);
+  await expect(rarity.locator("option")).toContainText([
+    "傳說·神話",
+    "傳說+",
+    "傳說",
+    "史詩",
+    "菁英",
+    "普通",
+  ]);
 
   const mainText = await page.locator("main").innerText();
   expect(mainText).not.toContain("Eternal Frost");

@@ -54,7 +54,14 @@ describe("Dragon Traveler server snapshots", () => {
   });
 
   it("keeps Taiwan rarity labels server-native instead of translating Global labels", () => {
-    expect(labels(taiwanRarityOptions)).toEqual(["傳說·神話", "傳說+", "傳說", "史詩", "菁英", "普通"]);
+    expect(labels(taiwanRarityOptions)).toEqual([
+      "傳說·神話",
+      "傳說+",
+      "傳說",
+      "史詩",
+      "菁英",
+      "普通",
+    ]);
     expect(labels(taiwanRarityOptions)).not.toEqual(
       expect.arrayContaining(["Mythic", "Legendary", "Epic"]),
     );
