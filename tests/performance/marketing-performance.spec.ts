@@ -19,6 +19,7 @@ const routes = [
   "/genshin-impact/tier-list",
   "/nikke/tier-list",
   "/zenless-zone-zero/tier-list",
+  "/anime-expeditions/tier-list",
 ] as const;
 
 for (const route of routes) {

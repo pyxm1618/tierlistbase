@@ -1,0 +1,5347 @@
+{
+  "units": [
+    {
+      "id": "metallic-alchemist",
+      "baseName": "Metallic Alchemist",
+      "currentForm": "Alchemy Brothers (Truth)",
+      "forms": [
+        {
+          "name": "Metallic Alchemist",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Alchemy Brothers (Truth)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Utility",
+      "element": "Terra",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Historically limited; current obtainment needs review.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "S",
+        "DPS": "A",
+        "Utility": "S",
+        "Support": "S",
+        "Crowd Control": "S"
+      },
+      "why": "The attack cycle combines Alchemy Mark, Magical amplification and slow. Team DoT balance changes its passive outcome, so it should be built around the actual equipped roster.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["All Modes"],
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["unbound", "primordial"],
+        "standardIds": ["magic-book", "accursed-equipment"],
+        "exclusiveIds": ["blade-arm"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["devil", "subject-8"],
+      "hidden": false,
+      "asset": "alchemy-brothers-truth",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "subject-8",
+      "baseName": "Subject 8",
+      "currentForm": "Subject 8 (Monster)",
+      "forms": [
+        {
+          "name": "Subject 8",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Subject 8 (Monster)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "DPS",
+      "element": "Storm",
+      "archetype": "Physical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Historically limited; current obtainment needs review.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "S",
+        "DPS": "S",
+        "Utility": "S",
+        "Support": "A",
+        "Crowd Control": "A"
+      },
+      "why": "Colossal Roar combines Dismember with a Physical damage buff in range. Its half-range trigger requires deliberate positioning, rather than placing it at the edge of coverage.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Raid"],
+      "investment": "Worth Evolving",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["unbound", "primordial"],
+        "standardIds": ["warrior-s-axe", "katana"],
+        "exclusiveIds": ["monster-claws"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["sovereign", "broken-falcon"],
+      "hidden": false,
+      "asset": "subject-8-monster",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "fallen-angel",
+      "baseName": "Fallen Angel",
+      "currentForm": "Fallen Angel (Holy)",
+      "forms": [
+        {
+          "name": "Fallen Angel",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Fallen Angel (Holy)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Crowd Control",
+      "element": "Light",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "S+",
+        "DPS": "A",
+        "Utility": "S",
+        "Support": "Pending",
+        "Crowd Control": "S+"
+      },
+      "why": "Time Stop creates a window for existing DoT effects. The evolved kill interaction extends that window and stores Flame Feathers, so wave density matters more than sheet DPS.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Long-run"],
+      "investment": "High Priority",
+      "investmentLevel": "Moderate",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["optics", "primordial"],
+        "standardIds": ["magic-orb", "pirate-s-slingshot"],
+        "exclusiveIds": ["angel-blade"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["crow", "devil"],
+      "hidden": false,
+      "asset": "fallen-angel-holy",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "devil",
+      "baseName": "Devil",
+      "currentForm": "Devil (Hero)",
+      "forms": [
+        {
+          "name": "Devil",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Devil (Hero)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "DPS",
+      "element": "Flame",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "S",
+        "DPS": "S+",
+        "Utility": "A",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Enhanced Burn stored by Demon Head is converted into a detonation. This makes DoT scaling valuable, but the explosion depends on its setup window and enemies remaining grouped.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Raid"],
+      "investment": "High Priority",
+      "investmentLevel": "Moderate",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["draconic", "unbound"],
+        "standardIds": ["warrior-s-axe", "katana"],
+        "exclusiveIds": ["fire-helmet"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["metallic-alchemist", "fallen-angel"],
+      "hidden": false,
+      "asset": "devil-hero",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "crimson-captain",
+      "baseName": "Crimson Captain",
+      "currentForm": "Crimson Captain (Moon)",
+      "forms": [
+        {
+          "name": "Crimson Captain",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Crimson Captain (Moon)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "DPS",
+      "element": "Flame",
+      "archetype": "Magical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "S+",
+        "DPS": "S+",
+        "Utility": "A",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Fire Banners add independent Fire instances and eventually become moving summons. The damage ceiling needs time to establish banners; short stages reduce that advantage.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Long-run"],
+      "investment": "High Priority",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["draconic", "unbound"],
+        "standardIds": ["magic-book", "accursed-equipment"],
+        "exclusiveIds": ["beacon-of-pride"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["broken-falcon", "fallen-angel", "ramen-guy"],
+      "hidden": false,
+      "asset": "crimson-captain-moon",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "broken-falcon",
+      "baseName": "Broken Falcon",
+      "currentForm": "Silver Falcon",
+      "forms": [
+        {
+          "name": "Broken Falcon",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "5th God Hand",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Silver Falcon",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Support",
+      "element": "Light",
+      "archetype": "Magical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 1,
+      "viewTiers": {
+        "Overall": "S",
+        "DPS": "A",
+        "Utility": "S",
+        "Support": "S+",
+        "Crowd Control": "Pending"
+      },
+      "why": "The Captain boosts allied damage and rewards the dominant Archetype. Its buffs do not stack; it earns a slot through team output and War Chest income rather than personal DPS.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["All Modes"],
+      "investment": "Situational",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["optics", "primordial"],
+        "standardIds": ["magic-orb", "pirate-s-slingshot"],
+        "exclusiveIds": ["chosen-sabre"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["crimson-captain", "sovereign"],
+      "hidden": false,
+      "asset": "silver-falcon",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "sovereign",
+      "baseName": "Sovereign",
+      "currentForm": "Sovereign (Djinn)",
+      "forms": [
+        {
+          "name": "Sovereign",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Sovereign (Djinn)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "DPS",
+      "element": "Storm",
+      "archetype": "Physical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "S",
+        "DPS": "S",
+        "Utility": "S",
+        "Support": "Pending",
+        "Crowd Control": "A"
+      },
+      "why": "Lightning chains bounce back onto fewer targets. Boss proximity activates the second Djinn with Freeze and follow-up slow, making its contribution depend on what enters range.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Raid"],
+      "investment": "High Priority",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["unbound", "primordial"],
+        "standardIds": ["warrior-s-axe", "katana"],
+        "exclusiveIds": ["lightning-dagger"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["broken-falcon", "stone-alchemist"],
+      "hidden": false,
+      "asset": "sovereign-djinn",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "cubert",
+      "baseName": "Cubert",
+      "currentForm": "Cubert",
+      "forms": [
+        {
+          "name": "Cubert",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Support",
+      "element": "Hydro",
+      "archetype": "Magical",
+      "rarity": "Exclusive",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "A",
+        "DPS": "B",
+        "Utility": "S",
+        "Support": "S",
+        "Crowd Control": "A"
+      },
+      "why": "Cube Link amplifies linked allies while Cube Overload adds stun after regular attacks. Value depends on the linked attackers and their positioning, not Cubert’s own attack damage.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["All Modes"],
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["optics", "primordial"],
+        "standardIds": ["magic-orb", "pirate-s-slingshot"],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["sovereign", "crimson-captain"],
+      "hidden": false,
+      "asset": "cubert",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "bioinsect",
+      "baseName": "Bioinsect",
+      "currentForm": "Bioinsect (Final Form)",
+      "forms": [
+        {
+          "name": "Bioinsect",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Bioinsect (Final Form)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Utility",
+      "element": "Terra",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "A",
+        "DPS": "A",
+        "Utility": "S",
+        "Support": "Pending",
+        "Crowd Control": "S"
+      },
+      "why": "Biogel links slow into stun and the transformation chain needs takedowns and summoned boss kills. A strong long-run tool that cannot be treated as fully ramped at placement.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Long-run"],
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["unbound", "primordial"],
+        "standardIds": ["magic-book", "accursed-equipment"],
+        "exclusiveIds": ["mechanical-wings"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["crow", "cubert"],
+      "hidden": false,
+      "asset": "bioinsect-final-form",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "crow",
+      "baseName": "Crow",
+      "currentForm": "Crow (Black Fire)",
+      "forms": [
+        {
+          "name": "Crow",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Crow (Black Fire)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "DPS",
+      "element": "Flame",
+      "archetype": "Magical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Historically limited; current obtainment needs review.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "S",
+        "DPS": "S",
+        "Utility": "A",
+        "Support": "B",
+        "Crowd Control": "Pending"
+      },
+      "why": "Illusion rewards grouping enemies before its explosion; BlackFire supplies a separate damage route. Isolated targets and poor stacking reduce the value of the same build.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Long-run"],
+      "investment": "High Priority",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["draconic", "unbound"],
+        "standardIds": ["magic-book", "accursed-equipment"],
+        "exclusiveIds": ["illusion-crow"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["fallen-angel", "cubert"],
+      "hidden": false,
+      "asset": "crow-black-fire",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "salmon-sorcerer",
+      "baseName": "Salmon Sorcerer",
+      "currentForm": "Salmon Sorcerer (Grade 1)",
+      "forms": [
+        {
+          "name": "Salmon Sorcerer (Grade 1)",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Salmon Sorcerer",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Crowd Control",
+      "element": "Gale",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "A",
+        "DPS": "B",
+        "Utility": "A",
+        "Support": "Pending",
+        "Crowd Control": "S"
+      },
+      "why": "The base slow and evolved close-range Stagger create layered stall. Placement must bring enemies inside half of its range for Plummet; extra range alone does not guarantee that trigger.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Story / Challenge"],
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["optics", "primordial"],
+        "standardIds": ["magic-orb", "pirate-s-slingshot"],
+        "exclusiveIds": ["technique-amplifier"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["stone-alchemist", "elf-mage"],
+      "hidden": false,
+      "asset": "salmon-sorcerer-grade-1",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "ramen-guy",
+      "baseName": "Ramen Guy",
+      "currentForm": "Ramen Guy",
+      "forms": [
+        {
+          "name": "Ramen Guy",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Economy",
+      "element": "Farm",
+      "archetype": "Physical",
+      "rarity": "Legendary",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 1,
+      "viewTiers": {
+        "Overall": "A",
+        "DPS": "Pending",
+        "Utility": "A",
+        "Support": "B",
+        "Crowd Control": "Pending"
+      },
+      "why": "Kill-income amplification helps long waves fund expensive upgrades. Capital Lock returns little on selling, so early placement competes with immediate defensive spending.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Long-run"],
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["investor"],
+        "standardIds": ["economist-s-coin"],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["crimson-captain", "crow"],
+      "hidden": false,
+      "asset": "ramen-guy",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "stone-alchemist",
+      "baseName": "Stone Alchemist",
+      "currentForm": "Stone Alchemist",
+      "forms": [
+        {
+          "name": "Stone Alchemist",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Economy",
+      "element": "Farm",
+      "archetype": "Physical",
+      "rarity": "Epic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "B",
+        "DPS": "Pending",
+        "Utility": "A",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Wave income can fund the first carry upgrades without using a Secret slot. This is an account-progression choice; short stages can end before a large farm investment pays back.",
+      "reviewStatus": "Provisional",
+      "bestFor": ["Story / Challenge"],
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": ["investor"],
+        "standardIds": ["economist-s-coin"],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": ["salmon-sorcerer", "elf-mage"],
+      "hidden": false,
+      "asset": "stone-alchemist",
+      "sourceIds": ["unit-data", "wiki-ranking"]
+    },
+    {
+      "id": "ignition-commander",
+      "baseName": "Ignition Commander",
+      "currentForm": "Ignition Commander (Betrayal)",
+      "forms": [
+        {
+          "name": "Ignition Commander",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Ignition Commander (Betrayal)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Flame",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["ignis-restraint"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "ignition-commander-betrayal",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "water-sage-founder",
+      "baseName": "Water Sage (Founder)",
+      "currentForm": "Water Sage (Founder)",
+      "forms": [
+        {
+          "name": "Water Sage (Founder)",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Hydro",
+      "archetype": "Physical",
+      "rarity": "Exclusive",
+      "availability": "Needs Review",
+      "availabilityNote": "Historically limited; current obtainment needs review.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "water-sage-founder",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "wild-card",
+      "baseName": "Wild Card",
+      "currentForm": "Wild Card (Ace)",
+      "forms": [
+        {
+          "name": "Wild Card",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Wild Card (Ace)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Dark",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["joker-card"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "wild-card-ace",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "iron-wolf",
+      "baseName": "Iron Wolf",
+      "currentForm": "Iron Wolf (Struggler)",
+      "forms": [
+        {
+          "name": "Iron Wolf",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Iron Wolf (Struggler)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Dark",
+      "archetype": "Physical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 1,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["demonslayer"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "iron-wolf-struggler",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "eclipse-hunter",
+      "baseName": "Eclipse Hunter",
+      "currentForm": "Eclipse Hunter (Savior)",
+      "forms": [
+        {
+          "name": "Eclipse Hunter",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Eclipse Hunter (Savior)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Neutral",
+      "archetype": "Psychic",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["blade-of-reality"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "eclipse-hunter-savior",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "lightning-god",
+      "baseName": "Lightning God",
+      "currentForm": "Lightning God (Overcharged)",
+      "forms": [
+        {
+          "name": "Lightning God",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Lightning God (Overcharged)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Storm",
+      "archetype": "Magical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["storm-trident"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "lightning-god-overcharged",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "jester",
+      "baseName": "Jester",
+      "currentForm": "Jester",
+      "forms": [
+        {
+          "name": "Jester",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Neutral",
+      "archetype": "Physical",
+      "rarity": "Exclusive",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "jester",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "kitsune",
+      "baseName": "Kitsune",
+      "currentForm": "Kitsune",
+      "forms": [
+        {
+          "name": "Kitsune",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Flame",
+      "archetype": "Magical",
+      "rarity": "Exclusive",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "kitsune",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "rainman",
+      "baseName": "Rainman",
+      "currentForm": "Rainman (Forecast)",
+      "forms": [
+        {
+          "name": "Rainman",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Rainman (Forecast)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Gale",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["poison-frog"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "rainman-forecast",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "sharkfang",
+      "baseName": "Sharkfang",
+      "currentForm": "Sharkfang (Abyssal)",
+      "forms": [
+        {
+          "name": "Sharkfang",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Sharkfang (Abyssal)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Hydro",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["tideblade"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "sharkfang-abyssal",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "head-captain",
+      "baseName": "Head Captain",
+      "currentForm": "Head Captain (Char)",
+      "forms": [
+        {
+          "name": "Head Captain",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Head Captain (Char)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Flame",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["fiery-staff"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "head-captain-char",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "sand",
+      "baseName": "Sand",
+      "currentForm": "Sand (Alligator)",
+      "forms": [
+        {
+          "name": "Sand",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Sand (Alligator)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Terra",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["poison-hook"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "sand-alligator",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "water-mage",
+      "baseName": "Water Mage",
+      "currentForm": "Water Mage (Scholar)",
+      "forms": [
+        {
+          "name": "Water Mage",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Water Mage (Scholar)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Hydro",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["spirit-king-s-blade"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "water-mage-scholar",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "prodigy",
+      "baseName": "Prodigy",
+      "currentForm": "Prodigy (Rage)",
+      "forms": [
+        {
+          "name": "Prodigy",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Prodigy (Rage)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Light",
+      "archetype": "Physical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["mentor-s-cape"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "prodigy-rage",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "cube",
+      "baseName": "Cube",
+      "currentForm": "Cube",
+      "forms": [
+        {
+          "name": "Cube",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Hydro",
+      "archetype": "Magical",
+      "rarity": "Exclusive",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": true,
+      "asset": "cube",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "the-drink",
+      "baseName": "The Drink",
+      "currentForm": "The Drink (Juicebox)",
+      "forms": [
+        {
+          "name": "The Drink",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "The Drink (Juicebox)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Hydro",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["pointy-straw"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "the-drink-juicebox",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "carrot",
+      "baseName": "Carrot",
+      "currentForm": "Carrot (Unleashed)",
+      "forms": [
+        {
+          "name": "Carrot (Unleashed)",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Carrot",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Gale",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["carrot-s-gi"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "carrot-unleashed",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "vegetable",
+      "baseName": "Vegetable",
+      "currentForm": "Vegetable (Prince)",
+      "forms": [
+        {
+          "name": "Vegetable",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Vegetable (Prince)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Light",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["royal-gi"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "vegetable-prince",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "razorjaw",
+      "baseName": "Razorjaw",
+      "currentForm": "Razorjaw (Hunter)",
+      "forms": [
+        {
+          "name": "Razorjaw",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Razorjaw (Hunter)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Neutral",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Historically limited; current obtainment needs review.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["predator-s-skull"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "razorjaw-hunter",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "dark-mage",
+      "baseName": "Dark Mage",
+      "currentForm": "Dark Mage (Sovereign)",
+      "forms": [
+        {
+          "name": "Dark Mage",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Dark Mage (Sovereign)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Hydro",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Historically limited; current obtainment needs review.",
+      "evolutionState": "Evolved",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["dark-scepter"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "dark-mage-sovereign",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "cursed-immortal",
+      "baseName": "Cursed Immortal",
+      "currentForm": "Cursed Immortal (Black Sun)",
+      "forms": [
+        {
+          "name": "Cursed Immortal",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Cursed Immortal (Black Sun)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Dark",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Historically limited; current obtainment needs review.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["memory-pendant"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "cursed-immortal-black-sun",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "shadow",
+      "baseName": "Shadow",
+      "currentForm": "Shadow (Divine)",
+      "forms": [
+        {
+          "name": "Shadow (Divine)",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Shadow",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Dark",
+      "archetype": "Magical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["hexed-blade"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "shadow-divine",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "true-saint",
+      "baseName": "True Saint",
+      "currentForm": "True Saint (Holy)",
+      "forms": [
+        {
+          "name": "True Saint",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "True Saint (Holy)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Light",
+      "archetype": "Magical",
+      "rarity": "Exclusive",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "true-saint-holy",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "little-carrot",
+      "baseName": "Little Carrot",
+      "currentForm": "Little Carrot",
+      "forms": [
+        {
+          "name": "Little Carrot",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Gale",
+      "archetype": "Physical",
+      "rarity": "Rare",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "little-carrot",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "reaper",
+      "baseName": "Reaper",
+      "currentForm": "Reaper (Released)",
+      "forms": [
+        {
+          "name": "Reaper (Released)",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Reaper",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Light",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["spirit-of-the-moonblade"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "reaper-released",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "forbidden-teacher",
+      "baseName": "Forbidden Teacher",
+      "currentForm": "Forbidden Teacher",
+      "forms": [
+        {
+          "name": "Forbidden Teacher",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Unknown",
+      "archetype": "Magical",
+      "rarity": "Legendary",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "forbidden-teacher",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "ice-mage",
+      "baseName": "Ice Mage",
+      "currentForm": "Ice Mage",
+      "forms": [
+        {
+          "name": "Ice Mage",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Hydro",
+      "archetype": "Magical",
+      "rarity": "Epic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "ice-mage",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "thunder-shinobi",
+      "baseName": "Thunder Shinobi",
+      "currentForm": "Thunder Shinobi",
+      "forms": [
+        {
+          "name": "Thunder Shinobi",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Storm",
+      "archetype": "Magical",
+      "rarity": "Rare",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "thunder-shinobi",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "cursed-student",
+      "baseName": "Cursed Student",
+      "currentForm": "Cursed Student (True Love)",
+      "forms": [
+        {
+          "name": "Cursed Student (True Love)",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Cursed Student",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Dark",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["promise-ring"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "cursed-student-true-love",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "string-demon",
+      "baseName": "String Demon",
+      "currentForm": "String Demon (Awakened)",
+      "forms": [
+        {
+          "name": "String Demon",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "String Demon (Awakened)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Neutral",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["webbed-fruit"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "string-demon-awakened",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "crimson",
+      "baseName": "Crimson",
+      "currentForm": "Crimson (Brother)",
+      "forms": [
+        {
+          "name": "Crimson",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Crimson (Brother)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Dark",
+      "archetype": "Magical",
+      "rarity": "Exclusive",
+      "availability": "Needs Review",
+      "availabilityNote": "Historically limited; current obtainment needs review.",
+      "evolutionState": "Evolved",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "crimson-brother",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "flame-emperor",
+      "baseName": "Flame Emperor",
+      "currentForm": "Flame Emperor (Reincarnate)",
+      "forms": [
+        {
+          "name": "Flame Emperor",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Flame Emperor (Reincarnate)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Flame",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 5,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["emperor-s-attire"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "flame-emperor-reincarnate",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "bounty-hunter",
+      "baseName": "Bounty Hunter",
+      "currentForm": "Bounty Hunter",
+      "forms": [
+        {
+          "name": "Bounty Hunter",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Neutral",
+      "archetype": "Physical",
+      "rarity": "Epic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "bounty-hunter",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "8th-sword",
+      "baseName": "8th Sword",
+      "currentForm": "8th Sword (Berserk)",
+      "forms": [
+        {
+          "name": "8th Sword (Berserk)",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "8th Sword",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Neutral",
+      "archetype": "Physical",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "High",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["hair-bells"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "8th-sword-berserk",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "nen-hunter",
+      "baseName": "Nen Hunter",
+      "currentForm": "Nen Hunter",
+      "forms": [
+        {
+          "name": "Nen Hunter",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Flame",
+      "archetype": "Physical",
+      "rarity": "Epic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "nen-hunter",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "water-princess",
+      "baseName": "Water Princess",
+      "currentForm": "Water Princess",
+      "forms": [
+        {
+          "name": "Water Princess",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Hydro",
+      "archetype": "Magical",
+      "rarity": "Legendary",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "water-princess",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "corps-captain",
+      "baseName": "Corps Captain",
+      "currentForm": "Corps Captain",
+      "forms": [
+        {
+          "name": "Corps Captain",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Neutral",
+      "archetype": "Physical",
+      "rarity": "Epic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "corps-captain",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "hollow",
+      "baseName": "Hollow",
+      "currentForm": "Hollow (Blaze)",
+      "forms": [
+        {
+          "name": "Hollow",
+          "evolved": false,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Hollow (Blaze)",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Flame",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["hell-s-flower"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "hollow-blaze",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "greed",
+      "baseName": "Greed",
+      "currentForm": "Greed",
+      "forms": [
+        {
+          "name": "Greed",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Dark",
+      "archetype": "Physical",
+      "rarity": "Legendary",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "greed",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "puppet",
+      "baseName": "Puppet",
+      "currentForm": "Puppet (Telekinetic)",
+      "forms": [
+        {
+          "name": "Puppet (Telekinetic)",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Puppet",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Light",
+      "archetype": "Psychic",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 2,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["calamity-s-eye"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "puppet-telekinetic",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "reishi-archer",
+      "baseName": "Reishi Archer",
+      "currentForm": "Reishi Archer",
+      "forms": [
+        {
+          "name": "Reishi Archer",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Light",
+      "archetype": "Magical",
+      "rarity": "Rare",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "reishi-archer",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "lady-giant",
+      "baseName": "Lady Giant",
+      "currentForm": "Lady Giant (Envy)",
+      "forms": [
+        {
+          "name": "Lady Giant (Envy)",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Lady Giant",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Terra",
+      "archetype": "Physical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["boulder"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "lady-giant-envy",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "elf-mage",
+      "baseName": "Elf Mage",
+      "currentForm": "Elf Mage (Unleashed)",
+      "forms": [
+        {
+          "name": "Elf Mage (Unleashed)",
+          "evolved": true,
+          "sourceRevision": 9555
+        },
+        {
+          "name": "Elf Mage",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Storm",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Evolved",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": ["elven-battle-staff"],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "elf-mage-unleashed",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "toy-maker",
+      "baseName": "Toy Maker",
+      "currentForm": "Toy Maker",
+      "forms": [
+        {
+          "name": "Toy Maker",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Dark",
+      "archetype": "Psychic",
+      "rarity": "Exclusive",
+      "availability": "Needs Review",
+      "availabilityNote": "Historically limited; current obtainment needs review.",
+      "evolutionState": "Base",
+      "placementLimit": 1,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "toy-maker",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "demon-cyborg",
+      "baseName": "Demon Cyborg",
+      "currentForm": "Demon Cyborg",
+      "forms": [
+        {
+          "name": "Demon Cyborg",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Flame",
+      "archetype": "Physical",
+      "rarity": "Epic",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "demon-cyborg",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "curly-brow",
+      "baseName": "Curly Brow",
+      "currentForm": "Curly Brow",
+      "forms": [
+        {
+          "name": "Curly Brow",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Flame",
+      "archetype": "Physical",
+      "rarity": "Rare",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "curly-brow",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "scissor",
+      "baseName": "Scissor",
+      "currentForm": "Scissor",
+      "forms": [
+        {
+          "name": "Scissor",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Terra",
+      "archetype": "Physical",
+      "rarity": "Legendary",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 3,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "scissor",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "ice-queen",
+      "baseName": "Ice Queen",
+      "currentForm": "Ice Queen",
+      "forms": [
+        {
+          "name": "Ice Queen",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Hydro",
+      "archetype": "Magical",
+      "rarity": "Legendary",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "ice-queen",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "kid-assassin",
+      "baseName": "Kid Assassin",
+      "currentForm": "Kid Assassin",
+      "forms": [
+        {
+          "name": "Kid Assassin",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Storm",
+      "archetype": "Magical",
+      "rarity": "Rare",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "kid-assassin",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "the-hero",
+      "baseName": "The Hero",
+      "currentForm": "The Hero",
+      "forms": [
+        {
+          "name": "The Hero",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Unknown",
+      "archetype": "Physical",
+      "rarity": "Legendary",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "the-hero",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "rubber-boy",
+      "baseName": "Rubber Boy",
+      "currentForm": "Rubber Boy",
+      "forms": [
+        {
+          "name": "Rubber Boy",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Flame",
+      "archetype": "Physical",
+      "rarity": "Rare",
+      "availability": "Needs Review",
+      "availabilityNote": "Current banner / obtainment has not been verified.",
+      "evolutionState": "Base",
+      "placementLimit": 4,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "rubber-boy",
+      "sourceIds": ["unit-data"]
+    },
+    {
+      "id": "suited-alchemist",
+      "baseName": "Suited Alchemist",
+      "currentForm": "Suited Alchemist",
+      "forms": [
+        {
+          "name": "Suited Alchemist",
+          "evolved": false,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "Needs Review",
+      "element": "Neutral",
+      "archetype": "Magical",
+      "rarity": "Mythic",
+      "availability": "Needs Review",
+      "availabilityNote": "Documented Monster Clash fusion ingredient; current obtainment needs review.",
+      "evolutionState": "Base",
+      "placementLimit": 1,
+      "viewTiers": {
+        "Overall": "Pending",
+        "DPS": "Pending",
+        "Utility": "Pending",
+        "Support": "Pending",
+        "Crowd Control": "Pending"
+      },
+      "why": "This is a separately documented unit consumed in the Metallic Alchemist fusion recipe, not an evolved form of Metallic Alchemist. No combat ranking is assigned.",
+      "reviewStatus": "Pending",
+      "bestFor": [],
+      "investment": "Needs Review",
+      "investmentLevel": "Needs Review",
+      "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
+      "build": {
+        "traitIds": [],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Fusion ingredient; no reviewed combat build."
+      },
+      "partners": [],
+      "hidden": false,
+      "asset": "suited-alchemist",
+      "sourceIds": ["unit-data"]
+    }
+  ],
+  "traits": [
+    {
+      "id": "unbound",
+      "name": "Unbound",
+      "effect": "- Increase DMG by 350%; - Decrease SPA by 5%; - Increase Range by 10%; Single Placement",
+      "odds": "0.1%",
+      "pity": 1500,
+      "tier": "S",
+      "bestFor": "DPS",
+      "restriction": "Single placement: compare total team output before rerolling.",
+      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "primordial",
+      "name": "Primordial",
+      "effect": "- Increase DMG by 35%; - Decrease SPA by 15%; - Increase Range by 20%",
+      "odds": "0.2%",
+      "pity": 750,
+      "tier": "S",
+      "bestFor": "DPS",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "forsaken",
+      "name": "Forsaken",
+      "effect": "- Increase Crit DMG by 35%; - Increase Crit Chance by 35%; - Increase Range by 10%",
+      "odds": "0.3%",
+      "pity": 500,
+      "tier": "S",
+      "bestFor": "Crit builds",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: Crit builds. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "draconic",
+      "name": "Draconic",
+      "effect": "- Increase DMG by 20%; - Increase DoT Damage by 120%; - Decrease overall cost by 15%",
+      "odds": "0.5%",
+      "pity": 300,
+      "tier": "S",
+      "bestFor": "DoT",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: DoT. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "investor",
+      "name": "Investor",
+      "effect": "Increase money-farm income by 25%",
+      "odds": "2%",
+      "pity": null,
+      "tier": "A",
+      "bestFor": "Economy",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: Economy. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "optics",
+      "name": "Optics",
+      "effect": "Increase RNG by 25%",
+      "odds": "3%",
+      "pity": null,
+      "tier": "A",
+      "bestFor": "Support / range coverage",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: Support / range coverage. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "bolt",
+      "name": "Bolt",
+      "effect": "Decrease SPA by 15%",
+      "odds": "4%",
+      "pity": null,
+      "tier": "A",
+      "bestFor": "DPS",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "precision-2",
+      "name": "Precision 2",
+      "effect": "- Increase Critical Chance by 20%; - Increase Critical Damage by 10%",
+      "odds": "4%",
+      "pity": null,
+      "tier": "A",
+      "bestFor": "Crit builds",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: Crit builds. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "precision-1",
+      "name": "Precision 1",
+      "effect": "- Increase Critical Chance by 10%; - Increase Critical Damage by 5%",
+      "odds": "6%",
+      "pity": null,
+      "tier": "B",
+      "bestFor": "Crit builds",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: Crit builds. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "limit-breaker",
+      "name": "Limit Breaker",
+      "effect": "Increase DMG by 15%",
+      "odds": "6%",
+      "pity": null,
+      "tier": "B",
+      "bestFor": "DPS",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "range-2",
+      "name": "Range 2",
+      "effect": "Increase RNG by 10%",
+      "odds": "7%",
+      "pity": null,
+      "tier": "B",
+      "bestFor": "Support / range coverage",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: Support / range coverage. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "speed-2",
+      "name": "Speed 2",
+      "effect": "Decrease SPA by 10%",
+      "odds": "7%",
+      "pity": null,
+      "tier": "B",
+      "bestFor": "DPS",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "strength-2",
+      "name": "Strength 2",
+      "effect": "Increase DMG by 10%",
+      "odds": "7%",
+      "pity": null,
+      "tier": "B",
+      "bestFor": "DPS",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "enlightenment",
+      "name": "Enlightenment",
+      "effect": "Increase EXP by 50%",
+      "odds": "9%",
+      "pity": null,
+      "tier": "C",
+      "bestFor": "Progression",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: Progression. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "range-1",
+      "name": "Range 1",
+      "effect": "Increase RNG by 5%",
+      "odds": "14.63%",
+      "pity": null,
+      "tier": "C",
+      "bestFor": "Support / range coverage",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: Support / range coverage. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "speed-1",
+      "name": "Speed 1",
+      "effect": "Decrease SPA by 5%",
+      "odds": "14.63%",
+      "pity": null,
+      "tier": "C",
+      "bestFor": "DPS",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "strength-1",
+      "name": "Strength 1",
+      "effect": "Increase DMG by 5%",
+      "odds": "14.64%",
+      "pity": null,
+      "tier": "C",
+      "bestFor": "DPS",
+      "restriction": "Role fit and actual unit mechanics determine value.",
+      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "sourceIds": ["traits"],
+      "status": "Source checked; live review pending"
+    }
+  ],
+  "equipment": [
+    {
+      "id": "reaper-s-glove",
+      "name": "Reaper's Glove",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "5 to 10% Range",
+      "passive": "After this unit receives a Status Effect or Debuff:; - This unit's next Attack deals 10 to 15% extra damage",
+      "tier": "Pending",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "reaper-s-glove",
+      "status": "Needs Review"
+    },
+    {
+      "id": "burning-critter",
+      "name": "Burning Critter",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Range",
+      "passive": "When this unit applies Burn to a target:; - The next DOT applied after will deal 10% to 25% increased damage",
+      "tier": "A",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "burning-critter",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "sacrificial-mark",
+      "name": "Sacrificial Mark",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Range",
+      "passive": "Increase Damage by 1% (Capacity: 15%) for each enemy with Bleed or Marks applied in this unit's range",
+      "tier": "A",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "sacrificial-mark",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "economist-s-coin",
+      "name": "Economist's Coin",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "No fixed stat range documented.",
+      "passive": "At the end of each wave, return 1 to 10% of Yen spent during that wave (Per Player, does not stack)",
+      "tier": "A",
+      "bestFor": "Economy",
+      "sourceIds": ["equipment-data"],
+      "asset": "economist-s-coin",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "warrior-pole",
+      "name": "Warrior Pole",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Physical damage; 1 to 5% DMG",
+      "passive": "Increase unit damage by 5% while Transformed.",
+      "tier": "B",
+      "bestFor": "Physical DPS",
+      "sourceIds": ["equipment-data"],
+      "asset": "warrior-pole",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "kunai",
+      "name": "Kunai",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% DMG; -5 to -1% SPA",
+      "passive": "No additional passive documented.",
+      "tier": "B",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "kunai",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "enhanced-katana",
+      "name": "Enhanced Katana",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 5% Crit damage; 1 to 10% Crit chance",
+      "passive": "No additional passive documented.",
+      "tier": "B",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "enhanced-katana",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "magic-book",
+      "name": "Magic Book",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "5 to 20% Magical damage",
+      "passive": "No additional passive documented.",
+      "tier": "A",
+      "bestFor": "Magical DPS",
+      "sourceIds": ["equipment-data"],
+      "asset": "magic-book",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "pirate-s-slingshot",
+      "name": "Pirate's Slingshot",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "5 to 15% Range",
+      "passive": "No additional passive documented.",
+      "tier": "B",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "pirate-s-slingshot",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "raid-cape",
+      "name": "Raid Cape",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 5% Range; 1 to 10% DMG",
+      "passive": "No additional passive documented.",
+      "tier": "B",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "raid-cape",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "warrior-s-axe",
+      "name": "Warrior's Axe",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Physical damage; -5 to -1% SPA",
+      "passive": "No additional passive documented.",
+      "tier": "A",
+      "bestFor": "Physical DPS",
+      "sourceIds": ["equipment-data"],
+      "asset": "warrior-s-axe",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "shinigami-sword",
+      "name": "Shinigami Sword",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Crit chance; 1 to 5% DMG",
+      "passive": "Increase damage by 0.5 to 1% for each enemy in range. (Capacity: 15%)",
+      "tier": "B",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "shinigami-sword",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "bamboo-bottle",
+      "name": "Bamboo Bottle",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Range",
+      "passive": "Every time this unit uses an Active Ability, reduce the Active Ability cooldown by 1 to 2% (Capacity: 10%).",
+      "tier": "C",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "bamboo-bottle",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "elf-suitcase",
+      "name": "Elf Suitcase",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 5% Range; 1 to 10% Magical damage",
+      "passive": "No additional passive documented.",
+      "tier": "B",
+      "bestFor": "Magical DPS",
+      "sourceIds": ["equipment-data"],
+      "asset": "elf-suitcase",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "magic-orb",
+      "name": "Magic Orb",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Range; 1 to 5% DMG",
+      "passive": "No additional passive documented.",
+      "tier": "B",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "magic-orb",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "soul-splitter",
+      "name": "Soul Splitter",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Physical damage; 1 to 5% Range",
+      "passive": "No additional passive documented.",
+      "tier": "B",
+      "bestFor": "Physical DPS",
+      "sourceIds": ["equipment-data"],
+      "asset": "soul-splitter",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "red-finger",
+      "name": "Red Finger",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 5% Crit chance; 1 to 10% DMG",
+      "passive": "Increase Bleed DOT Damage by 2 to 5% per Bleed stack applied to an enemy. (Capacity: 20%)",
+      "tier": "B",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "red-finger",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "three-swords-from-hell",
+      "name": "Three Swords From Hell",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "5 to 15% DMG",
+      "passive": "No additional passive documented.",
+      "tier": "S",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "three-swords-from-hell",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "katana",
+      "name": "Katana",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Physical damage; 1 to 5% DMG",
+      "passive": "No additional passive documented.",
+      "tier": "B",
+      "bestFor": "Physical DPS",
+      "sourceIds": ["equipment-data"],
+      "asset": "katana",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "staff-of-chaos",
+      "name": "Staff of Chaos",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 10% Magical damage; -5 to -1% SPA",
+      "passive": "No additional passive documented.",
+      "tier": "A",
+      "bestFor": "Magical DPS",
+      "sourceIds": ["equipment-data"],
+      "asset": "staff-of-chaos",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "dragon-hilt",
+      "name": "Dragon Hilt",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "1 to 5% Crit chance; 1 to 10% Crit damage",
+      "passive": "No additional passive documented.",
+      "tier": "C",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "dragon-hilt",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "accursed-equipment",
+      "name": "Accursed Equipment",
+      "kind": "Standard",
+      "unit": null,
+      "effect": "-10 to -1% SPA",
+      "passive": "No additional passive documented.",
+      "tier": "S",
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "accursed-equipment",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "awakened-moonblade",
+      "name": "Awakened Moonblade",
+      "kind": "Exclusive",
+      "unit": "Reaper (Frenzied)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "When this unit is afflicted with a Status Effect:; - Cleanse itself & perform Retaliation Scream for 300% of its damage; - This attack hits all enemies in range & applies Stun for 3s; Cooldown: 3s",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "awakened-moonblade",
+      "status": "Needs Review"
+    },
+    {
+      "id": "blossom-blade",
+      "name": "Blossom Blade",
+      "kind": "Exclusive",
+      "unit": "Noble Captain (Vibrant)",
+      "effect": "-5 to -1% SPA; 1 to 5% Range",
+      "passive": "This unit deals +50% more damage to enemies with Movespeed-related Modifiers.; When an enemy is inflicted with Hard Crowd Control, this unit will:; - Follow-Up Attack on that enemy with Petal Execution for 100% of this unit's damage (Local Cooldown: 7s) When this unit attacks an enemy afflicted with Dismembered, gains:; - +20% Damage; - +10% Range; If Dismembered was applied by a Soul unit, instead gains:; - +40% Damage; - +20% Range",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "blossom-blade",
+      "status": "Needs Review"
+    },
+    {
+      "id": "demonic-pistols",
+      "name": "Demonic Pistols",
+      "kind": "Exclusive",
+      "unit": "Wolf (Revived)",
+      "effect": "1 to 10% DMG; 1 to 10% Magical damage",
+      "passive": "On the 5th Attack of each cycle performed through Rhythm of the Wolf:; - Spawn 3 Soul Wolves (Capacity: 3); Soul Wolf:; - Spawns next to this unit's position; - Has 25% of this unit's damage; - Applies Mana Burn for 50% of its damage; On Attack:; - Soul Wolf deletes itself",
+      "tier": null,
+      "bestFor": "Magical DPS",
+      "sourceIds": ["equipment-data"],
+      "asset": "demonic-pistols",
+      "status": "Needs Review"
+    },
+    {
+      "id": "hypnotic-edge",
+      "name": "Hypnotic Edge",
+      "kind": "Exclusive",
+      "unit": "Traitor (Illusion)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "When this unit is inflicted with a Status Effect or Debuff:; - Reflect the attempt back to the source and follow-up with Divine Rupture for 100% of this unit's damage on the targeted enemy, inflicting Hypnosis; - Hypnosis: Stays active for 10 seconds. On expiry, teleport enemy back to the original spot where they received Hypnosis; - Enemies inflicted with Hypnosis will take 25% more damage from Soul units.; Every 15s:; - Inflict the 5 strongest enemies on the map with Hypnosis",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "hypnotic-edge",
+      "status": "Needs Review"
+    },
+    {
+      "id": "lanza-de-luz",
+      "name": "Lanza de Luz",
+      "kind": "Exclusive",
+      "unit": "Black Heart (Revived)",
+      "effect": "-5 to -1% SPA; 1 to 5% DMG",
+      "passive": "On Attack:; - Also performs Launch of Despair for 100% of this unit's damage, targeting the enemy in Last (Cooldown: 5s); When this unit hits an enemy outside its range with any attack:; - Inflict Oppression for 10 seconds; - Enemies afflicted with Oppression take 10% more damage",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "lanza-de-luz",
+      "status": "Needs Review"
+    },
+    {
+      "id": "blade-arm",
+      "name": "Blade Arm",
+      "kind": "Exclusive",
+      "unit": "Alchemy Brothers (Truth)",
+      "effect": "1 to 10% Range; 1 to 5% DMG",
+      "passive": "This unit's attacks cycle through 3 attacks; Understand:; On attack:; - Apply Alchemy Mark (Capacity: 5); - Alchemy Mark will not be removed through each rotation; Deconstruct:; On attack:; - Grants all units in range 10% Magical damage per Alchemy Mark applied (Capacity: 65% Magical damage) for 10 seconds; Reconstruct:; On attack:; - Deal 150% of this unit's current damage; - Apply 70% Slow for 6 seconds",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "blade-arm",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "monster-claws",
+      "name": "Monster Claws",
+      "kind": "Exclusive",
+      "unit": "Subject 8 (Monster)",
+      "effect": "-5 to -1% SPA; 1 to 5% DMG",
+      "passive": "At full Control Meter stacks, unlock this passive; For 20 seconds:; - Increase damage by 75%; - Decrease SPA by 15%; - Increase AoE Size by 20%; Enemies hit by Colossal Roar:; - Deals 125% of this unit's current damage over 5 hits; - Grants all units in range 20% Physical damage; Once timer runs out, reset Control Meter to 0",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "monster-claws",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "angel-blade",
+      "name": "Angel Blade",
+      "kind": "Exclusive",
+      "unit": "Fallen Angel (Holy)",
+      "effect": "1 to 10% Range; 1 to 5% DMG",
+      "passive": "Every 30 seconds:; - Time Stop all enemies in range for 15 seconds (Maximum 3 times per enemy); During Time Stop:; - This unit applies Burn on attack; - Burn deals 2% increased damage per tick (Capacity: 30%); - All currently applied DOT have their durations paused until Time Stop ends (Enemies can be afflicted by additional DOT during this)",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "angel-blade",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "beacon-of-pride",
+      "name": "Beacon Of Pride",
+      "kind": "Exclusive",
+      "unit": "Crimson Captain (Moon)",
+      "effect": "1 to 10% Range; -5 to -1% SPA",
+      "passive": "If an enemy is within this unit's range:; - Gain 1 Scorched stack every 3 seconds (Capacity: 10); Enemies afflicted with Scorched will:; - Take 20% increased damage from Flame Element units; - Take 30% increased damage from any Fire DoT; For every Flame Element unit placed or unique stack of Fire DoT on an enemy in this unit's range:; - Increase damage by 5% (Capacity: 25%); - Increase buffs from Scorched by 2% (Capacity: 10%)",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "beacon-of-pride",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "fire-helmet",
+      "name": "Fire Helmet",
+      "kind": "Exclusive",
+      "unit": "Devil (Hero)",
+      "effect": "1 to 10% DMG; -5 to -1% SPA",
+      "passive": "Every 20 seconds:; - This unit's next attack applies a Demon Head for 15 seconds; Enemies inside Demon Head's radius:; - Take 15% increased damage from this unit; Demon Head:; - When this unit attacks an enemy inside its radius, apply 1 instance of Enhanced Burn; - Enhanced Burn deals 75% damage in 4 ticks over 4 seconds; - Stores all Enhanced Burn damage dealt while active",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "fire-helmet",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "ignis-restraint",
+      "name": "Ignis Restraint",
+      "kind": "Exclusive",
+      "unit": "Ignition Commander (Betrayal)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "When Rewind is applied from Immovable:; - Deal 100% damage to all enemies within Ignition Zone 15 second cooldown; When an enemy reaches the Heat Stack capacity from Immovable:; - Ignition Release deals 25% increased damage to them",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "ignis-restraint",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "joker-card",
+      "name": "Joker Card",
+      "kind": "Exclusive",
+      "unit": "Wild Card (Ace)",
+      "effect": "1 to 10% Range; 1 to 5% DMG",
+      "passive": "Every attack rotates between Royal Suit effects:; Jack:; - The enemy's Fire DoT deals 15% increased damage for 5 seconds; Queen:; - Reapply 1 Fire DoT on the enemy based on 75% of this unit's damage; King:; - Apply Burn for 6 ticks over 6 seconds; - Deal 90% of this unit's current damage; Joker:; - Apply Jack, Queen, and King; Queen and King cannot create more than 1 Fire DoT from this unit on the same enemy.",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "joker-card",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "blade-of-reality",
+      "name": "Blade of Reality",
+      "kind": "Exclusive",
+      "unit": "Eclipse Hunter (Savior)",
+      "effect": "1 to 10% Range; 1 to 5% DMG",
+      "passive": "If the Selected unit has less damage than this unit:; - Increase this unit's damage by 30%; If the Selected unit has more damage than this unit:; - Increase the Selected unit's range by 10%; - Increase the Selected unit's AoE Size by 20%; If the Selected unit is Iron Wolf (Struggler) or Silver Falcon:; - Increase the Selected unit's damage by 30%; - Increase the Selected unit's range by 10%; - Increase the Selected unit's AoE Size by 20%",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "blade-of-reality",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "chosen-sabre",
+      "name": "Chosen Sabre",
+      "kind": "Exclusive",
+      "unit": "Silver Falcon",
+      "effect": "1 to 10% Range; 1 to 5% DMG",
+      "passive": "On Placement:; - Increase all players' units' base damage by 15% (+2% per upgrade); - Increase all players' {{Archetype|Physical}} units' damage by 5% (+2% per upgrade); - Increase all players' {{Archetype|Magical}} units' damage by 5% (+2% per upgrade); The player's most equipped Archetype gains an additional 15% damage.; Buffs from The Captain do not stack.",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "chosen-sabre",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "demonslayer",
+      "name": "Demonslayer",
+      "kind": "Exclusive",
+      "unit": "Iron Wolf (Struggler)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "When an enemy that has been inflicted with Bleed at least 1 time dies:; - Leave 1 Crimson Spill on the ground for 6 seconds; Crimson Spill will apply 1 stack of Bleed every 3 seconds.; Only 2 non-permanent Crimson Spills}} may exist at a time.",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "demonslayer",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "orb-of-causality",
+      "name": "Orb of Causality",
+      "kind": "Exclusive",
+      "unit": "5th God Hand",
+      "effect": "1 to 10% DMG; -5 to -1% SPA",
+      "passive": "This unit has Fated Meter, starting at 0. (Capacity: 35); If an enemy survives Distortion's damage:; - Inflict enemy with Mark Of Fate; - Gain 1 Fated Meter ; For every enemy in range with Mark Of Fate:; - Increase this unit's damage by 5%; - Increase this unit's range by 2.5%; Mark Of Fate cannot stack.; Enemies inflicted with Mark Of Fate will take 20% increased damage from this unit.",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "orb-of-causality",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "storm-trident",
+      "name": "Storm Trident",
+      "kind": "Exclusive",
+      "unit": "Lightning God (Overcharged)",
+      "effect": "1 to 10% Range; 1 to 5% DMG",
+      "passive": "At 60 Voltage Meter stacks:; - Summon a Lightning Strike at this unit's position; - Reset Voltage Meter; On Lightning Strike:; - Deal 200% of this unit's current damage and apply Electricity to all enemies in this unit's range; - Leave Electric Residue on the ground that will despawn after 10 seconds; Electric Residue will:; - Keep Electricity permanently active on enemy until enemy has left range or it has despawned Every 10 seconds:; - Apply Golden to 2 enemies in range; Golden will:; - Stun an enemy for 5 seconds; - Increase chain lightning hits from Electricity to an additional 4 enemies",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "storm-trident",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "lightning-dagger",
+      "name": "Lightning Dagger",
+      "kind": "Exclusive",
+      "unit": "Sovereign (Djinn)",
+      "effect": "1 to 10% Range; 1 to 5% DMG",
+      "passive": "Every 7 seconds summon a Lightning Strike on the strongest enemy in this unit's range:; - Lightning Strike deals 100% of this unit's damage; - Lightning Strike will chain between 5 enemies; - Each chain deals 25% of this unit's current damage; - Each chain will also apply Freeze",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "lightning-dagger",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "tideblade",
+      "name": "Tideblade",
+      "kind": "Exclusive",
+      "unit": "Sharkfang (Abyssal)",
+      "effect": "1 to 10% Range; 1 to 5% SPA",
+      "passive": "Every 8 seconds:; - Summon Waterfall at the end of this unit's range moving towards spawn<brWaterfall will:; - Slow enemies hit by 50%; - Deal 35% of this unit's current damage",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "tideblade",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "fiery-staff",
+      "name": "Fiery Staff",
+      "kind": "Exclusive",
+      "unit": "Head Captain (Char)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "On Takedown within this unit's range:; - Transform the enemy into a Skeleton (Capcity:5); Each Skeleton will act as a Path Trap:; - When touched by an enemy, deal 50% of this unit's current damage; - Explode and apply Burn to enemies within 3 range; Each Skeleton summoned will:; - Increase this unit's damage by 5%",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "fiery-staff",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "poison-hook",
+      "name": "Poison Hook",
+      "kind": "Exclusive",
+      "unit": "Sand (Alligator)",
+      "effect": "1 to 10% Range; 1 to 5% DMG",
+      "passive": "Desert Storm appears at this unit's location Desert Storm will:; - Increase 5% in size every 1 seconds (Capacity:100%); - Apply Sandstorm to enemies inside; After Desert Storm has been at 100% for 14 seconds:; - Reset Desert Storm size to 10%",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "poison-hook",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "poison-frog",
+      "name": "Poison Frog",
+      "kind": "Exclusive",
+      "unit": "Rainman (Forecast)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "Poison Frogs are a stationary path summon. If an enemy walks over Poison Frog:; - Poison Frog will explode for 200% of this unit's current damage and apply Poison in 5 range",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "poison-frog",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "spirit-king-s-blade",
+      "name": "Spirit King's Blade",
+      "kind": "Exclusive",
+      "unit": "Water Mage (Scholar)",
+      "effect": "-5 to -1% SPA; 1 to 5% Range",
+      "passive": "Anytime this unit hits an nemy with Freeze:; - Deal 20% of this unit's current damage around the enemy; When Freeze expires from an enemy:; - Slow enemy by 50%; - 5 nearest enemies will take 25% of this unit's current damage",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "spirit-king-s-blade",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "carrot-s-gi",
+      "name": "Carrot's Gi",
+      "kind": "Exclusive",
+      "unit": "Carrot (Unleashed)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "No additional passive documented.",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "carrot-s-gi",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "mechanical-wings",
+      "name": "Mechanical Wings",
+      "kind": "Exclusive",
+      "unit": "Bioinsect (Final Form)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "No additional passive documented.",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "mechanical-wings",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "mentor-s-cape",
+      "name": "Mentor's Cape",
+      "kind": "Exclusive",
+      "unit": "Prodigy (Rage)",
+      "effect": "1 to 10% Range; -5 to -1% SPA",
+      "passive": "On Upgrade 3:; - Transform into Prodigy Transformation; - Every 3Regular Attack will deal 50% of this unit's damage to all enemies within its range; On Upgrade 5:; - Unlock Rage Unleashed",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "mentor-s-cape",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "pointy-straw",
+      "name": "Pointy Straw",
+      "kind": "Exclusive",
+      "unit": "The Drink (Juicebox)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "Every 4 Regular Attack:; - Inflict enemies with The Drink Mark for 15 seconds; The Drink Mark will:; - Increase all Follow-Up Attack damage by 25%; - Apply a Physical weakness at 10%",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "pointy-straw",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "royal-gi",
+      "name": "Royal Gi",
+      "kind": "Exclusive",
+      "unit": "Vegetable (Prince)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "For every Regular Attack from another unit in this unit's range:; - Increase this unit's damage by 5% (Capacity: 50%); For every Follow-Up Attack from another unit in this unit's range:; - Increase this unit's critical damage by 10% (Capacity: 30%)",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "royal-gi",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "illusion-crow",
+      "name": "Illusion Crow",
+      "kind": "Exclusive",
+      "unit": "Crow (Black Fire)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "While an enemy is in Illusion state:; - Store all damage taken from this unit; When Illusion expires:; - Deal stored damage at 50% effectiveness in a small AoE (2 range)",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "illusion-crow",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "dark-scepter",
+      "name": "Dark Scepter",
+      "kind": "Exclusive",
+      "unit": "Dark Mage (Sovereign)",
+      "effect": "-5 to -1% SPA; 1 to 5% Range",
+      "passive": "On switching to Lightning Magic:; - Summon an Arc of Lightning on the path inside of this unit's range; - Enemies that are touching Arc of Lightning will take 50% of this unit's current damage every 1 second On switching to Ice Magic:; - This unit gains Freeze on attack; On Regular Attack:; - Gain 1 stack of Frostbite per enemy hit (Capacity: 15); At 15 Frostbite stacks:; - This unit's next attack against enemies inflicted with Freeze will shatter, unfreezing them and dealing 25% additional damage in a small AoE (5 range)",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "dark-scepter",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "memory-pendant",
+      "name": "Memory Pendant",
+      "kind": "Exclusive",
+      "unit": "Cursed Immortal (Black Sun)",
+      "effect": "1 to 10% DMG; 1 to 10% Crit chance",
+      "passive": "This unit has Black Magic meter, starting at 0.; - When Black Magic Meter is increasing this unit will be in \"Caring State\"; - When Black Magic Meter is decreasing this unit will be in \"Cold State\"; Caring State:; - Every 1 seconds this unit walks increases this meter by 5; - Deal 50% of this unit's current damage in 75% of his range; Cold State:; - Every 1 seconds this unit walks decreases this meter by 2; - Deal 150% of this unit's current damage in 25% of his range",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "memory-pendant",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "predator-s-skull",
+      "name": "Predator's Skull",
+      "kind": "Exclusive",
+      "unit": "Razorjaw (Hunter)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "Every 10 seconds:; - Unleash a Full AoE Roar attack dealing 70% of this unit's current damage and apply Stagger to enemies for 2 seconds; - For each enemy hit by this attack, this unit gains 1% Critical Chance (Capacity: 30%)",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "predator-s-skull",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "hair-bells",
+      "name": "Hair Bells",
+      "kind": "Exclusive",
+      "unit": "8th Sword (Berserk)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "Enemies within 50% range will take 15% of this unit's current damage every 1 second. When this unit is stunned:; - Immediately Cleanse the stun; Follow-Up Attack (Thunderclap Cut) at 125% current damage; All of this unit's Follow-Up Attacks apply Dismembered to enemies",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "hair-bells",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "emperor-s-attire",
+      "name": "Emperor's Attire",
+      "kind": "Exclusive",
+      "unit": "Flame Emperor (Reincarnate)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "On applying Burn:; - Spread to the nearest 5 nearest enemies, that do not have Burn applied",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "emperor-s-attire",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "hell-s-flower",
+      "name": "Hell's Flower",
+      "kind": "Exclusive",
+      "unit": "Hollow (Blaze)",
+      "effect": "1 to 10% DMG; -5 to -1% SPA",
+      "passive": "If an enemy with Burn stops ticking within this unit's range:; - Convert 1 Burn application into Austere Flames dealing 85% of this unit's current damage; - Instance of Austere Flames from A passive ability belonging to Hollow (Blaze). do not stack",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "hell-s-flower",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "webbed-fruit",
+      "name": "Webbed Fruit",
+      "kind": "Exclusive",
+      "unit": "String Demon (Awakened)",
+      "effect": "1 to 10% Range; -5 to -1% SPA",
+      "passive": "Every 5 Regular Attack will Cocoon the enemies hit:; - Enemies are either stunned for 10 hits, or 5 seconds; If the Cocoon is broken after 10 hits:; - Deal 125% of this unit's current damage; If the Cocoon is not broken before 5 seconds:; Cocoon despawns",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "webbed-fruit",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "promise-ring",
+      "name": "Promise Ring",
+      "kind": "Exclusive",
+      "unit": "Cursed Student (True Love)",
+      "effect": "1 to 10% DMG; -5 to -1% SPA",
+      "passive": "Every 20 total stacks of Bleed in this unit's range:; Summon a Bat Spirit at this unit's position (Capacity: 3); - Bat Spirits will deal 25% of this unit's current damage per attack; Bat Spirits despawn after 3 attacks",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "promise-ring",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "spirit-of-the-moonblade",
+      "name": "Spirit of the Moonblade",
+      "kind": "Exclusive",
+      "unit": "Reaper (Released)",
+      "effect": "1 to 10% Crit chance; 1 to 10% Crit damage",
+      "passive": "This unit gains permanent Buffs after attacking different enemy types:; For each enemy type attacked:; - Increase Damage by 10%; - Increase Critical Chance by 10%",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "spirit-of-the-moonblade",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "boulder",
+      "name": "Boulder",
+      "kind": "Exclusive",
+      "unit": "Lady Giant (Envy)",
+      "effect": "-5 to -1% SPA; 1 to 5% Range",
+      "passive": "Summon a Stone Wall every 12 seconds. (Capacity: 2); - In Base Form: Stone Wall will have 75% of this unit's current damage as health; - In Giant Form: Stone Wall will have 50% of this unit's current damage as health",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "boulder",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "elven-battle-staff",
+      "name": "Elven Battle Staff",
+      "kind": "Exclusive",
+      "unit": "Elf Mage (Unleashed)",
+      "effect": "-5 to -1% SPA; 1 to 5% DMG",
+      "passive": "A passive belonging to Elf Mage (Unleashed). are considered Follow-Up Attacks; At 3 Charges, cast Old Magic; - Line AOE at 100% current damage; At 5 Charges, cast Eruption; Circle AOE at 125% current damage, and inflict Mana Burn; At 7 Charges, cast Storm; - Full AoE at 150% current damage",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "elven-battle-staff",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "technique-amplifier",
+      "name": "Technique Amplifier",
+      "kind": "Exclusive",
+      "unit": "Salmon Sorcerer (Grade 1)",
+      "effect": "-5 to -1% SPA; 1 to 5% Range",
+      "passive": "Apply Slow based on current attack:; Explode - 20%; Blast Away - 35%; Twist - 50%; Crush - 65% Apply Slow based on current attack:; Explode - 65%; Blast Away - 50%; Twist - 35%; Crush - 20%",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "technique-amplifier",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "calamity-s-eye",
+      "name": "Calamity's Eye",
+      "kind": "Exclusive",
+      "unit": "Puppet (Telekinetic)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "When an enemy with Puppet Mark from this unit dies:; - Summon a Doll in front of the killed enemy. (Capacity: 1); - Dolls will have 200% of this unit's current damage as health",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "calamity-s-eye",
+      "status": "Source checked; live review pending"
+    },
+    {
+      "id": "hexed-blade",
+      "name": "Hexed Blade",
+      "kind": "Exclusive",
+      "unit": "Shadow (Divine)",
+      "effect": "1 to 10% DMG; 1 to 5% Range",
+      "passive": "On Upgrade 3:; - Summon a Winged Spirit at this unit's position that will circle at 50% of this unit's range; - Winged Spirit will deal 75% of this unit's damage every 5 seconds in its current location and apply Stun",
+      "tier": null,
+      "bestFor": "Role / roll dependent",
+      "sourceIds": ["equipment-data"],
+      "asset": "hexed-blade",
+      "status": "Source checked; live review pending"
+    }
+  ],
+  "evolutions": [
+    {
+      "unitId": "metallic-alchemist",
+      "from": "Metallic Alchemist",
+      "to": "Alchemy Brothers (Truth)",
+      "priority": "Worth Evolving",
+      "reason": "The attack cycle combines Alchemy Mark, Magical amplification and slow. Team DoT balance changes its passive outcome, so it should be built around the actual equipped roster.",
+      "unlock": "Unlocks the combined Alchemy cycle and team-dependent passive.",
+      "materials": [
+        {
+          "name": "Suited Alchemist",
+          "count": 1
+        },
+        {
+          "name": "Philosopher's Stone",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "subject-8",
+      "from": "Subject 8",
+      "to": "Subject 8 (Monster)",
+      "priority": "Worth Evolving",
+      "reason": "Colossal Roar combines Dismember with a Physical damage buff in range. Its half-range trigger requires deliberate positioning, rather than placing it at the edge of coverage.",
+      "unlock": "Adds the close-range Colossal Roar.",
+      "materials": [
+        {
+          "name": "Sprite (Green)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Pink)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "fallen-angel",
+      "from": "Fallen Angel",
+      "to": "Fallen Angel (Holy)",
+      "priority": "High Priority",
+      "reason": "Time Stop creates a window for existing DoT effects. The evolved kill interaction extends that window and stores Flame Feathers, so wave density matters more than sheet DPS.",
+      "unlock": "Time Stop kills extend duration and store Flame Feathers.",
+      "materials": [
+        {
+          "name": "White Pillar Cloak",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "devil",
+      "from": "Devil",
+      "to": "Devil (Hero)",
+      "priority": "High Priority",
+      "reason": "Enhanced Burn stored by Demon Head is converted into a detonation. This makes DoT scaling valuable, but the explosion depends on its setup window and enemies remaining grouped.",
+      "unlock": "Adds the stored-burn detonation.",
+      "materials": [
+        {
+          "name": "Soul of Fire",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "ignition-commander",
+      "from": "Ignition Commander",
+      "to": "Ignition Commander (Betrayal)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Commander Jacket",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "crimson-captain",
+      "from": "Crimson Captain",
+      "to": "Crimson Captain (Moon)",
+      "priority": "High Priority",
+      "reason": "Fire Banners add independent Fire instances and eventually become moving summons. The damage ceiling needs time to establish banners; short stages reduce that advantage.",
+      "unlock": "Adds the Fire Banner summon loop.",
+      "materials": [
+        {
+          "name": "Mysterious Mask",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "wild-card",
+      "from": "Wild Card",
+      "to": "Wild Card (Ace)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Pocket Lighter",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "broken-falcon",
+      "from": "Broken Falcon",
+      "to": "5th God Hand",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Eclipse Shard",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "broken-falcon",
+      "from": "Broken Falcon",
+      "to": "Silver Falcon",
+      "priority": "Situational",
+      "reason": "The Captain boosts allied damage and rewards the dominant Archetype. Its buffs do not stack; it earns a slot through team output and War Chest income rather than personal DPS.",
+      "unlock": "One divergent path: broad team amplification instead of the Psychic damage branch.",
+      "materials": [
+        {
+          "name": "Cursed Egg",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "iron-wolf",
+      "from": "Iron Wolf",
+      "to": "Iron Wolf (Struggler)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Sprite (Red)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "eclipse-hunter",
+      "from": "Eclipse Hunter",
+      "to": "Eclipse Hunter (Savior)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Hollowed Egg",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Pink)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "lightning-god",
+      "from": "Lightning God",
+      "to": "Lightning God (Overcharged)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Ancient Bell",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Pink)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "sovereign",
+      "from": "Sovereign",
+      "to": "Sovereign (Djinn)",
+      "priority": "High Priority",
+      "reason": "Lightning chains bounce back onto fewer targets. Boss proximity activates the second Djinn with Freeze and follow-up slow, making its contribution depend on what enters range.",
+      "unlock": "Adds the dual-Djinn boss interaction.",
+      "materials": [
+        {
+          "name": "Lightning Emblem",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "rainman",
+      "from": "Rainman",
+      "to": "Rainman (Forecast)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Cloud Disc",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "sharkfang",
+      "from": "Sharkfang",
+      "to": "Sharkfang (Abyssal)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Sharktooth Necklace",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "head-captain",
+      "from": "Head Captain",
+      "to": "Head Captain (Char)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Overgrown Beard",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "sand",
+      "from": "Sand",
+      "to": "Sand (Alligator)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Desert Fruit",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "water-mage",
+      "from": "Water Mage",
+      "to": "Water Mage (Scholar)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Spirit King's Cloak",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Pink)",
+          "count": 25
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "prodigy",
+      "from": "Prodigy",
+      "to": "Prodigy (Rage)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Rage Catalyst",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "the-drink",
+      "from": "The Drink",
+      "to": "The Drink (Juicebox)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "bioinsect",
+      "from": "Bioinsect",
+      "to": "Bioinsect (Final Form)",
+      "priority": "Worth Evolving",
+      "reason": "Biogel links slow into stun and the transformation chain needs takedowns and summoned boss kills. A strong long-run tool that cannot be treated as fully ramped at placement.",
+      "unlock": "Adds transformation progression and Biogel utility.",
+      "materials": [
+        {
+          "name": "Bioinsect Core",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Pink)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "carrot",
+      "from": "Carrot",
+      "to": "Carrot (Unleashed)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Medication",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "vegetable",
+      "from": "Vegetable",
+      "to": "Vegetable (Prince)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Prince's Crown",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "razorjaw",
+      "from": "Razorjaw",
+      "to": "Razorjaw (Hunter)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Jaw Skull",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "dark-mage",
+      "from": "Dark Mage",
+      "to": "Dark Mage (Sovereign)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Magical Amulet",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "cursed-immortal",
+      "from": "Cursed Immortal",
+      "to": "Cursed Immortal (Black Sun)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Cursed Book",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "crow",
+      "from": "Crow",
+      "to": "Crow (Black Fire)",
+      "priority": "High Priority",
+      "reason": "Illusion rewards grouping enemies before its explosion; BlackFire supplies a separate damage route. Isolated targets and poor stacking reduce the value of the same build.",
+      "unlock": "Unlocks the Black Fire form and Illusion Crow equipment slot.",
+      "materials": [
+        {
+          "name": "Crow's Ring",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "true-saint",
+      "from": "True Saint",
+      "to": "True Saint (Holy)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Holy Pendant",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 5
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 5
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 5
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 5
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 5
+        },
+        {
+          "name": "Sprite (Pink)",
+          "count": 5
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "string-demon",
+      "from": "String Demon",
+      "to": "String Demon (Awakened)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Joker of the Nonsensical Pirates",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Pink)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "crimson",
+      "from": "Crimson",
+      "to": "Crimson (Brother)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Pink)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "cursed-student",
+      "from": "Cursed Student",
+      "to": "Cursed Student (True Love)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Student ID",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "flame-emperor",
+      "from": "Flame Emperor",
+      "to": "Flame Emperor (Reincarnate)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Burning Fruit",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "8th-sword",
+      "from": "8th Sword",
+      "to": "8th Sword (Berserk)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "hollow",
+      "from": "Hollow",
+      "to": "Hollow (Blaze)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Elixir of Life",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "shadow",
+      "from": "Shadow",
+      "to": "Shadow (Divine)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 3
+        },
+        {
+          "name": "Gold",
+          "count": 10000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "salmon-sorcerer",
+      "from": "Salmon Sorcerer",
+      "to": "Salmon Sorcerer (Grade 1)",
+      "priority": "Worth Evolving",
+      "reason": "The base slow and evolved close-range Stagger create layered stall. Placement must bring enemies inside half of its range for Plummet; extra range alone does not guarantee that trigger.",
+      "unlock": "Adds the close-range Plummet Stagger.",
+      "materials": [
+        {
+          "name": "Salmon",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Provisional"
+    },
+    {
+      "unitId": "reaper",
+      "from": "Reaper",
+      "to": "Reaper (Released)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Hollowed Visor",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Red)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "lady-giant",
+      "from": "Lady Giant",
+      "to": "Lady Giant (Envy)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Giant Hammer",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Green)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Yellow)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "elf-mage",
+      "from": "Elf Mage",
+      "to": "Elf Mage (Unleashed)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Cosmic Magic",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Blue)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    },
+    {
+      "unitId": "puppet",
+      "from": "Puppet",
+      "to": "Puppet (Telekinetic)",
+      "priority": null,
+      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "unlock": "Form change; specific unlock needs review.",
+      "materials": [
+        {
+          "name": "Puppet Heart",
+          "count": 1
+        },
+        {
+          "name": "Sprite (Pink)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Purple)",
+          "count": 20
+        },
+        {
+          "name": "Sprite (Rainbow)",
+          "count": 1
+        },
+        {
+          "name": "Gold",
+          "count": 5000
+        }
+      ],
+      "status": "Pending"
+    }
+  ]
+}
