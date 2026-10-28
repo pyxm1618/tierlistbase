@@ -79,10 +79,7 @@ export function DragonTravelerTierListPage() {
   const filtered = useMemo(
     () =>
       snapshot.luminaries.filter((luminary) => {
-        if (
-          deferredClassFilter !== "all" &&
-          luminary.classKey !== deferredClassFilter
-        ) {
+        if (deferredClassFilter !== "all" && luminary.classKey !== deferredClassFilter) {
           return false;
         }
         if (
@@ -91,10 +88,7 @@ export function DragonTravelerTierListPage() {
         ) {
           return false;
         }
-        if (
-          deferredRarityFilter !== "all" &&
-          luminary.rarityKey !== deferredRarityFilter
-        ) {
+        if (deferredRarityFilter !== "all" && luminary.rarityKey !== deferredRarityFilter) {
           return false;
         }
         return true;
