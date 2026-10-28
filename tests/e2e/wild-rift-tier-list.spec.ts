@@ -44,7 +44,7 @@ test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All R
 
   await expect(page.locator('[data-ia-section="faq"] details')).toHaveCount(6);
   await expect(page.locator('[data-ia-section="sources-evidence"]')).toContainText(
-    "CN ladder statistics · Master+ · Ranked",
+    "China-server data · Master+ · Ranked",
   );
   await expect(page.locator('[data-ia-section="sources-evidence"]')).toContainText(
     "not affiliated with, approved by, endorsed by, or partnered with Riot Games",
