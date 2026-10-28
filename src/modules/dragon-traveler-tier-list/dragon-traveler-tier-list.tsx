@@ -102,9 +102,7 @@ export function DragonTravelerTierListPage() {
     snapshot.luminaries[0];
 
   const quickPicks = useMemo(() => {
-    const best = snapshot.luminaries.filter(
-      (luminary) => rankOf(luminary, deferredMode) === "S+",
-    );
+    const best = snapshot.luminaries.filter((luminary) => rankOf(luminary, deferredMode) === "S+");
     return (best.length > 0 ? best : snapshot.luminaries).slice(0, 4);
   }, [snapshot, deferredMode]);
 
