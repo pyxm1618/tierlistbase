@@ -42,6 +42,13 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     navigationVisible: true,
     navigationOrder: 5,
   },
+  {
+    slug: "wild-rift",
+    name: "Wild Rift",
+    tierListHref: "/wild-rift/tier-list",
+    navigationVisible: true,
+    navigationOrder: 6,
+  },
 ] as const;
 
 export const navigationGames = gamesConfig.filter((game) => game.navigationVisible);
