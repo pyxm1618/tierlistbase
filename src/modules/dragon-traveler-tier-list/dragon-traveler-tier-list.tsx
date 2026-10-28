@@ -82,18 +82,21 @@ export function DragonTravelerTierListPage() {
         if (
           deferredClassFilter !== "all" &&
           luminary.classKey !== deferredClassFilter
-        )
+        ) {
           return false;
+        }
         if (
           deferredFactionFilter !== "all" &&
           !luminary.factionKeys.includes(deferredFactionFilter)
-        )
+        ) {
           return false;
+        }
         if (
           deferredRarityFilter !== "all" &&
           luminary.rarityKey !== deferredRarityFilter
-        )
+        ) {
           return false;
+        }
         return true;
       }),
     [snapshot, deferredClassFilter, deferredFactionFilter, deferredRarityFilter],
