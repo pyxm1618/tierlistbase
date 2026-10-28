@@ -54,10 +54,7 @@ jobs:
           bunx prettier --config .prettierrc.json --write /tmp/auth-schema.ts
           diff -u src/platform/database/auth-schema.ts /tmp/auth-schema.ts
       - name: Formatting
-        run: |
-          bunx prettier --config .prettierrc.json --write             src/modules/wild-rift-tier-list/data.ts             src/modules/wild-rift-tier-list/wild-rift-tier-list.module.css             src/modules/wild-rift-tier-list/wild-rift-workspace.tsx             tests/e2e/wild-rift-tier-list.spec.ts             tests/unit/wild-rift-tier-list/data.test.ts
-          git diff --             src/modules/wild-rift-tier-list/data.ts             src/modules/wild-rift-tier-list/wild-rift-tier-list.module.css             src/modules/wild-rift-tier-list/wild-rift-workspace.tsx             tests/e2e/wild-rift-tier-list.spec.ts             tests/unit/wild-rift-tier-list/data.test.ts
-          exit 1
+        run: bun run format:check
       - name: Lint
         run: bun run lint
       - name: Typecheck
