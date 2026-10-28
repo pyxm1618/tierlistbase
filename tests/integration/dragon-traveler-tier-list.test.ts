@@ -5,9 +5,7 @@ import { classKeys, globalSnapshot, taiwanSnapshot } from "@/modules/dragon-trav
 
 describe("Dragon Traveler product integration", () => {
   it("connects the public route to two independent server snapshots", () => {
-    expect(routeRegistry.get("/dragon-traveler/tier-list").class).toBe(
-      "public_noindex",
-    );
+    expect(routeRegistry.get("/dragon-traveler/tier-list").class).toBe("public_noindex");
 
     expect(globalSnapshot.id).toBe("global");
     expect(taiwanSnapshot.id).toBe("taiwan");
