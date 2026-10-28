@@ -429,10 +429,16 @@ test("keeps the visible Limbus keyword group within the approved SEO range", asy
   expect(phraseStats[1]!.occurrences).toBeGreaterThan(phraseStats[3]!.occurrences);
 });
 
-test("keeps shared navigation on public game pages and hides remaining preview routes from header", async ({
+test("keeps shared navigation on public game pages and verifies registered games in header", async ({
   page,
 }) => {
-  const labels = ["World of Warcraft", "Genshin Impact"];
+  const labels = [
+    "World of Warcraft",
+    "Genshin Impact",
+    "Zenless Zone Zero",
+    "NIKKE",
+    "Limbus Company",
+  ];
   const registeredGameRoutes = ["/wow-forever/tier-list", "/genshin-impact/tier-list"].filter(
     (path) => routeRegistry.routes.some((entry) => entry.route === path),
   );
@@ -442,8 +448,14 @@ test("keeps shared navigation on public game pages and hides remaining preview r
     const nav = page.locator('header nav[aria-label="Primary navigation"]');
     await expect(nav.getByRole("link")).toHaveText(labels);
     const mobileNav = page.locator('header nav[aria-label="Mobile navigation"]');
-    for (const previewRoute of ["/nikke/tier-list", "/zenless-zone-zero/tier-list"]) {
-      await expect(mobileNav.locator(`a[href="${previewRoute}"]`)).toHaveCount(0);
+    for (const gameRoute of [
+      "/wow-forever/tier-list",
+      "/genshin-impact/tier-list",
+      "/zenless-zone-zero/tier-list",
+      "/nikke/tier-list",
+      "/limbus-company/tier-list",
+    ]) {
+      await expect(mobileNav.locator(`a[href="${gameRoute}"]`)).toHaveCount(1);
     }
   }
   await page.goto(route);
