@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 
 import { routeRegistry } from "@/config/routes.config";
-import { classKeys, globalSnapshot, taiwanSnapshot } from "@/modules/dragon-traveler-tier-list";
+import {
+  classKeys,
+  globalSnapshot,
+  taiwanSnapshot,
+} from "@/modules/dragon-traveler-tier-list";
 
 describe("Dragon Traveler product integration", () => {
   it("connects the public route to two independent server snapshots", () => {
