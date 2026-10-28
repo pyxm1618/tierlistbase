@@ -442,9 +442,9 @@ function strengthsFor(
     strengths.push(`Meaningful current draft pressure (${banRate.toFixed(1)}% ban rate).`);
   }
   strengths.push(
-    `Role review explicitly weights ${roleCriteria[role][0].toLowerCase()} and ${roleCriteria[
+    `Role review explicitly weights ${roleCriteria[role][0]!.toLowerCase()} and ${roleCriteria[
       role
-    ][1].toLowerCase()}.`,
+    ][1]!.toLowerCase()}.`,
   );
   if (strengths.length < 2) {
     strengths.push(
@@ -501,9 +501,9 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
       )}, ${stat(seed.pickRate, "PR")}, and ${stat(
         seed.banRate,
         "BR",
-      )} with role-specific review of ${roleCriteria[role][0].toLowerCase()}, ${roleCriteria[
+      )} with role-specific review of ${roleCriteria[role][0]!.toLowerCase()}, ${roleCriteria[
         role
-      ][1].toLowerCase()}, execution burden, and solo-queue reliability.`
+      ][1]!.toLowerCase()}, execution burden, and solo-queue reliability.`
     : `${champion.name} is ${tier} in ${
         roleLabels[role]
       } in the reviewed role snapshot. The source entry does not expose complete WR / PR / BR values, so the tier is retained without inventing missing statistics and is cross-checked against role context.`;
