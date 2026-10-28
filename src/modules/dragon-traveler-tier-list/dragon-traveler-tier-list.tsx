@@ -270,7 +270,9 @@ export function DragonTravelerTierListPage() {
           <div className={styles.workspace}>
             <div className={styles.board} aria-label="Luminary ranking board">
               {tiers.map((tier) => {
-                const members = filtered.filter((luminary) => rankOf(luminary, deferredMode) === tier);
+                const members = filtered.filter(
+                  (luminary) => rankOf(luminary, deferredMode) === tier,
+                );
                 return (
                   <div className={styles.tierRow} key={tier}>
                     <div className={styles.tierLabel}>{tier}</div>
