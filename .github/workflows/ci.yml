@@ -50,7 +50,7 @@ jobs:
           git diff --check origin/main...HEAD
       - name: Verify Better Auth schema generation
         run: |
-          bunx auth@1.6.25 generate --config src/platform/auth/auth-cli.ts --output /tmp/auth-schema.ts --yes
+          bunx auth@1.7.7 generate --config src/platform/auth/auth-cli.ts --output /tmp/auth-schema.ts --yes
           bunx prettier --config .prettierrc.json --write /tmp/auth-schema.ts
           diff -u src/platform/database/auth-schema.ts /tmp/auth-schema.ts
       - name: Formatting
