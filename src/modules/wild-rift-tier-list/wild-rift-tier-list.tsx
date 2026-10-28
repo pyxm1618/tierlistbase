@@ -38,7 +38,7 @@ function HeroChampion({
   priority = false,
 }: {
   championId: string;
-  className: string;
+  className?: string;
   priority?: boolean;
 }) {
   const champion = getChampion(championId);
