@@ -77,6 +77,17 @@ function ChampionPortrait({
   priority?: boolean;
 }) {
   const champion = championForId(championId);
+  if (!champion.portrait) {
+    return (
+      <span className={styles.portraitFallback} aria-hidden="true">
+        {champion.name
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)}
+      </span>
+    );
+  }
   return (
     <Image
       src={champion.portrait}
