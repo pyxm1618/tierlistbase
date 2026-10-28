@@ -363,7 +363,9 @@ function RoleNavigation({
 }
 
 function AllRolesOverview({ onRoleChange }: { onRoleChange: (role: RoleKey) => void }) {
-  const tierOrder = new Map(tiers.map((tier, index) => [tier, index]));
+  const tierOrder = new Map<Tier, number>(
+    tiers.map((tier, index) => [tier, index] as const),
+  );
   return (
     <section
       className={styles.allRoles}
