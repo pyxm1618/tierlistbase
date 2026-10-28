@@ -79,7 +79,7 @@ export function DragonTravelerTierListPage() {
   const filtered = useMemo(
     () =>
       snapshot.luminaries.filter((luminary) => {
-        if (deferredClassFilter !== "all" && luminary.classKey !== deferredClassFilter) return false;
+        if (deferredClassFilter !== "all" && luminary.classKey !== deferredClassFilter)\n          return false;
         if (
           deferredFactionFilter !== "all" &&
           !luminary.factionKeys.includes(deferredFactionFilter)
