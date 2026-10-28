@@ -47,14 +47,14 @@ describe("Dragon Traveler server snapshots", () => {
   });
 
   it("uses the verified Global rarity taxonomy and rejects old generic labels", () => {
-    expect(labels(globalRarityOptions)).toEqual(["SSR EX", "SSR+", "SSR", "SR", "R", "N"]);
+    expect(labels(globalRarityOptions)).toEqual(["SSR Ex", "SSR+", "SSR", "SR", "R", "N"]);
     expect(labels(globalRarityOptions)).not.toEqual(
       expect.arrayContaining(["Mythic", "Legendary", "Epic"]),
     );
   });
 
   it("keeps Taiwan rarity labels server-native instead of translating Global labels", () => {
-    expect(labels(taiwanRarityOptions)).toEqual(["傳說·神話", "傳說+", "傳說", "史詩"]);
+    expect(labels(taiwanRarityOptions)).toEqual(["傳說·神話", "傳說+", "傳說", "史詩", "菁英", "普通"]);
     expect(labels(taiwanRarityOptions)).not.toEqual(
       expect.arrayContaining(["Mythic", "Legendary", "Epic"]),
     );

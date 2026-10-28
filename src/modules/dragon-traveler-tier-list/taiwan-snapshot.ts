@@ -14,6 +14,8 @@ export const taiwanRarityOptions = [
   { key: "tw-q3", label: "傳說+" },
   { key: "tw-q2", label: "傳說" },
   { key: "tw-q1", label: "史詩" },
+  { key: "tw-q0", label: "菁英" },
+  { key: "tw-qn1", label: "普通" },
 ] as const;
 
 export type TaiwanFactionKey = (typeof taiwanFactionOptions)[number]["key"];

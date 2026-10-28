@@ -10,7 +10,7 @@ export const globalFactionOptions = [
 ] as const;
 
 export const globalRarityOptions = [
-  { key: "ssr-ex", label: "SSR EX" },
+  { key: "ssr-ex", label: "SSR Ex" },
   { key: "ssr-plus", label: "SSR+" },
   { key: "ssr", label: "SSR" },
   { key: "sr", label: "SR" },

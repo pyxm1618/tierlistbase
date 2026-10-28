@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: "Why do rarity filters change when I switch servers?",
-    a: "The two servers publish different rarity labels. Global currently uses SSR EX / SSR+ / SSR / SR / R / N, while Taiwan official notices expose local labels such as 傳說·神話 and 傳說+.",
+    a: "The two servers publish different rarity labels. Global currently uses SSR Ex / SSR+ / SSR / SR / R / N, while Taiwan official notices expose local labels such as 傳說·神話 and 傳說+.",
   },
   {
     q: "What does S+ mean?",
