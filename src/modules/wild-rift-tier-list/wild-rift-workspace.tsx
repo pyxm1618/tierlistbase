@@ -71,21 +71,14 @@ function ChampionPortrait({
   priority?: boolean;
 }) {
   const champion = championForId(championId);
-  if (!champion.portrait) {
-    return (
-      <span className={styles.portraitFallback} aria-hidden="true">
-        {champion.name
-          .split(/\s+/)
-          .map((part) => part[0])
-          .join("")
-          .slice(0, 2)}
-      </span>
-    );
-  }
   return (
     <Image
       src={champion.portrait}
-      alt=""
+      alt={
+        champion.portraitKind === "placeholder"
+          ? `${champion.name} portrait unavailable; placeholder`
+          : ""
+      }
       fill
       sizes={sizes}
       priority={priority}
@@ -152,9 +145,26 @@ function ChampionDetail({
         <Metric label="Win Rate" value={percent(ranking.winRate)} emphasis />
         <Metric label="Pick Rate" value={percent(ranking.pickRate)} />
         <Metric label="Ban Rate" value={percent(ranking.banRate)} />
-        <Metric label="Trend" value={trendLabel(ranking)} />
+        <Metric
+          label="WR change · 7d"
+          value={
+            ranking.winRateChange7d === null
+              ? "unavailable"
+              : `${ranking.winRateChange7d > 0 ? "+" : ""}${ranking.winRateChange7d.toFixed(2)} pp`
+          }
+        />
       </div>
 
+      <p className={styles.disclosure}>
+        {ranking.placementKind === "editorial"
+          ? "TierListBase editorial placement · Role statistics unavailable (WR / PR / BR: N/A)."
+          : "CN Server · Master+ · Ranked · WR / PR / BR from the reviewed source."}{" "}
+        Source tier: {ranking.sourceTier} (Wild Rift Core); retained after TierListBase review. Ban
+        rate is champion-wide.{" "}
+        {ranking.trend === "unavailable"
+          ? "7-day trend unavailable."
+          : "Arrows show 7-day win-rate change, not tier movement."}
+      </p>
       <section className={styles.detailSection}>
         <h4>Other Viable Roles</h4>
         {otherRoles.length ? (
@@ -177,6 +187,7 @@ function ChampionDetail({
 
       <section className={styles.detailSection}>
         <h4>Decision Signals</h4>
+        <p>TierListBase editorial assessments · not Tencent metrics or official statistics.</p>
         <div className={styles.signals}>
           {signals.map(([label, level]) => (
             <div className={styles.signal} key={label}>
@@ -196,6 +207,9 @@ function ChampionDetail({
       <div className={styles.proConGrid}>
         <section className={styles.detailSection}>
           <h4>Key Strengths</h4>
+          <a href={ranking.abilitySourceUrl} target="_blank" rel="noopener noreferrer">
+            Ability reference · Riot Games
+          </a>
           <ul>
             {ranking.strengths.map((strength) => (
               <li key={strength}>{strength}</li>
@@ -407,7 +421,15 @@ function AllRolesOverview({ onRoleChange }: { onRoleChange: (role: RoleKey) => v
                       <span className={styles.tierBadge} data-tier={ranking.tier}>
                         {ranking.tier}
                       </span>
-                      <span className={styles.trend} data-trend={ranking.trend}>
+                      <span
+                        className={styles.trend}
+                        data-trend={ranking.trend}
+                        aria-label={
+                          ranking.winRateChange7d === null
+                            ? "7-day WR trend unavailable"
+                            : `7-day WR change: ${ranking.winRateChange7d} percentage points`
+                        }
+                      >
                         {trendLabel(ranking)}
                       </span>
                     </li>
@@ -538,7 +560,15 @@ function TierBoard({
                       <span className={styles.cardBody}>
                         <span className={styles.cardHeader}>
                           <strong>{champion.name}</strong>
-                          <span className={styles.trend} data-trend={ranking.trend}>
+                          <span
+                            className={styles.trend}
+                            data-trend={ranking.trend}
+                            aria-label={
+                              ranking.winRateChange7d === null
+                                ? "7-day WR trend unavailable"
+                                : `7-day WR change: ${ranking.winRateChange7d} percentage points`
+                            }
+                          >
                             {trendLabel(ranking)}
                           </span>
                         </span>
@@ -573,7 +603,10 @@ function QuickInsights({ role }: { role: RoleView }) {
       >
         <div className={styles.sectionTitleInline}>
           <h2 id="insights-title">Quick Insights</h2>
-          <p>Select a role to see its Blind Pick, Easy Climb, Draft Priority, and Biggest Riser.</p>
+          <p>
+            Select a role to see editorial picks and the largest available same-role 7-day win-rate
+            gain.
+          </p>
         </div>
       </section>
     );
@@ -587,7 +620,10 @@ function QuickInsights({ role }: { role: RoleView }) {
     >
       <div className={styles.sectionTitleInline}>
         <h2 id="insights-title">Quick Insights</h2>
-        <p>Key takeaways for {roleLabels[role]} in the current Ranked snapshot.</p>
+        <p>
+          TierListBase editorial choices for {roleLabels[role]}; Biggest Riser compares available
+          same-role 7-day WR changes.
+        </p>
       </div>
       <div className={styles.insightGrid}>
         {quickInsights[role].map((insight) => {
@@ -627,7 +663,10 @@ function WhatChanged({ role }: { role: RoleView }) {
       <div className={styles.changedHeader}>
         <div>
           <h2 id="changed-title">What Changed</h2>
-          <p>Reviewed tier movement within the current patch cycle.</p>
+          <p>
+            Wild Rift Core-reported source-tier history since the first 7.3 update; not TierListBase
+            historical rankings.
+          </p>
         </div>
         <div>
           <strong>Latest Ranked Balance: {snapshot.latestRankedBalance}</strong>
@@ -649,6 +688,15 @@ function WhatChanged({ role }: { role: RoleView }) {
                     {roleLabels[change.role]} · {change.from} → {change.to}
                   </span>
                   <p>{change.reason}</p>
+                  <time dateTime={change.date}>{change.date}</time>
+                  {" · "}
+                  <a
+                    href="https://wildriftcore.com/en/tierlist/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Source history
+                  </a>
                 </div>
                 <span className={styles.changeType}>{change.type}</span>
               </article>
@@ -657,7 +705,8 @@ function WhatChanged({ role }: { role: RoleView }) {
         </div>
       ) : (
         <p className={styles.noChanges}>
-          No dated reviewed tier movement is recorded for this role.
+          No tier changes cleared the full evidence review. Source-reported movements are withheld
+          because their reasons are unverified.
         </p>
       )}
     </section>

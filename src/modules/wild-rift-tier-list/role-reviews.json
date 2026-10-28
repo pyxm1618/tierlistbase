@@ -1,0 +1,834 @@
+{
+  "malphite:baron": {
+    "rationale": "Armor-based lane stability and a direct teamfight engage justify high priority, but magic-heavy matchups prevent unconditional blind-pick safety.",
+    "signals": "HMHHM"
+  },
+  "mordekaiser:baron": {
+    "rationale": "Sustained dueling and target isolation provide an independent side-lane plan; ranged kiting remains the main draft constraint.",
+    "signals": "HMMHL"
+  },
+  "shen:baron": {
+    "rationale": "Defensive trades can preserve lane while his ultimate changes fights elsewhere, trading personal lane pressure for map protection.",
+    "signals": "HMMMH"
+  },
+  "teemo:baron": {
+    "rationale": "Blind and mushroom zones punish specific melee matchups; the strong lane results do not solve a composition's missing frontline.",
+    "signals": "MLMML"
+  },
+  "kalista:baron": {
+    "rationale": "Ranged hops can pressure melee opponents in a long lane, but execution and gank exposure make this a specialist lane choice.",
+    "signals": "MLLHM"
+  },
+  "chogath:baron": {
+    "rationale": "Sustain-oriented frontlining and area disruption survive a neutral lane; delayed control and low mobility limit proactive pressure.",
+    "signals": "MMHMM"
+  },
+  "ksante:baron": {
+    "rationale": "Control and target isolation let him convert a frontline lane into fight access, with significant execution demands.",
+    "signals": "HMLHM"
+  },
+  "ambessa:baron": {
+    "rationale": "Repeated dashes sustain melee pressure and threaten backline entry, but resource sequencing and unfavorable ranged lanes remain demanding.",
+    "signals": "MMLHL"
+  },
+  "ornn:baron": {
+    "rationale": "Durable lane play transitions into long-range initiation, giving the role useful fight value even without a solo kill lead.",
+    "signals": "HHMMM"
+  },
+  "jax:baron": {
+    "rationale": "Side-lane dueling and attack denial create a scaling lane plan, though ranged pressure can delay his first useful fighting window.",
+    "signals": "MMMMM"
+  },
+  "gwen:baron": {
+    "rationale": "Anti-frontline damage and mist support extended duels; the sub-50% results caution against treating this as a safe generalist.",
+    "signals": "MLMHL"
+  },
+  "vayne:baron": {
+    "rationale": "True damage and precise kiting can punish tanks in lane, but offer limited frontline value and expose her to ganks.",
+    "signals": "MLLHL"
+  },
+  "singed:baron": {
+    "rationale": "Poison routing and displacement can disrupt melee lanes; low pick presence and unusual lane management limit general reliability.",
+    "signals": "MLMHM"
+  },
+  "yone:baron": {
+    "rationale": "Wave-assisted trades can develop into side-lane threat, but a predictable return point gives opponents a clear punish window.",
+    "signals": "MMLHL"
+  },
+  "jayce:baron": {
+    "rationale": "Ranged pressure and form-switch burst reward lane initiative; maintaining that advantage requires accurate spells and spacing.",
+    "signals": "MLLHL"
+  },
+  "darius:baron": {
+    "rationale": "Extended melee trades and resets punish close-range drafts, while kiting and below-50% results limit the case for higher priority.",
+    "signals": "MLMHL"
+  },
+  "riven:baron": {
+    "rationale": "Short dash-and-shield trades offer outplay routes in lane, but mechanical demands constrain repeatable value.",
+    "signals": "MLLHL"
+  },
+  "gnar:baron": {
+    "rationale": "Ranged harassment and transformation-based engage give two useful lane states, provided rage timing aligns with team objectives.",
+    "signals": "MMMMM"
+  },
+  "dr-mundo:baron": {
+    "rationale": "Recovery and persistent frontline pressure offer a simple lane plan; anti-heal and weak hard control restrict draft flexibility.",
+    "signals": "MMHML"
+  },
+  "kennen:baron": {
+    "rationale": "Ranged lane pressure can transition into a flank engage, but teamfight value depends on finding access through disengage.",
+    "signals": "MMMHM"
+  },
+  "aatrox:baron": {
+    "rationale": "Repeated knockups and healing can dominate extended lane trades, but missing sweet spots undermines both damage and survival.",
+    "signals": "MMLHL"
+  },
+  "nautilus:baron": {
+    "rationale": "Tank economy supports lane control and later catch tools; low role presence calls for caution about the strength of the lane sample.",
+    "signals": "MMHMM"
+  },
+  "poppy:baron": {
+    "rationale": "Anti-dash tools and wall stuns punish specific melee matchups, making her a draft response rather than a universally safe lane pick.",
+    "signals": "MLMMM"
+  },
+  "wukong:baron": {
+    "rationale": "Clone-assisted trades preserve health before a grouped knockup engage; direct ranged lane pressure can deny that setup.",
+    "signals": "MMMMM"
+  },
+  "tristana:baron": {
+    "rationale": "Ranged bomb pressure can threaten a solo-lane tower, but aggressive jumps and a lighter frontline make the draft less forgiving.",
+    "signals": "MLMHL"
+  },
+  "sett:baron": {
+    "rationale": "Short melee trades and return damage punish opponents who commit; limited reach explains caution into ranged lanes.",
+    "signals": "MMHML"
+  },
+  "ryze:baron": {
+    "rationale": "Ranged spell chains offer a side-lane pressure plan, but short spell range and no role statistics make this a specialist editorial placement.",
+    "signals": "MLLHM"
+  },
+  "olaf:baron": {
+    "rationale": "Sustained melee damage can win extended duels, yet ranged disengage and limited grouped setup keep the role situational.",
+    "signals": "MLMHL"
+  },
+  "smolder:baron": {
+    "rationale": "A solo lane can feed his stacking plan, but weak early protection and missing frontline utility make the lane composition-sensitive.",
+    "signals": "LLMHH"
+  },
+  "volibear:baron": {
+    "rationale": "Close-range sustain and dive tools reward opponents who keep trading, while kiting and current results temper lane priority.",
+    "signals": "MLHML"
+  },
+  "fiora:baron": {
+    "rationale": "Vital-based dueling gives a clear side-lane win condition, but timing demands and limited grouped engage reduce general reliability.",
+    "signals": "MLLHL"
+  },
+  "kayle:baron": {
+    "rationale": "Scaling damage and a protective ultimate offer a late plan, paid for with early lane pressure and reliance on time and protection.",
+    "signals": "LLMHH"
+  },
+  "irelia:baron": {
+    "rationale": "Minion resets enable strong melee access, but wave-state dependence and weak current results make the lane demanding.",
+    "signals": "MLLHL"
+  },
+  "camille:baron": {
+    "rationale": "Hookshot and target isolation give side-lane conversion, but precise trade timing and current results constrain consistency.",
+    "signals": "MLLHM"
+  },
+  "sion:baron": {
+    "rationale": "Wave control and a durable engage remain useful, though telegraphed spells struggle to force clean contact against mobile opponents.",
+    "signals": "MMHMM"
+  },
+  "renekton:baron": {
+    "rationale": "Early sustain and stun trades can establish lane control; failure to convert that window leaves a less reliable late-fight entry.",
+    "signals": "MLMML"
+  },
+  "urgot:baron": {
+    "rationale": "Close-range damage and an execute punish committed melee opponents, while range limitations restrict his access to carries.",
+    "signals": "MLMML"
+  },
+  "gragas:baron": {
+    "rationale": "Displacement and sustain offer flexible lane trades, but combo accuracy and unavailable role statistics limit confidence.",
+    "signals": "MMLMM"
+  },
+  "pantheon:baron": {
+    "rationale": "A direct stun supports early lane pressure and map reinforcement, but absent role statistics cannot establish the strength of that early plan.",
+    "signals": "MLHMM"
+  },
+  "garen:baron": {
+    "rationale": "Silence and an execute keep the lane plan simple, but limited reach and weak current results weigh against high priority.",
+    "signals": "MLHML"
+  },
+  "rumble:baron": {
+    "rationale": "Heat-based damage can control a melee lane and objective choke, but punishable positioning and weak results reduce confidence.",
+    "signals": "MLMHM"
+  },
+  "vladimir:baron": {
+    "rationale": "Recovery offers a scaling lane route, but long-lane exposure and delayed impact make this less stable than his Mid option.",
+    "signals": "LLMHM"
+  },
+  "tryndamere:baron": {
+    "rationale": "His lethal-damage window enables split pressure, yet kiting and the weakest lane results in this snapshot make the plan unreliable.",
+    "signals": "LLMHL"
+  },
+  "yasuo:baron": {
+    "rationale": "Wave dashes and projectile denial create outplays, but the long lane and poor results leave little margin for execution errors.",
+    "signals": "LLLHM"
+  },
+  "nasus:baron": {
+    "rationale": "Stacking and Wither give a straightforward side-lane goal; early denial and weak current results limit its reliable payoff.",
+    "signals": "LLHML"
+  },
+  "skarner:baron": {
+    "rationale": "Durability and suppression supply a tank lane plan, but low ranged pressure and unavailable lane statistics support only a niche placement.",
+    "signals": "MLMMM"
+  },
+  "nocturne:jungle": {
+    "rationale": "Global dive access converts a farming route into isolated-target pressure, though grouped peel still limits safe commitment after the nerf.",
+    "signals": "HMMHM"
+  },
+  "rammus:jungle": {
+    "rationale": "Taunt ganks and armor punish attack-heavy drafts; excellent observed results do not remove his weakness into magic-heavy teams.",
+    "signals": "HLHMM"
+  },
+  "ekko:jungle": {
+    "rationale": "Efficient area clears and a reversible dive create flexible skirmish pressure, with stun setup and return timing raising execution demands.",
+    "signals": "HMLHM"
+  },
+  "amumu:jungle": {
+    "rationale": "Area control gives a clear objective-fight contribution after farming, but coordinated invades and weak follow-up can disrupt the plan.",
+    "signals": "HMHHH"
+  },
+  "jarvan-iv:jungle": {
+    "rationale": "A direct gank pattern and terrain control create useful setup from modest economy, making him a flexible team-enabling jungle choice.",
+    "signals": "HHMHM"
+  },
+  "shen:jungle": {
+    "rationale": "Taunt ganks and cross-map protection offer utility from the jungle, but low pick presence and farm-versus-rescue tradeoffs warrant caution.",
+    "signals": "MLMMH"
+  },
+  "gwen:jungle": {
+    "rationale": "Farming resources support sustained anti-frontline damage, while the absence of immediate hard-control ganks makes early routing important.",
+    "signals": "MLMHM"
+  },
+  "skarner:jungle": {
+    "rationale": "Suppression provides a clear objective-fight pick tool after farming; his approach still needs teammates close enough to finish the target.",
+    "signals": "HMMMH"
+  },
+  "lillia:jungle": {
+    "rationale": "Mobile clears and multi-target sleep reward extended objective skirmishes, provided she avoids hard lockdown before applying her spells.",
+    "signals": "HMMHM"
+  },
+  "ambessa:jungle": {
+    "rationale": "Mobile melee pressure can convert farm into aggressive skirmishes, but route efficiency and entry execution demand practice.",
+    "signals": "MMLHM"
+  },
+  "kayn:jungle": {
+    "rationale": "Wall routes and form choice offer flexible map access, while reaching the correct transformation remains an early constraint.",
+    "signals": "MMMHM"
+  },
+  "chogath:jungle": {
+    "rationale": "Feast supports monster-secure pressure and frontline fights, but slow approaches and delayed control constrain proactive ganks.",
+    "signals": "MMHHM"
+  },
+  "zed:jungle": {
+    "rationale": "Farming can fund high burst onto isolated carries, yet little reliable hard control and demanding combos limit blind reliability.",
+    "signals": "MLLHL"
+  },
+  "nidalee:jungle": {
+    "rationale": "Spear pressure and form-switched movement reward proactive routes; missed spears and complex clears sharply reduce conversion.",
+    "signals": "MLLHM"
+  },
+  "nunu-willump:jungle": {
+    "rationale": "Consume strengthens objective contests and snowball offers early setup, but predictable approaches need allied pressure to convert.",
+    "signals": "MMHHH"
+  },
+  "fiddlesticks:jungle": {
+    "rationale": "Concealed ultimate entries can decide objectives after farming, with vision denial central to both entry safety and impact.",
+    "signals": "MLMHH"
+  },
+  "pantheon:jungle": {
+    "rationale": "Reliable stun ganks and semi-global reinforcement help early lanes; delayed conversion reduces his later damage relevance.",
+    "signals": "MMHMM"
+  },
+  "talon:jungle": {
+    "rationale": "Wall routes create rapid flank access after clears, but grouped vision and failed burst leave limited fallback utility.",
+    "signals": "MLMHL"
+  },
+  "darius:jungle": {
+    "rationale": "Area damage supports farming and extended skirmishes, while limited gank access makes lane setup important.",
+    "signals": "MLMHL"
+  },
+  "xin-zhao:jungle": {
+    "rationale": "Early melee control can contest river fights and isolate a close skirmish, though deep entry needs nearby follow-up.",
+    "signals": "MMMMM"
+  },
+  "kindred:jungle": {
+    "rationale": "Ranged skirmishing rewards mark control and pathing, but contested marks and an ultimate that can save enemies add risk.",
+    "signals": "MLLHM"
+  },
+  "olaf:jungle": {
+    "rationale": "Healthy sustained fights and control immunity support early contests, while disengage can deny the contact his damage requires.",
+    "signals": "MLMHL"
+  },
+  "hecarim:jungle": {
+    "rationale": "Fast rotations and area entry can punish grouped lanes, but failed commitment and current results reduce reliable conversion.",
+    "signals": "MLMHM"
+  },
+  "diana:jungle": {
+    "rationale": "Area farming feeds a strong grouped dive, with the lack of safe exit making ally positioning important at objectives.",
+    "signals": "MMMMM"
+  },
+  "dr-mundo:jungle": {
+    "rationale": "Recovery supports healthy farming and a durable frontline, but limited hard-control ganks reduce early lane intervention.",
+    "signals": "MMHML"
+  },
+  "khazix:jungle": {
+    "rationale": "Isolation and mobile entry reward vision control around objectives, while grouped enemies deny his preferred damage condition.",
+    "signals": "MLMHL"
+  },
+  "warwick:jungle": {
+    "rationale": "Sustain and pursuit tools make damaged targets accessible, but chasing too far can separate him from his team.",
+    "signals": "MMHMM"
+  },
+  "nilah:jungle": {
+    "rationale": "Close-range area damage offers a farming-to-teamfight route, but unavailable jungle statistics and demanding access lower confidence.",
+    "signals": "LLLHH"
+  },
+  "malphite:jungle": {
+    "rationale": "Farming toward an area-engage ultimate gives a clear fight plan, but pre-ultimate pressure and role statistics are missing.",
+    "signals": "MLHHH"
+  },
+  "jayce:jungle": {
+    "rationale": "Form-switched damage and poke can pressure river fights, but demanding clears and absent jungle statistics make the role specialist-only.",
+    "signals": "LLLHM"
+  },
+  "poppy:jungle": {
+    "rationale": "Wall stuns and anti-dash control can protect river space, but gank angles and unavailable role statistics limit general confidence.",
+    "signals": "MLMMM"
+  },
+  "mordekaiser:jungle": {
+    "rationale": "Farming can fund dueling and objective-fight isolation, but limited approach tools and missing jungle statistics constrain the case.",
+    "signals": "MLMHL"
+  },
+  "wukong:jungle": {
+    "rationale": "Clone routes and area knockups support ganks into grouped fights, but below-50% results caution against assuming dependable conversion.",
+    "signals": "MMMMM"
+  },
+  "riven:jungle": {
+    "rationale": "Repeated dashes support skirmish mobility, yet clear execution and limited reliable gank setup make errors costly.",
+    "signals": "MLLHL"
+  },
+  "vi:jungle": {
+    "rationale": "A direct ultimate target gives clear gank intent, but deep commitment and current results limit her reliability advantage.",
+    "signals": "MMHHM"
+  },
+  "master-yi:jungle": {
+    "rationale": "Farming toward cleanup damage gives a clear carry plan, but hard control and poor setup utility make it composition-dependent.",
+    "signals": "LLMHH"
+  },
+  "rengar:jungle": {
+    "rationale": "Brush access can create early picks, but terrain dependence and risky one-way entries constrain consistency.",
+    "signals": "MLLHL"
+  },
+  "evelynn:jungle": {
+    "rationale": "Camouflage enables surprise picks after farming, while early invasion and grouped vision can deny her route to targets.",
+    "signals": "MLMHM"
+  },
+  "tryndamere:jungle": {
+    "rationale": "Farm-fed melee damage threatens isolated targets, but weak gank control and kiting reduce dependable map influence.",
+    "signals": "LLMHL"
+  },
+  "jax:jungle": {
+    "rationale": "Farm supports scaling duels and attack denial, but early gank setup is less direct than higher-priority junglers.",
+    "signals": "MLMMM"
+  },
+  "fizz:jungle": {
+    "rationale": "An evasive melee burst pattern can punish isolated lanes, but early routing and missed ultimate setup reduce consistency.",
+    "signals": "MLMHL"
+  },
+  "aatrox:jungle": {
+    "rationale": "Repeated area spells offer skirmish sustain, yet very weak jungle results and skillshot dependence argue for low priority.",
+    "signals": "LLLHM"
+  },
+  "yone:jungle": {
+    "rationale": "Farming develops a multi-target engage threat, but early setup and predictable return positions make failed fights costly.",
+    "signals": "LLLHM"
+  },
+  "camille:jungle": {
+    "rationale": "Hookshot and target trapping offer a gank identity, but precise execution and unavailable jungle statistics require caution.",
+    "signals": "MLLHM"
+  },
+  "taliyah:jungle": {
+    "rationale": "Terrain control can shape river fights and rotations, but displacement accuracy and absent jungle statistics lower confidence.",
+    "signals": "MLLHM"
+  },
+  "volibear:jungle": {
+    "rationale": "Close-range skirmishing and dives offer early intervention, but kiting and weaker current jungle results limit priority.",
+    "signals": "MLHMM"
+  },
+  "twitch:jungle": {
+    "rationale": "Camouflage can create surprise ganks, but fragile routes and very weak results make the farming-to-carry plan unreliable.",
+    "signals": "LLMHH"
+  },
+  "viego:jungle": {
+    "rationale": "Reset chains can win an opened fight, but dependence on the first takedown and poor results make blind commitment risky.",
+    "signals": "LLLHM"
+  },
+  "lee-sin:jungle": {
+    "rationale": "Early gank mobility and displacement offer playmaking, but execution demands and weak results make conversion unreliable.",
+    "signals": "MLLHM"
+  },
+  "graves:jungle": {
+    "rationale": "Economy-led clears and short-range dueling can pressure the map, but weak results and damage access constrain priority.",
+    "signals": "MLMHL"
+  },
+  "shyvana:jungle": {
+    "rationale": "Farm-fed transformation creates a grouped damage window, but early map pressure and weak results weigh against the delayed plan.",
+    "signals": "LLMHH"
+  },
+  "nautilus:jungle": {
+    "rationale": "Hook and ultimate offer a clear gank pattern, but route tempo and unavailable jungle statistics limit confidence in this niche role.",
+    "signals": "LLHMH"
+  },
+  "hwei:mid": {
+    "rationale": "Wave control and flexible area spells supply repeated objective pressure; the 7.3b nerf and complex spell choices prevent effortless reliability.",
+    "signals": "HMLHM"
+  },
+  "morgana:mid": {
+    "rationale": "Wave pressure and a protective shield enable controlled rotations, while missed bindings and melee access remain punishable.",
+    "signals": "HMMHM"
+  },
+  "brand:mid": {
+    "rationale": "Area damage and burn punish grouped objective fights from Mid economy, but lack of mobility requires disciplined lane positioning.",
+    "signals": "HMHHM"
+  },
+  "syndra:mid": {
+    "rationale": "Wave pressure, stun angles, and burst threaten carries before objectives, with sphere control and defensive timing limiting ease.",
+    "signals": "HMLHM"
+  },
+  "zyra:mid": {
+    "rationale": "Plants and roots give sustained control over the wave and river approaches, though immobility makes unsupported rotations risky.",
+    "signals": "MMHHM"
+  },
+  "galio:mid": {
+    "rationale": "Wave access and semi-global reinforcement let him support side lanes, trading solo damage ceiling for team-enabling control.",
+    "signals": "HMHMH"
+  },
+  "teemo:mid": {
+    "rationale": "Blind and mushroom zones can punish attack-focused lanes, but limited direct initiation restricts broader composition value.",
+    "signals": "MLMMM"
+  },
+  "aurelion-sol:mid": {
+    "rationale": "A shorter lane supports scaling into objective-area damage, but early wave pressure and channel interruption remain meaningful costs.",
+    "signals": "MMMHM"
+  },
+  "orianna:mid": {
+    "rationale": "Wave control and ball-based teamfight utility offer flexible value without a solo-kill requirement, provided ball positioning remains disciplined.",
+    "signals": "HHMHM"
+  },
+  "malphite:mid": {
+    "rationale": "An ultimate-led burst or engage plan punishes vulnerable targets, but magic damage and weak early wave access constrain lane safety.",
+    "signals": "MLHHH"
+  },
+  "lissandra:mid": {
+    "rationale": "Wave access and reliable close-range lockdown support roams and anti-dive play, with damage traded for control and ally follow-up.",
+    "signals": "HMHHH"
+  },
+  "singed:mid": {
+    "rationale": "Fast movement and poison can create unusual roam pressure, but ranged lane access and absent Mid statistics make the role niche.",
+    "signals": "LLMHM"
+  },
+  "kogmaw:mid": {
+    "rationale": "Long-range spell pressure gives a siege identity, but mana demands, immobility, and absent Mid statistics limit blind confidence.",
+    "signals": "LLMHH"
+  },
+  "taliyah:mid": {
+    "rationale": "Wave control and wall rotations can create numbers advantages, while difficult displacement setup makes direct lane conversion less consistent.",
+    "signals": "MMLHM"
+  },
+  "annie:mid": {
+    "rationale": "A prepared stun creates clear burst and roam opportunities, but limited range exposes her before she can engage.",
+    "signals": "MMHHM"
+  },
+  "vladimir:mid": {
+    "rationale": "The shorter lane supports recovery toward late area damage, with weak early roaming still costing map pressure.",
+    "signals": "MLMHM"
+  },
+  "ahri:mid": {
+    "rationale": "Charm and ultimate mobility offer flexible catches and escapes, but moderate current results do not support top-band burst expectations.",
+    "signals": "MMMMM"
+  },
+  "kassadin:mid": {
+    "rationale": "Safe scaling can unlock repeated backline access, while early wave pressure and mana costs constrain independent map control.",
+    "signals": "LLMHL"
+  },
+  "yone:mid": {
+    "rationale": "Wave-assisted trades and area control create roam threats, with return-position predictability limiting risk-free pressure.",
+    "signals": "MMLHM"
+  },
+  "aurora:mid": {
+    "rationale": "Mobile spell trades and area threat reward lane spacing, but close access and entry timing keep the role execution-sensitive.",
+    "signals": "MMLHM"
+  },
+  "kennen:mid": {
+    "rationale": "Ranged wave pressure can set up a flank engage from Mid, though disengage and ally follow-up shape the payoff.",
+    "signals": "MMMHM"
+  },
+  "zed:mid": {
+    "rationale": "Shadow trades create a lane-to-side-lane assassination plan, but defensive timing and grouped peel reduce consistency.",
+    "signals": "MLLHL"
+  },
+  "ekko:mid": {
+    "rationale": "Wave clear and a reversible dive support aggressive roams, while delayed stun setup makes lane catches less dependable.",
+    "signals": "MMLHM"
+  },
+  "norra:mid": {
+    "rationale": "Trinket zones and repeated spell hits offer wave-to-river pressure, but charge vulnerability and near-even results favor a measured placement.",
+    "signals": "MMMMM"
+  },
+  "velkoz:mid": {
+    "rationale": "Long-range wave and objective poke create safe damage opportunities, but immobility and skillshot dependence restrict independent safety.",
+    "signals": "MMLHM"
+  },
+  "jayce:mid": {
+    "rationale": "Ranged poke can establish wave pressure before roams, though spell accuracy and form-switch execution limit consistent conversion.",
+    "signals": "MLLHM"
+  },
+  "veigar:mid": {
+    "rationale": "A scaling damage plan and cage control retain objective value, but delayed spells leave room for mobile opponents to escape.",
+    "signals": "MMHHM"
+  },
+  "twisted-fate:mid": {
+    "rationale": "Wave management and Gold Card turn ultimate rotations into catches, but ally follow-up is central to making the map play worthwhile.",
+    "signals": "MMLMH"
+  },
+  "zoe:mid": {
+    "rationale": "Sleep and long-range burst create picks from Mid access, but demanding aim and unavailable role statistics limit confidence.",
+    "signals": "MLLHM"
+  },
+  "kayle:mid": {
+    "rationale": "The shorter lane may shelter scaling toward ranged damage, but early priority and absent Mid statistics remain unresolved costs.",
+    "signals": "LLMHH"
+  },
+  "chogath:mid": {
+    "rationale": "Area control and durability can absorb some lane pressure, but delayed spell access and absent Mid statistics constrain a generalist case.",
+    "signals": "MLHMM"
+  },
+  "corki:mid": {
+    "rationale": "Ranged poke can pressure the wave before a rotation, but mana demand and absent Mid statistics leave the placement editorial.",
+    "signals": "MLMHM"
+  },
+  "seraphine:mid": {
+    "rationale": "Mid economy supports wave clear and grouped utility, but slow control spells and missing role statistics temper solo conversion claims.",
+    "signals": "MMHHH"
+  },
+  "talon:mid": {
+    "rationale": "Wall movement can convert wave access into side-lane picks, but poor ranged matchups and absent Mid statistics limit confidence.",
+    "signals": "MLMHL"
+  },
+  "heimerdinger:mid": {
+    "rationale": "Turret zones can protect the wave and punish a direct approach, while leaving that setup weakens roaming flexibility.",
+    "signals": "MLHMM"
+  },
+  "vex:mid": {
+    "rationale": "Fear punishes dashes and supports burst catches, but spending it on the wave creates a defensive opening.",
+    "signals": "MMHHM"
+  },
+  "swain:mid": {
+    "rationale": "Sustained area pressure rewards enemies who stay close, but ranged disengage restricts his ability to force favorable fights.",
+    "signals": "MLMHM"
+  },
+  "viktor:mid": {
+    "rationale": "Wave and zone control offer a scaling teamfight route, but economy needs and low mobility limit early initiative.",
+    "signals": "MMMHM"
+  },
+  "nasus:mid": {
+    "rationale": "The shorter lane offers stacking access and Wither utility, but ranged harassment and low roam pressure make the plan situational.",
+    "signals": "LLHML"
+  },
+  "lux:mid": {
+    "rationale": "Long-range wave clear and binding provide catch tools, yet missing the binding and weak results reduce reliable pressure.",
+    "signals": "MMHHM"
+  },
+  "tristana:mid": {
+    "rationale": "Bomb pressure can threaten the wave and tower early, but committed jumps and weak results make aggressive conversion risky.",
+    "signals": "MLMHL"
+  },
+  "katarina:mid": {
+    "rationale": "Roams and dagger resets can exploit an opened fight, but wave pressure and enemy control often deny a clean entry.",
+    "signals": "LLLHM"
+  },
+  "ryze:mid": {
+    "rationale": "Spell chains offer sustained wave damage and portal utility, but short effective range and weak results constrain dependable conversion.",
+    "signals": "MLLHM"
+  },
+  "akshan:mid": {
+    "rationale": "Ranged trades and flanks can pressure a vulnerable lane, but demanding movement and absent Mid statistics prevent a confident climb claim.",
+    "signals": "MLLHM"
+  },
+  "akali:mid": {
+    "rationale": "Shroud and dashes create burst outplays, but melee wave access and poor results make the plan highly execution-dependent.",
+    "signals": "MLLHM"
+  },
+  "ziggs:mid": {
+    "rationale": "Long-range wave and tower pressure remain useful, yet mobility threats and weak results limit how safely he can maintain that pressure.",
+    "signals": "MLMHM"
+  },
+  "fizz:mid": {
+    "rationale": "Evasive burst can punish an isolated mage, but early ranged pressure and weak results constrain consistent lane access.",
+    "signals": "MLMHL"
+  },
+  "diana:mid": {
+    "rationale": "A melee wave-to-dive plan threatens grouped opponents, but lane exposure and weak Mid results reduce reliable initiative.",
+    "signals": "MLMHM"
+  },
+  "mel:mid": {
+    "rationale": "Ranged spell pressure and projectile defense give clear trading tools, but punishable defensive cooldowns and weak results limit trust.",
+    "signals": "LLMHM"
+  },
+  "yasuo:mid": {
+    "rationale": "Wave dashes and Wind Wall can create matchup-specific openings, but airborne setup and poor results keep reliability low.",
+    "signals": "MLLHM"
+  },
+  "ashe:dragon": {
+    "rationale": "Slows and a ranged initiation tool add utility to sustained damage, supporting strong lane results without requiring a burst snowball.",
+    "signals": "HMHHH"
+  },
+  "smolder:dragon": {
+    "rationale": "A protected duo lane supports stacking toward area damage, though delayed power and reliance on space keep early safety conditional.",
+    "signals": "MLMHH"
+  },
+  "senna:dragon": {
+    "rationale": "Range growth and healing offer a utility-carry route, but missing Dragon statistics mean the high source tier is editorial rather than statistically proven.",
+    "signals": "MLMHH"
+  },
+  "samira:dragon": {
+    "rationale": "Engage follow-up can unlock area resets, but short range and interruptible commitment make support setup important.",
+    "signals": "MLLHH"
+  },
+  "caitlyn:dragon": {
+    "rationale": "Range and traps support lane pressure and controlled sieges, while near-even results caution against equating lane reach with guaranteed wins.",
+    "signals": "HMMHM"
+  },
+  "kalista:dragon": {
+    "rationale": "Hops and Rend reward coordinated lane pressure and objective timing, with mechanical and partner dependence limiting ease.",
+    "signals": "MLLHH"
+  },
+  "yunara:dragon": {
+    "rationale": "An empowered attack window supports sustained carry fights, but 7.3b reductions and sub-50% results temper the retained source tier.",
+    "signals": "MMMHH"
+  },
+  "kogmaw:dragon": {
+    "rationale": "Strong observed results support protected front-to-back damage, but immobility and peel dependence prevent a universal top-band recommendation.",
+    "signals": "MLMHH"
+  },
+  "varus:dragon": {
+    "rationale": "Ranged poke and an ultimate catch can influence objectives before sustained attacks, but lack of a dash leaves clear dive exposure.",
+    "signals": "MMMHM"
+  },
+  "xayah:dragon": {
+    "rationale": "Feather control and an evasive ultimate offer an anti-dive carry plan, provided she preserves the right defensive timing.",
+    "signals": "HMMHM"
+  },
+  "jinx:dragon": {
+    "rationale": "Farm and protection can unlock reset-driven teamfight damage, but she offers less independent safety before the first takedown.",
+    "signals": "MLMHH"
+  },
+  "kaisa:dragon": {
+    "rationale": "Mixed damage and marked-target access give a flexible carry plan, though short range and aggressive ultimate decisions add risk.",
+    "signals": "MMLHM"
+  },
+  "ezreal:dragon": {
+    "rationale": "Ranged poke and a repositioning tool offer lane flexibility, while skillshot accuracy still controls sustained contribution.",
+    "signals": "HHMHM"
+  },
+  "twitch:dragon": {
+    "rationale": "Camouflage and a long-range reveal can create a strong damage angle, but direct dives and limited escape make setup important.",
+    "signals": "MLMHH"
+  },
+  "jhin:dragon": {
+    "rationale": "Lane trades and ranged follow-up control support a pick composition, while reload windows limit continuous damage into tanks.",
+    "signals": "MMMMM"
+  },
+  "corki:dragon": {
+    "rationale": "Ranged spells give an alternative lane pressure pattern, but mana demand and unavailable Dragon statistics keep the placement editorial.",
+    "signals": "MLMHM"
+  },
+  "zeri:dragon": {
+    "rationale": "Mobility can sustain long-fight damage, but aiming demands and reliance on an uninterrupted fighting window lower consistency.",
+    "signals": "MLLHH"
+  },
+  "vayne:dragon": {
+    "rationale": "Scaling true damage answers durable opponents, while shorter range and weak lane results make the early path demanding.",
+    "signals": "MLLHH"
+  },
+  "miss-fortune:dragon": {
+    "rationale": "Lane poke and a grouped ultimate have clear value, but an interruptible channel and weak results limit reliable carry conversion.",
+    "signals": "MMHHH"
+  },
+  "sivir:dragon": {
+    "rationale": "Wave clear and shared movement help a team control rotations, but short damage range restricts safe access to priority targets.",
+    "signals": "MMHHM"
+  },
+  "tristana:dragon": {
+    "rationale": "Tower pressure and jump resets offer a snowball route, yet weak results and risky commitment weigh against high priority.",
+    "signals": "MLMHM"
+  },
+  "lucian:dragon": {
+    "rationale": "Short burst trades can create early lane leads, but limited reach and weak results make converting that lead essential.",
+    "signals": "MLLHM"
+  },
+  "draven:dragon": {
+    "rationale": "Early axe damage threatens a snowballing lane, while catch execution and lost cash-ins make the weak current results consequential.",
+    "signals": "MLLHM"
+  },
+  "malphite:support": {
+    "rationale": "Low-economy ultimate access can start decisive fights, but pre-ultimate lane pressure and magic-heavy drafts keep blind safety low.",
+    "signals": "MLHHH"
+  },
+  "hwei:support": {
+    "rationale": "Ranged control can pressure lane and shape objective entrances, but fragile positioning and complex spell selection raise support execution demands.",
+    "signals": "MLLHM"
+  },
+  "braum:support": {
+    "rationale": "Projectile protection and passive stun follow-up give dependable anti-dive value, with allied attacks central to converting his control.",
+    "signals": "HHHHH"
+  },
+  "leona:support": {
+    "rationale": "Layered control provides a direct lane and fight engage, but committed entry depends on teammates being ready to follow.",
+    "signals": "HMHHH"
+  },
+  "sona:support": {
+    "rationale": "Repeated auras reward grouped sustain fights, while fragile early lanes and reliance on protection limit blind safety.",
+    "signals": "MLHHH"
+  },
+  "thresh:support": {
+    "rationale": "Hook, Flay, and lantern provide both catch and rescue options, with aim and ally response controlling their reliability.",
+    "signals": "HMLHM"
+  },
+  "morgana:support": {
+    "rationale": "Black Shield and binding offer anti-control protection and catches from low economy, though missed roots reduce lane pressure.",
+    "signals": "HMMHM"
+  },
+  "janna:support": {
+    "rationale": "Disengage and shields answer direct dives, keeping useful defensive value when her lane does not establish an early lead.",
+    "signals": "HHHHH"
+  },
+  "soraka:support": {
+    "rationale": "Healing can preserve a carry through repeated exchanges, but her own exposure and enemy dive access make the draft conditional.",
+    "signals": "MLHHH"
+  },
+  "brand:support": {
+    "rationale": "Base spell damage and burn punish grouped lanes from modest economy, but fragility and limited protection constrain the team fit.",
+    "signals": "MLHHM"
+  },
+  "zyra:support": {
+    "rationale": "Plants and roots create low-economy lane pressure and objective zones, at the cost of limited escape and direct carry protection.",
+    "signals": "MLHHM"
+  },
+  "rell:support": {
+    "rationale": "Area lockdown offers a clear low-economy fight opener, but her survival and payoff depend on coordinated follow-up.",
+    "signals": "MMHHH"
+  },
+  "galio:support": {
+    "rationale": "Taunt and reinforcement can protect an allied engage, though ranged poke and reliance on an allied entry constrain lane flexibility.",
+    "signals": "MLHMH"
+  },
+  "senna:support": {
+    "rationale": "Poke, healing, and range growth add carry support value, while weak immediate escape requires careful lane positioning.",
+    "signals": "MMMHH"
+  },
+  "zilean:support": {
+    "rationale": "Speed control and a revive can preserve a fed ally, but bomb accuracy and damage timing make his protection demanding.",
+    "signals": "MMLHH"
+  },
+  "pyke:support": {
+    "rationale": "Roaming catches and executes reward coordinated focus, while fragility and missed setup make failed entries expensive.",
+    "signals": "MLLHM"
+  },
+  "rakan:support": {
+    "rationale": "Mobile engage and return routes create flexible fight access, but ally positioning and precise entry timing affect safety.",
+    "signals": "MMLHH"
+  },
+  "ornn:support": {
+    "rationale": "Tank control offers low-economy initiation, though a weaker ranged lane phase and need for allied damage limit general priority.",
+    "signals": "MLMMH"
+  },
+  "nami:support": {
+    "rationale": "Trade sustain and ranged control support a flexible duo lane, with fragile positioning and bubble accuracy limiting ease.",
+    "signals": "MMLHM"
+  },
+  "velkoz:support": {
+    "rationale": "Ranged poke supplies damage from support economy, but offers less dependable protection when a diver reaches the carry.",
+    "signals": "MLLHM"
+  },
+  "seraphine:support": {
+    "rationale": "Long-range follow-up and grouped shields add utility, but slow setup and limited independent safety restrict consistent lane pressure.",
+    "signals": "MMHHH"
+  },
+  "maokai:support": {
+    "rationale": "Saplings and close control support objective vision and peel, while repeated poke can punish his short-range commitment.",
+    "signals": "MMHHH"
+  },
+  "karma:support": {
+    "rationale": "Poke and movement shields support repeated lane trades, but her defensive value falls when allies need a durable frontline.",
+    "signals": "MMHHM"
+  },
+  "nautilus:support": {
+    "rationale": "Hook and targeted lockdown make catches easy to follow, yet failed approaches and current results limit the case for higher priority.",
+    "signals": "MMHHH"
+  },
+  "lulu:support": {
+    "rationale": "Polymorph and defensive buffs can amplify a carry, but dependence on that carry limits independent fight conversion.",
+    "signals": "MLHHH"
+  },
+  "yuumi:support": {
+    "rationale": "Attachment can amplify a mobile carry, but very high host dependence and weak results undermine a general solo-queue recommendation.",
+    "signals": "LLHHH"
+  },
+  "milio:support": {
+    "rationale": "Healing, shielding, and range support reward a protected carry, while limited personal initiation makes teammate damage central.",
+    "signals": "MLHHH"
+  },
+  "sett:support": {
+    "rationale": "Close-range displacement can punish a committed lane opponent, but low ranged pressure and limited ally protection make the role situational.",
+    "signals": "MLHMM"
+  },
+  "blitzcrank:support": {
+    "rationale": "One hook can create a decisive advantage from support economy, but misses and bad target selection create large reliability swings.",
+    "signals": "MLHHH"
+  },
+  "bard:support": {
+    "rationale": "Portals and stasis offer map playmaking, but ally coordination and unavailable support statistics limit confidence.",
+    "signals": "MLLHH"
+  },
+  "chogath:support": {
+    "rationale": "Silence and area disruption offer low-economy control, but delayed hits, lane exposure, and unavailable support statistics constrain the role.",
+    "signals": "MLHMH"
+  },
+  "mordekaiser:support": {
+    "rationale": "Target isolation can change one objective fight, but weak ranged protection and unavailable support statistics make this a niche editorial option.",
+    "signals": "LLMHM"
+  },
+  "skarner:support": {
+    "rationale": "Suppression offers a low-economy pick condition, but reaching targets without farm and missing support statistics make it situational.",
+    "signals": "MLMMH"
+  },
+  "alistar:support": {
+    "rationale": "Layered engage and damage reduction give a clear frontline plan, but punishing ranged lanes and weak results limit reliable entry.",
+    "signals": "MMHHH"
+  },
+  "lux:support": {
+    "rationale": "Poke and binding can pressure a duo lane, yet misses and limited mobility leave fragile carry protection.",
+    "signals": "MLHHM"
+  },
+  "veigar:support": {
+    "rationale": "Cage can deny an objective entrance with little economy, but delayed control and weak support results reduce dependable conversion.",
+    "signals": "MLHHH"
+  },
+  "swain:support": {
+    "rationale": "Close-range attrition can punish enemies who keep fighting, but ranged disengage and weak support results make his access unreliable.",
+    "signals": "LLMHH"
+  }
+}

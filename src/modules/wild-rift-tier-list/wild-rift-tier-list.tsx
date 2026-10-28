@@ -23,7 +23,7 @@ const faq = [
   ],
   [
     "Why isn't the Tier List sorted only by win rate?",
-    "Win rate is evidence, not the ranking formula. TierListBase also reviews role context, sample reliability, draft relevance, execution burden, solo-queue reliability, patch impact, and current meta presence.",
+    "This snapshot retains Wild Rift Core source tiers after TierListBase role review. Tiers are editorial judgements, not official Riot or Tencent rankings or a TierListBase statistical formula. WR / PR / BR are evidence; no sample counts or confidence intervals are supplied.",
   ],
   [
     "Is the current game patch included?",
@@ -42,7 +42,7 @@ const faq = [
 export function WildRiftTierList() {
   const officialSources = sources.filter((source) => source.type === "official_patch");
   const rankedSource = sources.find((source) => source.type === "ranked_statistics");
-  const editorialSource = sources.find((source) => source.type === "editorial_review");
+  const editorialSource = sources.find((source) => source.id === "editorial-review");
 
   return (
     <main className={styles.page}>
@@ -191,6 +191,35 @@ export function WildRiftTierList() {
               value, and patch evidence.
             </p>
           </div>
+          <p className={styles.disclosure}>
+            CN Server · Master+ · Ranked. Champion catalog: 142; statistics-backed role placements:
+            181 across 136 distinct champions counted in the source tables. The source headline says
+            134 tracked champions; that mismatch is unresolved. Another 27 placements have explicit
+            Wild Rift Core editorial role evidence and display N/A for every role statistic. Catalog
+            membership never creates a ranked placement.
+          </p>
+          <p className={styles.disclosure}>
+            Tiers retain Wild Rift Core source tiers after TierListBase review, with no editorial
+            overrides in this snapshot. They are not official Riot or Tencent tiers. The statistics
+            are reported by Wild Rift Core as Tencent CN data; TierListBase has not independently
+            fetched them from Tencent. Ban rates reflect champion-wide draft pressure.
+          </p>
+          <p className={styles.disclosure}>
+            Decision Signals are TierListBase editorial assessments, reviewed for each Champion ×
+            Role: reliability considers repeatable access and fallback utility; blind safety
+            considers lane exposure, range, and counterplay; ease considers aiming, combos, and
+            resource management; impact considers damage or control access; dependence considers
+            allied setup, protection, and follow-up. High Team Dependence means greater reliance on
+            allies, not a better score. No signal is computed from Tier. High Ease means easier
+            execution.
+          </p>
+          <p className={styles.disclosure}>
+            Trend arrows show same-role seven-day win-rate change only. Unavailable trends stay
+            unavailable. The source table labels its delta column “30 d”, but those values match its
+            embedded seven-day data; no 30-day movement is inferred from that column. Source history
+            metadata ends on 2026-10-27 while its update label says 2026-10-26. What Changed
+            attributes dated net tier movements to Wild Rift Core; causal reasons are not evidenced.
+          </p>
           <div className={styles.methodGrid}>
             {roleKeys.map((role) => (
               <article key={role}>

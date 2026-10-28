@@ -1,3 +1,5 @@
+import championNotes from "./champion-notes.json";
+import roleReviews from "./role-reviews.json";
 import { championCatalog, expectedRoleCounts, rankingSeeds } from "./rankings";
 
 export { expectedRoleCounts } from "./rankings";
@@ -16,7 +18,8 @@ export type Champion = {
   readonly id: string;
   readonly slug: string;
   readonly name: string;
-  readonly portrait: string | null;
+  readonly portrait: string;
+  readonly portraitKind: "champion" | "placeholder";
 };
 
 export type DecisionSignals = {
@@ -31,11 +34,17 @@ export type ChampionRoleRanking = {
   readonly championId: string;
   readonly role: RoleKey;
   readonly tier: Tier;
+  readonly sourceTier: Tier;
+  readonly tierSourceId: "core-editorial-tier";
+  readonly editorialTierReason: string | null;
+  readonly placementKind: "statistics-backed" | "editorial";
+  readonly winRateChange7d: number | null;
   readonly winRate: number | null;
   readonly pickRate: number | null;
   readonly banRate: number | null;
   readonly trend: Trend;
   readonly whyThisTier: string;
+  readonly abilitySourceUrl: string;
   readonly strengths: readonly string[];
   readonly limitations: readonly string[];
   readonly decisionSignals: DecisionSignals;
@@ -48,7 +57,8 @@ export type RankingChange = {
   readonly role: RoleKey;
   readonly from: Tier;
   readonly to: Tier;
-  readonly type: "Buff" | "Nerf" | "Meta shift" | "Data trend";
+  readonly type: "Source tier movement";
+  readonly sourceId: "core-editorial-tier";
   readonly date: string;
   readonly reason: string;
 };
@@ -159,7 +169,16 @@ export const sources: readonly EvidenceSource[] = [
     checkedAt: "2026-10-28",
     url: "https://wildriftcore.com/en/rankings/",
     context:
-      "Role statistics derived from Tencent's official China-server data · Master+ · Ranked · source snapshot dated 2026-10-26.",
+      "Wild Rift Core reports Tencent China-server data · Master+ · Ranked · source update label 2026-10-26. 181 role placements, 136 distinct champions counted in the tables; the source headline says 134. Not independently fetched from Tencent.",
+  },
+  {
+    id: "core-editorial-tier",
+    name: "Wild Rift Core · Editorial Role Tier List & History",
+    type: "editorial_review",
+    checkedAt: "2026-10-28",
+    url: "https://wildriftcore.com/en/tierlist/",
+    context:
+      "Source tiers and dated movements are Wild Rift Core editorial judgements, not Riot or Tencent official tiers. Same publisher as the statistics page; not independent corroboration. TierListBase retains these source tiers after role review; no overrides in this snapshot.",
   },
   {
     id: "editorial-review",
@@ -168,363 +187,126 @@ export const sources: readonly EvidenceSource[] = [
     checkedAt: "2026-10-28",
     url: "/about#about-process-title",
     context:
-      "Role-specific interpretation and cross-check. Win rate alone does not determine Tier.",
+      "TierListBase editorial role assessments and signals. This snapshot retains Wild Rift Core source tiers with no overrides; no independent TierListBase statistical tier formula is claimed.",
   },
 ] as const;
 
 export const champions: readonly Champion[] = championCatalog.map((champion) => ({
   ...champion,
-  portrait: champion.id === "norra" ? null : `/images/wild-rift/champions/${champion.slug}.png`,
+  portrait: `/images/wild-rift/champions/${champion.slug}.${champion.id === "norra" ? "svg" : "png"}`,
+  portraitKind: champion.id === "norra" ? "placeholder" : "champion",
 }));
 
 const championById = new Map(champions.map((champion) => [champion.id, champion]));
 
-export const changes: readonly RankingChange[] = [
-  {
-    championId: "malphite",
-    role: "mid",
-    from: "B",
-    to: "S",
-    type: "Data trend",
-    date: "2026-10-27",
-    reason:
-      "The latest reviewed Mid snapshot supports substantially higher priority than earlier in 7.3.",
-  },
-  {
-    championId: "garen",
-    role: "baron",
-    from: "S",
-    to: "C",
-    type: "Data trend",
-    date: "2026-10-27",
-    reason: "The current Baron snapshot shows a sustained drop in relative priority.",
-  },
-  {
-    championId: "ahri",
-    role: "mid",
-    from: "S+",
-    to: "A",
-    type: "Data trend",
-    date: "2026-10-27",
-    reason: "Stable utility remains, but current results and draft priority sit below the S group.",
-  },
-  {
-    championId: "kalista",
-    role: "dragon",
-    from: "B",
-    to: "S",
-    type: "Data trend",
-    date: "2026-10-25",
-    reason: "Lane pressure and objective conversion improved enough to hold an S placement.",
-  },
-  {
-    championId: "sion",
-    role: "baron",
-    from: "S",
-    to: "B",
-    type: "Data trend",
-    date: "2026-10-21",
-    reason: "Current Master+ performance no longer supports the earlier S placement.",
-  },
-  {
-    championId: "jayce",
-    role: "baron",
-    from: "C",
-    to: "A",
-    type: "Meta shift",
-    date: "2026-10-19",
-    reason: "Recent lane and ranked results improved enough to support an A placement.",
-  },
-  {
-    championId: "ashe",
-    role: "dragon",
-    from: "A",
-    to: "S+",
-    type: "Meta shift",
-    date: "2026-10-17",
-    reason: "Utility plus sustained damage became one of the most reliable Dragon Lane packages.",
-  },
-  {
-    championId: "yone",
-    role: "baron",
-    from: "S+",
-    to: "A",
-    type: "Data trend",
-    date: "2026-10-17",
-    reason: "Current Baron results and draft value no longer support the prior top-band placement.",
-  },
-  {
-    championId: "nautilus",
-    role: "support",
-    from: "S",
-    to: "B",
-    type: "Meta shift",
-    date: "2026-10-15",
-    reason:
-      "Engage remains reliable, but current support alternatives deliver more consistent value.",
-  },
-  {
-    championId: "olaf",
-    role: "baron",
-    from: "S",
-    to: "B",
-    type: "Data trend",
-    date: "2026-10-11",
-    reason: "The current Baron snapshot places Olaf below the highest-priority lane options.",
-  },
-  {
-    championId: "twitch",
-    role: "dragon",
-    from: "C",
-    to: "A",
-    type: "Meta shift",
-    date: "2026-10-09",
-    reason: "Current Dragon Lane results support a materially stronger carry placement.",
-  },
-  {
-    championId: "dr-mundo",
-    role: "baron",
-    from: "C",
-    to: "A",
-    type: "Data trend",
-    date: "2026-10-03",
-    reason: "The reviewed Baron snapshot now supports a stable A-tier placement.",
-  },
-  {
-    championId: "miss-fortune",
-    role: "dragon",
-    from: "S+",
-    to: "B",
-    type: "Data trend",
-    date: "2026-10-03",
-    reason: "Current Dragon Lane results have fallen well below the former top-band placement.",
-  },
-  {
-    championId: "volibear",
-    role: "baron",
-    from: "S+",
-    to: "B",
-    type: "Meta shift",
-    date: "2026-10-03",
-    reason: "The current Baron environment values safer and more consistent alternatives.",
-  },
-  {
-    championId: "chogath",
-    role: "jungle",
-    from: "B",
-    to: "S",
-    type: "Meta shift",
-    date: "2026-10-01",
-    reason:
-      "Objective control and frontline reliability gained value after the 7.3 jungle changes.",
-  },
-  {
-    championId: "samira",
-    role: "dragon",
-    from: "B",
-    to: "S",
-    type: "Data trend",
-    date: "2026-10-01",
-    reason: "Current lane and fight conversion support a stronger S-tier Dragon placement.",
-  },
-] as const;
-
-const trendByPlacement = new Map<string, Trend>(
-  changes.map(
-    (change) =>
-      [
-        `${change.championId}:${change.role}`,
-        change.to === change.from ? ("flat" as const) : ("up" as const),
-      ] as const,
-  ),
-);
-for (const change of changes) {
-  const order = new Map<Tier, number>(tiers.map((tier, index) => [tier, index] as const));
-  trendByPlacement.set(
-    `${change.championId}:${change.role}`,
-    (order.get(change.to) ?? 99) < (order.get(change.from) ?? 99) ? "up" : "down",
-  );
-}
+// The publisher reports dated tier movements, but does not evidence the causal reasons
+// previously shown here. Keep those records in docs/wild-rift/change-audit.json;
+// none currently clears the full publication evidence gate.
+export const changes: readonly RankingChange[] = [];
 
 const directPatchImpact: Readonly<Record<string, string>> = {
+  jhin: "Patch 7.3b increased Jhin's critical damage and brought his missing-health damage scaling online earlier. The effect on this placement is not causally measured.",
+  tryndamere:
+    "Patch 7.3b improved Tryndamere's critical chance per Fury and Spinning Slash damage. The effect on this placement is not causally measured.",
   nocturne:
     "Patch 7.3b directly nerfed Nocturne's durability, early Duskbringer damage, and Paranoia availability. Patch 7.3c has no standard Ranked follow-up.",
   hwei: "Patch 7.3b directly reduced multiple Hwei damage, shield, and control values. Patch 7.3c has no standard Ranked follow-up.",
   yasuo:
     "Patch 7.3b directly buffed Yasuo's standard critical damage and passive shield. Patch 7.3c has no standard Ranked follow-up.",
   volibear:
-    "Patch 7.3b directly adjusted Volibear upward. The current placement also reflects the post-change Master+ snapshot.",
+    "Patch 7.3b directly adjusted Volibear upward. No causal effect on this placement is claimed.",
   yunara:
-    "Patch 7.3b directly reduced Yunara's passive damage and later ultimate availability. The current Dragon placement includes that change.",
+    "Patch 7.3b directly reduced Yunara's passive damage and later ultimate availability. No causal effect on this placement is claimed.",
   senna:
-    "Patch 7.3b directly reduced Senna's critical damage, Mist attack-damage gain, and Q damage. The current placement includes that change.",
+    "Patch 7.3b directly reduced Senna's critical damage, Mist attack-damage gain, and Q damage. No causal effect on this placement is claimed.",
 };
 
-const lowExecutionChampions = new Set([
-  "akali",
-  "akshan",
-  "camille",
-  "draven",
-  "fiora",
-  "irelia",
-  "jayce",
-  "kalista",
-  "katarina",
-  "khazix",
-  "lee-sin",
-  "nidalee",
-  "pyke",
-  "riven",
-  "samira",
-  "yasuo",
-  "yone",
-  "zed",
-  "zoe",
-]);
+type ChampionNotes = {
+  strengths: readonly string[];
+  limitations: readonly string[];
+  abilitySourceUrl: string;
+};
+type RoleReview = { rationale: string; signals: string };
+const notesByChampion: Readonly<Record<string, ChampionNotes>> = championNotes;
+const reviewsByPlacement: Readonly<Record<string, RoleReview>> = roleReviews;
+const signalLevels: Readonly<Record<string, SignalLevel>> = { H: "High", M: "Medium", L: "Low" };
 
-const easyExecutionChampions = new Set([
-  "amumu",
-  "ashe",
-  "braum",
-  "garen",
-  "leona",
-  "malphite",
-  "rammus",
-  "sona",
-]);
-
-function tierSignal(tier: Tier): SignalLevel {
-  if (tier === "S+" || tier === "S") return "High";
-  if (tier === "A" || tier === "B") return "Medium";
-  return "Low";
-}
-
-function signalsFor(championId: string, role: RoleKey, tier: Tier): DecisionSignals {
-  const baseline = tierSignal(tier);
-  const execution: SignalLevel = lowExecutionChampions.has(championId)
-    ? "Low"
-    : easyExecutionChampions.has(championId)
-      ? "High"
-      : "Medium";
-
+function decisionSignals(codes: string): DecisionSignals {
+  if (!/^[HML]{5}$/.test(codes))
+    throw new Error(`Invalid Wild Rift editorial signal codes: ${codes}`);
+  const levels = [...codes].map((code) => signalLevels[code]);
+  const [
+    soloQueueReliability,
+    blindPickSafety,
+    easeOfExecution,
+    carryImpactPotential,
+    teamDependence,
+  ] = levels;
+  if (
+    !soloQueueReliability ||
+    !blindPickSafety ||
+    !easeOfExecution ||
+    !carryImpactPotential ||
+    !teamDependence
+  ) {
+    throw new Error("Incomplete Wild Rift editorial assessment");
+  }
   return {
-    soloQueueReliability: baseline,
-    blindPickSafety: tier === "S+" ? "High" : tier === "S" || tier === "A" ? "Medium" : "Low",
-    easeOfExecution: execution,
-    carryImpactPotential:
-      role === "jungle" || role === "mid" || role === "dragon" ? baseline : "Medium",
-    teamDependence: role === "dragon" ? "High" : role === "support" ? "Medium" : "Low",
+    soloQueueReliability,
+    blindPickSafety,
+    easeOfExecution,
+    carryImpactPotential,
+    teamDependence,
   };
 }
 
-function stat(value: number | null, label: string): string {
-  return value === null ? `N/A ${label}` : `${value.toFixed(1)}% ${label}`;
-}
-
-function strengthsFor(
-  tier: Tier,
-  winRate: number | null,
-  pickRate: number | null,
-  banRate: number | null,
-  role: RoleKey,
-): readonly string[] {
-  const strengths: string[] = [];
-  if (tier === "S+" || tier === "S") {
-    strengths.push(`${tier} role placement in the reviewed Master+ snapshot.`);
-  }
-  if (winRate !== null && winRate >= 52) {
-    strengths.push(`Strong current Master+ win-rate signal (${winRate.toFixed(1)}%).`);
-  }
-  if (pickRate !== null && pickRate >= 8) {
-    strengths.push(`Established current role presence (${pickRate.toFixed(1)}% pick rate).`);
-  }
-  if (banRate !== null && banRate >= 10) {
-    strengths.push(`Meaningful current draft pressure (${banRate.toFixed(1)}% ban rate).`);
-  }
-  strengths.push(
-    `Role review explicitly weights ${roleCriteria[role][0]!.toLowerCase()} and ${roleCriteria[
-      role
-    ][1]!.toLowerCase()}.`,
-  );
-  if (strengths.length < 2) {
-    strengths.push(
-      "The placement is retained after cross-checking role context against the current patch.",
-    );
-  }
-  return strengths.slice(0, 4);
-}
-
-function limitationsFor(
-  winRate: number | null,
-  pickRate: number | null,
-  role: RoleKey,
-): readonly string[] {
-  const limitations: string[] = [];
-  if (winRate === null || pickRate === null) {
-    limitations.push(
-      "Complete WR / PR / BR values are unavailable for this source entry; no statistics are backfilled.",
-    );
-  } else {
-    if (winRate < 50) {
-      limitations.push(
-        `Current Master+ win rate is below 50% (${winRate.toFixed(1)}%), so the tier is not a win-rate endorsement.`,
-      );
-    }
-    if (pickRate < 2) {
-      limitations.push(
-        `Low current pick rate (${pickRate.toFixed(1)}%) makes the role sample less robust than high-volume picks.`,
-      );
-    }
-  }
-  limitations.push(
-    "This placement is specific to China-server Master+ Ranked and should not be read as a global all-ranks result.",
-  );
-  if (limitations.length < 2) {
-    limitations.push(
-      `${roleLabels[role]} value can change when draft needs differ from this reviewed solo-queue context.`,
-    );
-  }
-  return limitations.slice(0, 4);
-}
-
 function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
-  const role = seed.role as RoleKey;
-  const tier = seed.tier as Tier;
+  const role = seed.role;
+  const tier = seed.tier;
   const champion = championById.get(seed.championId);
   if (!champion) throw new Error(`Unknown Wild Rift champion: ${seed.championId}`);
 
-  const hasCompleteStats = seed.winRate !== null && seed.pickRate !== null && seed.banRate !== null;
-  const whyThisTier = hasCompleteStats
-    ? `${champion.name} is ${tier} in ${roleLabels[role]} after combining ${stat(
-        seed.winRate,
-        "WR",
-      )}, ${stat(seed.pickRate, "PR")}, and ${stat(
-        seed.banRate,
-        "BR",
-      )} with role-specific review of ${roleCriteria[role][0]!.toLowerCase()}, ${roleCriteria[
-        role
-      ][1]!.toLowerCase()}, execution burden, and solo-queue reliability.`
-    : `${champion.name} is ${tier} in ${
-        roleLabels[role]
-      } in the reviewed role snapshot. The source entry does not expose complete WR / PR / BR values, so the tier is retained without inventing missing statistics and is cross-checked against role context.`;
+  const review = reviewsByPlacement[`${seed.championId}:${role}`];
+  const notes = notesByChampion[seed.championId];
+  if (!review || !notes)
+    throw new Error(`Missing Wild Rift role review: ${seed.championId}:${role}`);
+  const statisticalContext =
+    seed.winRate === null
+      ? "Role statistics unavailable (WR / PR / BR: N/A); this is an editorial placement without inventing missing statistics."
+      : `CN Master+ evidence: ${seed.winRate.toFixed(2)}% WR, ${seed.pickRate?.toFixed(2)}% PR, ${seed.banRate?.toFixed(2)}% BR. These observations are not a causal explanation or a tier formula.`;
+  const whyThisTier = `${review.rationale} ${statisticalContext} TierListBase retains Wild Rift Core's ${tier} source tier for ${roleLabels[role]} after this editorial review.`;
 
   return {
     championId: seed.championId,
     role,
     tier,
+    sourceTier: seed.sourceTier,
+    tierSourceId: seed.tierSourceId,
+    editorialTierReason: null,
+    placementKind: seed.placementKind,
+    winRateChange7d: seed.winRateChange7d,
     winRate: seed.winRate,
     pickRate: seed.pickRate,
     banRate: seed.banRate,
-    trend: trendByPlacement.get(`${seed.championId}:${role}`) ?? "unavailable",
+    trend:
+      seed.winRateChange7d === null
+        ? "unavailable"
+        : seed.winRateChange7d > 0
+          ? "up"
+          : seed.winRateChange7d < 0
+            ? "down"
+            : "flat",
     whyThisTier,
-    strengths: strengthsFor(tier, seed.winRate, seed.pickRate, seed.banRate, role),
-    limitations: limitationsFor(seed.winRate, seed.pickRate, role),
-    decisionSignals: signalsFor(seed.championId, role, tier),
+    abilitySourceUrl: notes.abilitySourceUrl,
+    strengths: notes.strengths,
+    limitations: notes.limitations,
+    decisionSignals: decisionSignals(review.signals),
     patchImpact:
       directPatchImpact[seed.championId] ??
       "No direct standard Ranked change is recorded for this champion in 7.3b. Patch 7.3c is AAA ARAM-focused, so the current placement is driven by the reviewed Ranked snapshot and role context.",
     sourceIds: [
-      "tencent-master",
+      "core-editorial-tier",
+      ...(seed.placementKind === "statistics-backed" ? ["tencent-master"] : []),
       "editorial-review",
       ...(directPatchImpact[seed.championId] ? ["riot-7-3b"] : []),
     ],
@@ -541,132 +323,65 @@ export const quickPickChampionIds: Readonly<Record<RoleKey, string>> = {
   support: "braum",
 };
 
-export const quickInsights: Readonly<
-  Record<
-    RoleKey,
-    readonly {
-      readonly label:
-        | "Best Blind Pick"
-        | "Best Easy Climb Pick"
-        | "Highest Draft Priority"
-        | "Biggest Riser";
-      readonly championId: string;
-      readonly reason: string;
-    }[]
-  >
-> = {
-  baron: [
+type QuickInsight = {
+  readonly label:
+    | "Best Blind Pick"
+    | "Best Easy Climb Pick"
+    | "Highest Draft Priority"
+    | "Biggest Riser";
+  readonly championId: string;
+  readonly reason: string;
+};
+const editorialInsightPicks: Readonly<Record<RoleKey, readonly [string, string]>> = {
+  baron: ["ornn", "malphite"],
+  jungle: ["jarvan-iv", "rammus"],
+  mid: ["orianna", "brand"],
+  dragon: ["ezreal", "ashe"],
+  support: ["braum", "leona"],
+};
+
+function insightsForRole(role: RoleKey): readonly QuickInsight[] {
+  const [blind, easy] = editorialInsightPicks[role];
+  const placements = rankings.filter((ranking) => ranking.role === role);
+  const result: QuickInsight[] = [
     {
       label: "Best Blind Pick",
-      championId: "malphite",
-      reason: "S+ placement, strong Master+ results, and broad engage value keep the pick stable.",
+      championId: blind,
+      reason: `Editorial choice for flexible ${roleLabels[role]} utility and a workable fallback plan. Matchups and team composition still matter.`,
     },
     {
       label: "Best Easy Climb Pick",
-      championId: "darius",
-      reason: "High current role presence and a straightforward punish-and-reset win condition.",
+      championId: easy,
+      reason: `Editorial choice for a clear, easier-to-execute ${roleLabels[role]} plan. Consult its limitations; this is not a promised climb outcome.`,
     },
-    {
+  ];
+  const priority = placements
+    .filter((ranking) => ranking.banRate !== null)
+    .sort((a, b) => (b.banRate ?? -1) - (a.banRate ?? -1))[0];
+  if (priority)
+    result.push({
       label: "Highest Draft Priority",
-      championId: "mordekaiser",
-      reason: "S+ placement with substantial pick and ban pressure in the current snapshot.",
-    },
-    {
+      championId: priority.championId,
+      reason: `Editorial draft-pressure pick: highest reported champion ban rate among this role's statistics-backed candidates (${priority.banRate?.toFixed(2)}%). Ban pressure is champion-wide, not a role-specific ban measurement.`,
+    });
+  const riser = placements
+    .filter((ranking) => ranking.winRateChange7d !== null && ranking.winRateChange7d > 0)
+    .sort((a, b) => (b.winRateChange7d ?? 0) - (a.winRateChange7d ?? 0))[0];
+  if (riser)
+    result.push({
       label: "Biggest Riser",
-      championId: "jayce",
-      reason: "The reviewed Baron snapshot moved Jayce from C to A on October 19.",
-    },
-  ],
-  jungle: [
-    {
-      label: "Best Blind Pick",
-      championId: "jarvan-iv",
-      reason: "Reliable gank setup and terrain control retain value without requiring a snowball.",
-    },
-    {
-      label: "Best Easy Climb Pick",
-      championId: "rammus",
-      reason: "S+ placement and a 56.2% Master+ win rate give Rammus a strong current floor.",
-    },
-    {
-      label: "Highest Draft Priority",
-      championId: "nocturne",
-      reason: "S+ placement and very high ban pressure remain significant after the 7.3b nerf.",
-    },
-    {
-      label: "Biggest Riser",
-      championId: "chogath",
-      reason: "The reviewed Jungle snapshot moved Cho'Gath from B to S during patch 7.3.",
-    },
-  ],
-  mid: [
-    {
-      label: "Best Blind Pick",
-      championId: "orianna",
-      reason:
-        "S placement plus stable wave and teamfight value make her a flexible current option.",
-    },
-    {
-      label: "Best Easy Climb Pick",
-      championId: "brand",
-      reason: "S+ placement and strong current results reward direct area-damage execution.",
-    },
-    {
-      label: "Highest Draft Priority",
-      championId: "hwei",
-      reason: "S+ placement with 51.9% ban pressure keeps Hwei highly contested after 7.3b.",
-    },
-    {
-      label: "Biggest Riser",
-      championId: "malphite",
-      reason: "Malphite moved from B to S in the reviewed Mid snapshot on October 27.",
-    },
-  ],
-  dragon: [
-    {
-      label: "Best Blind Pick",
-      championId: "ashe",
-      reason: "S+ placement, range, and utility keep Ashe useful across many support pairings.",
-    },
-    {
-      label: "Best Easy Climb Pick",
-      championId: "jinx",
-      reason:
-        "A-tier placement and high role presence support a clear front-to-back win condition.",
-    },
-    {
-      label: "Highest Draft Priority",
-      championId: "smolder",
-      reason: "S+ placement and strong current results give Smolder high carry priority.",
-    },
-    {
-      label: "Biggest Riser",
-      championId: "kalista",
-      reason: "Kalista moved from B to S in the reviewed Dragon snapshot on October 25.",
-    },
-  ],
-  support: [
-    {
-      label: "Best Blind Pick",
-      championId: "braum",
-      reason: "S+ placement and strong current results fit a wide range of team shapes.",
-    },
-    {
-      label: "Best Easy Climb Pick",
-      championId: "leona",
-      reason: "S placement and a simple hard-engage pattern make fight starts easy to communicate.",
-    },
-    {
-      label: "Highest Draft Priority",
-      championId: "hwei",
-      reason: "The current reviewed Support snapshot places Hwei S+ with high shared ban pressure.",
-    },
-    {
-      label: "Biggest Riser",
-      championId: "pyke",
-      reason: "Current Support evidence keeps Pyke in A with meaningful roaming and pick value.",
-    },
-  ],
+      championId: riser.championId,
+      reason: `Largest available same-role 7-day win-rate gain in the reviewed source: +${riser.winRateChange7d?.toFixed(2)} percentage points. This is not a tier promotion; placements with unavailable trends cannot be compared.`,
+    });
+  return result;
+}
+
+export const quickInsights: Readonly<Record<RoleKey, readonly QuickInsight[]>> = {
+  baron: insightsForRole("baron"),
+  jungle: insightsForRole("jungle"),
+  mid: insightsForRole("mid"),
+  dragon: insightsForRole("dragon"),
+  support: insightsForRole("support"),
 };
 
 if (
