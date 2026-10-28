@@ -15,10 +15,10 @@ export const routeDefinitions = [
       "Evidence-based Game Meta Board and tier lists for World of Warcraft: Forever. Multi-source consensus, patch tracking, and transparent tier changes.",
     h1: "Evidence-based game meta boards for players",
     pageType: "WebApplication",
-    relatedRoutes: ["/wow-forever/tier-list", "/privacy", "/terms"],
+    relatedRoutes: ["/wow-forever/tier-list", "/wild-rift/tier-list", "/privacy", "/terms"],
     lastModified: "2026-10-09",
     reviewStatus: "reviewed",
-    reviewFingerprint: "f6dc74e630bd9df1edef45671f612084d05590752a335f2d3940d1a87d19acb3",
+    reviewFingerprint: "89d07b2f81458007ec84d1a848db4b3dccbad500bd9991deaa3084d089e55015",
   },
   {
     route: "/wow-forever/tier-list",
@@ -57,6 +57,23 @@ export const routeDefinitions = [
     title: "Limbus Company Tier List Preview | TierListBase",
     description:
       "Preview the TierListBase Limbus Company tier list interface for Identity, Team, E.G.O, and Sinner-focused recommendations.",
+  },
+  {
+    route: "/wild-rift/tier-list",
+    class: "public_indexable",
+    searchIntent:
+      "compare current Wild Rift Ranked champion strength by role and decide which champions to prioritize for Baron Lane, Jungle, Mid Lane, Dragon Lane, and Support",
+    primaryKeyword: "wild rift tier list",
+    secondaryKeywords: ["wild rift champion tier list", "wild rift champions tier list"],
+    title: "Wild Rift Tier List – Best Champions by Role for Ranked",
+    description:
+      "Compare the current Wild Rift tier list across Baron, Jungle, Mid, Dragon and Support using ranked statistics, role-specific evidence, and reviewed meta context.",
+    h1: "Wild Rift Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-10-28",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "8d248c2c16b6b7fc8b3581127fd89bfbc50a0bcb0239224e9020463193982c36",
   },
   {
     route: "/about",
