@@ -7,7 +7,6 @@ import {
   useRef,
   useState,
   useSyncExternalStore,
-  type ReactNode,
 } from "react";
 
 import {
@@ -505,6 +504,8 @@ function TierBoard({
                       className={styles.championCard}
                       type="button"
                       key={ranking.championId}
+                      data-champion-id={ranking.championId}
+                      data-tier={ranking.tier}
                       data-selected={selectedChampionId === ranking.championId}
                       aria-pressed={selectedChampionId === ranking.championId}
                       aria-label={`${champion.name}, ${ranking.tier} tier, ${roleLabels[role]}, ${ranking.winRate.toFixed(
@@ -699,7 +700,12 @@ export function WildRiftWorkspace() {
 
   return (
     <>
-      <QuickPicks onPick={activateRole} />
+      <QuickPicks
+        onPick={(nextRole, championId) => {
+          activateRole(nextRole, championId);
+          if (mobile) setMobileOpen(true);
+        }}
+      />
       <RoleNavigation
         active={role}
         onChange={(nextRole) => {
@@ -736,6 +742,3 @@ export function WildRiftWorkspace() {
   );
 }
 
-export function WildRiftSectionBoundary({ children }: { children: ReactNode }) {
-  return <>{children}</>;
-}
