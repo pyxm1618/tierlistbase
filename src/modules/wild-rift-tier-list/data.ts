@@ -16,7 +16,7 @@ export type Champion = {
   readonly id: string;
   readonly slug: string;
   readonly name: string;
-  readonly portrait: string;
+  readonly portrait: string | null;
 };
 
 export type DecisionSignals = {
@@ -181,7 +181,8 @@ export const sources: readonly EvidenceSource[] = [
 
 export const champions: readonly Champion[] = championCatalog.map((champion) => ({
   ...champion,
-  portrait: `/images/wild-rift/champions/${champion.slug}.png`,
+  portrait:
+    champion.id === "norra" ? null : `/images/wild-rift/champions/${champion.slug}.png`,
 }));
 
 const championById = new Map(champions.map((champion) => [champion.id, champion]));
