@@ -24,7 +24,6 @@ const roleSet = new Set(roleKeys);
 const tierSet = new Set(tiers);
 const championIds = new Set(champions.map((champion) => champion.id));
 const sourceIds = new Set(sources.map((source) => source.id));
-const hasProjectRouteInventory = routeRegistry.routes.some(\n  (entry) => entry.route === "/wow-forever/vanguard",\n);\n
 describe("Wild Rift reviewed snapshot", () => {
   it("uses the reviewed 7.3c game / 7.3b Ranked context with explicit source scope", () => {
     expect(snapshot).toEqual({
