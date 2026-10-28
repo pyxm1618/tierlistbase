@@ -334,14 +334,17 @@ export const changes: readonly RankingChange[] = [
   },
 ] as const;
 
-const trendByPlacement = new Map(
-  changes.map((change) => [
-    `${change.championId}:${change.role}`,
-    change.to === change.from ? ("flat" as const) : ("up" as const),
-  ]),
+const trendByPlacement = new Map<string, Trend>(
+  changes.map(
+    (change) =>
+      [
+        `${change.championId}:${change.role}`,
+        change.to === change.from ? ("flat" as const) : ("up" as const),
+      ] as const,
+  ),
 );
 for (const change of changes) {
-  const order = new Map<Tier, number>(tiers.map((tier, index) => [tier, index]));
+  const order = new Map<Tier, number>(tiers.map((tier, index) => [tier, index] as const));
   trendByPlacement.set(
     `${change.championId}:${change.role}`,
     (order.get(change.to) ?? 99) < (order.get(change.from) ?? 99) ? "up" : "down",
