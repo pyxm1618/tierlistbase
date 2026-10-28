@@ -42,6 +42,7 @@ const faq = [
 export function WildRiftTierList() {
   const officialSources = sources.filter((source) => source.type === "official_patch");
   const rankedSource = sources.find((source) => source.type === "ranked_statistics");
+  const tierSource = sources.find((source) => source.id === "core-editorial-tier");
   const editorialSource = sources.find((source) => source.id === "editorial-review");
 
   return (
@@ -164,6 +165,13 @@ export function WildRiftTierList() {
                   <>
                     <Link href={editorialSource.url}>{editorialSource.name}</Link>
                     <p>{editorialSource.context}</p>
+                    {tierSource ? (
+                      <p>
+                        <a href={tierSource.url} target="_blank" rel="noopener noreferrer">
+                          {tierSource.name}
+                        </a>
+                      </p>
+                    ) : null}
                     <small>Checked {editorialSource.checkedAt}</small>
                   </>
                 ) : null}

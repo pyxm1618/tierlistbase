@@ -169,3 +169,37 @@ for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
     ).toBeVisible();
   });
 }
+
+test("Wild Rift never borrows role statistics or presents missing portraits and history as verified", async ({
+  page,
+}) => {
+  await page.goto(route);
+  await expect(
+    page.getByRole("link", { name: "Wild Rift Core · Editorial Role Tier List & History" }),
+  ).toHaveAttribute("href", "https://wildriftcore.com/en/tierlist/");
+  const roleNav = page.getByRole("tablist", { name: "Wild Rift role rankings" });
+  await roleNav.getByRole("tab", { name: /^Baron Lane/ }).click();
+  await page.getByRole("searchbox", { name: "Search Champions" }).fill("Ryze");
+  const card = page.locator('[data-champion-id="ryze"]');
+  await expect(card).toContainText("N/A WR");
+  await expect(card).toContainText("N/A PR");
+  await expect(card).toContainText("N/A BR");
+  await expect(card).toContainText("Editorial · statistics unavailable");
+  await card.click();
+  const detail = page.getByRole("complementary", { name: "Champion Detail" });
+  await expect(detail).toContainText("TierListBase editorial placement");
+  await expect(detail).toContainText("Source tier: A (Wild Rift Core)");
+  await expect(detail).toContainText("TierListBase editorial assessments");
+  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText(
+    "No tier changes cleared the full evidence review",
+  );
+  await roleNav.getByRole("tab", { name: /^Mid Lane$/ }).click();
+  await page.getByRole("searchbox", { name: "Search Champions" }).fill("Norra");
+  const norra = page.locator('[data-champion-id="norra"]');
+  await expect(
+    norra.getByRole("img", { name: "Norra portrait unavailable; placeholder" }),
+  ).toBeVisible();
+  await norra.click();
+  await expect(detail).toContainText("+1.37 pp");
+  await expect(detail).toContainText("Arrows show 7-day win-rate change, not tier movement");
+});

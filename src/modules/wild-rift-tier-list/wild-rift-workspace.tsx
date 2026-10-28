@@ -579,6 +579,11 @@ function TierBoard({
                           {compactRate(ranking.pickRate, "PR")} ·{" "}
                           {compactRate(ranking.banRate, "BR")}
                         </span>
+                        {ranking.placementKind === "editorial" ? (
+                          <span className={styles.cardSecondaryMetrics}>
+                            Editorial · statistics unavailable
+                          </span>
+                        ) : null}
                       </span>
                     </button>
                   );

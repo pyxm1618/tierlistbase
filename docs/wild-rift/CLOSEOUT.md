@@ -66,7 +66,7 @@ No final design or Hero original was found in the PR checkout or attached in thi
 
 ## Engineering evidence
 
-Local: formatting PASS; lint PASS with two existing unrelated warnings; typecheck PASS; whole unit suite 716 PASS before the final evidence-coverage test, and final Wild Rift suite 18 PASS. The complete CI workflow must run on the pushed closeout commit; results will be recorded separately after it finishes. E2E/performance/clean-setup are not marked successful from typecheck alone.
+Local: formatting PASS; lint PASS with two existing unrelated warnings; typecheck PASS; whole unit suite 717 PASS, final Wild Rift unit suite 18 PASS, and targeted browser suite 11 PASS (including six viewport widths, desktop/mobile accessibility, missing-statistics labels, seven-day trend, placeholder disclosure, and withheld history). The complete CI workflow must run on the final pushed closeout commit; the GitHub Actions run linked in the final handoff is authoritative for its results. E2E/performance/clean-setup are not marked successful from typecheck alone.
 
 No assertions or budgets were weakened. No dependencies, APIs, database migrations, shared header/homepage UI, other game modules, or product scope were changed in this closeout.
 
