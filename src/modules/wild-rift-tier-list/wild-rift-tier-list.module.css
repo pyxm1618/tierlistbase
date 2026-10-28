@@ -1242,28 +1242,28 @@
   padding: 0 0 16px;
 }
 
-[data-tier="S+"] {
+.page [data-tier="S+"] {
   color: #fff0ba;
   background: linear-gradient(135deg, rgba(170, 118, 30, 0.48), rgba(23, 107, 130, 0.22));
   box-shadow: inset 0 0 0 1px rgba(244, 203, 103, 0.22);
 }
 
-[data-tier="S"] {
+.page [data-tier="S"] {
   color: #ffd98b;
   background: rgba(142, 94, 25, 0.35);
 }
 
-[data-tier="A"] {
+.page [data-tier="A"] {
   color: #8ee7ff;
   background: rgba(20, 111, 148, 0.34);
 }
 
-[data-tier="B"] {
+.page [data-tier="B"] {
   color: #9fc4ff;
   background: rgba(34, 64, 133, 0.34);
 }
 
-[data-tier="C"] {
+.page [data-tier="C"] {
   color: #c3b7ea;
   background: rgba(83, 67, 121, 0.35);
 }
