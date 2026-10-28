@@ -1,0 +1,1741 @@
+{
+  "checkedAt": "2026-10-28",
+  "scope": "All 54 records present at PR handoff; this is not a complete live-roster inventory",
+  "totals": {
+    "original": 54,
+    "pass": 0,
+    "deferred": 54,
+    "reject": 0,
+    "unreviewed": 0
+  },
+  "records": [
+    {
+      "id": "artemis",
+      "name": "Artemis",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "arcane-wisdom",
+        "illusion-veil"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "hela",
+      "name": "Hela",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Priest",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "sanctum-glory",
+        "otherworld-return"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "talos",
+      "name": "Talos",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Mage",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "arcane-wisdom",
+        "wild-spirit"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "rin",
+      "name": "Rin",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Assassin",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "sanctum-glory",
+        "otherworld-return"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "loki",
+      "name": "Loki",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Mage",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "otherworld-return",
+        "wild-spirit"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "athena",
+      "name": "Athena",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "sanctum-glory",
+        "wild-spirit"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "ares",
+      "name": "Ares",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Warrior",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "illusion-veil",
+        "arcane-wisdom"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "prometheus",
+      "name": "Prometheus",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "wild-spirit",
+        "arcane-wisdom"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "morgana",
+      "name": "Morgana",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Priest",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "elemental-echo",
+        "illusion-veil"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "xuanwu",
+      "name": "Xuanwu",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "sanctum-glory",
+        "arcane-wisdom"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "asmodeus",
+      "name": "Asmodeus",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Warrior",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "otherworld-return",
+        "wild-spirit"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "caesar",
+      "name": "Caesar",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "sanctum-glory",
+        "illusion-veil"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "vermilion-bird",
+      "name": "Vermilion Bird",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Mage",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "elemental-echo",
+        "illusion-veil"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "apollo",
+      "name": "Apollo",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "otherworld-return",
+        "sanctum-glory"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "venus",
+      "name": "Venus",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Priest",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "wild-spirit",
+        "elemental-echo"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "vivienne",
+      "name": "Vivienne",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Priest",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "elemental-echo",
+        "sanctum-glory"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "gabriele",
+      "name": "Gabriele",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Mage",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "sanctum-glory",
+        "otherworld-return"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "poseidon",
+      "name": "Poseidon",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Mage",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "elemental-echo",
+        "illusion-veil"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "arachne",
+      "name": "Arachne",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Mage",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "illusion-veil",
+        "wild-spirit"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "orion",
+      "name": "Orion",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "elemental-echo",
+        "illusion-veil"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "hades",
+      "name": "Hades",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Assassin",
+      "observedRarity": "ssr-ex",
+      "observedFactions": [
+        "arcane-wisdom",
+        "otherworld-return"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "ifrit",
+      "name": "Ifrit",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "arcane-wisdom",
+        "elemental-echo"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "mimir",
+      "name": "Mimir",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "sanctum-glory",
+        "arcane-wisdom"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "zagreus",
+      "name": "Zagreus",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Assassin",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "elemental-echo",
+        "arcane-wisdom"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "scheherazade",
+      "name": "Scheherazade",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Priest",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "arcane-wisdom",
+        "sanctum-glory"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "medusa",
+      "name": "Medusa",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "illusion-veil",
+        "otherworld-return"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "pompey",
+      "name": "Pompey",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "arcane-wisdom",
+        "illusion-veil"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "helveil",
+      "name": "Helveil",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "otherworld-return",
+        "sanctum-glory"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "asteros",
+      "name": "Asteros",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Warrior",
+      "observedRarity": "ssr-plus",
+      "observedFactions": [
+        "wild-spirit",
+        "otherworld-return"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "fenrir",
+      "name": "Fenrir",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Assassin",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "elemental-echo",
+        "arcane-wisdom"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "oberonnie",
+      "name": "Oberonnie",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "elemental-echo",
+        "wild-spirit"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "melina",
+      "name": "Melina",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Mage",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "elemental-echo",
+        "sanctum-glory"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "white-tiger",
+      "name": "White Tiger",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Assassin",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "wild-spirit",
+        "otherworld-return"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "lancelot",
+      "name": "Lancelot",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Assassin",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "sanctum-glory",
+        "elemental-echo"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "gudong",
+      "name": "Gudong",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "otherworld-return",
+        "illusion-veil"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "arthur",
+      "name": "Arthur",
+      "server": "global",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Warrior",
+      "observedRarity": "ssr",
+      "observedFactions": [
+        "sanctum-glory",
+        "illusion-veil"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "AllClash current ratings + Dragon Companion live taxonomy",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "artemis-tw",
+      "name": "月亮女神・阿爾忒彌斯",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "tw-q4",
+      "observedFactions": [
+        "arcane-wisdom-tw",
+        "illusion-veil-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "hera-tw",
+      "name": "天后・赫拉",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "tw-q4",
+      "observedFactions": [
+        "elemental-echo-tw",
+        "wild-spirit-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "apollo-tw",
+      "name": "太陽神・阿波羅",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "tw-q4",
+      "observedFactions": [
+        "otherworld-return-tw",
+        "sanctum-glory-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "prometheus-tw",
+      "name": "盜火之神・普羅米修斯",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "tw-q4",
+      "observedFactions": [
+        "wild-spirit-tw",
+        "arcane-wisdom-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "hypnos-tw",
+      "name": "睡神・修普諾斯",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Priest",
+      "observedRarity": "tw-q4",
+      "observedFactions": [
+        "arcane-wisdom-tw",
+        "illusion-veil-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "athena-tw",
+      "name": "智慧女神・雅典娜",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "tw-q4",
+      "observedFactions": [
+        "sanctum-glory-tw",
+        "wild-spirit-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "poseidon-tw",
+      "name": "海神・波塞冬",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Mage",
+      "observedRarity": "tw-q4",
+      "observedFactions": [
+        "elemental-echo-tw",
+        "illusion-veil-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "hades-tw",
+      "name": "冥府之王・哈迪斯",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Assassin",
+      "observedRarity": "tw-q4",
+      "observedFactions": [
+        "arcane-wisdom-tw",
+        "otherworld-return-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "xuanwu-tw",
+      "name": "四聖・玄武",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "tw-q3",
+      "observedFactions": [
+        "sanctum-glory-tw",
+        "arcane-wisdom-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "sade-tw",
+      "name": "放浪行刑官・薩德",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Warrior",
+      "observedRarity": "tw-q3",
+      "observedFactions": [
+        "illusion-veil-tw",
+        "elemental-echo-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "arsene-tw",
+      "name": "紳士怪盜・亞森羅蘋",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "tw-q3",
+      "observedFactions": [
+        "elemental-echo-tw",
+        "otherworld-return-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "siegrid-tw",
+      "name": "鷹之勇者・齊格露德",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Assassin",
+      "observedRarity": "tw-q3",
+      "observedFactions": [
+        "sanctum-glory-tw",
+        "arcane-wisdom-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "scheherazade-tw",
+      "name": "祈願燈神・山魯佐德",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Priest",
+      "observedRarity": "tw-q2",
+      "observedFactions": [
+        "arcane-wisdom-tw",
+        "sanctum-glory-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "ifrit-tw",
+      "name": "炎魔・伊芙利特",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Archer",
+      "observedRarity": "tw-q3",
+      "observedFactions": [
+        "arcane-wisdom-tw",
+        "elemental-echo-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "oberonnie-tw",
+      "name": "仲夏夜之夢・奧伯隆妮",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Guardian",
+      "observedRarity": "tw-q2",
+      "observedFactions": [
+        "elemental-echo-tw",
+        "wild-spirit-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "fenrir-tw",
+      "name": "芬里爾",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Assassin",
+      "observedRarity": "tw-q2",
+      "observedFactions": [
+        "elemental-echo-tw",
+        "arcane-wisdom-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "siegfried-tw",
+      "name": "齊格飛",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Warrior",
+      "observedRarity": "tw-q2",
+      "observedFactions": [
+        "elemental-echo-tw",
+        "wild-spirit-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    },
+    {
+      "id": "melina-tw",
+      "name": "梅琳娜",
+      "server": "taiwan",
+      "state": "deferred",
+      "observedRankingModes": [
+        "overall",
+        "pve",
+        "pvp"
+      ],
+      "observedClass": "Mage",
+      "observedRarity": "tw-q2",
+      "observedFactions": [
+        "elemental-echo-tw",
+        "sanctum-glory-tw"
+      ],
+      "liveStatus": "NOT_VERIFIED_PER_CHARACTER",
+      "factsEvidence": "Snapshot-level sources only; no per-character official live proof stored",
+      "rankingEvidence": "GameBeans Taiwan live notices + Taiwan community progression guide",
+      "missing": [
+        "per-character source refs",
+        "checkedAt",
+        "liveStatus",
+        "whyThisTier",
+        "strengths >= 2",
+        "limitations >= 2",
+        "bestFor >= 1",
+        "validated bestPartners",
+        "approved portrait mapping"
+      ],
+      "action": "Verify server-specific facts and mechanics; do not invent missing fields or import the parallel draft"
+    }
+  ]
+}

@@ -1,6 +1,16 @@
 import { expect, test } from "@playwright/test";
 
+import { routeRegistry } from "@/config/routes.config";
+import AxeBuilder from "@axe-core/playwright";
+
 const route = "/dragon-traveler/tier-list";
+
+test.beforeEach(() => {
+  test.skip(
+    !routeRegistry.routes.some((entry) => entry.route === route),
+    "The neutral product does not register the Dragon Traveler page",
+  );
+});
 
 test("Dragon Traveler keeps the frozen architecture and server-specific taxonomy", async ({
   page,
@@ -77,3 +87,24 @@ for (const width of [390, 1440]) {
     );
   });
 }
+
+test("Dragon Traveler retires the Taiwan banner at its exact server-time boundary", async ({
+  page,
+}) => {
+  await page.clock.install({ time: new Date("2026-10-28T12:00:00+08:00") });
+  await page.clock.pauseAt(new Date("2026-10-29T04:59:59+08:00"));
+  await page.goto(route);
+  const priority = page.locator("[data-current-pull-priority]");
+  await expect(priority).toContainText("No verified current banner recommendation");
+  await page.getByRole("button", { name: "Taiwan", exact: true }).click();
+  await expect(priority).toContainText("Consider");
+  await page.clock.fastForward(2000);
+  await expect(priority).toContainText("No verified current banner recommendation");
+  await expect(priority).not.toContainText("Consider");
+});
+
+test("Dragon Traveler has no serious accessibility violations", async ({ page }) => {
+  await page.goto(route);
+  const result = await new AxeBuilder({ page }).include("[data-dragon-traveler-page]").analyze();
+  expect(result.violations).toEqual([]);
+});

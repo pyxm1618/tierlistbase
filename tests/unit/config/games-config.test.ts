@@ -5,14 +5,15 @@ import { describe, expect, it } from "vitest";
 import { gamesConfig, navigationGames } from "@/config/games.config";
 
 describe("games.config registry", () => {
-  it("registers exactly 5 official games with correct paths and orders", () => {
-    expect(gamesConfig).toHaveLength(5);
+  it("registers released games and the unpublished Dragon preview without reordering navigation", () => {
+    expect(gamesConfig).toHaveLength(6);
     expect(gamesConfig.map((g) => g.name)).toEqual([
       "World of Warcraft",
       "Genshin Impact",
       "Zenless Zone Zero",
       "NIKKE",
       "Limbus Company",
+      "Dragon Traveler",
     ]);
 
     expect(gamesConfig.map((g) => g.tierListHref)).toEqual([
@@ -21,9 +22,13 @@ describe("games.config registry", () => {
       "/zenless-zone-zero/tier-list",
       "/nikke/tier-list",
       "/limbus-company/tier-list",
+      "/dragon-traveler/tier-list",
     ]);
 
-    expect(gamesConfig.map((g) => g.navigationOrder)).toEqual([1, 2, 3, 4, 5]);
+    expect(gamesConfig.map((g) => g.navigationOrder)).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(gamesConfig.find((game) => game.slug === "dragon-traveler")?.navigationVisible).toBe(
+      false,
+    );
   });
 
   it("exports navigationGames matching the visible games in navigation order", () => {

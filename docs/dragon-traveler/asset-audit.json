@@ -1,0 +1,103 @@
+{
+  "checkedAt": "2026-10-28",
+  "design": "Supplied 设计稿.png, 1024 × 1536; module provenance.json records SHA-256",
+  "totals": {
+    "original": 10,
+    "pass": 1,
+    "deferred": 9,
+    "reject": 0,
+    "unreviewed": 0
+  },
+  "assets": [
+    {
+      "asset": "Hero background",
+      "requiredByDesign": "YES",
+      "currentFile": "src/modules/dragon-traveler-tier-list/assets/dragon-traveler-hero.webp",
+      "provenanceKnown": "YES",
+      "exactMatch": "YES",
+      "state": "pass",
+      "action": "Regenerated directly from supplied Hero.png; source and derivative SHA-256, dimensions and transform recorded in module provenance.json. Exact reproduction of the old unrecorded derivative was not established; the old file is preserved by Git history."
+    },
+    {
+      "asset": "Character avatars / portraits",
+      "requiredByDesign": "YES",
+      "currentFile": "Initials fallback only",
+      "provenanceKnown": "NO",
+      "exactMatch": "NO",
+      "state": "deferred",
+      "action": "Provide approved game-native portraits with filename-to-character mapping for every record in character-audit.json. Detail also needs full character artwork if distinct from avatar. Design names such as Nerathia are visual placeholders, not accepted game facts."
+    },
+    {
+      "asset": "Class icons",
+      "requiredByDesign": "YES",
+      "currentFile": "Text only",
+      "provenanceKnown": "NO",
+      "exactMatch": "NO",
+      "state": "deferred",
+      "action": "Provide Guardian, Warrior, Assassin, Archer, Mage and Priest icons from the approved resource system."
+    },
+    {
+      "asset": "Faction icons / markers",
+      "requiredByDesign": "YES",
+      "currentFile": "Text only",
+      "provenanceKnown": "NO",
+      "exactMatch": "NO",
+      "state": "deferred",
+      "action": "Provide Sanctum Glory, Wild Spirit, Elemental Echo, Arcane Wisdom, Otherworld Return and Illusion Veil icons; confirm Taiwan name-to-icon mapping independently."
+    },
+    {
+      "asset": "Section decorative assets",
+      "requiredByDesign": "YES",
+      "currentFile": "CSS borders only",
+      "provenanceKnown": "NO",
+      "exactMatch": "NO",
+      "state": "deferred",
+      "action": "Provide the section crest, ornamental frames/corners and S+/S/A/B/C badge plates as separate SVG/transparent PNG sources; no screenshot cropping."
+    },
+    {
+      "asset": "Background texture",
+      "requiredByDesign": "YES",
+      "currentFile": "CSS gradients only",
+      "provenanceKnown": "NO",
+      "exactMatch": "NO",
+      "state": "deferred",
+      "action": "Provide the full decorative page background including edge foliage/scene continuation, with original sizing/tile instructions."
+    },
+    {
+      "asset": "Parchment texture / ornament",
+      "requiredByDesign": "YES",
+      "currentFile": "No approved standalone file",
+      "provenanceKnown": "NO",
+      "exactMatch": "NO",
+      "state": "deferred",
+      "action": "Provide parchment panel texture and parchment edge/scroll/corner ornaments, with tiling or nine-slice guidance if applicable."
+    },
+    {
+      "asset": "Buttons / tabs",
+      "requiredByDesign": "YES",
+      "currentFile": "CSS controls only",
+      "provenanceKnown": "NO",
+      "exactMatch": "NO",
+      "state": "deferred",
+      "action": "Provide any independent ornamental gold tab/button plates or an approved editable style specification; no screenshot cutouts."
+    },
+    {
+      "asset": "Team formation visuals",
+      "requiredByDesign": "YES",
+      "currentFile": "Member text only",
+      "provenanceKnown": "NO",
+      "exactMatch": "NO",
+      "state": "deferred",
+      "action": "Provide approved formation stage/grid background and any game-native unit cutouts required by the featured team visual. Position/member data must remain source-backed."
+    },
+    {
+      "asset": "Game-specific logos / insignia",
+      "requiredByDesign": "YES",
+      "currentFile": "No approved standalone file",
+      "provenanceKnown": "NO",
+      "exactMatch": "NO",
+      "state": "deferred",
+      "action": "Provide the Dragon section insignia visible beside Luminary Tier List; shared SiteHeader/SiteFooter stay unchanged."
+    }
+  ]
+}

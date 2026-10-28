@@ -42,6 +42,13 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     navigationVisible: true,
     navigationOrder: 5,
   },
+  {
+    slug: "dragon-traveler",
+    name: "Dragon Traveler",
+    tierListHref: "/dragon-traveler/tier-list",
+    navigationVisible: false,
+    navigationOrder: 6,
+  },
 ] as const;
 
 export const navigationGames = gamesConfig.filter((game) => game.navigationVisible);

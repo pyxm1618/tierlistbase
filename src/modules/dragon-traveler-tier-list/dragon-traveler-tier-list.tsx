@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useDeferredValue, useMemo, useState } from "react";
 
 import heroImage from "./assets/dragon-traveler-hero.webp";
+import { CurrentPullPriority } from "./current-pull-priority";
 import { accountDecisions } from "./account-decisions";
 import { changes } from "./changes";
 import { globalSnapshot } from "./global-snapshot";
@@ -404,6 +405,7 @@ export function DragonTravelerTierListPage() {
                 <small>{decision.sourceLabel}</small>
               </article>
             ))}
+            <CurrentPullPriority server={server} />
           </div>
         </section>
 

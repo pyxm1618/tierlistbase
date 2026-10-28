@@ -1,0 +1,38 @@
+{
+  "hero": {
+    "sourceFile": "Hero.png",
+    "sourceSha256": "7dba3b7ccfba75b7030df8f6ee8ce8021fdbd651961385c752371f55f2e4d329",
+    "sourceDimensions": {
+      "width": 2129,
+      "height": 739
+    },
+    "sourceContext": "User-provided Desktop/dragon/Hero.png identified in Dragon requirement handoff and opened during 2026-10-28 audit",
+    "path": "assets/dragon-traveler-hero.webp",
+    "sha256": "aae3e0612cb65da4ff8860b8df1f6acd1df53af3fe3013ffe08918756ff01cca",
+    "dimensions": {
+      "width": 640,
+      "height": 222
+    },
+    "transform": {
+      "tool": "sharp",
+      "version": "0.35.5",
+      "resize": {
+        "width": 640
+      },
+      "format": "webp",
+      "quality": 72
+    },
+    "checkedAt": "2026-10-28",
+    "bytes": 40244
+  },
+  "design": {
+    "sourceFile": "设计稿.png",
+    "sha256": "66e80f8dbf656d623e9360ff36403a4e1ce91eef26df58b911d4b4fdc6606611",
+    "dimensions": {
+      "width": 1024,
+      "height": 1536
+    },
+    "checkedAt": "2026-10-28"
+  },
+  "releaseStatus": "ASSET BLOCKED: portraits, game icons and standalone design decorations are not verified"
+}
