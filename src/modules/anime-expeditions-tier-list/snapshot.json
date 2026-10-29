@@ -3006,7 +3006,7 @@
       "tier": "S",
       "bestFor": "DPS",
       "restriction": "Single placement: compare total team output before rerolling.",
-      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "why": "The documented 350% damage amplification concentrates output into a single placement. Compare that one carry with the total output and coverage of the placements it replaces; it is not an automatic support or economy recommendation.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3019,7 +3019,7 @@
       "tier": "S",
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "why": "Damage, attack interval and range improve together without the documented single-placement restriction of Unbound. This gives damage units a broad alternative when multiple placements matter.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3032,7 +3032,7 @@
       "tier": "S",
       "bestFor": "Crit builds",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: Crit builds. Rarity alone does not determine this editorial tier.",
+      "why": "Critical chance and critical damage improve together. Value depends on the unit actually using critical attacks and its existing critical stats; a non-critical support kit does not gain the same benefit.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3045,7 +3045,7 @@
       "tier": "S",
       "bestFor": "DoT",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: DoT. Rarity alone does not determine this editorial tier.",
+      "why": "The large documented DoT bonus rewards a damaging status kit, while the cost reduction helps establish it earlier. A direct-hit unit without damaging DoT does not use the main reason for this grade.",
       "sourceIds": ["traits", "draconic-patch"],
       "status": "Source checked; live review pending"
     },
@@ -3058,7 +3058,7 @@
       "tier": "A",
       "bestFor": "Economy",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: Economy. Rarity alone does not determine this editorial tier.",
+      "why": "The income increase addresses the economy slot rather than carry damage. Its value depends on bringing a money-farm unit and having enough remaining upgrades or waves to spend the extra income.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3071,7 +3071,7 @@
       "tier": "A",
       "bestFor": "Support / range coverage",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: Support / range coverage. Rarity alone does not determine this editorial tier.",
+      "why": "Extra range can expand support coverage and keep more targets within a conditional aura. It does not supply direct damage or attack-speed bonuses, so evaluate actual map coverage before choosing it for a carry.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3084,7 +3084,7 @@
       "tier": "A",
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "why": "The attack-interval reduction improves repeated attacks without requiring critical or DoT mechanics. It lacks Primordial’s accompanying damage and range bonuses, making it a narrower damage option.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3097,7 +3097,7 @@
       "tier": "A",
       "bestFor": "Crit builds",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: Crit builds. Rarity alone does not determine this editorial tier.",
+      "why": "Its critical chance and critical damage bonuses favor kits that make meaningful use of critical attacks. It offers larger documented bonuses than Precision 1 but contributes little to non-attacking support effects.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3110,7 +3110,7 @@
       "tier": "B",
       "bestFor": "Crit builds",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: Crit builds. Rarity alone does not determine this editorial tier.",
+      "why": "The smaller critical package can serve a developing critical build. Its documented chance and damage bonuses are both below Precision 2; keep it for the relevant kit rather than treating it as a universal upgrade.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3123,7 +3123,7 @@
       "tier": "B",
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "why": "The documented 15% damage increase is a straightforward attacking-unit option. It lacks the attack interval, range or specialist DoT benefits that justify the higher role-fit grades.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3136,7 +3136,7 @@
       "tier": "B",
       "bestFor": "Support / range coverage",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: Support / range coverage. Rarity alone does not determine this editorial tier.",
+      "why": "The 10% range increase can repair a particular placement or support-coverage gap. Optics supplies a larger range bonus, and extra reach has little value when the required targets are already covered.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3149,7 +3149,7 @@
       "tier": "B",
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "why": "The 10% attack-interval reduction supports repeated attacks. Bolt provides a larger documented reduction; this remains a useful interim choice when stronger rolls are unavailable.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3162,7 +3162,7 @@
       "tier": "B",
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "why": "A 10% damage increase helps an attacking unit without demanding a specific mechanic. Limit Breaker provides a larger flat bonus, while specialist traits can address additional parts of a kit.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3175,7 +3175,7 @@
       "tier": "C",
       "bestFor": "Progression",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: Progression. Rarity alone does not determine this editorial tier.",
+      "why": "Extra experience helps account progression, but the documented effect does not directly improve damage, control or support during a stage. The low combat grade does not mean it has no leveling use.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3188,7 +3188,7 @@
       "tier": "C",
       "bestFor": "Support / range coverage",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: Support / range coverage. Rarity alone does not determine this editorial tier.",
+      "why": "A small range increase is useful only when it crosses a real coverage threshold. Larger range traits are preferable for a dedicated coverage build; do not reroll solely for a rarity label.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3201,7 +3201,7 @@
       "tier": "C",
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "why": "The 5% attack-interval reduction provides a modest interim attack-speed benefit. Speed 2 and Bolt offer larger documented reductions, so this is a low-investment stopping point rather than a finished build.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
@@ -3214,7 +3214,7 @@
       "tier": "C",
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
-      "why": "Role-specific value: DPS. Rarity alone does not determine this editorial tier.",
+      "why": "The 5% damage increase is a modest interim damage roll. Stronger flat-damage traits and role-specific options provide more documented benefit; preserve resources if this unit will soon be replaced.",
       "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     }
