@@ -8,22 +8,23 @@
     },
     "sourceContext": "User-provided Desktop/dragon/Hero.png identified in Dragon requirement handoff and opened during 2026-10-28 audit",
     "path": "assets/dragon-traveler-hero.webp",
-    "sha256": "aae3e0612cb65da4ff8860b8df1f6acd1df53af3fe3013ffe08918756ff01cca",
+    "sha256": "f419667c9d3b05697b94eb2931ca51ae985d79090a6c334acbb011d14b66483d",
     "dimensions": {
-      "width": 640,
-      "height": 222
+      "width": 1280,
+      "height": 444
     },
     "transform": {
       "tool": "sharp",
       "version": "0.35.5",
       "resize": {
-        "width": 640
+        "width": 1280
       },
       "format": "webp",
-      "quality": 72
+      "quality": 35
     },
     "checkedAt": "2026-10-28",
-    "bytes": 40244
+    "bytes": 76946,
+    "derivativeCheckedAt": "2026-10-29"
   },
   "design": {
     "sourceFile": "设计稿.png",
@@ -34,7 +35,7 @@
     },
     "checkedAt": "2026-10-28"
   },
-  "releaseStatus": "Visual verification pending; restored stash portraits and icons, original PR Hero and design provenance retained",
+  "releaseStatus": "Visual parity not accepted: decorative framing, featured battlefield presentation, detail composition and lower-section density remain different from the supplied final design",
   "restoredAssets": [
     {
       "id": "ares",
