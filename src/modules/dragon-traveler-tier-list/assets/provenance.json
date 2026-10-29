@@ -133,7 +133,24 @@
       "path": "assets/verified/dartagnan.webp",
       "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/DArtagnan_art.webp",
       "checkedAt": "2026-10-28",
-      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 600,
+          "height": 571
+        },
+        "region": {
+          "left": 246,
+          "top": 85,
+          "width": 180,
+          "height": 180
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
     },
     {
       "id": "apollo",
@@ -524,7 +541,24 @@
       "path": "assets/verified/galahad.webp",
       "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Galahad_art.webp",
       "checkedAt": "2026-10-28",
-      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 559,
+          "height": 600
+        },
+        "region": {
+          "left": 210,
+          "top": 25,
+          "width": 190,
+          "height": 190
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
     },
     {
       "id": "prometheus",
