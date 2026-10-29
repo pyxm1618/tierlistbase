@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { currentBannerAt, verifiedBanners } from "./banners";
 import styles from "./dragon-traveler-tier-list.module.css";
-import type { ServerKey } from "./types";
+import type { ServerKey } from "./data";
 
 export function CurrentPullPriority({ server }: { server: ServerKey }) {
   // A static build must never freeze an active recommendation past its end date.
@@ -16,8 +16,9 @@ export function CurrentPullPriority({ server }: { server: ServerKey }) {
       clearTimeout(boundaryTimer);
       const currentTime = Date.now();
       setNow(currentTime);
+      // Track both servers' boundaries once; switching server must not trigger
+      // a second synchronous card commit after the page's selection update.
       const nextBoundary = verifiedBanners
-        .filter((banner) => banner.server === server)
         .flatMap((banner) => [Date.parse(banner.startsAt), Date.parse(banner.endsAt)])
         .filter((boundary) => boundary > currentTime)
         .sort((left, right) => left - right)[0];
@@ -33,34 +34,37 @@ export function CurrentPullPriority({ server }: { server: ServerKey }) {
       window.removeEventListener("focus", refresh);
       document.removeEventListener("visibilitychange", refresh);
     };
-  }, [server]);
+  }, []);
 
   const banner = now === null ? null : currentBannerAt(server, now);
 
   return (
-    <article className={styles.card} data-current-pull-priority>
-      <span className={styles.decisionType}>Current Pull Priority</span>
+    <article className={styles.paper} data-current-pull-priority>
+      <h3>Current Pull Priority</h3>
       {banner ? (
         <>
-          <h3>
+          <h4>
             {banner.recommendation} · {banner.bannerName}
-          </h3>
+          </h4>
           <p>{banner.rationale}</p>
-          <p>10/15 05:00–10/29 04:59 (UTC+8)</p>
+          <p>{banner.windowLabel}</p>
           <small>
             <a href={banner.sourceUrl} target="_blank" rel="noreferrer">
               Official banner notice
+            </a>
+            {" · "}
+            <a href={banner.evaluationSourceUrl} target="_blank" rel="noreferrer">
+              Evaluation source
             </a>
             {" · "}Checked {banner.checkedAt}
           </small>
         </>
       ) : (
         <>
-          <h3>No verified current banner recommendation</h3>
+          <h4>No verified current banner recommendation</h4>
           <p>
-            {server === "global"
-              ? "A character rating does not establish a current banner. Confirm the live server notice before spending summon resources."
-              : "No verified banner is active in the recorded Taiwan event window."}
+            No verified banner is active in the recorded {server === "global" ? "Global" : "Taiwan"}{" "}
+            event window.
           </p>
           <small>Banner evidence checked 2026-10-28</small>
         </>
