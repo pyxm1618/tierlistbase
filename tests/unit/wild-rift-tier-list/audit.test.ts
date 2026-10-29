@@ -83,6 +83,8 @@ describe("Wild Rift source integrity closeout", () => {
     expect(ledger.placements).toHaveLength(208);
     expect(Object.values(ledger.states).reduce((sum, count) => sum + count, 0)).toBe(208);
     expect(ledger.states.unreviewed).toBe(0);
+    expect(ledger.crossRoleStatisticsRemoved).toBe(20);
+    expect(ledger.statisticsBecameUnavailable).toEqual([{ championId: "diana", role: "mid" }]);
     expect(new Set(ledger.placements.map((row) => key(row.championId, row.role))).size).toBe(208);
     for (const row of ledger.placements) {
       expect(row.statisticsEvidence !== null || row.tierEvidence !== null).toBe(true);

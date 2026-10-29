@@ -8599,5 +8599,11 @@
   "editorialPlacements": 28,
   "previousAudit": "2026-10-28-placement-audit.json",
   "currentPatchDataStatus": "deferred: 7.3d outcome statistics not verified",
-  "crossRoleStatisticsRemoved": 21
+  "crossRoleStatisticsRemoved": 20,
+  "statisticsBecameUnavailable": [
+    {
+      "championId": "diana",
+      "role": "mid"
+    }
+  ]
 }
