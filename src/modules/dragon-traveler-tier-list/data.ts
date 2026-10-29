@@ -161,7 +161,7 @@ const classLimitations: Readonly<Record<ClassKey, string>> = {
   Assassin:
     "Enemy Guardians can intercept access to the backline; target selection and positioning matter.",
   Archer: "Benefits from backline placement; close-range enemy pressure can reduce damage output.",
-  Mage: "Needs protection from divers and physical pressure while casting from the middle or backline.",
+  Mage: "Needs protection from divers and physical pressure while positioned in the middle or backline.",
   Priest:
     "Needs a protected position and a separate damage core; support alone does not finish the fight.",
 };
