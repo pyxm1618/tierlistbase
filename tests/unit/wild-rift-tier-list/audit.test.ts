@@ -4,12 +4,19 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import raw from "../../../docs/wild-rift/reviewed-source-snapshot.json";
+import historicalTierEvidence from "../../../docs/wild-rift/2026-10-28-reviewed-tier-evidence.json";
 import tierEvidence from "../../../docs/wild-rift/reviewed-tier-evidence.json";
 import ledger from "../../../docs/wild-rift/placement-audit.json";
 import changeAudit from "../../../docs/wild-rift/change-audit.json";
 import kitEvidence from "../../../docs/wild-rift/official-kit-evidence.json";
 import { championForId } from "@/modules/wild-rift-tier-list";
-import { changes, quickInsights, rankingFor, rankings } from "@/modules/wild-rift-tier-list";
+import {
+  changes,
+  quickInsights,
+  rankingFor,
+  rankings,
+  snapshot,
+} from "@/modules/wild-rift-tier-list";
 
 const aliases: Readonly<Record<string, string>> = {
   "cho-gath": "chogath",
@@ -60,8 +67,13 @@ describe("Wild Rift source integrity closeout", () => {
     const digest = createHash("sha256")
       .update(readFileSync("docs/wild-rift/reviewed-source-snapshot.json"))
       .digest("hex");
-    expect(digest).toBe("8abb7cf2adfcfa139e13f340515911f83867c9e63db57a3b8150cee2f783c259");
-    expect(raw.placements).toHaveLength(181);
+    expect(digest).toBe("92d735de771440dbb933c94e8fd045b0c0372d5420588bb48d294ab63fa3b452");
+    expect(raw.placements).toHaveLength(180);
+    expect(
+      createHash("sha256")
+        .update(readFileSync("docs/wild-rift/2026-10-28-reviewed-source-snapshot.json"))
+        .digest("hex"),
+    ).toBe("8abb7cf2adfcfa139e13f340515911f83867c9e63db57a3b8150cee2f783c259");
     expect(raw.trackedChampions).toBe(134);
     expect(raw.observedUniqueChampions).toBe(136);
   });
@@ -77,7 +89,7 @@ describe("Wild Rift source integrity closeout", () => {
     }
   });
 
-  it("preserves all 543 exact source rates and never borrows statistics across roles", () => {
+  it("preserves all 540 exact source rates and never borrows statistics across roles", () => {
     let verified = 0;
     let unavailable = 0;
     for (const ranking of rankings) {
@@ -96,8 +108,8 @@ describe("Wild Rift source integrity closeout", () => {
         unavailable++;
       }
     }
-    expect(verified).toBe(181);
-    expect(unavailable).toBe(27);
+    expect(verified).toBe(180);
+    expect(unavailable).toBe(28);
   });
 
   it("keeps source tiers and any editorial overrides separately auditable", () => {
@@ -125,7 +137,7 @@ describe("Wild Rift source integrity closeout", () => {
       );
       if (delta !== null) available++;
     }
-    expect(available).toBe(136);
+    expect(available).toBe(6);
   });
 
   it("withholds every change whose causal reason is unverified and reconciles all 16 originals", () => {
@@ -140,7 +152,7 @@ describe("Wild Rift source integrity closeout", () => {
     expect(Object.values(changeAudit.states).reduce((sum, count) => sum + count, 0)).toBe(16);
     expect(changes).toHaveLength(0);
     for (const change of changeAudit.changes) {
-      const evidence = tierEvidence.changes.find(
+      const evidence = historicalTierEvidence.changes.find(
         (row) => row.championId === change.championId && row.role === change.role,
       );
       expect(evidence).toMatchObject({
@@ -153,6 +165,23 @@ describe("Wild Rift source integrity closeout", () => {
         "causal reason for this Champion × Role tier movement",
       );
     }
+  });
+
+  it("does not claim pre-patch statistics verify current 7.3d outcomes", () => {
+    expect(snapshot.gameVersion).toBe("7.3d");
+    expect(snapshot.latestRankedBalance).toBe("7.3d");
+    expect(snapshot.statisticsPatch).toBe(raw.sourcePatchLabel);
+    expect(snapshot.postBalanceStatisticsVerified).toBe(false);
+    expect(raw.postBalanceStatisticsVerified).toBe(false);
+    expect(raw.sourceCapture).toContain("cached");
+    expect(rankingFor("diana", "mid")?.placementKind).toBe("editorial");
+    expect(rankingFor("diana", "mid")?.winRate).toBeNull();
+    for (const ranking of rankings) {
+      expect(ranking.patchImpact).toContain("Post-7.3d outcome statistics are not verified");
+      expect(ranking.whyThisTier).toContain("before 7.3d");
+    }
+    for (const role of ["mid", "support"] as const)
+      expect(quickInsights[role].some((row) => row.label === "Biggest Riser")).toBe(false);
   });
 
   it("supports each Biggest Riser with the largest available same-role seven-day change", () => {

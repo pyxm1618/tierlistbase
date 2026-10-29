@@ -40,7 +40,7 @@
     "signals": "MMMMM"
   },
   "gwen:baron": {
-    "rationale": "Anti-frontline damage and mist support extended duels; the sub-50% results caution against treating this as a safe generalist.",
+    "rationale": "Anti-frontline damage and mist support extended duels; sustained melee access and ranged pressure keep lane safety matchup-dependent.",
     "signals": "MLMHL"
   },
   "vayne:baron": {
@@ -484,7 +484,7 @@
     "signals": "MMLHM"
   },
   "norra:mid": {
-    "rationale": "Trinket zones and repeated spell hits offer wave-to-river pressure, but charge vulnerability and near-even results favor a measured placement.",
+    "rationale": "Trinket zones and repeated spell hits offer wave-to-river pressure, but charge vulnerability and follow-up accuracy limit independent lane safety.",
     "signals": "MMMMM"
   },
   "velkoz:mid": {
@@ -580,7 +580,7 @@
     "signals": "MLMHL"
   },
   "diana:mid": {
-    "rationale": "A melee wave-to-dive plan threatens grouped opponents, but lane exposure and weak Mid results reduce reliable initiative.",
+    "rationale": "A melee wave-to-dive plan threatens grouped opponents, but exposed lane access and unavailable Mid statistics constrain confidence in this editorial placement.",
     "signals": "MLMHM"
   },
   "mel:mid": {

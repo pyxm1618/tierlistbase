@@ -27,7 +27,7 @@ const faq = [
   ],
   [
     "Is the current game patch included?",
-    `Yes. The current game version is ${snapshot.gameVersion}. The latest standard Ranked balance patch is ${snapshot.latestRankedBalance}; ${snapshot.gameVersion} is primarily an AAA ARAM update and is not treated as a new standard Ranked balance reset.`,
+    `The current game version and latest standard Ranked balance are ${snapshot.gameVersion}. The available statistics are dated ${snapshot.snapshotDate} under ${snapshot.statisticsPatch}, before 7.3d. Post-7.3d performance is not verified. The earlier 7.3c update focused on AAA ARAM.`,
   ],
   [
     "What is the difference between Dragon Lane and ADC?",
@@ -107,6 +107,12 @@ export function WildRiftTierList() {
       </header>
 
       <div className={styles.shell}>
+        <p className={styles.disclosure} data-ia-section="source-freshness" role="status">
+          Current game and Ranked balance: {snapshot.gameVersion}. Statistics snapshot:{" "}
+          {snapshot.snapshotDate} ({snapshot.statisticsPatch}), before 7.3d. Post-7.3d performance
+          is not verified. Tiers are editorial judgements, not proof of current-patch outcomes. Live
+          source refresh is awaiting verification.
+        </p>
         <WildRiftWorkspace />
 
         <section
@@ -201,8 +207,8 @@ export function WildRiftTierList() {
           </div>
           <p className={styles.disclosure}>
             CN Server · Master+ · Ranked. Champion catalog: 142; statistics-backed role placements:
-            181 across 136 distinct champions counted in the source tables. The source headline says
-            134 tracked champions; that mismatch is unresolved. Another 27 placements have explicit
+            180 across 136 distinct champions counted in the source tables. The source headline says
+            134 tracked champions; that mismatch is unresolved. Another 28 placements have explicit
             Wild Rift Core editorial role evidence and display N/A for every role statistic. Catalog
             membership never creates a ranked placement.
           </p>
@@ -222,11 +228,11 @@ export function WildRiftTierList() {
             execution.
           </p>
           <p className={styles.disclosure}>
-            Trend arrows show same-role seven-day win-rate change only. Unavailable trends stay
-            unavailable. The source table labels its delta column “30 d”, but those values match its
-            embedded seven-day data; no 30-day movement is inferred from that column. Source history
-            metadata ends on 2026-10-27 while its update label says 2026-10-26. What Changed
-            attributes dated net tier movements to Wild Rift Core; causal reasons are not evidenced.
+            Trend arrows show same-role seven-day win-rate change only. Only six explicitly labeled
+            spotlight deltas are verified in the available source capture; 202 placements have
+            unavailable trends. The table&apos;s “30 d” heading is ambiguous, so its rounded column
+            is not used. The readable source snapshot is dated 2026-10-27 and predates 7.3d. Live
+            raw access is blocked; no post-7.3d result or tier-change reason is inferred.
           </p>
           <div className={styles.methodGrid}>
             {roleKeys.map((role) => (

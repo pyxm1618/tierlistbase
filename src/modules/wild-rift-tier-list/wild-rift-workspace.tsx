@@ -675,7 +675,7 @@ function WhatChanged({ role }: { role: RoleView }) {
         </div>
         <div>
           <strong>Latest Ranked Balance: {snapshot.latestRankedBalance}</strong>
-          <span>7.3c is AAA ARAM-only and does not directly change this Ranked context.</span>
+          <span>The statistics predate 7.3d; post-patch performance is not verified.</span>
         </div>
       </div>
       {visible.length ? (

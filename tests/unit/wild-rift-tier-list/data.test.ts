@@ -28,12 +28,14 @@ const tierSet = new Set(tiers);
 const championIds = new Set(champions.map((champion) => champion.id));
 const sourceIds = new Set(sources.map((source) => source.id));
 describe("Wild Rift reviewed snapshot", () => {
-  it("uses the reviewed 7.3c game / 7.3b Ranked context with explicit source scope", () => {
+  it("separates current 7.3d balance from the pre-patch statistics snapshot", () => {
     expect(snapshot).toEqual({
-      gameVersion: "7.3c",
-      latestRankedBalance: "7.3b",
-      snapshotDate: "2026-10-26",
-      reviewedAt: "2026-10-28",
+      gameVersion: "7.3d",
+      latestRankedBalance: "7.3d",
+      snapshotDate: "2026-10-27",
+      reviewedAt: "2026-10-29",
+      statisticsPatch: "7.3c",
+      postBalanceStatisticsVerified: false,
       region: "CN",
       rankContext: "Master+",
       queueContext: "Ranked",
@@ -121,7 +123,9 @@ describe("Wild Rift reviewed snapshot", () => {
 
   it("keeps Quick Insights and dated changes tied to valid Champion × Role rankings", () => {
     for (const role of roleKeys) {
-      expect(quickInsights[role]).toHaveLength(4);
+      expect(quickInsights[role]).toHaveLength(
+        ({ baron: 4, jungle: 4, mid: 3, dragon: 4, support: 3 } as const)[role],
+      );
       for (const insight of quickInsights[role]) {
         expect(rankingFor(insight.championId, role)).toBeDefined();
         expect(insight.reason.trim()).not.toBe("");

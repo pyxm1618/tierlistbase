@@ -1,0 +1,52 @@
+{
+  "assessedAt": "2026-10-29",
+  "currentGameVersion": "7.3d",
+  "latestRankedBalance": "7.3d",
+  "patchPublishedAt": "2026-10-28T09:00:00.000Z",
+  "sourceSnapshotDate": "2026-10-27",
+  "sourcePatchLabel": "7.3c",
+  "originalTotal": 5,
+  "states": {
+    "approved": 0,
+    "deferred": 5,
+    "confirmed_reject": 0,
+    "unreviewed": 0
+  },
+  "roles": [
+    {
+      "role": "baron",
+      "status": "deferred",
+      "availablePrePatchPlacements": 42,
+      "reason": "Available reader snapshot predates 7.3d; live raw access returned 403/browser verification. No post-balance outcomes are verified.",
+      "nextAction": "Review a readable, dated post-7.3d source snapshot; do not infer post-patch performance from pre-patch rates or tiers."
+    },
+    {
+      "role": "jungle",
+      "status": "deferred",
+      "availablePrePatchPlacements": 44,
+      "reason": "Available reader snapshot predates 7.3d; live raw access returned 403/browser verification. No post-balance outcomes are verified.",
+      "nextAction": "Review a readable, dated post-7.3d source snapshot; do not infer post-patch performance from pre-patch rates or tiers."
+    },
+    {
+      "role": "mid",
+      "status": "deferred",
+      "availablePrePatchPlacements": 40,
+      "reason": "Available reader snapshot predates 7.3d; live raw access returned 403/browser verification. No post-balance outcomes are verified.",
+      "nextAction": "Review a readable, dated post-7.3d source snapshot; do not infer post-patch performance from pre-patch rates or tiers."
+    },
+    {
+      "role": "dragon",
+      "status": "deferred",
+      "availablePrePatchPlacements": 21,
+      "reason": "Available reader snapshot predates 7.3d; live raw access returned 403/browser verification. No post-balance outcomes are verified.",
+      "nextAction": "Review a readable, dated post-7.3d source snapshot; do not infer post-patch performance from pre-patch rates or tiers."
+    },
+    {
+      "role": "support",
+      "status": "deferred",
+      "availablePrePatchPlacements": 33,
+      "reason": "Available reader snapshot predates 7.3d; live raw access returned 403/browser verification. No post-balance outcomes are verified.",
+      "nextAction": "Review a readable, dated post-7.3d source snapshot; do not infer post-patch performance from pre-patch rates or tiers."
+    }
+  ]
+}

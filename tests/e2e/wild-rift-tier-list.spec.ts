@@ -84,8 +84,8 @@ test("all five frozen role tabs render their own Tier Board and preserve Champio
   const detail = page.getByRole("complementary", { name: "Champion Detail" });
   await expect(detail).toContainText("Nocturne");
   await expect(detail.locator('[data-tier="S+"]').first()).toBeVisible();
-  await expect(detail).toContainText("52.7%");
-  await expect(detail).toContainText("6.7%");
+  await expect(detail).toContainText("52.9%");
+  await expect(detail).toContainText("6.8%");
   await expect(detail).toContainText("67.4%");
 });
 
@@ -200,6 +200,14 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
     norra.getByRole("img", { name: "Norra portrait unavailable; placeholder" }),
   ).toBeVisible();
   await norra.click();
-  await expect(detail).toContainText("+1.37 pp");
+  await expect(detail).toContainText("7-day trend unavailable.");
+  await expect(detail).toContainText("51.4%");
+  await expect(page.locator('[data-ia-section="source-freshness"]')).toContainText(
+    "Post-7.3d performance is not verified",
+  );
+  await roleNav.getByRole("tab", { name: /^Jungle$/ }).click();
+  await page.getByRole("searchbox", { name: "Search Champions" }).fill("Fiddlesticks");
+  await page.locator('[data-champion-id="fiddlesticks"]').click();
+  await expect(detail).toContainText("+1.86 pp");
   await expect(detail).toContainText("Arrows show 7-day win-rate change, not tier movement");
 });

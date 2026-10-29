@@ -73,10 +73,12 @@ export type EvidenceSource = {
 };
 
 export const snapshot = {
-  gameVersion: "7.3c",
-  latestRankedBalance: "7.3b",
-  snapshotDate: "2026-10-26",
-  reviewedAt: "2026-10-28",
+  gameVersion: "7.3d",
+  latestRankedBalance: "7.3d",
+  snapshotDate: "2026-10-27",
+  reviewedAt: "2026-10-29",
+  statisticsPatch: "7.3c",
+  postBalanceStatisticsVerified: false,
   region: "CN",
   rankContext: "Master+",
   queueContext: "Ranked",
@@ -145,37 +147,44 @@ export const roleCriteria: Readonly<Record<RoleKey, readonly string[]>> = {
 
 export const sources: readonly EvidenceSource[] = [
   {
+    id: "riot-7-3d",
+    name: "Riot Games · Wild Rift Patch Notes 7.3d",
+    type: "official_patch",
+    checkedAt: "2026-10-29",
+    url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3d/",
+    context:
+      "Current game version and latest standard Ranked balance, published 2026-10-28. Champion, item, objective, and turret changes. Available reviewed statistics predate this patch; no post-patch outcome is verified.",
+  },
+  {
     id: "riot-7-3c",
     name: "Riot Games · Wild Rift Patch Notes 7.3c",
     type: "official_patch",
-    checkedAt: "2026-10-28",
+    checkedAt: "2026-10-29",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3c/",
-    context:
-      "Current game version. Patch 7.3c is focused on AAA ARAM rather than standard Ranked balance.",
+    context: "Historical patch: 7.3c focused on AAA ARAM; it is not the current game version.",
   },
   {
     id: "riot-7-3b",
     name: "Riot Games · Wild Rift Patch Notes 7.3b",
     type: "official_patch",
-    checkedAt: "2026-10-28",
+    checkedAt: "2026-10-29",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3b/",
-    context:
-      "Latest patch in the current cycle with direct standard Ranked champion, item, rune, and jungle balance changes.",
+    context: "Historical standard Ranked balance patch; superseded by 7.3d.",
   },
   {
     id: "tencent-master",
     name: "Wild Rift Core · Tencent CN Ranked Statistics",
     type: "ranked_statistics",
-    checkedAt: "2026-10-28",
+    checkedAt: "2026-10-29",
     url: "https://wildriftcore.com/en/rankings/",
     context:
-      "Wild Rift Core reports Tencent China-server data · Master+ · Ranked · source update label 2026-10-26. 181 role placements, 136 distinct champions counted in the tables; the source headline says 134. Not independently fetched from Tencent.",
+      "Wild Rift Core reports Tencent China-server data · Master+ · Ranked · readable source capture dated 2026-10-27 (7.3c). 180 role placements, 136 distinct champions counted in the tables; the source headline says 134. Live raw access is currently blocked; the readable capture is not evidence of post-7.3d performance. Not independently fetched from Tencent.",
   },
   {
     id: "core-editorial-tier",
     name: "Wild Rift Core · Editorial Role Tier List & History",
     type: "editorial_review",
-    checkedAt: "2026-10-28",
+    checkedAt: "2026-10-29",
     url: "https://wildriftcore.com/en/tierlist/",
     context:
       "Source tiers and dated movements are Wild Rift Core editorial judgements, not Riot or Tencent official tiers. Same publisher as the statistics page; not independent corroboration. TierListBase retains these source tiers after role review; no overrides in this snapshot.",
@@ -184,7 +193,7 @@ export const sources: readonly EvidenceSource[] = [
     id: "editorial-review",
     name: "TierListBase Editorial Review",
     type: "editorial_review",
-    checkedAt: "2026-10-28",
+    checkedAt: "2026-10-29",
     url: "/about#about-process-title",
     context:
       "TierListBase editorial role assessments and signals. This snapshot retains Wild Rift Core source tiers with no overrides; no independent TierListBase statistical tier formula is claimed.",
@@ -205,20 +214,17 @@ const championById = new Map(champions.map((champion) => [champion.id, champion]
 export const changes: readonly RankingChange[] = [];
 
 const directPatchImpact: Readonly<Record<string, string>> = {
-  jhin: "Patch 7.3b increased Jhin's critical damage and brought his missing-health damage scaling online earlier. The effect on this placement is not causally measured.",
-  tryndamere:
-    "Patch 7.3b improved Tryndamere's critical chance per Fury and Spinning Slash damage. The effect on this placement is not causally measured.",
-  nocturne:
-    "Patch 7.3b directly nerfed Nocturne's durability, early Duskbringer damage, and Paranoia availability. Patch 7.3c has no standard Ranked follow-up.",
-  hwei: "Patch 7.3b directly reduced multiple Hwei damage, shield, and control values. Patch 7.3c has no standard Ranked follow-up.",
-  yasuo:
-    "Patch 7.3b directly buffed Yasuo's standard critical damage and passive shield. Patch 7.3c has no standard Ranked follow-up.",
-  volibear:
-    "Patch 7.3b directly adjusted Volibear upward. No causal effect on this placement is claimed.",
-  yunara:
-    "Patch 7.3b directly reduced Yunara's passive damage and later ultimate availability. No causal effect on this placement is claimed.",
-  senna:
-    "Patch 7.3b directly reduced Senna's critical damage, Mist attack-damage gain, and Q damage. No causal effect on this placement is claimed.",
+  shyvana: "7.3d improves human-form fighting; some dragon bonuses decrease.",
+  camille: "7.3d increases attack-speed growth.",
+  malphite: "7.3d reduces passive shielding and empowered-attack damage.",
+  ekko: "7.3d reduces two abilities' monster-damage modifiers.",
+  "lee-sin": "7.3d increases attack-speed growth and ultimate damage.",
+  akali: "7.3d increases base armor and attack-speed growth.",
+  nasus: "7.3d increases attack damage and later ultimate defenses, but reduces area damage.",
+  samira: "7.3d reduces Q and ultimate attack-damage ratios.",
+  ashe: "7.3d reduces Frost Shot's bonus attack damage.",
+  "miss-fortune": "7.3d improves passive and ultimate damage scaling.",
+  singed: "7.3d reduces health and movement speed; control cooldowns increase.",
 };
 
 type ChampionNotes = {
@@ -274,7 +280,7 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
     seed.winRate === null
       ? "Role statistics unavailable (WR / PR / BR: N/A); this is an editorial placement without inventing missing statistics."
       : `CN Master+ evidence: ${seed.winRate.toFixed(2)}% WR, ${seed.pickRate?.toFixed(2)}% PR, ${seed.banRate?.toFixed(2)}% BR. These observations are not a causal explanation or a tier formula.`;
-  const whyThisTier = `${review.rationale} ${statisticalContext} TierListBase retains Wild Rift Core's ${tier} source tier for ${roleLabels[role]} after this editorial review.`;
+  const whyThisTier = `${review.rationale} Evidence snapshot: ${snapshot.snapshotDate}, before 7.3d; current-patch performance is not verified. ${statisticalContext} TierListBase retains Wild Rift Core's ${tier} source tier for ${roleLabels[role]} after this editorial review.`;
 
   return {
     championId: seed.championId,
@@ -302,13 +308,14 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
     limitations: notes.limitations,
     decisionSignals: decisionSignals(review.signals),
     patchImpact:
-      directPatchImpact[seed.championId] ??
-      "No direct standard Ranked change is recorded for this champion in 7.3b. Patch 7.3c is AAA ARAM-focused, so the current placement is driven by the reviewed Ranked snapshot and role context.",
+      (directPatchImpact[seed.championId] ??
+        "No direct champion adjustment is listed in 7.3d; item and objective changes may still matter.") +
+      " Post-7.3d outcome statistics are not verified.",
     sourceIds: [
       "core-editorial-tier",
       ...(seed.placementKind === "statistics-backed" ? ["tencent-master"] : []),
       "editorial-review",
-      ...(directPatchImpact[seed.championId] ? ["riot-7-3b"] : []),
+      "riot-7-3d",
     ],
   };
 }
