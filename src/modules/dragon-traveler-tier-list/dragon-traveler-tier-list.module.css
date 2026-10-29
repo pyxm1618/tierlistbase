@@ -1216,3 +1216,61 @@
     grid-column: 1/-1;
   }
 }
+
+@media (min-width: 851px) {
+  .quickPicks {
+    grid-template-columns: 130px repeat(5, minmax(0, 1fr));
+  }
+  .quickPicks > div {
+    grid-column: auto;
+    display: block;
+  }
+  .quickPicks button {
+    flex-wrap: nowrap;
+  }
+  .quickPicks .portrait {
+    width: 42px;
+    height: 42px;
+  }
+  .decisionGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .decisionGrid > .paper:last-child {
+    grid-column: auto;
+  }
+  .teamLayout {
+    align-items: start;
+  }
+  .compactTeam {
+    flex: none;
+    min-height: 100px;
+  }
+  .methodologySources {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(240px, 1fr);
+    gap: 0.75rem;
+  }
+  .methodGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  .sources {
+    margin-top: 0;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid #b99455;
+    border-radius: 6px;
+    padding: 0.75rem;
+  }
+  .sources h2 {
+    color: #283248;
+  }
+  .sources > p,
+  .sources li span {
+    color: #51493e;
+  }
+  .sources ul {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+}

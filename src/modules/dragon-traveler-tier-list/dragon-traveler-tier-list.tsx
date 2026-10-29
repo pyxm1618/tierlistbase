@@ -604,78 +604,80 @@ export function DragonTravelerTierList() {
             snapshot to compare, so no tier movements are claimed.
           </p>
         </section>
-        <section className={styles.paper} aria-labelledby="methodology-title">
-          <h2 id="methodology-title">How We Rank Dragon Traveler Luminaries</h2>
-          <div className={styles.methodGrid}>
-            <div>
-              <h3>Server-specific</h3>
-              <p>
-                Overall ordering and live membership follow the Global / Taiwan source lists.
-                Arachne’s Global release is corroborated by the October 25 banner report. War
-                Drummer is a formation helper and is excluded from the Luminary count.
-              </p>
+        <div className={styles.methodologySources}>
+          <section className={styles.paper} aria-labelledby="methodology-title">
+            <h2 id="methodology-title">How We Rank Dragon Traveler Luminaries</h2>
+            <div className={styles.methodGrid}>
+              <div>
+                <h3>Server-specific</h3>
+                <p>
+                  Overall ordering and live membership follow the Global / Taiwan source lists.
+                  Arachne’s Global release is corroborated by the October 25 banner report. War
+                  Drummer is a formation helper and is excluded from the Luminary count.
+                </p>
+              </div>
+              <div>
+                <h3>Mode-aware</h3>
+                <p>
+                  PvE and PvP follow published character assessments, shared between servers by the
+                  source. They are not independently tested server-specific performance results.
+                </p>
+              </div>
+              <div>
+                <h3>Team context</h3>
+                <p>
+                  Formation members and substitutes follow the linked community guide. Frontline,
+                  midline and backline placement preserves the source’s three-by-three formation
+                  coordinates. Local team order reflects a suggested starting sequence.
+                </p>
+              </div>
+              <div>
+                <h3>Investment-aware</h3>
+                <p>
+                  New-player value, cost, dependency and flexibility are editorial estimates from
+                  rarity, starter access and published build notes. They are not usage statistics or
+                  spending guarantees.
+                </p>
+              </div>
             </div>
-            <div>
-              <h3>Mode-aware</h3>
+            <details>
+              <summary>How source grades become five tiers</summary>
               <p>
-                PvE and PvP follow published character assessments, shared between servers by the
-                source. They are not independently tested server-specific performance results.
+                Hideout SS → S+; S+ → S; S and A+ → A; A, B/A, B+ and B → B; C → C. AllClash’s
+                Arachne grades already use five bands and are retained unchanged. This intentionally
+                compresses the source scale. Source character grades remain in the data provenance;
+                a local A can represent several source grades.
               </p>
-            </div>
-            <div>
-              <h3>Team context</h3>
-              <p>
-                Formation members and substitutes follow the linked community guide. Frontline,
-                midline and backline placement preserves the source’s three-by-three formation
-                coordinates. Local team order reflects a suggested starting sequence.
-              </p>
-            </div>
-            <div>
-              <h3>Investment-aware</h3>
-              <p>
-                New-player value, cost, dependency and flexibility are editorial estimates from
-                rarity, starter access and published build notes. They are not usage statistics or
-                spending guarantees.
-              </p>
-            </div>
-          </div>
-          <details>
-            <summary>How source grades become five tiers</summary>
-            <p>
-              Hideout SS → S+; S+ → S; S and A+ → A; A, B/A, B+ and B → B; C → C. AllClash’s Arachne
-              grades already use five bands and are retained unchanged. This intentionally
-              compresses the source scale. Source character grades remain in the data provenance; a
-              local A can represent several source grades.
+            </details>
+            <p className={styles.note}>
+              Sources were accessed on {snapshotDate}. An access date does not prove that the
+              publisher’s data is current. This independent editorial preview remains noindex
+              pending content and SEO release review.
             </p>
-          </details>
-          <p className={styles.note}>
-            Sources were accessed on {snapshotDate}. An access date does not prove that the
-            publisher’s data is current. This independent editorial preview remains noindex pending
-            content and SEO release review.
-          </p>
-        </section>
-        <section className={styles.sources}>
-          <h2>Sources</h2>
-          <p>Character evidence is linked from each detail panel. General references:</p>
-          <ul>
-            {sourceRecords
-              .filter((s) => !s.id.startsWith("character-"))
-              .map((s) => (
-                <li key={s.id}>
-                  <a href={s.url} target="_blank" rel="noreferrer">
-                    {s.name} ↗
-                  </a>
-                  <span>
-                    {s.sourceType} · accessed {s.checkedAt}
-                  </span>
-                </li>
-              ))}
-          </ul>
-          <p>
-            Game characters and artwork belong to their respective owners. TierListBase is not
-            affiliated with Dragon Traveler or its publishers.
-          </p>
-        </section>
+          </section>
+          <section className={styles.sources}>
+            <h2>Sources</h2>
+            <p>Character evidence is linked from each detail panel. General references:</p>
+            <ul>
+              {sourceRecords
+                .filter((s) => !s.id.startsWith("character-"))
+                .map((s) => (
+                  <li key={s.id}>
+                    <a href={s.url} target="_blank" rel="noreferrer">
+                      {s.name} ↗
+                    </a>
+                    <span>
+                      {s.sourceType} · accessed {s.checkedAt}
+                    </span>
+                  </li>
+                ))}
+            </ul>
+            <p>
+              Game characters and artwork belong to their respective owners. TierListBase is not
+              affiliated with Dragon Traveler or its publishers.
+            </p>
+          </section>
+        </div>
         <section className={styles.faq}>
           <h2>FAQ</h2>
           {[
