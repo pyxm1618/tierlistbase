@@ -89,7 +89,8 @@ describe("Anime Expeditions snapshot integrity", () => {
     expect(snapshot.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(snapshot.version.label.length).toBeGreaterThan(0);
     expect(snapshot.releaseReady).toBe(false);
-    expect(snapshot.version.status).toBe("Needs Review");
+    expect(snapshot.version.status).toBe("Source corroborated");
+    expect(snapshot.version.label).toBe("Update 4 · Hollow Ascension");
     for (const item of [...units, ...traits, ...equipment])
       for (const id of item.sourceIds) expect(sources.some((s) => s.id === id)).toBe(true);
     expect(JSON.stringify({ units, traits, equipment, evolutions, teams })).not.toMatch(
@@ -150,4 +151,32 @@ it("registers the neutral clean-setup route as noindex as well", () => {
       .sitemapEntries()
       .some((entry) => entry.route === "/anime-expeditions/tier-list"),
   ).toBe(false);
+});
+
+it("keeps documented fact coverage separate from current gameplay approval", () => {
+  const review = JSON.parse(
+    readFileSync(
+      path.join(process.cwd(), "src/modules/anime-expeditions-tier-list/review-metadata.json"),
+      "utf8",
+    ),
+  );
+  expect(review.records).toHaveLength(traits.length + equipment.length + evolutions.length);
+  for (const states of [review.ledger.documentedFacts, review.ledger.currentGameplayReview])
+    expect(Object.values(states).reduce<number>((sum, count) => sum + Number(count), 0)).toBe(
+      review.ledger.total,
+    );
+  expect(review.ledger.currentGameplayReview.pass).toBe(0);
+  expect(
+    review.additionalSourceForms.every(
+      (form: { canonicalRelationship: string }) => form.canonicalRelationship === "Needs Review",
+    ),
+  ).toBe(true);
+  for (const item of equipment) {
+    expect(item.sourceRevision).toBeGreaterThan(0);
+    expect(Array.isArray(item.documentedAcquisition)).toBe(true);
+  }
+  for (const evolution of evolutions) {
+    expect(evolution.reason.length).toBeGreaterThan(40);
+    expect(evolution.status).toContain("current-patch value Needs Review");
+  }
 });

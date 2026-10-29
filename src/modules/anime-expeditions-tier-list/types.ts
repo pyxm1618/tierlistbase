@@ -42,6 +42,9 @@ export type Trait = {
   status: string;
 };
 export type Equipment = {
+  documentedAcquisition: string[];
+  rollablePassive: boolean;
+  sourceRevision: number;
   id: string;
   name: string;
   kind: "Standard" | "Exclusive";

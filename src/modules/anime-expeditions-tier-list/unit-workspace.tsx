@@ -21,7 +21,7 @@ function Portrait({ unit, large = false }: { unit: Unit; large?: boolean }) {
       alt={unit.currentForm}
       width={large ? 192 : 128}
       height={large ? 184 : 123}
-      sizes={large ? "192px" : "(max-width: 600px) 96px, 112px"}
+      sizes={large ? "192px" : "(max-width: 600px) 40vw, 140px"}
       loading="lazy"
       className={styles.portrait}
     />
@@ -239,12 +239,13 @@ export function UnitWorkspace({
         </a>
       </nav>
       <section id="units" aria-labelledby="unit-title" className={styles.section}>
-        <div className={styles.sectionHeading}>
-          <h2 id="unit-title">Anime Expeditions Unit Tier List</h2>
-          <p>One canonical unit. Its recommended form. Five role views.</p>
-        </div>
         <div className={styles.workspace}>
           <div className={styles.boardColumn}>
+            <div className={styles.sectionHeading}>
+              <h2 id="unit-title">Anime Expeditions Unit Tier List</h2>
+              <p>One canonical unit. Its recommended form. Five role views.</p>
+            </div>
+
             <div role="tablist" aria-label="Unit ranking views" className={styles.tabs}>
               {unitViews.map((v, i) => (
                 <button

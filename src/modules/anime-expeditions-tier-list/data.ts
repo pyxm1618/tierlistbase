@@ -20,21 +20,61 @@ export const modeContexts = [
   "Tournament",
 ] as const;
 export const snapshot = {
-  date: "2026-10-28",
+  date: "2026-10-29",
   sourceFormCount: 105,
   releaseReady: false,
-  version: { label: "3.5 unit snapshot · Update 4 equipment under review", status: "Needs Review" },
+  version: { label: "Update 4 · Hollow Ascension", status: "Source corroborated" },
   teamSize: null,
   uncertainties: [
-    "Official live version and current full roster are not confirmed. The latest unit module documents Update 3.5; newer equipment records include Update 4.",
+    "Hollow Ascension (4.0) is corroborated by the official trailer and October 27 community release records. The older UnitData module does not establish a complete Update 4 roster.",
     "All rankings and builds are provisional editorial assessments of documented mechanics, not verified current-patch live testing.",
     "Current obtainment, banner availability, team capacity and weekly modifiers need an in-game check.",
-    "Draconic differs between the Traits page and older Trait Tome / mirrors. This snapshot uses Traits revision 9249 and retains the conflict for review.",
+    "The documented Draconic conflict is resolved chronologically: Traits revision 9249 follows the Update 3 buff. Current server interaction behavior remains untested.",
     "Suited Alchemist is a separately documented fusion ingredient, not an evolved form of Metallic Alchemist.",
     "Cube is marked Hidden in UnitData and retained in source coverage, excluded from the playable board. Broken Falcon's divergent forms share one canonical entity; Silver Falcon is the selected support path.",
   ],
 } as const;
 export const sources = [
+  {
+    id: "update4-gameplay",
+    name: "Update 4 in-game log in community gameplay",
+    url: "https://www.youtube.com/watch?v=eSm0m9sb4gw&t=6s",
+    revision: null,
+    checked: snapshot.date,
+    note: "At 00:06 the game log states Hollow Ascension / Update 4, six new Units and seven new Equipment. Emerald Fist is visible; the wiki equipment module is not a complete current inventory.",
+  },
+  {
+    id: "sandbox-capacity",
+    name: "Current Sandbox loadout observation",
+    url: "https://www.youtube.com/watch?v=1t9G_jAOzGo&t=450s",
+    revision: null,
+    checked: snapshot.date,
+    note: "At 07:30, Update 4 Hollow Desert Sandbox shows six occupied loadout slots. This does not verify normal-mode capacity, slot unlock rules or a team clear.",
+  },
+  {
+    id: "official-hollow-trailer",
+    name: "Official Hollow Ascension trailer",
+    url: "https://www.youtube.com/watch?v=T1D37mxMiyw",
+    revision: null,
+    checked: snapshot.date,
+    note: "Official Anime Expeditions channel; premiered October 25. Establishes update identity, not a complete roster or combat team capacity.",
+  },
+  {
+    id: "hollow-calendar",
+    name: "Hollow Ascension (4.0) event calendar",
+    url: "https://animeexpeditions.miraheze.org/w/index.php?oldid=9649",
+    revision: 9649,
+    checked: snapshot.date,
+    note: "Community revision October 27 identifies the 4.0 calendar. Equipment release pages 9614–9619 independently date six additions to October 27.",
+  },
+  {
+    id: "draconic-patch",
+    name: "Dated Update 3 Draconic patch cross-check",
+    url: "https://allthings.how/anime-expeditions-endless-hellflame-update-every-new-unit-and-mode/",
+    revision: null,
+    checked: snapshot.date,
+    note: "Independent September 25 report records DoT 50% → 120% and cost reduction 10% → 15%, explaining the older-source discrepancy. Community evidence, not an official game field.",
+  },
   {
     id: "official",
     name: "Official Roblox experience",
@@ -65,7 +105,7 @@ export const sources = [
     url: "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249",
     revision: 9249,
     checked: snapshot.date,
-    note: "17 effects and odds; conflicting older Draconic descriptions require live confirmation.",
+    note: "17 documented effects, odds and pity values. Revision 9249 reflects the Update 3 Draconic buff; older descriptions predate that change.",
   },
   {
     id: "equipment-data",
@@ -73,7 +113,7 @@ export const sources = [
     url: "https://animeexpeditions.miraheze.org/w/index.php?title=Module:EquipmentData/data&oldid=9612",
     revision: 9612,
     checked: snapshot.date,
-    note: "22 Standard and 43 exclusive records; revised 2026-10-27. Update 4 additions are Pending.",
+    note: "22 Standard and 43 exclusive records; revised 2026-10-27. Individual release pages corroborate six Update 4 additions; comparative rankings remain under review.",
   },
   {
     id: "mirror",
@@ -89,7 +129,7 @@ export const sources = [
     url: "https://animeexpeditions.miraheze.org/w/index.php?title=Equipment&oldid=9613",
     revision: 9613,
     checked: snapshot.date,
-    note: "Two Standard slots plus an evolved unit-exclusive slot. Wiki-derived factual data and media: contributors, CC BY-SA 4.0 where applicable.",
+    note: "Two Standard slots plus an evolved unit-exclusive slot. Community documentation; individual media rights metadata is incomplete.",
   },
 ] as const;
 

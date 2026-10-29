@@ -3046,7 +3046,7 @@
       "bestFor": "DoT",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "Role-specific value: DoT. Rarity alone does not determine this editorial tier.",
-      "sourceIds": ["traits"],
+      "sourceIds": ["traits", "draconic-patch"],
       "status": "Source checked; live review pending"
     },
     {
@@ -3231,7 +3231,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "reaper-s-glove",
-      "status": "Needs Review"
+      "status": "Needs Review",
+      "documentedAcquisition": ["Armory", "Hollow Desert"],
+      "rollablePassive": true,
+      "sourceRevision": 9619
     },
     {
       "id": "burning-critter",
@@ -3244,7 +3247,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "burning-critter",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Forge", "Flaming Monastery"],
+      "rollablePassive": false,
+      "sourceRevision": 9235
     },
     {
       "id": "sacrificial-mark",
@@ -3257,7 +3263,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "sacrificial-mark",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Forge", "Crimson Shore"],
+      "rollablePassive": false,
+      "sourceRevision": 8928
     },
     {
       "id": "economist-s-coin",
@@ -3270,7 +3279,10 @@
       "bestFor": "Economy",
       "sourceIds": ["equipment-data"],
       "asset": "economist-s-coin",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Forge", "Snowy Castle"],
+      "rollablePassive": true,
+      "sourceRevision": 9096
     },
     {
       "id": "warrior-pole",
@@ -3283,7 +3295,10 @@
       "bestFor": "Physical DPS",
       "sourceIds": ["equipment-data"],
       "asset": "warrior-pole",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "East Town"],
+      "rollablePassive": false,
+      "sourceRevision": 8050
     },
     {
       "id": "kunai",
@@ -3296,7 +3311,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "kunai",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Events", "School Grounds"],
+      "rollablePassive": false,
+      "sourceRevision": 7057
     },
     {
       "id": "enhanced-katana",
@@ -3309,7 +3327,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "enhanced-katana",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 6867
     },
     {
       "id": "magic-book",
@@ -3322,7 +3343,10 @@
       "bestFor": "Magical DPS",
       "sourceIds": ["equipment-data"],
       "asset": "magic-book",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "King's Tomb"],
+      "rollablePassive": false,
+      "sourceRevision": 6857
     },
     {
       "id": "pirate-s-slingshot",
@@ -3335,7 +3359,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "pirate-s-slingshot",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 6858
     },
     {
       "id": "raid-cape",
@@ -3348,7 +3375,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "raid-cape",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 6855
     },
     {
       "id": "warrior-s-axe",
@@ -3361,7 +3391,10 @@
       "bestFor": "Physical DPS",
       "sourceIds": ["equipment-data"],
       "asset": "warrior-s-axe",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Fairy King Forest"],
+      "rollablePassive": false,
+      "sourceRevision": 6851
     },
     {
       "id": "shinigami-sword",
@@ -3374,7 +3407,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "shinigami-sword",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Spirit City"],
+      "rollablePassive": true,
+      "sourceRevision": 6862
     },
     {
       "id": "bamboo-bottle",
@@ -3387,7 +3423,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "bamboo-bottle",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": true,
+      "sourceRevision": 6854
     },
     {
       "id": "elf-suitcase",
@@ -3400,7 +3439,10 @@
       "bestFor": "Magical DPS",
       "sourceIds": ["equipment-data"],
       "asset": "elf-suitcase",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 6860
     },
     {
       "id": "magic-orb",
@@ -3413,7 +3455,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "magic-orb",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Rose Kingdom"],
+      "rollablePassive": false,
+      "sourceRevision": 6853
     },
     {
       "id": "soul-splitter",
@@ -3426,7 +3471,10 @@
       "bestFor": "Physical DPS",
       "sourceIds": ["equipment-data"],
       "asset": "soul-splitter",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 6850
     },
     {
       "id": "red-finger",
@@ -3439,7 +3487,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "red-finger",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": true,
+      "sourceRevision": 9580
     },
     {
       "id": "three-swords-from-hell",
@@ -3452,7 +3503,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "three-swords-from-hell",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 6863
     },
     {
       "id": "katana",
@@ -3465,7 +3519,10 @@
       "bestFor": "Physical DPS",
       "sourceIds": ["equipment-data"],
       "asset": "katana",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Flower Forest"],
+      "rollablePassive": false,
+      "sourceRevision": 6852
     },
     {
       "id": "staff-of-chaos",
@@ -3478,7 +3535,10 @@
       "bestFor": "Magical DPS",
       "sourceIds": ["equipment-data"],
       "asset": "staff-of-chaos",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 6861
     },
     {
       "id": "dragon-hilt",
@@ -3491,7 +3551,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "dragon-hilt",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 6866
     },
     {
       "id": "accursed-equipment",
@@ -3504,7 +3567,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "accursed-equipment",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 6864
     },
     {
       "id": "awakened-moonblade",
@@ -3517,7 +3583,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "awakened-moonblade",
-      "status": "Needs Review"
+      "status": "Needs Review",
+      "documentedAcquisition": ["Crafting"],
+      "rollablePassive": false,
+      "sourceRevision": 9614
     },
     {
       "id": "blossom-blade",
@@ -3530,7 +3599,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "blossom-blade",
-      "status": "Needs Review"
+      "status": "Needs Review",
+      "documentedAcquisition": ["Armory", "Hollow Desert"],
+      "rollablePassive": false,
+      "sourceRevision": 9615
     },
     {
       "id": "demonic-pistols",
@@ -3543,7 +3615,10 @@
       "bestFor": "Magical DPS",
       "sourceIds": ["equipment-data"],
       "asset": "demonic-pistols",
-      "status": "Needs Review"
+      "status": "Needs Review",
+      "documentedAcquisition": ["Demonic Rift", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 9616
     },
     {
       "id": "hypnotic-edge",
@@ -3556,7 +3631,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "hypnotic-edge",
-      "status": "Needs Review"
+      "status": "Needs Review",
+      "documentedAcquisition": ["Armory", "Hollow Desert"],
+      "rollablePassive": false,
+      "sourceRevision": 9617
     },
     {
       "id": "lanza-de-luz",
@@ -3569,7 +3647,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "lanza-de-luz",
-      "status": "Needs Review"
+      "status": "Needs Review",
+      "documentedAcquisition": ["Hollow Desert"],
+      "rollablePassive": false,
+      "sourceRevision": 9618
     },
     {
       "id": "blade-arm",
@@ -3582,7 +3663,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "blade-arm",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Monster Hunt Event"],
+      "rollablePassive": false,
+      "sourceRevision": 9518
     },
     {
       "id": "monster-claws",
@@ -3595,7 +3679,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "monster-claws",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Monster Hunt Event"],
+      "rollablePassive": false,
+      "sourceRevision": 9519
     },
     {
       "id": "angel-blade",
@@ -3608,7 +3695,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "angel-blade",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Infernal Cult"],
+      "rollablePassive": false,
+      "sourceRevision": 9230
     },
     {
       "id": "beacon-of-pride",
@@ -3621,7 +3711,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "beacon-of-pride",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "District 7"],
+      "rollablePassive": false,
+      "sourceRevision": 9231
     },
     {
       "id": "fire-helmet",
@@ -3634,7 +3727,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "fire-helmet",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Flaming Monastery"],
+      "rollablePassive": false,
+      "sourceRevision": 9232
     },
     {
       "id": "ignis-restraint",
@@ -3647,7 +3743,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "ignis-restraint",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Flaming Monastery"],
+      "rollablePassive": false,
+      "sourceRevision": 9233
     },
     {
       "id": "joker-card",
@@ -3660,7 +3759,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "joker-card",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Infernal Portal"],
+      "rollablePassive": false,
+      "sourceRevision": 9234
     },
     {
       "id": "blade-of-reality",
@@ -3673,7 +3775,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "blade-of-reality",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Snowy Castle"],
+      "rollablePassive": false,
+      "sourceRevision": 9078
     },
     {
       "id": "chosen-sabre",
@@ -3686,7 +3791,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "chosen-sabre",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Crimson Shore"],
+      "rollablePassive": false,
+      "sourceRevision": 9077
     },
     {
       "id": "demonslayer",
@@ -3699,7 +3807,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "demonslayer",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Snowy Castle"],
+      "rollablePassive": false,
+      "sourceRevision": 9076
     },
     {
       "id": "orb-of-causality",
@@ -3712,7 +3823,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "orb-of-causality",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Crimson Shore"],
+      "rollablePassive": false,
+      "sourceRevision": 9079
     },
     {
       "id": "storm-trident",
@@ -3725,7 +3839,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "storm-trident",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Lightning God's Portal"],
+      "rollablePassive": false,
+      "sourceRevision": 9010
     },
     {
       "id": "lightning-dagger",
@@ -3738,7 +3855,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "lightning-dagger",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Sovereign's Portal"],
+      "rollablePassive": false,
+      "sourceRevision": 9011
     },
     {
       "id": "tideblade",
@@ -3751,7 +3871,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "tideblade",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Summer Shop"],
+      "rollablePassive": false,
+      "sourceRevision": 8639
     },
     {
       "id": "fiery-staff",
@@ -3764,7 +3887,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "fiery-staff",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Summer Shop"],
+      "rollablePassive": false,
+      "sourceRevision": 8633
     },
     {
       "id": "poison-hook",
@@ -3777,7 +3903,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "poison-hook",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Summer Shop"],
+      "rollablePassive": false,
+      "sourceRevision": 8635
     },
     {
       "id": "poison-frog",
@@ -3790,7 +3919,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "poison-frog",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Summer Shop"],
+      "rollablePassive": false,
+      "sourceRevision": 8636
     },
     {
       "id": "spirit-king-s-blade",
@@ -3803,7 +3935,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "spirit-king-s-blade",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Summer Shop"],
+      "rollablePassive": false,
+      "sourceRevision": 8637
     },
     {
       "id": "carrot-s-gi",
@@ -3816,7 +3951,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "carrot-s-gi",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["East Town", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 8039
     },
     {
       "id": "mechanical-wings",
@@ -3829,7 +3967,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "mechanical-wings",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Armory", "Perfection's Trial"],
+      "rollablePassive": false,
+      "sourceRevision": 8043
     },
     {
       "id": "mentor-s-cape",
@@ -3842,7 +3983,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "mentor-s-cape",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Crafting", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 8173
     },
     {
       "id": "pointy-straw",
@@ -3855,7 +3999,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "pointy-straw",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Crafting", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 8174
     },
     {
       "id": "royal-gi",
@@ -3868,7 +4015,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "royal-gi",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["East Town", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 8042
     },
     {
       "id": "illusion-crow",
@@ -3881,7 +4031,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "illusion-crow",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Villain Invasion Shop"],
+      "rollablePassive": false,
+      "sourceRevision": 7906
     },
     {
       "id": "dark-scepter",
@@ -3894,7 +4047,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "dark-scepter",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Crow Hideout"],
+      "rollablePassive": false,
+      "sourceRevision": 8622
     },
     {
       "id": "memory-pendant",
@@ -3907,7 +4063,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "memory-pendant",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Crow Hideout"],
+      "rollablePassive": false,
+      "sourceRevision": 7907
     },
     {
       "id": "predator-s-skull",
@@ -3920,7 +4079,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "predator-s-skull",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Crow Hideout"],
+      "rollablePassive": false,
+      "sourceRevision": 7908
     },
     {
       "id": "hair-bells",
@@ -3933,7 +4095,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "hair-bells",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Spirit City", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7910
     },
     {
       "id": "emperor-s-attire",
@@ -3946,7 +4111,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "emperor-s-attire",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Rose Kingdom", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7915
     },
     {
       "id": "hell-s-flower",
@@ -3959,7 +4127,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "hell-s-flower",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Flower Forest", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7916
     },
     {
       "id": "webbed-fruit",
@@ -3972,7 +4143,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "webbed-fruit",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Rose Kingdom", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7913
     },
     {
       "id": "promise-ring",
@@ -3985,7 +4159,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "promise-ring",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["School Grounds", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7918
     },
     {
       "id": "spirit-of-the-moonblade",
@@ -3998,7 +4175,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "spirit-of-the-moonblade",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Spirit City", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7911
     },
     {
       "id": "boulder",
@@ -4011,7 +4191,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "boulder",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Fairy King Forest", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7914
     },
     {
       "id": "elven-battle-staff",
@@ -4024,7 +4207,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "elven-battle-staff",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["King's Tomb", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7912
     },
     {
       "id": "technique-amplifier",
@@ -4037,7 +4223,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "technique-amplifier",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["School Grounds", "Armory"],
+      "rollablePassive": true,
+      "sourceRevision": 7917
     },
     {
       "id": "calamity-s-eye",
@@ -4050,7 +4239,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "calamity-s-eye",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Fairy King Forest", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7902
     },
     {
       "id": "hexed-blade",
@@ -4063,7 +4255,10 @@
       "bestFor": "Role / roll dependent",
       "sourceIds": ["equipment-data"],
       "asset": "hexed-blade",
-      "status": "Source checked; live review pending"
+      "status": "Source checked; live review pending",
+      "documentedAcquisition": ["Crafting", "Armory"],
+      "rollablePassive": false,
+      "sourceRevision": 7909
     }
   ],
   "evolutions": [
@@ -4072,7 +4267,7 @@
       "from": "Metallic Alchemist",
       "to": "Alchemy Brothers (Truth)",
       "priority": "Worth Evolving",
-      "reason": "The attack cycle combines Alchemy Mark, Magical amplification and slow. Team DoT balance changes its passive outcome, so it should be built around the actual equipped roster.",
+      "reason": "Magical and DoT teams gain Alchemy Mark amplification and 70% Slow. The 50% Magical damage cap needs mark setup.",
       "unlock": "Unlocks the combined Alchemy cycle and team-dependent passive.",
       "materials": [
         {
@@ -4100,14 +4295,14 @@
           "count": 10000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "subject-8",
       "from": "Subject 8",
       "to": "Subject 8 (Monster)",
       "priority": "Worth Evolving",
-      "reason": "Colossal Roar combines Dismember with a Physical damage buff in range. Its half-range trigger requires deliberate positioning, rather than placing it at the edge of coverage.",
+      "reason": "Physical teams gain Dismember and 10% Physical damage. Enemies must enter 50% of the unit's range.",
       "unlock": "Adds the close-range Colossal Roar.",
       "materials": [
         {
@@ -4131,14 +4326,14 @@
           "count": 10000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "fallen-angel",
       "from": "Fallen Angel",
       "to": "Fallen Angel (Holy)",
       "priority": "High Priority",
-      "reason": "Time Stop creates a window for existing DoT effects. The evolved kill interaction extends that window and stores Flame Feathers, so wave density matters more than sheet DPS.",
+      "reason": "Control teams that kill Time Stopped enemies extend the stop and store Flame Feathers. Bosses without adds may deny those triggers.",
       "unlock": "Time Stop kills extend duration and store Flame Feathers.",
       "materials": [
         {
@@ -4162,14 +4357,14 @@
           "count": 10000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "devil",
       "from": "Devil",
       "to": "Devil (Hero)",
       "priority": "High Priority",
-      "reason": "Enhanced Burn stored by Demon Head is converted into a detonation. This makes DoT scaling valuable, but the explosion depends on its setup window and enemies remaining grouped.",
+      "reason": "Burn teams can store Enhanced Burn for the Demon Head detonation. Value depends on damage stored before expiry.",
       "unlock": "Adds the stored-burn detonation.",
       "materials": [
         {
@@ -4193,14 +4388,14 @@
           "count": 10000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "ignition-commander",
       "from": "Ignition Commander",
       "to": "Ignition Commander (Betrayal)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Ignition Release adds 75% damage on Rewind and 15% bonus at Heat Stack capacity. The trigger has a 15 second cooldown.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4224,14 +4419,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "crimson-captain",
       "from": "Crimson Captain",
       "to": "Crimson Captain (Moon)",
       "priority": "High Priority",
-      "reason": "Fire Banners add independent Fire instances and eventually become moving summons. The damage ceiling needs time to establish banners; short stages reduce that advantage.",
+      "reason": "Fire Banners add separate Fire DoT applications and summons. The 10 second spawn interval and capacity of five favor long rounds.",
       "unlock": "Adds the Fire Banner summon loop.",
       "materials": [
         {
@@ -4259,14 +4454,14 @@
           "count": 10000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "wild-card",
       "from": "Wild Card",
       "to": "Wild Card (Ace)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Every five attacks doubles Royal Suit effects and increases Fire damage toward a 50% cap. Short rounds may end before that ramp matters.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4290,14 +4485,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "broken-falcon",
       "from": "Broken Falcon",
       "to": "5th God Hand",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "Choose Distortion and Mark of Fate for damage and control against surviving targets. This competes with the Silver Falcon support branch.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4325,14 +4520,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "broken-falcon",
       "from": "Broken Falcon",
       "to": "Silver Falcon",
-      "priority": "Situational",
-      "reason": "The Captain boosts allied damage and rewards the dominant Archetype. Its buffs do not stack; it earns a slot through team output and War Chest income rather than personal DPS.",
+      "priority": "High Priority",
+      "reason": "The Captain provides broad team amplification. Its buffs do not stack, and the most equipped archetype determines the additional bonus. This competes with the 5th God Hand branch.",
       "unlock": "One divergent path: broad team amplification instead of the Psychic damage branch.",
       "materials": [
         {
@@ -4360,14 +4555,14 @@
           "count": 10000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "iron-wolf",
       "from": "Iron Wolf",
       "to": "Iron Wolf (Struggler)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Bleed teams can leave Crimson Spills when previously bled enemies die. Kill frequency, spill placement and the two spill limit constrain value.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4391,14 +4586,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "eclipse-hunter",
       "from": "Eclipse Hunter",
       "to": "Eclipse Hunter (Savior)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "A selected carry's upgrades grant free upgrades and discount placed copies. This requires planning which unit receives upgrades.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4422,14 +4617,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "lightning-god",
       "from": "Lightning God",
       "to": "Lightning God (Overcharged)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Tempest Discharge uses 60 Voltage stacks and leaves Electric Residue. Meter generation and enemy range uptime determine its contribution.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4457,14 +4652,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "sovereign",
       "from": "Sovereign",
       "to": "Sovereign (Djinn)",
       "priority": "High Priority",
-      "reason": "Lightning chains bounce back onto fewer targets. Boss proximity activates the second Djinn with Freeze and follow-up slow, making its contribution depend on what enters range.",
+      "reason": "A boss in range activates the Fox Djinn while retaining Lightning Djinn. Chains can focus a lone enemy, making this a documented boss interaction.",
       "unlock": "Adds the dual-Djinn boss interaction.",
       "materials": [
         {
@@ -4492,14 +4687,14 @@
           "count": 10000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "rainman",
       "from": "Rainman",
       "to": "Rainman (Forecast)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "Frog Storm offers a stop and Poison Frogs after Climate Meter builds. Proximity and meter depletion constrain uptime.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4523,14 +4718,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "sharkfang",
       "from": "Sharkfang",
       "to": "Sharkfang (Abyssal)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "Vapor Clouds add stacking Burn when Waterfall or Tidal Wave expire. Cloud placement and brief duration determine actual coverage.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4554,14 +4749,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "head-captain",
       "from": "Head Captain",
       "to": "Head Captain (Char)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "Takedowns in range create Skeleton path traps and increase damage. Rounds with few kills provide less ramp.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4585,14 +4780,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "sand",
       "from": "Sand",
       "to": "Sand (Alligator)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Golden Hook increases Poison ticks, especially within Desert Storm or Ground Eruption. Enemies need to stay in the zones.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4616,14 +4811,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "water-mage",
       "from": "Water Mage",
       "to": "Water Mage (Scholar)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "Wall of Ice supports a Hydro control role. Current ability behavior and comparative control value need gameplay evidence.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4647,14 +4842,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "prodigy",
       "from": "Prodigy",
       "to": "Prodigy (Rage)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Upgrades three and five and the Prodigy Meter unlock transformation progression. This requires time and in-round currency.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4678,14 +4873,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "the-drink",
       "from": "The Drink",
       "to": "The Drink (Juicebox)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Perfected Strikes guarantees critical Follow Up Attacks with increased critical damage during the documented transformation and mark conditions.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4705,14 +4900,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "bioinsect",
       "from": "Bioinsect",
       "to": "Bioinsect (Final Form)",
-      "priority": "Worth Evolving",
-      "reason": "Biogel links slow into stun and the transformation chain needs takedowns and summoned boss kills. A strong long-run tool that cannot be treated as fully ramped at placement.",
+      "priority": "Situational",
+      "reason": "Transformation requires takedown milestones and spawned Mecha bosses. Damage copying also depends on the strongest nearby unit, favoring planned long runs.",
       "unlock": "Adds transformation progression and Biogel utility.",
       "materials": [
         {
@@ -4736,14 +4931,14 @@
           "count": 10000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "carrot",
       "from": "Carrot",
       "to": "Carrot (Unleashed)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Critical attacks and debuffs build Fighting Spirit for transformation, damage, critical damage, immunity and Stagger. The meter drains over time.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4767,14 +4962,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "vegetable",
       "from": "Vegetable",
       "to": "Vegetable (Prince)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "A nearby allied transformation empties its meter and buffs the ally. Without that trigger, takedown ramp is needed.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4798,14 +4993,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "razorjaw",
       "from": "Razorjaw",
       "to": "Razorjaw (Hunter)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "The recorded attack path and Endless Slashes support a Physical and Stagger role. The source has no evolved passive description supporting an absolute priority.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4829,14 +5024,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "dark-mage",
       "from": "Dark Mage",
       "to": "Dark Mage (Sovereign)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "The eight attack Magic Cycle alternates Lightning Orbs and Ice Magic. Rotation uptime determines access to damage and Freeze.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4860,14 +5055,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "cursed-immortal",
       "from": "Cursed Immortal",
       "to": "Cursed Immortal (Black Sun)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "State changes add 5% critical chance toward a 30% cap. Its value depends on state cycling frequency.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4891,14 +5086,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "crow",
       "from": "Crow",
       "to": "Crow (Black Fire)",
-      "priority": "High Priority",
-      "reason": "Illusion rewards grouping enemies before its explosion; BlackFire supplies a separate damage route. Isolated targets and poor stacking reduce the value of the same build.",
+      "priority": "Worth Evolving",
+      "reason": "The evolved form documents Black Fire, Illusion and Illusion Crow compatibility. Current event obtainment and Black Fire behavior need a live check.",
       "unlock": "Unlocks the Black Fire form and Illusion Crow equipment slot.",
       "materials": [
         {
@@ -4926,14 +5121,14 @@
           "count": 10000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "true-saint",
       "from": "True Saint",
       "to": "True Saint (Holy)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "The documented attack path reaches full AoE and includes Seize. Early accounts should weigh the 5,000 Gold recipe against how long this carry will remain useful.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -4973,14 +5168,14 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "string-demon",
       "from": "String Demon",
       "to": "String Demon (Awakened)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "String Sync attaches to the nearest attacking ally and produces follow ups. The three string capacity and 15 second reattachment cooldown constrain output.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5004,14 +5199,14 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "crimson",
       "from": "Crimson",
       "to": "Crimson (Brother)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "Crimson Explode leaves damage pools. Six second duration and capacity three favor dense waves over isolated targets.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5031,14 +5226,14 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "cursed-student",
       "from": "Cursed Student",
       "to": "Cursed Student (True Love)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Twenty total Bleed stacks trigger Bat Spirits. Capacity three and three attacks per spirit limit the resulting summons.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5062,14 +5257,14 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "flame-emperor",
       "from": "Flame Emperor",
       "to": "Flame Emperor (Reincarnate)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Documented Burn and Wall of Fire support Fire teams and Hollow's Burn requirement. This is a role argument rather than a current best carry claim.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5093,14 +5288,14 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "8th-sword",
       "from": "8th Sword",
       "to": "8th Sword (Berserk)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Twenty five takedowns activate Berserk, while low health enemies trigger the follow up. A boss without adds may prevent the takedown ramp.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5124,14 +5319,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "hollow",
       "from": "Hollow",
       "to": "Hollow (Blaze)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Attack Flames converts an existing Burn application into Austere Flames. Those instances do not stack, so a Burn enabler is required.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5155,14 +5350,14 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "shadow",
       "from": "Shadow",
       "to": "Shadow (Divine)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Upgrade gates unlock Winged Spirit, Wolf Spirit and active abilities. Hexed Blade compatibility adds a separate gear condition.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5186,14 +5381,14 @@
           "count": 10000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "salmon-sorcerer",
       "from": "Salmon Sorcerer",
       "to": "Salmon Sorcerer (Grade 1)",
       "priority": "Worth Evolving",
-      "reason": "The base slow and evolved close-range Stagger create layered stall. Placement must bring enemies inside half of its range for Plummet; extra range alone does not guarantee that trigger.",
+      "reason": "Plummet applies two seconds of Stagger when enemies enter half range. Placement and current enemy immunities determine usefulness.",
       "unlock": "Adds the close-range Plummet Stagger.",
       "materials": [
         {
@@ -5217,14 +5412,14 @@
           "count": 5000
         }
       ],
-      "status": "Provisional"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "reaper",
       "from": "Reaper",
       "to": "Reaper (Released)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "Critical Tempo requires critical attacks, while Mirage Swap requires Stun and an existing clone. The newer Frenzied form makes the latest evolution path a separate review item.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5248,14 +5443,14 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "lady-giant",
       "from": "Lady Giant",
       "to": "Lady Giant (Envy)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Situational",
+      "reason": "Rock Storm triggers every four attacks for 100% damage in base form or 125% in Giant form. Transformation uptime changes its contribution.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5279,14 +5474,14 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "elf-mage",
       "from": "Elf Mage",
       "to": "Elf Mage (Unleashed)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "Hybrid placement, Mana Burn and a full AoE attack stage support a coverage role. Current behavior and gear rolls determine the investment ceiling.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5310,14 +5505,14 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     },
     {
       "unitId": "puppet",
       "from": "Puppet",
       "to": "Puppet (Telekinetic)",
-      "priority": null,
-      "reason": "Decide after reviewing this form against the roles missing from your account. Current power gain is not yet reviewed.",
+      "priority": "Worth Evolving",
+      "reason": "A marked enemy's death creates a Doll with health based on current damage. The one Doll capacity and kill setup constrain value.",
       "unlock": "Form change; specific unlock needs review.",
       "materials": [
         {
@@ -5341,7 +5536,7 @@
           "count": 5000
         }
       ],
-      "status": "Pending"
+      "status": "Conditional editorial assessment; current-patch value Needs Review"
     }
   ]
 }

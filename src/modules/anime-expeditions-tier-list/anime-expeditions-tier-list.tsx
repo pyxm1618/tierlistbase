@@ -1,4 +1,5 @@
 import Image from "next/image";
+import reviewMetadata from "./review-metadata.json";
 import {
   units,
   traits,
@@ -84,15 +85,14 @@ export function AnimeExpeditionsTierList() {
               </dd>
             </div>
           </dl>
+          <p className={styles.notice}>
+            <strong>Needs Review.</strong> Current roster, rankings and builds await review. This
+            research preview remains excluded from search indexing.{" "}
+            <a href="#sources">Evidence limits ↓</a>
+          </p>
         </div>
       </section>
       <div className={styles.shell}>
-        <p className={styles.notice}>
-          <strong>Needs Review.</strong> Official current version is unconfirmed. Unit data
-          documents 3.5 while newer equipment includes Update 4. Rankings are provisional editorial
-          assessments; this page is excluded from search indexing.{" "}
-          <a href="#sources">See evidence limits ↓</a>
-        </p>
         <UnitWorkspace
           units={units}
           traits={traits.filter((t) => units.some((u) => u.build.traitIds.includes(t.id)))}
@@ -107,8 +107,8 @@ export function AnimeExpeditionsTierList() {
             <p>One ranking · role fit before rarity · provisional editorial grades</p>
           </div>
           <p className={styles.context}>
-            Effects, roll odds and pity are community documented. Draconic conflicts with older
-            sources; verify the current server before spending crystals.
+            Effects, roll odds and pity are community documented. The older Draconic discrepancy
+            follows a documented Update 3 buff; current server interactions remain under review.
           </p>
           <div data-trait-board>
             {["S", "A", "B", "C", "Pending"].map((tier) => {
@@ -191,6 +191,12 @@ export function AnimeExpeditionsTierList() {
                           <details>
                             <summary>Passive & use</summary>
                             <p>{item.passive}</p>
+                            <p>
+                              {item.rollablePassive ? "Passive values are rolled. " : ""}Documented
+                              acquisition:{" "}
+                              {item.documentedAcquisition.join(" / ") || "Not documented"}. Current
+                              availability Needs Review.
+                            </p>
                             <p>
                               {item.status}. TierListBase weighs role compatibility and passive
                               conditions; this is not a raw-rarity ranking.
@@ -309,9 +315,10 @@ export function AnimeExpeditionsTierList() {
             <p>Spend for a mechanic unlock, not a copy of the Overall ranking</p>
           </div>
           <p className={styles.context}>
-            {evolutions.filter((evo) => evo.priority !== null).length} provisional investment
-            assessments. {evolutions.filter((evo) => evo.priority === null).length} source recipes
-            await assessment and are withheld from these priority groups.
+            {evolutions.filter((evo) => evo.priority !== null).length} conditional editorial
+            investment assessments; current-patch value remains Needs Review.{" "}
+            {evolutions.filter((evo) => evo.priority === null).length} source recipes await
+            assessment and are withheld from these priority groups.
           </p>
           <div className={styles.evolutionGrid}>
             {["High Priority", "Worth Evolving", "Situational"].map((priority) => (
@@ -375,9 +382,9 @@ export function AnimeExpeditionsTierList() {
                 <h3>{label}</h3>
                 <p>
                   {label === "Equipment Changes"
-                    ? "Newer source includes Update 4 records. Live availability is Pending."
+                    ? "Six Update 4 equipment release records are documented. Current availability remains under review."
                     : label === "Trait Changes"
-                      ? "Draconic source conflict retained for review."
+                      ? "Draconic historical discrepancy resolved against the dated Update 3 buff; no verified patch-to-patch tier comparison."
                       : "No verified prior comparison available"}
                 </p>
               </div>
@@ -403,6 +410,14 @@ export function AnimeExpeditionsTierList() {
             </ul>
             <details>
               <summary>Known uncertainty & coverage</summary>
+              <p>
+                {reviewMetadata.ledger.total} documented Trait, Equipment and evolution records
+                cross-checked; current gameplay review remains incomplete.{" "}
+                {reviewMetadata.additionalSourceForms.length} additional Update 4 forms have source
+                records but unresolved canonical relationships:{" "}
+                {reviewMetadata.additionalSourceForms.map((form) => form.name).join(", ")}. These
+                are not silently counted as verified playable units.
+              </p>
               <ul>
                 {snapshot.uncertainties.map((note) => (
                   <li key={note}>{note}</li>
