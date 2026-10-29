@@ -177,6 +177,13 @@ export const routeDefinitions = [
     reviewFingerprint: "ad8c87ce5846da9c45f0c12a385a6ab70193e78c54dbea364cf0ce17cbc20dd7",
   },
   {
+    route: "/dragon-traveler/tier-list",
+    class: "public_noindex",
+    title: "Dragon Traveler Tier List – Best Luminaries Ranked",
+    description:
+      "Compare current Dragon Traveler Luminary rankings across Global and Taiwan server contexts, with PvE, PvP, teams, account decisions, changes, and source methodology.",
+  },
+  {
     route: "/privacy",
     class: "public_noindex",
     pageType: "Legal",
