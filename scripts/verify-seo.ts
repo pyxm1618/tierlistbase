@@ -20,6 +20,7 @@ const contentByRoute = new Map<string, readonly LandingSection[]>([
 ]);
 const bespokeIndexableRoutes = new Set([
   "/zenless-zone-zero/tier-list",
+  "/wild-rift/tier-list",
   "/genshin-impact/tier-list",
   "/limbus-company/tier-list",
   "/nikke/tier-list",
