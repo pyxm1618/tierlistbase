@@ -8,7 +8,8 @@ test.describe("Phantom Blade Zero tier list preview", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
       "Phantom Blade Zero Tier List",
     );
-    await expect(page.getByTestId("p0-release-gate")).toContainText("NOT READY");
+    await expect(page.getByTestId("p0-release-gate")).toContainText("36/36 verified locally");
+    await expect(page.getByTestId("p0-release-gate")).toContainText("0 missing");
 
     await page.getByRole("tab", { name: "Phantom Edges" }).click();
     await page.getByRole("button", { name: /Dread Axe/ }).click();
@@ -57,10 +58,61 @@ test.describe("Phantom Blade Zero tier list preview", () => {
     });
   }
 
-  test("does not hotlink or render placeholder images while P0 binaries are missing", async ({
-    page,
-  }) => {
-    await expect(page.locator("main img")).toHaveCount(0);
-    await expect(page.getByText(/image is intentionally omitted/i).first()).toBeVisible();
+  test("loads every P0 image locally without broken requests", async ({ page }) => {
+    const failedImages: string[] = [];
+    page.on("response", (response) => {
+      if (response.request().resourceType() === "image" && response.status() >= 400) {
+        failedImages.push(`${response.status()} ${response.url()}`);
+      }
+    });
+
+    await page.reload();
+
+    const hero = page.locator('img[data-p0-role="hero"]');
+    await expect(hero).toHaveCount(1);
+    await expect
+      .poll(() =>
+        hero.evaluate((image: HTMLImageElement) => ({
+          complete: image.complete,
+          width: image.naturalWidth,
+          height: image.naturalHeight,
+        })),
+      )
+      .toMatchObject({ complete: true, width: expect.any(Number), height: expect.any(Number) });
+    expect(await hero.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+    expect(await hero.evaluate((image: HTMLImageElement) => image.naturalHeight)).toBeGreaterThan(0);
+
+    async function assertTierImages(expectedCount: number) {
+      const images = page.locator('img[data-p0-role="tier-icon"]');
+      await expect(images).toHaveCount(expectedCount);
+      for (let index = 0; index < expectedCount; index += 1) {
+        await images.nth(index).scrollIntoViewIfNeeded();
+      }
+      await expect
+        .poll(() =>
+          images.evaluateAll((items) =>
+            items.every((item) => {
+              const image = item as HTMLImageElement;
+              return image.complete && image.naturalWidth > 0 && image.naturalHeight > 0;
+            }),
+          ),
+        )
+        .toBe(true);
+
+      const sameOrigin = await images.evaluateAll((items) =>
+        items.every((item) => {
+          const image = item as HTMLImageElement;
+          return new URL(image.currentSrc || image.src, window.location.href).origin === location.origin;
+        }),
+      );
+      expect(sameOrigin).toBe(true);
+    }
+
+    await assertTierImages(21);
+    await page.getByRole("tab", { name: "Phantom Edges" }).click();
+    await assertTierImages(14);
+
+    await expect(page.getByText(/image is intentionally omitted/i)).toHaveCount(0);
+    expect(failedImages).toEqual([]);
   });
 });
