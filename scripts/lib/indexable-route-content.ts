@@ -5,7 +5,7 @@ function normalizedRoute(route: string): string {
   if (!route.startsWith("/") || route.includes("..")) {
     throw new Error(`invalid public route: ${route}`);
   }
-  return route === "/" ? "" : route.replace(/\/+$/, "");
+  return route === "/" ? "" : route.replace(/^\\/+|\\/+$/g, "");
 }
 
 export function dedicatedMarketingPagePath(route: string): string {
