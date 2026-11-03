@@ -14,7 +14,7 @@ const hasDragonRoute = routeRegistry.routes.some(
 describe("Dragon Traveler product integration", () => {
   it("connects the public route to two independent server snapshots", () => {
     if (hasProjectRouteInventory) {
-      expect(routeRegistry.get("/dragon-traveler/tier-list").class).toBe("public_noindex");
+      expect(routeRegistry.get("/dragon-traveler/tier-list").class).toBe("public_indexable");
     }
 
     expect(getRoster("global")).toHaveLength(73);
