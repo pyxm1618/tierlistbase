@@ -157,7 +157,7 @@ function ChampionDetail({
 
       <p className={styles.disclosure}>
         {ranking.placementKind === "editorial"
-          ? "TierListBase editorial placement · Role statistics unavailable (WR / PR / BR: N/A)."
+          ? "Source-tier placement retained after TierListBase editorial review · Role statistics unavailable (WR / PR / BR: N/A)."
           : "CN Server · Master+ · Ranked · WR / PR / BR from the reviewed source."}{" "}
         Source tier: {ranking.sourceTier} (Wild Rift Core); retained after TierListBase review. Ban
         rate is champion-wide.{" "}
