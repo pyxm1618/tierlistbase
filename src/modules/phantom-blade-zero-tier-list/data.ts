@@ -93,6 +93,14 @@ export const phantomBladeZeroSources: readonly RankingSource[] = [
     methodology: "S/A/B editorial tiers for general combat usefulness and versatility.",
   },
   {
+    id: "gamesgg-edge",
+    name: "games.gg – Phantom Edge recommendations",
+    url: "https://games.gg/phantom-blade-0/guides/best-phantom-blade-0-weapons-tier-list/",
+    nature: "ranking",
+    independenceGroup: "gamesgg",
+    methodology: "S/A Phantom Edge table embedded in the post-launch weapons guide.",
+  },
+  {
     id: "allthings-edge-stats",
     name: "AllThingsHow – Phantom Edges ranked by card stats",
     url: "https://allthings.how/phantom-blade-zero-best-phantom-edges/",
@@ -556,6 +564,7 @@ const phantomEdges: readonly RankingEntity[] = [
     mechanics: ["Lightning attacks", "Status Effects", "Elemental pressure"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
       { sourceId: "allthings-edge-stats", method: "ordinal", rank: 1, fieldSize: 9 },
     ],
   },
@@ -599,6 +608,7 @@ const phantomEdges: readonly RankingEntity[] = [
     mechanics: ["Charged cleave", "Iron Chain Breaker", "High Shield-Breaking power"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "S" },
       { sourceId: "allthings-edge-stats", method: "ordinal", rank: 3, fieldSize: 9 },
     ],
   },
@@ -665,6 +675,7 @@ const phantomEdges: readonly RankingEntity[] = [
     mechanics: ["Fist Focus", "Shield breaking", "Fast multi-hit attacks"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "S" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "S" },
       { sourceId: "allthings-edge-stats", method: "ordinal", rank: 6, fieldSize: 9 },
     ],
   },
@@ -689,6 +700,7 @@ const phantomEdges: readonly RankingEntity[] = [
     mechanics: ["Fire breath", "Crowd control", "Burning Path traversal"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "S" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
       { sourceId: "allthings-edge-stats", method: "ordinal", rank: 7, fieldSize: 9 },
     ],
   },
@@ -713,6 +725,7 @@ const phantomEdges: readonly RankingEntity[] = [
     mechanics: ["Chain-sickle attacks", "Gap closing", "Grappling Traverse"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "S" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
       { sourceId: "allthings-edge-stats", method: "ordinal", rank: 8, fieldSize: 9 },
     ],
   },
@@ -739,6 +752,128 @@ const phantomEdges: readonly RankingEntity[] = [
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
       { sourceId: "allthings-edge-stats", method: "ordinal", rank: 9, fieldSize: 9 },
+    ],
+  },
+  {
+    id: "kuye-temple-prayer-beads",
+    name: "Kuye Temple Prayer Beads",
+    kind: "phantom_edge",
+    category: "Summon / Support",
+    bestFor: ["Summoned allies", "Sustained pressure", "Distracting enemies"],
+    easeOfUse: "Easy",
+    strengths: [
+      "Summons three Bronze Men to fight alongside Soul",
+      "Tempering upgrades the summons into specialized Gold Men",
+    ],
+    limitations: [
+      "Summon value depends on encounter duration",
+      "Less direct control than immediate-damage Phantom Edges",
+    ],
+    whyThisTier:
+      "KeenGamer and games.gg independently place Kuye Temple Prayer Beads in S, converging on the value of its three combat summons and strong tempered upgrade path.",
+    acquisition: "Defeat Master Bi Hai of Kuye Temple in Village of Lu.",
+    mechanics: ["Three Bronze Men summons", "Tempered Gold Men", "Persistent ally pressure"],
+    placements: [
+      { sourceId: "keen-edge", method: "tier", tier: "S" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "S" },
+    ],
+  },
+  {
+    id: "inanis-radiant-fan",
+    name: "Inanis’ Radiant Fan",
+    kind: "phantom_edge",
+    category: "Summon / Support",
+    bestFor: ["Boss survivability", "Recovery", "Defensive safety"],
+    easeOfUse: "Easy",
+    strengths: [
+      "Creates a sanctuary field",
+      "Tempering can revive Soul once at 30% HP after fatal damage inside the field",
+    ],
+    limitations: [
+      "Defensive value is lower when survivability is not the limiting factor",
+      "Revival resets only after a Bell or respawn",
+    ],
+    whyThisTier:
+      "Both independent editorial sources rank Inanis’ Radiant Fan in S, emphasizing its unusually strong recovery and survivability utility.",
+    acquisition:
+      "Complete Whence the Weeping in Mountain of Imprisonment and claim the reward associated with Inanis.",
+    mechanics: ["Sanctuary field", "Nirvana revival", "Recovery support"],
+    placements: [
+      { sourceId: "keen-edge", method: "tier", tier: "S" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "S" },
+    ],
+  },
+  {
+    id: "puppeteers-bell",
+    name: "Puppeteer’s Bell",
+    kind: "phantom_edge",
+    category: "Summon / Support",
+    bestFor: ["Summoned distractions", "Defensive pressure relief", "Multi-target fights"],
+    easeOfUse: "Easy",
+    strengths: [
+      "Commands Puppets to fight alongside Soul",
+      "Tempering into Abyssal Bell can add a third powerful Puppet",
+    ],
+    limitations: [
+      "Summons provide indirect rather than immediate burst damage",
+      "Acquisition requires the Firefly Memory Flower progression condition",
+    ],
+    whyThisTier:
+      "KeenGamer and games.gg both place Puppeteer’s Bell in A, agreeing that durable summoned Puppets provide strong distraction and support without reaching the top overall tier.",
+    acquisition:
+      "Defeat Dusk in Village of Lu after collecting the required six Firefly Memory Flowers.",
+    mechanics: ["Puppet summons", "Abyssal Bell", "Third-Puppet tempered upgrade"],
+    placements: [
+      { sourceId: "keen-edge", method: "tier", tier: "A" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
+    ],
+  },
+  {
+    id: "feather-bow",
+    name: "Feather Bow",
+    kind: "phantom_edge",
+    category: "Ranged",
+    bestFor: ["Opening ranged damage", "Precision shots", "Exploration targets"],
+    easeOfUse: "Medium",
+    strengths: [
+      "Reliable ranged pressure",
+      "Tempering adds a timed Precision Shot with higher damage and Sha-Chi depletion",
+    ],
+    limitations: [
+      "Requires charge timing for peak tempered output",
+      "Less useful when enemies immediately force close-range combat",
+    ],
+    whyThisTier:
+      "Both independent editorial tier sources place Feather Bow in A, valuing its reliable ranged utility and precision-shot upgrade without treating it as a universal S-tier choice.",
+    acquisition: "Complete Purge the Sect in Weeping Creek Valley.",
+    mechanics: ["Ranged Shot", "Precision Shot", "Charge-timing bonus"],
+    placements: [
+      { sourceId: "keen-edge", method: "tier", tier: "A" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
+    ],
+  },
+  {
+    id: "bashpole",
+    name: "Bashpole",
+    kind: "phantom_edge",
+    category: "Melee / Heavy",
+    bestFor: ["Shield breaking", "Armored enemies", "Crowd pressure"],
+    easeOfUse: "Medium",
+    strengths: [
+      "High shield-breaking power",
+      "Groundbreaker also opens weakened ground during exploration",
+    ],
+    limitations: [
+      "Heavy attacks are more committed than faster Phantom Edges",
+      "games.gg places it one tier below KeenGamer",
+    ],
+    whyThisTier:
+      "KeenGamer ranks Bashpole S while games.gg ranks it A. The normalized consensus remains S, and the one-tier editorial disagreement stays below the Needs Review threshold.",
+    acquisition: "Defeat Wan Jun, the Coppermaul, in Mandate Encampment.",
+    mechanics: ["Ground-shaking heavy attacks", "Groundbreaker", "High Shield-Breaking power"],
+    placements: [
+      { sourceId: "keen-edge", method: "tier", tier: "S" },
+      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
     ],
   },
 ];
@@ -833,7 +968,7 @@ export const phantomBladeZeroSnapshot = {
     {
       label: "Early Phantom Edge",
       entityId: "dread-axe",
-      reason: "A consensus plus 3rd-of-9 raw card Damage and useful chain-breaking traversal.",
+      reason: "Two editorial rankings plus 3rd-of-9 raw card Damage support its shield-breaking value.",
     },
     {
       label: "Raw-Damage Phantom Edge",

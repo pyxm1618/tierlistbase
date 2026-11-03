@@ -67,6 +67,25 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
     ).toBe("Needs Review");
   });
 
+  it("includes every Phantom Edge with two currently verified independent editorial rankings", () => {
+    for (const id of [
+      "kuye-temple-prayer-beads",
+      "inanis-radiant-fan",
+      "puppeteers-bell",
+      "feather-bow",
+      "bashpole",
+    ]) {
+      const entity = phantomBladeZeroSnapshot.phantomEdges.find((item) => item.id === id);
+      expect(entity?.independentSourceCount).toBeGreaterThanOrEqual(2);
+      expect(entity?.finalTier).not.toBe("Pending");
+    }
+
+    const dreadAxe = phantomBladeZeroSnapshot.phantomEdges.find(
+      (entity) => entity.id === "dread-axe",
+    );
+    expect(dreadAxe?.finalTier).toBe("S");
+  });
+
   it("keeps missing source coverage as Pending instead of zero", () => {
     const seamless = phantomBladeZeroSnapshot.mainWeapons.find(
       (entity) => entity.id === "seamless-death",
@@ -103,7 +122,7 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
     expect(phantomBladeZeroSnapshot.officialScale.mainWeapons).toBe("30+");
     expect(phantomBladeZeroSnapshot.officialScale.phantomEdges).toBe(25);
     expect(phantomBladeZeroSnapshot.mainWeapons).toHaveLength(21);
-    expect(phantomBladeZeroSnapshot.phantomEdges).toHaveLength(9);
+    expect(phantomBladeZeroSnapshot.phantomEdges).toHaveLength(14);
   });
 
   it("keeps first-snapshot history honest", () => {
@@ -122,10 +141,10 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
   });
 
   it("fails the release gate while any P0 binary is missing", () => {
-    expect(phantomBladeZeroAssetProvenance).toHaveLength(31);
+    expect(phantomBladeZeroAssetProvenance).toHaveLength(36);
     const readiness = getPhantomBladeZeroReleaseReadiness();
-    expect(readiness).toMatchObject({ ready: false, required: 31, verified: 0 });
-    expect(readiness.missing).toHaveLength(31);
+    expect(readiness).toMatchObject({ ready: false, required: 36, verified: 0 });
+    expect(readiness.missing).toHaveLength(36);
     expect(
       phantomBladeZeroAssetProvenance.every(
         (asset) => asset.status === "source_verified_binary_missing" && asset.localPath === null,

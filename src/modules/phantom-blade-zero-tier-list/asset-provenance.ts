@@ -107,6 +107,26 @@ const tierIconSources = [
     "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-weapon-seamless-death-wide.jpg",
   ],
   [
+    "kuye-temple-prayer-beads",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-kuye-temple-prayer-beads-1.jpg",
+  ],
+  [
+    "inanis-radiant-fan",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-inanis-radiant-fan-1.jpg",
+  ],
+  [
+    "puppeteers-bell",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-puppeteers-bell-1.jpg",
+  ],
+  [
+    "feather-bow",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-feather-bow-1.jpg",
+  ],
+  [
+    "bashpole",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-bashpole-1.jpg",
+  ],
+  [
     "thunder-spear",
     "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-thunder-spear-1.jpg",
   ],
