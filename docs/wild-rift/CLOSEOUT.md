@@ -104,23 +104,24 @@ All 208 Champion × Role placements keep explicit role rationale and five TierLi
 
 ## Design and asset status
 
-The final refined Desktop design reference is available to the reviewer, so the old `Final design missing` blocker is removed. It is the visual source of truth for the eventual 1440 desktop overlay.
+Three 1024×1536 Wild Rift full-page mockups are available in the user's files, but no retrieved evidence identifies which one was explicitly approved as the final frozen Desktop source of truth. Therefore the design identity remains a source-asset blocker; do not choose one by visual similarity or chronology.
 
 ### Missing Design Assets
 
 | Asset | Page use | Why blocked | Recommended delivery | Transparency / text |
 | --- | --- | --- | --- | --- |
+| Final frozen Desktop design — approved identity | Sole source for 1440 overlay, typography, crop, spacing, and section geometry | Multiple candidate mockups exist, but no explicit approval identifies the frozen source of truth | Provide / identify the approved original at the intended viewport, preferably 1440px wide or 2× (2880px) | Preserve design text; transparency not required |
 | Final approved Hero source artwork | Hero background / exact crop and positioning | No approved standalone high-resolution source asset is present in the PR or available asset set | Prefer 3840px-wide lossless/high-quality source (minimum sufficient for 1920px desktop at 2×) with the exact final composition | No webpage text; transparency only if the approved composition requires it |
 | Norra official/approved portrait | Champion cards + Champion Detail | `norra.svg` is still a letter-N placeholder | Square source, preferably 512×512 or larger | No text; transparency optional |
 | Any non-CSS design-specific artwork revealed by the final asset inventory | Exact decorative artwork only | Must not be approximated | Original/high-quality export at design size or 2× | No embedded webpage copy unless it is intentionally part of the artwork |
 
 Borders, glow, gradients, dividers, card surfaces and simple geometric icons remain CSS/SVG implementation details and are not treated as missing source artwork.
 
-Because the approved Hero source and Norra portrait are still missing, **pixel-perfect Desktop cannot be truthfully accepted yet**. No approximate Hero, random official background, AI-generated substitute, alternate champion, or letter placeholder may be accepted as final.
+Because the approved frozen Desktop identity, Hero source, and Norra portrait are still missing, **pixel-perfect Desktop cannot be truthfully accepted yet**. No approximate Hero, random official background, AI-generated substitute, alternate champion, or letter placeholder may be accepted as final.
 
 ## Visual acceptance
 
-- Final design available: YES
+- Final design available: NO — approved identity unresolved
 - Pixel-perfect Desktop: FAIL / BLOCKED
 - 1440 overlay comparison completed: NO
 - Responsive acceptance after final artwork: pending final visual closeout
@@ -141,6 +142,6 @@ Because the approved Hero source and Norra portrait are still missing, **pixel-p
 
 Data is ready. Engineering acceptance must be based only on the final new Head CI, not an older green run.
 
-Until the missing approved Hero source and Norra portrait are supplied and the 1440 overlay is completed, the only valid release status is:
+Until the approved frozen Desktop design is identified, the approved Hero source and Norra portrait are supplied, and the 1440 overlay is completed, the only valid release status is:
 
 **BLOCKED ON SOURCE ASSET**
