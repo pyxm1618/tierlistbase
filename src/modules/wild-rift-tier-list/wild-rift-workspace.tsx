@@ -675,7 +675,7 @@ function WhatChanged({ role }: { role: RoleView }) {
         </div>
         <div>
           <strong>Latest Ranked Balance: {snapshot.latestRankedBalance}</strong>
-          <span>The statistics predate 7.3d; post-patch performance is not verified.</span>
+          <span>Statistics snapshot: 7.3d · Master+ CN · {snapshot.snapshotDate}.</span>
         </div>
       </div>
       {visible.length ? (
