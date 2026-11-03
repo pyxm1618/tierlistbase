@@ -1,4 +1,9 @@
+import { execFileSync } from "node:child_process";
+import { readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
+
 import { expect, test } from "@playwright/test";
+import * as prettier from "prettier";
 
 test.describe("Phantom Blade Zero tier list preview", () => {
   test.beforeEach(async ({ page }) => {
@@ -66,4 +71,34 @@ test.describe("Phantom Blade Zero tier list preview", () => {
     await expect(page.locator("main img")).toHaveCount(0);
     await expect(page.getByText(/image is intentionally omitted/i).first()).toBeVisible();
   });
+});
+
+test("diagnostic: print exact Prettier diffs for PBZ files", async () => {
+  const files = [
+    "src/modules/phantom-blade-zero-tier-list/asset-provenance.ts",
+    "src/modules/phantom-blade-zero-tier-list/data.ts",
+    "src/modules/phantom-blade-zero-tier-list/phantom-blade-zero-tier-list.tsx",
+    "tests/e2e/phantom-blade-zero-tier-list.spec.ts",
+    "tests/unit/phantom-blade-zero-tier-list/data.test.ts",
+  ];
+
+  for (const filePath of files) {
+    const input = readFileSync(filePath, "utf8");
+    const config = (await prettier.resolveConfig(filePath)) ?? {};
+    const formatted = await prettier.format(input, { ...config, filepath: filePath });
+    if (formatted === input) {
+      console.log(`FORMAT_OK ${filePath}`);
+      continue;
+    }
+
+    const tempPath = path.join("/tmp", `pbz-prettier-${path.basename(filePath)}`);
+    writeFileSync(tempPath, formatted);
+    let diff = "";
+    try {
+      execFileSync("diff", ["-u", filePath, tempPath], { encoding: "utf8" });
+    } catch (error) {
+      diff = String((error as { stdout?: string }).stdout ?? "");
+    }
+    console.log(`FORMAT_DIFF_START ${filePath}\n${diff}\nFORMAT_DIFF_END ${filePath}`);
+  }
 });
