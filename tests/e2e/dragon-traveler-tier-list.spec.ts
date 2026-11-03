@@ -216,7 +216,11 @@ test("Dragon Traveler release controls expose the reviewed discovery actions", a
   await expect(moreTeams).toHaveAttribute("href", teamsUrl);
 
   await page.context().route("https://www.hideoutgacha.com/**", async (request) => {
-    await request.fulfill({ status: 200, contentType: "text/html", body: "<title>Teams</title>" });
+    await request.fulfill({
+      status: 200,
+      contentType: "text/html",
+      body: "<title>Teams</title>",
+    });
   });
   const popupPromise = page.waitForEvent("popup");
   await moreTeams.click();
@@ -225,9 +229,7 @@ test("Dragon Traveler release controls expose the reviewed discovery actions", a
   await popup.close();
 
   const faq = page.locator(".faq details").first();
-  await faq.getByRole("button").click().catch(async () => {
-    await faq.locator("summary").click();
-  });
+  await faq.locator("summary").click();
   await expect(faq).toHaveAttribute("open", "");
 });
 
