@@ -29,7 +29,7 @@ describe("games.config registry", () => {
   });
 
   it("exports navigationGames matching the visible games in navigation order", () => {
-    expect(navigationGames).toHaveLength(6);
+    expect(navigationGames).toHaveLength(5);
     expect(navigationGames.every((g) => g.navigationVisible)).toBe(true);
     expect(navigationGames.map((g) => g.slug)).toEqual([
       "wow-forever",
@@ -37,7 +37,6 @@ describe("games.config registry", () => {
       "zenless-zone-zero",
       "nikke",
       "limbus-company",
-      "wild-rift",
     ]);
   });
 
