@@ -177,6 +177,13 @@ export const routeDefinitions = [
     reviewFingerprint: "ad8c87ce5846da9c45f0c12a385a6ab70193e78c54dbea364cf0ce17cbc20dd7",
   },
   {
+    route: "/phantom-blade-zero/tier-list",
+    class: "public_noindex",
+    title: "Phantom Blade Zero Tier List – Best Weapons & Phantom Edges Ranked",
+    description:
+      "Explore the Phantom Blade Zero tier list with primary weapon and Phantom Edge rankings, strengths, weaknesses, best uses, consensus evidence, and source links.",
+  },
+  {
     route: "/privacy",
     class: "public_noindex",
     pageType: "Legal",
