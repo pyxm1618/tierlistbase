@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
 import {
@@ -8,12 +9,21 @@ import {
   type ReviewedRankingEntity,
   type ReviewStatus,
 } from "./data";
+import { phantomBladeZeroAssetProvenance } from "./asset-provenance";
 import { PHANTOM_BLADE_ZERO_SEO } from "./seo";
 import styles from "./phantom-blade-zero-tier-list.module.css";
 
 type WorkspaceKind = "main_weapon" | "phantom_edge";
 
 const tierOrder: readonly ReviewStatus[] = ["S", "A", "B", "C", "Needs Review", "Pending"];
+
+const heroAsset = phantomBladeZeroAssetProvenance.find((asset) => asset.role === "hero");
+
+function entityAsset(entityId: string) {
+  return phantomBladeZeroAssetProvenance.find(
+    (asset) => asset.role === "tier_icon" && asset.entityId === entityId,
+  );
+}
 
 function sourceName(sourceId: string) {
   return (
@@ -34,14 +44,30 @@ function placementLabel(entity: ReviewedRankingEntity, sourceId: string) {
 }
 
 function EntityDetail({ entity }: { readonly entity: ReviewedRankingEntity }) {
+  const asset = entityAsset(entity.id);
+
   return (
     <article className={styles.detail} aria-live="polite" data-testid="entity-detail">
       <div className={styles.detailHeading}>
-        <div>
+        <div className={styles.detailIdentity}>
+          {asset?.localPath ? (
+            <Image
+              src={asset.localPath}
+              alt=""
+              width={96}
+              height={96}
+              sizes="96px"
+              className={styles.detailImage}
+              data-p0-role="detail"
+              data-entity-id={entity.id}
+            />
+          ) : null}
+          <div>
           <p className={styles.eyebrow}>
             {entity.kind === "main_weapon" ? "Main Weapon" : "Phantom Edge"}
           </p>
           <h3>{entity.name}</h3>
+          </div>
         </div>
         <span className={styles.largeTier}>{entity.finalTier}</span>
       </div>
@@ -129,10 +155,6 @@ function EntityDetail({ entity }: { readonly entity: ReviewedRankingEntity }) {
         </div>
       </section>
 
-      <p className={styles.assetNotice}>
-        P0 entity image is intentionally omitted until a verified local WebP/AVIF derivative with
-        complete provenance is committed.
-      </p>
     </article>
   );
 }
@@ -196,9 +218,20 @@ export function PhantomBladeZeroTierListPage() {
   return (
     <main className={styles.page}>
       <header className={styles.hero}>
+        {heroAsset?.localPath ? (
+          <Image
+            src={heroAsset.localPath}
+            alt="Phantom Blade Zero combat scene"
+            fill
+            priority
+            sizes="100vw"
+            className={styles.heroImage}
+            data-p0-role="hero"
+          />
+        ) : null}
         <div className={styles.shell}>
           <div className={styles.heroTopline}>
-            <span className={styles.previewBadge}>Preview · NOT READY</span>
+            <span className={styles.previewBadge}>Preview · P0 READY</span>
             <span>Launch evidence snapshot</span>
           </div>
           <h1>{PHANTOM_BLADE_ZERO_SEO.h1}</h1>
@@ -235,7 +268,7 @@ export function PhantomBladeZeroTierListPage() {
 
           <div className={styles.releaseGate} data-testid="p0-release-gate">
             P0 assets: {readiness.verified}/{readiness.required} verified locally ·{" "}
-            {readiness.missing.length} missing · release remains NOT READY.
+            {readiness.missing.length} missing{readiness.ready ? "." : " · release remains NOT READY."}
           </div>
         </div>
       </header>
@@ -257,6 +290,18 @@ export function PhantomBladeZeroTierListPage() {
               if (!entity) return null;
               return (
                 <article key={pick.label} className={styles.quickCard}>
+                  {entityAsset(entity.id)?.localPath ? (
+                    <Image
+                      src={entityAsset(entity.id)!.localPath!}
+                      alt=""
+                      width={64}
+                      height={64}
+                      sizes="64px"
+                      className={styles.quickImage}
+                      data-p0-role="quick-pick"
+                      data-entity-id={entity.id}
+                    />
+                  ) : null}
                   <span>{pick.label}</span>
                   <strong>{entity.name}</strong>
                   <p>{pick.reason}</p>
@@ -339,8 +384,22 @@ export function PhantomBladeZeroTierListPage() {
                           aria-pressed={selected?.id === entity.id}
                           onClick={() => setSelectedId(entity.id)}
                         >
-                          <span>{entity.name}</span>
-                          <small>{entity.independentSourceCount} sources</small>
+                          {entityAsset(entity.id)?.localPath ? (
+                            <Image
+                              src={entityAsset(entity.id)!.localPath!}
+                              alt=""
+                              width={56}
+                              height={56}
+                              sizes="56px"
+                              className={styles.tierImage}
+                              data-p0-role="tier-icon"
+                              data-entity-id={entity.id}
+                            />
+                          ) : null}
+                          <span className={styles.entityText}>
+                            <span>{entity.name}</span>
+                            <small>{entity.independentSourceCount} sources</small>
+                          </span>
                         </button>
                       ))}
                     </div>
