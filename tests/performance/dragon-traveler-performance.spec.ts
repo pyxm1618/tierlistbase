@@ -68,10 +68,10 @@ test("Dragon Traveler uses the shared shell and stays within performance budgets
   await expect(rarity).toHaveValue("SSR EX");
 
   const pvp = page
-    .getByRole("group", { name: "Luminary ranking views" })
-    .getByRole("button", { name: "PvP", exact: true });
+    .getByRole("tablist", { name: "Luminary ranking views" })
+    .getByRole("tab", { name: "PvP", exact: true });
   await pvp.click();
-  await expect(pvp).toHaveAttribute("aria-pressed", "true");
+  await expect(pvp).toHaveAttribute("aria-selected", "true");
   await page.waitForTimeout(120);
 
   const metrics = await page.evaluate(() => {
