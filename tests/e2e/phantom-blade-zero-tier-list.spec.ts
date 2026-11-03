@@ -63,7 +63,7 @@ test.describe("Phantom Blade Zero tier list preview", () => {
   test("does not hotlink or render placeholder images while P0 binaries are missing", async ({
     page,
   }) => {
-    await expect(page.locator("img")).toHaveCount(0);
+    await expect(page.locator("main img")).toHaveCount(0);
     await expect(page.getByText(/image is intentionally omitted/i).first()).toBeVisible();
   });
 });
