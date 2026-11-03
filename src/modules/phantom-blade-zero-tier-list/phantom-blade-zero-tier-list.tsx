@@ -603,7 +603,9 @@ export function PhantomBladeZeroTierListPage() {
                 </summary>
                 <p>
                   No. Main Weapons and boss-derived Phantom Edges stay separate because their combat
-                  roles and evidence coverage differ.
+                  roles and evidence coverage differ. The{" "}
+                  <strong>Phantom Blade Zero Phantom Edges tier list</strong> remains separate for
+                  that reason.
                 </p>
               </details>
               <details>
