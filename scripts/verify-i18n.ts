@@ -32,7 +32,7 @@ for (const locale of siteConfig.supportedLocales) {
       !bundle.landingSections[route.route] &&
       !(await hasDedicatedMarketingPage(route.route))
     ) {
-      throw new Error(`missing localized landing content or dedicated marketing page: ${locale}:${route.route}`);
+      throw new Error(\n        `missing localized landing content or dedicated marketing page: ${locale}:${route.route}`,\n      );
     }
     if (isHome && bundle.homeSections.length === 0) {
       throw new Error(`missing localized homepage content: ${locale}`);
