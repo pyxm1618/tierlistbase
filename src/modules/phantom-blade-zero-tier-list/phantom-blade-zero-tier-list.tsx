@@ -287,8 +287,8 @@ export function PhantomBladeZeroTierListPage() {
             practical use cases. The <strong>Phantom Blade Zero weapon tier list</strong> publishes
             a tier only when at least two independent comprehensive rankings support it. The
             <strong> Phantom Blade Zero tier list</strong> therefore separates verified identity
-            from ranked consensus. The{" "}
-            <strong>Phantom Blade Zero tier list</strong> remains source-led.
+            from ranked consensus. The <strong>Phantom Blade Zero tier list</strong> remains
+            source-led.
           </p>
 
           <div className={styles.heroStats}>
@@ -593,7 +593,8 @@ export function PhantomBladeZeroTierListPage() {
                   comprehensive ranking evidence for a formal tier. The{" "}
                   <strong>Phantom Blade Zero Phantom Edges tier list</strong> therefore stays
                   Pending until another qualifying comprehensive ranking source appears. The{" "}
-                  <strong>Phantom Blade Zero Phantom Edges tier list</strong> uses separate evidence.
+                  <strong>Phantom Blade Zero Phantom Edges tier list</strong> uses separate
+                  evidence.
                 </p>
               </details>
               <details>
