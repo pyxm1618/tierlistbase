@@ -1,9 +1,6 @@
 import { expect, it } from "vitest";
 import { getRoster, researchLedger } from "@/modules/dragon-traveler-tier-list";
-import {
-  currentBannerAt,
-  verifiedBanners,
-} from "@/modules/dragon-traveler-tier-list/banners";
+import { currentBannerAt, verifiedBanners } from "@/modules/dragon-traveler-tier-list/banners";
 it("accounts for each restored identity with an explicit evidence state", () => {
   expect(new Set(researchLedger.map((record) => record.id)).size).toBe(researchLedger.length);
   for (const server of ["global", "taiwan"] as const)
