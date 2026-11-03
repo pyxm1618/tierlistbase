@@ -124,7 +124,7 @@ jobs:
 
           def find_entity_page(index_html, entity_name):
               for match in re.finditer(
-                  r'<a\\b[^>]*href=["\\']([^"\\']*?/weapons/[^"\\']+/?)["\\'][^>]*>([\\s\\S]*?)</a>',
+                  r"<a\\b[^>]*href=['\"]([^'\"]*?/weapons/[^'\"]+/?)['\"][^>]*>([\\s\\S]*?)</a>",
                   index_html,
                   flags=re.I,
               ):
