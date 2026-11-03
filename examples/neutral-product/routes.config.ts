@@ -59,6 +59,13 @@ export const routeDefinitions = [
       "Preview the TierListBase Limbus Company tier list interface for Identity, Team, E.G.O, and Sinner-focused recommendations.",
   },
   {
+    route: "/phantom-blade-zero/tier-list",
+    class: "public_noindex",
+    title: "Phantom Blade Zero Tier List – Best Weapons & Phantom Edges Ranked",
+    description:
+      "Explore the Phantom Blade Zero tier list with primary weapon and Phantom Edge rankings, strengths, weaknesses, best uses, consensus evidence, and source links.",
+  },
+  {
     route: "/about",
     class: "public_noindex",
     title: "About TierListBase",
