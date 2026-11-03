@@ -2,18 +2,10 @@ import { localeBundles } from "@/config/locales.config";
 import { routeRegistry } from "@/config/routes.config";
 import { siteConfig } from "@/config/site.config";
 import { buildLanguageAlternates, localePath } from "@/platform/i18n/routing";
+import { hasDedicatedMarketingPage } from "./lib/indexable-route-content";
 
 const PLACEHOLDER = /\b(todo|tbd|placeholder|replace[ -]?me|lorem ipsum)\b/i;
 const indexable = routeRegistry.indexable();
-const bespokeIndexableRoutes = new Set([
-  "/zenless-zone-zero/tier-list",
-  "/genshin-impact/tier-list",
-  "/limbus-company/tier-list",
-  "/nikke/tier-list",
-  "/wow-forever/vanguard",
-  "/about",
-]);
-
 for (const locale of siteConfig.supportedLocales) {
   const bundle = (localeBundles as Readonly<Record<string, (typeof localeBundles)["en"]>>)[locale];
   if (!bundle) throw new Error(`missing locale bundle: ${locale}`);
@@ -37,10 +29,10 @@ for (const locale of siteConfig.supportedLocales) {
     const isHome = route.route === "/";
     if (
       !isHome &&
-      !bespokeIndexableRoutes.has(route.route) &&
-      !bundle.landingSections[route.route]
+      !bundle.landingSections[route.route] &&
+      !(await hasDedicatedMarketingPage(route.route))
     ) {
-      throw new Error(`missing localized landing content: ${locale}:${route.route}`);
+      throw new Error(`missing localized landing content or dedicated marketing page: ${locale}:${route.route}`);
     }
     if (isHome && bundle.homeSections.length === 0) {
       throw new Error(`missing localized homepage content: ${locale}`);
