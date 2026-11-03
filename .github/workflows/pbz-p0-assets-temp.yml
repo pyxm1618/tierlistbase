@@ -122,6 +122,18 @@ jobs:
                       return urllib.parse.urljoin(page_url, target)
               return absolute
 
+          def find_entity_page(index_html, entity_name):
+              for match in re.finditer(
+                  r'<a\\b[^>]*href=["\\']([^"\\']*?/weapons/[^"\\']+/?)["\\'][^>]*>([\\s\\S]*?)</a>',
+                  index_html,
+                  flags=re.I,
+              ):
+                  href, body = match.groups()
+                  visible = html.unescape(re.sub(r"<[^>]+>", " ", body))
+                  if norm(entity_name) in norm(visible):
+                      return urllib.parse.urljoin("https://pbz.gg/weapons/", href)
+              raise RuntimeError(f"No exact entity page found in pbz.gg weapons index for {entity_name}")
+
           def find_entity_image(page_url, entity_name, entity_id):
               page = curl_text(page_url)
               tags = re.findall(r"<img\b[^>]*>", page, flags=re.I)
@@ -197,8 +209,9 @@ jobs:
               "localPath": "/images/phantom-blade-zero/hero.webp",
           })
 
+          weapon_index = curl_text("https://pbz.gg/weapons/")
           for entity_id, entity_name, kind in entities:
-              page_url = f"https://pbz.gg/weapons/{entity_id}/"
+              page_url = find_entity_page(weapon_index, entity_name)
               source_url = find_entity_image(page_url, entity_name, entity_id)
               raw = raw_root / f"{entity_id}.source"
               download(source_url, raw, page_url)
