@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { gamesConfig, navigationGames } from "@/config/games.config";
 
 describe("games.config registry", () => {
-  it("registers released games and the unpublished Dragon preview without reordering navigation", () => {
+  it("registers released game routes without changing the existing navigation set", () => {
     expect(gamesConfig).toHaveLength(6);
     expect(gamesConfig.map((g) => g.name)).toEqual([
       "World of Warcraft",
