@@ -44,7 +44,7 @@ jobs:
           text = provenance.read_text(encoding="utf-8")
 
           icon_pairs = re.findall(
-              r'\[\s*"([^"]+)",\s*"(https://static\.allthings\.how/[^"]+)"\s*\]',
+              r'\[\s*"([^"]+)",\s*"(https://static\.allthings\.how/[^"]+)",?\s*\]',
               text,
               flags=re.S,
           )
