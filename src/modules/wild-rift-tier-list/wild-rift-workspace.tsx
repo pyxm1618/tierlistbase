@@ -710,8 +710,8 @@ function WhatChanged({ role }: { role: RoleView }) {
         </div>
       ) : (
         <p className={styles.noChanges}>
-          No tier changes cleared the full evidence review. Source-reported movements are withheld
-          because their reasons are unverified.
+          No verified source-tier movement is listed for this role in the current reviewed history.
+          No movement is inferred from patch notes or win-rate changes.
         </p>
       )}
     </section>
