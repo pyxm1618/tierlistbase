@@ -287,7 +287,8 @@ export function PhantomBladeZeroTierListPage() {
             practical use cases. The <strong>Phantom Blade Zero weapon tier list</strong> publishes
             a tier only when at least two independent comprehensive rankings support it. The
             <strong> Phantom Blade Zero tier list</strong> therefore separates verified identity
-            from ranked consensus.
+            from ranked consensus. The{" "}
+            <strong>Phantom Blade Zero tier list</strong> remains source-led.
           </p>
 
           <div className={styles.heroStats}>
@@ -570,6 +571,7 @@ export function PhantomBladeZeroTierListPage() {
               <p>
                 This is the first reviewed <strong>Phantom Blade Zero tier list</strong> snapshot.
                 No previous verified TierListBase snapshot exists, so no tier movement is claimed.
+                This <strong>Phantom Blade Zero tier list</strong> is the release baseline.
               </p>
             </div>
           </section>
@@ -588,9 +590,10 @@ export function PhantomBladeZeroTierListPage() {
                 <summary>Why does the Phantom Blade Zero tier list show Pending?</summary>
                 <p>
                   Pending means the entity is verified but does not yet have enough independent
-                  comprehensive ranking evidence for a formal tier. The
-                  <strong> Phantom Blade Zero Phantom Edges tier list</strong> therefore stays
-                  Pending until another qualifying comprehensive ranking source appears.
+                  comprehensive ranking evidence for a formal tier. The{" "}
+                  <strong>Phantom Blade Zero Phantom Edges tier list</strong> therefore stays
+                  Pending until another qualifying comprehensive ranking source appears. The{" "}
+                  <strong>Phantom Blade Zero Phantom Edges tier list</strong> uses separate evidence.
                 </p>
               </details>
               <details>
@@ -615,8 +618,9 @@ export function PhantomBladeZeroTierListPage() {
                 </summary>
                 <p>
                   No. Matchups, execution, progression, and player preference still matter even when
-                  overall combat value ranks lower. The <strong>Phantom Blade Zero tier list</strong>
-                  is a consensus guide, not a claim that lower-ranked options cannot work.
+                  overall combat value ranks lower. The{" "}
+                  <strong>Phantom Blade Zero tier list</strong> is a consensus guide, not a claim
+                  that lower-ranked options cannot work.
                 </p>
               </details>
               <details>
