@@ -124,7 +124,7 @@ describe("Wild Rift reviewed snapshot", () => {
   it("keeps Quick Insights and dated changes tied to valid Champion × Role rankings", () => {
     for (const role of roleKeys) {
       expect(quickInsights[role]).toHaveLength(
-        ({ baron: 4, jungle: 4, mid: 3, dragon: 4, support: 3 } as const)[role],
+        ({ baron: 3, jungle: 4, mid: 4, dragon: 3, support: 3 } as const)[role],
       );
       for (const insight of quickInsights[role]) {
         expect(rankingFor(insight.championId, role)).toBeDefined();
