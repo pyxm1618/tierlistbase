@@ -12,7 +12,7 @@ export type Tier = (typeof tiers)[number];
 
 export type SignalLevel = "High" | "Medium" | "Low";
 export type Trend = "up" | "down" | "flat" | "unavailable";
-export type SourceType = "official_patch" | "ranked_statistics" | "editorial_review";
+export type SourceType = "official_patch" | "ranked_statistics" | "source_tier" | "editorial_review";
 
 export type Champion = {
   readonly id: string;
@@ -182,12 +182,12 @@ export const sources: readonly EvidenceSource[] = [
   },
   {
     id: "core-editorial-tier",
-    name: "Wild Rift Core · Editorial Role Tier List & History",
-    type: "editorial_review",
+    name: "Wild Rift Core · Source Role Tier List & History",
+    type: "source_tier",
     checkedAt: "2026-11-03",
     url: "https://wildriftcore.com/en/tierlist/",
     context:
-      "Source tiers are Wild Rift Core's data-informed source-tier assessment, not Riot or Tencent official tiers. TierListBase keeps those source tiers separate from raw Tencent statistics and from its own Champion × Role editorial signals; no tier overrides are applied.",
+      "Source tiers are Wild Rift Core's data-informed role ranking, which the source describes as recomputed from Master+ rates, presence, and expert/community consensus. It is not a Riot or Tencent official tier. TierListBase keeps it separate from raw Tencent statistics and from its own Champion × Role editorial signals; no tier overrides are applied.",
   },
   {
     id: "editorial-review",
