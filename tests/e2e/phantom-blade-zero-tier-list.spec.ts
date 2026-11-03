@@ -10,9 +10,7 @@ const keywordGroup = [
 
 function phraseCount(text: string, phrase: string) {
   const normalized = text.toLowerCase().replace(/\s+/g, " ");
-  const escaped = phrase.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\import { expect, test } from "@playwright/test";
-test.describe("Phantom Blade Zero tier list preview", () => {");
-  return (normalized.match(new RegExp("\\b" + escaped + "\\b", "g")) ?? []).length;
+  return normalized.split(phrase).length - 1;
 }
 
 test.describe("Phantom Blade Zero tier list release", () => {
