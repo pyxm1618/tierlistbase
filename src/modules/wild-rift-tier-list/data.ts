@@ -208,9 +208,9 @@ export const champions: readonly Champion[] = championCatalog.map((champion) => 
 
 const championById = new Map(champions.map((champion) => [champion.id, champion]));
 
-// The publisher reports dated tier movements, but does not evidence the causal reasons
-// previously shown here. Keep those records in docs/wild-rift/change-audit.json;
-// none currently clears the full publication evidence gate.
+// The publisher now exposes net source-tier movements with role, previous tier, current tier,
+// and date. Publish only those movement facts; do not infer causal reasons from patch notes or
+// statistics. The item-level gate is recorded in docs/wild-rift/change-audit.json.
 export const changes: readonly RankingChange[] = [
   {
     championId: "gnar",
