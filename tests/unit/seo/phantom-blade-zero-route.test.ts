@@ -37,7 +37,10 @@ describe("Phantom Blade Zero preview SEO", () => {
     "emits noindex and no canonical in %s",
     (environment) => {
       const metadata = metadataForRoute(routeRegistry, PHANTOM_BLADE_ZERO_ROUTE, environment);
-      expect(metadata.robots?.index).toBe(false);
+      expect(metadata.robots).toEqual({
+        index: false,
+        follow: environment === "production",
+      });
       expect(metadata.alternates).toBeUndefined();
       expect(metadata.title).toEqual({ absolute: PHANTOM_BLADE_ZERO_SEO.title });
       expect(metadata.description).toBe(PHANTOM_BLADE_ZERO_SEO.description);
