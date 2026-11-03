@@ -51,10 +51,11 @@ export const routeDefinitions = [
       "/privacy",
       "/terms",
       "/zenless-zone-zero/tier-list",
+      "/dragon-traveler/tier-list",
     ],
     lastModified: "2026-10-16",
     reviewStatus: "reviewed",
-    reviewFingerprint: "357f39fb748d56e849ed02c08901db6d65c071752a16eac095cbe932b3696245",
+    reviewFingerprint: "f66e3fb9e5fb87939db7431920f47f8e72b924137294910366c7de6132a2eba8",
   },
   {
     route: "/wow-forever/tier-list",
@@ -178,10 +179,25 @@ export const routeDefinitions = [
   },
   {
     route: "/dragon-traveler/tier-list",
-    class: "public_noindex",
+    class: "public_indexable",
+    searchIntent:
+      "compare Dragon Traveler Luminary rankings for Overall, PvE and PvP across Global and Taiwan servers, teams, and account decisions",
+    primaryKeyword: "dragon traveler tier list",
+    secondaryKeywords: [
+      "dragon traveler pve tier list",
+      "dragon traveler pvp tier list",
+      "dragon traveler tier list taiwan",
+      "dragon traveler taiwan tier list",
+    ],
     title: "Dragon Traveler Tier List – Best Luminaries Ranked",
     description:
-      "Compare current Dragon Traveler Luminary rankings across Global and Taiwan server contexts, with PvE, PvP, teams, account decisions, changes, and source methodology.",
+      "Compare the Dragon Traveler Tier List for Overall, PvE and PvP Luminary rankings, best teams, and account decisions across Global and Taiwan servers.",
+    h1: "Dragon Traveler Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-11-03",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "903f0ac9c765325041f6e5b8fa53fd8cdccc00c36a8103f003c3d3790e42e356",
   },
   {
     route: "/privacy",
