@@ -122,25 +122,48 @@ jobs:
                       return urllib.parse.urljoin(page_url, target)
               return absolute
 
-          def build_entity_pages(index_html):
-              hrefs = re.findall(
-                  r'href=["\']([^"\']*?/weapons/[^"\']+/?)["\']',
-                  index_html,
-                  flags=re.I,
+          def candidate_slugs(entity_name, entity_id):
+              ascii_name = (
+                  entity_name.replace("’", "'")
+                  .replace("&", " and ")
+                  .replace("'", "")
+                  .lower()
               )
-              pages = {}
-              for href in dict.fromkeys(hrefs):
-                  page_url = urllib.parse.urljoin("https://pbz.gg/weapons/", html.unescape(href))
-                  if page_url.rstrip("/") == "https://pbz.gg/weapons":
+              generated = re.sub(r"[^a-z0-9]+", "-", ascii_name).strip("-")
+              values = [entity_id, generated]
+              if generated.startswith("the-"):
+                  values.append(generated[4:])
+              if entity_id.startswith("the-"):
+                  values.append(entity_id[4:])
+              return list(dict.fromkeys(values))
+
+          def find_entity_page(entity_name, entity_id):
+              for slug in candidate_slugs(entity_name, entity_id):
+                  page_url = f"https://pbz.gg/weapons/{slug}/"
+                  proc = subprocess.run(
+                      [
+                          "curl", "-L", "-sS", "--connect-timeout", "20", "--max-time", "120",
+                          "-A", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/141 Safari/537.36",
+                          "-w", "\\n%{http_code}", page_url,
+                      ],
+                      check=False,
+                      capture_output=True,
+                      text=True,
+                  )
+                  if proc.returncode != 0:
                       continue
-                  page_html = curl_text(page_url)
-                  heading = re.search(r"<h1\\b[^>]*>([\\s\\S]*?)</h1>", page_html, flags=re.I)
+                  body, _, status = proc.stdout.rpartition("\n")
+                  if status.strip() != "200":
+                      continue
+                  heading = re.search(r"<h1\\b[^>]*>([\\s\\S]*?)</h1>", body, flags=re.I)
                   if not heading:
                       continue
                   title = html.unescape(re.sub(r"<[^>]+>", " ", heading.group(1))).strip()
-                  if title:
-                      pages[norm(title)] = (page_url, page_html)
-              return pages
+                  if norm(title) == norm(entity_name):
+                      return page_url, body
+              raise RuntimeError(
+                  f"No exact verified pbz.gg page found for {entity_name}; candidates={candidate_slugs(entity_name, entity_id)}"
+              )
 
           def find_entity_image(page_url, page, entity_name, entity_id):
               tags = re.findall(r"<img\b[^>]*>", page, flags=re.I)
@@ -216,15 +239,8 @@ jobs:
               "localPath": "/images/phantom-blade-zero/hero.webp",
           })
 
-          weapon_index = curl_text("https://pbz.gg/weapons/")
-          entity_pages = build_entity_pages(weapon_index)
-          if len(entity_pages) < 35:
-              raise RuntimeError(f"pbz.gg index yielded only {len(entity_pages)} named weapon pages")
           for entity_id, entity_name, kind in entities:
-              matched = entity_pages.get(norm(entity_name))
-              if not matched:
-                  raise RuntimeError(f"No exact h1 match found on pbz.gg for {entity_name}")
-              page_url, page_html = matched
+              page_url, page_html = find_entity_page(entity_name, entity_id)
               source_url = find_entity_image(page_url, page_html, entity_name, entity_id)
               raw = raw_root / f"{entity_id}.source"
               download(source_url, raw, page_url)
