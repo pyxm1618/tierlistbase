@@ -15,6 +15,13 @@ it("keeps official-banner targets inside their matching live roster", () => {
   }
 });
 
+it("uses the latest active Global summon when banners overlap", () => {
+  const banner = currentBannerAt("global", Date.parse("2026-11-03T12:00:00-05:00"));
+  expect(banner?.bannerName).toBe("Mythical Summon — Select SSR Ex Luminary");
+  expect(banner?.characterIds).toContain("poseidon");
+  expect(banner?.characterIds).toContain("loki");
+});
+
 it("uses the current Taiwan mythic summon on the release date", () => {
   const banner = currentBannerAt("taiwan", Date.parse("2026-11-03T12:00:00+08:00"));
   expect(banner?.characterIds).toEqual(["loki", "prometheus", "hera", "ares"]);
