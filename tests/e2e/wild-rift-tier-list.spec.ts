@@ -186,7 +186,9 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await expect(card).toContainText("Editorial · statistics unavailable");
   await card.click();
   const detail = page.getByRole("complementary", { name: "Champion Detail" });
-  await expect(detail).toContainText("Source-tier placement retained after TierListBase editorial review");
+  await expect(detail).toContainText(
+    "Source-tier placement retained after TierListBase editorial review",
+  );
   await expect(detail).toContainText("Source tier: A (Wild Rift Core)");
   await expect(detail).toContainText("TierListBase editorial assessments");
   await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("Gnar");
