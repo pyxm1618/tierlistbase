@@ -406,7 +406,9 @@ export function PhantomBladeZeroTierListPage() {
               Weapons. Switch to Phantom Edges to inspect the current
               <strong> Phantom Blade Zero Phantom Edge tier list</strong>. The
               <strong> Phantom Blade Zero tier list</strong> keeps missing source coverage neutral
-              rather than scoring it as zero.
+              rather than scoring it as zero. The{" "}
+              <strong>Phantom Blade Zero Phantom Edges tier list</strong> remains evidence-gated
+              until another qualifying comprehensive ranking source exists.
             </p>
 
             <div className={styles.controls}>
@@ -603,9 +605,7 @@ export function PhantomBladeZeroTierListPage() {
                 </summary>
                 <p>
                   No. Main Weapons and boss-derived Phantom Edges stay separate because their combat
-                  roles and evidence coverage differ. The{" "}
-                  <strong>Phantom Blade Zero Phantom Edges tier list</strong> remains separate for
-                  that reason.
+                  roles and evidence coverage differ.
                 </p>
               </details>
               <details>
