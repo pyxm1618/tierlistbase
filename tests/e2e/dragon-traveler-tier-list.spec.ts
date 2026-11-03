@@ -228,7 +228,11 @@ test("Dragon Traveler release controls expose the reviewed discovery actions", a
   await popup.waitForURL(teamsUrl);
   await popup.close();
 
-  const faq = page.locator(".faq details").first();
+  const faq = page
+    .getByRole("heading", { name: "FAQ" })
+    .locator("xpath=ancestor::section[1]")
+    .locator("details")
+    .first();
   await faq.locator("summary").click();
   await expect(faq).toHaveAttribute("open", "");
 });
@@ -268,12 +272,19 @@ test("Dragon Traveler captures the final 1440 visual audit surfaces", async ({ p
 
   await logShot(
     "HERO",
-    page.getByRole("heading", { level: 1, name: "Dragon Traveler Tier List" }).locator(".."),
+    page
+      .getByRole("heading", { level: 1, name: "Dragon Traveler Tier List" })
+      .locator("xpath=ancestor::section[1]"),
   );
-  await logShot("BOARD_DETAIL", page.getByRole("region", { name: "Luminary rankings and details" }));
+  await logShot(
+    "BOARD_DETAIL",
+    page.getByRole("region", { name: "Luminary rankings and details" }),
+  );
   await logShot(
     "TEAMS",
-    page.getByRole("heading", { name: "Best Dragon Traveler Teams" }).locator("xpath=ancestor::section[1]"),
+    page
+      .getByRole("heading", { name: "Best Dragon Traveler Teams" })
+      .locator("xpath=ancestor::section[1]"),
   );
   await logShot(
     "DECISIONS",
