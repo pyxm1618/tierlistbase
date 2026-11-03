@@ -67,8 +67,7 @@ export const verifiedBanners: readonly VerifiedBanner[] = [
     recommendation: "Consider",
     rationale:
       "For this selectable SSR Ex pool, Poseidon, Loki, Artemis and Venus sit in the current Global top Overall band. Choose for the team and faction gap you actually need; this is editorial advice, not an official strength rating.",
-    sourceUrl:
-      "https://www.hideoutgacha.com/news/dragon-traveler/october-29-mythical-summon-vajra",
+    sourceUrl: "https://www.hideoutgacha.com/news/dragon-traveler/october-29-mythical-summon-vajra",
     evaluationSourceUrl: "https://www.hideoutgacha.com/games/dragon-traveler/tier-list",
     checkedAt: "2026-11-03",
   },
