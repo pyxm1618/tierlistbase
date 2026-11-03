@@ -12,7 +12,11 @@ export type Tier = (typeof tiers)[number];
 
 export type SignalLevel = "High" | "Medium" | "Low";
 export type Trend = "up" | "down" | "flat" | "unavailable";
-export type SourceType = "official_patch" | "ranked_statistics" | "source_tier" | "editorial_review";
+export type SourceType =
+  | "official_patch"
+  | "ranked_statistics"
+  | "source_tier"
+  | "editorial_review";
 
 export type Champion = {
   readonly id: string;
@@ -220,7 +224,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-11-02",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "kogmaw",
@@ -230,7 +235,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-11-01",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "vladimir",
@@ -240,7 +246,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-11-01",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "sivir",
@@ -250,7 +257,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-11-01",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "malphite",
@@ -260,7 +268,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-10-27",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "kalista",
@@ -270,7 +279,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-10-25",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "ashe",
@@ -280,7 +290,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-10-17",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "twitch",
@@ -290,7 +301,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-10-09",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "miss-fortune",
@@ -300,7 +312,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-10-03",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "volibear",
@@ -310,7 +323,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-10-03",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "jhin",
@@ -320,7 +334,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-11-02",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "kassadin",
@@ -330,7 +345,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-11-02",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "yunara",
@@ -340,7 +356,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-11-01",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "garen",
@@ -350,7 +367,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-11-01",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "olaf",
@@ -360,7 +378,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-11-01",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
   {
     championId: "ahri",
@@ -370,7 +389,8 @@ export const changes: readonly RankingChange[] = [
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
     date: "2026-10-27",
-    reason: "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+    reason:
+      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
   },
 ];
 
