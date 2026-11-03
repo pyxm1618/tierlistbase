@@ -35,11 +35,7 @@ describe("Phantom Blade Zero release SEO", () => {
   });
 
   it("emits canonical index metadata only in production", () => {
-    const production = metadataForRoute(
-      routeRegistry,
-      PHANTOM_BLADE_ZERO_ROUTE,
-      "production",
-    );
+    const production = metadataForRoute(routeRegistry, PHANTOM_BLADE_ZERO_ROUTE, "production");
     expect(production.robots).toEqual({ index: true, follow: true });
     expect(production.alternates?.canonical).toContain(PHANTOM_BLADE_ZERO_ROUTE);
     expect(production.title).toEqual({ absolute: PHANTOM_BLADE_ZERO_SEO.title });

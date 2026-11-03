@@ -36,8 +36,7 @@ export const phantomBladeZeroAssetProvenance: readonly PhantomBladeZeroAssetProv
     sha256: "8167d8d31e178cdf5634c1c130b7f5ac57e43fc7503486a86a8e4309cffc07a5",
     transform:
       "auto-orient; resize to 1280x426; strip metadata; WebP quality 48; responsive crop handled in CSS",
-    crop:
-      "responsive cover; desktop object-position 50% center; responsive object-position preserves right-side character; no text baked into image",
+    crop: "responsive cover; desktop object-position 50% center; responsive object-position preserves right-side character; no text baked into image",
     attribution: "User-provided final Phantom Blade Zero hero artwork for PR #117 closeout",
     status: "verified_local",
     localPath: "/images/phantom-blade-zero/hero.webp",

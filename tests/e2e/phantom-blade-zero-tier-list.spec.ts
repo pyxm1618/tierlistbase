@@ -63,20 +63,20 @@ test.describe("Phantom Blade Zero tier list release", () => {
   });
 
   for (const width of [390, 768, 1440]) {
-    test("has no horizontal overflow and captures release evidence at " + width + "px", async (
-      { page },
-      testInfo,
-    ) => {
-      await page.setViewportSize({ width, height: 900 });
-      await page.reload({ waitUntil: "networkidle" });
-      expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(
-        false,
-      );
-      await testInfo.attach("phantom-blade-zero-" + width + "px", {
-        body: await page.screenshot({ fullPage: true }),
-        contentType: "image/png",
-      });
-    });
+    test(
+      "has no horizontal overflow and captures release evidence at " + width + "px",
+      async ({ page }, testInfo) => {
+        await page.setViewportSize({ width, height: 900 });
+        await page.reload({ waitUntil: "networkidle" });
+        expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(
+          false,
+        );
+        await testInfo.attach("phantom-blade-zero-" + width + "px", {
+          body: await page.screenshot({ fullPage: true }),
+          contentType: "image/png",
+        });
+      },
+    );
   }
 
   test("meets the visible release keyword-density gate", async ({ page }, testInfo) => {

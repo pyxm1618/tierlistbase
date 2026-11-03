@@ -278,7 +278,9 @@ export function PhantomBladeZeroTierListPage() {
             <span className={styles.previewBadge}>PHANTOM BLADE ZERO</span>
             <span>Independent · Evidence-Based · Multi-Source Consensus</span>
           </div>
-          <h1><span>Phantom Blade Zero</span>{" "}<em>Tier List</em></h1>
+          <h1>
+            <span>Phantom Blade Zero</span> <em>Tier List</em>
+          </h1>
           <p className={styles.heroCopy}>
             Use this <strong>Phantom Blade Zero tier list</strong> to compare verified Main Weapons
             and Phantom Edges through independent ranking evidence, strengths, weaknesses, and
@@ -321,261 +323,302 @@ export function PhantomBladeZeroTierListPage() {
 
       <div className={`${styles.shell} ${styles.bodyGrid}`}>
         <div className={styles.mainColumn}>
-          <section className={`${styles.section} ${styles.quickSection}`} aria-labelledby="quick-picks-title">
-          <div className={styles.sectionHeader}>
-            <div>
-              <p className={styles.eyebrow}>Evidence-backed shortcuts</p>
-              <h2 id="quick-picks-title">Quick Picks</h2>
+          <section
+            className={`${styles.section} ${styles.quickSection}`}
+            aria-labelledby="quick-picks-title"
+          >
+            <div className={styles.sectionHeader}>
+              <div>
+                <p className={styles.eyebrow}>Evidence-backed shortcuts</p>
+                <h2 id="quick-picks-title">Quick Picks</h2>
+              </div>
             </div>
-          </div>
-          <p className={styles.sectionIntro}>
-            Quick Picks summarize the clearest recommendations from the
-            <strong> Phantom Blade Zero tier list</strong> without replacing the evidence below.
-          </p>
-          <div className={styles.quickGrid}>
-            {phantomBladeZeroSnapshot.quickPicks.map((pick) => {
-              const entity = [
-                ...phantomBladeZeroSnapshot.mainWeapons,
-                ...phantomBladeZeroSnapshot.phantomEdges,
-              ].find((item) => item.id === pick.entityId);
-              if (!entity) return null;
-              return (
-                <article key={pick.label} className={styles.quickCard}>
-                  {entityAsset(entity.id)?.localPath ? (
-                    <Image
-                      src={entityAsset(entity.id)!.localPath!}
-                      alt=""
-                      width={64}
-                      height={64}
-                      sizes="64px"
-                      className={styles.quickImage}
-                      data-p0-role="quick-pick"
-                      data-entity-id={entity.id}
-                    />
-                  ) : null}
-                  <span>{pick.label}</span>
-                  <strong>{entity.name}</strong>
-                  <p>{pick.reason}</p>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-
-        <section className={`${styles.section} ${styles.rankingSection}`} aria-labelledby="ranking-workspace-title">
-          <div className={styles.sectionHeader}>
-            <div>
-              <p className={styles.eyebrow}>Consensus workspace</p>
-              <h2 id="ranking-workspace-title">Ranking Workspace</h2>
-            </div>
-            <div className={styles.tabs} role="tablist" aria-label="Ranking type">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={kind === "main_weapon"}
-                onClick={() => switchKind("main_weapon")}
-              >
-                Main Weapons
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={kind === "phantom_edge"}
-                onClick={() => switchKind("phantom_edge")}
-              >
-                Phantom Edges
-              </button>
-            </div>
-          </div>
-
-          <p className={styles.sectionIntro}>
-            The default <strong>Phantom Blade Zero weapons tier list</strong> view covers Main
-            Weapons. Switch to Phantom Edges to inspect the current
-            <strong> Phantom Blade Zero Phantom Edge tier list</strong>. The
-            <strong> Phantom Blade Zero tier list</strong> keeps missing source coverage neutral
-            rather than scoring it as zero.
-          </p>
-
-          <div className={styles.controls}>
-            <label>
-              <span>Search</span>
-              <input
-                type="search"
-                aria-label={kind === "main_weapon" ? "Search main weapons" : "Search Phantom Edges"}
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search name or use case"
-              />
-            </label>
-            <label>
-              <span>Category</span>
-              <select
-                aria-label="Filter by category"
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
-              >
-                {categories.map((value) => (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button type="button" className={styles.clearButton} onClick={clearFilters}>
-              Clear filters
-            </button>
-          </div>
-
-          <div className={styles.workspace}>
-            <div className={styles.board} data-testid="tier-board">
-              {tierOrder.map((tier) => {
-                const tierEntities = filtered.filter((entity) => entity.finalTier === tier);
-                if (tierEntities.length === 0) return null;
+            <p className={styles.sectionIntro}>
+              Quick Picks summarize the clearest recommendations from the
+              <strong> Phantom Blade Zero tier list</strong> without replacing the evidence below.
+            </p>
+            <div className={styles.quickGrid}>
+              {phantomBladeZeroSnapshot.quickPicks.map((pick) => {
+                const entity = [
+                  ...phantomBladeZeroSnapshot.mainWeapons,
+                  ...phantomBladeZeroSnapshot.phantomEdges,
+                ].find((item) => item.id === pick.entityId);
+                if (!entity) return null;
                 return (
-                  <section key={tier} className={styles.tierRow} aria-label={`${tier} tier`}>
-                    <div className={styles.tierLabel}>{tier}</div>
-                    <div className={styles.tierItems}>
-                      {tierEntities.map((entity) => (
-                        <button
-                          key={entity.id}
-                          type="button"
-                          className={styles.entityButton}
-                          aria-pressed={selected?.id === entity.id}
-                          onClick={() => setSelectedId(entity.id)}
-                        >
-                          <LazyTierIcon entityId={entity.id} />
-                          <span className={styles.entityText}>
-                            <span>{entity.name}</span>
-                            <small>{entity.independentSourceCount} sources</small>
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  </section>
+                  <article key={pick.label} className={styles.quickCard}>
+                    {entityAsset(entity.id)?.localPath ? (
+                      <Image
+                        src={entityAsset(entity.id)!.localPath!}
+                        alt=""
+                        width={64}
+                        height={64}
+                        sizes="64px"
+                        className={styles.quickImage}
+                        data-p0-role="quick-pick"
+                        data-entity-id={entity.id}
+                      />
+                    ) : null}
+                    <span>{pick.label}</span>
+                    <strong>{entity.name}</strong>
+                    <p>{pick.reason}</p>
+                  </article>
                 );
               })}
+            </div>
+          </section>
 
-              {filtered.length === 0 ? (
-                <div className={styles.emptyState}>
-                  No reviewed entities match these filters. Clear filters to restore the snapshot.
-                </div>
-              ) : null}
+          <section
+            className={`${styles.section} ${styles.rankingSection}`}
+            aria-labelledby="ranking-workspace-title"
+          >
+            <div className={styles.sectionHeader}>
+              <div>
+                <p className={styles.eyebrow}>Consensus workspace</p>
+                <h2 id="ranking-workspace-title">Ranking Workspace</h2>
+              </div>
+              <div className={styles.tabs} role="tablist" aria-label="Ranking type">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={kind === "main_weapon"}
+                  onClick={() => switchKind("main_weapon")}
+                >
+                  Main Weapons
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={kind === "phantom_edge"}
+                  onClick={() => switchKind("phantom_edge")}
+                >
+                  Phantom Edges
+                </button>
+              </div>
             </div>
 
-            {selected ? <EntityDetail entity={selected} /> : null}
-          </div>
-        </section>
+            <p className={styles.sectionIntro}>
+              The default <strong>Phantom Blade Zero weapons tier list</strong> view covers Main
+              Weapons. Switch to Phantom Edges to inspect the current
+              <strong> Phantom Blade Zero Phantom Edge tier list</strong>. The
+              <strong> Phantom Blade Zero tier list</strong> keeps missing source coverage neutral
+              rather than scoring it as zero.
+            </p>
 
+            <div className={styles.controls}>
+              <label>
+                <span>Search</span>
+                <input
+                  type="search"
+                  aria-label={
+                    kind === "main_weapon" ? "Search main weapons" : "Search Phantom Edges"
+                  }
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Search name or use case"
+                />
+              </label>
+              <label>
+                <span>Category</span>
+                <select
+                  aria-label="Filter by category"
+                  value={category}
+                  onChange={(event) => setCategory(event.target.value)}
+                >
+                  {categories.map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button type="button" className={styles.clearButton} onClick={clearFilters}>
+                Clear filters
+              </button>
+            </div>
+
+            <div className={styles.workspace}>
+              <div className={styles.board} data-testid="tier-board">
+                {tierOrder.map((tier) => {
+                  const tierEntities = filtered.filter((entity) => entity.finalTier === tier);
+                  if (tierEntities.length === 0) return null;
+                  return (
+                    <section key={tier} className={styles.tierRow} aria-label={`${tier} tier`}>
+                      <div className={styles.tierLabel}>{tier}</div>
+                      <div className={styles.tierItems}>
+                        {tierEntities.map((entity) => (
+                          <button
+                            key={entity.id}
+                            type="button"
+                            className={styles.entityButton}
+                            aria-pressed={selected?.id === entity.id}
+                            onClick={() => setSelectedId(entity.id)}
+                          >
+                            <LazyTierIcon entityId={entity.id} />
+                            <span className={styles.entityText}>
+                              <span>{entity.name}</span>
+                              <small>{entity.independentSourceCount} sources</small>
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </section>
+                  );
+                })}
+
+                {filtered.length === 0 ? (
+                  <div className={styles.emptyState}>
+                    No reviewed entities match these filters. Clear filters to restore the snapshot.
+                  </div>
+                ) : null}
+              </div>
+
+              {selected ? <EntityDetail entity={selected} /> : null}
+            </div>
+          </section>
         </div>
 
         <aside className={styles.rail} aria-label="Ranking evidence and methodology">
-          <section className={`${styles.section} ${styles.methodSection}`} aria-labelledby="methodology-title">
-          <div className={styles.proseCard}>
-            <p className={styles.eyebrow}>Reproducible rules</p>
-            <h2 id="methodology-title">Ranking Methodology</h2>
-            <p>
-              The <strong>Phantom Blade Zero tier list</strong> counts only qualifying
-              comprehensive editorial rankings. The <strong>Phantom Blade Zero weapons tier list</strong>
-              ignores missing placements instead of scoring them as zero.
-            </p>
-            <p>
-              An entity needs at least two independent comprehensive ranking sources to leave
-              Pending. The <strong>Phantom Blade Zero tier list</strong> uses Needs Review when
-              qualifying sources disagree enough that a precise consensus tier would overstate the evidence.
-            </p>
-            <p>
-              The <strong>Phantom Blade Zero Phantom Edge tier list</strong> does not convert
-              utility guides, unlock guides, or objective card statistics into a second tier vote.
-              Internal normalized scores are calculation tools, not public fake-precision ratings.
-            </p>
-          </div>
-        </section>
-
-        <section className={`${styles.section} ${styles.sourcesSection}`} aria-labelledby="sources-title">
-          <div className={styles.sectionHeader}>
-            <div>
-              <p className={styles.eyebrow}>Audit trail</p>
-              <h2 id="sources-title">Sources &amp; Evidence</h2>
+          <section
+            className={`${styles.section} ${styles.methodSection}`}
+            aria-labelledby="methodology-title"
+          >
+            <div className={styles.proseCard}>
+              <p className={styles.eyebrow}>Reproducible rules</p>
+              <h2 id="methodology-title">Ranking Methodology</h2>
+              <p>
+                The <strong>Phantom Blade Zero tier list</strong> counts only qualifying
+                comprehensive editorial rankings. The{" "}
+                <strong>Phantom Blade Zero weapons tier list</strong>
+                ignores missing placements instead of scoring them as zero.
+              </p>
+              <p>
+                An entity needs at least two independent comprehensive ranking sources to leave
+                Pending. The <strong>Phantom Blade Zero tier list</strong> uses Needs Review when
+                qualifying sources disagree enough that a precise consensus tier would overstate the
+                evidence.
+              </p>
+              <p>
+                The <strong>Phantom Blade Zero Phantom Edge tier list</strong> does not convert
+                utility guides, unlock guides, or objective card statistics into a second tier vote.
+                Internal normalized scores are calculation tools, not public fake-precision ratings.
+              </p>
             </div>
-          </div>
+          </section>
 
-          <p className={styles.sectionIntro}>
-            Sources for the <strong>Phantom Blade Zero tier list</strong> are separated by what
-            they can prove. The <strong>Phantom Blade Zero weapon tier list</strong> currently has
-            two qualifying comprehensive Main Weapon sources; supporting data cannot cast a Final Tier vote.
-          </p>
+          <section
+            className={`${styles.section} ${styles.sourcesSection}`}
+            aria-labelledby="sources-title"
+          >
+            <div className={styles.sectionHeader}>
+              <div>
+                <p className={styles.eyebrow}>Audit trail</p>
+                <h2 id="sources-title">Sources &amp; Evidence</h2>
+              </div>
+            </div>
 
-          <div className={styles.sourceColumns}>
-            {(
-              [
-                ["Official Facts", "official"],
-                ["Ranking Sources", "ranking"],
-                ["Supporting Data", "supporting"],
-              ] as const
-            ).map(([label, nature]) => (
-              <section key={nature} className={styles.sourceCard}>
-                <h3>{label}</h3>
-                <ul>
-                  {phantomBladeZeroSnapshot.sources
-                    .filter((source) => source.nature === nature)
-                    .map((source) => (
-                      <li key={source.id}>
-                        <a href={source.url} target="_blank" rel="noopener noreferrer">
-                          {source.name}
-                        </a>
-                        {source.methodology ? <p>{source.methodology}</p> : null}
-                      </li>
-                    ))}
-                </ul>
-              </section>
-            ))}
-          </div>
-
-          <p className={styles.disclaimer}>
-            TierListBase publishes this <strong>Phantom Blade Zero tier list</strong> independently
-            and is not affiliated with or endorsed by S-GAME or PlayStation.
-          </p>
-        </section>
-
-        <section className={`${styles.section} ${styles.changesSection}`} aria-labelledby="changes-title">
-          <div className={styles.proseCard}>
-            <h2 id="changes-title">What Changed</h2>
-            <p>
-              This is the first reviewed <strong>Phantom Blade Zero tier list</strong> snapshot.
-              No previous verified TierListBase snapshot exists, so no tier movement is claimed.
+            <p className={styles.sectionIntro}>
+              Sources for the <strong>Phantom Blade Zero tier list</strong> are separated by what
+              they can prove. The <strong>Phantom Blade Zero weapon tier list</strong> currently has
+              two qualifying comprehensive Main Weapon sources; supporting data cannot cast a Final
+              Tier vote.
             </p>
-          </div>
-        </section>
 
-        <section className={`${styles.section} ${styles.faqSection}`} aria-labelledby="faq-title">
-          <div className={styles.proseCard}>
-            <h2 id="faq-title">FAQ</h2>
-            <details>
-              <summary>How does the Phantom Blade Zero tier list decide a rank?</summary>
-              <p>Verified identity and ranking consensus are separate. A weapon stays Pending until two independent comprehensive rankings cover it.</p>
-            </details>
-            <details>
-              <summary>Why does the Phantom Blade Zero tier list show Pending?</summary>
-              <p>Pending means the entity is verified but does not yet have enough independent comprehensive ranking evidence for a formal tier.</p>
-            </details>
-            <details>
-              <summary>Does the Phantom Blade Zero weapons tier list mix Main Weapons and Phantom Edges?</summary>
-              <p>No. Main Weapons and boss-derived Phantom Edges stay separate because their combat roles and evidence coverage differ.</p>
-            </details>
-            <details>
-              <summary>What does Needs Review mean in the Phantom Blade Zero tier list?</summary>
-              <p>Needs Review is used when qualifying sources disagree enough that publishing one precise tier would overstate the evidence.</p>
-            </details>
-            <details>
-              <summary>Does a lower result in the Phantom Blade Zero weapon tier list mean unusable?</summary>
-              <p>No. Matchups, execution, progression, and player preference still matter even when overall combat value ranks lower.</p>
-            </details>
-            <details>
-              <summary>How often is the Phantom Blade Zero tier list updated?</summary>
-              <p>The ranking is reviewed when meaningful new comprehensive rankings or official evidence changes the consensus picture.</p>
-            </details>
-          </div>
-        </section>
+            <div className={styles.sourceColumns}>
+              {(
+                [
+                  ["Official Facts", "official"],
+                  ["Ranking Sources", "ranking"],
+                  ["Supporting Data", "supporting"],
+                ] as const
+              ).map(([label, nature]) => (
+                <section key={nature} className={styles.sourceCard}>
+                  <h3>{label}</h3>
+                  <ul>
+                    {phantomBladeZeroSnapshot.sources
+                      .filter((source) => source.nature === nature)
+                      .map((source) => (
+                        <li key={source.id}>
+                          <a href={source.url} target="_blank" rel="noopener noreferrer">
+                            {source.name}
+                          </a>
+                          {source.methodology ? <p>{source.methodology}</p> : null}
+                        </li>
+                      ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+
+            <p className={styles.disclaimer}>
+              TierListBase publishes this <strong>Phantom Blade Zero tier list</strong>{" "}
+              independently and is not affiliated with or endorsed by S-GAME or PlayStation.
+            </p>
+          </section>
+
+          <section
+            className={`${styles.section} ${styles.changesSection}`}
+            aria-labelledby="changes-title"
+          >
+            <div className={styles.proseCard}>
+              <h2 id="changes-title">What Changed</h2>
+              <p>
+                This is the first reviewed <strong>Phantom Blade Zero tier list</strong> snapshot.
+                No previous verified TierListBase snapshot exists, so no tier movement is claimed.
+              </p>
+            </div>
+          </section>
+
+          <section className={`${styles.section} ${styles.faqSection}`} aria-labelledby="faq-title">
+            <div className={styles.proseCard}>
+              <h2 id="faq-title">FAQ</h2>
+              <details>
+                <summary>How does the Phantom Blade Zero tier list decide a rank?</summary>
+                <p>
+                  Verified identity and ranking consensus are separate. A weapon stays Pending until
+                  two independent comprehensive rankings cover it.
+                </p>
+              </details>
+              <details>
+                <summary>Why does the Phantom Blade Zero tier list show Pending?</summary>
+                <p>
+                  Pending means the entity is verified but does not yet have enough independent
+                  comprehensive ranking evidence for a formal tier.
+                </p>
+              </details>
+              <details>
+                <summary>
+                  Does the Phantom Blade Zero weapons tier list mix Main Weapons and Phantom Edges?
+                </summary>
+                <p>
+                  No. Main Weapons and boss-derived Phantom Edges stay separate because their combat
+                  roles and evidence coverage differ.
+                </p>
+              </details>
+              <details>
+                <summary>What does Needs Review mean in the Phantom Blade Zero tier list?</summary>
+                <p>
+                  Needs Review is used when qualifying sources disagree enough that publishing one
+                  precise tier would overstate the evidence.
+                </p>
+              </details>
+              <details>
+                <summary>
+                  Does a lower result in the Phantom Blade Zero weapon tier list mean unusable?
+                </summary>
+                <p>
+                  No. Matchups, execution, progression, and player preference still matter even when
+                  overall combat value ranks lower.
+                </p>
+              </details>
+              <details>
+                <summary>How often is the Phantom Blade Zero tier list updated?</summary>
+                <p>
+                  The ranking is reviewed when meaningful new comprehensive rankings or official
+                  evidence changes the consensus picture.
+                </p>
+              </details>
+            </div>
+          </section>
         </aside>
       </div>
     </main>

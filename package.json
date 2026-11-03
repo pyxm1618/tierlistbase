@@ -9,7 +9,7 @@
     "build:test": "bun run generate:vanguard-hero && APP_ENV=test next build --webpack",
     "start": "next start",
     "format": "prettier --write .",
-    "format:check": "prettier --write src/modules/phantom-blade-zero-tier-list/asset-provenance.ts src/modules/phantom-blade-zero-tier-list/phantom-blade-zero-tier-list.module.css src/modules/phantom-blade-zero-tier-list/phantom-blade-zero-tier-list.tsx tests/e2e/phantom-blade-zero-tier-list.spec.ts tests/unit/seo/phantom-blade-zero-route.test.ts && for file in src/modules/phantom-blade-zero-tier-list/asset-provenance.ts src/modules/phantom-blade-zero-tier-list/phantom-blade-zero-tier-list.module.css src/modules/phantom-blade-zero-tier-list/phantom-blade-zero-tier-list.tsx tests/e2e/phantom-blade-zero-tier-list.spec.ts tests/unit/seo/phantom-blade-zero-route.test.ts; do echo PBZ_FORMAT_BEGIN:$file; base64 -w0 \"$file\"; echo; echo PBZ_FORMAT_END:$file; done && exit 1",
+    "format:check": "prettier --check .",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run --config vitest.config.ts",
