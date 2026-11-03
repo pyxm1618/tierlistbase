@@ -80,7 +80,9 @@ test.describe("Phantom Blade Zero tier list preview", () => {
       )
       .toMatchObject({ complete: true, width: expect.any(Number), height: expect.any(Number) });
     expect(await hero.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
-    expect(await hero.evaluate((image: HTMLImageElement) => image.naturalHeight)).toBeGreaterThan(0);
+    expect(await hero.evaluate((image: HTMLImageElement) => image.naturalHeight)).toBeGreaterThan(
+      0,
+    );
 
     async function assertTierImages(expectedCount: number) {
       const images = page.locator('img[data-p0-role="tier-icon"]');
@@ -102,7 +104,9 @@ test.describe("Phantom Blade Zero tier list preview", () => {
       const sameOrigin = await images.evaluateAll((items) =>
         items.every((item) => {
           const image = item as HTMLImageElement;
-          return new URL(image.currentSrc || image.src, window.location.href).origin === location.origin;
+          return (
+            new URL(image.currentSrc || image.src, window.location.href).origin === location.origin
+          );
         }),
       );
       expect(sameOrigin).toBe(true);

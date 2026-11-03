@@ -562,9 +562,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Thunder Spear A for general combat usefulness. AllThingsHow confirms its level-1 card stats as supporting data only, so one qualifying comprehensive ranking source leaves the Final Tier Pending.",
     acquisition: "Obtained in Pangzhen from Chang Hong according to the launch ranking guide.",
     mechanics: ["Lightning attacks", "Status Effects", "Elemental pressure"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "A" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "A" }],
   },
   {
     id: "fire-meteor",
@@ -582,9 +580,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Fire Meteor A for general combat usefulness. Its card Damage and Status Effect values remain supporting data only, so one qualifying comprehensive ranking source leaves the Final Tier Pending.",
     acquisition: "Defeat Blaze in Pangzhen according to the launch ranking guide.",
     mechanics: ["Phosphor Flame", "Status damage", "Attack weakening"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "A" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "A" }],
   },
   {
     id: "dread-axe",
@@ -603,9 +599,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Dread Axe A. games.gg independently confirms its shield-breaking and exploration utility but does not publish a comprehensive Phantom Edge tier for it, so the Final Tier remains Pending.",
     acquisition: "Defeat Peng Meng, the Axemaster, in Weeping Creek Valley.",
     mechanics: ["Charged cleave", "Iron Chain Breaker", "High Shield-Breaking power"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "A" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "A" }],
   },
   {
     id: "heartrend-pipa",
@@ -623,9 +617,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Heartrend Pipa B for general combat usefulness. Card-stat ordering is supporting data rather than a second comprehensive ranking, so the Final Tier remains Pending.",
     acquisition: "Defeat Yuzan in Village of Lu according to the launch guide.",
     mechanics: ["Sonic Blades", "Mid-range projectiles", "Artifice utility"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "B" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "B" }],
   },
   {
     id: "wolfjaw",
@@ -646,9 +638,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Wolfjaw A for sustained combat value. Its Guard Break and Damage card values are supporting facts only, so the Final Tier remains Pending with one qualifying comprehensive ranking source.",
     acquisition: "Defeat Wu Xuan in Pangzhen according to launch guides.",
     mechanics: ["Guard Break", "Lifesteal", "Heavy melee pressure"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "A" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "A" }],
   },
   {
     id: "iron-gauntlets",
@@ -666,9 +656,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Iron Gauntlets S for aggressive shield-breaking utility. games.gg describes the same combat role but does not publish a comprehensive Phantom Edge tier, so the Final Tier remains Pending.",
     acquisition: "Defeat Stone Hand Iron Fever in Crimson Forest.",
     mechanics: ["Fist Focus", "Shield breaking", "Fast multi-hit attacks"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "S" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "S" }],
   },
   {
     id: "flaming-mane",
@@ -689,9 +677,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Flaming Mane S for combat and exploration utility. games.gg confirms its fire and traversal functions but does not provide a comprehensive Phantom Edge tier, so the Final Tier remains Pending.",
     acquisition: "Earned through the Flaming Mane boss and repair sequence in Pangzhen.",
     mechanics: ["Fire breath", "Crowd control", "Burning Path traversal"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "S" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "S" }],
   },
   {
     id: "hunters-chain-sickle",
@@ -712,9 +698,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Hunter’s Chain Sickle S and calls it the best all-around Phantom Edge. games.gg confirms its mobility and traversal role without publishing a comprehensive tier, so the Final Tier remains Pending.",
     acquisition: "Defeat The Hunt in Weeping Creek Valley.",
     mechanics: ["Chain-sickle attacks", "Gap closing", "Grappling Traverse"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "S" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "S" }],
   },
   {
     id: "bastion",
@@ -736,9 +720,7 @@ const phantomEdges: readonly RankingEntity[] = [
     acquisition:
       "Village of Lu boss reward; secondary sources differ on the boss-name spelling, so that detail remains under review.",
     mechanics: ["Blocking", "Damage absorption", "Counterattack"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "A" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "A" }],
   },
   {
     id: "kuye-temple-prayer-beads",
@@ -759,9 +741,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Kuye Temple Prayer Beads S for summon pressure. games.gg documents its summon mechanics but not a comprehensive Phantom Edge tier, so the Final Tier remains Pending.",
     acquisition: "Defeat Master Bi Hai of Kuye Temple in Village of Lu.",
     mechanics: ["Three Bronze Men summons", "Tempered Gold Men", "Persistent ally pressure"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "S" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "S" }],
   },
   {
     id: "inanis-radiant-fan",
@@ -783,9 +763,7 @@ const phantomEdges: readonly RankingEntity[] = [
     acquisition:
       "Complete Whence the Weeping in Mountain of Imprisonment and claim the reward associated with Inanis.",
     mechanics: ["Sanctuary field", "Nirvana revival", "Recovery support"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "S" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "S" }],
   },
   {
     id: "puppeteers-bell",
@@ -807,9 +785,7 @@ const phantomEdges: readonly RankingEntity[] = [
     acquisition:
       "Defeat Dusk in Village of Lu after collecting the required six Firefly Memory Flowers.",
     mechanics: ["Puppet summons", "Abyssal Bell", "Third-Puppet tempered upgrade"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "A" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "A" }],
   },
   {
     id: "feather-bow",
@@ -830,9 +806,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Feather Bow A for ranged utility. games.gg documents its ranged opening and exploration utility but does not publish a comprehensive tier, so the Final Tier remains Pending.",
     acquisition: "Complete Purge the Sect in Weeping Creek Valley.",
     mechanics: ["Ranged Shot", "Precision Shot", "Charge-timing bonus"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "A" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "A" }],
   },
   {
     id: "bashpole",
@@ -853,9 +827,7 @@ const phantomEdges: readonly RankingEntity[] = [
       "KeenGamer rates Bashpole S for guard breaking and crowd pressure. games.gg confirms its shield-breaking and traversal utility but does not publish a comprehensive Phantom Edge tier, so the Final Tier remains Pending.",
     acquisition: "Defeat Wan Jun, the Coppermaul, in Mandate Encampment.",
     mechanics: ["Ground-shaking heavy attacks", "Groundbreaker", "High Shield-Breaking power"],
-    placements: [
-      { sourceId: "keen-edge", method: "tier", tier: "S" },
-    ],
+    placements: [{ sourceId: "keen-edge", method: "tier", tier: "S" }],
   },
 ];
 

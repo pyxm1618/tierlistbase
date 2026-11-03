@@ -63,10 +63,10 @@ function EntityDetail({ entity }: { readonly entity: ReviewedRankingEntity }) {
             />
           ) : null}
           <div>
-          <p className={styles.eyebrow}>
-            {entity.kind === "main_weapon" ? "Main Weapon" : "Phantom Edge"}
-          </p>
-          <h3>{entity.name}</h3>
+            <p className={styles.eyebrow}>
+              {entity.kind === "main_weapon" ? "Main Weapon" : "Phantom Edge"}
+            </p>
+            <h3>{entity.name}</h3>
           </div>
         </div>
         <span className={styles.largeTier}>{entity.finalTier}</span>
@@ -154,7 +154,6 @@ function EntityDetail({ entity }: { readonly entity: ReviewedRankingEntity }) {
           ))}
         </div>
       </section>
-
     </article>
   );
 }
@@ -268,7 +267,8 @@ export function PhantomBladeZeroTierListPage() {
 
           <div className={styles.releaseGate} data-testid="p0-release-gate">
             P0 assets: {readiness.verified}/{readiness.required} verified locally ·{" "}
-            {readiness.missing.length} missing{readiness.ready ? "." : " · release remains NOT READY."}
+            {readiness.missing.length} missing
+            {readiness.ready ? "." : " · release remains NOT READY."}
           </div>
         </div>
       </header>
@@ -430,9 +430,9 @@ export function PhantomBladeZeroTierListPage() {
             </p>
             <p>
               An entity needs at least two independent comprehensive ranking sources to leave
-              Pending. If qualifying normalized tier scores differ by 0.5 or more, the result becomes
-              Needs Review rather than forcing a tier. No manual overrides are present in this
-              snapshot.
+              Pending. If qualifying normalized tier scores differ by 0.5 or more, the result
+              becomes Needs Review rather than forcing a tier. No manual overrides are present in
+              this snapshot.
             </p>
             <p>
               Internal normalized scores exist only to make the calculation repeatable. They are not
