@@ -195,6 +195,58 @@ for (const route of routes) {
   });
 }
 
+for (const width of [390, 768, 1440]) {
+  test(`Phantom Blade Zero P0 images stay within budgets at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.addInitScript(() => {
+      window.__cwv = { cls: 0, inp: 0, lcp: 0 };
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          const shift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+          if (!shift.hadRecentInput) window.__cwv!.cls += shift.value ?? 0;
+        }
+      }).observe({ type: "layout-shift", buffered: true });
+      new PerformanceObserver((list) => {
+        const last = list.getEntries().at(-1);
+        if (last) window.__cwv!.lcp = last.startTime;
+      }).observe({ type: "largest-contentful-paint", buffered: true });
+    });
+
+    const response = await page.goto("/phantom-blade-zero/tier-list", { waitUntil: "networkidle" });
+    expect(response?.status()).toBe(200);
+    await page.waitForTimeout(100);
+
+    const metrics = await page.evaluate(() => {
+      const imageResources = (
+        performance.getEntriesByType("resource") as PerformanceResourceTiming[]
+      ).filter((resource) => resource.initiatorType === "img");
+      const p0Images = imageResources.filter((resource) =>
+        decodeURIComponent(resource.name).includes("/images/phantom-blade-zero/"),
+      );
+      return {
+        cls: window.__cwv?.cls ?? 0,
+        lcp: window.__cwv?.lcp ?? 0,
+        imageRequests: p0Images.length,
+        imageBytes: p0Images.reduce((sum, image) => sum + image.encodedBodySize, 0),
+        overflow: document.documentElement.scrollWidth > innerWidth,
+      };
+    });
+
+    await test.info().attach(`phantom-blade-zero-image-performance-${width}px`, {
+      body: JSON.stringify(metrics, null, 2),
+      contentType: "application/json",
+    });
+
+    expect(metrics.cls).toBeLessThanOrEqual(0.1);
+    expect(metrics.lcp).toBeGreaterThan(0);
+    expect(metrics.lcp).toBeLessThanOrEqual(2500);
+    expect(metrics.overflow).toBe(false);
+    expect(metrics.imageRequests).toBeGreaterThanOrEqual(1);
+    expect(metrics.imageRequests).toBeLessThan(22);
+    expect(metrics.imageBytes).toBeLessThanOrEqual(500_000);
+  });
+}
+
 for (const width of [390, 1920, 2560]) {
   test(`Genshin image candidates at ${width}px match DPR without avatar preloads`, async ({
     page,
