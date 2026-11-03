@@ -27,7 +27,7 @@ const faq = [
   ],
   [
     "Is the current game patch included?",
-    `The current game version and latest standard Ranked balance are ${snapshot.gameVersion}. The available statistics are dated ${snapshot.snapshotDate} under ${snapshot.statisticsPatch}, before 7.3d. Post-7.3d performance is not verified. The earlier 7.3c update focused on AAA ARAM.`,
+    `The current game version and latest standard Ranked balance are ${snapshot.gameVersion}. The reviewed Master+ CN statistics are dated ${snapshot.snapshotDate} and labeled ${snapshot.statisticsPatch}. Raw role statistics and editorial tier judgements remain separate.`,
   ],
   [
     "What is the difference between Dragon Lane and ADC?",
@@ -108,10 +108,10 @@ export function WildRiftTierList() {
 
       <div className={styles.shell}>
         <p className={styles.disclosure} data-ia-section="source-freshness" role="status">
-          Current game and Ranked balance: {snapshot.gameVersion}. Statistics snapshot:{" "}
-          {snapshot.snapshotDate} ({snapshot.statisticsPatch}), before 7.3d. Post-7.3d performance
-          is not verified. Tiers are editorial judgements, not proof of current-patch outcomes. Live
-          source refresh is awaiting verification.
+          Current game and Ranked balance: {snapshot.gameVersion}. Verified statistics snapshot:{" "}
+          {snapshot.snapshotDate} ({snapshot.statisticsPatch}) · CN Server · Master+ · Ranked. Raw
+          WR / PR / BR come only from exact Champion × Role rows. Tiers and decision signals remain
+          editorial assessments, not Riot or Tencent official rankings.
         </p>
         <WildRiftWorkspace />
 
@@ -207,10 +207,11 @@ export function WildRiftTierList() {
           </div>
           <p className={styles.disclosure}>
             CN Server · Master+ · Ranked. Champion catalog: 142; statistics-backed role placements:
-            180 across 136 distinct champions counted in the source tables. The source headline says
-            134 tracked champions; that mismatch is unresolved. Another 28 placements have explicit
-            Wild Rift Core editorial role evidence and display N/A for every role statistic. Catalog
-            membership never creates a ranked placement.
+            179 across 136 distinct champions counted in the current source tables. The source
+            headline says 135 tracked champions; that discrepancy is preserved rather than
+            normalized away. Another 29 placements have explicit Wild Rift Core source-tier evidence
+            and display N/A for every role statistic. Catalog membership never creates a ranked
+            placement.
           </p>
           <p className={styles.disclosure}>
             Tiers retain Wild Rift Core source tiers after TierListBase review, with no editorial
