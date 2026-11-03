@@ -55,7 +55,7 @@ export function CurrentPullPriority({ server }: { server: ServerKey }) {
           <p>{banner.windowLabel}</p>
           <small>
             <a href={banner.sourceUrl} target="_blank" rel="noreferrer">
-              Official banner notice
+              Banner notice
             </a>
             {" · "}
             <a href={banner.evaluationSourceUrl} target="_blank" rel="noreferrer">
