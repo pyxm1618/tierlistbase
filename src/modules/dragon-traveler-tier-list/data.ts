@@ -90,7 +90,7 @@ export type RosterFilters = {
   readonly faction?: string;
   readonly rarity?: string;
 };
-export const snapshotDate = "2026-10-28";
+export const snapshotDate = "2026-11-03";
 export const upcomingLuminaries: readonly UpcomingLuminary[] = [];
 export const researchLedger = ledger;
 export const sourceRecords: readonly SourceRecord[] = [
