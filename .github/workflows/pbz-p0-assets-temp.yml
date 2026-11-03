@@ -211,8 +211,9 @@ jobs:
 
           records = []
 
+          hero_download_url = hero_url + "?$1600px$"
           hero_raw = raw_root / "hero.source"
-          download(hero_url, hero_raw, "https://www.playstation.com/en-us/games/phantom-blade-zero/")
+          download(hero_download_url, hero_raw, "https://www.playstation.com/en-us/games/phantom-blade-zero/")
           hero_original = dims(hero_raw)
           hero_out = out_root / "hero.webp"
           run([
@@ -227,7 +228,7 @@ jobs:
               "id": "hero",
               "entityId": None,
               "role": "hero",
-              "sourceUrl": hero_url,
+              "sourceUrl": hero_download_url,
               "sourcePage": "https://www.playstation.com/en-us/games/phantom-blade-zero/",
               "sourceType": "official",
               "originalDimensions": hero_original,
