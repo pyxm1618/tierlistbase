@@ -46,7 +46,7 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     slug: "wild-rift",
     name: "Wild Rift",
     tierListHref: "/wild-rift/tier-list",
-    navigationVisible: true,
+    navigationVisible: false,
     navigationOrder: 6,
   },
 ] as const;
