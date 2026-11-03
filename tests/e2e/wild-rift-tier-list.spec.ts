@@ -201,13 +201,13 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   ).toBeVisible();
   await norra.click();
   await expect(detail).toContainText("7-day trend unavailable.");
-  await expect(detail).toContainText("51.4%");
+  await expect(detail).toContainText("51.7%");
   await expect(page.locator('[data-ia-section="source-freshness"]')).toContainText(
-    "Post-7.3d performance is not verified",
+    "Verified statistics snapshot",
   );
   await roleNav.getByRole("tab", { name: /^Jungle$/ }).click();
-  await page.getByRole("searchbox", { name: "Search Champions" }).fill("Fiddlesticks");
-  await page.locator('[data-champion-id="fiddlesticks"]').click();
-  await expect(detail).toContainText("+1.86 pp");
+  await page.getByRole("searchbox", { name: "Search Champions" }).fill("Shyvana");
+  await page.locator('[data-champion-id="shyvana"]').click();
+  await expect(detail).toContainText("+6.85 pp");
   await expect(detail).toContainText("Arrows show 7-day win-rate change, not tier movement");
 });
