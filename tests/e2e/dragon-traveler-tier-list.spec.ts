@@ -211,10 +211,24 @@ test("Dragon Traveler retires both banners at their exact server-time boundaries
 
 test("Dragon Traveler release controls expose the reviewed discovery actions", async ({ page }) => {
   await page.goto(route);
-  await expect(page.getByRole("link", { name: /View More Teams/ })).toHaveAttribute(
-    "href",
-    "https://www.hideoutgacha.com/games/dragon-traveler/team-compositions",
-  );
+  const moreTeams = page.getByRole("link", { name: /View More Teams/ });
+  const teamsUrl = "https://www.hideoutgacha.com/games/dragon-traveler/team-compositions";
+  await expect(moreTeams).toHaveAttribute("href", teamsUrl);
+
+  await page.context().route("https://www.hideoutgacha.com/**", async (request) => {
+    await request.fulfill({ status: 200, contentType: "text/html", body: "<title>Teams</title>" });
+  });
+  const popupPromise = page.waitForEvent("popup");
+  await moreTeams.click();
+  const popup = await popupPromise;
+  await popup.waitForURL(teamsUrl);
+  await popup.close();
+
+  const faq = page.locator(".faq details").first();
+  await faq.getByRole("button").click().catch(async () => {
+    await faq.locator("summary").click();
+  });
+  await expect(faq).toHaveAttribute("open", "");
 });
 
 test("Dragon Traveler has no serious accessibility violations", async ({ page }) => {
