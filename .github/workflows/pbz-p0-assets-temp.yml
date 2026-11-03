@@ -348,7 +348,7 @@ jobs:
               ])
           provenance_lines.append("];")
           provenance_lines.append("")
-          provenance.write_text("\n".join(provenance_lines), encoding="utf-8")
+          (root / "src/modules/phantom-blade-zero-tier-list/asset-provenance.ts").write_text("\n".join(provenance_lines), encoding="utf-8")
 
           print(json.dumps(summary, indent=2))
 
