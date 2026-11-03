@@ -1,4 +1,4 @@
-name: PBZ P0 asset builder (temporary)
+name: PBZ final visual audit (temporary)
 
 on:
   push:
@@ -9,384 +9,113 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build-assets:
+  visual-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: creat_web_visual
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d creat_web_visual"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      APP_ENV: test
+      APP_ORIGIN: http://127.0.0.1:3000
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_visual
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_visual
     steps:
       - uses: actions/checkout@v4
-
-      - name: Ensure ImageMagick is available
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: 1.3.14 }
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Install Chromium
+        run: bunx playwright install --with-deps chromium
+      - name: Prepare database
+        run: bun run db:migrate
+      - name: Build app
+        run: bun run build:test
+      - name: Start app
         shell: bash
         run: |
           set -euo pipefail
-          if ! command -v identify >/dev/null 2>&1 || ! command -v convert >/dev/null 2>&1; then
-            sudo apt-get update
-            sudo apt-get install -y imagemagick
-          fi
-
-      - name: Download, validate, optimize, and inventory P0 assets
-        shell: python
+          bun run start > /tmp/pbz-visual-server.log 2>&1 &
+          echo $! > /tmp/pbz-visual-server.pid
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:3000/phantom-blade-zero/tier-list >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/pbz-visual-server.log
+          exit 1
+      - name: Capture release viewports
+        shell: bash
         run: |
-          import hashlib
-          import html
-          import json
-          import pathlib
-          import re
-          import subprocess
-          import urllib.parse
+          mkdir -p /tmp/pbz-visual
+          cat > /tmp/pbz-visual/capture.mjs <<'JS'
+          import { chromium } from "playwright";
+          import fs from "node:fs/promises";
 
-          root = pathlib.Path(".")
-          data_text = (root / "src/modules/phantom-blade-zero-tier-list/data.ts").read_text(encoding="utf-8")
-          provenance_text = (root / "src/modules/phantom-blade-zero-tier-list/asset-provenance.ts").read_text(encoding="utf-8")
-
-          entities = re.findall(
-              r'id:\s*"([^"]+)",\s*\n\s*name:\s*"([^"]+)",\s*\n\s*kind:\s*"(main_weapon|phantom_edge)"',
-              data_text,
-          )
-          if len(entities) != 35:
-              raise SystemExit(f"Expected 35 reviewed entities, found {len(entities)}")
-
-          hero_match = re.search(
-              r'id:\s*"hero"[\s\S]*?sourceUrl:\s*\n?\s*"([^"]+)"',
-              provenance_text,
-          )
-          if not hero_match:
-              raise SystemExit("Hero source URL not found")
-          hero_url = hero_match.group(1)
-
-          out_root = root / "public/images/phantom-blade-zero"
-          icon_out = out_root / "tier-icons"
-          raw_root = pathlib.Path("/tmp/pbz-source-assets")
-          out_root.mkdir(parents=True, exist_ok=True)
-          icon_out.mkdir(parents=True, exist_ok=True)
-          raw_root.mkdir(parents=True, exist_ok=True)
-
-          def run(args):
-              proc = subprocess.run(args, check=False, capture_output=True, text=True)
-              if proc.returncode != 0:
-                  raise RuntimeError(
-                      f"Command failed ({proc.returncode}): {' '.join(args)}\n"
-                      + proc.stdout + "\n" + proc.stderr
-                  )
-              return proc.stdout
-
-          def curl_text(url, referer=None):
-              args = [
-                  "curl", "-L", "--fail", "--retry", "3", "--retry-delay", "2",
-                  "--connect-timeout", "20", "--max-time", "120",
-                  "-A", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/141 Safari/537.36",
-              ]
-              if referer:
-                  args += ["-H", f"Referer: {referer}"]
-              args += [url]
-              return run(args)
-
-          def download(url, dest, referer):
-              args = [
-                  "curl", "-L", "--fail", "--retry", "3", "--retry-delay", "2",
-                  "--connect-timeout", "20", "--max-time", "120",
-                  "-A", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/141 Safari/537.36",
-                  "-H", f"Referer: {referer}",
-                  url, "-o", str(dest),
-              ]
-              run(args)
-              if not dest.exists() or dest.stat().st_size < 512:
-                  raise RuntimeError(f"Downloaded file is empty/suspicious: {url}")
-
-          def dims(path):
-              value = run(["identify", "-format", "%w %h", str(path)]).strip()
-              w, h = map(int, value.split())
-              if w <= 0 or h <= 0:
-                  raise RuntimeError(f"Invalid image dimensions: {path}")
-              return {"width": w, "height": h}
-
-          def sha(path):
-              return hashlib.sha256(path.read_bytes()).hexdigest()
-
-          def norm(value):
-              return re.sub(r"[^a-z0-9]+", "", value.lower())
-
-          def attr(tag, name):
-              m = re.search(rf'\b{name}\s*=\s*["\']([^"\']+)["\']', tag, flags=re.I)
-              return html.unescape(m.group(1)) if m else None
-
-          def unwrap_next_image(url, page_url):
-              absolute = urllib.parse.urljoin(page_url, html.unescape(url))
-              parsed = urllib.parse.urlparse(absolute)
-              if parsed.path == "/_next/image":
-                  target = urllib.parse.parse_qs(parsed.query).get("url", [None])[0]
-                  if target:
-                      return urllib.parse.urljoin(page_url, target)
-              return absolute
-
-          def candidate_slugs(entity_name, entity_id):
-              ascii_name = (
-                  entity_name.replace("’", "'")
-                  .replace("&", " and ")
-                  .replace("'", "")
-                  .lower()
-              )
-              generated = re.sub(r"[^a-z0-9]+", "-", ascii_name).strip("-")
-              values = [entity_id, generated]
-              if generated.startswith("the-"):
-                  values.append(generated[4:])
-              if entity_id.startswith("the-"):
-                  values.append(entity_id[4:])
-              return list(dict.fromkeys(values))
-
-          def find_entity_page(entity_name, entity_id):
-              for slug in candidate_slugs(entity_name, entity_id):
-                  page_url = f"https://pbz.gg/weapons/{slug}/"
-                  proc = subprocess.run(
-                      [
-                          "curl", "-L", "-sS", "--connect-timeout", "20", "--max-time", "120",
-                          "-A", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/141 Safari/537.36",
-                          "-w", "\\n%{http_code}", page_url,
-                      ],
-                      check=False,
-                      capture_output=True,
-                      text=True,
-                  )
-                  if proc.returncode != 0:
-                      continue
-                  body, _, status = proc.stdout.rpartition("\n")
-                  if status.strip() != "200":
-                      continue
-                  title_match = re.search(r"<title>([\s\S]*?)</title>", body, flags=re.I)
-                  if not title_match:
-                      continue
-                  title = html.unescape(re.sub(r"<[^>]+>", " ", title_match.group(1))).strip()
-                  title_prefix = re.split(r"\s*(?:\||:|–|—)\s*", title, maxsplit=1)[0].strip()
-                  if norm(title_prefix) == norm(entity_name):
-                      return page_url, body
-              raise RuntimeError(
-                  f"No exact verified pbz.gg page found for {entity_name}; candidates={candidate_slugs(entity_name, entity_id)}"
-              )
-
-          def find_entity_image(page_url, page, entity_name, entity_id):
-              tags = re.findall(r"<img\b[^>]*>", page, flags=re.I)
-              candidates = []
-              for tag in tags:
-                  alt = attr(tag, "alt") or ""
-                  if norm(entity_name) not in norm(alt):
-                      continue
-                  srcset = attr(tag, "srcset")
-                  src = attr(tag, "src")
-                  urls = []
-                  if srcset:
-                      for part in srcset.split(","):
-                          piece = part.strip().split(" ")[0]
-                          if piece:
-                              urls.append(piece)
-                  if src:
-                      urls.append(src)
-                  if urls:
-                      candidates.append((alt, unwrap_next_image(urls[-1], page_url)))
-              if not candidates:
-                  # Fallback only when the exact entity slug is present in the image URL.
-                  for tag in tags:
-                      for key in ("srcset", "src"):
-                          value = attr(tag, key)
-                          if not value:
-                              continue
-                          pieces = [p.strip().split(" ")[0] for p in value.split(",")]
-                          for piece in pieces:
-                              absolute = unwrap_next_image(piece, page_url)
-                              if entity_id in urllib.parse.unquote(absolute):
-                                  candidates.append((attr(tag, "alt") or "", absolute))
-              unique = []
-              seen = set()
-              for alt, url in candidates:
-                  if url not in seen:
-                      seen.add(url)
-                      unique.append((alt, url))
-              if not unique:
-                  raise RuntimeError(f"No exact entity image found on {page_url} for {entity_name}")
-              # Prefer the URL containing the entity slug; otherwise the first exact-alt match.
-              unique.sort(key=lambda pair: (entity_id not in urllib.parse.unquote(pair[1]), len(pair[1])))
-              return unique[0][1]
-
-          records = []
-
-          hero_download_url = hero_url + "?$1600px$"
-          hero_raw = raw_root / "hero.source"
-          download(hero_download_url, hero_raw, "https://www.playstation.com/en-us/games/phantom-blade-zero/")
-          hero_original = dims(hero_raw)
-          hero_out = out_root / "hero.webp"
-          run([
-              "convert", str(hero_raw), "-auto-orient",
-              "-resize", "1600x900^", "-gravity", "center", "-extent", "1600x900",
-              "-strip", "-quality", "82", str(hero_out),
-          ])
-          hero_output = dims(hero_out)
-          if hero_output != {"width": 1600, "height": 900}:
-              raise RuntimeError(f"Unexpected hero output dimensions: {hero_output}")
-          records.append({
-              "id": "hero",
-              "entityId": None,
-              "role": "hero",
-              "sourceUrl": hero_download_url,
-              "sourcePage": "https://www.playstation.com/en-us/games/phantom-blade-zero/",
-              "sourceType": "official",
-              "originalDimensions": hero_original,
-              "sourceSha256": sha(hero_raw),
-              "outputDimensions": hero_output,
-              "outputSha256": sha(hero_out),
-              "outputBytes": hero_out.stat().st_size,
-              "transform": "auto-orient; center-cover resize/crop to 1600x900; strip metadata; WebP quality 82",
-              "crop": "center cover 16:9",
-              "localPath": "/images/phantom-blade-zero/hero.webp",
-          })
-
-          for entity_id, entity_name, kind in entities:
-              page_url, page_html = find_entity_page(entity_name, entity_id)
-              source_url = find_entity_image(page_url, page_html, entity_name, entity_id)
-              raw = raw_root / f"{entity_id}.source"
-              download(source_url, raw, page_url)
-              original = dims(raw)
-              output = icon_out / f"{entity_id}.webp"
-              run([
-                  "convert", str(raw), "-auto-orient", "-resize", "128x128>",
-                  "-gravity", "center", "-background", "none", "-extent", "128x128",
-                  "-strip", "-quality", "82", str(output),
-              ])
-              output_dims = dims(output)
-              if output_dims != {"width": 128, "height": 128}:
-                  raise RuntimeError(f"Unexpected output dimensions for {entity_id}: {output_dims}")
-              records.append({
-                  "id": f"tier-icon-{entity_id}",
-                  "entityId": entity_id,
-                  "role": "tier_icon",
-                  "sourceUrl": source_url,
-                  "sourcePage": page_url,
-                  "sourceType": "public_verified_game_capture",
-                  "originalDimensions": original,
-                  "sourceSha256": sha(raw),
-                  "outputDimensions": output_dims,
-                  "outputSha256": sha(output),
-                  "outputBytes": output.stat().st_size,
-                  "transform": "auto-orient; fit within 128x128; centered transparent extent; strip metadata; WebP quality 82",
-                  "crop": None,
-                  "localPath": f"/images/phantom-blade-zero/tier-icons/{entity_id}.webp",
-              })
-
-          if len(records) != 36:
-              raise SystemExit(f"Expected 36 records, found {len(records)}")
-
-          for rec in records:
-              local = root / "public" / rec["localPath"].lstrip("/")
-              run(["identify", "-regard-warnings", str(local)])
-
-          (out_root / "p0-asset-metadata.json").write_text(
-              json.dumps(records, indent=2) + "\n", encoding="utf-8"
-          )
-          summary = {
-              "required": 36,
-              "verified": len(records),
-              "heroBytes": records[0]["outputBytes"],
-              "tierIconBytes": sum(r["outputBytes"] for r in records[1:]),
-              "totalBytes": sum(r["outputBytes"] for r in records),
+          const browser = await chromium.launch({ headless: true });
+          const results = [];
+          for (const width of [390, 768, 1440]) {
+            const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1 });
+            const imageFailures = [];
+            page.on("response", (response) => {
+              if (response.request().resourceType() === "image" && response.status() >= 400) {
+                imageFailures.push({ status: response.status(), url: response.url() });
+              }
+            });
+            const response = await page.goto("http://127.0.0.1:3000/phantom-blade-zero/tier-list", {
+              waitUntil: "networkidle",
+            });
+            await page.screenshot({
+              path: `/tmp/pbz-visual/pbz-${width}.png`,
+              fullPage: true,
+            });
+            const metrics = await page.evaluate(() => ({
+              viewportWidth: innerWidth,
+              documentWidth: document.documentElement.scrollWidth,
+              overflow: document.documentElement.scrollWidth > innerWidth,
+              hero: (() => {
+                const image = document.querySelector('img[data-p0-role="hero"]');
+                if (!(image instanceof HTMLImageElement)) return null;
+                return {
+                  naturalWidth: image.naturalWidth,
+                  naturalHeight: image.naturalHeight,
+                  renderedWidth: Math.round(image.getBoundingClientRect().width),
+                  renderedHeight: Math.round(image.getBoundingClientRect().height),
+                  currentSrc: image.currentSrc,
+                };
+              })(),
+              tierImagesInDom: document.querySelectorAll('img[data-p0-role="tier-icon"]').length,
+              loadedTierImages: [...document.querySelectorAll('img[data-p0-role="tier-icon"]')].filter(
+                (node) => node instanceof HTMLImageElement && node.complete && node.naturalWidth > 0,
+              ).length,
+            }));
+            results.push({ width, status: response?.status(), imageFailures, ...metrics });
+            await page.close();
           }
-          (out_root / "p0-asset-summary.json").write_text(
-              json.dumps(summary, indent=2) + "\n", encoding="utf-8"
-          )
-
-          provenance_lines = [
-              'export type PhantomBladeZeroAssetStatus = "verified_local" | "source_verified_binary_missing";',
-              "",
-              "export type PhantomBladeZeroAssetProvenance = {",
-              "  readonly id: string;",
-              "  readonly entityId: string | null;",
-              '  readonly role: "hero" | "tier_icon";',
-              '  readonly required: "P0";',
-              "  readonly sourceUrl: string;",
-              "  readonly sourcePage: string;",
-              '  readonly sourceType: "official" | "public_verified_game_capture";',
-              "  readonly checkedAt: string;",
-              "  readonly originalDimensions: { readonly width: number; readonly height: number } | null;",
-              "  readonly outputDimensions: { readonly width: number; readonly height: number } | null;",
-              "  readonly sourceSha256: string | null;",
-              "  readonly sha256: string | null;",
-              "  readonly transform: string | null;",
-              "  readonly crop: string | null;",
-              "  readonly attribution: string;",
-              "  readonly status: PhantomBladeZeroAssetStatus;",
-              "  readonly localPath: string | null;",
-              "};",
-              "",
-              "export const phantomBladeZeroAssetProvenance: readonly PhantomBladeZeroAssetProvenance[] = [",
-          ]
-          for rec in records:
-              attribution = (
-                  "PlayStation / S-GAME official promotional screenshot"
-                  if rec["role"] == "hero"
-                  else "Phantom Blade Zero in-game entity image reproduced from the cited pbz.gg entity page; no license or authorization claim."
-              )
-              provenance_lines.extend([
-                  "  {",
-                  f'    id: {json.dumps(rec["id"])},',
-                  f'    entityId: {json.dumps(rec["entityId"])},',
-                  f'    role: {json.dumps(rec["role"])},',
-                  '    required: "P0",',
-                  f'    sourceUrl: {json.dumps(rec["sourceUrl"])},',
-                  f'    sourcePage: {json.dumps(rec["sourcePage"])},',
-                  f'    sourceType: {json.dumps(rec["sourceType"])},',
-                  '    checkedAt: "2026-11-03",',
-                  f'    originalDimensions: {{ width: {rec["originalDimensions"]["width"]}, height: {rec["originalDimensions"]["height"]} }},',
-                  f'    outputDimensions: {{ width: {rec["outputDimensions"]["width"]}, height: {rec["outputDimensions"]["height"]} }},',
-                  f'    sourceSha256: "{rec["sourceSha256"]}",',
-                  f'    sha256: "{rec["outputSha256"]}",',
-                  f'    transform: {json.dumps(rec["transform"])},',
-                  f'    crop: {json.dumps(rec["crop"])},',
-                  f'    attribution: {json.dumps(attribution)},',
-                  '    status: "verified_local",',
-                  f'    localPath: {json.dumps(rec["localPath"])},',
-                  "  },",
-              ])
-          provenance_lines.append("];")
-          provenance_lines.append("")
-          (root / "src/modules/phantom-blade-zero-tier-list/asset-provenance.ts").write_text("\n".join(provenance_lines), encoding="utf-8")
-
-          print(json.dumps(summary, indent=2))
-
-      - name: Build visual contact sheet for audit
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p /tmp/pbz-contact
-          montage public/images/phantom-blade-zero/tier-icons/*.webp \
-            -thumbnail 128x128 -tile 6x6 -geometry 128x128+8+8 \
-            -background '#111111' /tmp/pbz-contact/entity-contact-sheet.webp
-          cp public/images/phantom-blade-zero/hero.webp /tmp/pbz-contact/hero.webp
-
-      - name: Upload verified P0 bundle
+          await browser.close();
+          await fs.writeFile("/tmp/pbz-visual/metrics.json", JSON.stringify(results, null, 2));
+          JS
+          bun /tmp/pbz-visual/capture.mjs
+          cat /tmp/pbz-visual/metrics.json
+      - name: Upload visual audit
         uses: actions/upload-artifact@v4
         with:
-          name: pbz-p0-assets
-          path: |
-            public/images/phantom-blade-zero/
-            /tmp/pbz-contact/
+          name: pbz-final-visual-audit
+          path: /tmp/pbz-visual/
           if-no-files-found: error
           retention-days: 1
-
-      - name: Commit verified production P0 assets
-        shell: bash
-        run: |
-          set -euo pipefail
-          git fetch origin feat/phantom-blade-zero-tier-list
-          test "$(git rev-parse origin/feat/phantom-blade-zero-tier-list)" = "$GITHUB_SHA"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            public/images/phantom-blade-zero/hero.webp \
-            public/images/phantom-blade-zero/tier-icons/*.webp \
-            src/modules/phantom-blade-zero-tier-list/asset-provenance.ts
-          if git diff --cached --quiet; then
-            echo "No production asset changes to commit."
-            exit 0
-          fi
-          git commit -m "feat(phantom-blade-zero): add verified P0 images"
-          git push origin HEAD:feat/phantom-blade-zero-tier-list
