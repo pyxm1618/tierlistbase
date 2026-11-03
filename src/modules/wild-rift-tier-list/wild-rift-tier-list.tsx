@@ -214,7 +214,7 @@ export function WildRiftTierList() {
             placement.
           </p>
           <p className={styles.disclosure}>
-            Tiers retain Wild Rift Core source tiers after TierListBase review, with no editorial
+            Tiers retain Wild Rift Core source tiers after TierListBase review, with no TierListBase
             overrides in this snapshot. They are not official Riot or Tencent tiers. The statistics
             are reported by Wild Rift Core as Tencent CN data; TierListBase has not independently
             fetched them from Tencent. Ban rates reflect champion-wide draft pressure.
