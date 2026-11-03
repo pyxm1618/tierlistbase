@@ -4,7 +4,6 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import raw from "../../../docs/wild-rift/reviewed-source-snapshot.json";
-import historicalTierEvidence from "../../../docs/wild-rift/2026-10-28-reviewed-tier-evidence.json";
 import tierEvidence from "../../../docs/wild-rift/reviewed-tier-evidence.json";
 import ledger from "../../../docs/wild-rift/placement-audit.json";
 import changeAudit from "../../../docs/wild-rift/change-audit.json";
@@ -150,30 +149,29 @@ describe("Wild Rift source integrity closeout", () => {
     expect(available).toBe(6);
   });
 
-  it("withholds every change whose causal reason is unverified and reconciles all 16 originals", () => {
-    expect(changeAudit.originalTotal).toBe(16);
+  it("publishes only source-tier movements with explicit previous tier, current tier, role and date", () => {
+    expect(changeAudit.currentTotal).toBe(16);
     expect(changeAudit.changes).toHaveLength(16);
     expect(changeAudit.states).toEqual({
-      approved: 0,
-      deferred: 16,
+      approved: 16,
+      deferred: 0,
       confirmed_reject: 0,
       unreviewed: 0,
     });
-    expect(Object.values(changeAudit.states).reduce((sum, count) => sum + count, 0)).toBe(16);
-    expect(changes).toHaveLength(0);
+    expect(changeAudit.publishedTotal).toBe(16);
+    expect(changes).toHaveLength(16);
     for (const change of changeAudit.changes) {
-      const evidence = historicalTierEvidence.changes.find(
+      const published = changes.find(
         (row) => row.championId === change.championId && row.role === change.role,
       );
-      expect(evidence).toMatchObject({
-        fromTier: change.fromTier,
-        toTier: change.toTier,
+      expect(published).toMatchObject({
+        from: change.fromTier,
+        to: change.toTier,
         date: change.date,
       });
-      expect(change.status).toBe("deferred");
-      expect(change.evidenceMissing).toContain(
-        "causal reason for this Champion × Role tier movement",
-      );
+      expect(rankingFor(change.championId, change.role)?.tier).toBe(change.toTier);
+      expect(change.status).toBe("approved");
+      expect(change.evidenceMissing).toEqual([]);
     }
   });
 
