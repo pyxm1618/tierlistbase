@@ -169,7 +169,10 @@ describe("Wild Rift source integrity closeout", () => {
         to: change.toTier,
         date: change.date,
       });
-      expect(rankingFor(change.championId, change.role)?.tier).toBe(change.toTier);
+      expect(
+        rankings.find((row) => row.championId === change.championId && row.role === change.role)
+          ?.tier,
+      ).toBe(change.toTier);
       expect(change.status).toBe("approved");
       expect(change.evidenceMissing).toEqual([]);
     }
