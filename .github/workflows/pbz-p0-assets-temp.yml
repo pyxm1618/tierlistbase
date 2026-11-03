@@ -51,7 +51,7 @@ jobs:
           git diff --check
 
       - name: Install Chromium
-        run: bunx playwright install --with-deps chromium
+        run: ./node_modules/.bin/playwright install --with-deps chromium
       - name: Prepare database
         run: bun run db:migrate
       - name: Build app
@@ -74,7 +74,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p /tmp/pbz-visual
-          cat > /tmp/pbz-visual/capture.mjs <<'JS'
+          cat > ./pbz-final-visual-capture.mjs <<'JS'
           import { chromium } from "@playwright/test";
           import fs from "node:fs/promises";
 
@@ -121,7 +121,8 @@ jobs:
           await browser.close();
           await fs.writeFile("/tmp/pbz-visual/metrics.json", JSON.stringify(results, null, 2));
           JS
-          bun /tmp/pbz-visual/capture.mjs
+          bun ./pbz-final-visual-capture.mjs
+          rm -f ./pbz-final-visual-capture.mjs
           cat /tmp/pbz-visual/metrics.json
       - name: Upload visual audit
         uses: actions/upload-artifact@v4
