@@ -198,8 +198,13 @@ test("Dragon Traveler retires both banners at their exact server-time boundaries
   await expect(priority).toContainText("11/12 04:59");
   await page.getByRole("button", { name: "Global", exact: true }).click();
   await expect(priority).toContainText("Arachne");
-  await page.clock.pauseAt(new Date("2026-11-05T04:59:59-05:00"));
-  await expect(priority).toContainText("Consider");
+  await page.clock.pauseAt(new Date("2026-10-29T04:59:59-05:00"));
+  await expect(priority).toContainText("Arachne");
+  await page.clock.fastForward(2000);
+  await expect(priority).toContainText("Mythical Summon");
+  await expect(priority).not.toContainText("Arachne");
+  await page.clock.pauseAt(new Date("2026-11-12T04:59:59-05:00"));
+  await expect(priority).toContainText("Mythical Summon");
   await page.clock.fastForward(2000);
   await expect(priority).toContainText("No verified current banner recommendation");
   await page.getByRole("button", { name: "Taiwan", exact: true }).click();
