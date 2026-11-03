@@ -7,7 +7,7 @@ export type PhantomBladeZeroAssetProvenance = {
   readonly required: "P0";
   readonly sourceUrl: string;
   readonly sourcePage: string;
-  readonly sourceType: "official" | "public_verified_game_capture";
+  readonly sourceType: "official" | "public_verified_game_capture" | "user_provided_design_asset";
   readonly checkedAt: string;
   readonly originalDimensions: { readonly width: number; readonly height: number } | null;
   readonly outputDimensions: { readonly width: number; readonly height: number } | null;
@@ -26,18 +26,19 @@ export const phantomBladeZeroAssetProvenance: readonly PhantomBladeZeroAssetProv
     entityId: null,
     role: "hero",
     required: "P0",
-    sourceUrl:
-      "https://gmedia.playstation.com/is/image/SIEPDC/phantom-blade-zero-screenshot-09-en-14jul26?$1600px$",
-    sourcePage: "https://www.playstation.com/en-us/games/phantom-blade-zero/",
-    sourceType: "official",
+    sourceUrl: "user-provided://phantom-blade-zero-final-hero",
+    sourcePage: "Final design asset supplied for PR #117 closeout",
+    sourceType: "user_provided_design_asset",
     checkedAt: "2026-11-03",
-    originalDimensions: { width: 1600, height: 900 },
-    outputDimensions: { width: 1600, height: 900 },
-    sourceSha256: "fc8b2b4b549365ed8127498698cc1335b443d90b30c85244bc995ae8d1982d3a",
-    sha256: "8157bd793fbac083ef0e4d6b36c9aff058390d19a0ef1b3c973e8d72a23333db",
-    transform: "auto-orient; center-cover resize/crop to 1600x900; strip metadata; WebP quality 82",
-    crop: "center cover 16:9",
-    attribution: "PlayStation / S-GAME official promotional screenshot",
+    originalDimensions: { width: 2048, height: 682 },
+    outputDimensions: { width: 1280, height: 426 },
+    sourceSha256: "30f73bce41c10f2f10ee827435c1891da2920ae6bf340cf2e0c93f1491179005",
+    sha256: "8167d8d31e178cdf5634c1c130b7f5ac57e43fc7503486a86a8e4309cffc07a5",
+    transform:
+      "auto-orient; resize to 1280x426; strip metadata; WebP quality 48; responsive crop handled in CSS",
+    crop:
+      "responsive cover; desktop object-position 50% center; responsive object-position preserves right-side character; no text baked into image",
+    attribution: "User-provided final Phantom Blade Zero hero artwork for PR #117 closeout",
     status: "verified_local",
     localPath: "/images/phantom-blade-zero/hero.webp",
   },

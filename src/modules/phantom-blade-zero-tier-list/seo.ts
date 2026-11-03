@@ -9,8 +9,8 @@ export const PHANTOM_BLADE_ZERO_SEO = {
     "phantom blade zero phantom edge tier list",
     "phantom blade zero phantom edges tier list",
   ],
-  title: "Phantom Blade Zero Tier List – Best Weapons & Phantom Edges Ranked",
+  title: "Phantom Blade Zero Tier List – Weapons & Phantom Edges",
   description:
-    "Explore the Phantom Blade Zero tier list with primary weapon and Phantom Edge rankings, strengths, weaknesses, best uses, consensus evidence, and source links.",
+    "Use the Phantom Blade Zero tier list to compare Main Weapons and Phantom Edges by strengths, weaknesses, best uses, ranking evidence, and verified source placements.",
   h1: "Phantom Blade Zero Tier List",
 } as const;

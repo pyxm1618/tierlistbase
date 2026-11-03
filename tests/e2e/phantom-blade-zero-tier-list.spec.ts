@@ -1,5 +1,21 @@
 import { expect, test } from "@playwright/test";
-test.describe("Phantom Blade Zero tier list preview", () => {
+
+const keywordGroup = [
+  "phantom blade zero tier list",
+  "phantom blade zero weapon tier list",
+  "phantom blade zero weapons tier list",
+  "phantom blade zero phantom edge tier list",
+  "phantom blade zero phantom edges tier list",
+] as const;
+
+function phraseCount(text: string, phrase: string) {
+  const normalized = text.toLowerCase().replace(/\s+/g, " ");
+  const escaped = phrase.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\import { expect, test } from "@playwright/test";
+test.describe("Phantom Blade Zero tier list preview", () => {");
+  return (normalized.match(new RegExp("\\b" + escaped + "\\b", "g")) ?? []).length;
+}
+
+test.describe("Phantom Blade Zero tier list release", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/phantom-blade-zero/tier-list");
   });
@@ -49,14 +65,59 @@ test.describe("Phantom Blade Zero tier list preview", () => {
   });
 
   for (const width of [390, 768, 1440]) {
-    test(`has no horizontal overflow at ${width}px`, async ({ page }) => {
+    test("has no horizontal overflow and captures release evidence at " + width + "px", async (
+      { page },
+      testInfo,
+    ) => {
       await page.setViewportSize({ width, height: 900 });
-      await page.reload();
+      await page.reload({ waitUntil: "networkidle" });
       expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(
         false,
       );
+      await testInfo.attach("phantom-blade-zero-" + width + "px", {
+        body: await page.screenshot({ fullPage: true }),
+        contentType: "image/png",
+      });
     });
   }
+
+  test("meets the visible release keyword-density gate", async ({ page }, testInfo) => {
+    const visibleText = await page.getByTestId("pbz-page").innerText();
+    const words = visibleText.match(/[A-Za-z0-9]+(?:[’'.-][A-Za-z0-9]+)*/g) ?? [];
+    const counts = Object.fromEntries(
+      keywordGroup.map((keyword) => [keyword, phraseCount(visibleText, keyword)]),
+    ) as Record<(typeof keywordGroup)[number], number>;
+    const densities = Object.fromEntries(
+      keywordGroup.map((keyword) => [keyword, (counts[keyword] / words.length) * 100]),
+    ) as Record<(typeof keywordGroup)[number], number>;
+    const primaryDensity = densities["phantom blade zero tier list"];
+    const combinedDensity =
+      (keywordGroup.reduce((sum, keyword) => sum + counts[keyword], 0) / words.length) * 100;
+    const metrics = {
+      visibleWordCount: words.length,
+      counts,
+      densities,
+      primaryDensity,
+      combinedDensity,
+    };
+
+    console.info("PBZ_KEYWORD_DENSITY " + JSON.stringify(metrics));
+    await testInfo.attach("phantom-blade-zero-keyword-density", {
+      body: JSON.stringify(metrics, null, 2),
+      contentType: "application/json",
+    });
+
+    expect(primaryDensity).toBeGreaterThanOrEqual(2);
+    expect(primaryDensity).toBeLessThanOrEqual(2.5);
+    expect(combinedDensity).toBeGreaterThanOrEqual(3);
+    expect(combinedDensity).toBeLessThanOrEqual(3.5);
+  });
+
+  test("emits valid structured data", async ({ page }) => {
+    const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
+    expect(scripts.length).toBeGreaterThan(0);
+    for (const value of scripts) expect(() => JSON.parse(value)).not.toThrow();
+  });
 
   test("loads every P0 image locally without broken requests", async ({ page }) => {
     const failedImages: string[] = [];

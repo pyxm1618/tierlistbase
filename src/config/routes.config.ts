@@ -51,10 +51,11 @@ export const routeDefinitions = [
       "/privacy",
       "/terms",
       "/zenless-zone-zero/tier-list",
+      "/phantom-blade-zero/tier-list",
     ],
-    lastModified: "2026-10-16",
+    lastModified: "2026-11-03",
     reviewStatus: "reviewed",
-    reviewFingerprint: "357f39fb748d56e849ed02c08901db6d65c071752a16eac095cbe932b3696245",
+    reviewFingerprint: "47c4bd8df0521919d83efb7eca29e98c735b5440446b1246769c8ea03d60f8a8",
   },
   {
     route: "/wow-forever/tier-list",
@@ -178,10 +179,26 @@ export const routeDefinitions = [
   },
   {
     route: "/phantom-blade-zero/tier-list",
-    class: "public_noindex",
-    title: "Phantom Blade Zero Tier List – Best Weapons & Phantom Edges Ranked",
+    class: "public_indexable",
+    searchIntent:
+      "compare Phantom Blade Zero Main Weapon and Phantom Edge rankings using verified multi-source evidence",
+    primaryKeyword: "phantom blade zero tier list",
+    secondaryKeywords: [
+      "phantom blade zero tier list",
+      "phantom blade zero weapon tier list",
+      "phantom blade zero weapons tier list",
+      "phantom blade zero phantom edge tier list",
+      "phantom blade zero phantom edges tier list",
+    ],
+    title: "Phantom Blade Zero Tier List – Weapons & Phantom Edges",
     description:
-      "Explore the Phantom Blade Zero tier list with primary weapon and Phantom Edge rankings, strengths, weaknesses, best uses, consensus evidence, and source links.",
+      "Use the Phantom Blade Zero tier list to compare Main Weapons and Phantom Edges by strengths, weaknesses, best uses, ranking evidence, and verified source placements.",
+    h1: "Phantom Blade Zero Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-11-03",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "2760712d550f0796a0fe97048cff212781e4ddd6cda582f58cdd91a3f94cca4c",
   },
   {
     route: "/privacy",
