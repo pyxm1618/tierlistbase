@@ -293,6 +293,63 @@ jobs:
           (out_root / "p0-asset-summary.json").write_text(
               json.dumps(summary, indent=2) + "\n", encoding="utf-8"
           )
+
+          provenance_lines = [
+              'export type PhantomBladeZeroAssetStatus = "verified_local" | "source_verified_binary_missing";',
+              "",
+              "export type PhantomBladeZeroAssetProvenance = {",
+              "  readonly id: string;",
+              "  readonly entityId: string | null;",
+              '  readonly role: "hero" | "tier_icon";',
+              '  readonly required: "P0";',
+              "  readonly sourceUrl: string;",
+              "  readonly sourcePage: string;",
+              '  readonly sourceType: "official" | "public_verified_game_capture";',
+              "  readonly checkedAt: string;",
+              "  readonly originalDimensions: { readonly width: number; readonly height: number } | null;",
+              "  readonly outputDimensions: { readonly width: number; readonly height: number } | null;",
+              "  readonly sourceSha256: string | null;",
+              "  readonly sha256: string | null;",
+              "  readonly transform: string | null;",
+              "  readonly crop: string | null;",
+              "  readonly attribution: string;",
+              "  readonly status: PhantomBladeZeroAssetStatus;",
+              "  readonly localPath: string | null;",
+              "};",
+              "",
+              "export const phantomBladeZeroAssetProvenance: readonly PhantomBladeZeroAssetProvenance[] = [",
+          ]
+          for rec in records:
+              attribution = (
+                  "PlayStation / S-GAME official promotional screenshot"
+                  if rec["role"] == "hero"
+                  else "Phantom Blade Zero in-game entity image reproduced from the cited pbz.gg entity page; no license or authorization claim."
+              )
+              provenance_lines.extend([
+                  "  {",
+                  f'    id: {json.dumps(rec["id"])},',
+                  f'    entityId: {json.dumps(rec["entityId"])},',
+                  f'    role: {json.dumps(rec["role"])},',
+                  '    required: "P0",',
+                  f'    sourceUrl: {json.dumps(rec["sourceUrl"])},',
+                  f'    sourcePage: {json.dumps(rec["sourcePage"])},',
+                  f'    sourceType: {json.dumps(rec["sourceType"])},',
+                  '    checkedAt: "2026-11-03",',
+                  f'    originalDimensions: {{ width: {rec["originalDimensions"]["width"]}, height: {rec["originalDimensions"]["height"]} }},',
+                  f'    outputDimensions: {{ width: {rec["outputDimensions"]["width"]}, height: {rec["outputDimensions"]["height"]} }},',
+                  f'    sourceSha256: "{rec["sourceSha256"]}",',
+                  f'    sha256: "{rec["outputSha256"]}",',
+                  f'    transform: {json.dumps(rec["transform"])},',
+                  f'    crop: {json.dumps(rec["crop"])},',
+                  f'    attribution: {json.dumps(attribution)},',
+                  '    status: "verified_local",',
+                  f'    localPath: {json.dumps(rec["localPath"])},',
+                  "  },",
+              ])
+          provenance_lines.append("];")
+          provenance_lines.append("")
+          provenance.write_text("\n".join(provenance_lines), encoding="utf-8")
+
           print(json.dumps(summary, indent=2))
 
       - name: Build visual contact sheet for audit
@@ -325,7 +382,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             public/images/phantom-blade-zero/hero.webp \
-            public/images/phantom-blade-zero/tier-icons/*.webp
+            public/images/phantom-blade-zero/tier-icons/*.webp \
+            src/modules/phantom-blade-zero-tier-list/asset-provenance.ts
           if git diff --cached --quiet; then
             echo "No production asset changes to commit."
             exit 0
