@@ -1,6 +1,9 @@
 import { expect, it } from "vitest";
 import { getRoster, researchLedger } from "@/modules/dragon-traveler-tier-list";
-import { verifiedBanners } from "@/modules/dragon-traveler-tier-list/banners";
+import {
+  currentBannerAt,
+  verifiedBanners,
+} from "@/modules/dragon-traveler-tier-list/banners";
 it("accounts for each restored identity with an explicit evidence state", () => {
   expect(new Set(researchLedger.map((record) => record.id)).size).toBe(researchLedger.length);
   for (const server of ["global", "taiwan"] as const)
@@ -13,4 +16,12 @@ it("keeps official-banner targets inside their matching live roster", () => {
       expect(getRoster(banner.server).some((character) => character.id === id)).toBe(true);
     expect(Date.parse(banner.endsAt)).toBeGreaterThan(Date.parse(banner.startsAt));
   }
+});
+
+it("uses the current Taiwan mythic summon on the release date", () => {
+  const banner = currentBannerAt("taiwan", Date.parse("2026-11-03T12:00:00+08:00"));
+  expect(banner?.characterIds).toEqual(["loki", "prometheus", "hera", "ares"]);
+  expect(banner?.sourceUrl).toBe(
+    "https://news.game-beans.com/jx/sodNotice/20261027/8301.html",
+  );
 });
