@@ -145,7 +145,10 @@ const mainWeapons: readonly RankingEntity[] = [
     category: "Aggressive / Dual-Wield",
     bestFor: ["Long combos", "Group pressure", "Ranged executions"],
     easeOfUse: "Medium",
-    strengths: ["Continuous Twin Serpent Dance pressure", "Close-range strings plus ranged utility"],
+    strengths: [
+      "Continuous Twin Serpent Dance pressure",
+      "Close-range strings plus ranged utility",
+    ],
     limitations: ["Short-range combo starters", "Strong techniques consume Sha-Chi quickly"],
     whyThisTier:
       "KeenGamer and games.gg independently place the pair in S, emphasizing sustained pressure, combo versatility, and ranged utility.",
@@ -160,8 +163,14 @@ const mainWeapons: readonly RankingEntity[] = [
     category: "Burst / Dual-Wield",
     bestFor: ["Guard-break burst", "Fast pressure", "Boss damage windows"],
     easeOfUse: "Easy",
-    strengths: ["Fast multi-hit strings", "Fiend Form turns a guard break into a high-damage window"],
-    limitations: ["Best payoff depends on creating the right opening", "Fiend Form is time-limited"],
+    strengths: [
+      "Fast multi-hit strings",
+      "Fiend Form turns a guard break into a high-damage window",
+    ],
+    limitations: [
+      "Best payoff depends on creating the right opening",
+      "Fiend Form is time-limited",
+    ],
     whyThisTier:
       "Both qualifying tier sources rate Fiend Saws S and separately point to its fast pressure plus burst once a target is guard-broken.",
     acquisition:
@@ -176,7 +185,10 @@ const mainWeapons: readonly RankingEntity[] = [
     category: "Versatile / Form-Switching",
     bestFor: ["Adapting to encounter needs", "Elemental pressure", "Late-game versatility"],
     easeOfUse: "Needs Review",
-    strengths: ["Steel, Chaos, and Frost forms cover different jobs", "Can switch between pressure, control, and guard damage"],
+    strengths: [
+      "Steel, Chaos, and Frost forms cover different jobs",
+      "Can switch between pressure, control, and guard damage",
+    ],
     limitations: ["Requires substantial progression", "Form management adds execution overhead"],
     whyThisTier:
       "The two independent launch tier lists both place Freezing Chaos in S because its three forms cover multiple encounter needs.",
@@ -206,8 +218,14 @@ const mainWeapons: readonly RankingEntity[] = [
     category: "Ranged / Dual-Wield",
     bestFor: ["Thrown-ring pressure", "Mobility", "Tracking projectiles"],
     easeOfUse: "Needs Review",
-    strengths: ["Flying Rings can track locked targets", "Reaping Rings creates distance while attacking"],
-    limitations: ["Only one qualifying independent tier source currently covers it", "Formal consensus cannot be calculated yet"],
+    strengths: [
+      "Flying Rings can track locked targets",
+      "Reaping Rings creates distance while attacking",
+    ],
+    limitations: [
+      "Only one qualifying independent tier source currently covers it",
+      "Formal consensus cannot be calculated yet",
+    ],
     whyThisTier:
       "KeenGamer places Seamless Death in A, but games.gg does not rate it. TierListBase therefore keeps it Pending instead of treating the missing placement as zero.",
     acquisition: "Defeat Jade-Face near The Lady’s Shrine in Mountain of Imprisonment.",
@@ -239,7 +257,10 @@ const phantomEdges: readonly RankingEntity[] = [
     category: "Martial",
     bestFor: ["Raw card damage", "Lightning pressure", "Status-oriented offense"],
     easeOfUse: "Needs Review",
-    strengths: ["Highest level-1 Damage in the nine-edge card-stat sample", "KeenGamer rates it a strong A-tier option"],
+    strengths: [
+      "Highest level-1 Damage in the nine-edge card-stat sample",
+      "KeenGamer rates it a strong A-tier option",
+    ],
     limitations: ["Raw card Damage does not capture total utility or encounter coverage"],
     whyThisTier:
       "KeenGamer rates Thunder Spear A while the independent card-stat source ranks it 1st of 9 by Damage. The combined signals clear the S threshold without a large methodological conflict.",
@@ -257,7 +278,10 @@ const phantomEdges: readonly RankingEntity[] = [
     category: "Martial",
     bestFor: ["High damage", "Status effects", "Boss pressure"],
     easeOfUse: "Needs Review",
-    strengths: ["Second-highest card Damage in the verified nine-edge sample", "A-tier editorial assessment"],
+    strengths: [
+      "Second-highest card Damage in the verified nine-edge sample",
+      "A-tier editorial assessment",
+    ],
     limitations: ["Damage ordering alone does not measure defensive or traversal utility"],
     whyThisTier:
       "Fire Meteor is A in KeenGamer and 2nd of 9 by raw card Damage in AllThingsHow. Those two independent signals produce an A consensus.",
@@ -275,7 +299,11 @@ const phantomEdges: readonly RankingEntity[] = [
     category: "Destructive",
     bestFor: ["Shield breaking", "Early progression", "Opening chained routes"],
     easeOfUse: "Needs Review",
-    strengths: ["High shield-breaking value", "Third-highest Damage in the nine-edge card-stat sample", "Iron Chain Breaker has exploration utility"],
+    strengths: [
+      "High shield-breaking value",
+      "Third-highest Damage in the nine-edge card-stat sample",
+      "Iron Chain Breaker has exploration utility",
+    ],
     limitations: ["Heavy committed attacks are less flexible than faster options"],
     whyThisTier:
       "Dread Axe is A in KeenGamer and 3rd of 9 by raw card Damage. The two independent methods agree that it is a strong option.",
@@ -294,7 +322,10 @@ const phantomEdges: readonly RankingEntity[] = [
     bestFor: ["Sonic projectiles", "Mid-range pressure", "Guard damage"],
     easeOfUse: "Needs Review",
     strengths: ["Ranks 4th of 9 on verified card Damage", "Provides sonic projectile utility"],
-    limitations: ["KeenGamer rates its overall combat value B", "Later progression can replace its niche"],
+    limitations: [
+      "KeenGamer rates its overall combat value B",
+      "Later progression can replace its niche",
+    ],
     whyThisTier:
       "The card-stat source places Heartrend Pipa 4th of 9, while KeenGamer gives it B for general usefulness. The normalized consensus remains B.",
     acquisition: "Defeat Yuzan in Village of Lu according to the launch guide.",
@@ -311,8 +342,14 @@ const phantomEdges: readonly RankingEntity[] = [
     category: "Destructive",
     bestFor: ["Guard Break", "Lifesteal", "Sustained combat"],
     easeOfUse: "Needs Review",
-    strengths: ["Highest Guard Break card value in the nine-edge sample", "Editorial A tier for sustained combat"],
-    limitations: ["Raw Damage sits mid-pack", "Lifesteal usefulness depends on susceptible enemies"],
+    strengths: [
+      "Highest Guard Break card value in the nine-edge sample",
+      "Editorial A tier for sustained combat",
+    ],
+    limitations: [
+      "Raw Damage sits mid-pack",
+      "Lifesteal usefulness depends on susceptible enemies",
+    ],
     whyThisTier:
       "Wolfjaw is A in KeenGamer and 5th of 9 by Damage, while also leading the sample in Guard Break. The normalized result remains A.",
     acquisition: "Defeat Wu Xuan in Pangzhen according to launch guides.",
@@ -329,7 +366,10 @@ const phantomEdges: readonly RankingEntity[] = [
     category: "Martial",
     bestFor: ["Fast combos", "Breaking shields", "Armored enemies"],
     easeOfUse: "Needs Review",
-    strengths: ["KeenGamer places it in S", "Fist Focus supports aggressive primary-weapon follow-up"],
+    strengths: [
+      "KeenGamer places it in S",
+      "Fist Focus supports aggressive primary-weapon follow-up",
+    ],
     limitations: ["Only 6th of 9 by raw card Damage", "Short reach requires close commitment"],
     whyThisTier:
       "KeenGamer’s S-tier utility assessment and the card-stat source’s 6th-of-9 Damage placement diverge beyond the review threshold. TierListBase therefore does not publish a final tier yet.",
@@ -347,8 +387,14 @@ const phantomEdges: readonly RankingEntity[] = [
     category: "Artifice",
     bestFor: ["Crowd control", "Fire damage", "Burning blocked routes"],
     easeOfUse: "Needs Review",
-    strengths: ["KeenGamer rates it S for combat plus exploration value", "Wide fire coverage helps groups"],
-    limitations: ["Only 7th of 9 by raw card Damage", "Elemental value is not represented well by a damage-only ordering"],
+    strengths: [
+      "KeenGamer rates it S for combat plus exploration value",
+      "Wide fire coverage helps groups",
+    ],
+    limitations: [
+      "Only 7th of 9 by raw card Damage",
+      "Elemental value is not represented well by a damage-only ordering",
+    ],
     whyThisTier:
       "The S-tier utility assessment and 7th-of-9 raw Damage placement measure different strengths and conflict beyond the preset threshold, so the entity remains Needs Review.",
     acquisition: "Earned through the Flaming Mane boss and repair sequence in Pangzhen.",
@@ -365,8 +411,14 @@ const phantomEdges: readonly RankingEntity[] = [
     category: "Martial",
     bestFor: ["Gap closing", "Mobility", "Traversal"],
     easeOfUse: "Needs Review",
-    strengths: ["KeenGamer calls it the best all-around Phantom Edge", "Medium-to-long range attacks and grappling add utility"],
-    limitations: ["Only 8th of 9 by raw card Damage", "Its value comes from mobility more than card damage"],
+    strengths: [
+      "KeenGamer calls it the best all-around Phantom Edge",
+      "Medium-to-long range attacks and grappling add utility",
+    ],
+    limitations: [
+      "Only 8th of 9 by raw card Damage",
+      "Its value comes from mobility more than card damage",
+    ],
     whyThisTier:
       "KeenGamer’s S-tier all-around utility verdict conflicts sharply with an 8th-of-9 raw Damage placement. Because the methods disagree materially, TierListBase marks it Needs Review.",
     acquisition: "Defeat The Hunt in Weeping Creek Valley.",
@@ -383,8 +435,14 @@ const phantomEdges: readonly RankingEntity[] = [
     category: "Artifice",
     bestFor: ["Blocking", "Damage absorption", "Counterattacks"],
     easeOfUse: "Needs Review",
-    strengths: ["Editorial A-tier defensive value", "Can convert absorbed pressure into a counterattack"],
-    limitations: ["9th of 9 by raw card Damage", "Damage-only ordering undervalues defensive function"],
+    strengths: [
+      "Editorial A-tier defensive value",
+      "Can convert absorbed pressure into a counterattack",
+    ],
+    limitations: [
+      "9th of 9 by raw card Damage",
+      "Damage-only ordering undervalues defensive function",
+    ],
     whyThisTier:
       "Bastion is A for general defensive utility but 9th of 9 on the damage-only card ranking. The normalized sources conflict beyond the review threshold, so no final tier is claimed.",
     acquisition:
@@ -477,7 +535,8 @@ export const phantomBladeZeroSnapshot = {
     {
       label: "Boss Bleed Pick",
       entityId: "jagged-steel",
-      reason: "Both independent main-weapon tier sources place it in S for repeatable Bleed pressure.",
+      reason:
+        "Both independent main-weapon tier sources place it in S for repeatable Bleed pressure.",
     },
     {
       label: "Defensive Pick",
@@ -492,7 +551,8 @@ export const phantomBladeZeroSnapshot = {
     {
       label: "Raw-Damage Phantom Edge",
       entityId: "thunder-spear",
-      reason: "Ranks 1st of 9 by verified level-1 card Damage while remaining A in editorial utility.",
+      reason:
+        "Ranks 1st of 9 by verified level-1 card Damage while remaining A in editorial utility.",
     },
   ] as const,
   whatChanged:

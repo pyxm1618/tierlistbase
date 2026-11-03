@@ -1,8 +1,6 @@
 .page {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 80% 0%, rgba(145, 40, 32, 0.16), transparent 34rem),
-    #0d0d0f;
+  background: #0d0d0f;
   color: #f2efe8;
 }
 
@@ -15,12 +13,7 @@
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-  background: linear-gradient(
-    110deg,
-    rgba(7, 7, 8, 0.96),
-    rgba(20, 18, 18, 0.9) 60%,
-    rgba(57, 20, 18, 0.8)
-  );
+  background: #151112;
 }
 
 .hero::after {

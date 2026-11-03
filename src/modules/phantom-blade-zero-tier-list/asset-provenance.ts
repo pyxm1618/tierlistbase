@@ -24,22 +24,70 @@ export type PhantomBladeZeroAssetProvenance = {
 const sourcePage = "https://allthings.how/phantom-blade-zero-weapons-list/";
 
 const tierIconSources = [
-  ["jagged-steel", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-jagged-steel.jpg"],
-  ["white-serpent-crimson-viper", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-white-serpent-crimson-viper.jpg"],
-  ["fiend-saws", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-fiend-saws.jpg"],
-  ["freezing-chaos", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-freezing-chaos.jpg"],
-  ["soft-snake-sword", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-soft-snake-sword.jpg"],
-  ["parting-hooks", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-parting-hooks.jpg"],
-  ["seamless-death", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-weapon-seamless-death-wide.jpg"],
-  ["thunder-spear", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-thunder-spear-1.jpg"],
-  ["fire-meteor", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-fire-meteor-1.jpg"],
-  ["dread-axe", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-dread-axe-1.jpg"],
-  ["heartrend-pipa", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-heartrend-pipa-1.jpg"],
-  ["wolfjaw", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-wolfjaw-1.jpg"],
-  ["iron-gauntlets", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-iron-gauntlets-1.jpg"],
-  ["flaming-mane", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-flaming-mane-1.jpg"],
-  ["hunters-chain-sickle", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-hunters-chain-sickle-1.jpg"],
-  ["bastion", "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-bastion-1.jpg"],
+  [
+    "jagged-steel",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-jagged-steel.jpg",
+  ],
+  [
+    "white-serpent-crimson-viper",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-white-serpent-crimson-viper.jpg",
+  ],
+  [
+    "fiend-saws",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-fiend-saws.jpg",
+  ],
+  [
+    "freezing-chaos",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-freezing-chaos.jpg",
+  ],
+  [
+    "soft-snake-sword",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-soft-snake-sword.jpg",
+  ],
+  [
+    "parting-hooks",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-parting-hooks.jpg",
+  ],
+  [
+    "seamless-death",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-weapon-seamless-death-wide.jpg",
+  ],
+  [
+    "thunder-spear",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-thunder-spear-1.jpg",
+  ],
+  [
+    "fire-meteor",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-fire-meteor-1.jpg",
+  ],
+  [
+    "dread-axe",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-dread-axe-1.jpg",
+  ],
+  [
+    "heartrend-pipa",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-heartrend-pipa-1.jpg",
+  ],
+  [
+    "wolfjaw",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-wolfjaw-1.jpg",
+  ],
+  [
+    "iron-gauntlets",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-iron-gauntlets-1.jpg",
+  ],
+  [
+    "flaming-mane",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-flaming-mane-1.jpg",
+  ],
+  [
+    "hunters-chain-sickle",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-hunters-chain-sickle-1.jpg",
+  ],
+  [
+    "bastion",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-bastion-1.jpg",
+  ],
 ] as const;
 
 export const phantomBladeZeroAssetProvenance: readonly PhantomBladeZeroAssetProvenance[] = [

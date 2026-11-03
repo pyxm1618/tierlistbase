@@ -16,7 +16,9 @@ type WorkspaceKind = "main_weapon" | "phantom_edge";
 const tierOrder: readonly ReviewStatus[] = ["S", "A", "B", "C", "Needs Review", "Pending"];
 
 function sourceName(sourceId: string) {
-  return phantomBladeZeroSnapshot.sources.find((source) => source.id === sourceId)?.name ?? sourceId;
+  return (
+    phantomBladeZeroSnapshot.sources.find((source) => source.id === sourceId)?.name ?? sourceId
+  );
 }
 
 function sourceUrl(sourceId: string) {
@@ -204,8 +206,8 @@ export function PhantomBladeZeroTierListPage() {
           <h1>{PHANTOM_BLADE_ZERO_SEO.h1}</h1>
           <p className={styles.heroCopy}>
             Evidence-first rankings for verified primary weapons and Phantom Edges. Every published
-            tier requires at least two independent ranking signals; unresolved conflicts stay visible
-            instead of being guessed away.
+            tier requires at least two independent ranking signals; unresolved conflicts stay
+            visible instead of being guessed away.
           </p>
 
           <div className={styles.heroStats}>
@@ -415,8 +417,8 @@ export function PhantomBladeZeroTierListPage() {
           </div>
 
           <p className={styles.disclaimer}>
-            TierListBase is an independent third-party website and is not affiliated with or endorsed
-            by S-GAME or PlayStation.
+            TierListBase is an independent third-party website and is not affiliated with or
+            endorsed by S-GAME or PlayStation.
           </p>
         </section>
 
@@ -433,8 +435,9 @@ export function PhantomBladeZeroTierListPage() {
             <details>
               <summary>Why are there fewer weapons here than the official arsenal size?</summary>
               <p>
-                Official arsenal size and TierListBase coverage are separate. This first snapshot only
-                includes entities whose identity and ranking evidence were independently reviewed.
+                Official arsenal size and TierListBase coverage are separate. This first snapshot
+                only includes entities whose identity and ranking evidence were independently
+                reviewed.
               </p>
             </details>
             <details>
@@ -448,8 +451,8 @@ export function PhantomBladeZeroTierListPage() {
             <details>
               <summary>Does TierListBase use Reddit votes to set tiers?</summary>
               <p>
-                No. Community discussion can be a validation signal, but it does not directly decide a
-                tier in this snapshot.
+                No. Community discussion can be a validation signal, but it does not directly decide
+                a tier in this snapshot.
               </p>
             </details>
           </div>

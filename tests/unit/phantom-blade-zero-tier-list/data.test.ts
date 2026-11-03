@@ -5,7 +5,9 @@ import {
   phantomBladeZeroSnapshot,
   reviewPhantomBladeZeroEntity,
 } from "@/modules/phantom-blade-zero-tier-list";
-import { phantomBladeZeroAssetProvenance } from "@/modules/phantom-blade-zero-tier-list/asset-provenance";
+import {
+  phantomBladeZeroAssetProvenance,
+} from "@/modules/phantom-blade-zero-tier-list/asset-provenance";
 
 describe("Phantom Blade Zero reviewed snapshot", () => {
   const allEntities = [

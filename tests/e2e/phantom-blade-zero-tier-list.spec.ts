@@ -45,7 +45,9 @@ test.describe("Phantom Blade Zero tier list preview", () => {
     await page.keyboard.press("Enter");
     await expect(page.getByRole("heading", { name: "Thunder Spear" })).toBeVisible();
 
-    expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),
+    ).toBe(false);
   });
 
   for (const width of [390, 768, 1440]) {
