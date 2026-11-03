@@ -233,6 +233,64 @@ test("Dragon Traveler release controls expose the reviewed discovery actions", a
   await expect(faq).toHaveAttribute("open", "");
 });
 
+test("Dragon Traveler captures the final 1440 visual audit surfaces", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto(route);
+  await page.evaluate(() =>
+    Promise.all(
+      [...document.images].map((img) =>
+        img.complete
+          ? Promise.resolve()
+          : new Promise<void>((resolve) => {
+              img.addEventListener("load", () => resolve(), { once: true });
+              img.addEventListener("error", () => resolve(), { once: true });
+            }),
+      ),
+    ),
+  );
+
+  async function logShot(name: string, target: ReturnType<typeof page.locator>) {
+    const shot = await target.screenshot({
+      type: "jpeg",
+      quality: 40,
+      animations: "disabled",
+    });
+    console.log(`DRAGON_VISUAL_${name}=${shot.toString("base64")}`);
+  }
+
+  const full = await page.screenshot({
+    type: "jpeg",
+    quality: 32,
+    fullPage: true,
+    animations: "disabled",
+  });
+  console.log(`DRAGON_VISUAL_FULL=${full.toString("base64")}`);
+
+  await logShot(
+    "HERO",
+    page.getByRole("heading", { level: 1, name: "Dragon Traveler Tier List" }).locator(".."),
+  );
+  await logShot("BOARD_DETAIL", page.getByRole("region", { name: "Luminary rankings and details" }));
+  await logShot(
+    "TEAMS",
+    page.getByRole("heading", { name: "Best Dragon Traveler Teams" }).locator("xpath=ancestor::section[1]"),
+  );
+  await logShot(
+    "DECISIONS",
+    page.getByRole("heading", { name: "Account Decisions" }).locator("xpath=ancestor::section[1]"),
+  );
+  await logShot(
+    "LOWER",
+    page
+      .getByRole("heading", { name: "How We Rank Dragon Traveler Luminaries" })
+      .locator("xpath=ancestor::div[contains(@class,'methodologySources')][1]"),
+  );
+  await logShot(
+    "FAQ",
+    page.getByRole("heading", { name: "FAQ" }).locator("xpath=ancestor::section[1]"),
+  );
+});
+
 test("Dragon Traveler has no serious accessibility violations", async ({ page }) => {
   await page.goto(route);
   const result = await new AxeBuilder({ page }).include("[data-dragon-traveler-page]").analyze();
