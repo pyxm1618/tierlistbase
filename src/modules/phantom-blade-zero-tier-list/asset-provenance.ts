@@ -1,6 +1,4 @@
-export type PhantomBladeZeroAssetStatus =
-  | "verified_local"
-  | "source_verified_binary_missing";
+export type PhantomBladeZeroAssetStatus = "verified_local" | "source_verified_binary_missing";
 
 export type PhantomBladeZeroAssetProvenance = {
   readonly id: string;
