@@ -66,4 +66,3 @@ test.describe("Phantom Blade Zero tier list preview", () => {
     await expect(page.getByText(/image is intentionally omitted/i).first()).toBeVisible();
   });
 });
-
