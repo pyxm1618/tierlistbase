@@ -73,7 +73,7 @@ export const phantomBladeZeroSources: readonly RankingSource[] = [
     name: "KeenGamer – Best Weapons Tier List",
     url: "https://www.keengamer.com/articles/guides/phantom-blade-zero-best-weapons-tier-list/",
     nature: "ranking",
-    independenceGroup: "keengamer-main-editorial",
+    independenceGroup: "keengamer",
     methodology: "S/A/B editorial tiers based on practical combat performance.",
   },
   {
@@ -81,7 +81,7 @@ export const phantomBladeZeroSources: readonly RankingSource[] = [
     name: "games.gg – Best weapons tier list",
     url: "https://games.gg/phantom-blade-0/guides/best-phantom-blade-0-weapons-tier-list/",
     nature: "ranking",
-    independenceGroup: "gamesgg-main-editorial",
+    independenceGroup: "gamesgg",
     methodology: "S/A/B editorial tiers emphasizing repeatable combat advantages.",
   },
   {
@@ -89,7 +89,7 @@ export const phantomBladeZeroSources: readonly RankingSource[] = [
     name: "KeenGamer – Best Phantom Edges Tier List",
     url: "https://www.keengamer.com/articles/guides/phantom-blade-zero-best-phantom-edges-tier-list/",
     nature: "ranking",
-    independenceGroup: "keengamer-edge-editorial",
+    independenceGroup: "keengamer",
     methodology: "S/A/B editorial tiers for general combat usefulness and versatility.",
   },
   {
@@ -97,7 +97,7 @@ export const phantomBladeZeroSources: readonly RankingSource[] = [
     name: "AllThingsHow – Phantom Edges ranked by card stats",
     url: "https://allthings.how/phantom-blade-zero-best-phantom-edges/",
     nature: "ranking",
-    independenceGroup: "allthings-card-stat-ordinal",
+    independenceGroup: "allthingshow",
     methodology: "Nine verified Phantom Edges ordered by level-1 card Damage.",
   },
   {

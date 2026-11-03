@@ -113,6 +113,15 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
     );
   });
 
+  it("maps every reviewed entity to a declared P0 tier-icon provenance record", () => {
+    const mappedEntityIds = new Set(
+      phantomBladeZeroAssetProvenance
+        .filter((asset) => asset.role === "tier_icon")
+        .map((asset) => asset.entityId),
+    );
+    expect(mappedEntityIds).toEqual(new Set(allEntities.map((entity) => entity.id)));
+  });
+
   it("fails the release gate while any P0 binary is missing", () => {
     expect(phantomBladeZeroAssetProvenance).toHaveLength(17);
     const readiness = getPhantomBladeZeroReleaseReadiness();
