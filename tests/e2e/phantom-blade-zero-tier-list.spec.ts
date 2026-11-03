@@ -85,11 +85,19 @@ test.describe("Phantom Blade Zero tier list preview", () => {
     );
 
     async function assertTierImages(expectedCount: number) {
+      const slots = page.locator("[data-tier-image-slot]");
+      await expect(slots).toHaveCount(expectedCount);
+
+      for (let index = 0; index < expectedCount; index += 1) {
+        const slot = slots.nth(index);
+        await slot.scrollIntoViewIfNeeded();
+        await expect
+          .poll(() => slot.locator('img[data-p0-role="tier-icon"]').count())
+          .toBe(1);
+      }
+
       const images = page.locator('img[data-p0-role="tier-icon"]');
       await expect(images).toHaveCount(expectedCount);
-      for (let index = 0; index < expectedCount; index += 1) {
-        await images.nth(index).scrollIntoViewIfNeeded();
-      }
       await expect
         .poll(() =>
           images.evaluateAll((items) =>
