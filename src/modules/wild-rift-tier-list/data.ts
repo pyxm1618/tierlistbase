@@ -75,10 +75,10 @@ export type EvidenceSource = {
 export const snapshot = {
   gameVersion: "7.3d",
   latestRankedBalance: "7.3d",
-  snapshotDate: "2026-10-27",
-  reviewedAt: "2026-10-29",
-  statisticsPatch: "7.3c",
-  postBalanceStatisticsVerified: false,
+  snapshotDate: "2026-11-01",
+  reviewedAt: "2026-11-03",
+  statisticsPatch: "7.3d",
+  postBalanceStatisticsVerified: true,
   region: "CN",
   rankContext: "Master+",
   queueContext: "Ranked",
@@ -150,16 +150,16 @@ export const sources: readonly EvidenceSource[] = [
     id: "riot-7-3d",
     name: "Riot Games · Wild Rift Patch Notes 7.3d",
     type: "official_patch",
-    checkedAt: "2026-10-29",
+    checkedAt: "2026-11-03",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3d/",
     context:
-      "Current game version and latest standard Ranked balance, published 2026-10-28. Champion, item, objective, and turret changes. Available reviewed statistics predate this patch; no post-patch outcome is verified.",
+      "Current game version and latest standard Ranked balance, published 2026-10-28. Champion, item, objective, and turret changes. The reviewed statistics snapshot is post-balance and labeled patch 7.3d.",
   },
   {
     id: "riot-7-3c",
     name: "Riot Games · Wild Rift Patch Notes 7.3c",
     type: "official_patch",
-    checkedAt: "2026-10-29",
+    checkedAt: "2026-11-03",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3c/",
     context: "Historical patch: 7.3c focused on AAA ARAM; it is not the current game version.",
   },
@@ -167,7 +167,7 @@ export const sources: readonly EvidenceSource[] = [
     id: "riot-7-3b",
     name: "Riot Games · Wild Rift Patch Notes 7.3b",
     type: "official_patch",
-    checkedAt: "2026-10-29",
+    checkedAt: "2026-11-03",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3b/",
     context: "Historical standard Ranked balance patch; superseded by 7.3d.",
   },
@@ -175,28 +175,28 @@ export const sources: readonly EvidenceSource[] = [
     id: "tencent-master",
     name: "Wild Rift Core · Tencent CN Ranked Statistics",
     type: "ranked_statistics",
-    checkedAt: "2026-10-29",
+    checkedAt: "2026-11-03",
     url: "https://wildriftcore.com/en/rankings/",
     context:
-      "Wild Rift Core reports Tencent China-server data · Master+ · Ranked · readable source capture dated 2026-10-27 (7.3c). 180 role placements, 136 distinct champions counted in the tables; the source headline says 134. Live raw access is currently blocked; the readable capture is not evidence of post-7.3d performance. Not independently fetched from Tencent.",
+      "Wild Rift Core reports Tencent China-server data · Master+ · Ranked · source updated 2026-11-01 (7.3d). 179 exact Champion × Role rows cover 136 distinct champions; the source headline says 135 tracked champions, so that discrepancy is preserved. TierListBase did not independently fetch Tencent.",
   },
   {
     id: "core-editorial-tier",
     name: "Wild Rift Core · Editorial Role Tier List & History",
     type: "editorial_review",
-    checkedAt: "2026-10-29",
+    checkedAt: "2026-11-03",
     url: "https://wildriftcore.com/en/tierlist/",
     context:
-      "Source tiers and dated movements are Wild Rift Core editorial judgements, not Riot or Tencent official tiers. Same publisher as the statistics page; not independent corroboration. TierListBase retains these source tiers after role review; no overrides in this snapshot.",
+      "Source tiers are Wild Rift Core's data-informed source-tier assessment, not Riot or Tencent official tiers. TierListBase keeps those source tiers separate from raw Tencent statistics and from its own Champion × Role editorial signals; no tier overrides are applied.",
   },
   {
     id: "editorial-review",
     name: "TierListBase Editorial Review",
     type: "editorial_review",
-    checkedAt: "2026-10-29",
+    checkedAt: "2026-11-03",
     url: "/about#about-process-title",
     context:
-      "TierListBase editorial role assessments and signals. This snapshot retains Wild Rift Core source tiers with no overrides; no independent TierListBase statistical tier formula is claimed.",
+      "TierListBase Champion × Role editorial assessments and decision signals. These are explicitly editorial and are not Tencent statistics or Riot facts. The current snapshot retains Wild Rift Core source tiers with no overrides.",
   },
 ] as const;
 
@@ -280,7 +280,7 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
     seed.winRate === null
       ? "Role statistics unavailable (WR / PR / BR: N/A); this is an editorial placement without inventing missing statistics."
       : `CN Master+ evidence: ${seed.winRate.toFixed(2)}% WR, ${seed.pickRate?.toFixed(2)}% PR, ${seed.banRate?.toFixed(2)}% BR. These observations are not a causal explanation or a tier formula.`;
-  const whyThisTier = `${review.rationale} Evidence snapshot: ${snapshot.snapshotDate}, before 7.3d; current-patch performance is not verified. ${statisticalContext} TierListBase retains Wild Rift Core's ${tier} source tier for ${roleLabels[role]} after this editorial review.`;
+  const whyThisTier = `${review.rationale} Evidence snapshot: ${snapshot.snapshotDate} · 7.3d · CN Master+. ${statisticalContext} TierListBase retains Wild Rift Core's ${tier} source tier for ${roleLabels[role]} after this separate editorial review.`;
 
   return {
     championId: seed.championId,
@@ -308,9 +308,8 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
     limitations: notes.limitations,
     decisionSignals: decisionSignals(review.signals),
     patchImpact:
-      (directPatchImpact[seed.championId] ??
-        "No direct champion adjustment is listed in 7.3d; item and objective changes may still matter.") +
-      " Post-7.3d outcome statistics are not verified.",
+      directPatchImpact[seed.championId] ??
+      "No direct champion adjustment in 7.3d. Item and objective changes may still matter.",
     sourceIds: [
       "core-editorial-tier",
       ...(seed.placementKind === "statistics-backed" ? ["tencent-master"] : []),
@@ -323,10 +322,10 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
 export const rankings: readonly ChampionRoleRanking[] = rankingSeeds.map(makeRanking);
 
 export const quickPickChampionIds: Readonly<Record<RoleKey, string>> = {
-  baron: "malphite",
-  jungle: "nocturne",
+  baron: "shen",
+  jungle: "rammus",
   mid: "hwei",
-  dragon: "ashe",
+  dragon: "smolder",
   support: "braum",
 };
 
