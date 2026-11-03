@@ -1,0 +1,219 @@
+name: PBZ P0 asset builder (temporary)
+
+on:
+  push:
+    branches:
+      - feat/phantom-blade-zero-tier-list
+    paths:
+      - ".github/workflows/pbz-p0-assets-temp.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure ImageMagick is available
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v identify >/dev/null 2>&1 || ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y imagemagick
+          fi
+          identify -version
+          convert -version
+
+      - name: Download, validate, optimize, and inventory P0 assets
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import pathlib
+          import re
+          import subprocess
+          import urllib.parse
+
+          root = pathlib.Path(".")
+          provenance = root / "src/modules/phantom-blade-zero-tier-list/asset-provenance.ts"
+          text = provenance.read_text(encoding="utf-8")
+
+          icon_pairs = re.findall(
+              r'\[\s*"([^"]+)",\s*"(https://static\.allthings\.how/[^"]+)"\s*\]',
+              text,
+              flags=re.S,
+          )
+          if len(icon_pairs) != 35:
+              raise SystemExit(f"Expected 35 entity source mappings, found {len(icon_pairs)}")
+
+          hero_match = re.search(
+              r'id:\s*"hero"[\s\S]*?sourceUrl:\s*\n?\s*"([^"]+)"',
+              text,
+          )
+          if not hero_match:
+              raise SystemExit("Hero source URL not found")
+          hero_url = hero_match.group(1)
+
+          out_root = root / "public/images/phantom-blade-zero"
+          icon_out = out_root / "tier-icons"
+          raw_root = pathlib.Path("/tmp/pbz-source-assets")
+          out_root.mkdir(parents=True, exist_ok=True)
+          icon_out.mkdir(parents=True, exist_ok=True)
+          raw_root.mkdir(parents=True, exist_ok=True)
+
+          def run(args):
+              proc = subprocess.run(args, check=False, capture_output=True, text=True)
+              if proc.returncode != 0:
+                  raise RuntimeError(
+                      f"Command failed ({proc.returncode}): {' '.join(args)}\n"
+                      + proc.stdout + "\n" + proc.stderr
+                  )
+              return proc.stdout.strip()
+
+          def download(url, dest, referer):
+              run([
+                  "curl", "-L", "--fail", "--retry", "3", "--retry-delay", "2",
+                  "--connect-timeout", "20", "--max-time", "120",
+                  "-A", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/141 Safari/537.36",
+                  "-H", f"Referer: {referer}",
+                  url, "-o", str(dest),
+              ])
+              if not dest.exists() or dest.stat().st_size < 512:
+                  raise RuntimeError(f"Downloaded file is empty/suspicious: {url}")
+
+          def dims(path):
+              value = run(["identify", "-format", "%w %h", str(path)])
+              w, h = map(int, value.split())
+              if w <= 0 or h <= 0:
+                  raise RuntimeError(f"Invalid image dimensions: {path}")
+              return {"width": w, "height": h}
+
+          def sha(path):
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+
+          records = []
+
+          hero_raw = raw_root / "hero.source"
+          download(
+              hero_url,
+              hero_raw,
+              "https://www.playstation.com/en-us/games/phantom-blade-zero/",
+          )
+          hero_original = dims(hero_raw)
+          hero_out = out_root / "hero.webp"
+          run([
+              "convert", str(hero_raw), "-auto-orient",
+              "-resize", "1600x900^",
+              "-gravity", "center",
+              "-extent", "1600x900",
+              "-strip", "-quality", "82",
+              str(hero_out),
+          ])
+          hero_output = dims(hero_out)
+          if hero_output != {"width": 1600, "height": 900}:
+              raise RuntimeError(f"Unexpected hero output dimensions: {hero_output}")
+          records.append({
+              "id": "hero",
+              "entityId": None,
+              "role": "hero",
+              "sourceUrl": hero_url,
+              "sourcePage": "https://www.playstation.com/en-us/games/phantom-blade-zero/",
+              "sourceType": "official",
+              "originalDimensions": hero_original,
+              "sourceSha256": sha(hero_raw),
+              "outputDimensions": hero_output,
+              "outputSha256": sha(hero_out),
+              "outputBytes": hero_out.stat().st_size,
+              "transform": "auto-orient; center-cover resize/crop to 1600x900; strip metadata; WebP quality 82",
+              "crop": "center cover 16:9",
+              "localPath": "/images/phantom-blade-zero/hero.webp",
+          })
+
+          for entity_id, source_url in icon_pairs:
+              raw = raw_root / f"{entity_id}.source"
+              download(
+                  source_url,
+                  raw,
+                  "https://allthings.how/phantom-blade-zero-weapons-list/",
+              )
+              original = dims(raw)
+              output = icon_out / f"{entity_id}.webp"
+              run([
+                  "convert", str(raw), "-auto-orient",
+                  "-resize", "128x128>",
+                  "-gravity", "center",
+                  "-background", "none",
+                  "-extent", "128x128",
+                  "-strip", "-quality", "82",
+                  str(output),
+              ])
+              output_dims = dims(output)
+              if output_dims != {"width": 128, "height": 128}:
+                  raise RuntimeError(f"Unexpected output dimensions for {entity_id}: {output_dims}")
+              records.append({
+                  "id": f"tier-icon-{entity_id}",
+                  "entityId": entity_id,
+                  "role": "tier_icon",
+                  "sourceUrl": source_url,
+                  "sourcePage": "https://allthings.how/phantom-blade-zero-weapons-list/",
+                  "sourceType": "public_verified_game_capture",
+                  "originalDimensions": original,
+                  "sourceSha256": sha(raw),
+                  "outputDimensions": output_dims,
+                  "outputSha256": sha(output),
+                  "outputBytes": output.stat().st_size,
+                  "transform": "auto-orient; fit within 128x128; centered transparent extent; strip metadata; WebP quality 82",
+                  "crop": None,
+                  "localPath": f"/images/phantom-blade-zero/tier-icons/{entity_id}.webp",
+              })
+
+          if len(records) != 36:
+              raise SystemExit(f"Expected 36 records, found {len(records)}")
+
+          for rec in records:
+              local = root / rec["localPath"].lstrip("/")
+              run(["identify", "-regard-warnings", str(local)])
+
+          metadata = out_root / "p0-asset-metadata.json"
+          metadata.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
+
+          total_bytes = sum(r["outputBytes"] for r in records)
+          summary = {
+              "required": 36,
+              "verified": len(records),
+              "heroBytes": records[0]["outputBytes"],
+              "tierIconBytes": sum(r["outputBytes"] for r in records[1:]),
+              "totalBytes": total_bytes,
+          }
+          (out_root / "p0-asset-summary.json").write_text(
+              json.dumps(summary, indent=2) + "\n", encoding="utf-8"
+          )
+          print(json.dumps(summary, indent=2))
+
+      - name: Build visual contact sheet for audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/pbz-contact
+          montage public/images/phantom-blade-zero/tier-icons/*.webp \
+            -thumbnail 128x128 \
+            -tile 6x6 \
+            -geometry 128x128+8+8 \
+            -background '#111111' \
+            /tmp/pbz-contact/entity-contact-sheet.webp
+          cp public/images/phantom-blade-zero/hero.webp /tmp/pbz-contact/hero.webp
+
+      - name: Upload verified P0 bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: pbz-p0-assets
+          path: |
+            public/images/phantom-blade-zero/
+            /tmp/pbz-contact/
+          if-no-files-found: error
+          retention-days: 1
