@@ -35,8 +35,8 @@ function LazyTierIcon({ entityId }: { readonly entityId: string }) {
     if (!slot || shouldLoad) return;
 
     if (!("IntersectionObserver" in window)) {
-      const timeoutId = window.setTimeout(() => setShouldLoad(true), 0);
-      return () => window.clearTimeout(timeoutId);
+      const timeoutId = setTimeout(() => setShouldLoad(true), 0);
+      return () => clearTimeout(timeoutId);
     }
 
     const observer = new IntersectionObserver(
