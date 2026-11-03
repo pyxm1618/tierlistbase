@@ -968,7 +968,8 @@ export const phantomBladeZeroSnapshot = {
     {
       label: "Early Phantom Edge",
       entityId: "dread-axe",
-      reason: "Two editorial rankings plus 3rd-of-9 raw card Damage support its shield-breaking value.",
+      reason:
+        "Two editorial rankings plus 3rd-of-9 raw card Damage support its shield-breaking value.",
     },
     {
       label: "Raw-Damage Phantom Edge",
