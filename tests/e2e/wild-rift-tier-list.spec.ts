@@ -98,7 +98,7 @@ test("Wild Rift filters, Other Viable Roles, and Quick Picks stay synchronized w
   await roleNav.getByRole("tab", { name: /^Baron Lane/ }).click();
   const search = page.getByRole("searchbox", { name: "Search Champions" });
   await search.fill("Garen");
-  await page.getByRole("combobox", { name: "Tier" }).selectOption("C");
+  await page.getByRole("combobox", { name: "Tier" }).selectOption("B");
   await expect(page.locator("[data-champion-id]")).toHaveCount(1);
   await expect(page.locator('[data-champion-id="garen"]')).toBeVisible();
 
@@ -186,7 +186,7 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await expect(card).toContainText("Editorial · statistics unavailable");
   await card.click();
   const detail = page.getByRole("complementary", { name: "Champion Detail" });
-  await expect(detail).toContainText("TierListBase editorial placement");
+  await expect(detail).toContainText("Source-tier placement retained after TierListBase editorial review");
   await expect(detail).toContainText("Source tier: A (Wild Rift Core)");
   await expect(detail).toContainText("TierListBase editorial assessments");
   await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("Gnar");
