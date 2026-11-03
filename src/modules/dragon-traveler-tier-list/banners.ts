@@ -48,6 +48,22 @@ export const verifiedBanners: readonly VerifiedBanner[] = [
     evaluationSourceUrl: "https://www.taptap.cn/moment/683697319169756235",
     checkedAt: "2026-10-28",
   },
+  {
+    server: "taiwan",
+    bannerName: "傳說神話召喚 — 洛基 / 普羅米修士 / 赫拉 / 阿瑞斯",
+    characterIds: ["loki", "prometheus", "hera", "ares"],
+    officialPool: ["詭計之神‧洛基", "盜火之神‧普羅米修士", "天后‧赫拉", "戰神‧阿瑞斯"],
+    startsAt: "2026-10-29T05:00:00+08:00",
+    // The official notice's last minute is 04:59; use an exclusive 05:00 boundary.
+    endsAt: "2026-11-12T05:00:00+08:00",
+    windowLabel: "10/29 05:00–11/12 04:59 (UTC+8)",
+    recommendation: "Consider",
+    rationale:
+      "Consider Loki or Prometheus first when they solve a roster gap; Hera and Ares are more account- and faction-dependent. This follows the current Taiwan rankings and is editorial advice, not an official strength rating.",
+    sourceUrl: "https://news.game-beans.com/jx/sodNotice/20261027/8301.html",
+    evaluationSourceUrl: "https://www.hideoutgacha.com/games/dragon-traveler/tier-list",
+    checkedAt: "2026-11-03",
+  },
 ];
 
 export function currentBannerAt(server: ServerKey, now: number): VerifiedBanner | null {
