@@ -28,14 +28,14 @@ const tierSet = new Set(tiers);
 const championIds = new Set(champions.map((champion) => champion.id));
 const sourceIds = new Set(sources.map((source) => source.id));
 describe("Wild Rift reviewed snapshot", () => {
-  it("separates current 7.3d balance from the pre-patch statistics snapshot", () => {
+  it("pins the current 7.3d Master+ statistics snapshot", () => {
     expect(snapshot).toEqual({
       gameVersion: "7.3d",
       latestRankedBalance: "7.3d",
-      snapshotDate: "2026-10-27",
-      reviewedAt: "2026-10-29",
-      statisticsPatch: "7.3c",
-      postBalanceStatisticsVerified: false,
+      snapshotDate: "2026-11-01",
+      reviewedAt: "2026-11-03",
+      statisticsPatch: "7.3d",
+      postBalanceStatisticsVerified: true,
       region: "CN",
       rankContext: "Master+",
       queueContext: "Ranked",
