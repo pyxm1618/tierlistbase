@@ -16,9 +16,7 @@ test.describe("Phantom Blade Zero tier list preview", () => {
     await expect(page.getByText("Iron Chain Breaker", { exact: true })).toBeVisible();
   });
 
-  test("supports search, category filtering, clear, Pending, and Needs Review", async ({
-    page,
-  }) => {
+  test("supports search, category filtering, clear, and Pending", async ({ page }) => {
     await page.getByRole("searchbox", { name: "Search main weapons" }).fill("Seamless");
     await expect(page.getByRole("button", { name: /Seamless Death/ })).toBeVisible();
     await expect(page.locator('[aria-label="Pending tier"]')).toBeVisible();
@@ -30,7 +28,7 @@ test.describe("Phantom Blade Zero tier list preview", () => {
 
     await page.getByLabel("Filter by category").selectOption("Martial");
     await expect(page.getByRole("button", { name: /Hunter’s Chain Sickle/ })).toBeVisible();
-    await expect(page.locator('[aria-label="Needs Review tier"]')).toBeVisible();
+    await expect(page.locator('[aria-label="Pending tier"]')).toBeVisible();
 
     await page.getByRole("button", { name: "Clear filters" }).click();
     await expect(page.getByRole("button", { name: /Thunder Spear/ })).toBeVisible();
