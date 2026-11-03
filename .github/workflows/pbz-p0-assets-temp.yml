@@ -276,7 +276,7 @@ jobs:
               raise SystemExit(f"Expected 36 records, found {len(records)}")
 
           for rec in records:
-              local = root / rec["localPath"].lstrip("/")
+              local = root / "public" / rec["localPath"].lstrip("/")
               run(["identify", "-regard-warnings", str(local)])
 
           (out_root / "p0-asset-metadata.json").write_text(
