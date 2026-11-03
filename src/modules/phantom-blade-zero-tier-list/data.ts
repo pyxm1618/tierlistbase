@@ -525,8 +525,7 @@ export const phantomBladeZeroSnapshot = {
   officialScale: {
     mainWeapons: "30+",
     phantomEdges: 25,
-    note:
-      "Official scale is not TierListBase coverage. Only entities with verified identity and sufficient source evidence are included below.",
+    note: "Official scale is not TierListBase coverage. Only entities with verified identity and sufficient source evidence are included below.",
   },
   sources: phantomBladeZeroSources,
   mainWeapons: reviewedMainWeapons,

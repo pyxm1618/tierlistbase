@@ -142,9 +142,7 @@ export function PhantomBladeZeroTierListPage() {
   const [kind, setKind] = useState<WorkspaceKind>("main_weapon");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
-  const [selectedId, setSelectedId] = useState(
-    phantomBladeZeroSnapshot.mainWeapons[0]?.id ?? "",
-  );
+  const [selectedId, setSelectedId] = useState(phantomBladeZeroSnapshot.mainWeapons[0]?.id ?? "");
 
   const entities =
     kind === "main_weapon"
