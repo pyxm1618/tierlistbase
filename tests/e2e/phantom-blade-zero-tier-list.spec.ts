@@ -91,9 +91,7 @@ test.describe("Phantom Blade Zero tier list preview", () => {
       for (let index = 0; index < expectedCount; index += 1) {
         const slot = slots.nth(index);
         await slot.scrollIntoViewIfNeeded();
-        await expect
-          .poll(() => slot.locator('img[data-p0-role="tier-icon"]').count())
-          .toBe(1);
+        await expect.poll(() => slot.locator('img[data-p0-role="tier-icon"]').count()).toBe(1);
       }
 
       const images = page.locator('img[data-p0-role="tier-icon"]');
