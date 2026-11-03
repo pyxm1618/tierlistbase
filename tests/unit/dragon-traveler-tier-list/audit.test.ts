@@ -18,7 +18,5 @@ it("keeps official-banner targets inside their matching live roster", () => {
 it("uses the current Taiwan mythic summon on the release date", () => {
   const banner = currentBannerAt("taiwan", Date.parse("2026-11-03T12:00:00+08:00"));
   expect(banner?.characterIds).toEqual(["loki", "prometheus", "hera", "ares"]);
-  expect(banner?.sourceUrl).toBe(
-    "https://news.game-beans.com/jx/sodNotice/20261027/8301.html",
-  );
+  expect(banner?.sourceUrl).toBe("https://news.game-beans.com/jx/sodNotice/20261027/8301.html");
 });
