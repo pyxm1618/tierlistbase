@@ -20,9 +20,14 @@ describe("Phantom Blade Zero module integration", () => {
     expect(routeRegistry.get(PHANTOM_BLADE_ZERO_ROUTE).class).toBe("public_noindex");
   });
 
-  it("keeps reviewed data usable while the P0 release gate stays closed", () => {
-    expect(phantomBladeZeroSnapshot.mainWeapons.length).toBeGreaterThan(0);
-    expect(phantomBladeZeroSnapshot.phantomEdges.length).toBeGreaterThan(0);
-    expect(getPhantomBladeZeroReleaseReadiness().ready).toBe(false);
+  it("opens the P0 release gate after all required local assets are verified", () => {
+    expect(phantomBladeZeroSnapshot.mainWeapons).toHaveLength(21);
+    expect(phantomBladeZeroSnapshot.phantomEdges).toHaveLength(14);
+    expect(getPhantomBladeZeroReleaseReadiness()).toMatchObject({
+      ready: true,
+      required: 36,
+      verified: 36,
+      missing: [],
+    });
   });
 });
