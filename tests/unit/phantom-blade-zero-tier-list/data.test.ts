@@ -53,7 +53,7 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
     expect(pending.finalTier).toBe("Pending");
   });
 
-  it("is deterministic and preserves visible disagreement", () => {
+  it("is deterministic after supporting-only sources are removed from tier voting", () => {
     for (const entity of allEntities) {
       const once = reviewPhantomBladeZeroEntity(entity);
       const twice = reviewPhantomBladeZeroEntity(entity);
@@ -64,26 +64,25 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
     expect(
       phantomBladeZeroSnapshot.phantomEdges.find((entity) => entity.id === "hunters-chain-sickle")
         ?.finalTier,
-    ).toBe("Needs Review");
+    ).toBe("Pending");
   });
 
-  it("includes every Phantom Edge with two currently verified independent editorial rankings", () => {
-    for (const id of [
-      "kuye-temple-prayer-beads",
-      "inanis-radiant-fan",
-      "puppeteers-bell",
-      "feather-bow",
-      "bashpole",
-    ]) {
-      const entity = phantomBladeZeroSnapshot.phantomEdges.find((item) => item.id === id);
-      expect(entity?.independentSourceCount).toBeGreaterThanOrEqual(2);
-      expect(entity?.finalTier).not.toBe("Pending");
+  it("keeps every reviewed Phantom Edge Pending until a second comprehensive ranking exists", () => {
+    expect(phantomBladeZeroSnapshot.phantomEdges).toHaveLength(14);
+    for (const entity of phantomBladeZeroSnapshot.phantomEdges) {
+      expect(entity.independentSourceCount).toBe(1);
+      expect(entity.consensusTier).toBeNull();
+      expect(entity.finalTier).toBe("Pending");
+      expect(entity.disagreement).toBe(false);
     }
 
-    const dreadAxe = phantomBladeZeroSnapshot.phantomEdges.find(
-      (entity) => entity.id === "dread-axe",
+    const supportingIds = new Set(
+      phantomBladeZeroSnapshot.sources
+        .filter((source) => source.nature === "supporting")
+        .map((source) => source.id),
     );
-    expect(dreadAxe?.finalTier).toBe("S");
+    expect(supportingIds).toContain("allthings-edge-stats");
+    expect(supportingIds).toContain("gamesgg-edge");
   });
 
   it("keeps missing source coverage as Pending instead of zero", () => {
