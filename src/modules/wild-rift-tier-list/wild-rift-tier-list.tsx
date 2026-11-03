@@ -23,11 +23,11 @@ const faq = [
   ],
   [
     "Why isn't the Tier List sorted only by win rate?",
-    "This snapshot retains Wild Rift Core source tiers after TierListBase role review. Tiers are editorial judgements, not official Riot or Tencent rankings or a TierListBase statistical formula. WR / PR / BR are evidence; no sample counts or confidence intervals are supplied.",
+    "This snapshot retains Wild Rift Core source tiers after TierListBase role review. Wild Rift Core describes its tier list as a data-informed ranking using Master+ performance and consensus; it is not a Riot or Tencent official tier. TierListBase Decision Signals are separate editorial assessments. WR / PR / BR remain raw evidence, not a TierListBase tier formula.",
   ],
   [
     "Is the current game patch included?",
-    `The current game version and latest standard Ranked balance are ${snapshot.gameVersion}. The reviewed Master+ CN statistics are dated ${snapshot.snapshotDate} and labeled ${snapshot.statisticsPatch}. Raw role statistics and editorial tier judgements remain separate.`,
+    `The current game version and latest standard Ranked balance are ${snapshot.gameVersion}. The reviewed Master+ CN statistics are dated ${snapshot.snapshotDate} and labeled ${snapshot.statisticsPatch}. Raw role statistics, Wild Rift Core source tiers, and TierListBase editorial signals remain separate.`,
   ],
   [
     "What is the difference between Dragon Lane and ADC?",
