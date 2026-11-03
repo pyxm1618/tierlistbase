@@ -10,6 +10,7 @@ const bespokeIndexableRoutes = new Set([
   "/genshin-impact/tier-list",
   "/limbus-company/tier-list",
   "/nikke/tier-list",
+  "/phantom-blade-zero/tier-list",
   "/wow-forever/vanguard",
   "/about",
 ]);
