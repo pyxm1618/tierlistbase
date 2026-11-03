@@ -33,6 +33,46 @@ export const verifiedBanners: readonly VerifiedBanner[] = [
     checkedAt: "2026-10-28",
   },
   {
+    server: "global",
+    bannerName: "Mythical Summon — Select SSR Ex Luminary",
+    characterIds: [
+      "hel",
+      "prometheus",
+      "artemis",
+      "thor",
+      "loki",
+      "ares",
+      "apollo",
+      "venus",
+      "athena",
+      "poseidon",
+      "hades",
+    ],
+    officialPool: [
+      "Goddess of Death - Hela",
+      "Firethief Goddess - Prometheus",
+      "Goddess of the Moon - Artemis",
+      "Thunder Goddess - Thor",
+      "Goddess of Trickery - Loki",
+      "Goddess of War - Ares",
+      "Sun Goddess - Apollo",
+      "Love Goddess - Venus",
+      "Goddess of Wisdom - Athena",
+      "Sea Goddess - Poseidon",
+      "King of the Underworld - Hades",
+    ],
+    startsAt: "2026-10-29T05:00:00-05:00",
+    endsAt: "2026-11-12T05:00:00-05:00",
+    windowLabel: "10/29 05:00–11/12 04:59 (UTC−5)",
+    recommendation: "Consider",
+    rationale:
+      "For this selectable SSR Ex pool, Poseidon, Loki, Artemis and Venus sit in the current Global top Overall band. Choose for the team and faction gap you actually need; this is editorial advice, not an official strength rating.",
+    sourceUrl:
+      "https://www.hideoutgacha.com/news/dragon-traveler/october-29-mythical-summon-vajra",
+    evaluationSourceUrl: "https://www.hideoutgacha.com/games/dragon-traveler/tier-list",
+    checkedAt: "2026-11-03",
+  },
+  {
     server: "taiwan",
     bannerName: "傳說神話召喚",
     characterIds: ["hypnos", "artemis"],
@@ -69,11 +109,13 @@ export const verifiedBanners: readonly VerifiedBanner[] = [
 export function currentBannerAt(server: ServerKey, now: number): VerifiedBanner | null {
   if (!Number.isFinite(now)) return null;
   return (
-    verifiedBanners.find(
-      (banner) =>
-        banner.server === server &&
-        now >= Date.parse(banner.startsAt) &&
-        now < Date.parse(banner.endsAt),
-    ) ?? null
+    verifiedBanners
+      .filter(
+        (banner) =>
+          banner.server === server &&
+          now >= Date.parse(banner.startsAt) &&
+          now < Date.parse(banner.endsAt),
+      )
+      .sort((left, right) => Date.parse(right.startsAt) - Date.parse(left.startsAt))[0] ?? null
   );
 }
