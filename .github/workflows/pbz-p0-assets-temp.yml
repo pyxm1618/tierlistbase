@@ -155,11 +155,12 @@ jobs:
                   body, _, status = proc.stdout.rpartition("\n")
                   if status.strip() != "200":
                       continue
-                  heading = re.search(r"<h1\\b[^>]*>([\\s\\S]*?)</h1>", body, flags=re.I)
-                  if not heading:
+                  title_match = re.search(r"<title>([\\s\\S]*?)</title>", body, flags=re.I)
+                  if not title_match:
                       continue
-                  title = html.unescape(re.sub(r"<[^>]+>", " ", heading.group(1))).strip()
-                  if norm(title) == norm(entity_name):
+                  title = html.unescape(re.sub(r"<[^>]+>", " ", title_match.group(1))).strip()
+                  title_prefix = re.split(r"\\s*(?:\\||:|–|—)\\s*", title, maxsplit=1)[0].strip()
+                  if norm(title_prefix) == norm(entity_name):
                       return page_url, body
               raise RuntimeError(
                   f"No exact verified pbz.gg page found for {entity_name}; candidates={candidate_slugs(entity_name, entity_id)}"
