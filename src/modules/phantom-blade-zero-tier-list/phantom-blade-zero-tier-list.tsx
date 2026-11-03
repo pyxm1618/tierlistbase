@@ -364,14 +364,16 @@ export function PhantomBladeZeroTierListPage() {
             <p className={styles.eyebrow}>Reproducible rules</p>
             <h2 id="methodology-title">Ranking Methodology</h2>
             <p>
-              TierListBase only counts post-launch sources that actually compare multiple weapons.
-              Missing coverage is ignored rather than scored as zero. Tier sources normalize S/A/B/C
-              to 1.0/0.7/0.4/0.1; ordinal lists normalize relative position from first to last.
+              TierListBase only counts post-launch comprehensive editorial rankings that compare
+              multiple weapons on overall combat value. Missing coverage is ignored rather than
+              scored as zero. Objective card stats, unlock guides, and entity-level utility notes
+              remain supporting evidence and never count as a Final Tier vote.
             </p>
             <p>
-              An entity needs at least two independent valid ranking sources to leave Pending. If
-              normalized source scores differ by 0.5 or more, the result becomes Needs Review rather
-              than forcing a tier. No manual overrides are present in this snapshot.
+              An entity needs at least two independent comprehensive ranking sources to leave
+              Pending. If qualifying normalized tier scores differ by 0.5 or more, the result becomes
+              Needs Review rather than forcing a tier. No manual overrides are present in this
+              snapshot.
             </p>
             <p>
               Internal normalized scores exist only to make the calculation repeatable. They are not
@@ -439,11 +441,11 @@ export function PhantomBladeZeroTierListPage() {
               </p>
             </details>
             <details>
-              <summary>Why can a Phantom Edge be marked Needs Review?</summary>
+              <summary>Why are the reviewed Phantom Edges Pending?</summary>
               <p>
-                The current Phantom Edge evidence mixes a general-utility tier list with a raw card
-                Damage ordering. Large disagreement between those methods is exposed instead of
-                silently averaged away.
+                The current reviewed Phantom Edges have one qualifying comprehensive editorial tier
+                source. Card stats and utility or unlock guides remain supporting evidence, so they
+                cannot be used as a second vote just to force a published tier.
               </p>
             </details>
             <details>
