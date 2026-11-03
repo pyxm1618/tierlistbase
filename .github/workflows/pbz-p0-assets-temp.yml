@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-assets:
@@ -314,3 +314,21 @@ jobs:
             /tmp/pbz-contact/
           if-no-files-found: error
           retention-days: 1
+
+      - name: Commit verified production P0 assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin feat/phantom-blade-zero-tier-list
+          test "$(git rev-parse origin/feat/phantom-blade-zero-tier-list)" = "$GITHUB_SHA"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            public/images/phantom-blade-zero/hero.webp \
+            public/images/phantom-blade-zero/tier-icons/*.webp
+          if git diff --cached --quiet; then
+            echo "No production asset changes to commit."
+            exit 0
+          fi
+          git commit -m "feat(phantom-blade-zero): add verified P0 images"
+          git push origin HEAD:feat/phantom-blade-zero-tier-list
