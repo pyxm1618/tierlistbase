@@ -1,79 +1,123 @@
-# PR #114 closeout — 2026-10-29
+# PR #114 closeout — 2026-11-03
 
-**BLOCKED ON SOURCE ASSET / NOT READY. DATA NOT READY for current 7.3d outcomes.**
+**DATA READY / BLOCKED ON SOURCE ASSET / NOT READY FOR FINAL REVIEW.**
 
-Continue PR #114 only. Existing functionality and the five frozen role lists are preserved. No new PR, redesign, API, database, dependency, or ingestion platform.
+Continue PR #114 only. Keep the PR OPEN and DRAFT. Do not merge or deploy.
 
-## Git and CI baseline
+## Current verified data state
 
-- PR: https://github.com/pyxm1618/tierlistbase/pull/114 (OPEN / DRAFT / MERGEABLE when refreshed)
-- Branch: `feat/wild-rift-tier-list-v2`
-- Base: `58c0c75e7b6398a909aec384c0106659ebacf4ec`
-- Incoming handoff Head: `3e58249643aed50829577ec00c6f5d428665dd2e`
-- First closeout Head: `a7787c20a327887241eba8c591150941b1dd8c03`
-- [Full CI at that Head](https://github.com/pyxm1618/tierlistbase/actions/runs/40647795705): quality, performance, E2E, clean-setup all SUCCESS. Production deployment skipped as expected for a PR. All required checks actually ran, including integration/contracts, production build, vinext/runtime smoke, production-mode SEO, and release verification.
-- This new 7.3d freshness correction must pass the complete workflow on its own pushed Head. Final PR description and handoff link the authoritative final run.
-- Worktree: `/Users/milushangdi/.codex/worktrees/wild-rift-114-closeout/tier list`. Primary checkout's Dragon Traveler work is preserved.
+- Current game version: `7.3d`
+- Latest standard Ranked balance: `7.3d`
+- Riot patch date: `2026-10-28`
+- Statistics patch: `7.3d`
+- Statistics updated: `2026-11-01`
+- Region: CN
+- Rank: Master+
+- Queue: Ranked
+- Product focus: Solo Queue
+- Source: Wild Rift Core reporting official Tencent CN statistics; TierListBase does not independently fetch Tencent.
 
-## New source facts and explicit limits
-
-[Riot 7.3d](https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3d/) was published 2026-10-28 and includes standard champion, item, objective, and turret changes. Both current Game Version and Latest Ranked Balance are now 7.3d. They remain separate fields. Historical 7.3c was AAA ARAM-focused; 7.3b is no longer the latest balance patch.
-
-The available [Core rankings reader capture](https://wildriftcore.com/en/rankings/) is dated 2026-10-27 and labels its statistics 7.3c. It has 180 role rows (Mid 40, down from the prior 41). This is a cached reader capture, not a successful live raw refresh. Direct raw access returned HTTP 403 and the browser displayed verification; no challenge was bypassed. The [Core editorial tier page](https://wildriftcore.com/en/tierlist/) labels its tiers 7.3d and still explicitly lists all 208 role placements. Those tier judgements are not evidence of post-7.3d statistical outcomes.
-
-The page prominently states that its statistics predate 7.3d and that post-patch performance is unverified. `snapshot.statisticsPatch` and `snapshot.postBalanceStatisticsVerified` prevent laundering old statistics into a new patch. `freshness-audit.json` reconciles five roles: 0 approved for current-patch outcomes, 5 deferred, 0 rejected, 0 unreviewed.
-
-## Data audit
-
-| Gate | Result | Evidence and limits |
-| --- | --- | --- |
-| Raw Statistics Audit | PASS for dated available capture | All 540 WR/PR/BR values exactly match 180 readable rows at source precision. Raw percentage strings and reader line references are pinned in `reviewed-source-snapshot.json`; the prior 543-value fixture and hash are preserved separately. This is Core-reported Tencent data, not an independent Tencent fetch. |
-| Role Coverage Audit | PASS for available capture | All 208 originals are itemized. 180 exact statistics rows (A), 28 explicit editorial role placements on the second page (B), 0 unsupported, 0 unreviewed. Both pages have the same publisher; this is not independent corroboration. |
-| Tier Provenance Audit | PASS | Source tier, final tier, source ID, override reason, and placement kind are separate. All 208 source tiers are retained; no overrides or official-tier claims. |
-| Trend Audit | PASS for available evidence | Six explicitly labeled same-role seven-day spotlight deltas are verified; 202 remain unavailable. No old `d7` values are copied forward, no ambiguous “30 d” column is treated as seven-day evidence, and no arrows come from tier movement. |
-| What Changed Evidence Audit | PASS | No unsupported changes published. All 16 originals remain deferred in `change-audit.json`: source-reported from/to/date exist, causal reasons do not. Published 0; unreviewed 0. |
-| Editorial Signal Audit | PASS | All 208 Champion × Role assessments have explicit values and role rationales. No signal is computed from Tier. Methodology explains rubric and direction, including High Team Dependence. |
-| Champion Detail Content Audit | PASS as dated editorial review | 208 individual role rationales and 142 specific strength/limitation pairs; primary ability URLs in `official-kit-evidence.json`. All 11 direct champion changes in 7.3d are noted. Every detail discloses that measured post-7.3d outcomes are unavailable. |
-| Current-patch data freshness | FAIL / DEFERRED | No verifiable post-7.3d statistics window. Passing transcription and provenance checks does not make this current-patch data ready. |
-
-**DATA NOT READY for current 7.3d acceptance.** Never infer new-patch rates, signal changes, or tier movement from patch notes alone.
+The current Rankings page explicitly labels the dataset `Official Tencent data · Master+ CN · Updated 2026-11-01 · patch 7.3d`. The separate Wild Rift Core homepage currently shows Diamond+ and is not used by this snapshot.
 
 ### Coverage
 
-| Role | Statistics rows | Editorial-only additions | Final placements |
+| Role | Statistics rows | Editorial-only / N/A | Total placements |
 | --- | ---: | ---: | ---: |
-| Baron | 42 | 4 | 46 |
+| Baron | 40 | 6 | 46 |
 | Jungle | 44 | 8 | 52 |
 | Mid | 40 | 10 | 50 |
-| Dragon | 21 | 2 | 23 |
+| Dragon | 22 | 1 | 23 |
 | Support | 33 | 4 | 37 |
-| Total | 180 | 28 | 208 |
+| **Total** | **179** | **29** | **208** |
 
-Diana × Mid is absent from the newer readable statistics table but remains explicitly listed on the editorial role page. Its rates are now N/A, alongside the other 27 editorial-only placements. Missing values: 84 (28 triples). Fabricated statistics: 0. Earlier cross-role substitutions are removed; no role inherits another role's WR/PR/BR.
+All 537 retained WR / PR / BR values preserve source precision. Missing role rows stay `N/A`; no Diamond+, old-patch, champion-wide replacement, cross-role borrowing, interpolation, or manual estimation is used.
 
-Champion catalog: 142. Source headline: 134 tracked. Actual distinct champions counted in the readable role rows: 136. The publisher's headline discrepancy remains unresolved and disclosed.
+Compared with the previous reviewed 7.3c snapshot, Diana × Mid and Corki × Dragon now have exact current role rows. Singed × Baron, Tristana × Baron, and Malphite × Mid no longer have current exact role rows and therefore display `N/A`.
 
-Quick Picks, detail rates, and tiers use the same audited rankings. Biggest Riser compares only the available same-role seven-day evidence; Mid and Support have no verified positive delta and publish no Biggest Riser item. Highest Draft Priority uses champion-wide BR and says so. All insight conclusions are editorial and use pre-7.3d evidence, not verified new-patch results.
+The source headline says **135 champions tracked** while the 179 current role rows contain **136 distinct champions**. Both facts are preserved; TierListBase does not normalize the discrepancy away.
 
-## Preserved audit history
+## Provenance
 
-The prior source fixtures, placement ledger, and report are copied intact to `2026-10-28-*.json` / `2026-10-28-CLOSEOUT.md`. These preserve the prior 181 statistics rows, 27 editorial additions, and 136 trend deltas without implying they remain current. The original 16 change records are preserved in their own ledger. No unreviewed item was deleted or treated as rejected.
+Three evidence classes remain separate:
+
+1. **Raw statistics** — WR / PR / BR from the exact Master+ CN Champion × Role row.
+2. **Wild Rift Core source tier** — the source's current role ranking. The source describes this tier list as data-informed and recomputed from Master+ performance, presence, and expert/community consensus. It is not a Riot or Tencent official tier.
+3. **TierListBase Editorial Assessment** — Champion × Role rationale and Decision Signals. These are not Tencent statistics or Riot facts.
+
+No TierListBase tier override is currently applied.
+
+## Trend and What Changed
+
+Trend arrows use only explicitly verifiable same-role **7-day** movement evidence. Six spotlight changes are retained:
+
+- Shyvana Jungle +6.85 pp
+- Lee Sin Jungle +2.10 pp
+- Akali Mid +1.73 pp
+- Samira Dragon −2.08 pp
+- Malphite Baron −1.51 pp
+- Mel Mid −1.02 pp
+
+The Rankings table's separate `30 d` column is not reinterpreted as 7-day evidence.
+
+`What Changed` now publishes 16 source-tier movements because the current source explicitly provides the role, previous tier, current tier, and date. The UI labels them as **Source tier movement** and does not invent causal explanations.
+
+## Patch impact
+
+Riot 7.3d directly changes Shyvana, Camille, Malphite, Ekko, Lee Sin, Akali, Nasus, Samira, Ashe, Miss Fortune, and Singed. Those facts are described from Riot patch notes. A patch note is never used as proof that WR / PR / BR or tier rose or fell.
+
+Champions without a direct 7.3d champion adjustment explicitly say that no direct champion adjustment is listed for 7.3d; item / objective effects may still matter.
+
+## Audit gates
+
+| Gate | Result |
+| --- | --- |
+| Raw Statistics Audit | PASS |
+| Patch Freshness | PASS |
+| Rank Context Consistency | PASS |
+| Role Coverage Audit | PASS |
+| Tier Provenance Audit | PASS |
+| Missing Statistics Honesty | PASS |
+| Trend Audit | PASS |
+| What Changed Audit | PASS |
+| Editorial Signals Audit | PASS |
+| Champion Detail Audit | PASS |
+| Fabricated Statistics | 0 |
+
+Historical `2026-10-28-*` fixtures remain untouched as historical evidence. The current reviewed source is also preserved as `2026-11-01-reviewed-source-snapshot.json`.
 
 ## Missing Design Assets
 
-| Item | Use | Recommended delivery | Transparency / text |
-| --- | --- | --- | --- |
-| Final frozen Desktop Web design | Sole source for overlay, crop, typography, spacing and all states | Original full-size export with intended CSS viewport width, ideally 2×, plus any missing fonts | As exported; preserve design text |
-| Final approved Wild Rift Hero | Exact Hero background/crop | Original lossless artwork, ideally at least 3840 px wide for 1920 px desktop at 2×; exact ratio awaits design | Transparent only if required; no text |
-| Approved Norra portrait | Cards and Champion Detail | Original square PNG/WebP, ideally at least 256×256, matching the approved portrait family | Transparency optional; no text |
-| Other design-specific icons/textures/slices | Cannot inventory without frozen design | Exact files, dimensions and placements pending design | Pending design; do not substitute |
+The data blocker is closed. The release is still blocked by design source assets.
 
-`norra.svg` is a letter-N placeholder, not a real champion portrait. Its non-null path and explicit `portraitKind: placeholder` fix the model/typecheck while preserving the asset test and honest accessible label. All 142 local files decode; 141 are champion images and one is a placeholder. Portrait acceptance remains FAIL.
+| Item | Page use | Current problem | Recommended delivery | Transparency / text |
+| --- | --- | --- | --- | --- |
+| **Final frozen Desktop design — approved identity** | Sole visual source for 1440 overlay and all section geometry | Three 1024×1536 Wild Rift full-page mockups exist in the user's files, but available evidence does not identify which one is the approved frozen source of truth | Provide / identify the approved original at the intended viewport, preferably 1440 px wide or 2× (2880 px) | Preserve design text; no transparency requirement |
+| **Final approved Hero artwork** | Hero background / crop | Repo has no approved source artwork matching the frozen design | Exact approved text-free composition; preferably ≥2880 px wide for 1440 desktop, ideally 3840 px wide if 1920 desktop must remain sharp | No webpage text; transparency only if the approved design uses a separate foreground layer |
+| **Norra portrait** | Champion card and Champion Detail | `public/images/wild-rift/champions/norra.svg` is only a letter-N placeholder | Approved square portrait, preferably 512×512 PNG/WebP or larger | No text; transparency optional |
+| **Other design-specific artwork** | Decorative slices / motifs if baked into the approved design | Cannot be inventoried reliably until the approved frozen design is identified | Exact source exports only where CSS/SVG cannot reproduce the element | No substitute / approximation |
 
-No frozen design or approved Hero original was supplied. Existing CSS atmosphere is inherited implementation, not an accepted Hero. No random online artwork, generated approximation, or mixed-version design assets were added. Pixel-perfect Desktop remains unverified: no overlay comparison exists.
+CSS-realizable borders, glow, gradients, dividers, card backgrounds, and simple geometry are not treated as missing artwork.
 
-## Engineering and remaining acceptance
+Because the approved final design identity, Hero source, and Norra portrait are not available, **pixel-perfect acceptance and 1440 overlay comparison cannot be claimed**.
 
-The previous full green CI is pinned above. Run all latest-workflow gates for this freshness correction without skipping, weakening assertions, or increasing budgets. Unit tests pin both raw fixtures, exact current row counts, every retained rate, provenance, unavailable trends, withheld changes, and the pre/post-patch boundary. Browser checks verify visible N/A, source links, missing portrait labels, real seven-day evidence, and the freshness notice.
+## Scope
 
-Receive the frozen design and approved artwork, inventory remaining slices, perform desktop overlay/difference comparison, and rerun responsive/accessibility/performance checks after actual UI closeout. Re-check main and PR Head before final review. Keep PR DRAFT and report NOT READY until current-patch data and design acceptance are actually satisfied.
+- New dependency: NO
+- New API: NO
+- DB migration: NO
+- Scraper / cron / ingestion platform: NO
+- Homepage visible UI changed: NO — Wild Rift is registered but not exposed as a new Shared Header navigation item.
+- Other game modules changed: NO
+- Product scope expansion: NO
+
+## Engineering
+
+The previous Head `9f6de79a2517c1b8e98c76f3c4247d2dda14fe2f` had a complete green CI baseline. That run is not final acceptance for the current data correction.
+
+The final current Head must pass the complete latest workflow again: format, lint, typecheck, unit, integration/contracts, architecture, SEO, i18n, security, production build, runtime smoke, release verification, E2E/accessibility, performance, and clean-setup. Do not weaken any threshold or assertion.
+
+Final state remains:
+
+`BLOCKED ON SOURCE ASSET`
+
+until the approved frozen Desktop design, approved Hero source, and approved Norra portrait are supplied and the pixel-overlay / final CI gates are completed.
