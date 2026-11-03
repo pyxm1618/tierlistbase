@@ -148,8 +148,13 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
     for (const asset of phantomBladeZeroAssetProvenance) {
       expect(asset.status).toBe("verified_local");
       expect(asset.localPath).toMatch(/^\/images\/phantom-blade-zero\/.+\.webp$/);
-      expect(asset.sourceUrl).toMatch(/^https:\/\//);
-      expect(asset.sourcePage).toMatch(/^https:\/\//);
+      if (asset.sourceType === "user_provided_design_asset") {
+        expect(asset.sourceUrl).toMatch(/^user-provided:\/\//);
+        expect(asset.sourcePage).toBe("Final design asset supplied for PR #117 closeout");
+      } else {
+        expect(asset.sourceUrl).toMatch(/^https:\/\//);
+        expect(asset.sourcePage).toMatch(/^https:\/\//);
+      }
       expect(asset.sourceSha256).toMatch(/^[a-f0-9]{64}$/);
       expect(asset.sha256).toMatch(/^[a-f0-9]{64}$/);
       expect(asset.originalDimensions?.width).toBeGreaterThan(0);
