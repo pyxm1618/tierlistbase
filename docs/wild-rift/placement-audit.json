@@ -241,7 +241,7 @@
         "banRate": 18.2
       },
       "statisticsEvidence": {
-        "championSlug": "ksante",
+        "championSlug": "k-sante",
         "name": "K'Sante",
         "role": "baron",
         "sourceTier": "S",
@@ -249,7 +249,7 @@
         "pickRate": "8.23",
         "banRate": "19.01",
         "winRateChangeDisplayed": "+0.1",
-        "sourceKey": "ksante:baron",
+        "sourceKey": "k-sante:baron",
         "winRateChange7d": null,
         "trendSourceUrl": null,
         "sourceReaderLine": 71
@@ -329,7 +329,7 @@
         "banRate": 38.4
       },
       "statisticsEvidence": {
-        "championSlug": "chogath",
+        "championSlug": "cho-gath",
         "name": "Cho'Gath",
         "role": "baron",
         "sourceTier": "S",
@@ -337,7 +337,7 @@
         "pickRate": "8.59",
         "banRate": "37.52",
         "winRateChangeDisplayed": "+0.3",
-        "sourceKey": "chogath:baron",
+        "sourceKey": "cho-gath:baron",
         "winRateChange7d": null,
         "trendSourceUrl": null,
         "sourceReaderLine": 77
@@ -3023,7 +3023,7 @@
         "banRate": 0.4
       },
       "statisticsEvidence": {
-        "championSlug": "khazix",
+        "championSlug": "kha-zix",
         "name": "Kha'Zix",
         "role": "jungle",
         "sourceTier": "A",
@@ -3031,7 +3031,7 @@
         "pickRate": "5.23",
         "banRate": "0.41",
         "winRateChangeDisplayed": "-0.1",
-        "sourceKey": "khazix:jungle",
+        "sourceKey": "kha-zix:jungle",
         "winRateChange7d": null,
         "trendSourceUrl": null,
         "sourceReaderLine": 137
@@ -3067,7 +3067,7 @@
         "banRate": 38.4
       },
       "statisticsEvidence": {
-        "championSlug": "chogath",
+        "championSlug": "cho-gath",
         "name": "Cho'Gath",
         "role": "jungle",
         "sourceTier": "A",
@@ -3075,7 +3075,7 @@
         "pickRate": "8.09",
         "banRate": "37.52",
         "winRateChangeDisplayed": null,
-        "sourceKey": "chogath:jungle",
+        "sourceKey": "cho-gath:jungle",
         "winRateChange7d": null,
         "trendSourceUrl": null,
         "sourceReaderLine": 140
@@ -5124,7 +5124,7 @@
         "banRate": 0.7
       },
       "statisticsEvidence": {
-        "championSlug": "velkoz",
+        "championSlug": "vel-koz",
         "name": "Vel'Koz",
         "role": "mid",
         "sourceTier": "A",
@@ -5132,7 +5132,7 @@
         "pickRate": "3.24",
         "banRate": "0.78",
         "winRateChangeDisplayed": "+0.3",
-        "sourceKey": "velkoz:mid",
+        "sourceKey": "vel-koz:mid",
         "winRateChange7d": null,
         "trendSourceUrl": null,
         "sourceReaderLine": 185
@@ -6340,7 +6340,7 @@
         "banRate": 0.2
       },
       "statisticsEvidence": {
-        "championSlug": "kogmaw",
+        "championSlug": "kog-maw",
         "name": "Kog'Maw",
         "role": "dragon",
         "sourceTier": "S",
@@ -6348,7 +6348,7 @@
         "pickRate": "2.67",
         "banRate": "0.23",
         "winRateChangeDisplayed": "+0.3",
-        "sourceKey": "kogmaw:dragon",
+        "sourceKey": "kog-maw:dragon",
         "winRateChange7d": null,
         "trendSourceUrl": null,
         "sourceReaderLine": 217
@@ -6472,7 +6472,7 @@
         "banRate": 0.7
       },
       "statisticsEvidence": {
-        "championSlug": "kaisa",
+        "championSlug": "kai-sa",
         "name": "Kai'Sa",
         "role": "dragon",
         "sourceTier": "S",
@@ -6480,7 +6480,7 @@
         "pickRate": "16.91",
         "banRate": "0.81",
         "winRateChangeDisplayed": "+0.5",
-        "sourceKey": "kaisa:dragon",
+        "sourceKey": "kai-sa:dragon",
         "winRateChange7d": null,
         "trendSourceUrl": null,
         "sourceReaderLine": 227
@@ -8144,7 +8144,7 @@
         "banRate": 0.7
       },
       "statisticsEvidence": {
-        "championSlug": "velkoz",
+        "championSlug": "vel-koz",
         "name": "Vel'Koz",
         "role": "support",
         "sourceTier": "B",
@@ -8152,7 +8152,7 @@
         "pickRate": "1.66",
         "banRate": "0.78",
         "winRateChangeDisplayed": null,
-        "sourceKey": "velkoz:support",
+        "sourceKey": "vel-koz:support",
         "winRateChange7d": null,
         "trendSourceUrl": null,
         "sourceReaderLine": 268
@@ -8797,44 +8797,12 @@
   "crossRoleStatisticsRemoved": 20,
   "statisticsBecameAvailable": [
     {
-      "championId": "ksante",
-      "role": "baron"
-    },
-    {
-      "championId": "chogath",
-      "role": "baron"
-    },
-    {
-      "championId": "khazix",
-      "role": "jungle"
-    },
-    {
-      "championId": "chogath",
-      "role": "jungle"
-    },
-    {
-      "championId": "velkoz",
-      "role": "mid"
-    },
-    {
       "championId": "diana",
       "role": "mid"
     },
     {
-      "championId": "kogmaw",
-      "role": "dragon"
-    },
-    {
       "championId": "corki",
       "role": "dragon"
-    },
-    {
-      "championId": "kaisa",
-      "role": "dragon"
-    },
-    {
-      "championId": "velkoz",
-      "role": "support"
     }
   ],
   "statisticsBecameUnavailable": [
@@ -8843,44 +8811,12 @@
       "role": "baron"
     },
     {
-      "championId": "k-sante",
-      "role": "baron"
-    },
-    {
       "championId": "tristana",
       "role": "baron"
     },
     {
-      "championId": "cho-gath",
-      "role": "baron"
-    },
-    {
-      "championId": "kha-zix",
-      "role": "jungle"
-    },
-    {
-      "championId": "cho-gath",
-      "role": "jungle"
-    },
-    {
       "championId": "malphite",
       "role": "mid"
-    },
-    {
-      "championId": "vel-koz",
-      "role": "mid"
-    },
-    {
-      "championId": "kog-maw",
-      "role": "dragon"
-    },
-    {
-      "championId": "kai-sa",
-      "role": "dragon"
-    },
-    {
-      "championId": "vel-koz",
-      "role": "support"
     }
   ]
 }
