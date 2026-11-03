@@ -139,15 +139,24 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
     expect(mappedEntityIds).toEqual(new Set(allEntities.map((entity) => entity.id)));
   });
 
-  it("fails the release gate while any P0 binary is missing", () => {
+  it("opens the P0 release gate only when all 36 local binaries have complete provenance", () => {
     expect(phantomBladeZeroAssetProvenance).toHaveLength(36);
     const readiness = getPhantomBladeZeroReleaseReadiness();
-    expect(readiness).toMatchObject({ ready: false, required: 36, verified: 0 });
-    expect(readiness.missing).toHaveLength(36);
-    expect(
-      phantomBladeZeroAssetProvenance.every(
-        (asset) => asset.status === "source_verified_binary_missing" && asset.localPath === null,
-      ),
-    ).toBe(true);
+    expect(readiness).toMatchObject({ ready: true, required: 36, verified: 36 });
+    expect(readiness.missing).toHaveLength(0);
+
+    for (const asset of phantomBladeZeroAssetProvenance) {
+      expect(asset.status).toBe("verified_local");
+      expect(asset.localPath).toMatch(/^\/images\/phantom-blade-zero\/.+\.webp$/);
+      expect(asset.sourceUrl).toMatch(/^https:\/\//);
+      expect(asset.sourcePage).toMatch(/^https:\/\//);
+      expect(asset.sourceSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(asset.sha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(asset.originalDimensions?.width).toBeGreaterThan(0);
+      expect(asset.originalDimensions?.height).toBeGreaterThan(0);
+      expect(asset.outputDimensions?.width).toBeGreaterThan(0);
+      expect(asset.outputDimensions?.height).toBeGreaterThan(0);
+      expect(asset.transform).toBeTruthy();
+    }
   });
 });
