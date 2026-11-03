@@ -25,7 +25,7 @@ test("Dragon Traveler server contexts, filters and decisions", async ({ page }) 
   );
   const modes = page.getByRole("tablist", { name: "Luminary ranking views" });
   await expect(modes.getByRole("tab", { name: "Overall", exact: true })).toHaveAttribute(
-    "aria-pressed",
+    "aria-selected",
     "true",
   );
   await page.getByRole("searchbox", { name: "Search Luminaries" }).fill("Athena");
@@ -64,7 +64,7 @@ test("Dragon Traveler server contexts, filters and decisions", async ({ page }) 
     "Vivian",
   );
   await page
-    .getByRole("group", { name: "Wishlist context" })
+    .getByRole("tablist", { name: "Wishlist context" })
     .getByRole("tab", { name: "PvP", exact: true })
     .click();
   await expect(page.getByRole("heading", { name: "Current Pull Priority" })).toBeVisible();
@@ -122,8 +122,8 @@ test("Dragon Traveler preserves source-specific Arachne ratings and local portra
   await expect(detail.getByRole("heading", { name: "Arachne", exact: true })).toBeVisible();
   for (const view of ["Overall", "PvE", "PvP"]) {
     await page
-      .getByRole("group", { name: "Luminary ranking views" })
-      .getByRole("button", { name: view, exact: true })
+      .getByRole("tablist", { name: "Luminary ranking views" })
+      .getByRole("tab", { name: view, exact: true })
       .click();
     await expect(
       page
@@ -224,4 +224,40 @@ test("Dragon Traveler has no serious accessibility violations", async ({ page })
   await page.getByRole("button", { name: "Taiwan", exact: true }).click();
   const taiwan = await new AxeBuilder({ page }).include("[data-dragon-traveler-page]").analyze();
   expect(taiwan.violations).toEqual([]);
+});
+
+test("Dragon Traveler reports visible keyword density without enforcing an artificial target", async ({
+  page,
+}) => {
+  await page.goto(route);
+  const text = (await page.locator("main").innerText()).replace(/\s+/g, " ").trim();
+  const words = text.split(/\s+/).filter(Boolean).length;
+  const phrases = [
+    "dragon traveler tier list",
+    "dragon traveler pve tier list",
+    "dragon traveler pvp tier list",
+    "dragon traveler tier list taiwan",
+    "dragon traveler taiwan tier list",
+  ];
+  const normalized = text.toLocaleLowerCase("en-US");
+  const counts = Object.fromEntries(
+    phrases.map((phrase) => [
+      phrase,
+      normalized.split(phrase.toLocaleLowerCase("en-US")).length - 1,
+    ]),
+  );
+  const primaryCount = counts["dragon traveler tier list"] ?? 0;
+  const combinedCount = Object.values(counts).reduce((sum, count) => sum + count, 0);
+  console.log(
+    "DRAGON_TRAVELER_SEO_DENSITY " +
+      JSON.stringify({
+        words,
+        primaryCount,
+        primaryDensity: Number(((primaryCount / words) * 100).toFixed(3)),
+        combinedCount,
+        combinedDensity: Number(((combinedCount / words) * 100).toFixed(3)),
+        counts,
+      }),
+  );
+  expect(words).toBeGreaterThan(0);
 });
