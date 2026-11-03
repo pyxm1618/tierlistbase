@@ -26,13 +26,12 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y imagemagick
           fi
-          identify -version
-          convert -version
 
       - name: Download, validate, optimize, and inventory P0 assets
         shell: python
         run: |
           import hashlib
+          import html
           import json
           import pathlib
           import re
@@ -40,20 +39,19 @@ jobs:
           import urllib.parse
 
           root = pathlib.Path(".")
-          provenance = root / "src/modules/phantom-blade-zero-tier-list/asset-provenance.ts"
-          text = provenance.read_text(encoding="utf-8")
+          data_text = (root / "src/modules/phantom-blade-zero-tier-list/data.ts").read_text(encoding="utf-8")
+          provenance_text = (root / "src/modules/phantom-blade-zero-tier-list/asset-provenance.ts").read_text(encoding="utf-8")
 
-          icon_pairs = re.findall(
-              r'\[\s*"([^"]+)",\s*"(https://static\.allthings\.how/[^"]+)",?\s*\]',
-              text,
-              flags=re.S,
+          entities = re.findall(
+              r'id:\s*"([^"]+)",\s*\n\s*kind:\s*"(main_weapon|phantom_edge)",\s*\n\s*name:\s*"([^"]+)"',
+              data_text,
           )
-          if len(icon_pairs) != 35:
-              raise SystemExit(f"Expected 35 entity source mappings, found {len(icon_pairs)}")
+          if len(entities) != 35:
+              raise SystemExit(f"Expected 35 reviewed entities, found {len(entities)}")
 
           hero_match = re.search(
               r'id:\s*"hero"[\s\S]*?sourceUrl:\s*\n?\s*"([^"]+)"',
-              text,
+              provenance_text,
           )
           if not hero_match:
               raise SystemExit("Hero source URL not found")
@@ -73,21 +71,33 @@ jobs:
                       f"Command failed ({proc.returncode}): {' '.join(args)}\n"
                       + proc.stdout + "\n" + proc.stderr
                   )
-              return proc.stdout.strip()
+              return proc.stdout
+
+          def curl_text(url, referer=None):
+              args = [
+                  "curl", "-L", "--fail", "--retry", "3", "--retry-delay", "2",
+                  "--connect-timeout", "20", "--max-time", "120",
+                  "-A", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/141 Safari/537.36",
+              ]
+              if referer:
+                  args += ["-H", f"Referer: {referer}"]
+              args += [url]
+              return run(args)
 
           def download(url, dest, referer):
-              run([
+              args = [
                   "curl", "-L", "--fail", "--retry", "3", "--retry-delay", "2",
                   "--connect-timeout", "20", "--max-time", "120",
                   "-A", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/141 Safari/537.36",
                   "-H", f"Referer: {referer}",
                   url, "-o", str(dest),
-              ])
+              ]
+              run(args)
               if not dest.exists() or dest.stat().st_size < 512:
                   raise RuntimeError(f"Downloaded file is empty/suspicious: {url}")
 
           def dims(path):
-              value = run(["identify", "-format", "%w %h", str(path)])
+              value = run(["identify", "-format", "%w %h", str(path)]).strip()
               w, h = map(int, value.split())
               if w <= 0 or h <= 0:
                   raise RuntimeError(f"Invalid image dimensions: {path}")
@@ -96,23 +106,76 @@ jobs:
           def sha(path):
               return hashlib.sha256(path.read_bytes()).hexdigest()
 
+          def norm(value):
+              return re.sub(r"[^a-z0-9]+", "", value.lower())
+
+          def attr(tag, name):
+              m = re.search(rf'\b{name}\s*=\s*["\']([^"\']+)["\']', tag, flags=re.I)
+              return html.unescape(m.group(1)) if m else None
+
+          def unwrap_next_image(url, page_url):
+              absolute = urllib.parse.urljoin(page_url, html.unescape(url))
+              parsed = urllib.parse.urlparse(absolute)
+              if parsed.path == "/_next/image":
+                  target = urllib.parse.parse_qs(parsed.query).get("url", [None])[0]
+                  if target:
+                      return urllib.parse.urljoin(page_url, target)
+              return absolute
+
+          def find_entity_image(page_url, entity_name, entity_id):
+              page = curl_text(page_url)
+              tags = re.findall(r"<img\b[^>]*>", page, flags=re.I)
+              candidates = []
+              for tag in tags:
+                  alt = attr(tag, "alt") or ""
+                  if norm(entity_name) not in norm(alt):
+                      continue
+                  srcset = attr(tag, "srcset")
+                  src = attr(tag, "src")
+                  urls = []
+                  if srcset:
+                      for part in srcset.split(","):
+                          piece = part.strip().split(" ")[0]
+                          if piece:
+                              urls.append(piece)
+                  if src:
+                      urls.append(src)
+                  if urls:
+                      candidates.append((alt, unwrap_next_image(urls[-1], page_url)))
+              if not candidates:
+                  # Fallback only when the exact entity slug is present in the image URL.
+                  for tag in tags:
+                      for key in ("srcset", "src"):
+                          value = attr(tag, key)
+                          if not value:
+                              continue
+                          pieces = [p.strip().split(" ")[0] for p in value.split(",")]
+                          for piece in pieces:
+                              absolute = unwrap_next_image(piece, page_url)
+                              if entity_id in urllib.parse.unquote(absolute):
+                                  candidates.append((attr(tag, "alt") or "", absolute))
+              unique = []
+              seen = set()
+              for alt, url in candidates:
+                  if url not in seen:
+                      seen.add(url)
+                      unique.append((alt, url))
+              if not unique:
+                  raise RuntimeError(f"No exact entity image found on {page_url} for {entity_name}")
+              # Prefer the URL containing the entity slug; otherwise the first exact-alt match.
+              unique.sort(key=lambda pair: (entity_id not in urllib.parse.unquote(pair[1]), len(pair[1])))
+              return unique[0][1]
+
           records = []
 
           hero_raw = raw_root / "hero.source"
-          download(
-              hero_url,
-              hero_raw,
-              "https://www.playstation.com/en-us/games/phantom-blade-zero/",
-          )
+          download(hero_url, hero_raw, "https://www.playstation.com/en-us/games/phantom-blade-zero/")
           hero_original = dims(hero_raw)
           hero_out = out_root / "hero.webp"
           run([
               "convert", str(hero_raw), "-auto-orient",
-              "-resize", "1600x900^",
-              "-gravity", "center",
-              "-extent", "1600x900",
-              "-strip", "-quality", "82",
-              str(hero_out),
+              "-resize", "1600x900^", "-gravity", "center", "-extent", "1600x900",
+              "-strip", "-quality", "82", str(hero_out),
           ])
           hero_output = dims(hero_out)
           if hero_output != {"width": 1600, "height": 900}:
@@ -134,23 +197,17 @@ jobs:
               "localPath": "/images/phantom-blade-zero/hero.webp",
           })
 
-          for entity_id, source_url in icon_pairs:
+          for entity_id, kind, entity_name in entities:
+              page_url = f"https://pbz.gg/weapons/{entity_id}/"
+              source_url = find_entity_image(page_url, entity_name, entity_id)
               raw = raw_root / f"{entity_id}.source"
-              download(
-                  source_url,
-                  raw,
-                  "https://allthings.how/phantom-blade-zero-weapons-list/",
-              )
+              download(source_url, raw, page_url)
               original = dims(raw)
               output = icon_out / f"{entity_id}.webp"
               run([
-                  "convert", str(raw), "-auto-orient",
-                  "-resize", "128x128>",
-                  "-gravity", "center",
-                  "-background", "none",
-                  "-extent", "128x128",
-                  "-strip", "-quality", "82",
-                  str(output),
+                  "convert", str(raw), "-auto-orient", "-resize", "128x128>",
+                  "-gravity", "center", "-background", "none", "-extent", "128x128",
+                  "-strip", "-quality", "82", str(output),
               ])
               output_dims = dims(output)
               if output_dims != {"width": 128, "height": 128}:
@@ -160,7 +217,7 @@ jobs:
                   "entityId": entity_id,
                   "role": "tier_icon",
                   "sourceUrl": source_url,
-                  "sourcePage": "https://allthings.how/phantom-blade-zero-weapons-list/",
+                  "sourcePage": page_url,
                   "sourceType": "public_verified_game_capture",
                   "originalDimensions": original,
                   "sourceSha256": sha(raw),
@@ -179,16 +236,15 @@ jobs:
               local = root / rec["localPath"].lstrip("/")
               run(["identify", "-regard-warnings", str(local)])
 
-          metadata = out_root / "p0-asset-metadata.json"
-          metadata.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
-
-          total_bytes = sum(r["outputBytes"] for r in records)
+          (out_root / "p0-asset-metadata.json").write_text(
+              json.dumps(records, indent=2) + "\n", encoding="utf-8"
+          )
           summary = {
               "required": 36,
               "verified": len(records),
               "heroBytes": records[0]["outputBytes"],
               "tierIconBytes": sum(r["outputBytes"] for r in records[1:]),
-              "totalBytes": total_bytes,
+              "totalBytes": sum(r["outputBytes"] for r in records),
           }
           (out_root / "p0-asset-summary.json").write_text(
               json.dumps(summary, indent=2) + "\n", encoding="utf-8"
@@ -201,11 +257,8 @@ jobs:
           set -euo pipefail
           mkdir -p /tmp/pbz-contact
           montage public/images/phantom-blade-zero/tier-icons/*.webp \
-            -thumbnail 128x128 \
-            -tile 6x6 \
-            -geometry 128x128+8+8 \
-            -background '#111111' \
-            /tmp/pbz-contact/entity-contact-sheet.webp
+            -thumbnail 128x128 -tile 6x6 -geometry 128x128+8+8 \
+            -background '#111111' /tmp/pbz-contact/entity-contact-sheet.webp
           cp public/images/phantom-blade-zero/hero.webp /tmp/pbz-contact/hero.webp
 
       - name: Upload verified P0 bundle
