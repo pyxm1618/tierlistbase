@@ -23,14 +23,14 @@ test("Dragon Traveler server contexts, filters and decisions", async ({ page }) 
     "aria-pressed",
     "true",
   );
-  const modes = page.getByRole("group", { name: "Luminary ranking views" });
-  await expect(modes.getByRole("button", { name: "Overall", exact: true })).toHaveAttribute(
+  const modes = page.getByRole("tablist", { name: "Luminary ranking views" });
+  await expect(modes.getByRole("tab", { name: "Overall", exact: true })).toHaveAttribute(
     "aria-pressed",
     "true",
   );
   await page.getByRole("searchbox", { name: "Search Luminaries" }).fill("Athena");
   await expect(page.getByTestId("luminary-card")).toHaveCount(1);
-  await modes.getByRole("button", { name: "PvP", exact: true }).click();
+  await modes.getByRole("tab", { name: "PvP", exact: true }).click();
   await expect(page.getByRole("searchbox")).toHaveValue("Athena");
   await page.getByLabel("Class", { exact: true }).selectOption("Mage");
   await expect(page.getByTestId("luminary-card")).toHaveCount(0);
@@ -53,8 +53,8 @@ test("Dragon Traveler server contexts, filters and decisions", async ({ page }) 
   await expect(page.getByTestId("luminary-card")).toHaveCount(0);
   await page.getByRole("button", { name: "Clear filters" }).click();
   await expect(page.getByTestId("luminary-card")).toHaveCount(73);
-  const teams = page.getByRole("group", { name: "Team ranking views" });
-  await teams.getByRole("button", { name: "PvP", exact: true }).click();
+  const teams = page.getByRole("tablist", { name: "Team ranking views" });
+  await teams.getByRole("tab", { name: "PvP", exact: true }).click();
   await expect(page.getByTestId("featured-team")).toContainText("Arcane opening pressure");
   await expect(page.getByTestId("featured-team")).toContainText("Frontline");
   await expect(page.getByTestId("formation-cell")).toHaveCount(9);
@@ -65,7 +65,7 @@ test("Dragon Traveler server contexts, filters and decisions", async ({ page }) 
   );
   await page
     .getByRole("group", { name: "Wishlist context" })
-    .getByRole("button", { name: "PvP", exact: true })
+    .getByRole("tab", { name: "PvP", exact: true })
     .click();
   await expect(page.getByRole("heading", { name: "Current Pull Priority" })).toBeVisible();
 
@@ -194,14 +194,27 @@ test("Dragon Traveler retires both banners at their exact server-time boundaries
   await page.getByRole("button", { name: "Taiwan", exact: true }).click();
   await expect(priority).toContainText("Consider");
   await page.clock.fastForward(2000);
-  await expect(priority).toContainText("No verified current banner recommendation");
-  await expect(priority).not.toContainText("Consider");
+  await expect(priority).toContainText("洛基");
+  await expect(priority).toContainText("11/12 04:59");
   await page.getByRole("button", { name: "Global", exact: true }).click();
   await expect(priority).toContainText("Arachne");
   await page.clock.pauseAt(new Date("2026-11-05T04:59:59-05:00"));
   await expect(priority).toContainText("Consider");
   await page.clock.fastForward(2000);
   await expect(priority).toContainText("No verified current banner recommendation");
+  await page.getByRole("button", { name: "Taiwan", exact: true }).click();
+  await page.clock.pauseAt(new Date("2026-11-12T04:59:59+08:00"));
+  await expect(priority).toContainText("洛基");
+  await page.clock.fastForward(2000);
+  await expect(priority).toContainText("No verified current banner recommendation");
+});
+
+test("Dragon Traveler release controls expose the reviewed discovery actions", async ({ page }) => {
+  await page.goto(route);
+  await expect(page.getByRole("link", { name: /View More Teams/ })).toHaveAttribute(
+    "href",
+    "https://www.hideoutgacha.com/games/dragon-traveler/team-compositions",
+  );
 });
 
 test("Dragon Traveler has no serious accessibility violations", async ({ page }) => {
