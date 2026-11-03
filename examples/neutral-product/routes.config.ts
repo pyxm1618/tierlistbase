@@ -15,10 +15,15 @@ export const routeDefinitions = [
       "Evidence-based Game Meta Board and tier lists for World of Warcraft: Forever. Multi-source consensus, patch tracking, and transparent tier changes.",
     h1: "Evidence-based game meta boards for players",
     pageType: "WebApplication",
-    relatedRoutes: ["/wow-forever/tier-list", "/privacy", "/terms"],
-    lastModified: "2026-10-09",
+    relatedRoutes: [
+      "/wow-forever/tier-list",
+      "/phantom-blade-zero/tier-list",
+      "/privacy",
+      "/terms",
+    ],
+    lastModified: "2026-11-03",
     reviewStatus: "reviewed",
-    reviewFingerprint: "f6dc74e630bd9df1edef45671f612084d05590752a335f2d3940d1a87d19acb3",
+    reviewFingerprint: "361e2ca7a8b6e01247e53bffc17d0fa3ba76b6bcd90d49cf983cc97d11623298",
   },
   {
     route: "/wow-forever/tier-list",
@@ -60,10 +65,26 @@ export const routeDefinitions = [
   },
   {
     route: "/phantom-blade-zero/tier-list",
-    class: "public_noindex",
-    title: "Phantom Blade Zero Tier List – Best Weapons & Phantom Edges Ranked",
+    class: "public_indexable",
+    searchIntent:
+      "compare Phantom Blade Zero Main Weapon and Phantom Edge rankings using verified multi-source evidence",
+    primaryKeyword: "phantom blade zero tier list",
+    secondaryKeywords: [
+      "phantom blade zero tier list",
+      "phantom blade zero weapon tier list",
+      "phantom blade zero weapons tier list",
+      "phantom blade zero phantom edge tier list",
+      "phantom blade zero phantom edges tier list",
+    ],
+    title: "Phantom Blade Zero Tier List – Weapons & Phantom Edges",
     description:
-      "Explore the Phantom Blade Zero tier list with primary weapon and Phantom Edge rankings, strengths, weaknesses, best uses, consensus evidence, and source links.",
+      "Use the Phantom Blade Zero tier list to compare Main Weapons and Phantom Edges by strengths, weaknesses, best uses, ranking evidence, and verified source placements.",
+    h1: "Phantom Blade Zero Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-11-03",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "2760712d550f0796a0fe97048cff212781e4ddd6cda582f58cdd91a3f94cca4c",
   },
   {
     route: "/about",
