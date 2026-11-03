@@ -94,19 +94,19 @@ export const phantomBladeZeroSources: readonly RankingSource[] = [
   },
   {
     id: "gamesgg-edge",
-    name: "games.gg – Phantom Edge recommendations",
-    url: "https://games.gg/phantom-blade-0/guides/best-phantom-blade-0-weapons-tier-list/",
-    nature: "ranking",
-    independenceGroup: "gamesgg",
-    methodology: "S/A Phantom Edge table embedded in the post-launch weapons guide.",
+    name: "games.gg – Phantom Edge utility and unlock guide",
+    url: "https://games.gg/phantom-blade-0/guides/phantom-blade-zero-phantom-edges-all-locations-unlocks-guide/",
+    nature: "supporting",
+    methodology:
+      "Entity-level utility, unlock, and mechanics coverage; not a comprehensive Phantom Edge tier ranking.",
   },
   {
     id: "allthings-edge-stats",
-    name: "AllThingsHow – Phantom Edges ranked by card stats",
+    name: "AllThingsHow – Phantom Edge card stats",
     url: "https://allthings.how/phantom-blade-zero-best-phantom-edges/",
-    nature: "ranking",
-    independenceGroup: "allthingshow",
-    methodology: "Nine verified Phantom Edges ordered by level-1 card Damage.",
+    nature: "supporting",
+    methodology:
+      "Objective level-1 card Damage, Guard Break, and Status Effect data only; never counted as a comprehensive Tier vote.",
   },
   {
     id: "pushsquare-weapons",
@@ -559,13 +559,11 @@ const phantomEdges: readonly RankingEntity[] = [
     ],
     limitations: ["Raw card Damage does not capture total utility or encounter coverage"],
     whyThisTier:
-      "KeenGamer rates Thunder Spear A while the independent card-stat source ranks it 1st of 9 by Damage. The combined signals clear the S threshold without a large methodological conflict.",
+      "KeenGamer rates Thunder Spear A for general combat usefulness. AllThingsHow confirms its level-1 card stats as supporting data only, so one qualifying comprehensive ranking source leaves the Final Tier Pending.",
     acquisition: "Obtained in Pangzhen from Chang Hong according to the launch ranking guide.",
     mechanics: ["Lightning attacks", "Status Effects", "Elemental pressure"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
-      { sourceId: "allthings-edge-stats", method: "ordinal", rank: 1, fieldSize: 9 },
     ],
   },
   {
@@ -581,12 +579,11 @@ const phantomEdges: readonly RankingEntity[] = [
     ],
     limitations: ["Damage ordering alone does not measure defensive or traversal utility"],
     whyThisTier:
-      "Fire Meteor is A in KeenGamer and 2nd of 9 by raw card Damage in AllThingsHow. Those two independent signals produce an A consensus.",
+      "KeenGamer rates Fire Meteor A for general combat usefulness. Its card Damage and Status Effect values remain supporting data only, so one qualifying comprehensive ranking source leaves the Final Tier Pending.",
     acquisition: "Defeat Blaze in Pangzhen according to the launch ranking guide.",
     mechanics: ["Phosphor Flame", "Status damage", "Attack weakening"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
-      { sourceId: "allthings-edge-stats", method: "ordinal", rank: 2, fieldSize: 9 },
     ],
   },
   {
@@ -603,13 +600,11 @@ const phantomEdges: readonly RankingEntity[] = [
     ],
     limitations: ["Heavy committed attacks are less flexible than faster options"],
     whyThisTier:
-      "Dread Axe is A in KeenGamer and 3rd of 9 by raw card Damage. The two independent methods agree that it is a strong option.",
+      "KeenGamer rates Dread Axe A. games.gg independently confirms its shield-breaking and exploration utility but does not publish a comprehensive Phantom Edge tier for it, so the Final Tier remains Pending.",
     acquisition: "Defeat Peng Meng, the Axemaster, in Weeping Creek Valley.",
     mechanics: ["Charged cleave", "Iron Chain Breaker", "High Shield-Breaking power"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "S" },
-      { sourceId: "allthings-edge-stats", method: "ordinal", rank: 3, fieldSize: 9 },
     ],
   },
   {
@@ -625,12 +620,11 @@ const phantomEdges: readonly RankingEntity[] = [
       "Later progression can replace its niche",
     ],
     whyThisTier:
-      "The card-stat source places Heartrend Pipa 4th of 9, while KeenGamer gives it B for general usefulness. The normalized consensus remains B.",
+      "KeenGamer rates Heartrend Pipa B for general combat usefulness. Card-stat ordering is supporting data rather than a second comprehensive ranking, so the Final Tier remains Pending.",
     acquisition: "Defeat Yuzan in Village of Lu according to the launch guide.",
     mechanics: ["Sonic Blades", "Mid-range projectiles", "Artifice utility"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "B" },
-      { sourceId: "allthings-edge-stats", method: "ordinal", rank: 4, fieldSize: 9 },
     ],
   },
   {
@@ -649,12 +643,11 @@ const phantomEdges: readonly RankingEntity[] = [
       "Lifesteal usefulness depends on susceptible enemies",
     ],
     whyThisTier:
-      "Wolfjaw is A in KeenGamer and 5th of 9 by Damage, while also leading the sample in Guard Break. The normalized result remains A.",
+      "KeenGamer rates Wolfjaw A for sustained combat value. Its Guard Break and Damage card values are supporting facts only, so the Final Tier remains Pending with one qualifying comprehensive ranking source.",
     acquisition: "Defeat Wu Xuan in Pangzhen according to launch guides.",
     mechanics: ["Guard Break", "Lifesteal", "Heavy melee pressure"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
-      { sourceId: "allthings-edge-stats", method: "ordinal", rank: 5, fieldSize: 9 },
     ],
   },
   {
@@ -670,13 +663,11 @@ const phantomEdges: readonly RankingEntity[] = [
     ],
     limitations: ["Only 6th of 9 by raw card Damage", "Short reach requires close commitment"],
     whyThisTier:
-      "KeenGamer’s S-tier utility assessment and the card-stat source’s 6th-of-9 Damage placement diverge beyond the review threshold. TierListBase therefore does not publish a final tier yet.",
+      "KeenGamer rates Iron Gauntlets S for aggressive shield-breaking utility. games.gg describes the same combat role but does not publish a comprehensive Phantom Edge tier, so the Final Tier remains Pending.",
     acquisition: "Defeat Stone Hand Iron Fever in Crimson Forest.",
     mechanics: ["Fist Focus", "Shield breaking", "Fast multi-hit attacks"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "S" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "S" },
-      { sourceId: "allthings-edge-stats", method: "ordinal", rank: 6, fieldSize: 9 },
     ],
   },
   {
@@ -695,13 +686,11 @@ const phantomEdges: readonly RankingEntity[] = [
       "Elemental value is not represented well by a damage-only ordering",
     ],
     whyThisTier:
-      "The S-tier utility assessment and 7th-of-9 raw Damage placement measure different strengths and conflict beyond the preset threshold, so the entity remains Needs Review.",
+      "KeenGamer rates Flaming Mane S for combat and exploration utility. games.gg confirms its fire and traversal functions but does not provide a comprehensive Phantom Edge tier, so the Final Tier remains Pending.",
     acquisition: "Earned through the Flaming Mane boss and repair sequence in Pangzhen.",
     mechanics: ["Fire breath", "Crowd control", "Burning Path traversal"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "S" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
-      { sourceId: "allthings-edge-stats", method: "ordinal", rank: 7, fieldSize: 9 },
     ],
   },
   {
@@ -720,13 +709,11 @@ const phantomEdges: readonly RankingEntity[] = [
       "Its value comes from mobility more than card damage",
     ],
     whyThisTier:
-      "KeenGamer’s S-tier all-around utility verdict conflicts sharply with an 8th-of-9 raw Damage placement. Because the methods disagree materially, TierListBase marks it Needs Review.",
+      "KeenGamer rates Hunter’s Chain Sickle S and calls it the best all-around Phantom Edge. games.gg confirms its mobility and traversal role without publishing a comprehensive tier, so the Final Tier remains Pending.",
     acquisition: "Defeat The Hunt in Weeping Creek Valley.",
     mechanics: ["Chain-sickle attacks", "Gap closing", "Grappling Traverse"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "S" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
-      { sourceId: "allthings-edge-stats", method: "ordinal", rank: 8, fieldSize: 9 },
     ],
   },
   {
@@ -745,13 +732,12 @@ const phantomEdges: readonly RankingEntity[] = [
       "Damage-only ordering undervalues defensive function",
     ],
     whyThisTier:
-      "Bastion is A for general defensive utility but 9th of 9 on the damage-only card ranking. The normalized sources conflict beyond the review threshold, so no final tier is claimed.",
+      "KeenGamer rates Bastion A for defensive utility. Card Damage is supporting data rather than a second comprehensive ranking, so the Final Tier remains Pending.",
     acquisition:
       "Village of Lu boss reward; secondary sources differ on the boss-name spelling, so that detail remains under review.",
     mechanics: ["Blocking", "Damage absorption", "Counterattack"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
-      { sourceId: "allthings-edge-stats", method: "ordinal", rank: 9, fieldSize: 9 },
     ],
   },
   {
@@ -770,12 +756,11 @@ const phantomEdges: readonly RankingEntity[] = [
       "Less direct control than immediate-damage Phantom Edges",
     ],
     whyThisTier:
-      "KeenGamer and games.gg independently place Kuye Temple Prayer Beads in S, converging on the value of its three combat summons and strong tempered upgrade path.",
+      "KeenGamer rates Kuye Temple Prayer Beads S for summon pressure. games.gg documents its summon mechanics but not a comprehensive Phantom Edge tier, so the Final Tier remains Pending.",
     acquisition: "Defeat Master Bi Hai of Kuye Temple in Village of Lu.",
     mechanics: ["Three Bronze Men summons", "Tempered Gold Men", "Persistent ally pressure"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "S" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "S" },
     ],
   },
   {
@@ -794,13 +779,12 @@ const phantomEdges: readonly RankingEntity[] = [
       "Revival resets only after a Bell or respawn",
     ],
     whyThisTier:
-      "Both independent editorial sources rank Inanis’ Radiant Fan in S, emphasizing its unusually strong recovery and survivability utility.",
+      "KeenGamer rates Inanis’ Radiant Fan S for survivability and recovery. games.gg independently documents its healing utility but does not publish a comprehensive tier, so the Final Tier remains Pending.",
     acquisition:
       "Complete Whence the Weeping in Mountain of Imprisonment and claim the reward associated with Inanis.",
     mechanics: ["Sanctuary field", "Nirvana revival", "Recovery support"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "S" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "S" },
     ],
   },
   {
@@ -819,13 +803,12 @@ const phantomEdges: readonly RankingEntity[] = [
       "Acquisition requires the Firefly Memory Flower progression condition",
     ],
     whyThisTier:
-      "KeenGamer and games.gg both place Puppeteer’s Bell in A, agreeing that durable summoned Puppets provide strong distraction and support without reaching the top overall tier.",
+      "KeenGamer rates Puppeteer’s Bell A for summon support. games.gg documents the summon and unlock path without a comprehensive tier ranking, so the Final Tier remains Pending.",
     acquisition:
       "Defeat Dusk in Village of Lu after collecting the required six Firefly Memory Flowers.",
     mechanics: ["Puppet summons", "Abyssal Bell", "Third-Puppet tempered upgrade"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
     ],
   },
   {
@@ -844,12 +827,11 @@ const phantomEdges: readonly RankingEntity[] = [
       "Less useful when enemies immediately force close-range combat",
     ],
     whyThisTier:
-      "Both independent editorial tier sources place Feather Bow in A, valuing its reliable ranged utility and precision-shot upgrade without treating it as a universal S-tier choice.",
+      "KeenGamer rates Feather Bow A for ranged utility. games.gg documents its ranged opening and exploration utility but does not publish a comprehensive tier, so the Final Tier remains Pending.",
     acquisition: "Complete Purge the Sect in Weeping Creek Valley.",
     mechanics: ["Ranged Shot", "Precision Shot", "Charge-timing bonus"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "A" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
     ],
   },
   {
@@ -868,12 +850,11 @@ const phantomEdges: readonly RankingEntity[] = [
       "games.gg places it one tier below KeenGamer",
     ],
     whyThisTier:
-      "KeenGamer ranks Bashpole S while games.gg ranks it A. The normalized consensus remains S, and the one-tier editorial disagreement stays below the Needs Review threshold.",
+      "KeenGamer rates Bashpole S for guard breaking and crowd pressure. games.gg confirms its shield-breaking and traversal utility but does not publish a comprehensive Phantom Edge tier, so the Final Tier remains Pending.",
     acquisition: "Defeat Wan Jun, the Coppermaul, in Mandate Encampment.",
     mechanics: ["Ground-shaking heavy attacks", "Groundbreaker", "High Shield-Breaking power"],
     placements: [
       { sourceId: "keen-edge", method: "tier", tier: "S" },
-      { sourceId: "gamesgg-edge", method: "tier", tier: "A" },
     ],
   },
 ];
@@ -964,18 +945,6 @@ export const phantomBladeZeroSnapshot = {
       label: "Defensive Pick",
       entityId: "soft-snake-sword",
       reason: "Both sources place it in S and specifically value its counter-focused defense.",
-    },
-    {
-      label: "Early Phantom Edge",
-      entityId: "dread-axe",
-      reason:
-        "Two editorial rankings plus 3rd-of-9 raw card Damage support its shield-breaking value.",
-    },
-    {
-      label: "Raw-Damage Phantom Edge",
-      entityId: "thunder-spear",
-      reason:
-        "Ranks 1st of 9 by verified level-1 card Damage while remaining A in editorial utility.",
     },
   ] as const,
   whatChanged:
