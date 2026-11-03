@@ -347,14 +347,14 @@ export function DragonTravelerTierList() {
           <p className={styles.eyebrow}>Dragon Traveler · Game Meta Board</p>
           <h1 id="dragon-title">Dragon Traveler Tier List</h1>
           <p>
-            Find your next Luminary. Compare Overall value, PvE progression and PvP impact — with
-            team context and investment in view.
+            Compare the Dragon Traveler tier list for Overall value, PvE progression and PvP impact
+            — with team context, investment requirements, and current Global or Taiwan server data.
           </p>
           <div className={styles.snapshot}>
             <span>{server === "global" ? "Global" : "Taiwan"} server</span>
             <span>Snapshot {snapshotDate}</span>
             <span>{roster.length} live Luminaries</span>
-            <span>Editorial preview · noindex</span>
+            <span>Reviewed source snapshot</span>
           </div>
         </div>
       </section>
@@ -395,12 +395,13 @@ export function DragonTravelerTierList() {
                 ))}
               </div>
             </div>
-            <div className={styles.switches} role="group" aria-label="Luminary ranking views">
+            <div className={styles.switches} role="tablist" aria-label="Luminary ranking views">
               {rankingViews.map((mode) => (
                 <button
                   key={mode}
                   type="button"
-                  aria-pressed={view === mode}
+                  role="tab"
+                  aria-selected={view === mode}
                   onClick={() => setView(mode)}
                 >
                   {mode}
@@ -496,12 +497,13 @@ export function DragonTravelerTierList() {
               <h2 id="teams-title">Best Dragon Traveler Teams</h2>
               <p>Build around synergy, positioning and the characters you own.</p>
             </div>
-            <div className={styles.switches} role="group" aria-label="Team ranking views">
+            <div className={styles.switches} role="tablist" aria-label="Team ranking views">
               {teamViews.map((mode) => (
                 <button
                   key={mode}
                   type="button"
-                  aria-pressed={teamView === mode}
+                  role="tab"
+                  aria-selected={teamView === mode}
                   onClick={() => setTeamView(mode)}
                 >
                   {mode}
@@ -539,6 +541,14 @@ export function DragonTravelerTierList() {
                     <span aria-hidden="true">›</span>
                   </button>
                 ))}
+              <a
+                className={styles.moreTeams}
+                href={sourceRecords.find((source) => source.id === "hideout-teams")!.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View More Teams ↗
+              </a>
             </div>
           </div>
           <p className={styles.note}>
@@ -567,12 +577,13 @@ export function DragonTravelerTierList() {
             </article>
             <article className={styles.paper}>
               <h3>Wishlist Priority</h3>
-              <div className={styles.switches} role="group" aria-label="Wishlist context">
+              <div className={styles.switches} role="tablist" aria-label="Wishlist context">
                 {(["New Player", "PvE", "PvP"] as const).map((mode) => (
                   <button
                     key={mode}
                     type="button"
-                    aria-pressed={wishlistView === mode}
+                    role="tab"
+                    aria-selected={wishlistView === mode}
                     onClick={() => setWishlistView(mode)}
                   >
                     {mode}
@@ -651,8 +662,8 @@ export function DragonTravelerTierList() {
             </details>
             <p className={styles.note}>
               Sources were accessed on {snapshotDate}. An access date does not prove that the
-              publisher’s data is current. This independent editorial preview remains noindex
-              pending content and SEO release review.
+              publisher’s data is current. This independent editorial ranking is reviewed for
+              release and remains tied to the source snapshot above.
             </p>
           </section>
           <section className={styles.sources}>
