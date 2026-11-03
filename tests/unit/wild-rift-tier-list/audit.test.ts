@@ -67,14 +67,14 @@ describe("Wild Rift source integrity closeout", () => {
     const digest = createHash("sha256")
       .update(readFileSync("docs/wild-rift/reviewed-source-snapshot.json"))
       .digest("hex");
-    expect(digest).toBe("92d735de771440dbb933c94e8fd045b0c0372d5420588bb48d294ab63fa3b452");
-    expect(raw.placements).toHaveLength(180);
+    expect(digest).toBe("6723afded0d47ee8941900a732aa6aa8dd994abf45b8b46f2444ffd1d734809b");
+    expect(raw.placements).toHaveLength(179);
     expect(
       createHash("sha256")
         .update(readFileSync("docs/wild-rift/2026-10-28-reviewed-source-snapshot.json"))
         .digest("hex"),
     ).toBe("8abb7cf2adfcfa139e13f340515911f83867c9e63db57a3b8150cee2f783c259");
-    expect(raw.trackedChampions).toBe(134);
+    expect(raw.trackedChampions).toBe(135);
     expect(raw.observedUniqueChampions).toBe(136);
   });
 
@@ -84,14 +84,22 @@ describe("Wild Rift source integrity closeout", () => {
     expect(Object.values(ledger.states).reduce((sum, count) => sum + count, 0)).toBe(208);
     expect(ledger.states.unreviewed).toBe(0);
     expect(ledger.crossRoleStatisticsRemoved).toBe(20);
-    expect(ledger.statisticsBecameUnavailable).toEqual([{ championId: "diana", role: "mid" }]);
+    expect(ledger.statisticsBecameAvailable).toEqual([
+      { championId: "diana", role: "mid" },
+      { championId: "corki", role: "dragon" },
+    ]);
+    expect(ledger.statisticsBecameUnavailable).toEqual([
+      { championId: "singed", role: "baron" },
+      { championId: "tristana", role: "baron" },
+      { championId: "malphite", role: "mid" },
+    ]);
     expect(new Set(ledger.placements.map((row) => key(row.championId, row.role))).size).toBe(208);
     for (const row of ledger.placements) {
       expect(row.statisticsEvidence !== null || row.tierEvidence !== null).toBe(true);
     }
   });
 
-  it("preserves all 540 exact source rates and never borrows statistics across roles", () => {
+  it("preserves all 537 exact source rates and never borrows statistics across roles", () => {
     let verified = 0;
     let unavailable = 0;
     for (const ranking of rankings) {
@@ -110,8 +118,8 @@ describe("Wild Rift source integrity closeout", () => {
         unavailable++;
       }
     }
-    expect(verified).toBe(180);
-    expect(unavailable).toBe(28);
+    expect(verified).toBe(179);
+    expect(unavailable).toBe(29);
   });
 
   it("keeps source tiers and any editorial overrides separately auditable", () => {
@@ -169,21 +177,27 @@ describe("Wild Rift source integrity closeout", () => {
     }
   });
 
-  it("does not claim pre-patch statistics verify current 7.3d outcomes", () => {
+  it("uses the verified current 7.3d Master+ snapshot without overstating trend coverage", () => {
     expect(snapshot.gameVersion).toBe("7.3d");
     expect(snapshot.latestRankedBalance).toBe("7.3d");
     expect(snapshot.statisticsPatch).toBe(raw.sourcePatchLabel);
-    expect(snapshot.postBalanceStatisticsVerified).toBe(false);
-    expect(raw.postBalanceStatisticsVerified).toBe(false);
-    expect(raw.sourceCapture).toContain("cached");
-    expect(rankingFor("diana", "mid")?.placementKind).toBe("editorial");
-    expect(rankingFor("diana", "mid")?.winRate).toBeNull();
+    expect(snapshot.snapshotDate).toBe("2026-11-01");
+    expect(snapshot.postBalanceStatisticsVerified).toBe(true);
+    expect(raw.postBalanceStatisticsVerified).toBe(true);
+    expect(raw.sourceCapture).toContain("Updated 2026-11-01");
+    expect(raw.trackedChampions).toBe(135);
+    expect(raw.observedUniqueChampions).toBe(136);
+    expect(rankingFor("diana", "mid")?.placementKind).toBe("statistics-backed");
+    expect(rankingFor("diana", "mid")?.winRate).toBe(47.39);
     for (const ranking of rankings) {
-      expect(ranking.patchImpact).toContain("Post-7.3d outcome statistics are not verified");
-      expect(ranking.whyThisTier).toContain("before 7.3d");
+      expect(ranking.patchImpact).toContain("7.3d");
+      expect(ranking.patchImpact).not.toContain("outcome statistics are not verified");
+      expect(ranking.whyThisTier).toContain("7.3d · CN Master+");
     }
-    for (const role of ["mid", "support"] as const)
+    for (const role of ["baron", "dragon", "support"] as const)
       expect(quickInsights[role].some((row) => row.label === "Biggest Riser")).toBe(false);
+    expect(quickInsights.mid.some((row) => row.label === "Biggest Riser")).toBe(true);
+    expect(quickInsights.jungle.some((row) => row.label === "Biggest Riser")).toBe(true);
   });
 
   it("supports each Biggest Riser with the largest available same-role seven-day change", () => {
