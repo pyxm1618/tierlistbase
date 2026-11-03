@@ -156,9 +156,6 @@ jobs:
                   if status.strip() != "200":
                       continue
                   title_match = re.search(r"<title>([\\s\\S]*?)</title>", body, flags=re.I)
-                  if entity_id == "jagged-steel":
-                      debug_title = html.unescape(title_match.group(1)).strip() if title_match else "<none>"
-                      print(f"JAGGED_DEBUG status={status.strip()} bytes={len(body)} title={debug_title!r} head={body[:600]!r}")
                   if not title_match:
                       continue
                   title = html.unescape(re.sub(r"<[^>]+>", " ", title_match.group(1))).strip()
