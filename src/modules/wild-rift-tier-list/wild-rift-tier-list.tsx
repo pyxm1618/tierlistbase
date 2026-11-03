@@ -230,10 +230,10 @@ export function WildRiftTierList() {
           </p>
           <p className={styles.disclosure}>
             Trend arrows show same-role seven-day win-rate change only. Only six explicitly labeled
-            spotlight deltas are verified in the available source capture; 202 placements have
-            unavailable trends. The table&apos;s “30 d” heading is ambiguous, so its rounded column
-            is not used. The readable source snapshot is dated 2026-10-27 and predates 7.3d. Live
-            raw access is blocked; no post-7.3d result or tier-change reason is inferred.
+            seven-day spotlight deltas are verified in the reviewed source capture; 202 placements
+            have unavailable trends. The table&apos;s separate “30 d” column is not repurposed as a
+            seven-day signal. The verified statistics snapshot is dated 2026-11-01 and labeled 7.3d
+            · Master+ CN. Patch notes establish balance changes, not causal performance outcomes.
           </p>
           <div className={styles.methodGrid}>
             {roleKeys.map((role) => (
