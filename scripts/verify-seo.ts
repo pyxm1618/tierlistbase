@@ -67,7 +67,9 @@ for (const route of indexable) {
   const sections = contentByRoute.get(route.route);
   if (!sections) {
     if (await hasDedicatedMarketingPage(route.route)) continue;
-    throw new Error(\n      `missing landing content or dedicated marketing page for indexable route: ${route.route}`,\n    );
+    throw new Error(
+      `missing landing content or dedicated marketing page for indexable route: ${route.route}`,
+    );
   }
   const heroes = sections.filter((section) => section.enabled !== false && section.type === "hero");
   if (heroes.length !== 1) {
