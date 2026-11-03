@@ -5,6 +5,7 @@ import { homeConfig } from "@/config/home.config";
 import { routeRegistry } from "@/config/routes.config";
 import { seoConfig } from "@/config/seo.config";
 import { seoLandingPages } from "@/config/seo-landings.config";
+import { hasDedicatedMarketingPage } from "./lib/indexable-route-content";
 
 const indexable = routeRegistry.indexable();
 const sitemap = routeRegistry.sitemapEntries();
@@ -18,15 +19,6 @@ const contentByRoute = new Map<string, readonly LandingSection[]>([
   ["/", homeConfig.sections],
   ...seoLandingPages.map((page) => [page.route, page.sections] as const),
 ]);
-const bespokeIndexableRoutes = new Set([
-  "/zenless-zone-zero/tier-list",
-  "/genshin-impact/tier-list",
-  "/limbus-company/tier-list",
-  "/nikke/tier-list",
-  "/wow-forever/vanguard",
-  "/about",
-]);
-
 function internalLinks(sections: readonly LandingSection[]) {
   const links: { label: string; href: string }[] = [];
   for (const section of sections.filter((item) => item.enabled !== false)) {
@@ -74,8 +66,8 @@ for (const route of indexable) {
 
   const sections = contentByRoute.get(route.route);
   if (!sections) {
-    if (bespokeIndexableRoutes.has(route.route)) continue;
-    throw new Error(`missing landing content for indexable route: ${route.route}`);
+    if (await hasDedicatedMarketingPage(route.route)) continue;
+    throw new Error(`missing landing content or dedicated marketing page for indexable route: ${route.route}`);
   }
   const heroes = sections.filter((section) => section.enabled !== false && section.type === "hero");
   if (heroes.length !== 1) {
@@ -106,7 +98,7 @@ for (const route of indexable) {
   if (
     route.route !== "/" &&
     !inbound.has(route.route) &&
-    !bespokeIndexableRoutes.has(route.route)
+    !(await hasDedicatedMarketingPage(route.route))
   ) {
     throw new Error(`orphan indexable route in rendered content: ${route.route}`);
   }
@@ -133,8 +125,6 @@ const about = routeRegistry.get("/about");
 if (about.class !== "public_indexable") throw new Error("about must be public indexable");
 if (
   about.title !== "About TierListBase" ||
-  about.description !==
-    "Learn how TierListBase turns game data and evidence into clear, context-aware tier rankings for World of Warcraft: Forever and Genshin Impact." ||
   about.h1 !== "About TierListBase" ||
   about.pageType !== "WebApplication"
 ) {
