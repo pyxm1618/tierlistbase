@@ -319,6 +319,13 @@
   text-align: left;
 }
 
+.tierImageSlot {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+}
+
 .tierImage {
   width: 56px;
   height: 56px;
