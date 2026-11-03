@@ -110,7 +110,7 @@ test("Wild Rift filters, Other Viable Roles, and Quick Picks stay synchronized w
   await page.locator('[data-champion-id="malphite"]').click();
   const detail = page.getByRole("complementary", { name: "Champion Detail" });
   await expect(detail.getByRole("heading", { name: "Other Viable Roles" })).toBeVisible();
-    await expect(detail.getByRole("button", { name: /Support/ })).toBeVisible();
+  await expect(detail.getByRole("button", { name: /Support/ })).toBeVisible();
 
   await page.getByRole("button", { name: "Mid Lane quick pick: Hwei, S+ tier" }).click();
   await expect(roleNav.getByRole("tab", { name: /^Mid Lane$/ })).toHaveAttribute(
