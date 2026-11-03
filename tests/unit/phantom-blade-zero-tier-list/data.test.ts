@@ -102,7 +102,7 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
   it("separates official arsenal scale from reviewed coverage", () => {
     expect(phantomBladeZeroSnapshot.officialScale.mainWeapons).toBe("30+");
     expect(phantomBladeZeroSnapshot.officialScale.phantomEdges).toBe(25);
-    expect(phantomBladeZeroSnapshot.mainWeapons).toHaveLength(7);
+    expect(phantomBladeZeroSnapshot.mainWeapons).toHaveLength(21);
     expect(phantomBladeZeroSnapshot.phantomEdges).toHaveLength(9);
   });
 
@@ -122,10 +122,10 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
   });
 
   it("fails the release gate while any P0 binary is missing", () => {
-    expect(phantomBladeZeroAssetProvenance).toHaveLength(17);
+    expect(phantomBladeZeroAssetProvenance).toHaveLength(31);
     const readiness = getPhantomBladeZeroReleaseReadiness();
-    expect(readiness).toMatchObject({ ready: false, required: 17, verified: 0 });
-    expect(readiness.missing).toHaveLength(17);
+    expect(readiness).toMatchObject({ ready: false, required: 31, verified: 0 });
+    expect(readiness.missing).toHaveLength(31);
     expect(
       phantomBladeZeroAssetProvenance.every(
         (asset) => asset.status === "source_verified_binary_missing" && asset.localPath === null,

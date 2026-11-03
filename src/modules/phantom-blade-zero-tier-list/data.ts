@@ -119,6 +119,16 @@ const mainSPlacements = [
   { sourceId: "gamesgg-main", method: "tier", tier: "S" },
 ] as const satisfies readonly SourcePlacement[];
 
+const mainAPlacements = [
+  { sourceId: "keen-main", method: "tier", tier: "A" },
+  { sourceId: "gamesgg-main", method: "tier", tier: "A" },
+] as const satisfies readonly SourcePlacement[];
+
+const mainBPlacements = [
+  { sourceId: "keen-main", method: "tier", tier: "B" },
+  { sourceId: "gamesgg-main", method: "tier", tier: "B" },
+] as const satisfies readonly SourcePlacement[];
+
 const mainWeapons: readonly RankingEntity[] = [
   {
     id: "jagged-steel",
@@ -246,6 +256,284 @@ const mainWeapons: readonly RankingEntity[] = [
     acquisition: "Defeat Shadow Warden Soulclaimer in Pangzhen.",
     mechanics: ["Guard Stance", "Automatic counter", "Peerless Hook"],
     placements: mainSPlacements,
+  },
+  {
+    id: "scarlet-wraithblade",
+    name: "Scarlet Wraithblade",
+    kind: "main_weapon",
+    category: "Two-Handed / Area Control",
+    bestFor: ["Area control", "Sha-Chi depletion", "Grouped enemies"],
+    easeOfUse: "Medium",
+    strengths: [
+      "Red Spider Lilies slow enemies and drain Sha-Chi",
+      "Delayed flower explosions add area pressure",
+    ],
+    limitations: [
+      "Slow combo finishers need deliberate openings",
+      "Area effects are strongest when enemies stay inside them",
+    ],
+    whyThisTier:
+      "Both independent launch tier lists place Scarlet Wraithblade in A, valuing its area control and Sha-Chi pressure while noting its slower commitments.",
+    acquisition: "Defeat Hua, Deadly Betrothed, at Flesh Lily Fields in Weeping Creek Valley.",
+    mechanics: ["Red Spider Lilies", "Rouge Bloomstorm", "Delayed area explosions"],
+    placements: mainAPlacements,
+  },
+  {
+    id: "baishan-stormswords",
+    name: "Baishan Stormswords",
+    kind: "main_weapon",
+    category: "Dual-Wield / Elemental",
+    bestFor: ["Wind and Thunder buildup", "Temporary damage buffs", "Aggressive combos"],
+    easeOfUse: "Medium",
+    strengths: [
+      "Builds separate Wind and Thunder gauges",
+      "Filling both activates a temporary attack-power buff",
+    ],
+    limitations: [
+      "Peak value depends on filling both elemental gauges",
+      "Needs sustained pressure before its buff comes online",
+    ],
+    whyThisTier:
+      "KeenGamer and games.gg both rate Baishan Stormswords A for elemental buildup and temporary damage amplification.",
+    acquisition: "Defeat Yubi, the No. 21 Swordfighter Puppet, in Mandate Encampment.",
+    mechanics: ["Wind Gauge", "Thunder Gauge", "Baishan’s Blessing"],
+    placements: mainAPlacements,
+  },
+  {
+    id: "sundering-dual-axes",
+    name: "Sundering Dual Axes",
+    kind: "main_weapon",
+    category: "Dual-Wield / Sustained Damage",
+    bestFor: ["Sustained damage", "Lingering attacks", "Sha-Chi depletion"],
+    easeOfUse: "Medium",
+    strengths: [
+      "Normal attacks build Baleful Aura",
+      "Thrown axes can remain attached and keep damaging targets",
+    ],
+    limitations: [
+      "Its payoff needs repeated attacks to build",
+      "Less immediate than burst-focused weapons",
+    ],
+    whyThisTier:
+      "Both independent tier lists place Sundering Dual Axes in A, emphasizing Baleful Aura and lingering damage as strong but setup-dependent tools.",
+    acquisition: "Defeat Shadow Warden Heartpiercer at White Serpent House in Meigu Lake.",
+    mechanics: ["Baleful Aura", "Lingering thrown axes", "Sha-Chi depletion"],
+    placements: mainAPlacements,
+  },
+  {
+    id: "whiteshadow",
+    name: "Whiteshadow",
+    kind: "main_weapon",
+    category: "Two-Handed / Ice",
+    bestFor: ["Chill buildup", "Freezing enemies", "Elemental control"],
+    easeOfUse: "Medium",
+    strengths: ["Builds Chill reliably", "Frosthowl can guarantee Frozen on enemies it hits"],
+    limitations: [
+      "Access requires four Acolyte Masks and a secret encounter",
+      "Its value is tied to elemental control rather than universal burst",
+    ],
+    whyThisTier:
+      "Both launch tier sources place Whiteshadow in A for dependable Chill and freezing control, with acquisition complexity as a practical limitation.",
+    acquisition:
+      "Defeat the Blizzard Blademaster in the secret Meigu Lake mountain area after collecting four Acolyte Masks.",
+    mechanics: ["Chill buildup", "Frozen Gauge", "Whiteshadow’s Frosthowl"],
+    placements: mainAPlacements,
+  },
+  {
+    id: "juggernaut",
+    name: "Juggernaut",
+    kind: "main_weapon",
+    category: "Two-Handed / Parry",
+    bestFor: ["Parry-focused play", "Heavy punish windows", "Guard breaking"],
+    easeOfUse: "Hard",
+    strengths: ["Successful parries build Red Edge stacks", "Stacks can be spent on heavy damage"],
+    limitations: [
+      "Best output depends on consistent parry timing",
+      "Less forgiving if you avoid defensive timing mechanics",
+    ],
+    whyThisTier:
+      "KeenGamer and games.gg both place Juggernaut in A because it converts successful parries into powerful heavy attacks.",
+    acquisition: "Defeat Bi Feng, the Giant Saber Commander, in Mountain of Imprisonment.",
+    mechanics: ["Red Edge stacks", "Parry conversion", "Bandit-Slaying Rampage"],
+    placements: mainAPlacements,
+  },
+  {
+    id: "outlaw-warblade",
+    name: "Outlaw Warblade",
+    kind: "main_weapon",
+    category: "Two-Handed / Lifesteal",
+    bestFor: ["Sustain", "HP recovery", "Long melee exchanges"],
+    easeOfUse: "Medium",
+    strengths: ["Standard attacks can restore HP", "Power Surge can drain health from an enemy"],
+    limitations: [
+      "Heavy attacks spend HP",
+      "Some enemy types resist lifesteal without supporting gear",
+    ],
+    whyThisTier:
+      "Both independent sources rate Outlaw Warblade A for sustained melee healing, balanced by HP-cost mechanics and enemy-type restrictions.",
+    acquisition: "Defeat Jing Ye, the Outlaw, in Crimson Forest.",
+    mechanics: ["Lifesteal", "Bloodthirst Frenzy", "HP-cost heavy attacks"],
+    placements: mainAPlacements,
+  },
+  {
+    id: "wooden-sanguine",
+    name: "Wooden Sanguine",
+    kind: "main_weapon",
+    category: "One-Handed / Guard Break",
+    bestFor: ["Early bosses", "Parry practice", "Breaking guards before swapping"],
+    easeOfUse: "Medium",
+    strengths: [
+      "Strong early Guard Break utility",
+      "Pairs well with a damage weapon after the enemy guard breaks",
+    ],
+    limitations: [
+      "Its main job is opening a damage window rather than finishing it",
+      "Later weapons offer broader specialist mechanics",
+    ],
+    whyThisTier:
+      "Both launch tier lists rate Wooden Sanguine A as an unusually useful early guard-breaking and parry-focused support weapon.",
+    acquisition: "Received during the tutorial.",
+    mechanics: ["Guard Break", "Parry pressure", "Weapon-swap setup"],
+    placements: mainAPlacements,
+  },
+  {
+    id: "armybreaker",
+    name: "Armybreaker",
+    kind: "main_weapon",
+    category: "Two-Handed / Guard Break",
+    bestFor: ["Sha-Chi damage", "Gap closing", "Formation breaking"],
+    easeOfUse: "Medium",
+    strengths: [
+      "Switching to it or parrying a Blue Flash can trigger a forward rush",
+      "Formation Breaking Art deals substantial Sha-Chi damage",
+    ],
+    limitations: [
+      "Its strongest advantages favor guard-breaking play",
+      "Less flexible when raw damage is the only priority",
+    ],
+    whyThisTier:
+      "KeenGamer and games.gg both place Armybreaker in A for dependable Sha-Chi pressure and gap-closing utility.",
+    acquisition: "Defeat Shadow Warden Cavalrybane in the Pangzhen marketplace.",
+    mechanics: ["Forward rush", "Formation Breaking Art", "Sha-Chi depletion"],
+    placements: mainAPlacements,
+  },
+  {
+    id: "wild-oriole-sword",
+    name: "Wild Oriole Sword",
+    kind: "main_weapon",
+    category: "One-Handed / Blade Waves",
+    bestFor: ["Aggressive combos", "Mid-range pressure", "Extending heavy attacks"],
+    easeOfUse: "Medium",
+    strengths: [
+      "Oriole Song lets heavy attacks release blade waves",
+      "Adds temporary reach to an aggressive one-handed moveset",
+    ],
+    limitations: [
+      "Its defining blade-wave state lasts for a limited window",
+      "Requires the additional Mu Xiaokui boss phase",
+    ],
+    whyThisTier:
+      "Both independent ranking sources place Wild Oriole Sword in A for temporary blade-wave reach and aggressive combo pressure.",
+    acquisition: "Earn it through Mu Xiaokui’s additional boss phase in Village of Lu.",
+    mechanics: ["Oriole Song", "Blade waves", "10-second enhanced state"],
+    placements: mainAPlacements,
+  },
+  {
+    id: "the-fanatics-broken-blade",
+    name: "The Fanatic’s Broken Blade",
+    kind: "main_weapon",
+    category: "One-Handed / Drunken Sword",
+    bestFor: ["Long-range sword attacks", "Sha-Chi recovery", "Prepared burst windows"],
+    easeOfUse: "Hard",
+    strengths: [
+      "Drinking restores Sha-Chi",
+      "Tipsy and Drunk states convert attacks into flying sword strikes",
+    ],
+    limitations: [
+      "Drinking creates vulnerable setup windows",
+      "Drunk state restricts mobility and disables normal blocking",
+    ],
+    whyThisTier:
+      "Both independent tier lists place The Fanatic’s Broken Blade in B because its range can be valuable, but setup and movement restrictions reduce consistency.",
+    acquisition: "Defeat Hua Qianxiao, the Sword Fanatic, in Crimson Forest.",
+    mechanics: ["Bottomless Drink", "Tipsy state", "Drunk state"],
+    placements: mainBPlacements,
+  },
+  {
+    id: "sanguine-twin",
+    name: "Sanguine Twin",
+    kind: "main_weapon",
+    category: "Dual-Wield / Beginner",
+    bestFor: ["Fast early combos", "Learning dual-wield pressure", "Early aggression"],
+    easeOfUse: "Easy",
+    strengths: ["Fast repeated slashes", "Accessible early in progression"],
+    limitations: [
+      "Short reach at the start of combos",
+      "Later dual-wield weapons offer stronger specialist mechanics",
+    ],
+    whyThisTier:
+      "Both launch tier lists place Sanguine Twin in B: it is fast and accessible, but short reach and limited specialization reduce late-game priority.",
+    acquisition:
+      "Found on a weapon rack below the First Meeting with Yu’er bell in Weeping Creek Valley.",
+    mechanics: ["Dual-Blade Flurry", "Fast multi-hit strings", "Short-range starters"],
+    placements: mainBPlacements,
+  },
+  {
+    id: "sanguine-reach",
+    name: "Sanguine Reach",
+    kind: "main_weapon",
+    category: "Two-Handed / Reach",
+    bestFor: ["Crowd handling", "Long-reaching attacks", "Simple early pressure"],
+    easeOfUse: "Easy",
+    strengths: ["Wide reach helps against groups", "Straightforward sweeping attack pattern"],
+    limitations: [
+      "Later two-handed weapons offer more distinctive effects",
+      "Its damage-buff value requires additional management",
+    ],
+    whyThisTier:
+      "KeenGamer and games.gg both place Sanguine Reach in B as a dependable early crowd option that is eventually outclassed by more specialized weapons.",
+    acquisition: "Found on the weapon rack beside Forge at the Weeping Creek Valley Outpost.",
+    mechanics: ["Longblade Chain Strikes", "Wide sweeping attacks", "Temporary damage buffs"],
+    placements: mainBPlacements,
+  },
+  {
+    id: "sanguine",
+    name: "Sanguine",
+    kind: "main_weapon",
+    category: "One-Handed / Beginner",
+    bestFor: ["Learning combat", "Reliable basic combos", "Early progression"],
+    easeOfUse: "Easy",
+    strengths: ["Straightforward attacks", "Useful starting moveset with little setup"],
+    limitations: [
+      "Specialized weapons provide stronger offensive or defensive advantages later",
+      "Later perks improve less dramatically than competing options",
+    ],
+    whyThisTier:
+      "Both independent launch tier lists place Sanguine in B: it is reliable for learning the game, but later weapons offer more impactful mechanics.",
+    acquisition: "Soul’s default starting weapon.",
+    mechanics: ["Sweeping Blade", "Straightforward combos", "Beginner-friendly pressure"],
+    placements: mainBPlacements,
+  },
+  {
+    id: "tianxuan-bronze-sword",
+    name: "Tianxuan Bronze Sword",
+    kind: "main_weapon",
+    category: "One-Handed / Guard",
+    bestFor: ["Blocking-focused defense", "Reduced Sha-Chi guard cost", "Defensive builds"],
+    easeOfUse: "Easy",
+    strengths: [
+      "Reduces Sha-Chi consumption while blocking",
+      "Offers high shield-breaking power for a guard-focused style",
+    ],
+    limitations: [
+      "Normal parrying is disabled",
+      "Its specialization is narrow if you prefer perfect-parry play",
+    ],
+    whyThisTier:
+      "Both qualifying tier sources place Tianxuan Bronze Sword in B because reduced blocking costs are useful, but losing normal parries creates a major trade-off.",
+    acquisition: "Obtain it from Master Bi Yuan in Village of Lu.",
+    mechanics: ["Natural Order", "Reduced block cost", "No normal parry"],
+    placements: mainBPlacements,
   },
 ];
 

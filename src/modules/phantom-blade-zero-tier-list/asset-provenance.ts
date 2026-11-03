@@ -47,6 +47,62 @@ const tierIconSources = [
     "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-parting-hooks.jpg",
   ],
   [
+    "scarlet-wraithblade",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-scarlet-wraithblade.jpg",
+  ],
+  [
+    "baishan-stormswords",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-baishan-stormswords.jpg",
+  ],
+  [
+    "sundering-dual-axes",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-sundering-dual-axes.jpg",
+  ],
+  [
+    "whiteshadow",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-whiteshadow.jpg",
+  ],
+  [
+    "juggernaut",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-juggernaut.jpg",
+  ],
+  [
+    "outlaw-warblade",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-outlaw-warblade.jpg",
+  ],
+  [
+    "wooden-sanguine",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-wooden-sanguine.jpg",
+  ],
+  [
+    "armybreaker",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-armybreaker.jpg",
+  ],
+  [
+    "wild-oriole-sword",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-wild-oriole-sword-1.jpg",
+  ],
+  [
+    "the-fanatics-broken-blade",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-the-fanatics-broken-blade.jpg",
+  ],
+  [
+    "sanguine-twin",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-sanguine-twin.jpg",
+  ],
+  [
+    "sanguine-reach",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-sanguine-reach.jpg",
+  ],
+  [
+    "sanguine",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-sanguine.jpg",
+  ],
+  [
+    "tianxuan-bronze-sword",
+    "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-thumb-weapon-tianxuan-bronze-sword.jpg",
+  ],
+  [
     "seamless-death",
     "https://static.allthings.how/wp-content/uploads/2026/10/phantombladezero-weapon-seamless-death-wide.jpg",
   ],
