@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   getPhantomBladeZeroReleaseReadiness,
@@ -22,6 +22,51 @@ const heroAsset = phantomBladeZeroAssetProvenance.find((asset) => asset.role ===
 function entityAsset(entityId: string) {
   return phantomBladeZeroAssetProvenance.find(
     (asset) => asset.role === "tier_icon" && asset.entityId === entityId,
+  );
+}
+
+function LazyTierIcon({ entityId }: { readonly entityId: string }) {
+  const asset = entityAsset(entityId);
+  const slotRef = useRef<HTMLSpanElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const slot = slotRef.current;
+    if (!slot || shouldLoad) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setShouldLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setShouldLoad(true);
+        observer.disconnect();
+      },
+      { rootMargin: "160px 0px" },
+    );
+
+    observer.observe(slot);
+    return () => observer.disconnect();
+  }, [shouldLoad]);
+
+  return (
+    <span ref={slotRef} className={styles.tierImageSlot} data-tier-image-slot={entityId}>
+      {shouldLoad && asset?.localPath ? (
+        <Image
+          src={asset.localPath}
+          alt=""
+          width={56}
+          height={56}
+          sizes="56px"
+          className={styles.tierImage}
+          data-p0-role="tier-icon"
+          data-entity-id={entityId}
+        />
+      ) : null}
+    </span>
   );
 }
 
@@ -384,18 +429,7 @@ export function PhantomBladeZeroTierListPage() {
                           aria-pressed={selected?.id === entity.id}
                           onClick={() => setSelectedId(entity.id)}
                         >
-                          {entityAsset(entity.id)?.localPath ? (
-                            <Image
-                              src={entityAsset(entity.id)!.localPath!}
-                              alt=""
-                              width={56}
-                              height={56}
-                              sizes="56px"
-                              className={styles.tierImage}
-                              data-p0-role="tier-icon"
-                              data-entity-id={entity.id}
-                            />
-                          ) : null}
+                          <LazyTierIcon entityId={entity.id} />
                           <span className={styles.entityText}>
                             <span>{entity.name}</span>
                             <small>{entity.independentSourceCount} sources</small>
