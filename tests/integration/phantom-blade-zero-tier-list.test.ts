@@ -9,7 +9,7 @@ import {
 } from "@/modules/phantom-blade-zero-tier-list";
 
 describe("Phantom Blade Zero module integration", () => {
-  it("connects the shared navigation registry to the preview route", () => {
+  it("connects the shared navigation registry to the released route", () => {
     const game = gamesConfig.find((entry) => entry.slug === "phantom-blade-zero");
     expect(game).toMatchObject({
       name: "Phantom Blade Zero",
@@ -17,7 +17,7 @@ describe("Phantom Blade Zero module integration", () => {
       navigationVisible: true,
       navigationOrder: 6,
     });
-    expect(routeRegistry.get(PHANTOM_BLADE_ZERO_ROUTE).class).toBe("public_noindex");
+    expect(routeRegistry.get(PHANTOM_BLADE_ZERO_ROUTE).class).toBe("public_indexable");
   });
 
   it("opens the P0 release gate after all required local assets are verified", () => {
