@@ -285,7 +285,9 @@ export function PhantomBladeZeroTierListPage() {
             Use this <strong>Phantom Blade Zero tier list</strong> to compare verified Main Weapons
             and Phantom Edges through independent ranking evidence, strengths, weaknesses, and
             practical use cases. The <strong>Phantom Blade Zero weapon tier list</strong> publishes
-            a tier only when at least two independent comprehensive rankings support it.
+            a tier only when at least two independent comprehensive rankings support it. The
+            <strong> Phantom Blade Zero tier list</strong> therefore separates verified identity
+            from ranked consensus.
           </p>
 
           <div className={styles.heroStats}>
@@ -336,6 +338,8 @@ export function PhantomBladeZeroTierListPage() {
             <p className={styles.sectionIntro}>
               Quick Picks summarize the clearest recommendations from the
               <strong> Phantom Blade Zero tier list</strong> without replacing the evidence below.
+              The <strong>Phantom Blade Zero tier list</strong> keeps every shortcut tied to the
+              same source rules used in the full workspace.
             </p>
             <div className={styles.quickGrid}>
               {phantomBladeZeroSnapshot.quickPicks.map((pick) => {
@@ -495,7 +499,8 @@ export function PhantomBladeZeroTierListPage() {
                 An entity needs at least two independent comprehensive ranking sources to leave
                 Pending. The <strong>Phantom Blade Zero tier list</strong> uses Needs Review when
                 qualifying sources disagree enough that a precise consensus tier would overstate the
-                evidence.
+                evidence. The <strong>Phantom Blade Zero tier list</strong> is deliberately
+                conservative when independent evidence is incomplete.
               </p>
               <p>
                 The <strong>Phantom Blade Zero Phantom Edge tier list</strong> does not convert
@@ -520,7 +525,8 @@ export function PhantomBladeZeroTierListPage() {
               Sources for the <strong>Phantom Blade Zero tier list</strong> are separated by what
               they can prove. The <strong>Phantom Blade Zero weapon tier list</strong> currently has
               two qualifying comprehensive Main Weapon sources; supporting data cannot cast a Final
-              Tier vote.
+              Tier vote. For the <strong>Phantom Blade Zero tier list</strong>, official facts can
+              verify identity or mechanics without becoming ranking votes.
             </p>
 
             <div className={styles.sourceColumns}>
@@ -582,7 +588,9 @@ export function PhantomBladeZeroTierListPage() {
                 <summary>Why does the Phantom Blade Zero tier list show Pending?</summary>
                 <p>
                   Pending means the entity is verified but does not yet have enough independent
-                  comprehensive ranking evidence for a formal tier.
+                  comprehensive ranking evidence for a formal tier. The
+                  <strong> Phantom Blade Zero Phantom Edges tier list</strong> therefore stays
+                  Pending until another qualifying comprehensive ranking source appears.
                 </p>
               </details>
               <details>
@@ -607,14 +615,15 @@ export function PhantomBladeZeroTierListPage() {
                 </summary>
                 <p>
                   No. Matchups, execution, progression, and player preference still matter even when
-                  overall combat value ranks lower.
+                  overall combat value ranks lower. The <strong>Phantom Blade Zero tier list</strong>
+                  is a consensus guide, not a claim that lower-ranked options cannot work.
                 </p>
               </details>
               <details>
                 <summary>How often is the Phantom Blade Zero tier list updated?</summary>
                 <p>
-                  The ranking is reviewed when meaningful new comprehensive rankings or official
-                  evidence changes the consensus picture.
+                  The <strong>Phantom Blade Zero tier list</strong> is reviewed when meaningful new
+                  comprehensive rankings or official evidence changes the consensus picture.
                 </p>
               </details>
             </div>
