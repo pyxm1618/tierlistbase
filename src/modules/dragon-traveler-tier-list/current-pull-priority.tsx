@@ -37,6 +37,11 @@ export function CurrentPullPriority({ server }: { server: ServerKey }) {
   }, []);
 
   const banner = now === null ? null : currentBannerAt(server, now);
+  const latestCheckedAt = verifiedBanners
+    .filter((item) => item.server === server)
+    .map((item) => item.checkedAt)
+    .sort()
+    .at(-1);
 
   return (
     <article className={styles.paper} data-current-pull-priority>
@@ -66,7 +71,7 @@ export function CurrentPullPriority({ server }: { server: ServerKey }) {
             No verified banner is active in the recorded {server === "global" ? "Global" : "Taiwan"}{" "}
             event window.
           </p>
-          <small>Banner evidence checked 2026-10-28</small>
+          <small>Banner evidence checked {latestCheckedAt ?? "unknown"}</small>
         </>
       )}
     </article>
