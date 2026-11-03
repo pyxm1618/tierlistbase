@@ -108,14 +108,13 @@ export const verifiedBanners: readonly VerifiedBanner[] = [
 
 export function currentBannerAt(server: ServerKey, now: number): VerifiedBanner | null {
   if (!Number.isFinite(now)) return null;
-  return (
-    verifiedBanners
-      .filter(
-        (banner) =>
-          banner.server === server &&
-          now >= Date.parse(banner.startsAt) &&
-          now < Date.parse(banner.endsAt),
-      )
-      .sort((left, right) => Date.parse(right.startsAt) - Date.parse(left.startsAt))[0] ?? null
+
+  const activeBanners = verifiedBanners.filter(
+    (banner) =>
+      banner.server === server &&
+      now >= Date.parse(banner.startsAt) &&
+      now < Date.parse(banner.endsAt),
   );
+  activeBanners.sort((left, right) => Date.parse(right.startsAt) - Date.parse(left.startsAt));
+  return activeBanners[0] ?? null;
 }
