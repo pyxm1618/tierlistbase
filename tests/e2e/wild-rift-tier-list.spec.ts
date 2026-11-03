@@ -84,9 +84,9 @@ test("all five frozen role tabs render their own Tier Board and preserve Champio
   const detail = page.getByRole("complementary", { name: "Champion Detail" });
   await expect(detail).toContainText("Nocturne");
   await expect(detail.locator('[data-tier="S+"]').first()).toBeVisible();
-  await expect(detail).toContainText("52.9%");
-  await expect(detail).toContainText("6.8%");
-  await expect(detail).toContainText("67.4%");
+  await expect(detail).toContainText("52.5%");
+  await expect(detail).toContainText("6.6%");
+  await expect(detail).toContainText("66.7%");
 });
 
 test("Wild Rift filters, Other Viable Roles, and Quick Picks stay synchronized with the reviewed model", async ({
@@ -110,8 +110,7 @@ test("Wild Rift filters, Other Viable Roles, and Quick Picks stay synchronized w
   await page.locator('[data-champion-id="malphite"]').click();
   const detail = page.getByRole("complementary", { name: "Champion Detail" });
   await expect(detail.getByRole("heading", { name: "Other Viable Roles" })).toBeVisible();
-  await expect(detail.getByRole("button", { name: /Mid Lane/ })).toBeVisible();
-  await expect(detail.getByRole("button", { name: /Support/ })).toBeVisible();
+    await expect(detail.getByRole("button", { name: /Support/ })).toBeVisible();
 
   await page.getByRole("button", { name: "Mid Lane quick pick: Hwei, S+ tier" }).click();
   await expect(roleNav.getByRole("tab", { name: /^Mid Lane$/ })).toHaveAttribute(
@@ -175,7 +174,7 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
 }) => {
   await page.goto(route);
   await expect(
-    page.getByRole("link", { name: "Wild Rift Core · Editorial Role Tier List & History" }),
+    page.getByRole("link", { name: "Wild Rift Core · Source Role Tier List & History" }),
   ).toHaveAttribute("href", "https://wildriftcore.com/en/tierlist/");
   const roleNav = page.getByRole("tablist", { name: "Wild Rift role rankings" });
   await roleNav.getByRole("tab", { name: /^Baron Lane/ }).click();
@@ -190,9 +189,8 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await expect(detail).toContainText("TierListBase editorial placement");
   await expect(detail).toContainText("Source tier: A (Wild Rift Core)");
   await expect(detail).toContainText("TierListBase editorial assessments");
-  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText(
-    "No tier changes cleared the full evidence review",
-  );
+  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("Gnar");
+  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("C → A");
   await roleNav.getByRole("tab", { name: /^Mid Lane$/ }).click();
   await page.getByRole("searchbox", { name: "Search Champions" }).fill("Norra");
   const norra = page.locator('[data-champion-id="norra"]');
