@@ -43,7 +43,7 @@ jobs:
           provenance_text = (root / "src/modules/phantom-blade-zero-tier-list/asset-provenance.ts").read_text(encoding="utf-8")
 
           entities = re.findall(
-              r'id:\s*"([^"]+)",\s*\n\s*kind:\s*"(main_weapon|phantom_edge)",\s*\n\s*name:\s*"([^"]+)"',
+              r'id:\s*"([^"]+)",\s*\n\s*name:\s*"([^"]+)",\s*\n\s*kind:\s*"(main_weapon|phantom_edge)"',
               data_text,
           )
           if len(entities) != 35:
@@ -197,7 +197,7 @@ jobs:
               "localPath": "/images/phantom-blade-zero/hero.webp",
           })
 
-          for entity_id, kind, entity_name in entities:
+          for entity_id, entity_name, kind in entities:
               page_url = f"https://pbz.gg/weapons/{entity_id}/"
               source_url = find_entity_image(page_url, entity_name, entity_id)
               raw = raw_root / f"{entity_id}.source"
