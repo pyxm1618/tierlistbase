@@ -149,7 +149,10 @@ export function TeamWorkspace({
             </div>
           </div>
         </div>
-        <TeamDetailTabs\n          activeTab={activeTab}\n          onTabChange={(tab) => startTransition(() => setActiveTab(tab))}\n        />
+        <TeamDetailTabs
+          activeTab={activeTab}
+          onTabChange={(tab) => startTransition(() => setActiveTab(tab))}
+        />
 
         {activeTab === "Overview" && (
           <div
