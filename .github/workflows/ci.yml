@@ -448,7 +448,7 @@ jobs:
 
   deploy:
     name: Production Deploy
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: ${{ always() && github.event_name == 'push' && github.ref_name == 'main' && needs.ci_required.result == 'success' }}
     needs: [ci_required]
     runs-on: ubuntu-latest
     environment: production
