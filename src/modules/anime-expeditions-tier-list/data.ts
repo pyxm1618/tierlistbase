@@ -172,8 +172,10 @@ export const teams: Team[] = [
     investment: "High",
     bestFor: "General Update 5 progression and broad wave coverage",
     weakness: "High-rarity ownership and upgrade costs make the exact core expensive to reproduce.",
-    replacements: "Replace by role first: carry, amplification, then control. Do not treat lower-rarity ownership as a direct one-for-one performance claim.",
-    dependency: "Six-unit core is source-backed for Update 5; exact traits and rolls remain account dependent.",
+    replacements:
+      "Replace by role first: carry, amplification, then control. Do not treat lower-rarity ownership as a direct one-for-one performance claim.",
+    dependency:
+      "Six-unit core is source-backed for Update 5; exact traits and rolls remain account dependent.",
     status: "Source-reviewed Update 5",
   },
   {
@@ -189,9 +191,12 @@ export const teams: Team[] = [
     ],
     investment: "High",
     bestFor: "Shielded waves and stages where Burn plus lockdown retain value",
-    weakness: "Control resistance and modifier changes can reduce the value of the control-heavy slots.",
-    replacements: "Preserve one carry, one support and at least two reliable control/debuff functions.",
-    dependency: "Source-backed six-unit Update 5 core; practical ordering depends on stage resistances.",
+    weakness:
+      "Control resistance and modifier changes can reduce the value of the control-heavy slots.",
+    replacements:
+      "Preserve one carry, one support and at least two reliable control/debuff functions.",
+    dependency:
+      "Source-backed six-unit Update 5 core; practical ordering depends on stage resistances.",
     status: "Source-reviewed Update 5",
   },
   {
@@ -207,9 +212,12 @@ export const teams: Team[] = [
     ],
     investment: "High",
     bestFor: "Fire and DoT-oriented stages",
-    weakness: "DoT immunity, short stages and unfavorable modifiers can compress the payoff window.",
-    replacements: "Keep the DoT enabler and amplification/control spine before adding another raw damage slot.",
-    dependency: "Six-unit composition is assembled from the current Update 5 source's Flame/Fire DoT evaluation; exact rolls are not prescribed.",
+    weakness:
+      "DoT immunity, short stages and unfavorable modifiers can compress the payoff window.",
+    replacements:
+      "Keep the DoT enabler and amplification/control spine before adding another raw damage slot.",
+    dependency:
+      "Six-unit composition is assembled from the current Update 5 source's Flame/Fire DoT evaluation; exact rolls are not prescribed.",
     status: "Source-reviewed Update 5",
   },
   {
@@ -225,9 +233,11 @@ export const teams: Team[] = [
     ],
     investment: "High",
     bestFor: "Long-run stages where ramp, economy and repeated control cycles matter",
-    weakness: "Short stages may end before takedown, meter and economy mechanics repay their setup.",
+    weakness:
+      "Short stages may end before takedown, meter and economy mechanics repay their setup.",
     replacements: "Keep economy plus at least one scaling carry and one control/support slot.",
-    dependency: "Source-backed Update 5 high-wave evaluation; wave length materially changes value.",
+    dependency:
+      "Source-backed Update 5 high-wave evaluation; wave length materially changes value.",
     status: "Source-reviewed Update 5",
   },
   {
@@ -244,8 +254,10 @@ export const teams: Team[] = [
     investment: "High",
     bestFor: "Stages where layered control and recovery create safer damage windows",
     weakness: "Boss or stage immunity to control reduces several slots at once.",
-    replacements: "Swap by control type and preserve a damage source that can capitalize on the recovered window.",
-    dependency: "Six-unit composition follows the current Update 5 lockdown/recovery evaluation; immunity checks remain stage specific.",
+    replacements:
+      "Swap by control type and preserve a damage source that can capitalize on the recovered window.",
+    dependency:
+      "Six-unit composition follows the current Update 5 lockdown/recovery evaluation; immunity checks remain stage specific.",
     status: "Source-reviewed Update 5",
   },
 ];

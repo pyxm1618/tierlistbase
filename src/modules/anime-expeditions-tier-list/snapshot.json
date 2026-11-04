@@ -33,36 +33,20 @@
       },
       "why": "The attack cycle combines Alchemy Mark, Magical amplification and slow. Team DoT balance changes its passive outcome, so it should be built around the actual equipped roster.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "All Modes"
-      ],
+      "bestFor": ["All Modes"],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "unbound",
-          "primordial"
-        ],
-        "standardIds": [
-          "magic-book",
-          "accursed-equipment"
-        ],
-        "exclusiveIds": [
-          "blade-arm"
-        ],
+        "traitIds": ["unbound", "primordial"],
+        "standardIds": ["magic-book", "accursed-equipment"],
+        "exclusiveIds": ["blade-arm"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "devil",
-        "subject-8"
-      ],
+      "partners": ["devil", "subject-8"],
       "hidden": false,
       "asset": "alchemy-brothers-truth",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "subject-8",
@@ -97,36 +81,20 @@
       },
       "why": "Colossal Roar combines Dismember with a Physical damage buff in range. Its half-range trigger requires deliberate positioning, rather than placing it at the edge of coverage.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Raid"
-      ],
+      "bestFor": ["Raid"],
       "investment": "Worth Evolving",
       "investmentLevel": "High",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "unbound",
-          "primordial"
-        ],
-        "standardIds": [
-          "warrior-s-axe",
-          "katana"
-        ],
-        "exclusiveIds": [
-          "monster-claws"
-        ],
+        "traitIds": ["unbound", "primordial"],
+        "standardIds": ["warrior-s-axe", "katana"],
+        "exclusiveIds": ["monster-claws"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "sovereign",
-        "broken-falcon"
-      ],
+      "partners": ["sovereign", "broken-falcon"],
       "hidden": false,
       "asset": "subject-8-monster",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "fallen-angel",
@@ -161,36 +129,20 @@
       },
       "why": "Time Stop creates a window for existing DoT effects. The evolved kill interaction extends that window and stores Flame Feathers, so wave density matters more than sheet DPS.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Long-run"
-      ],
+      "bestFor": ["Long-run"],
       "investment": "High Priority",
       "investmentLevel": "Moderate",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "optics",
-          "primordial"
-        ],
-        "standardIds": [
-          "magic-orb",
-          "pirate-s-slingshot"
-        ],
-        "exclusiveIds": [
-          "angel-blade"
-        ],
+        "traitIds": ["optics", "primordial"],
+        "standardIds": ["magic-orb", "pirate-s-slingshot"],
+        "exclusiveIds": ["angel-blade"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "crow",
-        "devil"
-      ],
+      "partners": ["crow", "devil"],
       "hidden": false,
       "asset": "fallen-angel-holy",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "devil",
@@ -225,36 +177,20 @@
       },
       "why": "Enhanced Burn stored by Demon Head is converted into a detonation. This makes DoT scaling valuable, but the explosion depends on its setup window and enemies remaining grouped.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Raid"
-      ],
+      "bestFor": ["Raid"],
       "investment": "High Priority",
       "investmentLevel": "Moderate",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "draconic",
-          "unbound"
-        ],
-        "standardIds": [
-          "warrior-s-axe",
-          "katana"
-        ],
-        "exclusiveIds": [
-          "fire-helmet"
-        ],
+        "traitIds": ["draconic", "unbound"],
+        "standardIds": ["warrior-s-axe", "katana"],
+        "exclusiveIds": ["fire-helmet"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "metallic-alchemist",
-        "fallen-angel"
-      ],
+      "partners": ["metallic-alchemist", "fallen-angel"],
       "hidden": false,
       "asset": "devil-hero",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "crimson-captain",
@@ -289,37 +225,20 @@
       },
       "why": "Fire Banners add independent Fire instances and eventually become moving summons. The damage ceiling needs time to establish banners; short stages reduce that advantage.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Long-run"
-      ],
+      "bestFor": ["Long-run"],
       "investment": "High Priority",
       "investmentLevel": "High",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "draconic",
-          "unbound"
-        ],
-        "standardIds": [
-          "magic-book",
-          "accursed-equipment"
-        ],
-        "exclusiveIds": [
-          "beacon-of-pride"
-        ],
+        "traitIds": ["draconic", "unbound"],
+        "standardIds": ["magic-book", "accursed-equipment"],
+        "exclusiveIds": ["beacon-of-pride"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "broken-falcon",
-        "fallen-angel",
-        "ramen-guy"
-      ],
+      "partners": ["broken-falcon", "fallen-angel", "ramen-guy"],
       "hidden": false,
       "asset": "crimson-captain-moon",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "broken-falcon",
@@ -354,36 +273,20 @@
       },
       "why": "The Captain boosts allied damage and rewards the dominant Archetype. Its buffs do not stack; it earns a slot through team output and War Chest income rather than personal DPS.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "All Modes"
-      ],
+      "bestFor": ["All Modes"],
       "investment": "Situational",
       "investmentLevel": "High",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "optics",
-          "primordial"
-        ],
-        "standardIds": [
-          "magic-orb",
-          "pirate-s-slingshot"
-        ],
-        "exclusiveIds": [
-          "chosen-sabre"
-        ],
+        "traitIds": ["optics", "primordial"],
+        "standardIds": ["magic-orb", "pirate-s-slingshot"],
+        "exclusiveIds": ["chosen-sabre"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "crimson-captain",
-        "sovereign"
-      ],
+      "partners": ["crimson-captain", "sovereign"],
       "hidden": false,
       "asset": "silver-falcon",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "sovereign",
@@ -418,36 +321,20 @@
       },
       "why": "Lightning chains bounce back onto fewer targets. Boss proximity activates the second Djinn with Freeze and follow-up slow, making its contribution depend on what enters range.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Raid"
-      ],
+      "bestFor": ["Raid"],
       "investment": "High Priority",
       "investmentLevel": "High",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "unbound",
-          "primordial"
-        ],
-        "standardIds": [
-          "warrior-s-axe",
-          "katana"
-        ],
-        "exclusiveIds": [
-          "lightning-dagger"
-        ],
+        "traitIds": ["unbound", "primordial"],
+        "standardIds": ["warrior-s-axe", "katana"],
+        "exclusiveIds": ["lightning-dagger"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "broken-falcon",
-        "stone-alchemist"
-      ],
+      "partners": ["broken-falcon", "stone-alchemist"],
       "hidden": false,
       "asset": "sovereign-djinn",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "cubert",
@@ -477,34 +364,20 @@
       },
       "why": "Cube Link amplifies linked allies while Cube Overload adds stun after regular attacks. Value depends on the linked attackers and their positioning, not Cubert’s own attack damage.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "All Modes"
-      ],
+      "bestFor": ["All Modes"],
       "investment": "Situational",
       "investmentLevel": "Moderate",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "optics",
-          "primordial"
-        ],
-        "standardIds": [
-          "magic-orb",
-          "pirate-s-slingshot"
-        ],
+        "traitIds": ["optics", "primordial"],
+        "standardIds": ["magic-orb", "pirate-s-slingshot"],
         "exclusiveIds": [],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "sovereign",
-        "crimson-captain"
-      ],
+      "partners": ["sovereign", "crimson-captain"],
       "hidden": false,
       "asset": "cubert",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "bioinsect",
@@ -539,36 +412,20 @@
       },
       "why": "Biogel links slow into stun and the transformation chain needs takedowns and summoned boss kills. A strong long-run tool that cannot be treated as fully ramped at placement.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Long-run"
-      ],
+      "bestFor": ["Long-run"],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "unbound",
-          "primordial"
-        ],
-        "standardIds": [
-          "magic-book",
-          "accursed-equipment"
-        ],
-        "exclusiveIds": [
-          "mechanical-wings"
-        ],
+        "traitIds": ["unbound", "primordial"],
+        "standardIds": ["magic-book", "accursed-equipment"],
+        "exclusiveIds": ["mechanical-wings"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "crow",
-        "cubert"
-      ],
+      "partners": ["crow", "cubert"],
       "hidden": false,
       "asset": "bioinsect-final-form",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "crow",
@@ -603,36 +460,20 @@
       },
       "why": "Illusion rewards grouping enemies before its explosion; BlackFire supplies a separate damage route. Isolated targets and poor stacking reduce the value of the same build.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Long-run"
-      ],
+      "bestFor": ["Long-run"],
       "investment": "High Priority",
       "investmentLevel": "High",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "draconic",
-          "unbound"
-        ],
-        "standardIds": [
-          "magic-book",
-          "accursed-equipment"
-        ],
-        "exclusiveIds": [
-          "illusion-crow"
-        ],
+        "traitIds": ["draconic", "unbound"],
+        "standardIds": ["magic-book", "accursed-equipment"],
+        "exclusiveIds": ["illusion-crow"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "fallen-angel",
-        "cubert"
-      ],
+      "partners": ["fallen-angel", "cubert"],
       "hidden": false,
       "asset": "crow-black-fire",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "salmon-sorcerer",
@@ -667,36 +508,20 @@
       },
       "why": "The base slow and evolved close-range Stagger create layered stall. Placement must bring enemies inside half of its range for Plummet; extra range alone does not guarantee that trigger.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Story / Challenge"
-      ],
+      "bestFor": ["Story / Challenge"],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "optics",
-          "primordial"
-        ],
-        "standardIds": [
-          "magic-orb",
-          "pirate-s-slingshot"
-        ],
-        "exclusiveIds": [
-          "technique-amplifier"
-        ],
+        "traitIds": ["optics", "primordial"],
+        "standardIds": ["magic-orb", "pirate-s-slingshot"],
+        "exclusiveIds": ["technique-amplifier"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "stone-alchemist",
-        "elf-mage"
-      ],
+      "partners": ["stone-alchemist", "elf-mage"],
       "hidden": false,
       "asset": "salmon-sorcerer-grade-1",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "ramen-guy",
@@ -726,32 +551,20 @@
       },
       "why": "Kill-income amplification helps long waves fund expensive upgrades. Capital Lock returns little on selling, so early placement competes with immediate defensive spending.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Long-run"
-      ],
+      "bestFor": ["Long-run"],
       "investment": "Situational",
       "investmentLevel": "Moderate",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "investor"
-        ],
-        "standardIds": [
-          "economist-s-coin"
-        ],
+        "traitIds": ["investor"],
+        "standardIds": ["economist-s-coin"],
         "exclusiveIds": [],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "crimson-captain",
-        "crow"
-      ],
+      "partners": ["crimson-captain", "crow"],
       "hidden": false,
       "asset": "ramen-guy",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "stone-alchemist",
@@ -781,32 +594,20 @@
       },
       "why": "Wave income can fund the first carry upgrades without using a Secret slot. This is an account-progression choice; short stages can end before a large farm investment pays back.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Story / Challenge"
-      ],
+      "bestFor": ["Story / Challenge"],
       "investment": "Situational",
       "investmentLevel": "Moderate",
       "dependency": "Ranked form, role-fit trait and rolled equipment; current live performance needs review.",
       "build": {
-        "traitIds": [
-          "investor"
-        ],
-        "standardIds": [
-          "economist-s-coin"
-        ],
+        "traitIds": ["investor"],
+        "standardIds": ["economist-s-coin"],
         "exclusiveIds": [],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
-      "partners": [
-        "salmon-sorcerer",
-        "elf-mage"
-      ],
+      "partners": ["salmon-sorcerer", "elf-mage"],
       "hidden": false,
       "asset": "stone-alchemist",
-      "sourceIds": [
-        "unit-data",
-        "wiki-ranking"
-      ]
+      "sourceIds": ["unit-data", "wiki-ranking"]
     },
     {
       "id": "ignition-commander",
@@ -848,17 +649,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "ignis-restraint"
-        ],
+        "exclusiveIds": ["ignis-restraint"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "ignition-commander-betrayal",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "water-sage-founder",
@@ -901,9 +698,7 @@
       "partners": [],
       "hidden": false,
       "asset": "water-sage-founder",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "wild-card",
@@ -945,17 +740,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "joker-card"
-        ],
+        "exclusiveIds": ["joker-card"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "wild-card-ace",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "iron-wolf",
@@ -997,17 +788,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "demonslayer"
-        ],
+        "exclusiveIds": ["demonslayer"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "iron-wolf-struggler",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "eclipse-hunter",
@@ -1049,17 +836,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "blade-of-reality"
-        ],
+        "exclusiveIds": ["blade-of-reality"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "eclipse-hunter-savior",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "lightning-god",
@@ -1101,17 +884,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "storm-trident"
-        ],
+        "exclusiveIds": ["storm-trident"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "lightning-god-overcharged",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "jester",
@@ -1154,9 +933,7 @@
       "partners": [],
       "hidden": false,
       "asset": "jester",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "kitsune",
@@ -1199,9 +976,7 @@
       "partners": [],
       "hidden": false,
       "asset": "kitsune",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "rainman",
@@ -1243,17 +1018,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "poison-frog"
-        ],
+        "exclusiveIds": ["poison-frog"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "rainman-forecast",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "sharkfang",
@@ -1295,17 +1066,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "tideblade"
-        ],
+        "exclusiveIds": ["tideblade"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "sharkfang-abyssal",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "head-captain",
@@ -1347,17 +1114,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "fiery-staff"
-        ],
+        "exclusiveIds": ["fiery-staff"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "head-captain-char",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "sand",
@@ -1399,17 +1162,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "poison-hook"
-        ],
+        "exclusiveIds": ["poison-hook"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "sand-alligator",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "water-mage",
@@ -1451,17 +1210,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "spirit-king-s-blade"
-        ],
+        "exclusiveIds": ["spirit-king-s-blade"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "water-mage-scholar",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "prodigy",
@@ -1503,17 +1258,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "mentor-s-cape"
-        ],
+        "exclusiveIds": ["mentor-s-cape"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "prodigy-rage",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "cube",
@@ -1556,9 +1307,7 @@
       "partners": [],
       "hidden": true,
       "asset": "cube",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "the-drink",
@@ -1600,17 +1349,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "pointy-straw"
-        ],
+        "exclusiveIds": ["pointy-straw"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "the-drink-juicebox",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "carrot",
@@ -1652,17 +1397,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "carrot-s-gi"
-        ],
+        "exclusiveIds": ["carrot-s-gi"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "carrot-unleashed",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "vegetable",
@@ -1704,17 +1445,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "royal-gi"
-        ],
+        "exclusiveIds": ["royal-gi"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "vegetable-prince",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "razorjaw",
@@ -1756,17 +1493,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "predator-s-skull"
-        ],
+        "exclusiveIds": ["predator-s-skull"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "razorjaw-hunter",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "dark-mage",
@@ -1808,17 +1541,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "dark-scepter"
-        ],
+        "exclusiveIds": ["dark-scepter"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "dark-mage-sovereign",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "cursed-immortal",
@@ -1860,17 +1589,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "memory-pendant"
-        ],
+        "exclusiveIds": ["memory-pendant"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "cursed-immortal-black-sun",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "shadow",
@@ -1912,17 +1637,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "hexed-blade"
-        ],
+        "exclusiveIds": ["hexed-blade"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "shadow-divine",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "true-saint",
@@ -1970,9 +1691,7 @@
       "partners": [],
       "hidden": false,
       "asset": "true-saint-holy",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "little-carrot",
@@ -2015,9 +1734,7 @@
       "partners": [],
       "hidden": false,
       "asset": "little-carrot",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "reaper",
@@ -2059,17 +1776,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "spirit-of-the-moonblade"
-        ],
+        "exclusiveIds": ["spirit-of-the-moonblade"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "reaper-released",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "forbidden-teacher",
@@ -2112,9 +1825,7 @@
       "partners": [],
       "hidden": false,
       "asset": "forbidden-teacher",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "ice-mage",
@@ -2157,9 +1868,7 @@
       "partners": [],
       "hidden": false,
       "asset": "ice-mage",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "thunder-shinobi",
@@ -2202,9 +1911,7 @@
       "partners": [],
       "hidden": false,
       "asset": "thunder-shinobi",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "cursed-student",
@@ -2246,17 +1953,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "promise-ring"
-        ],
+        "exclusiveIds": ["promise-ring"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "cursed-student-true-love",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "string-demon",
@@ -2298,17 +2001,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "webbed-fruit"
-        ],
+        "exclusiveIds": ["webbed-fruit"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "string-demon-awakened",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "crimson",
@@ -2356,9 +2055,7 @@
       "partners": [],
       "hidden": false,
       "asset": "crimson-brother",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "flame-emperor",
@@ -2400,17 +2097,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "emperor-s-attire"
-        ],
+        "exclusiveIds": ["emperor-s-attire"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "flame-emperor-reincarnate",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "bounty-hunter",
@@ -2453,9 +2146,7 @@
       "partners": [],
       "hidden": false,
       "asset": "bounty-hunter",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "8th-sword",
@@ -2497,18 +2188,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "onis-nature",
-          "hair-bells"
-        ],
+        "exclusiveIds": ["onis-nature", "hair-bells"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "8th-sword-berserk",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "nen-hunter",
@@ -2551,9 +2237,7 @@
       "partners": [],
       "hidden": false,
       "asset": "nen-hunter",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "water-princess",
@@ -2596,9 +2280,7 @@
       "partners": [],
       "hidden": false,
       "asset": "water-princess",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "corps-captain",
@@ -2641,9 +2323,7 @@
       "partners": [],
       "hidden": false,
       "asset": "corps-captain",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "hollow",
@@ -2685,17 +2365,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "hell-s-flower"
-        ],
+        "exclusiveIds": ["hell-s-flower"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "hollow-blaze",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "greed",
@@ -2738,9 +2414,7 @@
       "partners": [],
       "hidden": false,
       "asset": "greed",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "puppet",
@@ -2782,17 +2456,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "calamity-s-eye"
-        ],
+        "exclusiveIds": ["calamity-s-eye"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "puppet-telekinetic",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "reishi-archer",
@@ -2835,9 +2505,7 @@
       "partners": [],
       "hidden": false,
       "asset": "reishi-archer",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "lady-giant",
@@ -2879,17 +2547,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "boulder"
-        ],
+        "exclusiveIds": ["boulder"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "lady-giant-envy",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "elf-mage",
@@ -2931,17 +2595,13 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "elven-battle-staff"
-        ],
+        "exclusiveIds": ["elven-battle-staff"],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
       },
       "partners": [],
       "hidden": false,
       "asset": "elf-mage-unleashed",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "toy-maker",
@@ -2984,9 +2644,7 @@
       "partners": [],
       "hidden": false,
       "asset": "toy-maker",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "demon-cyborg",
@@ -3029,9 +2687,7 @@
       "partners": [],
       "hidden": false,
       "asset": "demon-cyborg",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "curly-brow",
@@ -3074,9 +2730,7 @@
       "partners": [],
       "hidden": false,
       "asset": "curly-brow",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "scissor",
@@ -3119,9 +2773,7 @@
       "partners": [],
       "hidden": false,
       "asset": "scissor",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "ice-queen",
@@ -3164,9 +2816,7 @@
       "partners": [],
       "hidden": false,
       "asset": "ice-queen",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "kid-assassin",
@@ -3209,9 +2859,7 @@
       "partners": [],
       "hidden": false,
       "asset": "kid-assassin",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "the-hero",
@@ -3254,9 +2902,7 @@
       "partners": [],
       "hidden": false,
       "asset": "the-hero",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "rubber-boy",
@@ -3299,9 +2945,7 @@
       "partners": [],
       "hidden": false,
       "asset": "rubber-boy",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "id": "suited-alchemist",
@@ -3344,36 +2988,25 @@
       "partners": [],
       "hidden": false,
       "asset": "suited-alchemist",
-      "sourceIds": [
-        "unit-data"
-      ]
+      "sourceIds": ["unit-data"]
     },
     {
       "availability": "Needs Review",
       "availabilityNote": "Current obtainment is not asserted unless the current source explicitly marks the unit Limited.",
       "evolutionState": "Base",
-      "bestFor": [
-        "Boss control",
-        "Retaliation",
-        "Slow / Stun"
-      ],
+      "bestFor": ["Boss control", "Retaliation", "Slow / Stun"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
       "dependency": "Its strongest boss-control tools arrive late in the upgrade path; Black Heart can intentionally trigger its retaliation interaction.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "awakened-moonblade"
-        ],
+        "exclusiveIds": ["awakened-moonblade"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
       "partners": [],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "reaper-frenzied",
       "baseName": "Reaper (Frenzied)",
       "currentForm": "Reaper (Frenzied)",
@@ -3404,28 +3037,19 @@
       "availability": "Needs Review",
       "availabilityNote": "Current obtainment is not asserted unless the current source explicitly marks the unit Limited.",
       "evolutionState": "Evolved",
-      "bestFor": [
-        "Long lanes",
-        "Cycle damage",
-        "Remote wave reach"
-      ],
+      "bestFor": ["Long lanes", "Cycle damage", "Remote wave reach"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
       "dependency": "Displayed SPA is not sustained cycle frequency; evaluate the five-attack rhythm rather than raw preview DPS.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "demonic-pistols"
-        ],
+        "exclusiveIds": ["demonic-pistols"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
       "partners": [],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "wolf",
       "baseName": "Wolf",
       "currentForm": "Wolf (Revived)",
@@ -3461,30 +3085,19 @@
       "availability": "Needs Review",
       "availabilityNote": "Current obtainment is not asserted unless the current source explicitly marks the unit Limited.",
       "evolutionState": "Evolved",
-      "bestFor": [
-        "Regeneration counters",
-        "Damage amplification",
-        "Reaper synergy"
-      ],
+      "bestFor": ["Regeneration counters", "Damage amplification", "Reaper synergy"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
       "dependency": "Its unusual outside-range targeting changes placement logic; Reaper (Frenzied) enables the named stun interaction.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "lanza-de-luz"
-        ],
+        "exclusiveIds": ["lanza-de-luz"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
-      "partners": [
-        "reaper-frenzied"
-      ],
+      "partners": ["reaper-frenzied"],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "black-heart",
       "baseName": "Black Heart",
       "currentForm": "Black Heart (Revived)",
@@ -3520,30 +3133,19 @@
       "availability": "Needs Review",
       "availabilityNote": "Current obtainment is not asserted unless the current source explicitly marks the unit Limited.",
       "evolutionState": "Evolved",
-      "bestFor": [
-        "Hard-CC teams",
-        "Soul interactions",
-        "Control-assisted damage"
-      ],
+      "bestFor": ["Hard-CC teams", "Soul interactions", "Control-assisted damage"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "blossom-blade"
-        ],
+        "exclusiveIds": ["blossom-blade"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
-      "partners": [
-        "fallen-angel"
-      ],
+      "partners": ["fallen-angel"],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "noble-captain",
       "baseName": "Noble Captain",
       "currentForm": "Noble Captain (Vibrant)",
@@ -3579,30 +3181,19 @@
       "availability": "Needs Review",
       "availabilityNote": "Current obtainment is not asserted unless the current source explicitly marks the unit Limited.",
       "evolutionState": "Evolved",
-      "bestFor": [
-        "Soul teams",
-        "Modifier counters",
-        "Hypnosis control"
-      ],
+      "bestFor": ["Soul teams", "Modifier counters", "Hypnosis control"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "hypnotic-edge"
-        ],
+        "exclusiveIds": ["hypnotic-edge"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
-      "partners": [
-        "reaper-frenzied"
-      ],
+      "partners": ["reaper-frenzied"],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "traitor",
       "baseName": "Traitor",
       "currentForm": "Traitor (Illusion)",
@@ -3638,11 +3229,7 @@
       "availability": "Limited",
       "availabilityNote": "Current wiki marks the unit Limited; exact obtainment is not asserted.",
       "evolutionState": "Base",
-      "bestFor": [
-        "Self-cleanse",
-        "Timed burst",
-        "Stun windows"
-      ],
+      "bestFor": ["Self-cleanse", "Timed burst", "Stun windows"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
@@ -3654,10 +3241,7 @@
       },
       "partners": [],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "emerald-fist",
       "baseName": "Emerald Fist",
       "currentForm": "Emerald Fist",
@@ -3688,28 +3272,19 @@
       "availability": "Limited",
       "availabilityNote": "Current wiki marks Impaler Limited; exact obtainment is not asserted.",
       "evolutionState": "Evolved",
-      "bestFor": [
-        "Bleed teams",
-        "Boss / elite targeting",
-        "Self-cleanse"
-      ],
+      "bestFor": ["Bleed teams", "Boss / elite targeting", "Self-cleanse"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "piety-obliteration"
-        ],
+        "exclusiveIds": ["piety-obliteration"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
       "partners": [],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "impaler",
       "baseName": "Impaler",
       "currentForm": "Impaler (Ultimate)",
@@ -3738,9 +3313,7 @@
         "Crowd Control": "A"
       },
       "why": "Update 5 source review places Impaler (Ultimate) in S tier as a Bleed carry with mode switching, Bleed consumption and emergency control.",
-      "exclusiveIds": [
-        "piety-obliteration"
-      ],
+      "exclusiveIds": ["piety-obliteration"],
       "asset": "",
       "reviewStatus": "Source-reviewed (Update 5)"
     },
@@ -3748,28 +3321,19 @@
       "availability": "Limited",
       "availabilityNote": "Current wiki marks Atom Limited; exact obtainment is not asserted.",
       "evolutionState": "Evolved",
-      "bestFor": [
-        "Durable targets",
-        "Radiation",
-        "Mapwide finisher"
-      ],
+      "bestFor": ["Durable targets", "Radiation", "Mapwide finisher"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "morphing-sword"
-        ],
+        "exclusiveIds": ["morphing-sword"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
       "partners": [],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "atom",
       "baseName": "Atom",
       "currentForm": "Atom (Totality)",
@@ -3798,9 +3362,7 @@
         "Crowd Control": "Pending"
       },
       "why": "Update 5 source review places Atom (Totality) in S tier for Radiation scaling, execute pressure and a charged mapwide finisher.",
-      "exclusiveIds": [
-        "morphing-sword"
-      ],
+      "exclusiveIds": ["morphing-sword"],
       "asset": "",
       "reviewStatus": "Source-reviewed (Update 5)"
     },
@@ -3808,30 +3370,19 @@
       "availability": "Limited",
       "availabilityNote": "Current wiki marks Dead Melody Limited; exact obtainment is not asserted.",
       "evolutionState": "Evolved",
-      "bestFor": [
-        "Seafarer teams",
-        "Deep Freeze",
-        "Range buffs"
-      ],
+      "bestFor": ["Seafarer teams", "Deep Freeze", "Range buffs"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "kings-guitar"
-        ],
+        "exclusiveIds": ["kings-guitar"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
-      "partners": [
-        "princess"
-      ],
+      "partners": ["princess"],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "dead-melody",
       "baseName": "Dead Melody",
       "currentForm": "Dead Melody (Solo)",
@@ -3860,9 +3411,7 @@
         "Crowd Control": "S"
       },
       "why": "Update 5 source review places Dead Melody (Solo) in S tier for range buffs, Captain support and Deep Freeze Seafarer synergy.",
-      "exclusiveIds": [
-        "kings-guitar"
-      ],
+      "exclusiveIds": ["kings-guitar"],
       "asset": "",
       "reviewStatus": "Source-reviewed (Update 5)"
     },
@@ -3870,30 +3419,19 @@
       "availability": "Limited",
       "availabilityNote": "Current wiki marks First Blade Limited; exact obtainment is not asserted.",
       "evolutionState": "Evolved",
-      "bestFor": [
-        "Debuff-heavy stages",
-        "Soul teams",
-        "8th Sword support"
-      ],
+      "bestFor": ["Debuff-heavy stages", "Soul teams", "8th Sword support"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "life-eater"
-        ],
+        "exclusiveIds": ["life-eater"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
-      "partners": [
-        "8th-sword"
-      ],
+      "partners": ["8th-sword"],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "first-blade",
       "baseName": "First Blade",
       "currentForm": "First Blade (Strongest)",
@@ -3922,9 +3460,7 @@
         "Crowd Control": "B"
       },
       "why": "Update 5 source review places First Blade (Strongest) in S tier because cleansing allied debuffs can trigger strong damage buffs, with a named interaction for 8th Sword.",
-      "exclusiveIds": [
-        "life-eater"
-      ],
+      "exclusiveIds": ["life-eater"],
       "asset": "",
       "reviewStatus": "Source-reviewed (Update 5)"
     },
@@ -3932,30 +3468,19 @@
       "availability": "Limited",
       "availabilityNote": "Current wiki marks Princess Limited; exact obtainment is not asserted.",
       "evolutionState": "Evolved",
-      "bestFor": [
-        "Seafarer teams",
-        "Wave control",
-        "Summons"
-      ],
+      "bestFor": ["Seafarer teams", "Wave control", "Summons"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [
-          "evening-umbrella"
-        ],
+        "exclusiveIds": ["evening-umbrella"],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
-      "partners": [
-        "dead-melody"
-      ],
+      "partners": ["dead-melody"],
       "hidden": false,
-      "sourceIds": [
-        "current-wiki",
-        "pgg-update5"
-      ],
+      "sourceIds": ["current-wiki", "pgg-update5"],
       "id": "princess",
       "baseName": "Princess",
       "currentForm": "Princess (Misery)",
@@ -3984,9 +3509,7 @@
         "Crowd Control": "A"
       },
       "why": "Update 5 source review places Princess (Misery) in A tier as a Seafarer controller and summoner built around Gloom, Possession and periodic Special Ghost bursts.",
-      "exclusiveIds": [
-        "evening-umbrella"
-      ],
+      "exclusiveIds": ["evening-umbrella"],
       "asset": "",
       "reviewStatus": "Source-reviewed (Update 5)"
     },
@@ -4018,35 +3541,20 @@
       },
       "why": "The current Update 5 ranking source places 5th God Hand in S tier for Full AoE damage, Distortion control and Fated Meter scaling.",
       "reviewStatus": "Source-reviewed (Update 5)",
-      "bestFor": [
-        "Full AoE",
-        "Distortion control",
-        "Long-wave scaling"
-      ],
+      "bestFor": ["Full AoE", "Distortion control", "Long-wave scaling"],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
       "dependency": "Broken Falcon → 5th God Hand is the Sacrifice branch. One placement and Fated Meter ramp make it strongest when the stage lasts long enough to reach repeated Eclipse payoffs.",
       "build": {
-        "traitIds": [
-          "unbound"
-        ],
+        "traitIds": ["unbound"],
         "standardIds": [],
-        "exclusiveIds": [
-          "orb-of-causality"
-        ],
+        "exclusiveIds": ["orb-of-causality"],
         "note": "Unbound is source-supported as a current fit; no unsourced equipment claim is added."
       },
-      "partners": [
-        "broken-falcon",
-        "lightning-god"
-      ],
+      "partners": ["broken-falcon", "lightning-god"],
       "hidden": false,
       "asset": "5th-god-hand",
-      "sourceIds": [
-        "unit-data",
-        "current-wiki",
-        "pgg-update5"
-      ]
+      "sourceIds": ["unit-data", "current-wiki", "pgg-update5"]
     }
   ],
   "traits": [
@@ -4060,9 +3568,7 @@
       "bestFor": "DPS",
       "restriction": "Single placement: compare total team output before rerolling.",
       "why": "The documented 350% damage amplification concentrates output into a single placement. Compare that one carry with the total output and coverage of the placements it replaces; it is not an automatic support or economy recommendation.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4075,9 +3581,7 @@
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "Damage, attack interval and range improve together without the documented single-placement restriction of Unbound. This gives damage units a broad alternative when multiple placements matter.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4090,9 +3594,7 @@
       "bestFor": "Crit builds",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "Critical chance and critical damage improve together. Value depends on the unit actually using critical attacks and its existing critical stats; a non-critical support kit does not gain the same benefit.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4105,10 +3607,7 @@
       "bestFor": "DoT",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "The large documented DoT bonus rewards a damaging status kit, while the cost reduction helps establish it earlier. A direct-hit unit without damaging DoT does not use the main reason for this grade.",
-      "sourceIds": [
-        "traits",
-        "draconic-patch"
-      ],
+      "sourceIds": ["traits", "draconic-patch"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4121,9 +3620,7 @@
       "bestFor": "Economy",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "The income increase addresses the economy slot rather than carry damage. Its value depends on bringing a money-farm unit and having enough remaining upgrades or waves to spend the extra income.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4136,9 +3633,7 @@
       "bestFor": "Support / range coverage",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "Extra range can expand support coverage and keep more targets within a conditional aura. It does not supply direct damage or attack-speed bonuses, so evaluate actual map coverage before choosing it for a carry.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4151,9 +3646,7 @@
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "The attack-interval reduction improves repeated attacks without requiring critical or DoT mechanics. It lacks Primordial’s accompanying damage and range bonuses, making it a narrower damage option.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4166,9 +3659,7 @@
       "bestFor": "Crit builds",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "Its critical chance and critical damage bonuses favor kits that make meaningful use of critical attacks. It offers larger documented bonuses than Precision 1 but contributes little to non-attacking support effects.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4181,9 +3672,7 @@
       "bestFor": "Crit builds",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "The smaller critical package can serve a developing critical build. Its documented chance and damage bonuses are both below Precision 2; keep it for the relevant kit rather than treating it as a universal upgrade.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4196,9 +3685,7 @@
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "The documented 15% damage increase is a straightforward attacking-unit option. It lacks the attack interval, range or specialist DoT benefits that justify the higher role-fit grades.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4211,9 +3698,7 @@
       "bestFor": "Support / range coverage",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "The 10% range increase can repair a particular placement or support-coverage gap. Optics supplies a larger range bonus, and extra reach has little value when the required targets are already covered.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4226,9 +3711,7 @@
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "The 10% attack-interval reduction supports repeated attacks. Bolt provides a larger documented reduction; this remains a useful interim choice when stronger rolls are unavailable.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4241,9 +3724,7 @@
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "A 10% damage increase helps an attacking unit without demanding a specific mechanic. Limit Breaker provides a larger flat bonus, while specialist traits can address additional parts of a kit.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4256,9 +3737,7 @@
       "bestFor": "Progression",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "Extra experience helps account progression, but the documented effect does not directly improve damage, control or support during a stage. The low combat grade does not mean it has no leveling use.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4271,9 +3750,7 @@
       "bestFor": "Support / range coverage",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "A small range increase is useful only when it crosses a real coverage threshold. Larger range traits are preferable for a dedicated coverage build; do not reroll solely for a rarity label.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4286,9 +3763,7 @@
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "The 5% attack-interval reduction provides a modest interim attack-speed benefit. Speed 2 and Bolt offer larger documented reductions, so this is a low-investment stopping point rather than a finished build.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     },
     {
@@ -4301,9 +3776,7 @@
       "bestFor": "DPS",
       "restriction": "Role fit and actual unit mechanics determine value.",
       "why": "The 5% damage increase is a modest interim damage roll. Stronger flat-damage traits and role-specific options provide more documented benefit; preserve resources if this unit will soon be replaced.",
-      "sourceIds": [
-        "traits"
-      ],
+      "sourceIds": ["traits"],
       "status": "Source checked; live review pending"
     }
   ],
@@ -4317,15 +3790,10 @@
       "passive": "After this unit receives a Status Effect or Debuff:; - This unit's next Attack deals 10 to 15% extra damage",
       "tier": "Pending",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "reaper-s-glove",
       "status": "Needs Review",
-      "documentedAcquisition": [
-        "Armory",
-        "Hollow Desert"
-      ],
+      "documentedAcquisition": ["Armory", "Hollow Desert"],
       "rollablePassive": true,
       "sourceRevision": 9619
     },
@@ -4338,15 +3806,10 @@
       "passive": "When this unit applies Burn to a target:; - The next DOT applied after will deal 10% to 25% increased damage",
       "tier": "A",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "burning-critter",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Forge",
-        "Flaming Monastery"
-      ],
+      "documentedAcquisition": ["Forge", "Flaming Monastery"],
       "rollablePassive": false,
       "sourceRevision": 9235
     },
@@ -4359,15 +3822,10 @@
       "passive": "Increase Damage by 1% (Capacity: 15%) for each enemy with Bleed or Marks applied in this unit's range",
       "tier": "A",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "sacrificial-mark",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Forge",
-        "Crimson Shore"
-      ],
+      "documentedAcquisition": ["Forge", "Crimson Shore"],
       "rollablePassive": false,
       "sourceRevision": 8928
     },
@@ -4380,15 +3838,10 @@
       "passive": "At the end of each wave, return 1 to 10% of Yen spent during that wave (Per Player, does not stack)",
       "tier": "A",
       "bestFor": "Economy",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "economist-s-coin",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Forge",
-        "Snowy Castle"
-      ],
+      "documentedAcquisition": ["Forge", "Snowy Castle"],
       "rollablePassive": true,
       "sourceRevision": 9096
     },
@@ -4401,15 +3854,10 @@
       "passive": "Increase unit damage by 5% while Transformed.",
       "tier": "B",
       "bestFor": "Physical DPS",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "warrior-pole",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "East Town"
-      ],
+      "documentedAcquisition": ["Armory", "East Town"],
       "rollablePassive": false,
       "sourceRevision": 8050
     },
@@ -4422,16 +3870,10 @@
       "passive": "No additional passive documented.",
       "tier": "B",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "kunai",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Events",
-        "School Grounds"
-      ],
+      "documentedAcquisition": ["Armory", "Events", "School Grounds"],
       "rollablePassive": false,
       "sourceRevision": 7057
     },
@@ -4444,14 +3886,10 @@
       "passive": "No additional passive documented.",
       "tier": "B",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "enhanced-katana",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": false,
       "sourceRevision": 6867
     },
@@ -4464,15 +3902,10 @@
       "passive": "No additional passive documented.",
       "tier": "A",
       "bestFor": "Magical DPS",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "magic-book",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "King's Tomb"
-      ],
+      "documentedAcquisition": ["Armory", "King's Tomb"],
       "rollablePassive": false,
       "sourceRevision": 6857
     },
@@ -4485,14 +3918,10 @@
       "passive": "No additional passive documented.",
       "tier": "B",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "pirate-s-slingshot",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": false,
       "sourceRevision": 6858
     },
@@ -4505,14 +3934,10 @@
       "passive": "No additional passive documented.",
       "tier": "B",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "raid-cape",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": false,
       "sourceRevision": 6855
     },
@@ -4525,15 +3950,10 @@
       "passive": "No additional passive documented.",
       "tier": "A",
       "bestFor": "Physical DPS",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "warrior-s-axe",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Fairy King Forest"
-      ],
+      "documentedAcquisition": ["Armory", "Fairy King Forest"],
       "rollablePassive": false,
       "sourceRevision": 6851
     },
@@ -4546,15 +3966,10 @@
       "passive": "Increase damage by 0.5 to 1% for each enemy in range. (Capacity: 15%)",
       "tier": "B",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "shinigami-sword",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Spirit City"
-      ],
+      "documentedAcquisition": ["Armory", "Spirit City"],
       "rollablePassive": true,
       "sourceRevision": 6862
     },
@@ -4567,14 +3982,10 @@
       "passive": "Every time this unit uses an Active Ability, reduce the Active Ability cooldown by 1 to 2% (Capacity: 10%).",
       "tier": "C",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "bamboo-bottle",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": true,
       "sourceRevision": 6854
     },
@@ -4587,14 +3998,10 @@
       "passive": "No additional passive documented.",
       "tier": "B",
       "bestFor": "Magical DPS",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "elf-suitcase",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": false,
       "sourceRevision": 6860
     },
@@ -4607,15 +4014,10 @@
       "passive": "No additional passive documented.",
       "tier": "B",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "magic-orb",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Rose Kingdom"
-      ],
+      "documentedAcquisition": ["Armory", "Rose Kingdom"],
       "rollablePassive": false,
       "sourceRevision": 6853
     },
@@ -4628,14 +4030,10 @@
       "passive": "No additional passive documented.",
       "tier": "B",
       "bestFor": "Physical DPS",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "soul-splitter",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": false,
       "sourceRevision": 6850
     },
@@ -4648,14 +4046,10 @@
       "passive": "Increase Bleed DOT Damage by 2 to 5% per Bleed stack applied to an enemy. (Capacity: 20%)",
       "tier": "B",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "red-finger",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": true,
       "sourceRevision": 9580
     },
@@ -4668,14 +4062,10 @@
       "passive": "No additional passive documented.",
       "tier": "S",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "three-swords-from-hell",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": false,
       "sourceRevision": 6863
     },
@@ -4688,15 +4078,10 @@
       "passive": "No additional passive documented.",
       "tier": "B",
       "bestFor": "Physical DPS",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "katana",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Flower Forest"
-      ],
+      "documentedAcquisition": ["Armory", "Flower Forest"],
       "rollablePassive": false,
       "sourceRevision": 6852
     },
@@ -4709,14 +4094,10 @@
       "passive": "No additional passive documented.",
       "tier": "A",
       "bestFor": "Magical DPS",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "staff-of-chaos",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": false,
       "sourceRevision": 6861
     },
@@ -4729,14 +4110,10 @@
       "passive": "No additional passive documented.",
       "tier": "C",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "dragon-hilt",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": false,
       "sourceRevision": 6866
     },
@@ -4749,14 +4126,10 @@
       "passive": "No additional passive documented.",
       "tier": "S",
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "accursed-equipment",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory"
-      ],
+      "documentedAcquisition": ["Armory"],
       "rollablePassive": false,
       "sourceRevision": 6864
     },
@@ -4769,14 +4142,10 @@
       "passive": "When this unit is afflicted with a Status Effect:; - Cleanse itself & perform Retaliation Scream for 300% of its damage; - This attack hits all enemies in range & applies Stun for 3s; Cooldown: 3s",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "awakened-moonblade",
       "status": "Needs Review",
-      "documentedAcquisition": [
-        "Crafting"
-      ],
+      "documentedAcquisition": ["Crafting"],
       "rollablePassive": false,
       "sourceRevision": 9614
     },
@@ -4789,15 +4158,10 @@
       "passive": "This unit deals +50% more damage to enemies with Movespeed-related Modifiers.; When an enemy is inflicted with Hard Crowd Control, this unit will:; - Follow-Up Attack on that enemy with Petal Execution for 100% of this unit's damage (Local Cooldown: 7s) When this unit attacks an enemy afflicted with Dismembered, gains:; - +20% Damage; - +10% Range; If Dismembered was applied by a Soul unit, instead gains:; - +40% Damage; - +20% Range",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "blossom-blade",
       "status": "Needs Review",
-      "documentedAcquisition": [
-        "Armory",
-        "Hollow Desert"
-      ],
+      "documentedAcquisition": ["Armory", "Hollow Desert"],
       "rollablePassive": false,
       "sourceRevision": 9615
     },
@@ -4810,15 +4174,10 @@
       "passive": "On the 5th Attack of each cycle performed through Rhythm of the Wolf:; - Spawn 3 Soul Wolves (Capacity: 3); Soul Wolf:; - Spawns next to this unit's position; - Has 25% of this unit's damage; - Applies Mana Burn for 50% of its damage; On Attack:; - Soul Wolf deletes itself",
       "tier": null,
       "bestFor": "Magical DPS",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "demonic-pistols",
       "status": "Needs Review",
-      "documentedAcquisition": [
-        "Demonic Rift",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Demonic Rift", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 9616
     },
@@ -4831,15 +4190,10 @@
       "passive": "When this unit is inflicted with a Status Effect or Debuff:; - Reflect the attempt back to the source and follow-up with Divine Rupture for 100% of this unit's damage on the targeted enemy, inflicting Hypnosis; - Hypnosis: Stays active for 10 seconds. On expiry, teleport enemy back to the original spot where they received Hypnosis; - Enemies inflicted with Hypnosis will take 25% more damage from Soul units.; Every 15s:; - Inflict the 5 strongest enemies on the map with Hypnosis",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "hypnotic-edge",
       "status": "Needs Review",
-      "documentedAcquisition": [
-        "Armory",
-        "Hollow Desert"
-      ],
+      "documentedAcquisition": ["Armory", "Hollow Desert"],
       "rollablePassive": false,
       "sourceRevision": 9617
     },
@@ -4852,14 +4206,10 @@
       "passive": "On Attack:; - Also performs Launch of Despair for 100% of this unit's damage, targeting the enemy in Last (Cooldown: 5s); When this unit hits an enemy outside its range with any attack:; - Inflict Oppression for 10 seconds; - Enemies afflicted with Oppression take 10% more damage",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "lanza-de-luz",
       "status": "Needs Review",
-      "documentedAcquisition": [
-        "Hollow Desert"
-      ],
+      "documentedAcquisition": ["Hollow Desert"],
       "rollablePassive": false,
       "sourceRevision": 9618
     },
@@ -4872,14 +4222,10 @@
       "passive": "This unit's attacks cycle through 3 attacks; Understand:; On attack:; - Apply Alchemy Mark (Capacity: 5); - Alchemy Mark will not be removed through each rotation; Deconstruct:; On attack:; - Grants all units in range 10% Magical damage per Alchemy Mark applied (Capacity: 65% Magical damage) for 10 seconds; Reconstruct:; On attack:; - Deal 150% of this unit's current damage; - Apply 70% Slow for 6 seconds",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "blade-arm",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Monster Hunt Event"
-      ],
+      "documentedAcquisition": ["Monster Hunt Event"],
       "rollablePassive": false,
       "sourceRevision": 9518
     },
@@ -4892,14 +4238,10 @@
       "passive": "At full Control Meter stacks, unlock this passive; For 20 seconds:; - Increase damage by 75%; - Decrease SPA by 15%; - Increase AoE Size by 20%; Enemies hit by Colossal Roar:; - Deals 125% of this unit's current damage over 5 hits; - Grants all units in range 20% Physical damage; Once timer runs out, reset Control Meter to 0",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "monster-claws",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Monster Hunt Event"
-      ],
+      "documentedAcquisition": ["Monster Hunt Event"],
       "rollablePassive": false,
       "sourceRevision": 9519
     },
@@ -4912,14 +4254,10 @@
       "passive": "Every 30 seconds:; - Time Stop all enemies in range for 15 seconds (Maximum 3 times per enemy); During Time Stop:; - This unit applies Burn on attack; - Burn deals 2% increased damage per tick (Capacity: 30%); - All currently applied DOT have their durations paused until Time Stop ends (Enemies can be afflicted by additional DOT during this)",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "angel-blade",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Infernal Cult"
-      ],
+      "documentedAcquisition": ["Infernal Cult"],
       "rollablePassive": false,
       "sourceRevision": 9230
     },
@@ -4932,15 +4270,10 @@
       "passive": "If an enemy is within this unit's range:; - Gain 1 Scorched stack every 3 seconds (Capacity: 10); Enemies afflicted with Scorched will:; - Take 20% increased damage from Flame Element units; - Take 30% increased damage from any Fire DoT; For every Flame Element unit placed or unique stack of Fire DoT on an enemy in this unit's range:; - Increase damage by 5% (Capacity: 25%); - Increase buffs from Scorched by 2% (Capacity: 10%)",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "beacon-of-pride",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "District 7"
-      ],
+      "documentedAcquisition": ["Armory", "District 7"],
       "rollablePassive": false,
       "sourceRevision": 9231
     },
@@ -4953,15 +4286,10 @@
       "passive": "Every 20 seconds:; - This unit's next attack applies a Demon Head for 15 seconds; Enemies inside Demon Head's radius:; - Take 15% increased damage from this unit; Demon Head:; - When this unit attacks an enemy inside its radius, apply 1 instance of Enhanced Burn; - Enhanced Burn deals 75% damage in 4 ticks over 4 seconds; - Stores all Enhanced Burn damage dealt while active",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "fire-helmet",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Flaming Monastery"
-      ],
+      "documentedAcquisition": ["Armory", "Flaming Monastery"],
       "rollablePassive": false,
       "sourceRevision": 9232
     },
@@ -4974,15 +4302,10 @@
       "passive": "When Rewind is applied from Immovable:; - Deal 100% damage to all enemies within Ignition Zone 15 second cooldown; When an enemy reaches the Heat Stack capacity from Immovable:; - Ignition Release deals 25% increased damage to them",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "ignis-restraint",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Flaming Monastery"
-      ],
+      "documentedAcquisition": ["Armory", "Flaming Monastery"],
       "rollablePassive": false,
       "sourceRevision": 9233
     },
@@ -4995,15 +4318,10 @@
       "passive": "Every attack rotates between Royal Suit effects:; Jack:; - The enemy's Fire DoT deals 15% increased damage for 5 seconds; Queen:; - Reapply 1 Fire DoT on the enemy based on 75% of this unit's damage; King:; - Apply Burn for 6 ticks over 6 seconds; - Deal 90% of this unit's current damage; Joker:; - Apply Jack, Queen, and King; Queen and King cannot create more than 1 Fire DoT from this unit on the same enemy.",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "joker-card",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Infernal Portal"
-      ],
+      "documentedAcquisition": ["Armory", "Infernal Portal"],
       "rollablePassive": false,
       "sourceRevision": 9234
     },
@@ -5016,15 +4334,10 @@
       "passive": "If the Selected unit has less damage than this unit:; - Increase this unit's damage by 30%; If the Selected unit has more damage than this unit:; - Increase the Selected unit's range by 10%; - Increase the Selected unit's AoE Size by 20%; If the Selected unit is Iron Wolf (Struggler) or Silver Falcon:; - Increase the Selected unit's damage by 30%; - Increase the Selected unit's range by 10%; - Increase the Selected unit's AoE Size by 20%",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "blade-of-reality",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Snowy Castle"
-      ],
+      "documentedAcquisition": ["Armory", "Snowy Castle"],
       "rollablePassive": false,
       "sourceRevision": 9078
     },
@@ -5037,15 +4350,10 @@
       "passive": "On Placement:; - Increase all players' units' base damage by 15% (+2% per upgrade); - Increase all players' {{Archetype|Physical}} units' damage by 5% (+2% per upgrade); - Increase all players' {{Archetype|Magical}} units' damage by 5% (+2% per upgrade); The player's most equipped Archetype gains an additional 15% damage.; Buffs from The Captain do not stack.",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "chosen-sabre",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Crimson Shore"
-      ],
+      "documentedAcquisition": ["Armory", "Crimson Shore"],
       "rollablePassive": false,
       "sourceRevision": 9077
     },
@@ -5058,15 +4366,10 @@
       "passive": "When an enemy that has been inflicted with Bleed at least 1 time dies:; - Leave 1 Crimson Spill on the ground for 6 seconds; Crimson Spill will apply 1 stack of Bleed every 3 seconds.; Only 2 non-permanent Crimson Spills}} may exist at a time.",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "demonslayer",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Snowy Castle"
-      ],
+      "documentedAcquisition": ["Armory", "Snowy Castle"],
       "rollablePassive": false,
       "sourceRevision": 9076
     },
@@ -5079,15 +4382,10 @@
       "passive": "This unit has Fated Meter, starting at 0. (Capacity: 35); If an enemy survives Distortion's damage:; - Inflict enemy with Mark Of Fate; - Gain 1 Fated Meter ; For every enemy in range with Mark Of Fate:; - Increase this unit's damage by 5%; - Increase this unit's range by 2.5%; Mark Of Fate cannot stack.; Enemies inflicted with Mark Of Fate will take 20% increased damage from this unit.",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "orb-of-causality",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Crimson Shore"
-      ],
+      "documentedAcquisition": ["Armory", "Crimson Shore"],
       "rollablePassive": false,
       "sourceRevision": 9079
     },
@@ -5100,14 +4398,10 @@
       "passive": "At 60 Voltage Meter stacks:; - Summon a Lightning Strike at this unit's position; - Reset Voltage Meter; On Lightning Strike:; - Deal 200% of this unit's current damage and apply Electricity to all enemies in this unit's range; - Leave Electric Residue on the ground that will despawn after 10 seconds; Electric Residue will:; - Keep Electricity permanently active on enemy until enemy has left range or it has despawned Every 10 seconds:; - Apply Golden to 2 enemies in range; Golden will:; - Stun an enemy for 5 seconds; - Increase chain lightning hits from Electricity to an additional 4 enemies",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "storm-trident",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Lightning God's Portal"
-      ],
+      "documentedAcquisition": ["Lightning God's Portal"],
       "rollablePassive": false,
       "sourceRevision": 9010
     },
@@ -5120,14 +4414,10 @@
       "passive": "Every 7 seconds summon a Lightning Strike on the strongest enemy in this unit's range:; - Lightning Strike deals 100% of this unit's damage; - Lightning Strike will chain between 5 enemies; - Each chain deals 25% of this unit's current damage; - Each chain will also apply Freeze",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "lightning-dagger",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Sovereign's Portal"
-      ],
+      "documentedAcquisition": ["Sovereign's Portal"],
       "rollablePassive": false,
       "sourceRevision": 9011
     },
@@ -5140,14 +4430,10 @@
       "passive": "Every 8 seconds:; - Summon Waterfall at the end of this unit's range moving towards spawn<brWaterfall will:; - Slow enemies hit by 50%; - Deal 35% of this unit's current damage",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "tideblade",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Summer Shop"
-      ],
+      "documentedAcquisition": ["Summer Shop"],
       "rollablePassive": false,
       "sourceRevision": 8639
     },
@@ -5160,14 +4446,10 @@
       "passive": "On Takedown within this unit's range:; - Transform the enemy into a Skeleton (Capcity:5); Each Skeleton will act as a Path Trap:; - When touched by an enemy, deal 50% of this unit's current damage; - Explode and apply Burn to enemies within 3 range; Each Skeleton summoned will:; - Increase this unit's damage by 5%",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "fiery-staff",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Summer Shop"
-      ],
+      "documentedAcquisition": ["Summer Shop"],
       "rollablePassive": false,
       "sourceRevision": 8633
     },
@@ -5180,14 +4462,10 @@
       "passive": "Desert Storm appears at this unit's location Desert Storm will:; - Increase 5% in size every 1 seconds (Capacity:100%); - Apply Sandstorm to enemies inside; After Desert Storm has been at 100% for 14 seconds:; - Reset Desert Storm size to 10%",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "poison-hook",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Summer Shop"
-      ],
+      "documentedAcquisition": ["Summer Shop"],
       "rollablePassive": false,
       "sourceRevision": 8635
     },
@@ -5200,14 +4478,10 @@
       "passive": "Poison Frogs are a stationary path summon. If an enemy walks over Poison Frog:; - Poison Frog will explode for 200% of this unit's current damage and apply Poison in 5 range",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "poison-frog",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Summer Shop"
-      ],
+      "documentedAcquisition": ["Summer Shop"],
       "rollablePassive": false,
       "sourceRevision": 8636
     },
@@ -5220,14 +4494,10 @@
       "passive": "Anytime this unit hits an nemy with Freeze:; - Deal 20% of this unit's current damage around the enemy; When Freeze expires from an enemy:; - Slow enemy by 50%; - 5 nearest enemies will take 25% of this unit's current damage",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "spirit-king-s-blade",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Summer Shop"
-      ],
+      "documentedAcquisition": ["Summer Shop"],
       "rollablePassive": false,
       "sourceRevision": 8637
     },
@@ -5240,15 +4510,10 @@
       "passive": "No additional passive documented.",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "carrot-s-gi",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "East Town",
-        "Armory"
-      ],
+      "documentedAcquisition": ["East Town", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 8039
     },
@@ -5261,15 +4526,10 @@
       "passive": "No additional passive documented.",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "mechanical-wings",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Armory",
-        "Perfection's Trial"
-      ],
+      "documentedAcquisition": ["Armory", "Perfection's Trial"],
       "rollablePassive": false,
       "sourceRevision": 8043
     },
@@ -5282,15 +4542,10 @@
       "passive": "On Upgrade 3:; - Transform into Prodigy Transformation; - Every 3Regular Attack will deal 50% of this unit's damage to all enemies within its range; On Upgrade 5:; - Unlock Rage Unleashed",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "mentor-s-cape",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Crafting",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Crafting", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 8173
     },
@@ -5303,15 +4558,10 @@
       "passive": "Every 4 Regular Attack:; - Inflict enemies with The Drink Mark for 15 seconds; The Drink Mark will:; - Increase all Follow-Up Attack damage by 25%; - Apply a Physical weakness at 10%",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "pointy-straw",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Crafting",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Crafting", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 8174
     },
@@ -5324,15 +4574,10 @@
       "passive": "For every Regular Attack from another unit in this unit's range:; - Increase this unit's damage by 5% (Capacity: 50%); For every Follow-Up Attack from another unit in this unit's range:; - Increase this unit's critical damage by 10% (Capacity: 30%)",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "royal-gi",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "East Town",
-        "Armory"
-      ],
+      "documentedAcquisition": ["East Town", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 8042
     },
@@ -5345,14 +4590,10 @@
       "passive": "While an enemy is in Illusion state:; - Store all damage taken from this unit; When Illusion expires:; - Deal stored damage at 50% effectiveness in a small AoE (2 range)",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "illusion-crow",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Villain Invasion Shop"
-      ],
+      "documentedAcquisition": ["Villain Invasion Shop"],
       "rollablePassive": false,
       "sourceRevision": 7906
     },
@@ -5365,14 +4606,10 @@
       "passive": "On switching to Lightning Magic:; - Summon an Arc of Lightning on the path inside of this unit's range; - Enemies that are touching Arc of Lightning will take 50% of this unit's current damage every 1 second On switching to Ice Magic:; - This unit gains Freeze on attack; On Regular Attack:; - Gain 1 stack of Frostbite per enemy hit (Capacity: 15); At 15 Frostbite stacks:; - This unit's next attack against enemies inflicted with Freeze will shatter, unfreezing them and dealing 25% additional damage in a small AoE (5 range)",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "dark-scepter",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Crow Hideout"
-      ],
+      "documentedAcquisition": ["Crow Hideout"],
       "rollablePassive": false,
       "sourceRevision": 8622
     },
@@ -5385,14 +4622,10 @@
       "passive": "This unit has Black Magic meter, starting at 0.; - When Black Magic Meter is increasing this unit will be in \"Caring State\"; - When Black Magic Meter is decreasing this unit will be in \"Cold State\"; Caring State:; - Every 1 seconds this unit walks increases this meter by 5; - Deal 50% of this unit's current damage in 75% of his range; Cold State:; - Every 1 seconds this unit walks decreases this meter by 2; - Deal 150% of this unit's current damage in 25% of his range",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "memory-pendant",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Crow Hideout"
-      ],
+      "documentedAcquisition": ["Crow Hideout"],
       "rollablePassive": false,
       "sourceRevision": 7907
     },
@@ -5405,14 +4638,10 @@
       "passive": "Every 10 seconds:; - Unleash a Full AoE Roar attack dealing 70% of this unit's current damage and apply Stagger to enemies for 2 seconds; - For each enemy hit by this attack, this unit gains 1% Critical Chance (Capacity: 30%)",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "predator-s-skull",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Crow Hideout"
-      ],
+      "documentedAcquisition": ["Crow Hideout"],
       "rollablePassive": false,
       "sourceRevision": 7908
     },
@@ -5425,15 +4654,10 @@
       "passive": "Enemies within 50% range will take 15% of this unit's current damage every 1 second. When this unit is stunned:; - Immediately Cleanse the stun; Follow-Up Attack (Thunderclap Cut) at 125% current damage; All of this unit's Follow-Up Attacks apply Dismembered to enemies",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "hair-bells",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Spirit City",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Spirit City", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7910
     },
@@ -5446,15 +4670,10 @@
       "passive": "On applying Burn:; - Spread to the nearest 5 nearest enemies, that do not have Burn applied",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "emperor-s-attire",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Rose Kingdom",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Rose Kingdom", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7915
     },
@@ -5467,15 +4686,10 @@
       "passive": "If an enemy with Burn stops ticking within this unit's range:; - Convert 1 Burn application into Austere Flames dealing 85% of this unit's current damage; - Instance of Austere Flames from A passive ability belonging to Hollow (Blaze). do not stack",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "hell-s-flower",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Flower Forest",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Flower Forest", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7916
     },
@@ -5488,15 +4702,10 @@
       "passive": "Every 5 Regular Attack will Cocoon the enemies hit:; - Enemies are either stunned for 10 hits, or 5 seconds; If the Cocoon is broken after 10 hits:; - Deal 125% of this unit's current damage; If the Cocoon is not broken before 5 seconds:; Cocoon despawns",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "webbed-fruit",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Rose Kingdom",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Rose Kingdom", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7913
     },
@@ -5509,15 +4718,10 @@
       "passive": "Every 20 total stacks of Bleed in this unit's range:; Summon a Bat Spirit at this unit's position (Capacity: 3); - Bat Spirits will deal 25% of this unit's current damage per attack; Bat Spirits despawn after 3 attacks",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "promise-ring",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "School Grounds",
-        "Armory"
-      ],
+      "documentedAcquisition": ["School Grounds", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7918
     },
@@ -5530,15 +4734,10 @@
       "passive": "This unit gains permanent Buffs after attacking different enemy types:; For each enemy type attacked:; - Increase Damage by 10%; - Increase Critical Chance by 10%",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "spirit-of-the-moonblade",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Spirit City",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Spirit City", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7911
     },
@@ -5551,15 +4750,10 @@
       "passive": "Summon a Stone Wall every 12 seconds. (Capacity: 2); - In Base Form: Stone Wall will have 75% of this unit's current damage as health; - In Giant Form: Stone Wall will have 50% of this unit's current damage as health",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "boulder",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Fairy King Forest",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Fairy King Forest", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7914
     },
@@ -5572,15 +4766,10 @@
       "passive": "A passive belonging to Elf Mage (Unleashed). are considered Follow-Up Attacks; At 3 Charges, cast Old Magic; - Line AOE at 100% current damage; At 5 Charges, cast Eruption; Circle AOE at 125% current damage, and inflict Mana Burn; At 7 Charges, cast Storm; - Full AoE at 150% current damage",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "elven-battle-staff",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "King's Tomb",
-        "Armory"
-      ],
+      "documentedAcquisition": ["King's Tomb", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7912
     },
@@ -5593,15 +4782,10 @@
       "passive": "Apply Slow based on current attack:; Explode - 20%; Blast Away - 35%; Twist - 50%; Crush - 65% Apply Slow based on current attack:; Explode - 65%; Blast Away - 50%; Twist - 35%; Crush - 20%",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "technique-amplifier",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "School Grounds",
-        "Armory"
-      ],
+      "documentedAcquisition": ["School Grounds", "Armory"],
       "rollablePassive": true,
       "sourceRevision": 7917
     },
@@ -5614,15 +4798,10 @@
       "passive": "When an enemy with Puppet Mark from this unit dies:; - Summon a Doll in front of the killed enemy. (Capacity: 1); - Dolls will have 200% of this unit's current damage as health",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "calamity-s-eye",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Fairy King Forest",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Fairy King Forest", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7902
     },
@@ -5635,15 +4814,10 @@
       "passive": "On Upgrade 3:; - Summon a Winged Spirit at this unit's position that will circle at 50% of this unit's range; - Winged Spirit will deal 75% of this unit's damage every 5 seconds in its current location and apply Stun",
       "tier": null,
       "bestFor": "Role / roll dependent",
-      "sourceIds": [
-        "equipment-data"
-      ],
+      "sourceIds": ["equipment-data"],
       "asset": "hexed-blade",
       "status": "Source checked; live review pending",
-      "documentedAcquisition": [
-        "Crafting",
-        "Armory"
-      ],
+      "documentedAcquisition": ["Crafting", "Armory"],
       "rollablePassive": false,
       "sourceRevision": 7909
     },
@@ -5656,14 +4830,10 @@
       "passive": "Enhances Impaler's Bleed ownership, path traps and Bleed consumption; exact values follow the current source record.",
       "tier": null,
       "bestFor": "Impaler (Ultimate)",
-      "documentedAcquisition": [
-        "Soul Furnace Shop"
-      ],
+      "documentedAcquisition": ["Soul Furnace Shop"],
       "rollablePassive": false,
       "sourceRevision": 0,
-      "sourceIds": [
-        "current-wiki"
-      ],
+      "sourceIds": ["current-wiki"],
       "asset": "",
       "status": "Current source reviewed; revision unavailable in mirror"
     },
@@ -5676,14 +4846,10 @@
       "passive": "Strengthens Archetype Nuclear conditional buffs for Basic, Elite and Boss targets.",
       "tier": null,
       "bestFor": "Atom (Totality)",
-      "documentedAcquisition": [
-        "Soul Furnace Shop"
-      ],
+      "documentedAcquisition": ["Soul Furnace Shop"],
       "rollablePassive": false,
       "sourceRevision": 0,
-      "sourceIds": [
-        "current-wiki"
-      ],
+      "sourceIds": ["current-wiki"],
       "asset": "",
       "status": "Current source reviewed; revision unavailable in mirror"
     },
@@ -5696,14 +4862,10 @@
       "passive": "Enhances Seafarer Quintet range/damage and Captain critical support.",
       "tier": null,
       "bestFor": "Dead Melody (Solo)",
-      "documentedAcquisition": [
-        "Soul Furnace Shop"
-      ],
+      "documentedAcquisition": ["Soul Furnace Shop"],
       "rollablePassive": false,
       "sourceRevision": 0,
-      "sourceIds": [
-        "current-wiki"
-      ],
+      "sourceIds": ["current-wiki"],
       "asset": "",
       "status": "Current source reviewed; revision unavailable in mirror"
     },
@@ -5716,14 +4878,10 @@
       "passive": "Strengthens First Blade's named 8th Sword interaction and All Things End payoff.",
       "tier": null,
       "bestFor": "First Blade (Strongest)",
-      "documentedAcquisition": [
-        "Soul Furnace Shop"
-      ],
+      "documentedAcquisition": ["Soul Furnace Shop"],
       "rollablePassive": false,
       "sourceRevision": 0,
-      "sourceIds": [
-        "current-wiki"
-      ],
+      "sourceIds": ["current-wiki"],
       "asset": "",
       "status": "Current source reviewed; revision unavailable in mirror"
     },
@@ -5736,21 +4894,15 @@
       "passive": "Enhances Gloom and Possession for Seafarer attacks within Princess's range.",
       "tier": null,
       "bestFor": "Princess (Misery)",
-      "documentedAcquisition": [
-        "Soul Furnace Shop"
-      ],
+      "documentedAcquisition": ["Soul Furnace Shop"],
       "rollablePassive": false,
       "sourceRevision": 0,
-      "sourceIds": [
-        "current-wiki"
-      ],
+      "sourceIds": ["current-wiki"],
       "asset": "",
       "status": "Current source reviewed; revision unavailable in mirror"
     },
     {
-      "documentedAcquisition": [
-        "Crafting: Hair Bells ×1 + Inept Oni's Nature ×1"
-      ],
+      "documentedAcquisition": ["Crafting: Hair Bells ×1 + Inept Oni's Nature ×1"],
       "rollablePassive": false,
       "sourceRevision": 9666,
       "id": "onis-nature",
@@ -5761,9 +4913,7 @@
       "passive": "Savage Rush EX makes Follow-Up Attacks apply Dismembered and retaliates after allied stuns; The Nameless Butcher EX strengthens the Berserk-state payoff.",
       "tier": null,
       "bestFor": "8th Sword (Berserk)",
-      "sourceIds": [
-        "current-wiki"
-      ],
+      "sourceIds": ["current-wiki"],
       "asset": "",
       "status": "Source-reviewed Update 4 Exalted unit equipment"
     }

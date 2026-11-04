@@ -80,8 +80,8 @@ export function AnimeExpeditionsTierList() {
             <div>
               <dt>Review</dt>
               <dd>
-                {units.filter((u) => u.reviewStatus.startsWith("Source-reviewed")).length} source-reviewed
-                units · comparative gaps stay Pending
+                {units.filter((u) => u.reviewStatus.startsWith("Source-reviewed")).length}{" "}
+                source-reviewed units · comparative gaps stay Pending
               </dd>
             </div>
           </dl>
@@ -105,7 +105,9 @@ export function AnimeExpeditionsTierList() {
         <section id="traits" className={styles.section} aria-labelledby="traits-title">
           <div className={styles.sectionHeading}>
             <h2 id="traits-title">Anime Expeditions Trait Tier List</h2>
-            <p>One ranking · role fit before rarity · source-reviewed mechanics, editorial grades</p>
+            <p>
+              One ranking · role fit before rarity · source-reviewed mechanics, editorial grades
+            </p>
           </div>
           <p className={styles.context}>
             Effects, roll odds and pity are source documented. The older Draconic discrepancy
@@ -255,9 +257,9 @@ export function AnimeExpeditionsTierList() {
             <p>Composition decisions, never a Team Tier List</p>
           </div>
           <p className={styles.context}>
-            Five six-unit cores are grounded in the current Update 5 source. Roles describe the
-            job each slot performs; exact traits, equipment rolls and replacements remain
-            account- and stage-dependent.
+            Five six-unit cores are grounded in the current Update 5 source. Roles describe the job
+            each slot performs; exact traits, equipment rolls and replacements remain account- and
+            stage-dependent.
           </p>
           <div className={styles.teams}>
             {teams.map((team) => (
@@ -451,10 +453,11 @@ export function AnimeExpeditionsTierList() {
                 ))}
               </ul>
               <p>
-                Current inventory: {snapshot.sourceFormCount} canonical source forms, {traits.length} Traits,{" "}
-                {standard.length} Standard Equipment, {equipment.length - standard.length} exclusive
-                items and {evolutions.length} evolution edges. Update 5 comparative rankings use the
-                current November 2 baseline; direct personal live testing is not implied.
+                Current inventory: {snapshot.sourceFormCount} canonical source forms,{" "}
+                {traits.length} Traits, {standard.length} Standard Equipment,{" "}
+                {equipment.length - standard.length} exclusive items and {evolutions.length}{" "}
+                evolution edges. Update 5 comparative rankings use the current November 2 baseline;
+                direct personal live testing is not implied.
               </p>
               <p>
                 Wiki-derived facts and media credit Anime Expeditions community wiki contributors
@@ -467,9 +470,9 @@ export function AnimeExpeditionsTierList() {
           <section id="methodology" className={styles.section} aria-labelledby="method-title">
             <h2 id="method-title">Ranking Methodology</h2>
             <p>
-              Update 5 · Hallows Eve is the current source-reviewed baseline. TierListBase grades are
-              editorial synthesis of current comparative evidence and documented kits; they are not
-              publisher rankings or a claim of direct live testing of every interaction.
+              Update 5 · Hallows Eve is the current source-reviewed baseline. TierListBase grades
+              are editorial synthesis of current comparative evidence and documented kits; they are
+              not publisher rankings or a claim of direct live testing of every interaction.
             </p>
             <dl className={styles.methodology}>
               <div>
