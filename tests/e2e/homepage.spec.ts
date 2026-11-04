@@ -45,7 +45,7 @@ test("homepage renders the approved game-discovery information architecture", as
 
   const popular = page.locator("#popular-rankings");
   const readyRankings = popular.locator("a.tlb-popular-item");
-  await expect(readyRankings).toHaveCount(6);
+  await expect(readyRankings).toHaveCount(7);
   await expect(popular.getByRole("link", { name: "Open WoW ranking: DPS" })).toHaveAttribute(
     "href",
     "/wow-forever/tier-list?mode=dungeon&role=dps&level=30",
@@ -63,6 +63,9 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(
     popular.getByRole("link", { name: "Open Limbus Company ranking: Identities" }),
   ).toHaveAttribute("href", "/limbus-company/tier-list");
+  await expect(
+    popular.getByRole("link", { name: "Open Dragon Traveler ranking: Luminaries" }),
+  ).toHaveAttribute("href", "/dragon-traveler/tier-list");
   await expect(
     popular.getByRole("link", { name: "Open Wild Rift ranking: Ranked" }),
   ).toHaveAttribute("href", "/wild-rift/tier-list");
