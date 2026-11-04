@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useState } from "react";
+import { startTransition, useState } from "react";
 
 import { AssetSlot } from "./asset-slot";
 import type { RatingValue, TeamDetail, TeamRow, TierValue } from "./data";
@@ -149,7 +149,10 @@ export function TeamWorkspace({
             </div>
           </div>
         </div>
-        <TeamDetailTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        <TeamDetailTabs
+          activeTab={activeTab}
+          onTabChange={(tab) => startTransition(() => setActiveTab(tab))}
+        />
 
         {activeTab === "Overview" && (
           <div

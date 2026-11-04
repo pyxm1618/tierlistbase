@@ -1,0 +1,1018 @@
+{
+  "hero": {
+    "sourceFile": "Hero.png",
+    "sourceSha256": "7dba3b7ccfba75b7030df8f6ee8ce8021fdbd651961385c752371f55f2e4d329",
+    "sourceDimensions": {
+      "width": 2129,
+      "height": 739
+    },
+    "sourceContext": "User-provided Desktop/dragon/Hero.png identified in Dragon requirement handoff and opened during 2026-10-28 audit",
+    "path": "assets/dragon-traveler-hero.webp",
+    "sha256": "f419667c9d3b05697b94eb2931ca51ae985d79090a6c334acbb011d14b66483d",
+    "dimensions": {
+      "width": 1280,
+      "height": 444
+    },
+    "transform": {
+      "tool": "sharp",
+      "version": "0.35.5",
+      "resize": {
+        "width": 1280
+      },
+      "format": "webp",
+      "quality": 35
+    },
+    "checkedAt": "2026-10-28",
+    "bytes": 76946,
+    "derivativeCheckedAt": "2026-10-29"
+  },
+  "design": {
+    "sourceFile": "设计稿.png",
+    "sha256": "66e80f8dbf656d623e9360ff36403a4e1ce91eef26df58b911d4b4fdc6606611",
+    "dimensions": {
+      "width": 1024,
+      "height": 1536
+    },
+    "checkedAt": "2026-10-28"
+  },
+  "releaseStatus": "Visual parity not accepted: decorative framing, featured battlefield presentation, detail composition and lower-section density remain different from the supplied final design",
+  "restoredAssets": [
+    {
+      "id": "ares",
+      "path": "assets/verified/ares.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Ares.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "thor",
+      "path": "assets/verified/thor.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Thor.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "asmodeus",
+      "path": "assets/verified/asmodeus.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Asmodeus.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "azure-dragon",
+      "path": "assets/verified/azure-dragon.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Azure_dragon.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "tyrfing",
+      "path": "assets/verified/tyrfing.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Tyrfing.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "andvari",
+      "path": "assets/verified/andvari.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Andvari.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "siegfried",
+      "path": "assets/verified/siegfried.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Siegfried.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "marylis",
+      "path": "assets/verified/marylis.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Marylis.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "brynhild",
+      "path": "assets/verified/brynhild.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Brunhilde.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "arthur",
+      "path": "assets/verified/arthur.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Arthur.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "guna",
+      "path": "assets/verified/guna.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Guna.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "beowulf",
+      "path": "assets/verified/beowulf.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Beowulf.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "artemis",
+      "path": "assets/verified/artemis.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Artemis.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "dartagnan",
+      "path": "assets/verified/dartagnan.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/DArtagnan_art.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 600,
+          "height": 571
+        },
+        "region": {
+          "left": 246,
+          "top": 85,
+          "width": 180,
+          "height": 180
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "apollo",
+      "path": "assets/verified/apollo.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Apollo.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "ifrit",
+      "path": "assets/verified/ifrit.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Ifrit.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "ningrose",
+      "path": "assets/verified/ningrose.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Ningrose.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "mimir",
+      "path": "assets/verified/mimir.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Mimir.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "jing",
+      "path": "assets/verified/jing.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Jing.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "orion",
+      "path": "assets/verified/orion.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Orion.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "medusa",
+      "path": "assets/verified/medusa.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Medusa.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "huginn-and-muninn",
+      "path": "assets/verified/huginn-and-muninn.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Huginn-Muninn.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "lorillin",
+      "path": "assets/verified/lorillin.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Lorillin.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "van-helsing",
+      "path": "assets/verified/van-helsing.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Van_Helsing.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "talos",
+      "path": "assets/verified/talos.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Talos.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "loki",
+      "path": "assets/verified/loki.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Loki.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "poseidon",
+      "path": "assets/verified/poseidon.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Poseidon.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "gabriell",
+      "path": "assets/verified/gabriell.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Gabriell.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "crassus",
+      "path": "assets/verified/crassus.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Crassus.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "vermilion-bird",
+      "path": "assets/verified/vermilion-bird.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Vermilion_Bird.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "gullveig",
+      "path": "assets/verified/gullveig.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Gullveig.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "faust",
+      "path": "assets/verified/faust.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Faust.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "nanalie",
+      "path": "assets/verified/nanalie.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Nanalie.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "cleopatra",
+      "path": "assets/verified/cleopatra.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Cleopatra.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "melina",
+      "path": "assets/verified/melina.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Melina.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "telperion",
+      "path": "assets/verified/telperion.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Telperion.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "cerberus",
+      "path": "assets/verified/cerberus.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Cerberus.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "arachne",
+      "path": "assets/verified/arachne.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Arachne.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 697,
+          "height": 619
+        },
+        "region": {
+          "left": 283,
+          "top": 16,
+          "width": 340,
+          "height": 340
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "quetzal",
+      "path": "assets/verified/quetzal.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Quetzal.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "venus",
+      "path": "assets/verified/venus.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Venus.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "vivian",
+      "path": "assets/verified/vivian.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Vivian.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "morgana",
+      "path": "assets/verified/morgana.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Morgana.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "hel",
+      "path": "assets/verified/hel.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Hel.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "atanith",
+      "path": "assets/verified/atanith.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Atanith.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "scheherazade",
+      "path": "assets/verified/scheherazade.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Scheherazade.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "chiron",
+      "path": "assets/verified/chiron.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Chrion.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "spimo",
+      "path": "assets/verified/spimo.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Spimo.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "ophelia",
+      "path": "assets/verified/ophelia.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Ophelia.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "caligula",
+      "path": "assets/verified/caligula.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Caligula.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "titania",
+      "path": "assets/verified/titania.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Titania.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "hypnos",
+      "path": "assets/verified/hypnos.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Hypnos_art.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 600,
+          "height": 270
+        },
+        "region": {
+          "left": 113,
+          "top": 0,
+          "width": 230,
+          "height": 230
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "hades",
+      "path": "assets/verified/hades.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Hades.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "rin",
+      "path": "assets/verified/rin.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Rin.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "zagrus",
+      "path": "assets/verified/zagrus.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Zagrus.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "nemesis",
+      "path": "assets/verified/nemesis.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Nemesis.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "fenrir",
+      "path": "assets/verified/fenrir.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Fenrir.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "jormungandr",
+      "path": "assets/verified/jormungandr.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Jormungandr.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "pan-junbao",
+      "path": "assets/verified/pan-junbao.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Pan_Junbao.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "white-tiger",
+      "path": "assets/verified/white-tiger.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/White_tiger.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "mordred",
+      "path": "assets/verified/mordred.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Mordred.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "lancelot",
+      "path": "assets/verified/lancelot.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Lancelot.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "hermes",
+      "path": "assets/verified/hermes.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Hermes.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "athena",
+      "path": "assets/verified/athena.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Athena.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "gaia",
+      "path": "assets/verified/gaia.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Gaia.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "galahad",
+      "path": "assets/verified/galahad.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Galahad_art.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 559,
+          "height": 600
+        },
+        "region": {
+          "left": 210,
+          "top": 25,
+          "width": 190,
+          "height": 190
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "prometheus",
+      "path": "assets/verified/prometheus.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Prometheus.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "salome",
+      "path": "assets/verified/salome.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Salome.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "caesar",
+      "path": "assets/verified/caesar.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Caesar.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "dvalin",
+      "path": "assets/verified/dvalin.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Dvalin.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "pompey",
+      "path": "assets/verified/pompey.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Pompey.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "helveil",
+      "path": "assets/verified/helveil.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Helveil.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "herman",
+      "path": "assets/verified/herman.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Herman.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "oberonnie",
+      "path": "assets/verified/oberonnie.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Oberonnie.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "anubis",
+      "path": "assets/verified/anubis.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Anubis.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "drasill",
+      "path": "assets/verified/drasill.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Drasill.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "goren",
+      "path": "assets/verified/goren.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Goren.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "gudong",
+      "path": "assets/verified/gudong.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Gudong.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "lilith",
+      "path": "assets/verified/lilith.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Lilith.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "hitomi",
+      "path": "assets/verified/hitomi.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Hitomi.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "catherine",
+      "path": "assets/verified/catherine.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Catherine.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 1370,
+          "height": 715
+        },
+        "region": {
+          "left": 247,
+          "top": 0,
+          "width": 465,
+          "height": 465
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "tamamo",
+      "path": "assets/verified/tamamo.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Tamamo.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 1755,
+          "height": 810
+        },
+        "region": {
+          "left": 795,
+          "top": 0,
+          "width": 551,
+          "height": 551
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "biqisi",
+      "path": "assets/verified/biqisi.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Biqisi.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 2048,
+          "height": 1024
+        },
+        "region": {
+          "left": 814,
+          "top": 0,
+          "width": 666,
+          "height": 666
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "asteros",
+      "path": "assets/verified/asteros.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Asteros.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "heidren",
+      "path": "assets/verified/heidren.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Heidren.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 1755,
+          "height": 810
+        },
+        "region": {
+          "left": 822,
+          "top": 0,
+          "width": 567,
+          "height": 567
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "himiko",
+      "path": "assets/verified/himiko.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Himiko.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 2048,
+          "height": 1024
+        },
+        "region": {
+          "left": 246,
+          "top": 0,
+          "width": 737,
+          "height": 737
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "lupin",
+      "path": "assets/verified/lupin.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Lupin.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "hercules",
+      "path": "assets/verified/hercules.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Hercules.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 1313,
+          "height": 701
+        },
+        "region": {
+          "left": 363,
+          "top": 0,
+          "width": 456,
+          "height": 456
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "xuanwu",
+      "path": "assets/verified/xuanwu.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Xuanwu.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "region": {
+          "left": 530,
+          "top": 0,
+          "width": 612,
+          "height": 612
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "sigurd",
+      "path": "assets/verified/sigurd.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Sigurd.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 1872,
+          "height": 864
+        },
+        "region": {
+          "left": 374,
+          "top": 0,
+          "width": 562,
+          "height": 562
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "zeus",
+      "path": "assets/verified/zeus.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Zeus.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides",
+      "transform": {
+        "operation": "extract existing source artwork face region, resize",
+        "sourceDimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "region": {
+          "left": 767,
+          "top": 0,
+          "width": 706,
+          "height": 706
+        },
+        "outputDimensions": {
+          "width": 300,
+          "height": 300
+        }
+      }
+    },
+    {
+      "id": "pinocchio",
+      "path": "assets/verified/pinocchio.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Pinocchio.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "hera",
+      "path": "assets/verified/hera.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Hera.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "saad",
+      "path": "assets/verified/saad.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Saad.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "honoka",
+      "path": "assets/verified/honoka.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Honoka.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "marie-rose",
+      "path": "assets/verified/marie-rose.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Marie_Rose.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "kasumi",
+      "path": "assets/verified/kasumi.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/characters/Kasumi.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "classes-Guardian",
+      "path": "assets/verified-icons/guardian.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/tier-list/ui/round-guardian-72.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "classes-Priest",
+      "path": "assets/verified-icons/priest.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/tier-list/ui/round-priest-72.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "classes-Assassin",
+      "path": "assets/verified-icons/assassin.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/tier-list/ui/round-assassin-72.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "classes-Warrior",
+      "path": "assets/verified-icons/warrior.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/tier-list/ui/round-warrior-72.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "classes-Archer",
+      "path": "assets/verified-icons/archer.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/tier-list/ui/round-archer-72.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "classes-Mage",
+      "path": "assets/verified-icons/mage.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/tier-list/ui/round-mage-72.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "factions-Arcane Wisdom",
+      "path": "assets/verified-icons/arcane-wisdom.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/guild-factions/arcane_wisdom.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "factions-Elemental Echo",
+      "path": "assets/verified-icons/elemental-echo.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/guild-factions/elemental_echo.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "factions-Illusion Veil",
+      "path": "assets/verified-icons/illusion-veil.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/guild-factions/illusion_veil.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "factions-Otherworld Return",
+      "path": "assets/verified-icons/otherworld-return.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/guild-factions/otherworld_return.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "factions-Sanctum Glory",
+      "path": "assets/verified-icons/sanctum-glory.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/guild-factions/sanctum_glory.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    },
+    {
+      "id": "factions-Wild Spirit",
+      "path": "assets/verified-icons/wild-spirit.webp",
+      "sourceUrl": "https://www.hideoutgacha.com/images/dragon-traveler/guild-factions/wild_spirit.webp",
+      "checkedAt": "2026-10-28",
+      "owner": "Dragon Traveler game publisher; served by Hideout Guides"
+    }
+  ]
+}
