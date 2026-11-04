@@ -409,9 +409,8 @@ export function DragonTravelerTierList() {
                 <p>
                   The Dragon Traveler tier list defaults to Overall so you can compare general
                   account value first. The Dragon Traveler tier list should then be read by mode:
-                  use the Dragon Traveler PvE tier list for progression and the Dragon Traveler
-                  PvP tier list for competitive priorities. The Dragon Traveler PvE tier list and
-                  Dragon
+                  use the Dragon Traveler PvE tier list for progression and the Dragon Traveler PvP
+                  tier list for competitive priorities. The Dragon Traveler PvE tier list and Dragon
                   Traveler PvP tier list keep the same ranked source pool, while the Dragon Traveler
                   tier list changes only the ranking context shown.
                 </p>
@@ -672,8 +671,8 @@ export function DragonTravelerTierList() {
                   For server comparisons, the Dragon Traveler tier list Taiwan view and Dragon
                   Traveler Taiwan tier list wording both describe ranked-source coverage, not a
                   complete live roster. Arachne’s Global release is corroborated by the official
-                  October 22 announcement.
-                  War Drummer is a formation helper and is excluded from the ranked Luminary count.
+                  October 22 announcement. War Drummer is a formation helper and is excluded from
+                  the ranked Luminary count.
                 </p>
               </div>
               <div>
@@ -695,10 +694,9 @@ export function DragonTravelerTierList() {
                   midline and backline placement preserves the source’s three-by-three formation
                   coordinates. Use the Dragon Traveler tier list as the character-ranking layer,
                   then use these formations as team context rather than replacing one with the
-                  other. The Dragon Traveler tier list ranks characters; the formation guide explains
-                  how
-                  those characters fit together. Local team order reflects a suggested starting
-                  sequence.
+                  other. The Dragon Traveler tier list ranks characters; the formation guide
+                  explains how those characters fit together. Local team order reflects a suggested
+                  starting sequence.
                 </p>
               </div>
               <div>
