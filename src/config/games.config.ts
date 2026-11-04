@@ -63,6 +63,13 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     navigationVisible: false,
     navigationOrder: 8,
   },
+  {
+    slug: "anime-expeditions",
+    name: "Anime Expeditions",
+    tierListHref: "/anime-expeditions/tier-list",
+    navigationVisible: false,
+    navigationOrder: 9,
+  },
 ] as const;
 
 export const navigationGames = gamesConfig.filter((game) => game.navigationVisible);
