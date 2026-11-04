@@ -200,7 +200,7 @@ function TeamFormation({
                         size={56}
                       />
                       <span>{roster.find((c) => c.id === member.characterId)!.displayName}</span>
-                      <small>{slot}</small>
+                      <small>{member.role}</small>
                     </button>
                   ) : (
                     <span className={styles.emptyCell} aria-label={`Empty ${position} ${slot}`}>
