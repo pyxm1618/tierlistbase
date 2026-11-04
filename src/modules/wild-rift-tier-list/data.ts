@@ -206,8 +206,8 @@ export const sources: readonly EvidenceSource[] = [
 
 export const champions: readonly Champion[] = championCatalog.map((champion) => ({
   ...champion,
-  portrait: `/images/wild-rift/champions/${champion.slug}.${champion.id === "norra" ? "svg" : "png"}`,
-  portraitKind: champion.id === "norra" ? "placeholder" : "champion",
+  portrait: `/images/wild-rift/champions/${champion.slug}.png`,
+  portraitKind: "champion",
 }));
 
 const championById = new Map(champions.map((champion) => [champion.id, champion]));
