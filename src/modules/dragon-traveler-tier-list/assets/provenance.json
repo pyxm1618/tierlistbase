@@ -35,7 +35,7 @@
     },
     "checkedAt": "2026-10-28"
   },
-  "releaseStatus": "Visual parity not accepted: decorative framing, featured battlefield presentation, detail composition and lower-section density remain different from the supplied final design",
+  "releaseStatus": "Final frozen 1440 visual closeout accepted after merged PR #120; six-member Featured Team formation geometry and final page grouping are covered by Dragon Traveler visual regression tests. This records reviewed visual acceptance, not a strict pixel-diff guarantee.",
   "restoredAssets": [
     {
       "id": "ares",
