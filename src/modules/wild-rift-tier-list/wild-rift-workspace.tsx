@@ -302,7 +302,7 @@ function QuickPicks({ onPick }: { onPick: (role: RoleKey, championId: string) =>
     >
       <div className={styles.sectionTitleInline}>
         <h2 id="quick-picks-title">Quick Picks</h2>
-        <p>Best current picks by role from the reviewed snapshot.</p>
+        <p>Quick role leaders from the current Wild Rift tier list snapshot.</p>
       </div>
       <div className={styles.quickPickGrid}>
         {roleKeys.map((role) => {
@@ -383,7 +383,10 @@ function AllRolesOverview({ onRoleChange }: { onRoleChange: (role: RoleKey) => v
         <div>
           <p className={styles.eyebrow}>Ranked · {snapshot.rankContext}</p>
           <h2>All Roles Overview</h2>
-          <p>Role leaders only. This is an overview, not a sixth overall champion tier list.</p>
+          <p>
+            The Wild Rift tier list compares role leaders here; this overview is not a sixth overall
+            champion tier list.
+          </p>
         </div>
       </div>
       <div className={styles.roleOverviewGrid}>
