@@ -1363,3 +1363,271 @@
     padding: 0.68rem 0;
   }
 }
+
+
+/* Frozen 1440 design closeout: preserve the approved dark/navy + gold composition. */
+@media (min-width: 851px) {
+  .page {
+    background:
+      radial-gradient(ellipse at 18% 12%, #24455a38 0, transparent 30rem),
+      radial-gradient(ellipse at 82% 48%, #73572f26 0, transparent 34rem),
+      linear-gradient(180deg, #07131e 0%, #0a1824 52%, #07131d 100%);
+  }
+
+  .detail {
+    background: linear-gradient(180deg, #102235 0%, #091722 100%);
+    color: #eee5d7;
+    border-color: #c6a15c;
+    box-shadow:
+      inset 0 0 0 1px #f5dca61a,
+      0 12px 32px #0007;
+  }
+  .detailIdentity {
+    min-height: 268px;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1rem 1.05rem;
+    background: #102033;
+  }
+  .detailIdentity > div {
+    position: relative;
+    z-index: 1;
+    width: 47%;
+    margin-left: auto;
+    text-shadow: 0 2px 8px #000c;
+  }
+  .detailPortrait {
+    opacity: 0.94;
+    object-position: 42% 24%;
+  }
+  .detailIdentity:after {
+    background:
+      linear-gradient(90deg, transparent 20%, #08131d40 48%, #07131ee8 78%),
+      linear-gradient(0deg, #07131eee 0, transparent 48%);
+  }
+  .detailIdentity h3 {
+    color: #ffe0a5;
+    font-size: 1.75rem;
+  }
+  .ratings {
+    gap: 5px;
+    padding: 7px;
+    background: #081522;
+    border-top: 1px solid #c4a36255;
+    border-bottom: 1px solid #c4a36255;
+  }
+  .ratings > div {
+    background: linear-gradient(180deg, #2b3044, #181e2f);
+    border-color: #ac8a4d;
+  }
+  .ratings > div:first-child {
+    background: linear-gradient(180deg, #7d2639, #451927);
+  }
+  .metrics {
+    background: linear-gradient(180deg, #112638, #0c1b29);
+    color: #efe5d4;
+    border-bottom-color: #c4a36255;
+    padding: 0.52rem 0.1rem;
+  }
+  .metrics div {
+    border-right-color: #c4a36245;
+  }
+  .metrics dt {
+    color: #bfc8ce;
+  }
+  .metrics dd {
+    color: #e5c47f;
+  }
+  .detailCopy {
+    background: #091722;
+    color: #d9d1c4;
+    padding: 0.7rem 0.9rem 0.85rem;
+    font-size: 0.72rem;
+  }
+  .detailCopy h4 {
+    color: #e8c27e;
+    margin: 0.62rem 0 0.28rem;
+  }
+  .detailCopy p,
+  .detailCopy li {
+    color: #d9d1c4;
+  }
+  .detailCopy > a {
+    color: #f1ce88;
+    margin-top: 0.65rem;
+  }
+  .partnerRow button {
+    color: #f3eadb;
+  }
+
+  .teamLayout {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 0.72rem;
+  }
+  .featuredTeam,
+  .compactTeam {
+    background:
+      radial-gradient(circle at 20% 8%, #3d506442 0, transparent 55%),
+      linear-gradient(135deg, #14283a, #0a1824);
+    border-color: #b49355;
+    box-shadow: inset 0 0 0 1px #f1d9a214;
+  }
+  .featuredTeam {
+    padding: 0.72rem;
+  }
+  .teamHeading {
+    gap: 0.7rem;
+    padding-bottom: 0.45rem;
+  }
+  .teamRank {
+    font-size: 1.7rem;
+  }
+  .teamTier {
+    font-size: 1.8rem;
+  }
+  .formation {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    min-height: 142px;
+    gap: 0.38rem;
+    margin: 0.55rem 0 0.65rem;
+    padding: 0.62rem 0.45rem;
+    background:
+      radial-gradient(ellipse at 50% 82%, #6d674b52 0, transparent 46%),
+      linear-gradient(180deg, #20384a 0%, #142838 42%, #0d1c29 100%);
+    border-color: #c6a15c55;
+  }
+  .formation::after {
+    content: "";
+    position: absolute;
+    inset: auto 4% 10px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d6bb7b66, transparent);
+    pointer-events: none;
+  }
+  .formation > div {
+    display: contents;
+  }
+  .formation h4 {
+    display: none;
+  }
+  .formationCell {
+    min-height: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .formationCell:has(.emptyCell) {
+    display: none;
+  }
+  .formationCell button {
+    width: 100%;
+    gap: 0.18rem;
+    padding: 0.2rem;
+  }
+  .formationCell button .portrait {
+    width: 62px;
+    height: 62px;
+    border-color: #d0aa63;
+    box-shadow: 0 5px 14px #0007;
+  }
+  .formationCell button > span {
+    font-size: 0.66rem;
+    font-weight: 700;
+  }
+  .formationCell button > small {
+    color: #c9b17f;
+    font-size: 0.55rem;
+  }
+  .compactTeam {
+    min-height: 82px;
+    padding: 0.55rem 0.7rem;
+    gap: 0.62rem;
+  }
+  .compactTeam strong {
+    font-size: 0.92rem;
+  }
+  .compactTeam p {
+    margin: 0.18rem 0 0.32rem;
+  }
+  .miniPortraits {
+    flex-wrap: nowrap;
+    gap: 0.22rem;
+  }
+  .miniPortraits .portrait {
+    width: 37px;
+    height: 37px;
+  }
+
+  .teamsSection {
+    margin-top: 1rem;
+  }
+  .decisionGrid {
+    gap: 0.62rem;
+  }
+  .paper {
+    padding: 0.68rem;
+    background:
+      radial-gradient(circle at 10% 0, #31465a35 0, transparent 55%),
+      linear-gradient(145deg, #132536, #0b1824);
+    color: #eee6da;
+    border-color: #a98b54;
+    box-shadow: inset 0 0 0 1px #f0d69c0d;
+  }
+  .paper h2,
+  .paper h3,
+  .paper h4 {
+    color: #f0d39a;
+  }
+  .paper p,
+  .paper .note {
+    color: #c9c2b7;
+  }
+  .recommendations {
+    gap: 0.42rem;
+    margin: 0.45rem 0 0.6rem;
+  }
+  .changes {
+    gap: 0.9rem;
+    padding: 0.65rem 0.8rem;
+    margin: 0.65rem 0;
+    background: linear-gradient(120deg, #162a3c, #0d1c29);
+    border-color: #9d824e;
+  }
+  .changes h2 {
+    font-size: 1.15rem;
+  }
+  .methodologySources {
+    gap: 0.55rem;
+  }
+  .methodGrid {
+    gap: 0.45rem;
+    margin-top: 0.55rem;
+  }
+  .methodGrid p {
+    margin-bottom: 0;
+  }
+  .sources {
+    background: linear-gradient(145deg, #132536, #0b1824);
+    color: #eee6da;
+    border-color: #a98b54;
+    padding: 0.65rem;
+  }
+  .sources h2 {
+    color: #f0d39a;
+  }
+  .sources > p,
+  .sources li span {
+    color: #bfb8ad;
+  }
+  .sources ul {
+    gap: 0.3rem;
+  }
+  .faq {
+    margin-top: 0.75rem;
+  }
+  .faq h2 {
+    margin-bottom: 0.55rem;
+  }
+  .faq details {
+    padding: 0.45rem 0;
+  }
+}
