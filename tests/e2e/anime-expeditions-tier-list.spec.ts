@@ -31,7 +31,7 @@ test("shared shell, frozen three-system architecture and evidence-safe SEO", asy
   expect(await page.locator("#traits").evaluate((e) => e.getBoundingClientRect().width)).toBe(
     await page.locator("#equipment").evaluate((e) => e.getBoundingClientRect().width),
   );
-  await expect(page.locator("#changes")).toContainText("No verified prior comparison available");
+  await expect(page.locator("#changes")).toContainText("Update 5");
 });
 test("five views change actual placements and support arrow-key tabs", async ({ page }) => {
   await page.goto(route);
@@ -75,7 +75,7 @@ test("all identity filters combine on a real unit, with honest mode context and 
   await page.getByRole("searchbox", { name: "Search units" }).fill("not-a-unit");
   await expect(page.getByRole("button", { name: "Reset filters" })).toBeVisible();
   await page.getByRole("button", { name: "Reset filters" }).click();
-  await expect(page.locator("[data-unit-id]")).toHaveCount(64);
+  await expect(page.locator("[data-unit-id]")).toHaveCount(76);
 });
 test("unit selection updates identity, reasons, build, investment and team fit", async ({
   page,
@@ -105,7 +105,7 @@ test("traits, Standard-only equipment, compositions and all evolution groups use
     "Illusion Crow",
   );
   await expect(page.locator("#teams")).toContainText("Sovereign (Djinn)");
-  await expect(page.locator("#teams")).toContainText("capacity is unconfirmed");
+  await expect(page.locator("#teams")).toContainText("six-unit");
   for (const name of ["High Priority", "Worth Evolving", "Situational"])
     await expect(
       page.locator("#evolution").getByRole("heading", { name, exact: true }),
