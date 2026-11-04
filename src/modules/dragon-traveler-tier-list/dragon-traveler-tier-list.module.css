@@ -1364,8 +1364,8 @@
   }
 }
 
-
 /* Frozen 1440 design closeout: preserve the approved dark/navy + gold composition. */
+/* prettier-ignore */
 @media (min-width: 851px) {
   .page {
     background:
