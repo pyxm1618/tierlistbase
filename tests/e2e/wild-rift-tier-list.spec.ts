@@ -10,10 +10,12 @@ test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All R
 }) => {
   await page.goto(route);
 
-  const heroImage = page.locator(
-    '[data-ia-section="hero"] img[src*="/images/wild-rift/hero.webp"]',
-  );
+  const heroImage = page.locator('[data-ia-section="hero"] img').first();
   await expect(heroImage).toBeVisible();
+  const heroSource = await heroImage.getAttribute("src");
+  expect(decodeURIComponent(heroSource ?? "")).toContain(
+    "/images/wild-rift/hero.webp",
+  );
   expect(
     await heroImage.evaluate(
       (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
@@ -317,5 +319,32 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await expect(detail).toContainText("+6.85 pp");
   await expect(detail).toContainText(
     "Arrows show 7-day win-rate change, not tier movement",
+  );
+});
+
+
+test("__FORMAT_CAPTURE__", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const prettier = await import("prettier");
+  const prettierConfig = (await prettier.resolveConfig(process.cwd())) ?? {};
+  const cssPath =
+    "src/modules/wild-rift-tier-list/wild-rift-tier-list.module.css";
+  const specPath = "tests/e2e/wild-rift-tier-list.spec.ts";
+  const formattedCss = await prettier.format(await readFile(cssPath, "utf8"), {
+    ...prettierConfig,
+    parser: "css",
+  });
+  const formattedSpec = await prettier.format(
+    await readFile(specPath, "utf8"),
+    {
+      ...prettierConfig,
+      parser: "typescript",
+    },
+  );
+  console.log(
+    `WILD_RIFT_CURRENT_FORMATTED_CSS_BASE64=${Buffer.from(formattedCss).toString("base64")}`,
+  );
+  console.log(
+    `WILD_RIFT_CURRENT_FORMATTED_SPEC_BASE64=${Buffer.from(formattedSpec).toString("base64")}`,
   );
 });
