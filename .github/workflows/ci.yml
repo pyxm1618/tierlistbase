@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.event_name == 'push' && github.sha || github.head_ref || github.ref_name }}
@@ -13,9 +14,55 @@ permissions:
   contents: read
 
 jobs:
-  quality:
+  change_scope:
+    name: Change Scope
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    timeout-minutes: 10
+    outputs:
+      vanguard: ${{ steps.scope.outputs.vanguard }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Detect heavyweight Vanguard scope
+        id: scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PUSH_BASE_SHA: ${{ github.event.before }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "vanguard=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ -n "${PR_BASE_SHA:-}" ] && [ -n "${PR_HEAD_SHA:-}" ]; then
+            base="$PR_BASE_SHA"
+            head="$PR_HEAD_SHA"
+          elif [ -n "${PUSH_BASE_SHA:-}" ] && [ "$PUSH_BASE_SHA" != "0000000000000000000000000000000000000000" ]; then
+            base="$PUSH_BASE_SHA"
+            head="$GITHUB_SHA"
+          else
+            base="$GITHUB_SHA^"
+            head="$GITHUB_SHA"
+          fi
+
+          changed="$(git diff --name-only "$base...$head")"
+          printf '%s\n' "$changed"
+
+          if printf '%s\n' "$changed" | grep -Eq '(^|/)(wow-vanguard|vanguard)(/|[-_.])|^playwright\.vanguard\.config\.ts$|^tests/e2e/start-vanguard-test-server\.ts$|^src/platform/(auth|database|email)/|^src/app/globals\.css$|^src/app/\(marketing\)/layout\.tsx$|^src/components/navigation/site-header'; then
+            echo "vanguard=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "vanguard=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  quality_core:
+    name: Quality Core
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     services:
       postgres:
         image: postgres:16-alpine
@@ -44,10 +91,21 @@ jobs:
         with: { bun-version: 1.3.14 }
       - name: Install dependencies
         run: bun install --frozen-lockfile
-      - name: Vanguard diff check
+      - name: Diff whitespace hygiene
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PUSH_BASE_SHA: ${{ github.event.before }}
+        shell: bash
         run: |
-          git fetch origin main --no-tags
-          git diff --check origin/main...HEAD
+          set -euo pipefail
+          if [ -n "${PR_BASE_SHA:-}" ] && [ -n "${PR_HEAD_SHA:-}" ]; then
+            git diff --check "$PR_BASE_SHA...$PR_HEAD_SHA"
+          elif [ -n "${PUSH_BASE_SHA:-}" ] && [ "$PUSH_BASE_SHA" != "0000000000000000000000000000000000000000" ]; then
+            git diff --check "$PUSH_BASE_SHA...$GITHUB_SHA"
+          else
+            git diff --check "$GITHUB_SHA^" "$GITHUB_SHA"
+          fi
       - name: Verify Better Auth schema generation
         run: |
           bunx auth@1.7.7 generate --config src/platform/auth/auth-cli.ts --output /tmp/auth-schema.ts --yes
@@ -61,14 +119,37 @@ jobs:
         run: bun run typecheck
       - name: Unit tests
         run: bun run test:unit
-      - name: Webhook purge concurrency
-        run: bun run test:integration -- tests/integration/commerce/webhook-purge-concurrency.test.ts
-      - name: Webhook log redaction
-        run: bun run test:integration -- tests/integration/commerce/webhook-log-redaction.test.ts
-      - name: Job lease concurrency
-        run: bun run test:integration -- tests/integration/commerce/job-leases.test.ts
-      - name: Operational health and retention alerts
-        run: bun run test:integration -- tests/integration/operations/health-alerts.test.ts
+
+  integration:
+    name: Database + Contract Integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: creat_web_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d creat_web_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      APP_ENV: test
+      APP_ORIGIN: http://localhost:3000
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_app
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_test
+      BETTER_AUTH_SECRET: schema-generation-secret-with-at-least-32-characters
+      TEST_EMAIL_DIR: /tmp/creat-web-test-emails
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: 1.3.14 }
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
       - name: PostgreSQL integration tests
         run: bun run test:integration
       - name: Credit expiry race verification (30 runs)
@@ -91,8 +172,37 @@ jobs:
         run: bun run test:contract
       - name: Migration verification
         run: bun run db:verify
-      - name: Architecture boundaries
-        run: bun run verify:architecture
+
+  product_gates:
+    name: Product Contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: creat_web_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d creat_web_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      APP_ENV: test
+      APP_ORIGIN: http://localhost:3000
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_app
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_test
+      BETTER_AUTH_SECRET: schema-generation-secret-with-at-least-32-characters
+      TEST_EMAIL_DIR: /tmp/creat-web-test-emails
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: 1.3.14 }
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
       - name: Repository secret scan
         run: bun run verify:secrets
       - name: SEO verification
@@ -109,6 +219,39 @@ jobs:
         run: bun run verify:credits
       - name: Supply-chain audit
         run: bun run verify:supply-chain
+      - name: Release verification
+        run: bun run verify:release --mode=test
+
+  build_runtime:
+    name: Build + Runtime
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: creat_web_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d creat_web_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      APP_ENV: test
+      APP_ORIGIN: http://localhost:3000
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_app
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_test
+      BETTER_AUTH_SECRET: schema-generation-secret-with-at-least-32-characters
+      TEST_EMAIL_DIR: /tmp/creat-web-test-emails
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: 1.3.14 }
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
       - name: Optional-provider build matrix
         run: bun run test:build-matrix
       - name: Production application build
@@ -117,10 +260,9 @@ jobs:
         run: bun run build:vinext
       - name: Cloudflare artifact runtime smoke
         run: bun run test:runtime:cloudflare
-      - name: Release verification
-        run: bun run verify:release --mode=test
 
   performance:
+    name: Performance
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
@@ -155,6 +297,7 @@ jobs:
         run: bun run verify:performance
 
   e2e:
+    name: End-to-End
     runs-on: ubuntu-latest
     timeout-minutes: 50
     services:
@@ -192,15 +335,53 @@ jobs:
           bun run db:migrate
       - name: Browser end-to-end tests
         run: bun run test:e2e
-      - name: Vanguard Google-only browser flows
-        env:
-          CREAT_WEB_E2E_VANGUARD: "1"
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_app
-        run: bunx playwright test --config=playwright.vanguard.config.ts
       - name: Production-mode canonical and security output
         run: bun run verify:seo:production
 
-  clean-setup:
+  vanguard_e2e:
+    name: Vanguard Full E2E
+    needs: [change_scope]
+    if: needs.change_scope.outputs.vanguard == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: creat_web_e2e
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d creat_web_e2e"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      APP_ENV: test
+      APP_ORIGIN: http://127.0.0.1:3000
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_e2e
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_e2e
+      BETTER_AUTH_SECRET: e2e-better-auth-secret-with-at-least-32-characters
+      EMAIL_TRANSPORT: test
+      TEST_EMAIL_DIR: /tmp/creat-web-test-emails
+      CREAT_WEB_E2E_VANGUARD: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: 1.3.14 }
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Install Chromium
+        run: bunx playwright install --with-deps chromium
+      - name: Prepare database
+        run: bun run db:migrate
+      - name: Vanguard Google-only browser flows
+        run: bunx playwright test --config=playwright.vanguard.config.ts
+
+  template_clean_setup:
+    name: Template Clean Setup (manual)
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 55
     services:
@@ -229,10 +410,46 @@ jobs:
       - name: Verify independent clean setup
         run: bun scripts/verify-clean-setup.ts
 
+  ci_required:
+    name: CI Required
+    if: always()
+    needs:
+      - change_scope
+      - quality_core
+      - integration
+      - product_gates
+      - build_runtime
+      - performance
+      - e2e
+      - vanguard_e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every CI contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Change Scope: ${{ needs.change_scope.result }}"
+          echo "Quality Core: ${{ needs.quality_core.result }}"
+          echo "Integration: ${{ needs.integration.result }}"
+          echo "Product Contracts: ${{ needs.product_gates.result }}"
+          echo "Build + Runtime: ${{ needs.build_runtime.result }}"
+          echo "Performance: ${{ needs.performance.result }}"
+          echo "End-to-End: ${{ needs.e2e.result }}"
+          echo "Vanguard Full E2E: ${{ needs.vanguard_e2e.result }}"
+          test "${{ needs.change_scope.result }}" = "success"
+          test "${{ needs.quality_core.result }}" = "success"
+          test "${{ needs.integration.result }}" = "success"
+          test "${{ needs.product_gates.result }}" = "success"
+          test "${{ needs.build_runtime.result }}" = "success"
+          test "${{ needs.performance.result }}" = "success"
+          test "${{ needs.e2e.result }}" = "success"
+          test "${{ needs.vanguard_e2e.result }}" = "success" || test "${{ needs.vanguard_e2e.result }}" = "skipped"
+
   deploy:
     name: Production Deploy
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [quality, performance, e2e, clean-setup]
+    if: ${{ always() && github.event_name == 'push' && github.ref_name == 'main' && needs.ci_required.result == 'success' }}
+    needs: [ci_required]
     runs-on: ubuntu-latest
     environment: production
     steps:
