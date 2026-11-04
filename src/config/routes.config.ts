@@ -51,11 +51,13 @@ export const routeDefinitions = [
       "/privacy",
       "/terms",
       "/zenless-zone-zero/tier-list",
+      "/phantom-blade-zero/tier-list",
+      "/dragon-traveler/tier-list",
       "/wild-rift/tier-list",
     ],
-    lastModified: "2026-10-28",
+    lastModified: "2026-11-04",
     reviewStatus: "reviewed",
-    reviewFingerprint: "d7591ec384c49b41122d89cc8e8f5ef9c12077fbe50d8faa60a1937d74a9afc9",
+    reviewFingerprint: "28455d1f1de1682f00e91ecd57b07e24361ec5dfe95b25b766d0d6adeca63b20",
   },
   {
     route: "/wow-forever/tier-list",
@@ -140,23 +142,6 @@ export const routeDefinitions = [
     reviewFingerprint: "a3e2ac43dcc14bf2eb1d3c0c58df0572639279bdece5752e72196a84ae299ef0",
   },
   {
-    route: "/wild-rift/tier-list",
-    class: "public_indexable",
-    searchIntent:
-      "compare current Wild Rift Ranked champion strength by role and decide which champions to prioritize for Baron Lane, Jungle, Mid Lane, Dragon Lane, and Support",
-    primaryKeyword: "wild rift tier list",
-    secondaryKeywords: ["wild rift champion tier list", "wild rift champions tier list"],
-    title: "Wild Rift Tier List – Best Champions by Role for Ranked",
-    description:
-      "Compare the current Wild Rift tier list across Baron, Jungle, Mid, Dragon and Support using ranked statistics, role-specific evidence, and reviewed meta context.",
-    h1: "Wild Rift Tier List",
-    pageType: "WebApplication",
-    relatedRoutes: ["/", "/privacy", "/terms"],
-    lastModified: "2026-10-28",
-    reviewStatus: "reviewed",
-    reviewFingerprint: "8d248c2c16b6b7fc8b3581127fd89bfbc50a0bcb0239224e9020463193982c36",
-  },
-  {
     route: "/nikke/tier-list",
     class: "public_indexable",
     searchIntent:
@@ -193,6 +178,68 @@ export const routeDefinitions = [
     lastModified: "2026-10-25",
     reviewStatus: "reviewed",
     reviewFingerprint: "ad8c87ce5846da9c45f0c12a385a6ab70193e78c54dbea364cf0ce17cbc20dd7",
+  },
+  {
+    route: "/phantom-blade-zero/tier-list",
+    class: "public_indexable",
+    searchIntent:
+      "compare Phantom Blade Zero Main Weapon and Phantom Edge rankings using verified multi-source evidence",
+    primaryKeyword: "phantom blade zero tier list",
+    secondaryKeywords: [
+      "phantom blade zero tier list",
+      "phantom blade zero weapon tier list",
+      "phantom blade zero weapons tier list",
+      "phantom blade zero phantom edge tier list",
+      "phantom blade zero phantom edges tier list",
+    ],
+    title: "Phantom Blade Zero Tier List – Weapons & Phantom Edges",
+    description:
+      "Use the Phantom Blade Zero tier list to compare Main Weapons and Phantom Edges by strengths, weaknesses, best uses, ranking evidence, and verified source placements.",
+    h1: "Phantom Blade Zero Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-11-03",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "2760712d550f0796a0fe97048cff212781e4ddd6cda582f58cdd91a3f94cca4c",
+  },
+  {
+    route: "/dragon-traveler/tier-list",
+    class: "public_indexable",
+    searchIntent:
+      "compare Dragon Traveler Luminary rankings for Overall, PvE and PvP across Global and Taiwan servers, teams, and account decisions",
+    primaryKeyword: "dragon traveler tier list",
+    secondaryKeywords: [
+      "dragon traveler pve tier list",
+      "dragon traveler pvp tier list",
+      "dragon traveler tier list taiwan",
+      "dragon traveler taiwan tier list",
+    ],
+    title: "Dragon Traveler Tier List – Best Luminaries Ranked",
+    description:
+      "Compare the Dragon Traveler Tier List for Overall, PvE and PvP Luminary rankings, best teams, and account decisions across Global and Taiwan servers.",
+    h1: "Dragon Traveler Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-11-03",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "903f0ac9c765325041f6e5b8fa53fd8cdccc00c36a8103f003c3d3790e42e356",
+  },
+  {
+    route: "/wild-rift/tier-list",
+    class: "public_indexable",
+    searchIntent:
+      "compare current Wild Rift Ranked champion strength by role and decide which champions to prioritize for Baron Lane, Jungle, Mid Lane, Dragon Lane, and Support",
+    primaryKeyword: "wild rift tier list",
+    secondaryKeywords: ["wild rift champion tier list", "wild rift champions tier list"],
+    title: "Wild Rift Tier List – Best Champions by Role for Ranked",
+    description:
+      "Compare the current Wild Rift tier list across Baron, Jungle, Mid, Dragon and Support using ranked statistics, role-specific evidence, and reviewed meta context.",
+    h1: "Wild Rift Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-10-28",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "8d248c2c16b6b7fc8b3581127fd89bfbc50a0bcb0239224e9020463193982c36",
   },
   {
     route: "/privacy",
