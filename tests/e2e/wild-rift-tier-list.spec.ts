@@ -211,3 +211,24 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await expect(detail).toContainText("+6.85 pp");
   await expect(detail).toContainText("Arrows show 7-day win-rate change, not tier movement");
 });
+
+
+test("Wild Rift final 1440 visual evidence and Norra source capture", async ({ page, request }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(route, { waitUntil: "networkidle" });
+  const roleNav = page.getByRole("tablist", { name: "Wild Rift role rankings" });
+  await roleNav.getByRole("tab", { name: /^Jungle$/ }).click();
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+
+  const screenshot = await page.screenshot({ fullPage: true, type: "jpeg", quality: 72 });
+  console.log(`WILD_RIFT_FINAL_1440=${screenshot.toString("base64")}`);
+
+  const norraResponse = await request.get(
+    "https://www.wildriftfire.com/images/champion/icon/norra.png",
+  );
+  expect(norraResponse.ok()).toBe(true);
+  const norraBytes = await norraResponse.body();
+  console.log(`WILD_RIFT_NORRA_BASE64=${norraBytes.toString("base64")}`);
+});
