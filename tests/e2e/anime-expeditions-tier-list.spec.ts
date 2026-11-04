@@ -3,7 +3,8 @@ import { expect, test } from "@playwright/test";
 
 const route = "/anime-expeditions/tier-list";
 test("shared shell, frozen three-system architecture and evidence-safe SEO", async ({ page }) => {
-  await page.goto(route);
+  const response = await page.goto(route);
+  expect(response?.status()).toBe(200);
   await expect(page.locator("body > div > header")).toHaveCount(1);
   await expect(page.locator("footer")).toHaveCount(1);
   await expect(
