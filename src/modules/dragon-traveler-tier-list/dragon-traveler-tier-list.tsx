@@ -310,7 +310,10 @@ export function DragonTravelerTierList() {
         <select
           aria-label={label}
           value={filters[key] ?? ""}
-          onChange={(e) => {\n            const value = e.target.value;\n            startTransition(() => setFilters((current) => ({ ...current, [key]: value })));\n          }}
+          onChange={(e) => {
+            const value = e.target.value;
+            startTransition(() => setFilters((current) => ({ ...current, [key]: value })));
+          }}
         >
           <option value="">All</option>
           {values.map((value) => (
