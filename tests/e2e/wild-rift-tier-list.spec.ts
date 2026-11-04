@@ -284,9 +284,10 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await roleNav.getByRole("tab", { name: /^Mid Lane$/ }).click();
   await page.getByRole("searchbox", { name: "Search Champions" }).fill("Norra");
   const norra = page.locator('[data-champion-id="norra"]');
-  await expect(
-    norra.getByRole("img", { name: "Norra portrait unavailable; placeholder" }),
-  ).toBeVisible();
+  const norraImage = norra.locator("img");
+  await expect(norraImage).toBeVisible();
+  await expect(norraImage).toHaveAttribute("src", /norra\.png/);
+  await expect(norraImage).toHaveAttribute("alt", "");
   await norra.click();
   await expect(detail).toContainText("7-day trend unavailable.");
   await expect(detail).toContainText("51.7%");
