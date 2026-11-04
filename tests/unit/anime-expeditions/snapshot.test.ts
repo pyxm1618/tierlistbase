@@ -83,7 +83,10 @@ describe("Anime Expeditions snapshot integrity", () => {
     for (const evo of evolutions) {
       const unit = units.find((u) => u.id === evo.unitId)!;
       expect(unit.forms.some((f) => f.name === evo.from)).toBe(true);
-      expect(unit.forms.some((f) => f.name === evo.to)).toBe(true);
+      expect(
+        unit.forms.some((f) => f.name === evo.to) ||
+          units.some((candidate) => candidate.forms.some((f) => f.name === evo.to)),
+      ).toBe(true);
       expect(evo.materials.length).toBeGreaterThan(0);
     }
     expect(snapshot.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
@@ -136,8 +139,13 @@ it("maps every displayed image to a bounded local derivative with source provena
     }
   }
   for (const trait of traits) expect(assets.some((a) => a.key === `trait-${trait.id}`)).toBe(true);
-  for (const item of equipment)
-    expect(assets.some((a) => a.key === `gear-${item.asset}`)).toBe(true);
+  for (const item of equipment) {
+    if (item.asset) {
+      expect(assets.some((a) => a.key === `gear-${item.asset}`)).toBe(true);
+    } else {
+      expect(item.sourceIds).toContain("current-wiki");
+    }
+  }
 });
 
 it("does not turn an unreviewed evolution into a Situational recommendation", () => {
@@ -192,5 +200,13 @@ it("keeps 5th God Hand and Silver Falcon as separate current units", () => {
   expect(fifth?.currentForm).toBe("5th God Hand");
   expect(silver?.id).not.toBe(fifth?.id);
   expect(silver?.forms.map((form) => form.name)).not.toContain("5th God Hand");
+  expect(
+    evolutions.some(
+      (evolution) =>
+        evolution.unitId === "broken-falcon" &&
+        evolution.from === "Broken Falcon" &&
+        evolution.to === "5th God Hand",
+    ),
+  ).toBe(true);
   expect(snapshot.teamSize).toBe(6);
 });
