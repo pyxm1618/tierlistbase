@@ -37,7 +37,7 @@ test("shared shell, frozen three-system architecture and evidence-safe SEO", asy
 test("five views change actual placements and support arrow-key tabs", async ({ page }) => {
   await page.goto(route);
   const card = page.locator('[data-unit-id="fallen-angel"]');
-  await expect(card).toHaveAttribute("aria-label", /S\+ tier/);
+  await expect(card).toHaveAttribute("aria-label", /S tier/);
   await page.getByRole("tab", { name: "DPS", exact: true }).click();
   await expect(card).toHaveAttribute("aria-label", /A tier/);
   for (const name of ["Overall", "DPS", "Utility", "Support", "Crowd Control"]) {
