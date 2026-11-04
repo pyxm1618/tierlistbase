@@ -500,7 +500,7 @@ test("keeps one shared registry-driven header across game pages and client trans
     .click();
   await expect(page).toHaveURL(/\/wow-forever\/tier-list$/);
   await expect(page.locator("body > div > header")).toHaveCount(1);
-  await expect(
-    page.locator('header nav[aria-label="Primary navigation"] a'),
-  ).toHaveText(navigationLabels);
+  await expect(page.locator('header nav[aria-label="Primary navigation"] a')).toHaveText(
+    navigationLabels,
+  );
 });
