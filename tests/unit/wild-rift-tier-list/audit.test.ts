@@ -58,8 +58,8 @@ describe("Wild Rift source integrity closeout", () => {
       expect(ranking.abilitySourceUrl).toBe(reference?.url);
       expect(ranking.strengths).toHaveLength(2);
     }
-    expect(championForId("norra").portraitKind).toBe("placeholder");
-    expect(championForId("norra").portrait).toBe("/images/wild-rift/champions/norra.svg");
+    expect(championForId("norra").portraitKind).toBe("champion");
+    expect(championForId("norra").portrait).toBe("/images/wild-rift/champions/norra.png");
   });
 
   it("pins the reviewed raw source fixture independently of UI rounding", () => {
