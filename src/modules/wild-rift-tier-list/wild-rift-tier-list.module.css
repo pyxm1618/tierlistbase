@@ -1686,6 +1686,7 @@
   .hero {
     min-height: 270px;
     border-bottom-color: rgba(223, 180, 84, 0.72);
+    /* prettier-ignore */
     background:
       linear-gradient(90deg, rgba(1, 11, 20, 0.94) 0%, rgba(2, 15, 27, 0.76) 28%, rgba(2, 15, 27, 0.24) 58%, rgba(2, 14, 25, 0.08) 78%),
       linear-gradient(180deg, rgba(1, 12, 22, 0.06) 38%, rgba(1, 12, 22, 0.78) 100%),
@@ -1771,6 +1772,7 @@
 
 @media (max-width: 899px) {
   .hero {
+    /* prettier-ignore */
     background:
       linear-gradient(180deg, rgba(2, 12, 22, 0.4), rgba(2, 14, 24, 0.94)),
       url("/images/wild-rift/hero.webp") 57% 35% / cover no-repeat;
