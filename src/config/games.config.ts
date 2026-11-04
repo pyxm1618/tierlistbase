@@ -43,11 +43,18 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     navigationOrder: 5,
   },
   {
+    slug: "phantom-blade-zero",
+    name: "Phantom Blade Zero",
+    tierListHref: "/phantom-blade-zero/tier-list",
+    navigationVisible: true,
+    navigationOrder: 6,
+  },
+  {
     slug: "dragon-traveler",
     name: "Dragon Traveler",
     tierListHref: "/dragon-traveler/tier-list",
     navigationVisible: false,
-    navigationOrder: 6,
+    navigationOrder: 7,
   },
 ] as const;
 
