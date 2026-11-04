@@ -173,10 +173,18 @@ export function UnitWorkspace({
 }) {
   const [view, setView] = useState<UnitView>("Overall");
   const [filters, setFilters] = useState<UnitFilters>({ mode: "All Modes" });
-  const [selectedId, setSelectedId] = useState(units.find((u) => u.viewTiers.Overall === "S+")!.id);
+  const initialUnit =
+    units
+      .filter((unit) => !unit.hidden && unit.viewTiers.Overall !== "Pending")
+      .sort(
+        (a, b) =>
+          unitTiers.indexOf(a.viewTiers.Overall) - unitTiers.indexOf(b.viewTiers.Overall),
+      )[0] ?? units.find((unit) => !unit.hidden);
+  if (!initialUnit) throw new Error("Anime Expeditions requires at least one visible unit");
+  const [selectedId, setSelectedId] = useState(initialUnit.id);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
-  const selected = units.find((u) => u.id === selectedId)!;
+  const selected = units.find((u) => u.id === selectedId) ?? initialUnit;
   const visible = filterUnits(units, filters);
   const quickPicks = getQuickPicks(units);
   function selectUnit(unit: Unit, button: HTMLButtonElement) {
