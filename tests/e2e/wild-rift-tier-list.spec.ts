@@ -321,3 +321,34 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
     "Arrows show 7-day win-rate change, not tier movement",
   );
 });
+
+
+test("__FORMAT_CAPTURE_FILEPATH__", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const prettier = await import("prettier");
+  const cssPath =
+    "src/modules/wild-rift-tier-list/wild-rift-tier-list.module.css";
+  const specPath = "tests/e2e/wild-rift-tier-list.spec.ts";
+  const cssConfig = (await prettier.resolveConfig(cssPath)) ?? {};
+  const specConfig = (await prettier.resolveConfig(specPath)) ?? {};
+  const formattedCss = await prettier.format(await readFile(cssPath, "utf8"), {
+    ...cssConfig,
+    filepath: cssPath,
+  });
+  const formattedSpec = await prettier.format(
+    await readFile(specPath, "utf8"),
+    {
+      ...specConfig,
+      filepath: specPath,
+    },
+  );
+  console.log(
+    `WILD_RIFT_FILEPATH_CONFIG=${JSON.stringify({ cssConfig, specConfig })}`,
+  );
+  console.log(
+    `WILD_RIFT_FILEPATH_FORMATTED_CSS_BASE64=${Buffer.from(formattedCss).toString("base64")}`,
+  );
+  console.log(
+    `WILD_RIFT_FILEPATH_FORMATTED_SPEC_BASE64=${Buffer.from(formattedSpec).toString("base64")}`,
+  );
+});
