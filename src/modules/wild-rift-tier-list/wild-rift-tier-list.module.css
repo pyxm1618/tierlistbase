@@ -1716,6 +1716,34 @@
 }
 
 /* Final frozen Wild Rift desktop hero closeout */
+.heroArtwork {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heroArtwork img {
+  object-fit: cover;
+  object-position: center 42%;
+}
+
+.heroArtwork::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(
+      90deg,
+      rgba(1, 11, 20, 0.94) 0%,
+      rgba(2, 15, 27, 0.76) 28%,
+      rgba(2, 15, 27, 0.24) 58%,
+      rgba(2, 14, 25, 0.08) 78%
+    ),
+    linear-gradient(180deg, rgba(1, 12, 22, 0.06) 38%, rgba(1, 12, 22, 0.78) 100%);
+  pointer-events: none;
+}
+
 .eyebrow {
   display: none;
 }
@@ -1734,11 +1762,7 @@
   .hero {
     min-height: 270px;
     border-bottom-color: rgba(223, 180, 84, 0.72);
-    /* prettier-ignore */
-    background:
-      linear-gradient(90deg, rgba(1, 11, 20, 0.94) 0%, rgba(2, 15, 27, 0.76) 28%, rgba(2, 15, 27, 0.24) 58%, rgba(2, 14, 25, 0.08) 78%),
-      linear-gradient(180deg, rgba(1, 12, 22, 0.06) 38%, rgba(1, 12, 22, 0.78) 100%),
-      url("/images/wild-rift/hero.webp") center 42% / cover no-repeat;
+    background: #03111d;
   }
 
   .hero::after,
@@ -1748,6 +1772,7 @@
 
   .hero > .shell {
     position: relative;
+    z-index: 1;
     min-height: 270px;
   }
 
@@ -1820,10 +1845,15 @@
 
 @media (max-width: 899px) {
   .hero {
-    /* prettier-ignore */
-    background:
-      linear-gradient(180deg, rgba(2, 12, 22, 0.4), rgba(2, 14, 24, 0.94)),
-      url("/images/wild-rift/hero.webp") 57% 35% / cover no-repeat;
+    background: #03111d;
+  }
+
+  .heroArtwork img {
+    object-position: 57% 35%;
+  }
+
+  .heroArtwork::after {
+    background: linear-gradient(180deg, rgba(2, 12, 22, 0.4), rgba(2, 14, 24, 0.94));
   }
 
   .hero::after,
