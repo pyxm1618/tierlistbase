@@ -439,7 +439,6 @@ test("keeps shared navigation on public game pages and verifies registered games
     "NIKKE",
     "Limbus Company",
     "Phantom Blade Zero",
-    "Anime Expeditions",
   ];
   const registeredGameRoutes = ["/wow-forever/tier-list", "/genshin-impact/tier-list"].filter(
     (path) => routeRegistry.routes.some((entry) => entry.route === path),
@@ -457,7 +456,6 @@ test("keeps shared navigation on public game pages and verifies registered games
       "/nikke/tier-list",
       "/limbus-company/tier-list",
       "/phantom-blade-zero/tier-list",
-      "/anime-expeditions/tier-list",
     ]) {
       await expect(mobileNav.locator(`a[href="${gameRoute}"]`)).toHaveCount(1);
     }
