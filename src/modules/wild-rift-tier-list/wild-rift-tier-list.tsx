@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import {
@@ -48,6 +49,15 @@ export function WildRiftTierList() {
   return (
     <main className={styles.page}>
       <header className={styles.hero} data-ia-section="hero">
+        <div className={styles.heroArtwork} aria-hidden="true">
+          <Image
+            src="/images/wild-rift/hero.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+          />
+        </div>
         <div className={styles.heroAtmosphere} aria-hidden="true">
           <span />
           <span />
