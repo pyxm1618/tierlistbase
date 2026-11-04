@@ -5,6 +5,15 @@ import { routeRegistry } from "@/config/routes.config";
 
 const route = "/wild-rift/tier-list";
 
+function countExactPhrase(text: string, phrase: string) {
+  const normalized = text.toLowerCase().replace(/\s+/g, " ").trim();
+  return normalized.split(phrase).length - 1;
+}
+
+function visibleWordCount(text: string) {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
 test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All Roles default", async ({
   page,
 }) => {
@@ -29,7 +38,21 @@ test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All R
   await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Wild Rift Tier List");
   await expect(page.locator('header nav[aria-label="Primary navigation"]')).toHaveCount(1);
+  const desktopWildRiftLink = page
+    .locator('header nav[aria-label="Primary navigation"]')
+    .getByRole("link", { name: "Wild Rift", exact: true });
+  await expect(desktopWildRiftLink).toBeVisible();
+  await expect(desktopWildRiftLink).toHaveAttribute("aria-current", "page");
   await expect(page.locator('footer nav[aria-label="Footer navigation"]')).toHaveCount(1);
+  const footer = page.locator("footer");
+  await expect(footer).toContainText(
+    "TierListBase is an independent third-party game ranking and analysis site.",
+  );
+  await expect(footer).toContainText(
+    "not affiliated with, endorsed by, or officially connected to any game publisher or developer",
+  );
+  await expect(footer).not.toContainText("Blizzard");
+  await expect(footer).not.toContainText("HoYoverse");
   await expect(page.locator('main nav[aria-label="Primary navigation"]')).toHaveCount(0);
   await expect(page.locator("main footer")).toHaveCount(0);
 
@@ -66,6 +89,51 @@ test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All R
       (violation) => violation.impact === "serious" || violation.impact === "critical",
     ),
   ).toEqual([]);
+});
+
+test("Wild Rift is discoverable and active in the shared mobile menu", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(route);
+
+  await page.locator("header details summary").click();
+  const mobileNav = page.locator('header nav[aria-label="Mobile navigation"]');
+  const wildRiftLink = mobileNav.getByRole("link", { name: "Wild Rift", exact: true });
+  await expect(wildRiftLink).toBeVisible();
+  await expect(wildRiftLink).toHaveAttribute("aria-current", "page");
+});
+
+test("reports default All Roles visible-main SEO density from rendered text", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1200 });
+  await page.goto(route);
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+
+  const visibleText = await page.locator("main").innerText();
+  const words = visibleWordCount(visibleText);
+  const primary = countExactPhrase(visibleText, "wild rift tier list");
+  const champion = countExactPhrase(visibleText, "wild rift champion tier list");
+  const champions = countExactPhrase(visibleText, "wild rift champions tier list");
+  const primaryDensity = (primary * 4 * 100) / words;
+  const groupDensity = ((primary * 4 + champion * 5 + champions * 5) * 100) / words;
+
+  console.log(
+    "WILD_RIFT_SEO_DENSITY",
+    JSON.stringify({
+      visibleMainWords: words,
+      primaryOccurrences: primary,
+      primaryDensity,
+      championOccurrences: champion,
+      championsOccurrences: champions,
+      groupDensity,
+    }),
+  );
+
+  expect(words).toBeGreaterThan(0);
+  expect(primary).toBeGreaterThan(champion);
+  expect(primary).toBeGreaterThan(champions);
+  expect(groupDensity).toBeGreaterThanOrEqual(2.7);
+  expect(groupDensity).toBeLessThanOrEqual(3.3);
 });
 
 test("all five frozen role tabs render their own Tier Board and preserve Champion × Role data", async ({
