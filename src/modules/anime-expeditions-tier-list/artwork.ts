@@ -300,8 +300,11 @@ export const artwork: Record<string, StaticImageData> = {
   "unit-5th-god-hand": asset147,
   "unit-suited-alchemist": asset148,
 };
+export function artworkForOptional(key: string): StaticImageData | null {
+  return artwork[key] ?? null;
+}
 export function artworkFor(key: string): StaticImageData {
-  const asset = artwork[key];
+  const asset = artworkForOptional(key);
   if (!asset) throw new Error(`Anime Expeditions asset mapping missing: ${key}`);
   return asset;
 }
