@@ -45,7 +45,7 @@ test("homepage renders the approved game-discovery information architecture", as
 
   const popular = page.locator("#popular-rankings");
   const readyRankings = popular.locator("a.tlb-popular-item");
-  await expect(readyRankings).toHaveCount(6);
+  await expect(readyRankings).toHaveCount(7);
   await expect(popular.getByRole("link", { name: "Open WoW ranking: DPS" })).toHaveAttribute(
     "href",
     "/wow-forever/tier-list?mode=dungeon&role=dps&level=30",
@@ -66,10 +66,12 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(
     popular.getByRole("link", { name: "Open Dragon Traveler ranking: Luminaries" }),
   ).toHaveAttribute("href", "/dragon-traveler/tier-list");
+  await expect(
+    popular.getByRole("link", { name: "Open Wild Rift ranking: Ranked" }),
+  ).toHaveAttribute("href", "/wild-rift/tier-list");
   await expect(popular.getByLabel("WoW PvP: coming soon")).toBeVisible();
   await expect(popular.getByLabel("WoW Leveling: coming soon")).toBeVisible();
   await expect(popular.getByLabel("Spiral Abyss: coming soon")).toBeVisible();
-  await expect(popular.getByLabel("Exploration : coming soon")).toBeVisible();
 
   const heroImage = page.locator(".tlb-hero-art img");
   await expect(heroImage).toHaveAttribute(

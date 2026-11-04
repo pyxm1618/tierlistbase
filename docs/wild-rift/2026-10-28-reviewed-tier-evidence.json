@@ -1,0 +1,1418 @@
+{
+  "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+  "retrievedAt": "2026-10-28",
+  "sourceHtmlSha256": "8e159805aec9c294b7e958fa0d1121f3090619f5cbfa5b13ba3a1f61c8233c8e",
+  "attribution": "Wild Rift Core editorial ranking, same publisher as statistics page; not independent corroboration or official Tencent tiers.",
+  "placements": [
+    {
+      "championId": "malphite",
+      "role": "baron",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "mordekaiser",
+      "role": "baron",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "shen",
+      "role": "baron",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "teemo",
+      "role": "baron",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "kalista",
+      "role": "baron",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "chogath",
+      "role": "baron",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "ksante",
+      "role": "baron",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "ambessa",
+      "role": "baron",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "ornn",
+      "role": "baron",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "jax",
+      "role": "baron",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "gwen",
+      "role": "baron",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "vayne",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "singed",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "yone",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "jayce",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "darius",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "riven",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "gnar",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "dr-mundo",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "kennen",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "aatrox",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "nautilus",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "poppy",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "wukong",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "tristana",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "sett",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "ryze",
+      "role": "baron",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "olaf",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "smolder",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "volibear",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "fiora",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "kayle",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "irelia",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "camille",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "sion",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "renekton",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "urgot",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "gragas",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "pantheon",
+      "role": "baron",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "garen",
+      "role": "baron",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "rumble",
+      "role": "baron",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "vladimir",
+      "role": "baron",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "tryndamere",
+      "role": "baron",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "yasuo",
+      "role": "baron",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "nasus",
+      "role": "baron",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "skarner",
+      "role": "baron",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#top-tier-list"
+    },
+    {
+      "championId": "nocturne",
+      "role": "jungle",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "rammus",
+      "role": "jungle",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "ekko",
+      "role": "jungle",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "amumu",
+      "role": "jungle",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "jarvan-iv",
+      "role": "jungle",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "shen",
+      "role": "jungle",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "gwen",
+      "role": "jungle",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "skarner",
+      "role": "jungle",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "lillia",
+      "role": "jungle",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "ambessa",
+      "role": "jungle",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "kayn",
+      "role": "jungle",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "chogath",
+      "role": "jungle",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "zed",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "nidalee",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "nunu-willump",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "fiddlesticks",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "pantheon",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "talon",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "darius",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "xin-zhao",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "kindred",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "olaf",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "hecarim",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "diana",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "dr-mundo",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "khazix",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "warwick",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "nilah",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "malphite",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "jayce",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "poppy",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "mordekaiser",
+      "role": "jungle",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "wukong",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "riven",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "vi",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "master-yi",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "rengar",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "evelynn",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "tryndamere",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "jax",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "fizz",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "aatrox",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "yone",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "camille",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "taliyah",
+      "role": "jungle",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "volibear",
+      "role": "jungle",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "twitch",
+      "role": "jungle",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "viego",
+      "role": "jungle",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "lee-sin",
+      "role": "jungle",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "graves",
+      "role": "jungle",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "shyvana",
+      "role": "jungle",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "nautilus",
+      "role": "jungle",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#jungle-tier-list"
+    },
+    {
+      "championId": "hwei",
+      "role": "mid",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "morgana",
+      "role": "mid",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "brand",
+      "role": "mid",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "syndra",
+      "role": "mid",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "zyra",
+      "role": "mid",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "galio",
+      "role": "mid",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "teemo",
+      "role": "mid",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "aurelion-sol",
+      "role": "mid",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "orianna",
+      "role": "mid",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "malphite",
+      "role": "mid",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "lissandra",
+      "role": "mid",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "singed",
+      "role": "mid",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "kogmaw",
+      "role": "mid",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "taliyah",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "annie",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "vladimir",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "ahri",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "kassadin",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "yone",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "aurora",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "kennen",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "zed",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "ekko",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "norra",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "velkoz",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "jayce",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "veigar",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "twisted-fate",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "zoe",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "kayle",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "chogath",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "corki",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "seraphine",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "talon",
+      "role": "mid",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "heimerdinger",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "vex",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "swain",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "viktor",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "nasus",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "lux",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "tristana",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "katarina",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "ryze",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "akshan",
+      "role": "mid",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "akali",
+      "role": "mid",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "ziggs",
+      "role": "mid",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "fizz",
+      "role": "mid",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "diana",
+      "role": "mid",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "mel",
+      "role": "mid",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "yasuo",
+      "role": "mid",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#mid-tier-list"
+    },
+    {
+      "championId": "ashe",
+      "role": "dragon",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "smolder",
+      "role": "dragon",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "senna",
+      "role": "dragon",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "samira",
+      "role": "dragon",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "caitlyn",
+      "role": "dragon",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "kalista",
+      "role": "dragon",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "yunara",
+      "role": "dragon",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "kogmaw",
+      "role": "dragon",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "varus",
+      "role": "dragon",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "xayah",
+      "role": "dragon",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "jinx",
+      "role": "dragon",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "kaisa",
+      "role": "dragon",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "ezreal",
+      "role": "dragon",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "twitch",
+      "role": "dragon",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "jhin",
+      "role": "dragon",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "corki",
+      "role": "dragon",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "zeri",
+      "role": "dragon",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "vayne",
+      "role": "dragon",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "miss-fortune",
+      "role": "dragon",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "sivir",
+      "role": "dragon",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "tristana",
+      "role": "dragon",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "lucian",
+      "role": "dragon",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "draven",
+      "role": "dragon",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#adc-tier-list"
+    },
+    {
+      "championId": "malphite",
+      "role": "support",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "hwei",
+      "role": "support",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "braum",
+      "role": "support",
+      "sourceTier": "S+",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "leona",
+      "role": "support",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "sona",
+      "role": "support",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "thresh",
+      "role": "support",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "morgana",
+      "role": "support",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "janna",
+      "role": "support",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "soraka",
+      "role": "support",
+      "sourceTier": "S",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "brand",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "zyra",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "rell",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "galio",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "senna",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "zilean",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "pyke",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "rakan",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "ornn",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "nami",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "velkoz",
+      "role": "support",
+      "sourceTier": "A",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "seraphine",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "maokai",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "karma",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "nautilus",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "lulu",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "yuumi",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "milio",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "sett",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "blitzcrank",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "bard",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "chogath",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "mordekaiser",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "skarner",
+      "role": "support",
+      "sourceTier": "B",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "alistar",
+      "role": "support",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "lux",
+      "role": "support",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "veigar",
+      "role": "support",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    },
+    {
+      "championId": "swain",
+      "role": "support",
+      "sourceTier": "C",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/#support-tier-list"
+    }
+  ],
+  "changes": [
+    {
+      "championId": "malphite",
+      "role": "mid",
+      "fromTier": "B",
+      "toTier": "S",
+      "date": "2026-10-27",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "kalista",
+      "role": "dragon",
+      "fromTier": "B",
+      "toTier": "S",
+      "date": "2026-10-25",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "jayce",
+      "role": "baron",
+      "fromTier": "C",
+      "toTier": "A",
+      "date": "2026-10-19",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "ashe",
+      "role": "dragon",
+      "fromTier": "A",
+      "toTier": "S+",
+      "date": "2026-10-17",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "twitch",
+      "role": "dragon",
+      "fromTier": "C",
+      "toTier": "A",
+      "date": "2026-10-09",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "dr-mundo",
+      "role": "baron",
+      "fromTier": "C",
+      "toTier": "A",
+      "date": "2026-10-03",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "chogath",
+      "role": "jungle",
+      "fromTier": "B",
+      "toTier": "S",
+      "date": "2026-10-01",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "samira",
+      "role": "dragon",
+      "fromTier": "B",
+      "toTier": "S",
+      "date": "2026-10-01",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "garen",
+      "role": "baron",
+      "fromTier": "S",
+      "toTier": "C",
+      "date": "2026-10-27",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "miss-fortune",
+      "role": "dragon",
+      "fromTier": "S+",
+      "toTier": "B",
+      "date": "2026-10-03",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "volibear",
+      "role": "baron",
+      "fromTier": "S+",
+      "toTier": "B",
+      "date": "2026-10-03",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "ahri",
+      "role": "mid",
+      "fromTier": "S+",
+      "toTier": "A",
+      "date": "2026-10-27",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "sion",
+      "role": "baron",
+      "fromTier": "S",
+      "toTier": "B",
+      "date": "2026-10-21",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "yone",
+      "role": "baron",
+      "fromTier": "S+",
+      "toTier": "A",
+      "date": "2026-10-17",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "nautilus",
+      "role": "support",
+      "fromTier": "S",
+      "toTier": "B",
+      "date": "2026-10-15",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    },
+    {
+      "championId": "olaf",
+      "role": "baron",
+      "fromTier": "S",
+      "toTier": "B",
+      "date": "2026-10-11",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since first 7.3 update; not TierListBase historical tiers",
+      "reason": "The publisher reports this net tier movement; no causal reason is evidenced."
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "assessedAt": "2026-11-03",
+  "currentGameVersion": "7.3d",
+  "latestRankedBalance": "7.3d",
+  "patchPublishedAt": "2026-10-28",
+  "sourceSnapshotDate": "2026-11-01",
+  "sourcePatchLabel": "7.3d",
+  "originalTotal": 5,
+  "states": {
+    "approved": 5,
+    "deferred": 0,
+    "confirmed_reject": 0,
+    "unreviewed": 0
+  },
+  "roles": [
+    {
+      "role": "baron",
+      "status": "approved",
+      "currentStatisticsPlacements": 40,
+      "editorialOnlyPlacements": 6,
+      "totalPlacements": 46,
+      "reason": "Current public Rankings source is labeled patch 7.3d · Master+ CN · Updated 2026-11-01. Statistics are used only for exact Champion × Role rows.",
+      "nextAction": "Keep the checked-in reviewed snapshot; refresh only when a newer verified context is intentionally reviewed."
+    },
+    {
+      "role": "jungle",
+      "status": "approved",
+      "currentStatisticsPlacements": 44,
+      "editorialOnlyPlacements": 8,
+      "totalPlacements": 52,
+      "reason": "Current public Rankings source is labeled patch 7.3d · Master+ CN · Updated 2026-11-01. Statistics are used only for exact Champion × Role rows.",
+      "nextAction": "Keep the checked-in reviewed snapshot; refresh only when a newer verified context is intentionally reviewed."
+    },
+    {
+      "role": "mid",
+      "status": "approved",
+      "currentStatisticsPlacements": 40,
+      "editorialOnlyPlacements": 10,
+      "totalPlacements": 50,
+      "reason": "Current public Rankings source is labeled patch 7.3d · Master+ CN · Updated 2026-11-01. Statistics are used only for exact Champion × Role rows.",
+      "nextAction": "Keep the checked-in reviewed snapshot; refresh only when a newer verified context is intentionally reviewed."
+    },
+    {
+      "role": "dragon",
+      "status": "approved",
+      "currentStatisticsPlacements": 22,
+      "editorialOnlyPlacements": 1,
+      "totalPlacements": 23,
+      "reason": "Current public Rankings source is labeled patch 7.3d · Master+ CN · Updated 2026-11-01. Statistics are used only for exact Champion × Role rows.",
+      "nextAction": "Keep the checked-in reviewed snapshot; refresh only when a newer verified context is intentionally reviewed."
+    },
+    {
+      "role": "support",
+      "status": "approved",
+      "currentStatisticsPlacements": 33,
+      "editorialOnlyPlacements": 4,
+      "totalPlacements": 37,
+      "reason": "Current public Rankings source is labeled patch 7.3d · Master+ CN · Updated 2026-11-01. Statistics are used only for exact Champion × Role rows.",
+      "nextAction": "Keep the checked-in reviewed snapshot; refresh only when a newer verified context is intentionally reviewed."
+    }
+  ]
+}

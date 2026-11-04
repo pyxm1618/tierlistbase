@@ -1,0 +1,1564 @@
+{
+  "aatrox": {
+    "strengths": [
+      "Sweet-spot knockups disrupt grouped enemies.",
+      "Repeated spell hits sustain extended fights."
+    ],
+    "limitations": [
+      "Missing Q sweet spots sharply reduces pressure.",
+      "Anti-heal and ranged kiting restrict his recovery."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/aatrox/"
+  },
+  "ahri": {
+    "strengths": [
+      "Charm creates picks before objective fights.",
+      "Spirit Rush offers flexible entry and escape routes."
+    ],
+    "limitations": [
+      "Burst depends on landing Charm and follow-up spells.",
+      "Spending ultimate charges to escape reduces initiation options."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/ahri/"
+  },
+  "akali": {
+    "strengths": [
+      "Shroud buys time to reposition inside fights.",
+      "Multiple dashes threaten exposed backline carries."
+    ],
+    "limitations": [
+      "Energy management and combo timing demand practice.",
+      "Crowd control and vision discipline limit safe access."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/akali/"
+  },
+  "akshan": {
+    "strengths": [
+      "Ranged attacks pressure melee lanes.",
+      "Flanking can punish isolated targets and enable ally revives."
+    ],
+    "limitations": [
+      "His grappling route can be blocked or interrupted.",
+      "Shorter attack range makes front-to-back fights risky."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/akshan/"
+  },
+  "alistar": {
+    "strengths": [
+      "Headbutt and Pulverize provide immediate disruption.",
+      "His ultimate lets him absorb damage during an engage."
+    ],
+    "limitations": [
+      "A misplaced Headbutt can save an enemy.",
+      "He relies on allies to convert crowd control into damage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/alistar/"
+  },
+  "ambessa": {
+    "strengths": [
+      "Repeated dashes help maintain pressure in melee fights.",
+      "An ultimate connection can isolate a priority target."
+    ],
+    "limitations": [
+      "Energy and dash sequencing raise execution demands.",
+      "Failed entry leaves her vulnerable to sustained focus."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/ambessa/"
+  },
+  "amumu": {
+    "strengths": [
+      "Bandage Toss supplies ranged engage access.",
+      "Area crowd control can decide clustered objective fights."
+    ],
+    "limitations": [
+      "A failed Bandage Toss gives enemies room to disengage.",
+      "Early invasions can disrupt his route and scaling."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/amumu/"
+  },
+  "annie": {
+    "strengths": [
+      "A prepared stun makes burst setup easy to communicate.",
+      "Tibbers adds immediate area threat to a fight."
+    ],
+    "limitations": [
+      "Her effective engage range is limited without Flash.",
+      "An unprepared passive reduces her threat dramatically."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/annie/"
+  },
+  "ashe": {
+    "strengths": [
+      "Repeated slows help her team chase or kite.",
+      "A long-range arrow can start a fight without committing her body."
+    ],
+    "limitations": [
+      "She has no dash to escape divers.",
+      "Damage still requires sustained attacks and safe positioning."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/ashe/"
+  },
+  "aurelion-sol": {
+    "strengths": [
+      "Sustained spell damage scales into large teamfight threats.",
+      "Area control punishes enemies approaching narrow paths."
+    ],
+    "limitations": [
+      "His early lane can be pressured before scaling.",
+      "Committing to a damage channel exposes him to interruption."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/aurelion-sol/"
+  },
+  "aurora": {
+    "strengths": [
+      "Repeated spell trades reward careful spacing.",
+      "Mobility and area control help her attack from changing angles."
+    ],
+    "limitations": [
+      "She needs close enough access to keep applying spells.",
+      "Poor entry timing exposes her before she can disengage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/aurora/"
+  },
+  "bard": {
+    "strengths": [
+      "Portals open unusual roam and escape routes.",
+      "His ultimate can create picks or pause an enemy engage."
+    ],
+    "limitations": [
+      "An ill-timed ultimate can protect the enemy team.",
+      "Roaming leaves his lane partner exposed."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/bard/"
+  },
+  "blitzcrank": {
+    "strengths": [
+      "A successful hook can remove an enemy before a fight.",
+      "Knockup and silence extend a caught target's vulnerability."
+    ],
+    "limitations": [
+      "A missed hook creates a long low-pressure window.",
+      "Pulling a tank can start a losing fight."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/blitzcrank/"
+  },
+  "brand": {
+    "strengths": [
+      "Area spells punish clustered opponents.",
+      "Burn damage threatens durable front lines."
+    ],
+    "limitations": [
+      "He lacks a dash when divers reach him.",
+      "Reliable stun setup requires spell sequencing."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/brand/"
+  },
+  "braum": {
+    "strengths": [
+      "His shield intercepts important incoming projectiles.",
+      "Passive stuns reward allies who follow his target."
+    ],
+    "limitations": [
+      "He cannot force long-range picks as easily as hook supports.",
+      "His best defensive value depends on positioning near allies."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/braum/"
+  },
+  "caitlyn": {
+    "strengths": [
+      "Long attack range pressures opponents around the wave.",
+      "Traps reinforce siege lines and punish crowd-controlled targets."
+    ],
+    "limitations": [
+      "Her damage falls if enemies bypass the trap line.",
+      "Net positioning and headshot timing require attention."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/caitlyn/"
+  },
+  "camille": {
+    "strengths": [
+      "Hookshot gives access to distant priority targets.",
+      "Her ultimate prevents one target from freely escaping."
+    ],
+    "limitations": [
+      "Misusing Hookshot removes her main escape route.",
+      "True-damage trades depend on timing the second Q."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/camille/"
+  },
+  "chogath": {
+    "strengths": [
+      "Rupture and silence disrupt opponents approaching objectives.",
+      "Feast adds a large burst tool against important targets."
+    ],
+    "limitations": [
+      "Rupture is delayed and can be sidestepped.",
+      "Limited mobility makes kiting and poor positioning costly."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/chogath/"
+  },
+  "corki": {
+    "strengths": [
+      "Ranged spell poke can soften enemies before a fight.",
+      "His mobility spell gives a limited repositioning option."
+    ],
+    "limitations": [
+      "Repeated spell use puts pressure on mana.",
+      "Spending his escape aggressively invites retaliation."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/corki/"
+  },
+  "darius": {
+    "strengths": [
+      "Extended melee trades build toward a powerful execute.",
+      "A successful reset can swing a close skirmish."
+    ],
+    "limitations": [
+      "Ranged kiting makes it difficult to keep applying stacks.",
+      "He needs time in combat before reaching his full threat."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/darius/"
+  },
+  "diana": {
+    "strengths": [
+      "Area damage clears groups of enemies efficiently.",
+      "Her ultimate punishes opponents who cluster near her."
+    ],
+    "limitations": [
+      "Entering without follow-up can leave her stranded.",
+      "Commitment to melee range exposes her to crowd control."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/diana/"
+  },
+  "dr-mundo": {
+    "strengths": [
+      "Health recovery supports extended front-line presence.",
+      "Cleaver slows help him chase or disengage."
+    ],
+    "limitations": [
+      "Anti-heal and percentage-health damage punish his durability plan.",
+      "He lacks reliable hard crowd control to protect carries."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/dr-mundo/"
+  },
+  "draven": {
+    "strengths": [
+      "Spinning axes create strong early trading pressure.",
+      "Cash-in rewards can turn a lane lead into a large economy lead."
+    ],
+    "limitations": [
+      "Catching axes makes movement more predictable.",
+      "Dying before a cash-in can erase much of his advantage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/draven/"
+  },
+  "ekko": {
+    "strengths": [
+      "His ultimate offers a way out after a risky entry.",
+      "Area stun setup can control an objective approach."
+    ],
+    "limitations": [
+      "The stun needs prediction and time to arm.",
+      "Mistiming his return can leave him without a safe exit."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/ekko/"
+  },
+  "evelynn": {
+    "strengths": [
+      "Camouflage opens unexpected approach angles.",
+      "Her ultimate combines burst with an escape route."
+    ],
+    "limitations": [
+      "Control of vision and early invades restrict her access.",
+      "She needs careful target selection against grouped teams."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/evelynn/"
+  },
+  "ezreal": {
+    "strengths": [
+      "Long-range skillshots let him contribute from safer positions.",
+      "Arcane Shift offers a flexible repositioning tool."
+    ],
+    "limitations": [
+      "Missing skillshots lowers both damage and sustained pressure.",
+      "Using his escape for damage makes him vulnerable."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/ezreal/"
+  },
+  "fiddlesticks": {
+    "strengths": [
+      "A concealed ultimate can disrupt an entire group.",
+      "Fear gives his ambush immediate crowd control value."
+    ],
+    "limitations": [
+      "His strongest entry depends on vision denial.",
+      "A revealed or interrupted ultimate setup loses much of its value."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/fiddlesticks/"
+  },
+  "fiora": {
+    "strengths": [
+      "Vital attacks threaten durable opponents in extended duels.",
+      "Riposte can punish predictable crowd control."
+    ],
+    "limitations": [
+      "Riposte timing and vital access demand precise execution.",
+      "Her split-push value does not automatically translate into safe grouped fights."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/fiora/"
+  },
+  "fizz": {
+    "strengths": [
+      "His evasive leap can dodge a critical enemy spell.",
+      "Burst and an ultimate connection threaten isolated carries."
+    ],
+    "limitations": [
+      "His melee access can be denied by ranged pressure.",
+      "Committing his dodge for damage reduces escape safety."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/fizz/"
+  },
+  "galio": {
+    "strengths": [
+      "Area taunts protect allies or extend an engage.",
+      "His ultimate can reinforce an allied fight from afar."
+    ],
+    "limitations": [
+      "He needs an allied target or a close approach for his strongest plays.",
+      "Sustained physical damage can punish his defensive profile."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/galio/"
+  },
+  "garen": {
+    "strengths": [
+      "Silence and sustain support straightforward short trades.",
+      "His execute helps finish a damaged priority target."
+    ],
+    "limitations": [
+      "He has limited access against mobile ranged opponents.",
+      "He provides less reliable initiation than dedicated engage tanks."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/garen/"
+  },
+  "gnar": {
+    "strengths": [
+      "Ranged attacks help contest melee lanes.",
+      "Mega Gnar adds strong area disruption near terrain."
+    ],
+    "limitations": [
+      "His engage timing depends on managing transformation.",
+      "Mini Gnar is vulnerable when enemies can force close combat."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/gnar/"
+  },
+  "gragas": {
+    "strengths": [
+      "Body Slam and his ultimate can disengage or create picks.",
+      "Area spells give useful wave and zone control."
+    ],
+    "limitations": [
+      "A poorly placed ultimate can scatter targets away from allies.",
+      "Combo accuracy determines whether his entry creates value."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/gragas/"
+  },
+  "graves": {
+    "strengths": [
+      "Area attacks and dashes reward efficient jungle routing.",
+      "Smoke Screen can deny enemy vision during a skirmish."
+    ],
+    "limitations": [
+      "Short attack range makes some front lines difficult to approach.",
+      "He needs economy and space to maintain sustained damage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/graves/"
+  },
+  "gwen": {
+    "strengths": [
+      "Repeated attacks and snips threaten durable opponents.",
+      "Her mist helps control which ranged threats can interact with her."
+    ],
+    "limitations": [
+      "She needs sustained melee access to realize her damage.",
+      "Mist timing and positioning leave punishable windows."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/gwen/"
+  },
+  "hecarim": {
+    "strengths": [
+      "Movement speed supports rapid entry into skirmishes.",
+      "Area damage rewards fighting through grouped targets."
+    ],
+    "limitations": [
+      "A failed charge can leave him isolated from allies.",
+      "Hard crowd control can interrupt his damage uptime."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/hecarim/"
+  },
+  "heimerdinger": {
+    "strengths": [
+      "Turrets establish persistent control over an area.",
+      "Enemies walking into his setup face repeated damage."
+    ],
+    "limitations": [
+      "Leaving a prepared zone weakens his immediate presence.",
+      "Long-range opponents can remove turrets before committing."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/heimerdinger/"
+  },
+  "hwei": {
+    "strengths": [
+      "Different spell combinations supply wave clear, damage, or control.",
+      "Long-range area spells influence objective approaches."
+    ],
+    "limitations": [
+      "Selecting the right spell combination increases execution load.",
+      "He is vulnerable when opponents cross his spell-control zone."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/hwei/"
+  },
+  "irelia": {
+    "strengths": [
+      "Minion-assisted dashes create flexible trade angles.",
+      "A landed stun enables sustained pressure on a chosen target."
+    ],
+    "limitations": [
+      "Reset management and stun accuracy demand practice.",
+      "An empty wave reduces her escape and approach options."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/irelia/"
+  },
+  "janna": {
+    "strengths": [
+      "Tornado and ultimate can break an enemy engage.",
+      "Shields and movement support protect a damage dealer."
+    ],
+    "limitations": [
+      "She offers less direct damage than aggressive lane supports.",
+      "Poor ultimate positioning can push a target to safety."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/janna/"
+  },
+  "jarvan-iv": {
+    "strengths": [
+      "Flag-and-drag provides a clear gank and engage pattern.",
+      "His ultimate can trap a carry or divide a fight."
+    ],
+    "limitations": [
+      "Terrain can also obstruct his own teammates.",
+      "Committing both mobility spells limits his escape options."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/jarvan-iv/"
+  },
+  "jax": {
+    "strengths": [
+      "Counter Strike punishes attack-reliant opponents.",
+      "Sustained dueling improves as he gains attack speed and items."
+    ],
+    "limitations": [
+      "Early ranged pressure can deny comfortable farming.",
+      "Using his leap to engage can remove his exit."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/jax/"
+  },
+  "jayce": {
+    "strengths": [
+      "Ranged poke and melee displacement offer flexible fight tools.",
+      "Early spell combos can create lane pressure."
+    ],
+    "limitations": [
+      "Form switching and combo accuracy increase execution load.",
+      "His damage needs repeated clean spell connections."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/jayce/"
+  },
+  "jhin": {
+    "strengths": [
+      "Long-range roots extend allied crowd control.",
+      "His ultimate can influence a fight from a safer distance."
+    ],
+    "limitations": [
+      "Reload windows interrupt sustained damage.",
+      "He lacks a dash when a diver closes the gap."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/jhin/"
+  },
+  "jinx": {
+    "strengths": [
+      "A takedown can unlock rapid repositioning and cleanup.",
+      "Rockets let her damage grouped enemies from range."
+    ],
+    "limitations": [
+      "She is vulnerable before a reset activates.",
+      "She needs protection and economy to sustain late-fight damage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/jinx/"
+  },
+  "ksante": {
+    "strengths": [
+      "Repeated crowd control disrupts nearby enemies.",
+      "His ultimate can separate an important target from a fight."
+    ],
+    "limitations": [
+      "Wall angles and combo choices are demanding.",
+      "Offensive commitment can compromise his tanking role."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/ksante/"
+  },
+  "kaisa": {
+    "strengths": [
+      "Mixed damage and sustained attacks support carry scaling.",
+      "Her ultimate can reposition her onto a marked target."
+    ],
+    "limitations": [
+      "Her shorter attack range requires careful target access.",
+      "An aggressive ultimate can strand her behind enemy lines."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/kaisa/"
+  },
+  "kalista": {
+    "strengths": [
+      "Rend adds damage control in extended fights and objective contests.",
+      "Attack-driven hops reward precise kiting."
+    ],
+    "limitations": [
+      "Her movement and damage require continuous execution.",
+      "Her ultimate depends on coordination with a bound ally."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/kalista/"
+  },
+  "karma": {
+    "strengths": [
+      "Ranged poke contests lane and river space.",
+      "Shields and movement speed help allies reposition."
+    ],
+    "limitations": [
+      "Her pressure falls if repeated spells miss.",
+      "She cannot absorb a committed engage like a tank support."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/karma/"
+  },
+  "kassadin": {
+    "strengths": [
+      "Blink access lets him threaten vulnerable targets as he scales.",
+      "His defensive tools are useful against magic-heavy opponents."
+    ],
+    "limitations": [
+      "He can surrender early wave control and roaming priority.",
+      "Repeated ultimate use puts heavy demands on mana."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/kassadin/"
+  },
+  "katarina": {
+    "strengths": [
+      "Takedown resets can turn one opening into a fight cleanup.",
+      "Dagger placement creates sudden burst angles."
+    ],
+    "limitations": [
+      "Hard crowd control can stop her ultimate and entry.",
+      "She needs an opening rather than a straight front-line approach."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/katarina/"
+  },
+  "kayle": {
+    "strengths": [
+      "Range and sustained damage become major scaling threats.",
+      "Her ultimate can preserve a carry through a burst window."
+    ],
+    "limitations": [
+      "Early pressure can delay the economy she needs.",
+      "Mistiming her ultimate wastes a key defensive resource."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/kayle/"
+  },
+  "kayn": {
+    "strengths": [
+      "Wall movement opens flexible gank and escape paths.",
+      "His transformation lets him specialize his combat role."
+    ],
+    "limitations": [
+      "He must reach a useful form before reaching full impact.",
+      "Form choice and fight access depend on the enemy composition."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/kayn/"
+  },
+  "kennen": {
+    "strengths": [
+      "Ranged attacks help pressure melee opponents.",
+      "His ultimate threatens clustered teams from a flank."
+    ],
+    "limitations": [
+      "He often needs a strong entry angle to reach carries.",
+      "Disengage and spread positioning reduce his area damage value."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/kennen/"
+  },
+  "khazix": {
+    "strengths": [
+      "Isolation damage punishes separated targets.",
+      "Mobility and stealth support picks around unwarded areas."
+    ],
+    "limitations": [
+      "Grouped opponents deny his preferred isolation pattern.",
+      "A failed jump can leave him inside enemy crowd control."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/khazix/"
+  },
+  "kindred": {
+    "strengths": [
+      "Ranged attacks and mobility help contest skirmishes.",
+      "Their ultimate can delay a lethal burst on allies."
+    ],
+    "limitations": [
+      "Mark access can be contested by enemy map control.",
+      "The ultimate can also protect enemies when mistimed."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/kindred/"
+  },
+  "kogmaw": {
+    "strengths": [
+      "Long-range sustained attacks threaten front lines.",
+      "Spell poke can pressure enemies before they enter attack range."
+    ],
+    "limitations": [
+      "He has no dash to escape a direct dive.",
+      "Positioning and allied protection strongly affect his damage uptime."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/kogmaw/"
+  },
+  "lee-sin": {
+    "strengths": [
+      "Early mobility creates varied gank and invade angles.",
+      "His kick can isolate a carry or protect an ally."
+    ],
+    "limitations": [
+      "Ward hops and kick combos demand precise execution.",
+      "An early lead must convert into useful map pressure."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/lee-sin/"
+  },
+  "leona": {
+    "strengths": [
+      "Multiple crowd control tools make an engage easy to follow.",
+      "Defensive steroids help her survive the first response."
+    ],
+    "limitations": [
+      "Her entry is much easier than her escape.",
+      "She needs allies close enough to capitalize on lockdown."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/leona/"
+  },
+  "lillia": {
+    "strengths": [
+      "Area damage and movement reward extended skirmishes.",
+      "Her sleep can create a strong objective-fight opening."
+    ],
+    "limitations": [
+      "She needs space to maintain movement and apply damage.",
+      "Hard lockdown can stop her before the sleep converts."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/lillia/"
+  },
+  "lissandra": {
+    "strengths": [
+      "Reliable close-range control helps catch divers.",
+      "Her ultimate offers either lockdown or personal survival."
+    ],
+    "limitations": [
+      "She sacrifices damage when using ultimate defensively.",
+      "Entry timing and ally follow-up determine her fight value."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/lissandra/"
+  },
+  "lucian": {
+    "strengths": [
+      "Short burst trades exploit brief lane openings.",
+      "His dash lets him reposition between attacks."
+    ],
+    "limitations": [
+      "Shorter range exposes him to poke and engage.",
+      "A lane lead must convert before longer-range carries gain room."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/lucian/"
+  },
+  "lulu": {
+    "strengths": [
+      "Polymorph can stop a diver from dealing damage.",
+      "Shields and ultimate protect an allied carry."
+    ],
+    "limitations": [
+      "She relies heavily on teammates to deliver damage.",
+      "Poor target choice wastes her strongest defensive tools."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/lulu/"
+  },
+  "lux": {
+    "strengths": [
+      "Long-range spells provide poke and catch potential.",
+      "Her shield can protect several allies in a grouped fight."
+    ],
+    "limitations": [
+      "She has no dash when enemies bypass her binding.",
+      "Missing the binding removes much of her burst setup."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/lux/"
+  },
+  "malphite": {
+    "strengths": [
+      "Armor scaling helps him withstand physical attackers.",
+      "His ultimate supplies a direct area engage."
+    ],
+    "limitations": [
+      "Magic-heavy lanes reduce the value of armor stacking.",
+      "A missed ultimate leaves a long low-threat window."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/malphite/"
+  },
+  "maokai": {
+    "strengths": [
+      "Saplings help check approaches before objectives.",
+      "Roots and displacement disrupt enemies near his carries."
+    ],
+    "limitations": [
+      "He needs allies to supply most of the follow-up damage.",
+      "Short-range commitment can expose him to repeated poke."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/maokai/"
+  },
+  "master-yi": {
+    "strengths": [
+      "Sustained attacks can clean up a disrupted fight.",
+      "Takedown resets reward entering after key enemy spells."
+    ],
+    "limitations": [
+      "Reliable enemy crowd control can stop his damage uptime.",
+      "He offers little ranged setup when his team needs initiation."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/master-yi/"
+  },
+  "mel": {
+    "strengths": [
+      "Ranged spell pressure helps contest space before a fight.",
+      "Her defensive spell can punish incoming projectiles."
+    ],
+    "limitations": [
+      "Her safety depends on timing that defensive window.",
+      "She is vulnerable when divers cross her spell range."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/mel/"
+  },
+  "milio": {
+    "strengths": [
+      "Range extension helps an allied marksman attack more safely.",
+      "Healing and shielding support extended engagements."
+    ],
+    "limitations": [
+      "He relies on allies to provide most damage and initiation.",
+      "His defensive cooldowns can be pressured before a full engage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/milio/"
+  },
+  "miss-fortune": {
+    "strengths": [
+      "Lane poke can punish opponents around minions.",
+      "Her ultimate threatens grouped enemies in a choke."
+    ],
+    "limitations": [
+      "Her damage channel is vulnerable to interruption.",
+      "She lacks a dash when a diver reaches her position."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/miss-fortune/"
+  },
+  "mordekaiser": {
+    "strengths": [
+      "Repeated spell hits support extended melee pressure.",
+      "His ultimate can remove one enemy from an objective fight."
+    ],
+    "limitations": [
+      "Ranged kiting can deny the sustained contact he needs.",
+      "Taking the wrong opponent into his ultimate can weaken his team."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/mordekaiser/"
+  },
+  "morgana": {
+    "strengths": [
+      "Black Shield can protect an ally from crowd control.",
+      "A long root creates time to focus a target."
+    ],
+    "limitations": [
+      "The root is avoidable and must connect for reliable setup.",
+      "Black Shield timing and target choice are important."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/morgana/"
+  },
+  "nami": {
+    "strengths": [
+      "Healing and poke help contest repeated lane trades.",
+      "Her wave and bubble can interrupt or extend a fight."
+    ],
+    "limitations": [
+      "Bubble timing is demanding against mobile enemies.",
+      "She is fragile if caught before using her defensive spells."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/nami/"
+  },
+  "nasus": {
+    "strengths": [
+      "Stacking Q creates a growing sustained threat.",
+      "Wither can restrict an attack-focused carry."
+    ],
+    "limitations": [
+      "Early ranged pressure can deny stacking opportunities.",
+      "He needs time and access to reach important targets."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/nasus/"
+  },
+  "nautilus": {
+    "strengths": [
+      "Hook and ultimate provide clear catch tools.",
+      "Repeated close-range control helps lock down a diver."
+    ],
+    "limitations": [
+      "A missed hook reduces his immediate pressure.",
+      "He relies on nearby allies to convert lockdown into damage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/nautilus/"
+  },
+  "nidalee": {
+    "strengths": [
+      "Long-range spears can soften an objective approach.",
+      "Form switching supports mobile clears and follow-up damage."
+    ],
+    "limitations": [
+      "Spear accuracy and clear execution are demanding.",
+      "Falling behind makes close-range follow-up dangerous."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/nidalee/"
+  },
+  "nilah": {
+    "strengths": [
+      "Close-range area damage rewards committed fights.",
+      "Her defensive tools help her survive attack-focused opponents."
+    ],
+    "limitations": [
+      "Short range forces her to expose herself for damage.",
+      "She needs favorable entry timing rather than blind engagement."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/nilah/"
+  },
+  "nocturne": {
+    "strengths": [
+      "His ultimate threatens isolated targets across the map.",
+      "Spell shield can protect his entry from one key ability."
+    ],
+    "limitations": [
+      "Committing his ultimate can separate him from support.",
+      "Grouped peel and failed target access can shut down his dive."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/nocturne/"
+  },
+  "norra": {
+    "strengths": [
+      "Trinkets punish opponents moving through her spell zones.",
+      "Champion hits reduce ability cooldowns for repeated pressure."
+    ],
+    "limitations": [
+      "Charging Memory Surge slows her and exposes her position.",
+      "Damage depends on spell placement and connecting follow-up hits."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/norra/"
+  },
+  "nunu-willump": {
+    "strengths": [
+      "Consume adds a burst tool for securing monsters.",
+      "Snowball creates a clear gank and engage threat."
+    ],
+    "limitations": [
+      "Snowball approaches can be sidestepped or interrupted.",
+      "His ultimate can lose value when enemies disengage or interrupt."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/nunu-and-willump/"
+  },
+  "olaf": {
+    "strengths": [
+      "His ultimate lets him push through crowd control.",
+      "Axes and sustained melee damage threaten extended fights."
+    ],
+    "limitations": [
+      "He needs to stay in contact with a target.",
+      "Ranged disengage can waste his strongest fighting window."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/olaf/"
+  },
+  "orianna": {
+    "strengths": [
+      "Ball placement controls space around a fight.",
+      "Her ultimate can turn allied engage into area disruption."
+    ],
+    "limitations": [
+      "Moving the ball poorly leaves allies without protection.",
+      "Her impact depends on range discipline and ball tracking."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/orianna/"
+  },
+  "ornn": {
+    "strengths": [
+      "Multiple control tools help start or extend a teamfight.",
+      "Durability lets him contest space in front of carries."
+    ],
+    "limitations": [
+      "His engage can be disrupted or avoided by mobile enemies.",
+      "Most fight conversions require allied damage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/ornn/"
+  },
+  "pantheon": {
+    "strengths": [
+      "Point-and-click stun creates straightforward pick setup.",
+      "His semi-global ultimate can reinforce a side-lane fight."
+    ],
+    "limitations": [
+      "He needs early pressure to remain threatening.",
+      "Committing his stun and jump exposes him to retaliation."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/pantheon/"
+  },
+  "poppy": {
+    "strengths": [
+      "Her anti-dash field punishes mobile enemies entering a fight.",
+      "Wall stuns and ultimate displacement can protect objectives."
+    ],
+    "limitations": [
+      "Reliable stuns depend on nearby terrain.",
+      "Without a useful wall angle her initiation is less direct."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/poppy/"
+  },
+  "pyke": {
+    "strengths": [
+      "Hook and stun can turn a roam into a pick.",
+      "His execute rewards coordinated focus on low-health targets."
+    ],
+    "limitations": [
+      "He is fragile when crowd control catches his approach.",
+      "Execution misses can waste his biggest conversion tool."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/pyke/"
+  },
+  "rakan": {
+    "strengths": [
+      "Mobile engages can reach several opponents.",
+      "His shields and knockup can protect an allied carry."
+    ],
+    "limitations": [
+      "He needs an ally or a safe route for his return.",
+      "Mistimed entry exposes him before the team follows."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/rakan/"
+  },
+  "rammus": {
+    "strengths": [
+      "Taunt and armor punish attack-heavy opponents.",
+      "His rolling approach makes gank intent easy to follow."
+    ],
+    "limitations": [
+      "Magic-heavy compositions reduce his defensive advantage.",
+      "He depends on allies for much of the damage after taunting."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/rammus/"
+  },
+  "rell": {
+    "strengths": [
+      "Area crowd control can catch several enemies.",
+      "Her defensive tools support committed front-line engagement."
+    ],
+    "limitations": [
+      "Entering without follow-up leaves her exposed.",
+      "She has limited ranged pressure before finding an engage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/rell/"
+  },
+  "renekton": {
+    "strengths": [
+      "Early melee trades combine damage, sustain, and stun.",
+      "Dashes help him reach or retreat from short trades."
+    ],
+    "limitations": [
+      "Fury management changes the value of his spells.",
+      "Ranged kiting can limit his later fight access."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/renekton/"
+  },
+  "rengar": {
+    "strengths": [
+      "Brush leaps create unusual attack angles.",
+      "Ferocity choices allow burst, control, or recovery."
+    ],
+    "limitations": [
+      "His entry depends on terrain and target access.",
+      "A committed leap can leave him with no safe retreat."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/rengar/"
+  },
+  "riven": {
+    "strengths": [
+      "Chained dashes and knockups reward precise melee execution.",
+      "Her shield supports short trading windows."
+    ],
+    "limitations": [
+      "Animation timing and combo decisions require practice.",
+      "Hard crowd control can stop her before she completes a combo."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/riven/"
+  },
+  "rumble": {
+    "strengths": [
+      "Area damage can deny an objective approach.",
+      "His ultimate punishes enemies fighting through narrow terrain."
+    ],
+    "limitations": [
+      "Heat management restricts when he can use spells.",
+      "Lack of a dash makes his lane position punishable."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/rumble/"
+  },
+  "ryze": {
+    "strengths": [
+      "Repeated spell chains provide sustained magic damage.",
+      "His portal can reposition allies for a map play."
+    ],
+    "limitations": [
+      "Shorter effective spell range exposes him to engage.",
+      "Mana and spell sequencing need careful management."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/ryze/"
+  },
+  "samira": {
+    "strengths": [
+      "An opened fight gives her access to high area damage.",
+      "Her projectile defense can block a critical incoming spell."
+    ],
+    "limitations": [
+      "Her ultimate setup depends on reaching the required combo state.",
+      "Hard crowd control can stop her committed damage window."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/samira/"
+  },
+  "senna": {
+    "strengths": [
+      "Long-range poke and healing help repeated trades.",
+      "Her ultimate can support an allied fight from afar."
+    ],
+    "limitations": [
+      "She lacks a reliable dash against a direct dive.",
+      "Scaling and repeated safe attacks need room and protection."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/senna/"
+  },
+  "seraphine": {
+    "strengths": [
+      "Long-range control can extend a team engage.",
+      "Area shielding and healing reward grouped allies."
+    ],
+    "limitations": [
+      "Her slow spells are less reliable against mobile targets.",
+      "She is fragile when enemies reach her without being controlled."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/seraphine/"
+  },
+  "sett": {
+    "strengths": [
+      "Close-range trades punish opponents who stay within reach.",
+      "His ultimate and stun can displace a front line."
+    ],
+    "limitations": [
+      "He has limited access against ranged kiting.",
+      "A poorly timed Haymaker loses his strongest return-damage window."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/sett/"
+  },
+  "shen": {
+    "strengths": [
+      "His ultimate can protect a carry in another lane.",
+      "Taunt and attack blocking support short defensive trades."
+    ],
+    "limitations": [
+      "Leaving lane can concede waves and tower pressure.",
+      "Ultimate timing and ally decisions determine whether the rescue succeeds."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/shen/"
+  },
+  "shyvana": {
+    "strengths": [
+      "Area damage supports efficient farming and grouped fights.",
+      "Dragon form gives a stronger window for entry."
+    ],
+    "limitations": [
+      "She has less immediate gank control before her transformation.",
+      "Enemies can pressure the map while she builds resources."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/shyvana/"
+  },
+  "singed": {
+    "strengths": [
+      "Poison punishes opponents who chase through his path.",
+      "Fling can displace an enemy into allied damage."
+    ],
+    "limitations": [
+      "He needs close access to make his disruption count.",
+      "Poor routing can leave him taking damage without useful pressure."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/singed/"
+  },
+  "sion": {
+    "strengths": [
+      "A charged knockup threatens grouped or trapped enemies.",
+      "His ultimate can start a long-range engage."
+    ],
+    "limitations": [
+      "His key spells are telegraphed and avoidable.",
+      "Mobile opponents can punish a missed charge."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/sion/"
+  },
+  "sivir": {
+    "strengths": [
+      "Ricochets and wave clear help control grouped waves.",
+      "Her ultimate gives allies a shared repositioning tool."
+    ],
+    "limitations": [
+      "Short attack range makes direct damage access risky.",
+      "Spell-shield timing determines much of her personal safety."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/sivir/"
+  },
+  "skarner": {
+    "strengths": [
+      "Suppression can remove an opponent's ability to act.",
+      "Front-line durability helps contest objective space."
+    ],
+    "limitations": [
+      "He needs close enough access to apply his strongest control.",
+      "A failed approach leaves his team waiting for initiation."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/skarner/"
+  },
+  "smolder": {
+    "strengths": [
+      "Stacking rewards consistent farming with stronger late damage.",
+      "Ranged area damage contributes to grouped objective fights."
+    ],
+    "limitations": [
+      "Early pressure can delay his scaling plan.",
+      "He needs room to attack without being immediately engaged."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/smolder/"
+  },
+  "sona": {
+    "strengths": [
+      "Repeated aura casts sustain a grouped team.",
+      "Her ultimate can interrupt an engage or extend a catch."
+    ],
+    "limitations": [
+      "She is fragile if caught away from allies.",
+      "Early aggressive lanes can punish her limited immediate control."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/sona/"
+  },
+  "soraka": {
+    "strengths": [
+      "Repeated healing keeps allies in extended fights.",
+      "Silence can disrupt an enemy's critical spell sequence."
+    ],
+    "limitations": [
+      "Her own health and positioning are pressured while healing.",
+      "Divers can force her away from the ally she needs to protect."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/soraka/"
+  },
+  "swain": {
+    "strengths": [
+      "Repeated spells reward extended close-range teamfights.",
+      "His pull and area threat help contest narrow spaces."
+    ],
+    "limitations": [
+      "Ranged disengage can keep enemies outside his effective area.",
+      "Missing setup spells makes it harder to maintain contact."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/swain/"
+  },
+  "syndra": {
+    "strengths": [
+      "Long-range burst threatens exposed carries.",
+      "A well-placed stun controls an important approach angle."
+    ],
+    "limitations": [
+      "Sphere placement and combo timing raise execution demands.",
+      "She is vulnerable when enemies cross her stun window."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/syndra/"
+  },
+  "taliyah": {
+    "strengths": [
+      "Ranged spells create control around contested paths.",
+      "Her wall can restrict a retreat or reinforce a side-lane fight."
+    ],
+    "limitations": [
+      "Displacement accuracy is important for reliable burst.",
+      "She is vulnerable when enemies get inside her spell pattern."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/taliyah/"
+  },
+  "talon": {
+    "strengths": [
+      "Wall movement opens fast roam and flank routes.",
+      "Burst can remove an isolated carry before a fight."
+    ],
+    "limitations": [
+      "Grouped vision and peel limit safe target access.",
+      "A failed burst leaves him with limited sustained contribution."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/talon/"
+  },
+  "teemo": {
+    "strengths": [
+      "Blind punishes attack-dependent melee trades.",
+      "Mushrooms provide persistent zone pressure around objectives."
+    ],
+    "limitations": [
+      "He contributes less front-line engage than a tank.",
+      "Sweeping and ranged pressure reduce the value of his setup."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/teemo/"
+  },
+  "thresh": {
+    "strengths": [
+      "Hook and Flay can catch or peel a target.",
+      "Lantern offers an ally a rescue or entry route."
+    ],
+    "limitations": [
+      "Hook accuracy and ally lantern use affect reliability.",
+      "A missed engage can leave his lane without pressure."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/thresh/"
+  },
+  "tristana": {
+    "strengths": [
+      "Explosive Charge threatens towers and focused targets.",
+      "Jump resets allow aggressive cleanup or retreat."
+    ],
+    "limitations": [
+      "An early jump can strand her before a reset.",
+      "Bomb commitment makes some trades predictable."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/tristana/"
+  },
+  "tryndamere": {
+    "strengths": [
+      "His ultimate creates a window to keep fighting through lethal damage.",
+      "Sustained attacks threaten isolated side lanes."
+    ],
+    "limitations": [
+      "Crowd control and kiting can consume his ultimate window.",
+      "He brings less reliable setup to grouped fights."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/tryndamere/"
+  },
+  "twisted-fate": {
+    "strengths": [
+      "Gold Card supplies a clear single-target catch.",
+      "His ultimate turns lane priority into side-lane pressure."
+    ],
+    "limitations": [
+      "He needs safe wave management before leaving lane.",
+      "Misreading a teleport destination can turn a roam into a death."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/twisted-fate/"
+  },
+  "twitch": {
+    "strengths": [
+      "Camouflage opens unexpected damage angles.",
+      "His ultimate can threaten several lined-up targets."
+    ],
+    "limitations": [
+      "He lacks a dependable escape from direct engagement.",
+      "Damage access depends on patient positioning and a safe reveal."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/twitch/"
+  },
+  "urgot": {
+    "strengths": [
+      "Sustained close-range damage pressures opponents who commit.",
+      "His execute can turn a focused target into wider disruption."
+    ],
+    "limitations": [
+      "Shorter range makes distant carries hard to reach.",
+      "Missing his displacement reduces his ability to force contact."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/urgot/"
+  },
+  "varus": {
+    "strengths": [
+      "Long-range poke can soften opponents before objectives.",
+      "His ultimate gives a ranged catch or defensive control tool."
+    ],
+    "limitations": [
+      "He has no dash when a diver reaches him.",
+      "Damage and control depend on landing skillshots."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/varus/"
+  },
+  "vayne": {
+    "strengths": [
+      "True damage supports sustained tank-killing.",
+      "Tumble and Condemn reward precise dueling movement."
+    ],
+    "limitations": [
+      "Shorter attack range exposes her to lane pressure.",
+      "Her damage needs uninterrupted attacks on the right target."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/vayne/"
+  },
+  "veigar": {
+    "strengths": [
+      "Stacking spell power rewards continued farming and spell hits.",
+      "His cage restricts an objective approach or escape route."
+    ],
+    "limitations": [
+      "His burst setup is delayed and avoidable.",
+      "He lacks a dash when enemies get inside the cage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/veigar/"
+  },
+  "velkoz": {
+    "strengths": [
+      "Long-range spells threaten enemies before they reach a fight.",
+      "Passive stacks reward repeated accurate spell hits."
+    ],
+    "limitations": [
+      "He is immobile while channeling his strongest damage.",
+      "Missing his defensive knockup leaves him exposed."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/velkoz/"
+  },
+  "vex": {
+    "strengths": [
+      "Fear can interrupt a diver's entry.",
+      "A connected ultimate enables a burst follow-up and reset chain."
+    ],
+    "limitations": [
+      "Using fear for wave clear weakens her defensive timing.",
+      "A missed ultimate limits her ability to reach carries."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/vex/"
+  },
+  "vi": {
+    "strengths": [
+      "Her ultimate provides direct access to a chosen target.",
+      "Charged punch can start a gank from an unexpected angle."
+    ],
+    "limitations": [
+      "A deep ultimate can separate her from her team.",
+      "Her approach can be interrupted before she reaches her target."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/vi/"
+  },
+  "viego": {
+    "strengths": [
+      "A first takedown can unlock repeated resets.",
+      "His stun creates a window to start a skirmish."
+    ],
+    "limitations": [
+      "He needs the first kill or assist before the reset plan works.",
+      "Using unfamiliar possession tools adds execution burden."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/viego/"
+  },
+  "viktor": {
+    "strengths": [
+      "Repeated ranged spells control waves and fight approaches.",
+      "His area tools punish opponents staying in one zone."
+    ],
+    "limitations": [
+      "He lacks a dash against direct engage.",
+      "Spell upgrades and economy affect his damage timing."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/viktor/"
+  },
+  "vladimir": {
+    "strengths": [
+      "Healing supports repeated lane trades and longer fights.",
+      "Pool can avoid a critical incoming burst or control spell."
+    ],
+    "limitations": [
+      "He needs economy before becoming a strong grouped threat.",
+      "Using Pool early leaves a large punishable window."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/vladimir/"
+  },
+  "volibear": {
+    "strengths": [
+      "Repeated melee hits support sustained dueling.",
+      "His ultimate enables a committed dive or fight entry."
+    ],
+    "limitations": [
+      "He needs contact to maintain healing and damage.",
+      "Ranged disengage can waste his strongest window."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/volibear/"
+  },
+  "warwick": {
+    "strengths": [
+      "Sustain helps him stay healthy while farming and fighting.",
+      "Blood trails and suppression help chase damaged targets."
+    ],
+    "limitations": [
+      "His strongest chase can pull him away from allied support.",
+      "Kiting and crowd control reduce his melee uptime."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/warwick/"
+  },
+  "wukong": {
+    "strengths": [
+      "Clone use creates space for a trade or deceptive entry.",
+      "His ultimate disrupts several opponents in a grouped fight."
+    ],
+    "limitations": [
+      "Entering without damage follow-up wastes much of his control.",
+      "His access is more limited when his mobility is unavailable."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/wukong/"
+  },
+  "xayah": {
+    "strengths": [
+      "Feathers threaten opponents who approach through her firing line.",
+      "Her ultimate offers a defensive window against a committed dive."
+    ],
+    "limitations": [
+      "Root setup depends on feather position.",
+      "She has limited freedom when enemies avoid her prepared angles."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/xayah/"
+  },
+  "xin-zhao": {
+    "strengths": [
+      "Early melee skirmishes have clear knockup follow-up.",
+      "His ultimate can limit damage coming from outside his immediate fight."
+    ],
+    "limitations": [
+      "He commits to a short-range target-access pattern.",
+      "Poor entry timing can leave him isolated from allies."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/xin-zhao/"
+  },
+  "yasuo": {
+    "strengths": [
+      "Wind Wall can deny important projectile damage.",
+      "Repeated dashes reward fighting through a minion wave."
+    ],
+    "limitations": [
+      "Ultimate access depends on an airborne target.",
+      "Dash routes and wind-wall timing demand precise decisions."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/yasuo/"
+  },
+  "yone": {
+    "strengths": [
+      "His spirit form opens a repeatable trade window.",
+      "Area knockups can connect a lane trade to a team engage."
+    ],
+    "limitations": [
+      "His return position is predictable.",
+      "Missing his knockup can leave him committed without control."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/yone/"
+  },
+  "yunara": {
+    "strengths": [
+      "Empowered ranged attacks support sustained carry damage.",
+      "Her ultimate creates a stronger window to reposition and attack."
+    ],
+    "limitations": [
+      "She depends on economy and safe attack access.",
+      "The empowered window is vulnerable to crowd control and disengage."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/yunara/"
+  },
+  "yuumi": {
+    "strengths": [
+      "Attachment lets her sustain and amplify a mobile carry.",
+      "Her ultimate contributes area control to an allied engage."
+    ],
+    "limitations": [
+      "Her map impact depends heavily on the host's decisions.",
+      "She offers little independent front-line or wave control."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/yuumi/"
+  },
+  "zed": {
+    "strengths": [
+      "Shadow placement opens burst angles and an escape route.",
+      "His ultimate threatens an exposed carry."
+    ],
+    "limitations": [
+      "Burst conversion depends on landing several spells.",
+      "Defensive timing and grouped peel can deny his target."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/zed/"
+  },
+  "zeri": {
+    "strengths": [
+      "Repeated movement helps her reposition through extended fights.",
+      "Her ultimate rewards maintaining contact in a long skirmish."
+    ],
+    "limitations": [
+      "Her attack pattern demands sustained aiming and spacing.",
+      "Hard lockdown can stop her before she builds momentum."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/zeri/"
+  },
+  "ziggs": {
+    "strengths": [
+      "Long-range spells pressure waves and towers.",
+      "His ultimate influences a fight from outside immediate danger."
+    ],
+    "limitations": [
+      "He is vulnerable when enemies cross his poke range.",
+      "Bomb accuracy and mana restrict repeated lane pressure."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/ziggs/"
+  },
+  "zilean": {
+    "strengths": [
+      "His ultimate can preserve a threatened carry.",
+      "Speed changes and double bombs create catch or disengage tools."
+    ],
+    "limitations": [
+      "The revive relies on reading enemy damage timing.",
+      "Reliable area stuns require accurate bomb sequencing."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/zilean/"
+  },
+  "zoe": {
+    "strengths": [
+      "Long-range sleep can create a pick before objectives.",
+      "Portal movement opens unusual spell angles."
+    ],
+    "limitations": [
+      "Missing sleep weakens her ability to force a favorable fight.",
+      "Her return location is predictable after a portal jump."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/zoe/"
+  },
+  "zyra": {
+    "strengths": [
+      "Plants establish repeated ranged pressure in contested space.",
+      "Roots and ultimate punish opponents entering a narrow area."
+    ],
+    "limitations": [
+      "She lacks a dash against a direct dive.",
+      "Plant positioning and spell connections determine her sustained threat."
+    ],
+    "abilitySourceUrl": "https://wildrift.leagueoflegends.com/en-us/champions/zyra/"
+  }
+}

@@ -53,10 +53,11 @@ export const routeDefinitions = [
       "/zenless-zone-zero/tier-list",
       "/phantom-blade-zero/tier-list",
       "/dragon-traveler/tier-list",
+      "/wild-rift/tier-list",
     ],
     lastModified: "2026-11-04",
     reviewStatus: "reviewed",
-    reviewFingerprint: "6f7401a52f3b148c49e953ccb452569bf18d56acae252c2b7131b38fdb668437",
+    reviewFingerprint: "28455d1f1de1682f00e91ecd57b07e24361ec5dfe95b25b766d0d6adeca63b20",
   },
   {
     route: "/wow-forever/tier-list",
@@ -222,6 +223,23 @@ export const routeDefinitions = [
     lastModified: "2026-11-03",
     reviewStatus: "reviewed",
     reviewFingerprint: "903f0ac9c765325041f6e5b8fa53fd8cdccc00c36a8103f003c3d3790e42e356",
+  },
+  {
+    route: "/wild-rift/tier-list",
+    class: "public_indexable",
+    searchIntent:
+      "compare current Wild Rift Ranked champion strength by role and decide which champions to prioritize for Baron Lane, Jungle, Mid Lane, Dragon Lane, and Support",
+    primaryKeyword: "wild rift tier list",
+    secondaryKeywords: ["wild rift champion tier list", "wild rift champions tier list"],
+    title: "Wild Rift Tier List – Best Champions by Role for Ranked",
+    description:
+      "Compare the current Wild Rift tier list across Baron, Jungle, Mid, Dragon and Support using ranked statistics, role-specific evidence, and reviewed meta context.",
+    h1: "Wild Rift Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-10-28",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "8d248c2c16b6b7fc8b3581127fd89bfbc50a0bcb0239224e9020463193982c36",
   },
   {
     route: "/privacy",
