@@ -5,7 +5,7 @@ export default defineConfig({
   fullyParallel: false,
   // CWV/INP/CLS lab tests and Vanguard load tests share one local server.
   // Keep CI single-worker so load generation cannot distort page-performance metrics.
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? "github" : "list",
   use: {
