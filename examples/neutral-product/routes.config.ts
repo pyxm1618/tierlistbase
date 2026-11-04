@@ -15,10 +15,16 @@ export const routeDefinitions = [
       "Evidence-based Game Meta Board and tier lists for World of Warcraft: Forever. Multi-source consensus, patch tracking, and transparent tier changes.",
     h1: "Evidence-based game meta boards for players",
     pageType: "WebApplication",
-    relatedRoutes: ["/wow-forever/tier-list", "/wild-rift/tier-list", "/privacy", "/terms"],
-    lastModified: "2026-10-09",
+    relatedRoutes: [
+      "/wow-forever/tier-list",
+      "/phantom-blade-zero/tier-list",
+      "/wild-rift/tier-list",
+      "/privacy",
+      "/terms",
+    ],
+    lastModified: "2026-11-04",
     reviewStatus: "reviewed",
-    reviewFingerprint: "89d07b2f81458007ec84d1a848db4b3dccbad500bd9991deaa3084d089e55015",
+    reviewFingerprint: "246ae9f28aa69d41fb8ef243d0cbeba7040d19a1d27022819b7135332a0028e2",
   },
   {
     route: "/wow-forever/tier-list",
@@ -57,6 +63,29 @@ export const routeDefinitions = [
     title: "Limbus Company Tier List Preview | TierListBase",
     description:
       "Preview the TierListBase Limbus Company tier list interface for Identity, Team, E.G.O, and Sinner-focused recommendations.",
+  },
+  {
+    route: "/phantom-blade-zero/tier-list",
+    class: "public_indexable",
+    searchIntent:
+      "compare Phantom Blade Zero Main Weapon and Phantom Edge rankings using verified multi-source evidence",
+    primaryKeyword: "phantom blade zero tier list",
+    secondaryKeywords: [
+      "phantom blade zero tier list",
+      "phantom blade zero weapon tier list",
+      "phantom blade zero weapons tier list",
+      "phantom blade zero phantom edge tier list",
+      "phantom blade zero phantom edges tier list",
+    ],
+    title: "Phantom Blade Zero Tier List – Weapons & Phantom Edges",
+    description:
+      "Use the Phantom Blade Zero tier list to compare Main Weapons and Phantom Edges by strengths, weaknesses, best uses, ranking evidence, and verified source placements.",
+    h1: "Phantom Blade Zero Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-11-03",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "2760712d550f0796a0fe97048cff212781e4ddd6cda582f58cdd91a3f94cca4c",
   },
   {
     route: "/wild-rift/tier-list",
