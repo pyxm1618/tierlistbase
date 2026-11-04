@@ -53,7 +53,7 @@ jobs:
           changed="$(git diff --name-only "$base...$head")"
           printf '%s\n' "$changed"
 
-          if printf '%s\n' "$changed" | grep -Eq '(^|/)(wow-vanguard|vanguard)(/|[-_.])|^playwright\.vanguard\.config\.ts$|^tests/e2e/start-vanguard-test-server\.ts$|^src/platform/(auth|database|email)/|^src/app/globals\.css$|^src/app/\(marketing\)/layout\.tsx$|^src/components/navigation/site-header'; then
+          if printf '%s\n' "$changed" | grep -Eq '^\.github/workflows/ci\.yml$|(^|/)(wow-vanguard|vanguard)(/|[-_.])|^playwright\.vanguard\.config\.ts$|^tests/e2e/start-vanguard-test-server\.ts$|^src/platform/(auth|database|email)/|^src/app/globals\.css$|^src/app/\(marketing\)/layout\.tsx$|^src/components/navigation/site-header'; then
             echo "vanguard=true" >> "$GITHUB_OUTPUT"
           else
             echo "vanguard=false" >> "$GITHUB_OUTPUT"
@@ -281,7 +281,7 @@ jobs:
     env:
       APP_ENV: test
       APP_ORIGIN: http://127.0.0.1:3000
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_perf
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_app
       TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_perf
     steps:
       - uses: actions/checkout@v4
@@ -292,7 +292,7 @@ jobs:
       - name: Install Chromium
         run: bunx playwright install --with-deps chromium
       - name: Prepare database
-        run: bun run db:migrate
+        run: DATABASE_URL="$TEST_DATABASE_URL" bun run db:migrate
       - name: Real-page performance budgets
         run: bun run verify:performance
 
@@ -316,7 +316,7 @@ jobs:
     env:
       APP_ENV: test
       APP_ORIGIN: http://127.0.0.1:3000
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_e2e
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_app
       TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_e2e
       BETTER_AUTH_SECRET: e2e-better-auth-secret-with-at-least-32-characters
       EMAIL_TRANSPORT: test
@@ -332,11 +332,11 @@ jobs:
       - name: Prepare database and mailbox
         run: |
           rm -rf "$TEST_EMAIL_DIR"
-          bun run db:migrate
+          DATABASE_URL="$TEST_DATABASE_URL" bun run db:migrate
       - name: Browser end-to-end tests
         run: bun run test:e2e
       - name: Production-mode canonical and security output
-        run: bun run verify:seo:production
+        run: DATABASE_URL="$TEST_DATABASE_URL" bun run verify:seo:production
 
   vanguard_e2e:
     name: Vanguard Full E2E
@@ -360,7 +360,7 @@ jobs:
     env:
       APP_ENV: test
       APP_ORIGIN: http://127.0.0.1:3000
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_e2e
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_app
       TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/creat_web_e2e
       BETTER_AUTH_SECRET: e2e-better-auth-secret-with-at-least-32-characters
       EMAIL_TRANSPORT: test
@@ -375,7 +375,7 @@ jobs:
       - name: Install Chromium
         run: bunx playwright install --with-deps chromium
       - name: Prepare database
-        run: bun run db:migrate
+        run: DATABASE_URL="$TEST_DATABASE_URL" bun run db:migrate
       - name: Vanguard Google-only browser flows
         run: bunx playwright test --config=playwright.vanguard.config.ts
 
