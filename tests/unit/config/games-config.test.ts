@@ -38,11 +38,11 @@ describe("games.config registry", () => {
     expect(gamesConfig.find((game) => game.slug === "dragon-traveler")?.navigationVisible).toBe(
       false,
     );
-    expect(gamesConfig.find((game) => game.slug === "wild-rift")?.navigationVisible).toBe(false);
+    expect(gamesConfig.find((game) => game.slug === "wild-rift")?.navigationVisible).toBe(true);
     expect(gamesConfig.find((game) => game.slug === "anime-expeditions")?.navigationVisible).toBe(
       false,
     );
-    expect(navigationGames).toHaveLength(6);
+    expect(navigationGames).toHaveLength(7);
     expect(navigationGames.every((g) => g.navigationVisible)).toBe(true);
     expect(navigationGames.map((g) => g.slug)).toEqual([
       "wow-forever",
@@ -51,6 +51,7 @@ describe("games.config registry", () => {
       "nikke",
       "limbus-company",
       "phantom-blade-zero",
+      "wild-rift",
     ]);
   });
 
