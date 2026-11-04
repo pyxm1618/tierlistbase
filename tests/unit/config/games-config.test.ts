@@ -31,7 +31,9 @@ describe("games.config registry", () => {
   });
 
   it("exports navigationGames matching the visible games in navigation order", () => {
-    expect(gamesConfig.find((game) => game.slug === "dragon-traveler")?.navigationVisible).toBe(\n      false,\n    );
+    expect(gamesConfig.find((game) => game.slug === "dragon-traveler")?.navigationVisible).toBe(
+      false,
+    );
     expect(navigationGames).toHaveLength(6);
     expect(navigationGames.every((g) => g.navigationVisible)).toBe(true);
     expect(navigationGames.map((g) => g.slug)).toEqual([
