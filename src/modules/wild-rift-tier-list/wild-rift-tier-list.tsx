@@ -13,6 +13,15 @@ import {
 import styles from "./wild-rift-tier-list.module.css";
 import { WildRiftWorkspace } from "./wild-rift-workspace";
 
+const heroDescription =
+  "Use this Wild Rift tier list to compare current Baron Lane, Jungle, Mid Lane, Dragon Lane, and Support rankings using role-specific evidence, ranked statistics, and reviewed patch context.";
+const sourcesIntro =
+  "Evidence behind this Wild Rift tier list: patch facts, ranked statistics, and role-specific editorial review.";
+const methodologyIntro =
+  "This Wild Rift champion tier list evaluates champions separately by role. Win Rate alone does not determine Tier; ranked statistics are interpreted with role context, reliability, execution burden, draft value, and patch evidence.";
+const faqIntro =
+  "Common questions about the current Wild Rift champions tier list and Ranked snapshot.";
+
 const faq = [
   [
     "What rank is this Wild Rift Tier List for?",
@@ -70,11 +79,7 @@ export function WildRiftTierList() {
               <p className={styles.eyebrow}>Wild Rift Ranked Meta</p>
               <h1>Wild Rift Tier List</h1>
               <p className={styles.heroLead}>Best Champions by Role for Ranked</p>
-              <p className={styles.heroDescription}>
-                Use this Wild Rift tier list to compare current Baron Lane, Jungle, Mid Lane,
-                Dragon Lane, and Support rankings using role-specific evidence, ranked statistics,
-                and reviewed patch context.
-              </p>
+              <p className={styles.heroDescription}>{heroDescription}</p>
             </div>
             <section
               className={styles.rankingContext}
@@ -127,10 +132,7 @@ export function WildRiftTierList() {
         >
           <div className={styles.sectionTitleInline}>
             <h2 id="wild-rift-sources-title">Sources &amp; Evidence</h2>
-            <p>
-              Evidence behind this Wild Rift tier list: patch facts, ranked statistics, and
-              role-specific editorial review.
-            </p>
+            <p>{sourcesIntro}</p>
           </div>
           <div className={styles.sourceGrid}>
             <article>
@@ -207,11 +209,7 @@ export function WildRiftTierList() {
         >
           <div className={styles.sectionTitleInline}>
             <h2 id="wild-rift-methodology-title">How the Wild Rift Tier List Is Ranked</h2>
-            <p>
-              This Wild Rift champion tier list evaluates champions separately by role. Win Rate
-              alone does not determine Tier; ranked statistics are interpreted with role context,
-              reliability, execution burden, draft value, and patch evidence.
-            </p>
+            <p>{methodologyIntro}</p>
           </div>
           <p className={styles.disclosure}>
             CN Server · Master+ · Ranked. Champion catalog: 142; statistics-backed role placements:
@@ -268,9 +266,7 @@ export function WildRiftTierList() {
         <section className={styles.faq} data-ia-section="faq" aria-labelledby="wild-rift-faq-title">
           <div className={styles.sectionTitleInline}>
             <h2 id="wild-rift-faq-title">FAQ</h2>
-            <p>
-              Common questions about the current Wild Rift champions tier list and Ranked snapshot.
-            </p>
+            <p>{faqIntro}</p>
           </div>
           <div className={styles.faqList}>
             {faq.map(([question, answer]) => (
