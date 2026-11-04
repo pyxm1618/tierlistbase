@@ -40,6 +40,8 @@ test("five views change actual placements and support arrow-key tabs", async ({ 
   await expect(card).toHaveAttribute("aria-label", /S tier/);
   await page.getByRole("tab", { name: "DPS", exact: true }).click();
   await expect(card).toHaveAttribute("aria-label", /A tier/);
+  await page.getByRole("tab", { name: "Crowd Control", exact: true }).click();
+  await expect(card).toHaveAttribute("aria-label", /S\+ tier/);
   for (const name of ["Overall", "DPS", "Utility", "Support", "Crowd Control"]) {
     const tab = page.getByRole("tab", { name, exact: true });
     await tab.click();
