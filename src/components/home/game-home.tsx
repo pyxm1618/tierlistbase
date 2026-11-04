@@ -11,6 +11,7 @@ const genshinHref = "/genshin-impact/tier-list";
 const nikkeHref = "/nikke/tier-list";
 const limbusHref = "/limbus-company/tier-list";
 const zzzHref = "/zenless-zone-zero/tier-list";
+const dragonTravelerHref = "/dragon-traveler/tier-list";
 const wildRiftHref = "/wild-rift/tier-list";
 
 type IconName =
@@ -264,6 +265,14 @@ const popular: {
     ready: true,
     tone: "gold",
     href: limbusHref,
+  },
+  {
+    title: "Dragon Traveler",
+    subtitle: "Luminaries",
+    icon: "star",
+    ready: true,
+    tone: "gold",
+    href: dragonTravelerHref,
   },
   { title: "Spiral", subtitle: "Abyss", icon: "swirl", ready: false, tone: "blue" },
   {
