@@ -5,14 +5,17 @@ import { describe, expect, it } from "vitest";
 import { gamesConfig, navigationGames } from "@/config/games.config";
 
 describe("games.config registry", () => {
-  it("registers exactly 6 registered games with correct paths and orders", () => {
-    expect(gamesConfig).toHaveLength(6);
+  it("registers released game routes without changing the existing navigation set", () => {
+    expect(gamesConfig).toHaveLength(9);
     expect(gamesConfig.map((g) => g.name)).toEqual([
       "World of Warcraft",
       "Genshin Impact",
       "Zenless Zone Zero",
       "NIKKE",
       "Limbus Company",
+      "Phantom Blade Zero",
+      "Dragon Traveler",
+      "Wild Rift",
       "Anime Expeditions",
     ]);
 
@@ -22,14 +25,21 @@ describe("games.config registry", () => {
       "/zenless-zone-zero/tier-list",
       "/nikke/tier-list",
       "/limbus-company/tier-list",
+      "/phantom-blade-zero/tier-list",
+      "/dragon-traveler/tier-list",
+      "/wild-rift/tier-list",
       "/anime-expeditions/tier-list",
     ]);
 
-    expect(gamesConfig.map((g) => g.navigationOrder)).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(gamesConfig.map((g) => g.navigationOrder)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
 
   it("exports navigationGames matching the visible games in navigation order", () => {
-    expect(navigationGames).toHaveLength(6);
+    expect(gamesConfig.find((game) => game.slug === "dragon-traveler")?.navigationVisible).toBe(
+      false,
+    );
+    expect(gamesConfig.find((game) => game.slug === "wild-rift")?.navigationVisible).toBe(false);
+    expect(navigationGames).toHaveLength(7);
     expect(navigationGames.every((g) => g.navigationVisible)).toBe(true);
     expect(navigationGames.map((g) => g.slug)).toEqual([
       "wow-forever",
@@ -37,6 +47,7 @@ describe("games.config registry", () => {
       "zenless-zone-zero",
       "nikke",
       "limbus-company",
+      "phantom-blade-zero",
       "anime-expeditions",
     ]);
   });

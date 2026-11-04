@@ -1,0 +1,1852 @@
+{
+  "retrievedAt": "2026-10-28",
+  "purpose": "Primary ability references for editorial kit notes, not official evidence for tiers, signals, or role statistics.",
+  "champions": [
+    {
+      "championId": "aatrox",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/aatrox/",
+      "status": "fetched",
+      "abilityNames": [
+        "DEATHBRINGER STANCE",
+        "THE DARKIN BLADE",
+        "INFERNAL CHAINS",
+        "UMBRAL DASH",
+        "WORLD ENDER"
+      ],
+      "sha256": "89c4353c765ed56c0984a2e545ea6ae08aa5b26bc2f0381dae140c5e7f6e044e"
+    },
+    {
+      "championId": "ahri",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/ahri/",
+      "status": "fetched",
+      "abilityNames": [
+        "Essence Theft",
+        "Orb of Deception",
+        "Fox-Fire",
+        "Charm",
+        "Spirit Rush"
+      ],
+      "sha256": "80698ddf3345ca411e177a12b6a9199e943860f20929923de0432eaf6e56a084"
+    },
+    {
+      "championId": "akali",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/akali/",
+      "status": "fetched",
+      "abilityNames": [
+        "ASSASSIN'S MARK",
+        "FIVE POINT STRIKE",
+        "TWILIGHT SHROUD",
+        "SHURIKEN FLIP",
+        "PERFECT EXECUTION"
+      ],
+      "sha256": "f8bddb7a13031954d597dc959044eeee1d59ddd5b3a48cf083032fba64fc0329"
+    },
+    {
+      "championId": "akshan",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/akshan/",
+      "status": "fetched",
+      "abilityNames": [
+        "DIRTY FIGHTING",
+        "AVENGERANG",
+        "GOING ROGUE",
+        "HEROIC SWING",
+        "COMEUPPANCE"
+      ],
+      "sha256": "b7534c451456234f5adf316086eb1bad75e2ce26e3865ff30c8423c6e007f853"
+    },
+    {
+      "championId": "alistar",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/alistar/",
+      "status": "fetched",
+      "abilityNames": [
+        "Triumphant Roar",
+        "Pulverize",
+        "Headbutt",
+        "Trample",
+        "Unbreakable Will"
+      ],
+      "sha256": "5fdeabc49d6c92f3e886d7de526fdfc9e2a0943c9617beaeed50d062b340f30c"
+    },
+    {
+      "championId": "ambessa",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/ambessa/",
+      "status": "fetched",
+      "abilityNames": [
+        "DRAKEHOUND'S STEP",
+        "CUNNING SWEEP / SUNDERING SLAM",
+        "REPUDIATION",
+        "LACERATE",
+        "PUBLIC EXECUTION"
+      ],
+      "sha256": "f572d1bb0939ac61d215da14a2cb66578b5d9e7cd269e2a1c7455897c94fe0a9"
+    },
+    {
+      "championId": "amumu",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/amumu/",
+      "status": "fetched",
+      "abilityNames": [
+        "Cursed Touch",
+        "Bandage Toss",
+        "Despair",
+        "Tantrum",
+        "Curse of the Sad Mummy"
+      ],
+      "sha256": "524283502423d8d86b7ffddfd383fd87ad0349a9e320675a2281afdac28a74e5"
+    },
+    {
+      "championId": "annie",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/annie/",
+      "status": "fetched",
+      "abilityNames": [
+        "Pyromania",
+        "Disintegrate",
+        "Incinerate",
+        "Molten Shield",
+        "Summon: Tibbers"
+      ],
+      "sha256": "e249a0667ab0ebc8b6f61cf4b11bdb78e2c01ad7ac5599698f380f254c591413"
+    },
+    {
+      "championId": "ashe",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/ashe/",
+      "status": "fetched",
+      "abilityNames": [
+        "Frost Shot",
+        "Ranger's Focus",
+        "Volley",
+        "Hawkshot",
+        "Enchanted Crystal Arrow"
+      ],
+      "sha256": "07101832113e170795b40ca200a171607f01afb609c680023fc065aec164e5a3"
+    },
+    {
+      "championId": "aurelion-sol",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/aurelion-sol/",
+      "status": "fetched",
+      "abilityNames": [
+        "COSMIC CREATOR",
+        "BREATH OF LIGHT",
+        "ASTRAL FLIGHT",
+        "SINGULARITY",
+        "FALLING STAR / THE SKIES DESCEND"
+      ],
+      "sha256": "99e1ffd7bf3d877ef556afe6dd549810073b984b58c08b1bff1edb9bfb099fda"
+    },
+    {
+      "championId": "aurora",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/aurora/",
+      "status": "fetched",
+      "abilityNames": [
+        "SPIRIT ABJURATION",
+        "TWOFOLD HEX",
+        "ACROSS THE VEIL",
+        "THE WEIRDING",
+        "BETWEEN WORLDS"
+      ],
+      "sha256": "b4d2605ba156274a1dc243812b5373adb32a1f3d7ab8d8584c3d7098ba62f7d9"
+    },
+    {
+      "championId": "bard",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/bard/",
+      "status": "fetched",
+      "abilityNames": [
+        "TRAVELER\u2019S CALL",
+        "COSMIC BINDING",
+        "CARETAKER\u2019S SHRINE",
+        "MAGICAL JOURNEY",
+        "TEMPERED FATE"
+      ],
+      "sha256": "f7c8c84ecfb62b27609b0492d33c7763ed79f11b7566d483e26a5d5477560926"
+    },
+    {
+      "championId": "blitzcrank",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/blitzcrank/",
+      "status": "fetched",
+      "abilityNames": [
+        "Mana Barrier",
+        "Rocket Grab",
+        "Overdrive",
+        "Power Fist",
+        "Static Field"
+      ],
+      "sha256": "2b948db7ef4f20f171623f02da3648ae1f67f3c4cc9b154206c5d947efeaf292"
+    },
+    {
+      "championId": "brand",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/brand/",
+      "status": "fetched",
+      "abilityNames": [
+        "BLAZE",
+        "SEAR",
+        "PILLAR OF FLAME",
+        "CONFLAGRATION",
+        "PYROCLASM"
+      ],
+      "sha256": "8ba0d144a60548df4383cc8f8535eedbfbf2fd9773bdd93f0cdf47fd757e8717"
+    },
+    {
+      "championId": "braum",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/braum/",
+      "status": "fetched",
+      "abilityNames": [
+        "Concussive Blows",
+        "Winter's Bite",
+        "Stand Behind Me",
+        "Unbreakable",
+        "Glacial Fissure"
+      ],
+      "sha256": "cfca2d43de27ba52c76a142ff8a0dfc85791d2796d5235b85f2bbab579c9dc2b"
+    },
+    {
+      "championId": "caitlyn",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/caitlyn/",
+      "status": "fetched",
+      "abilityNames": [
+        "HEADSHOT",
+        "PILTOVER PEACEMAKER",
+        "YORDLE SNAP TRAP",
+        "90 CALIBER NET",
+        "ACE IN THE HOLE"
+      ],
+      "sha256": "95fcbf8dd2f630567944c8bf1ddb4e8465c2f56652b5de1101514db76bf6e1a6"
+    },
+    {
+      "championId": "camille",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/camille/",
+      "status": "fetched",
+      "abilityNames": [
+        "Adaptive Defenses",
+        "Precision Protocol",
+        "Tactical Sweep",
+        "Hookshot",
+        "The Hextech Ultimatum"
+      ],
+      "sha256": "8ff1ce1439e11fcd626356654a6ddbbafadf90070978ac06f5f19cf61d5563b8"
+    },
+    {
+      "championId": "chogath",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/chogath/",
+      "status": "fetched",
+      "abilityNames": [
+        "CARNIVORE",
+        "RUPTURE",
+        "FERAL SCREAM",
+        "VORPAL SPIKES",
+        "FEAST"
+      ],
+      "sha256": "a48c7f379a8171633a46ded51866cfe3c83bac4f57c2c1d449f7ae31e67695ca"
+    },
+    {
+      "championId": "corki",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/corki/",
+      "status": "fetched",
+      "abilityNames": [
+        "HEXTECH MUNITIONS",
+        "PHOSPHORUS BOMB",
+        "VALKYRIE",
+        "GATLING GUN",
+        "MISSILE BARRAGE"
+      ],
+      "sha256": "33b076b71e32442b51dc7db77f0ad7f0f211269eae1cca225f9f078c10619a82"
+    },
+    {
+      "championId": "darius",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/darius/",
+      "status": "fetched",
+      "abilityNames": [
+        "HEMORRHAGE",
+        "DECIMATE",
+        "CRIPPLING STRIKE",
+        "APPREHEND",
+        "NOXIAN GUILLOTINE"
+      ],
+      "sha256": "1e3d556d662db9b391f1bdf58e1d13e78855b53a054042149cb5c5980c74f73c"
+    },
+    {
+      "championId": "diana",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/diana/",
+      "status": "fetched",
+      "abilityNames": [
+        "MOONSILVER BLADE",
+        "CRESCENT STRIKE",
+        "PALE CASCADE",
+        "LUNAR RUSH",
+        "MOONFALL"
+      ],
+      "sha256": "9958031171eeb6a679da3c67db3551c314dbfed4ba093482074058c04d5c37e7"
+    },
+    {
+      "championId": "dr-mundo",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/dr-mundo/",
+      "status": "fetched",
+      "abilityNames": [
+        "GOES WHERE HE PLEASES",
+        "INFECTED BONESAW",
+        "HEART ZAPPER",
+        "BLUNT FORCE TRAUMA",
+        "MAXIMUM DOSAGE"
+      ],
+      "sha256": "8cd9ea246b49b414c750cdec57f62ba89b7d9360965ca400b47a416d963032b7"
+    },
+    {
+      "championId": "draven",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/draven/",
+      "status": "fetched",
+      "abilityNames": [
+        "LEAGUE OF DRAVEN",
+        "SPINNING AXE",
+        "BLOOD RUSH",
+        "STAND ASIDE",
+        "WHIRLING DEATH"
+      ],
+      "sha256": "6428338717c0e837b82fad27c086d2f77cc43ed42842fa35eb3536d8ca3d8974"
+    },
+    {
+      "championId": "ekko",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/ekko/",
+      "status": "fetched",
+      "abilityNames": [
+        "Z-DRIVE RESONANCE",
+        "TIMEWINDER",
+        "PARALLEL CONVERGENCE",
+        "PHASE DIVE",
+        "CHRONOBREAK"
+      ],
+      "sha256": "5e01884f1e656035e46329b36c4f89eeaddbc94a4546c42ec785261ce6067a30"
+    },
+    {
+      "championId": "evelynn",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/evelynn/",
+      "status": "fetched",
+      "abilityNames": [
+        "DEMON SHADE",
+        "HATE SPIKE",
+        "ALLURE",
+        "WHIPLASH",
+        "LAST CARESS"
+      ],
+      "sha256": "21f8509775a9c38c74bd601180b5be126d3b5e7cf751a0952bbab6f1b8c1ce4e"
+    },
+    {
+      "championId": "ezreal",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/ezreal/",
+      "status": "fetched",
+      "abilityNames": [
+        "Rising Spell Force",
+        "Mystic Shot",
+        "Essence Flux",
+        "Arcane Shift",
+        "Trueshot Barrage"
+      ],
+      "sha256": "79289c5265fef23d67f4050cba5130e1598f9ddd7adf456cd105f6429b7c2f73"
+    },
+    {
+      "championId": "fiddlesticks",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/fiddlesticks/",
+      "status": "fetched",
+      "abilityNames": [
+        "A HARMLESS SCARECROW",
+        "TERRIFY",
+        "BOUNTIFUL HARVEST",
+        "REAP",
+        "CROWSTORM"
+      ],
+      "sha256": "4baf354963f6f20664ed7c6fb333423e656d725af4b7ec9824b421c517fa4544"
+    },
+    {
+      "championId": "fiora",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/fiora/",
+      "status": "fetched",
+      "abilityNames": [
+        "Duelist's Dance",
+        "Lunge",
+        "Riposte",
+        "Bladework",
+        "Grand Challenge"
+      ],
+      "sha256": "f6fc22aa63a6c3c3fd91ea9004d2b7f03abb5b1a3cc4d9fffa3ce4e043aebd1a"
+    },
+    {
+      "championId": "fizz",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/fizz/",
+      "status": "fetched",
+      "abilityNames": [
+        "SEASTONE TRIDENT",
+        "Urchin Strike",
+        "RENDING WAVE",
+        "Playful / Trickster",
+        "Chum the Waters"
+      ],
+      "sha256": "ad9ee30afbf8adfa81a74beab0ee683baccf4eac364c4e284af1fe5e59b63081"
+    },
+    {
+      "championId": "galio",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/galio/",
+      "status": "fetched",
+      "abilityNames": [
+        "COLOSSAL SMASH",
+        "WINDS OF WAR",
+        "SHIELD OF DURAND",
+        "JUSTICE PUNCH",
+        "HERO'S ENTRANCE"
+      ],
+      "sha256": "a9504f69c8f5bd61e6d4a83883435744a67e2f545b778c73a84333ceef4cbbaa"
+    },
+    {
+      "championId": "garen",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/garen/",
+      "status": "fetched",
+      "abilityNames": [
+        "Perseverance",
+        "Decisive Strike",
+        "Courage",
+        "Judgment",
+        "Demacian Justice"
+      ],
+      "sha256": "b0419b21104f7ca6725f944f566e812e154bf0e9bccefe68c128d8641a3ae76a"
+    },
+    {
+      "championId": "gnar",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/gnar/",
+      "status": "fetched",
+      "abilityNames": [
+        "RAGE GENE",
+        "BOOMERANG THROW / BOULDER TOSS",
+        "HYPER / WALLOP",
+        "HOP / CRUNCH",
+        "GNAR!"
+      ],
+      "sha256": "e45e5945bd989191c32c882e615236614121aa5c8c5f0f02b000145a9ab0c447"
+    },
+    {
+      "championId": "gragas",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/gragas/",
+      "status": "fetched",
+      "abilityNames": [
+        "Happy Hour",
+        "Barrel Roll",
+        "Drunken Rage",
+        "Body Slam",
+        "Explosive Cask"
+      ],
+      "sha256": "a324130323c7ff7299d8acb05bd6b1b6b0817d56864aa63b14b28e3d9f8f5954"
+    },
+    {
+      "championId": "graves",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/graves/",
+      "status": "fetched",
+      "abilityNames": [
+        "New Destiny",
+        "End of the Line",
+        "Smoke Screen",
+        "Quickdraw",
+        "Collateral Damage"
+      ],
+      "sha256": "2e5085f89c305ac19ea48bcb9bdff5310fecc58b22645a78a64364a2503ddba8"
+    },
+    {
+      "championId": "gwen",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/gwen/",
+      "status": "fetched",
+      "abilityNames": [
+        "THOUSAND CUTS",
+        "SNIP SNIP!",
+        "HALLOWED MIST",
+        "SKIP 'N SLASH",
+        "NEEDLEWORK"
+      ],
+      "sha256": "0e24773c42dbb1037e5f05d74249b5e21c53975e38d90a451b8947da320d99b0"
+    },
+    {
+      "championId": "hecarim",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/hecarim/",
+      "status": "fetched",
+      "abilityNames": [
+        "WARPATH",
+        "RAMPAGE",
+        "SPIRIT OF DREAD",
+        "DEVASTATING CHARGE",
+        "ONSLAUGHT OF SHADOWS"
+      ],
+      "sha256": "d61be5449aab6c27dbe5c2a4ef6b55df7b8e41e0463d058237436321f0372ccf"
+    },
+    {
+      "championId": "heimerdinger",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/heimerdinger/",
+      "status": "fetched",
+      "abilityNames": [
+        "HEXTECH AFFINITY",
+        "H-28 G EVOLUTION TURRET",
+        "HEXTECH MICRO-ROCKETS",
+        "CH-2 ELECTRON STORM GRENADE",
+        "UPGRADE!!!"
+      ],
+      "sha256": "2f9ad1fe6198a84fa90fe2e64a5e4520b185229cc2049894806ca012e0950c7c"
+    },
+    {
+      "championId": "hwei",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/hwei/",
+      "status": "fetched",
+      "abilityNames": [
+        "SIGNATURE OF THE VISIONARY",
+        "SUBJECT: DISASTER",
+        "SUBJECT: SERENITY",
+        "SUBJECT: TORMENT",
+        "SPIRALING DESPAIR"
+      ],
+      "sha256": "298071c7eb390aa2b8377757a56e544faa7aaf70eb8d201792d48c06d1b0580d"
+    },
+    {
+      "championId": "irelia",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/irelia/",
+      "status": "fetched",
+      "abilityNames": [
+        "IONIAN FERVOR",
+        "BLADESURGE",
+        "DEFIANT DANCE",
+        "FLAWLESS DUET",
+        "VANGUARD'S EDGE"
+      ],
+      "sha256": "2b65e2b28ec78e56492076c88f10669c9b54c3ef5a7598b6fa78563a8f2361e1"
+    },
+    {
+      "championId": "janna",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/janna/",
+      "status": "fetched",
+      "abilityNames": [
+        "Tailwind",
+        "Howling Gale",
+        "Zephyr",
+        "Eye Of The Storm",
+        "Monsoon"
+      ],
+      "sha256": "d9159cbac7df533030b33cbdc798d0947b1265b597caad6f725ff81cd2d59a5a"
+    },
+    {
+      "championId": "jarvan-iv",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/jarvan-iv/",
+      "status": "fetched",
+      "abilityNames": [
+        "Martial Cadence",
+        "Dragon Strike",
+        "Golden Aegis",
+        "Demacian Standard",
+        "Cataclysm"
+      ],
+      "sha256": "7281da0b796ad4d615c082fb627198f165e380427c7d031d91d23a971d5c9ca2"
+    },
+    {
+      "championId": "jax",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/jax/",
+      "status": "fetched",
+      "abilityNames": [
+        "Relentless Assault",
+        "Leap Strike",
+        "Empower",
+        "Counter Strike",
+        "Grandmaster's Might"
+      ],
+      "sha256": "e2855edd5a04873da35d8b58398cbeb4523ad03848539c6d4ec2b73447de5cd5"
+    },
+    {
+      "championId": "jayce",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/jayce/",
+      "status": "fetched",
+      "abilityNames": [
+        "HEXTECH CAPACITOR",
+        "TO THE SKIES! / SHOCK BLAST",
+        "LIGHTNING FIELD / HYPER CHARGE",
+        "THUNDERING BLOW / ACCELERATION GATE",
+        "MERCURY CANNON / MERCURY HAMMER"
+      ],
+      "sha256": "3eb9d3a5948b89c603d9ed5942d7d54b3c72407b668b9c2b2e27e8a44ec1c0ca"
+    },
+    {
+      "championId": "jhin",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/jhin/",
+      "status": "fetched",
+      "abilityNames": [
+        "Whisper",
+        "Dancing Grenade",
+        "Deadly Flourish",
+        "Captive Audience",
+        "Curtain Call"
+      ],
+      "sha256": "220e884465ef77c9b2581f31d03b10dbf4a5d1452014c8f9bc46e4c624b30b57"
+    },
+    {
+      "championId": "jinx",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/jinx/",
+      "status": "fetched",
+      "abilityNames": [
+        "Get Excited!",
+        "Switcheroo!",
+        "Zap!",
+        "Flame Chompers!",
+        "Super Mega Death Rocket!"
+      ],
+      "sha256": "972383c4b60a15e4ef4bcc02cb48328a9fd90574a3f3f96aad58c60db52e38e0"
+    },
+    {
+      "championId": "ksante",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/ksante/",
+      "status": "fetched",
+      "abilityNames": [
+        "DAUNTLESS INSTINCT",
+        "NTOFO STRIKES",
+        "PATH MAKER",
+        "FOOTWORK",
+        "ALL OUT"
+      ],
+      "sha256": "2f9b335f0a250ea14038f3cd08528411e38d71b02d4fa575683984a11cca1ef7"
+    },
+    {
+      "championId": "kaisa",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/kaisa/",
+      "status": "fetched",
+      "abilityNames": [
+        "SECOND SKIN",
+        "ICATHIAN RAIN",
+        "VOID SEEKER",
+        "SUPERCHARGE",
+        "KILLER INSTINCT"
+      ],
+      "sha256": "9fa0e3c7d9d262a849b46c8717a99700ceaea0c51a4c4b2dc06668d232849ca7"
+    },
+    {
+      "championId": "kalista",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/kalista/",
+      "status": "fetched",
+      "abilityNames": [
+        "MARTIAL POISE",
+        "PIERCE",
+        "SENTINEL",
+        "REND",
+        "FATE'S CALL"
+      ],
+      "sha256": "5deb340e2a71392c8c6488aca0046f01b3766787f555eaab4f0a012233828770"
+    },
+    {
+      "championId": "karma",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/karma/",
+      "status": "fetched",
+      "abilityNames": [
+        "MANTRA",
+        "INNER FLAME",
+        "FOCUSED RESOLVE",
+        "INSPIRE",
+        "TRANSCENDENT EMBRACE"
+      ],
+      "sha256": "9657ad41a46bd4790e72a52e07bc52ef70a847889fc0d55c1cbd51eb53fbaa47"
+    },
+    {
+      "championId": "kassadin",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/kassadin/",
+      "status": "fetched",
+      "abilityNames": [
+        "VOID STONE",
+        "NULL SPHERE",
+        "NETHER BLADE",
+        "FORCE PULSE",
+        "RIFTWALK"
+      ],
+      "sha256": "03f882bfea358692d6e420f452c976c003137a141f11caae399e6f9c04854297"
+    },
+    {
+      "championId": "katarina",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/katarina/",
+      "status": "fetched",
+      "abilityNames": [
+        "VORACITY",
+        "BOUNCING BLADE",
+        "PREPARATION",
+        "SHUNPO",
+        "DEATH LOTUS"
+      ],
+      "sha256": "76a46b98305d38055bf7797e312431cc0adc47ea58e678a6d874cf943fa51a27"
+    },
+    {
+      "championId": "kayle",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/kayle/",
+      "status": "fetched",
+      "abilityNames": [
+        "DIVINE ASCENT",
+        "RADIANT BLAST",
+        "CELESTIAL BLESSING",
+        "STARFIRE SPELLBLADE",
+        "DIVINE JUDGMENT"
+      ],
+      "sha256": "3476f42a409be2bc2ed257ba587ab599098178f98f72fdcecbcc89c66f8ddb37"
+    },
+    {
+      "championId": "kayn",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/kayn/",
+      "status": "fetched",
+      "abilityNames": [
+        "THE DARKIN SCYTHE",
+        "REAPING SLASH",
+        "BLADE'S REACH",
+        "SHADOW STEP",
+        "UMBRAL TRESPASS"
+      ],
+      "sha256": "a2752244e45d2da3927f975c1f346c0bf1e8b1a1550d49c8299bc9647f2ff666"
+    },
+    {
+      "championId": "kennen",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/kennen/",
+      "status": "fetched",
+      "abilityNames": [
+        "MARK OF THE STORM",
+        "THUNDERING SHURIKEN",
+        "ELECTRICAL SURGE",
+        "LIGHTNING RUSH",
+        "SLICING MAELSTROM"
+      ],
+      "sha256": "6e6e0cb61769f374de4f74ccc88ccf8dc498cbf6da027e6142eee5ba6cc0e2ef"
+    },
+    {
+      "championId": "khazix",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/khazix/",
+      "status": "fetched",
+      "abilityNames": [
+        "UNSEEN THREAT",
+        "TASTE THEIR FEAR",
+        "VOID SPIKE",
+        "LEAP",
+        "VOID ASSAULT"
+      ],
+      "sha256": "01cba35d49ca40a6b23cb4a6d4477103d303e47ce0b52a458dc3e8c22fdac616"
+    },
+    {
+      "championId": "kindred",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/kindred/",
+      "status": "fetched",
+      "abilityNames": [
+        "MARK OF THE KINDRED",
+        "DANCE OF ARROWS",
+        "WOLF'S FRENZY",
+        "MOUNTING DREAD",
+        "LAMB'S RESPITE"
+      ],
+      "sha256": "4c9c5d79f92816f75c3e559a3f583711084ec62f0691bbf830a04af9927ce8b4"
+    },
+    {
+      "championId": "kogmaw",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/kogmaw/",
+      "status": "fetched",
+      "abilityNames": [
+        "ICATHIAN SURPRISE",
+        "CAUSTIC SPITTLE",
+        "BIO-ARCANE BARRAGE",
+        "VOID OOZE",
+        "LIVING ARTILLERY"
+      ],
+      "sha256": "031a2702027a913cca3d5a9bfbddaf440bed6018eabc929fb8521c7bf87070a4"
+    },
+    {
+      "championId": "lee-sin",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/lee-sin/",
+      "status": "fetched",
+      "abilityNames": [
+        "Flurry",
+        "Sonic Wave / Resonating Strike",
+        "Safeguard / Iron Will",
+        "Tempest / Cripple",
+        "Dragon's Rage"
+      ],
+      "sha256": "b4a18f3887bf7f6dd0d58b5bb8aacdb2e41826bdb117d7382ce43b924daffb3e"
+    },
+    {
+      "championId": "leona",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/leona/",
+      "status": "fetched",
+      "abilityNames": [
+        "SUNLIGHT",
+        "SHIELD OF DAYBREAK",
+        "ECLIPSE",
+        "ZENITH BLADE",
+        "SOLAR FLARE"
+      ],
+      "sha256": "fd8708560362b5744b8fdc1cfb1b3de677313555651a029c83e112ca2b39b502"
+    },
+    {
+      "championId": "lillia",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/lillia/",
+      "status": "fetched",
+      "abilityNames": [
+        "DREAM-LADEN BOUGH",
+        "BLOOMING BLOWS",
+        "WATCH OUT! EEP!",
+        "SWIRLSEED",
+        "LILTING LULLABY"
+      ],
+      "sha256": "521da2cc96f6ead4a5433258c865c66ef7a3b360e45cfc94d3f2f0323cee5d01"
+    },
+    {
+      "championId": "lissandra",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/lissandra/",
+      "status": "fetched",
+      "abilityNames": [
+        "ICEBORN SUBJUGATION",
+        "ICE SHARD",
+        "RING OF FROST",
+        "GLACIAL PATH",
+        "FROZEN TOMB"
+      ],
+      "sha256": "d7fd0ac083917884d0c9469db0e354d0e29c47288ca4f987c3eeb89a61a8c064"
+    },
+    {
+      "championId": "lucian",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/lucian/",
+      "status": "fetched",
+      "abilityNames": [
+        "LIGHTSLINGER",
+        "PIERCING LIGHT",
+        "ARDENT BLAZE",
+        "RELENTLESS PURSUIT",
+        "THE CULLING"
+      ],
+      "sha256": "f5f6efd8c11f15f34eb16f847a052b66d5b3a1339837ffa6a3fe9c77597f89e9"
+    },
+    {
+      "championId": "lulu",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/lulu/",
+      "status": "fetched",
+      "abilityNames": [
+        "PIX, FAERIE COMPANION",
+        "GLITTERLANCE",
+        "WHIMSY",
+        "HELP, PIX!",
+        "WILD GROWTH"
+      ],
+      "sha256": "6854fa2f419d3562394dbad8a86661501370b850c88527415ac2795603114591"
+    },
+    {
+      "championId": "lux",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/lux/",
+      "status": "fetched",
+      "abilityNames": [
+        "Illumination",
+        "Light Binding",
+        "Prismatic Barrier",
+        "Lucent Singularity",
+        "Final Spark"
+      ],
+      "sha256": "f62f2d258579e6a78f9e48ec9f6491c86cd2901f33cff786c9b1f7d53e1db8cf"
+    },
+    {
+      "championId": "malphite",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/malphite/",
+      "status": "fetched",
+      "abilityNames": [
+        "Granite Shield",
+        "Seismic Shard",
+        "Thunderclap",
+        "Ground Slam",
+        "Unstoppable Force"
+      ],
+      "sha256": "e8668abf8957d878d6d45ef9b63c761bf498c4c7c5d978a03d719ae689d7ed8b"
+    },
+    {
+      "championId": "maokai",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/maokai/",
+      "status": "fetched",
+      "abilityNames": [
+        "SAP MAGIC",
+        "BRAMBLE SMASH",
+        "TWISTED ADVANCE",
+        "SAPLING TOSS",
+        "NATURE'S GRASP"
+      ],
+      "sha256": "fdcc6942a361e26451d4663534f73a198022e1fe12dd16b81295ec433807d3db"
+    },
+    {
+      "championId": "master-yi",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/master-yi/",
+      "status": "fetched",
+      "abilityNames": [
+        "Double Strike",
+        "Alpha Strike",
+        "Meditate",
+        "Wuju Style",
+        "Highlander"
+      ],
+      "sha256": "187033211c1c13dc92edce32a42526010269824eb5f270480b9926b43aca8f57"
+    },
+    {
+      "championId": "mel",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/mel/",
+      "status": "fetched",
+      "abilityNames": [
+        "SEARING BRILLIANCE",
+        "RADIANT VOLLEY",
+        "REBUTTAL",
+        "SOLAR SNARE",
+        "GOLDEN ECLIPSE"
+      ],
+      "sha256": "296de2cba1a4a132d8209b734e3345e0f47970e8f5beeaa711a0967742ed4cd1"
+    },
+    {
+      "championId": "milio",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/milio/",
+      "status": "fetched",
+      "abilityNames": [
+        "FIRED UP!",
+        "ULTRA MEGA FIRE KICK",
+        "COZY CAMPFIRE",
+        "WARM HUGS",
+        "BREATH OF LIFE"
+      ],
+      "sha256": "8003cf1f53e555ff76efea854633394dfd086989e5e675dc8d46403721368ae3"
+    },
+    {
+      "championId": "miss-fortune",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/miss-fortune/",
+      "status": "fetched",
+      "abilityNames": [
+        "Love Tap",
+        "Double Up",
+        "Strut",
+        "Make It Rain",
+        "Bullet Time"
+      ],
+      "sha256": "a14b0a1aac1a93ed6ed7bfd5c7a67b6d4979939dab2696f2b9b1d2578fd83ee3"
+    },
+    {
+      "championId": "mordekaiser",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/mordekaiser/",
+      "status": "fetched",
+      "abilityNames": [
+        "DARKNESS RISE",
+        "OBLITERATE",
+        "INDESTRUCTIBLE",
+        "DEATH'S GRASP",
+        "REALM OF DEATH"
+      ],
+      "sha256": "0c962def473c5fe8c46265b7942afb2695fc8d0822d2b02f72825f61c46852d9"
+    },
+    {
+      "championId": "morgana",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/morgana/",
+      "status": "fetched",
+      "abilityNames": [
+        "SOUL SIPHON",
+        "DARK BINDING",
+        "TORMENTED SHADOW",
+        "BLACK SHIELD",
+        "SOUL SHACKLES"
+      ],
+      "sha256": "a24da1aa523923b3c01e63c6bc22513c6575b8625a81d52d0a247cc7c55b1e15"
+    },
+    {
+      "championId": "nami",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/nami/",
+      "status": "fetched",
+      "abilityNames": [
+        "Surging Tides",
+        "Aqua Prison",
+        "Ebb and Flow",
+        "Tidecaller's Blessing",
+        "Tidal Wave"
+      ],
+      "sha256": "6d67863fdbf9387addb54f276aed58e8233d07fc05d045c58a6589829275cf9a"
+    },
+    {
+      "championId": "nasus",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/nasus/",
+      "status": "fetched",
+      "abilityNames": [
+        "Soul Eater",
+        "Siphoning Strike",
+        "Wither",
+        "Spirit Fire",
+        "Fury of the Sands"
+      ],
+      "sha256": "3ad96b3df86eeb17d606ea9c2b7bb5185bc757de1a7671c5eccf106d0bc0371e"
+    },
+    {
+      "championId": "nautilus",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/nautilus/",
+      "status": "fetched",
+      "abilityNames": [
+        "STAGGERING BLOW",
+        "DREDGE LINE",
+        "TITAN'S WRATH",
+        "RIPTIDE",
+        "DEPTH CHARGE"
+      ],
+      "sha256": "1cf2bd1452f61286b824087bde2e7b16bea87804c9ffeb59477a6d3b00846a99"
+    },
+    {
+      "championId": "nidalee",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/nidalee/",
+      "status": "fetched",
+      "abilityNames": [
+        "PROWL",
+        "JAVELIN TOSS / TAKEDOWN",
+        "BUSHWHACK / POUNCE",
+        "PRIMAL SURGE / SWIPE",
+        "ASPECT OF THE COUGAR"
+      ],
+      "sha256": "8d1e0eba52098b65c38e3bfdd1dd34461c435c83f0ea3e05df3566a6f700e76e"
+    },
+    {
+      "championId": "nilah",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/nilah/",
+      "status": "fetched",
+      "abilityNames": [
+        "JOY UNENDING",
+        "FORMLESS BLADE",
+        "JUBILANT VEIL",
+        "SLIPSTREAM",
+        "APOTHEOSIS"
+      ],
+      "sha256": "550308742cb9a5e444ff619e614d11eb3f0e057715511d352290c1f49cdbfb7d"
+    },
+    {
+      "championId": "nocturne",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/nocturne/",
+      "status": "fetched",
+      "abilityNames": [
+        "UMBRA BLADES",
+        "DUSKBRINGER",
+        "SHROUD OF DARKNESS",
+        "UNSPEAKABLE HORROR",
+        "PARANOIA"
+      ],
+      "sha256": "e850227b091553eb48ca369e6740ee8d0a041c1cbbafe9cd9b6a83c06930342c"
+    },
+    {
+      "championId": "norra",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/norra/",
+      "status": "fetched",
+      "abilityNames": [
+        "BELOVED TRINKETS",
+        "MEMORY SURGE",
+        "JOURNEY TO NOWHERE",
+        "THREADS OF HOMECOMING",
+        "PORTALPALOOZA!"
+      ],
+      "sha256": "14fdf9dd3da8f5043768814a892c2c3765a718215ebfa5a5a0ee2ef2d83ddc63"
+    },
+    {
+      "championId": "nunu-willump",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/nunu-and-willump/",
+      "status": "fetched",
+      "abilityNames": [
+        "CALL OF THE FRELJORD",
+        "CONSUME",
+        "BIGGEST SNOWBALL EVER!",
+        "SNOWBALL BARRAGE",
+        "ABSOLUTE ZERO"
+      ],
+      "sha256": "665f4a8baaab4bd6d1c6acb87e5a9791fb366a7569ee524d0930c8c5710100a3"
+    },
+    {
+      "championId": "olaf",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/olaf/",
+      "status": "fetched",
+      "abilityNames": [
+        "Berserker Rage",
+        "Undertow",
+        "Vicious Strikes",
+        "Reckless Swing",
+        "Ragnarok"
+      ],
+      "sha256": "076ec21f39738a8f2bdda0c4c0416689e74f40e0a58ff006dc02cbd319b1787f"
+    },
+    {
+      "championId": "orianna",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/orianna/",
+      "status": "fetched",
+      "abilityNames": [
+        "Clockwork Windup",
+        "Command: Attack",
+        "Command: Dissonance",
+        "Command: Protect",
+        "Command: Shockwave"
+      ],
+      "sha256": "90b19dc191fa2b865a6985d156acd92b1452729528c355aba2b6e9a74eedfaf6"
+    },
+    {
+      "championId": "ornn",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/ornn/",
+      "status": "fetched",
+      "abilityNames": [
+        "LIVING FORGE",
+        "VOLCANIC RUPTURE",
+        "BELLOWS BREATH",
+        "SEARING CHARGE",
+        "CALL OF THE FORGE GOD"
+      ],
+      "sha256": "a6a6421f6354da6666a06d350730ef93842c88b97b002fe10f01aad9c308a2e0"
+    },
+    {
+      "championId": "pantheon",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/pantheon/",
+      "status": "fetched",
+      "abilityNames": [
+        "MORTAL WILL",
+        "COMET SPEAR",
+        "SHIELD VAULT",
+        "AEGIS ASSAULT",
+        "GRAND STARFALL"
+      ],
+      "sha256": "8ffd555c8c1925b867756b466faff92afdd5391c1813543ed6572d2002e47d8c"
+    },
+    {
+      "championId": "poppy",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/poppy/",
+      "status": "fetched",
+      "abilityNames": [
+        "IRON\u00a0AMBASSADOR",
+        "HAMMER SHOCK",
+        "STEADFAST PRESENCE",
+        "HEROIC CHARGE",
+        "KEEPER'S VERDICT"
+      ],
+      "sha256": "4b0336511e63ea4bea82402b4e39b585401ceacbb94566a000ef5565a850bcf5"
+    },
+    {
+      "championId": "pyke",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/pyke/",
+      "status": "fetched",
+      "abilityNames": [
+        "GIFT OF THE DROWNED ONES",
+        "BONE SKEWER",
+        "GHOSTWATER DIVE",
+        "PHANTOM UNDERTOW",
+        "DEATH FROM BELOW"
+      ],
+      "sha256": "5c7fe34db90a3197704a9fcbdf1d837d14c2b1a6aafcf59ac3ee731bfb1ce673"
+    },
+    {
+      "championId": "rakan",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/rakan/",
+      "status": "fetched",
+      "abilityNames": [
+        "FEY FEATHERS",
+        "GLEAMING QUILL",
+        "GRAND ENTRANCE",
+        "BATTLE DANCE",
+        "THE QUICKNESS"
+      ],
+      "sha256": "f563717ddd697e21415384f843bbd2383c8838b1b7c7d225dfba9bfc95b804f3"
+    },
+    {
+      "championId": "rammus",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/rammus/",
+      "status": "fetched",
+      "abilityNames": [
+        "ROLLING ARMORDILLO",
+        "POWERBALL",
+        "DEFENSIVE BALL CURL",
+        "FRENZYING TAUNT",
+        "SOARING SLAM"
+      ],
+      "sha256": "976b672ca3051812f50770d57cbb4f643a1aa13aa14525026c2db853e237d9a9"
+    },
+    {
+      "championId": "rell",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/rell/",
+      "status": "fetched",
+      "abilityNames": [
+        "BREAK THE MOLD",
+        "SHATTERING STRIKE",
+        "FERROMANCY: CRASHDOWN",
+        "FULL TILT",
+        "MAGNET STORM"
+      ],
+      "sha256": "37b2e280094b1fb7e341a45fd44cf9a77b6e922a023bb94417be4aa2ce0ce3be"
+    },
+    {
+      "championId": "renekton",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/renekton/",
+      "status": "fetched",
+      "abilityNames": [
+        "REIGN OF ANGER",
+        "CULL THE MEEK",
+        "RUTHLESS PREDATOR",
+        "SLICE AND DICE",
+        "DOMINUS"
+      ],
+      "sha256": "1f1fec6fe503e249f6b799a7f43b5ecee69cb54544f3c35de5dc5c780239c15b"
+    },
+    {
+      "championId": "rengar",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/rengar/",
+      "status": "fetched",
+      "abilityNames": [
+        "UNSEEN PREDATOR",
+        "SAVAGERY",
+        "BATTLE ROAR",
+        "BOLA STRIKE",
+        "THRILL OF THE HUNT"
+      ],
+      "sha256": "1b0fb060b571485d5eda8fdc4ea7e8e359700af44eae1532fd3d00d1bd3b78a2"
+    },
+    {
+      "championId": "riven",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/riven/",
+      "status": "fetched",
+      "abilityNames": [
+        "RUNIC BLADE",
+        "BROKEN WINGS",
+        "KI BURST",
+        "VALOR",
+        "BLADE OF THE EXILE"
+      ],
+      "sha256": "6804b8483c2632f56dc15db9b48275a3a39a6c54d3a0a9055f413336ed62cec4"
+    },
+    {
+      "championId": "rumble",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/rumble/",
+      "status": "fetched",
+      "abilityNames": [
+        "JUNKYARD TITAN",
+        "FLAMESPITTER",
+        "SCRAP SHIELD",
+        "ELECTRO HARPOON",
+        "THE EQUALIZER"
+      ],
+      "sha256": "9c62d69ca39ee1949078ad96228f7c2dcbcd3687ed7a047dd02dad6abff9873e"
+    },
+    {
+      "championId": "ryze",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/ryze/",
+      "status": "fetched",
+      "abilityNames": [
+        "ARCANE MASTERY",
+        "OVERLOAD",
+        "RUNE PRISON",
+        "SPELL FLUX",
+        "REALM WARP"
+      ],
+      "sha256": "7e117313b9b1f525b083ea2119868209b201d0f1273166b39531717baf875481"
+    },
+    {
+      "championId": "samira",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/samira/",
+      "status": "fetched",
+      "abilityNames": [
+        "DAREDEVIL IMPULSE",
+        "FLAIR",
+        "BLADE WHIRL",
+        "WILD RUSH",
+        "INFERNO TRIGGER"
+      ],
+      "sha256": "51c0877645a188d25e620d71584e309f03ce6af5a79109321b0a46461f8f037b"
+    },
+    {
+      "championId": "senna",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/senna/",
+      "status": "fetched",
+      "abilityNames": [
+        "ABSOLUTION",
+        "PIERCING DARKNESS",
+        "LAST EMBRACE",
+        "CURSE OF THE BLACK MIST",
+        "DAWNING SHADOW"
+      ],
+      "sha256": "2f48e54617c929610e1c927901c232a643eec6f108f39ff39a248097be8caf3c"
+    },
+    {
+      "championId": "seraphine",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/seraphine/",
+      "status": "fetched",
+      "abilityNames": [
+        "STAGE PRESENCE",
+        "HIGH NOTE",
+        "SURROUND SOUND",
+        "BEAT DROP",
+        "ENCORE"
+      ],
+      "sha256": "0390e2e92e3e8a3e56d403eeb0cdb0b5f5e5d4bc06d4d1b55050efd7a8d9dc2f"
+    },
+    {
+      "championId": "sett",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/sett/",
+      "status": "fetched",
+      "abilityNames": [
+        "PIT GRIT",
+        "KNUCKLE DOWN",
+        "HAYMAKER",
+        "FACEBREAKER",
+        "THE SHOW STOPPER"
+      ],
+      "sha256": "fabdde3d9d92b222bcae8137fc04c5bd25e90e0b199d239f498d33f723023958"
+    },
+    {
+      "championId": "shen",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/shen/",
+      "status": "fetched",
+      "abilityNames": [
+        "KI BARRIER",
+        "TWILIGHT ASSAULT",
+        "SPIRIT'S REFUGE",
+        "SHADOW DASH",
+        "STAND UNITED"
+      ],
+      "sha256": "8b16060facd213c77468786f0f1127879402f928f2d4bd6e89dd8ea8c68c44fe"
+    },
+    {
+      "championId": "shyvana",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/shyvana/",
+      "status": "fetched",
+      "abilityNames": [
+        "Fury of the Dragonborn",
+        "Twin Bite",
+        "Burnout",
+        "Flame Breath",
+        "Dragon's Descent"
+      ],
+      "sha256": "afa9eb855f0e95186e1f2fc58f9870f34aaeedfbca52245d4c356a69ce412827"
+    },
+    {
+      "championId": "singed",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/singed/",
+      "status": "fetched",
+      "abilityNames": [
+        "Noxious Slipstream",
+        "Poison Trail",
+        "Mega Adhesive",
+        "Fling",
+        "Insanity Potion"
+      ],
+      "sha256": "89acbeca197dc928153787a4e119b5a9c46d996335509d4595d7cdedcf70c6be"
+    },
+    {
+      "championId": "sion",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/sion/",
+      "status": "fetched",
+      "abilityNames": [
+        "GLORY IN DEATH",
+        "DECIMATING SMASH",
+        "SOUL FURNACE",
+        "ROAR OF THE SLAYER",
+        "UNSTOPPABLE ONSLAUGHT"
+      ],
+      "sha256": "e79a1aa3d8197f454cb964717d54ba61a13783a3ec0639f2e11bc5c9708d8e6c"
+    },
+    {
+      "championId": "sivir",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/sivir/",
+      "status": "fetched",
+      "abilityNames": [
+        "FLEET OF FOOT",
+        "BOOMERANG BLADE",
+        "RICOCHET",
+        "SPELL SHIELD",
+        "ON THE HUNT"
+      ],
+      "sha256": "472be72c46edc60c7f7ab89f3403e20ebc1e3814d9110654952c05d6ba806318"
+    },
+    {
+      "championId": "skarner",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/skarner/",
+      "status": "fetched",
+      "abilityNames": [
+        "THREADS OF VIBRATION",
+        "SHATTERED EARTH/UPHEAVAL",
+        "SEISMIC BASTION",
+        "IXTAL'S IMPACT",
+        "IMPALE"
+      ],
+      "sha256": "033fe033b51e031cb11960bb6d81bd13ba0681f953e097df4db0b816e30ac096"
+    },
+    {
+      "championId": "smolder",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/smolder/",
+      "status": "fetched",
+      "abilityNames": [
+        "DRAGON PRACTICE",
+        "SUPER SCORCHER BREATH",
+        "ACHOOO!",
+        "FLAP, FLAP, FLAP",
+        "MMOOOMMMM!"
+      ],
+      "sha256": "383088ff7dca0f9254a6607060f9cc133b09a1c30a388d10ddb94dad02ccc670"
+    },
+    {
+      "championId": "sona",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/sona/",
+      "status": "fetched",
+      "abilityNames": [
+        "Power Chord",
+        "Hymn of Valor",
+        "Aria of Perseverance",
+        "Song of Celerity",
+        "Crescendo"
+      ],
+      "sha256": "fe7b1c41b31c008ca82026c2f20c9bb9d57cc58be23e743aa148fce579fa5abe"
+    },
+    {
+      "championId": "soraka",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/soraka/",
+      "status": "fetched",
+      "abilityNames": [
+        "Salvation",
+        "Starcall",
+        "Astral Infusion",
+        "Equinox",
+        "Wish"
+      ],
+      "sha256": "7177802204bd4cd2e57bdd4f3e939b641c69a25cf8396ac54c3795885771b72a"
+    },
+    {
+      "championId": "swain",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/swain/",
+      "status": "fetched",
+      "abilityNames": [
+        "Ravenous Flock",
+        "Death's Hand",
+        "Vision of Empire",
+        "Nevermove",
+        "Demonic Ascension"
+      ],
+      "sha256": "82329db68e8e7f6541a96e4cdc515fad434c6e327d03ac926b2c35a6ee61a9a8"
+    },
+    {
+      "championId": "syndra",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/syndra/",
+      "status": "fetched",
+      "abilityNames": [
+        "TRANSCENDENT",
+        "DARK SPHERE",
+        "FORCE OF WILL",
+        "SCATTER THE WEAK",
+        "UNLEASHED POWER"
+      ],
+      "sha256": "6b47c63af10e00c9732130dbfc2152eb48811c355450127802940210179152c5"
+    },
+    {
+      "championId": "taliyah",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/taliyah/",
+      "status": "fetched",
+      "abilityNames": [
+        "ROCK SURFING",
+        "THREADED VOLLEY",
+        "SEISMIC SHOVE",
+        "UNRAVELED EARTH",
+        "WEAVER'S WALL"
+      ],
+      "sha256": "cc85e164fe07a3745dccf4ec0ee542aed649ccb5d4e674dbc4bf3e7cd6ee92d7"
+    },
+    {
+      "championId": "talon",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/talon/",
+      "status": "fetched",
+      "abilityNames": [
+        "BLADE'S END",
+        "NOXIAN DIPLOMACY",
+        "RAKE",
+        "ASSASSIN'S PATH",
+        "SHADOW ASSAULT"
+      ],
+      "sha256": "f3e31d42d5533929ea5ea38fad47cc71e1a8bd6d5559b01517addcaa0ec0b68f"
+    },
+    {
+      "championId": "teemo",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/teemo/",
+      "status": "fetched",
+      "abilityNames": [
+        "TOXIC SHOT",
+        "BLINDING DART",
+        "MOVE QUICK",
+        "GUERILLA WARFARE",
+        "NOXIOUS TRAP"
+      ],
+      "sha256": "8522ddb3cc9972c1c0def1aba5897e6e9484cda8e2e34d04dab7fdbe6bca7ef2"
+    },
+    {
+      "championId": "thresh",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/thresh/",
+      "status": "fetched",
+      "abilityNames": [
+        "DAMNATION",
+        "DEATH SENTENCE",
+        "DARK PASSAGE",
+        "FLAY",
+        "THE BOX"
+      ],
+      "sha256": "738cce005af1447aaa695541de1f20e651d2e22fc22be30e366137db2321e19f"
+    },
+    {
+      "championId": "tristana",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/tristana/",
+      "status": "fetched",
+      "abilityNames": [
+        "DRAW A BEAD",
+        "RAPID FIRE",
+        "ROCKET JUMP",
+        "EXPLOSIVE CHARGE",
+        "BUSTER SHOT"
+      ],
+      "sha256": "e3ee701901ddd8d456e4f741b3d039fcba8f11a971aa0cd1549eeac0f683dd55"
+    },
+    {
+      "championId": "tryndamere",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/tryndamere/",
+      "status": "fetched",
+      "abilityNames": [
+        "Battle Fury",
+        "Bloodlust",
+        "Mocking Shout",
+        "Spinning Slash",
+        "Undying Rage"
+      ],
+      "sha256": "d282fcc0c9cd7d4bb6f46f21bc8974eca116f249e037a3ca701ad09b3e617720"
+    },
+    {
+      "championId": "twisted-fate",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/twisted-fate/",
+      "status": "fetched",
+      "abilityNames": [
+        "Loaded Dice",
+        "Wild Cards",
+        "Pick a Card",
+        "Stacked Deck",
+        "Destiny"
+      ],
+      "sha256": "5e4ef5b9a6a01eee89dc09b9c313c3a4aa683115457b4f7ea48e7997f96bdada"
+    },
+    {
+      "championId": "twitch",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/twitch/",
+      "status": "fetched",
+      "abilityNames": [
+        "DEADLY VENOM",
+        "AMBUSH",
+        "VENOM CASK",
+        "CONTAMINATE",
+        "SPRAY AND PRAY"
+      ],
+      "sha256": "c4e52d65dd9ac93369f4c8166e6a48e70e2bb82ec6f25a127519d7c9db31b202"
+    },
+    {
+      "championId": "urgot",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/urgot/",
+      "status": "fetched",
+      "abilityNames": [
+        "ECHOING FLAMES",
+        "CORROSIVE CHARGE",
+        "PURGE",
+        "DISDAIN",
+        "FEAR BEYOND DEATH"
+      ],
+      "sha256": "206160f62367c6493001e2fb3066325b1a12f7991d3509ee067c40a09371c730"
+    },
+    {
+      "championId": "varus",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/varus/",
+      "status": "fetched",
+      "abilityNames": [
+        "Living Vengeance",
+        "Piercing Arrow",
+        "Blighted Quiver",
+        "Hail of Arrows",
+        "Chain of Corruption"
+      ],
+      "sha256": "bf2a4ec16046fdb9fe925307b96ec488a931c37b5ecda38d7f4db5e5f18321b1"
+    },
+    {
+      "championId": "vayne",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/vayne/",
+      "status": "fetched",
+      "abilityNames": [
+        "Night Hunter",
+        "Tumble",
+        "Silver Bolts",
+        "Condemn",
+        "Final Hour"
+      ],
+      "sha256": "2c5e238d3ac8de59610bf35263dddb33b969f4b17f1994bea389600bda867d7b"
+    },
+    {
+      "championId": "veigar",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/veigar/",
+      "status": "fetched",
+      "abilityNames": [
+        "PHENOMENAL EVIL POWER",
+        "BALEFUL STRIKE",
+        "DARK MATTER",
+        "EVENT HORIZON",
+        "PRIMORDIAL BURST"
+      ],
+      "sha256": "a30736d88eb72887cd4f1962d3c0bebc2f14cbfdd0baac38a7b8273db06c8044"
+    },
+    {
+      "championId": "velkoz",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/velkoz/",
+      "status": "fetched",
+      "abilityNames": [
+        "ORGANIC DECONSTRUCTION",
+        "PLASMA FISSION",
+        "VOID RIFT",
+        "TECTONIC DISRUPTION",
+        "LIFE FORM DISINTEGRATION RAY"
+      ],
+      "sha256": "0b5e878445b0443d21b3456f8cbf99e797d3bdb04ed268029ef0dd9ef1560a3d"
+    },
+    {
+      "championId": "vex",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/vex/",
+      "status": "fetched",
+      "abilityNames": [
+        "DOOM 'N GLOOM",
+        "MISTRAL BOLT",
+        "PERSONAL SPACE",
+        "LOOMING DARKNESS",
+        "SHADOW SURGE"
+      ],
+      "sha256": "97a938f91f241110a9c2377b383a874237f2e3b0e31e460e24ab5489f5cecf4b"
+    },
+    {
+      "championId": "vi",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/vi/",
+      "status": "fetched",
+      "abilityNames": [
+        "DENTING BLOWS",
+        "Vault Breaker",
+        "BLAST SHIELD",
+        "Relentless Force",
+        "Cease and Desist"
+      ],
+      "sha256": "ea179d7aaf0c00e45d1d1c8c7107082838a704e02e468ceaea38eed95df4e22d"
+    },
+    {
+      "championId": "viego",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/viego/",
+      "status": "fetched",
+      "abilityNames": [
+        "SOVEREIGN'S DOMINATION",
+        "BLADE OF THE RUINED KING",
+        "SPECTRAL MAW",
+        "HARROWED PATH",
+        "HEARTBREAKER"
+      ],
+      "sha256": "2a959a53b1db6b94325e03deff2eb6cc3bbdf304d86249c8802618ab7590e3e9"
+    },
+    {
+      "championId": "viktor",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/viktor/",
+      "status": "fetched",
+      "abilityNames": [
+        "GLORIOUS EVOLUTION",
+        "SIPHON POWER",
+        "GRAVITY FIELD",
+        "HEXTECH RAY",
+        "ARCANE STORM"
+      ],
+      "sha256": "11c1c0ff59d7740acda804bb84fdbc03b621555e3396b8338b3b451c0ec55b45"
+    },
+    {
+      "championId": "vladimir",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/vladimir/",
+      "status": "fetched",
+      "abilityNames": [
+        "CRIMSON PACT",
+        "TRANSFUSION",
+        "SANGUINE POOL",
+        "TIDES OF BLOOD",
+        "HEMOPLAGUE"
+      ],
+      "sha256": "436f212d502a13116260aae9c4224c9b78c4959fbb303406baa869c2d0bff00f"
+    },
+    {
+      "championId": "volibear",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/volibear/",
+      "status": "fetched",
+      "abilityNames": [
+        "THE RELENTLESS STORM",
+        "THUNDERING SMASH",
+        "FRENZIED MAUL",
+        "SKY SPLITTER",
+        "STORMBRINGER"
+      ],
+      "sha256": "c8dfe96673bcba23e7d0d3bf5e20b329f36401b175ced4d860703d9a292e0874"
+    },
+    {
+      "championId": "warwick",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/warwick/",
+      "status": "fetched",
+      "abilityNames": [
+        "ETERNAL HUNGER",
+        "JAWS OF THE BEAST",
+        "BLOODHUNT",
+        "PRIMAL HOWL",
+        "INFINITE DURESS"
+      ],
+      "sha256": "227888591ff4cd473560f164b59cb1fdeca6bea4163de94181b50cdebd181011"
+    },
+    {
+      "championId": "wukong",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/wukong/",
+      "status": "fetched",
+      "abilityNames": [
+        "CRUSHING BLOWS",
+        "GOLDEN STAFF",
+        "WARRIOR TRICKSTER",
+        "NIMBUS STRIKE",
+        "CYCLONE"
+      ],
+      "sha256": "a618b5a36b7d12e8933468c112b03b8ddbc699d585d279acacd366eb9f9feb0c"
+    },
+    {
+      "championId": "xayah",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/xayah/",
+      "status": "fetched",
+      "abilityNames": [
+        "CLEAN CUTS",
+        "DOUBLE DAGGERS",
+        "DEADLY PLUMAGE",
+        "BLADECALLER",
+        "FEATHERSTORM"
+      ],
+      "sha256": "f5b5b35ccb693a641ff2c0a9b793b3ee60107c0b60dbebeaba60f3596680c443"
+    },
+    {
+      "championId": "xin-zhao",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/xin-zhao/",
+      "status": "fetched",
+      "abilityNames": [
+        "Determination",
+        "Three Talon Strike",
+        "Wind Becomes Lightning",
+        "Audacious Charge",
+        "Crescent Guard"
+      ],
+      "sha256": "cb6b822a1241cee23fe9a8f1d05f5e0bba0f9f7e793617968657819b15cc0e33"
+    },
+    {
+      "championId": "yasuo",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/yasuo/",
+      "status": "fetched",
+      "abilityNames": [
+        "Way of the Wanderer",
+        "Steel Tempest",
+        "Wind Wall",
+        "Sweeping Blade",
+        "Last Breath"
+      ],
+      "sha256": "7792ebc5c296b66583fbb44c6213291e019931b337d1b2ac199afdaf8477fa0b"
+    },
+    {
+      "championId": "yone",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/yone/",
+      "status": "fetched",
+      "abilityNames": [
+        "WAY OF THE HUNTER",
+        "MORTAL STEEL",
+        "SPIRIT CLEAVE",
+        "SOUL UNBOUND",
+        "FATE SEALED"
+      ],
+      "sha256": "bdb9427536a53a5b9b7ac1322ded4f00aa8f91867025ce8d2e5242efcc18cb43"
+    },
+    {
+      "championId": "yunara",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/yunara/",
+      "status": "fetched",
+      "abilityNames": [
+        "VOW OF THE FIRST LANDS",
+        "CULTIVATION OF SPIRIT",
+        "ARC OF JUDGMENT | ARC OF RUIN",
+        "KANMEI'S STEPS | UNTOUCHABLE SHADOW",
+        "TRANSCEND ONE'S SELF"
+      ],
+      "sha256": "d5d98a4498e4e8ad9cefa731d48cc10b5ea3eab328c563cafee880cede476865"
+    },
+    {
+      "championId": "yuumi",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/yuumi/",
+      "status": "fetched",
+      "abilityNames": [
+        "Feline Friendship",
+        "PROWLING PROJECTILE",
+        "YOU AND ME!",
+        "ZOOMIES",
+        "FINAL CHAPTER"
+      ],
+      "sha256": "2c421a985c8f92b4071d90786a115f5fa662afa010a07bfdbc9548488d07023f"
+    },
+    {
+      "championId": "zed",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/zed/",
+      "status": "fetched",
+      "abilityNames": [
+        "Contempt for the Weak",
+        "Razor Shuriken",
+        "Living Shadow",
+        "Shadow Slash",
+        "Death Mark"
+      ],
+      "sha256": "d531567a63705f1de938979fbda75ef7f3522b50ec811b4d04dfb5538f141c46"
+    },
+    {
+      "championId": "zeri",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/zeri/",
+      "status": "fetched",
+      "abilityNames": [
+        "LIVING BATTERY",
+        "BURST FIRE",
+        "ULTRASHOCK LASER",
+        "SPARK SURGE",
+        "LIGHTNING CRASH"
+      ],
+      "sha256": "bbb171232157e3f1c16f37c12794a65ae71ada36ebed8a5ffe12acd5c887e0cd"
+    },
+    {
+      "championId": "ziggs",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/ziggs/",
+      "status": "fetched",
+      "abilityNames": [
+        "Short Fuse",
+        "Bouncing Bomb",
+        "Satchel Charge",
+        "Hexplosive Minefield",
+        "Mega Inferno Bomb"
+      ],
+      "sha256": "b0d6fa8dfee96ea6a53f6ff0593cb8cb8b306288cf8f7f63942b639cf8a5d478"
+    },
+    {
+      "championId": "zilean",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/zilean/",
+      "status": "fetched",
+      "abilityNames": [
+        "TIME IN A BOTTLE",
+        "TIME BOMB",
+        "TWISTED TIMEFLOW",
+        "TEMPORAL MIRAGE",
+        "CHRONOSHIFT"
+      ],
+      "sha256": "2de8e3e57521bd0d0a068fff3f6a7118bbce5b19e3ebf971b30a0b8d27ab77de"
+    },
+    {
+      "championId": "zoe",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/zoe/",
+      "status": "fetched",
+      "abilityNames": [
+        "MORE SPARKLES!",
+        "PADDLE STAR!",
+        "SPELL THIEF",
+        "SLEEPY TROUBLE BUBBLE",
+        "PORTAL JUMP"
+      ],
+      "sha256": "b11cead04847125c53dc6a714e2b2ff1b97b0e5ee0bb223d50769834a8a09ea1"
+    },
+    {
+      "championId": "zyra",
+      "url": "https://wildrift.leagueoflegends.com/en-us/champions/zyra/",
+      "status": "fetched",
+      "abilityNames": [
+        "GARDEN OF THORNS",
+        "DEADLY SPINES",
+        "RAMPANT GROWTH",
+        "GRASPING ROOTS",
+        "STRANGLETHORNS"
+      ],
+      "sha256": "2f38dfe6b08218b6f22a9484585a2f362714a30c57cf396b49cabe0120791942"
+    }
+  ]
+}

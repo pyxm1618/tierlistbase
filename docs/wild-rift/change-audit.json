@@ -1,0 +1,319 @@
+{
+  "assessedAt": "2026-11-03",
+  "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+  "currentTotal": 16,
+  "states": {
+    "approved": 16,
+    "deferred": 0,
+    "confirmed_reject": 0,
+    "unreviewed": 0
+  },
+  "publishedTotal": 16,
+  "changes": [
+    {
+      "championId": "gnar",
+      "role": "baron",
+      "fromTier": "C",
+      "toTier": "A",
+      "date": "2026-11-02",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "kogmaw",
+      "role": "dragon",
+      "fromTier": "B",
+      "toTier": "S",
+      "date": "2026-11-01",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "vladimir",
+      "role": "mid",
+      "fromTier": "B",
+      "toTier": "S",
+      "date": "2026-11-01",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "sivir",
+      "role": "dragon",
+      "fromTier": "C",
+      "toTier": "A",
+      "date": "2026-11-01",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "malphite",
+      "role": "mid",
+      "fromTier": "B",
+      "toTier": "S",
+      "date": "2026-10-27",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "kalista",
+      "role": "dragon",
+      "fromTier": "B",
+      "toTier": "S",
+      "date": "2026-10-25",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "ashe",
+      "role": "dragon",
+      "fromTier": "A",
+      "toTier": "S+",
+      "date": "2026-10-17",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "twitch",
+      "role": "dragon",
+      "fromTier": "C",
+      "toTier": "A",
+      "date": "2026-10-09",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "miss-fortune",
+      "role": "dragon",
+      "fromTier": "S+",
+      "toTier": "B",
+      "date": "2026-10-03",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "volibear",
+      "role": "baron",
+      "fromTier": "S+",
+      "toTier": "B",
+      "date": "2026-10-03",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "jhin",
+      "role": "dragon",
+      "fromTier": "S",
+      "toTier": "B",
+      "date": "2026-11-02",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "kassadin",
+      "role": "mid",
+      "fromTier": "S+",
+      "toTier": "A",
+      "date": "2026-11-02",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "yunara",
+      "role": "dragon",
+      "fromTier": "S",
+      "toTier": "B",
+      "date": "2026-11-01",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "garen",
+      "role": "baron",
+      "fromTier": "S",
+      "toTier": "B",
+      "date": "2026-11-01",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "olaf",
+      "role": "baron",
+      "fromTier": "S+",
+      "toTier": "A",
+      "date": "2026-11-01",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    },
+    {
+      "championId": "ahri",
+      "role": "mid",
+      "fromTier": "S+",
+      "toTier": "A",
+      "date": "2026-10-27",
+      "sourceUrl": "https://wildriftcore.com/en/tierlist/",
+      "evidenceType": "publisher-reported net source-tier movement since the first 7.3 update",
+      "reason": "The source explicitly provides the previous tier, current tier, role and date. No causal reason is claimed.",
+      "status": "approved",
+      "decision": "publish as source-tier movement only",
+      "evidencePresent": [
+        "source-reported previous tier",
+        "source-reported current tier",
+        "source-reported role",
+        "source-reported date"
+      ],
+      "evidenceMissing": []
+    }
+  ],
+  "historicalNote": "The earlier 2026-10 audit remains preserved in git history. This file reflects the current source's explicitly reported net movements."
+}
