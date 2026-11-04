@@ -694,7 +694,9 @@ export function DragonTravelerTierList() {
                   midline and backline placement preserves the source’s three-by-three formation
                   coordinates. Use the Dragon Traveler tier list as the character-ranking layer,
                   then use these formations as team context rather than replacing one with the other.
-                  Local team order reflects a suggested starting sequence.
+                  The Dragon Traveler tier list ranks characters; the formation guide explains how
+                  those characters fit together. Local team order reflects a suggested starting
+                  sequence.
                 </p>
               </div>
               <div>
@@ -703,7 +705,8 @@ export function DragonTravelerTierList() {
                   New-player value, cost, dependency and flexibility are editorial estimates from
                   rarity, starter access and published build notes. The Dragon Traveler tier list
                   uses these fields to explain why two similarly ranked Luminaries can lead to
-                  different account decisions. They are not usage statistics or spending guarantees.
+                  different account decisions. The Dragon Traveler tier list does not replace cost
+                  and dependency checks. They are not usage statistics or spending guarantees.
                 </p>
               </div>
             </div>
@@ -727,7 +730,8 @@ export function DragonTravelerTierList() {
             <h2>Sources</h2>
             <p>
               Character evidence supporting the Dragon Traveler tier list is linked from each detail
-              panel. General references:
+              panel. The Dragon Traveler tier list should be read against these dated sources rather
+              than treated as timeless. General references:
             </p>
             <ul>
               {sourceRecords
