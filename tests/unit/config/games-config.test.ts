@@ -62,5 +62,7 @@ describe("games.config registry", () => {
     expect(siteHeaderSource).toContain('aria-label="Primary navigation"');
     expect(siteHeaderSource).toContain('aria-label="Mobile navigation"');
     expect(siteHeaderSource).toContain("navigationGames.map");
+    expect(siteHeaderSource).not.toContain("SiteHeaderVariant");
+    expect(siteHeaderSource).not.toContain("site-header-variant");
   });
 });

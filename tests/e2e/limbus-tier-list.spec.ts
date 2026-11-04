@@ -1,9 +1,12 @@
 import { expect, test } from "@playwright/test";
 
+import { navigationGames } from "../../src/config/games.config";
 import { routeRegistry } from "../../src/config/routes.config";
 
 const route = "/limbus-company/tier-list";
 const limbusRouteDefinition = routeRegistry.get(route);
+const navigationLabels = navigationGames.map((game) => game.name);
+const navigationRoutes = navigationGames.map((game) => game.tierListHref);
 
 const expectedTeamArtwork = [
   ["Sinking Team", "status-sinking"],
@@ -62,26 +65,50 @@ for (const width of [390, 1440]) {
   test.describe(`Limbus closeout at ${width}px`, () => {
     test.use({ viewport: { width, height: 900 } });
 
-    test("uses the Limbus header without overflowing or duplicating site chrome", async ({
+    test("uses the shared site header without overflowing or duplicating site chrome", async ({
       page,
     }) => {
       await page.goto(route);
       const header = page.locator("body > div > header");
       await expect(header).toHaveCount(1);
       await expect(header.getByRole("link", { name: "TierListBase home" })).toBeVisible();
-      const nav = header.getByRole("navigation", { name: "Primary navigation", exact: true });
-      await expect(nav).toBeVisible();
-      const headerBox = await header.boundingBox();
-      const navBox = await nav.boundingBox();
-      expect(navBox!.y + navBox!.height).toBeLessThanOrEqual(headerBox!.y + headerBox!.height);
+
+      const primaryNav = header.locator('nav[aria-label="Primary navigation"]');
+      const mobileNav = header.locator('nav[aria-label="Mobile navigation"]');
+      await expect(primaryNav).toHaveCount(1);
+      await expect(mobileNav).toHaveCount(1);
+      await expect(primaryNav.locator("a")).toHaveText(navigationLabels);
+
+      for (const gameRoute of navigationRoutes) {
+        await expect(mobileNav.locator(`a[href="${gameRoute}"]`)).toHaveCount(1);
+      }
+
+      await expect(primaryNav.locator('a[href="/limbus-company/tier-list"]')).toHaveAttribute(
+        "aria-current",
+        "page",
+      );
+      await expect(mobileNav.locator('a[href="/limbus-company/tier-list"]')).toHaveAttribute(
+        "aria-current",
+        "page",
+      );
 
       for (const label of ["Games", "Tier Lists", "Guides", "Tools"]) {
-        await expect(nav.getByText(label, { exact: true })).toBeVisible();
+        await expect(header.getByText(label, { exact: true })).toHaveCount(0);
       }
-      await expect(header.getByRole("button", { name: "Search", exact: true })).toBeVisible();
-      await expect(header.getByText("EN", { exact: true })).toBeVisible();
-      await expect(header.getByRole("button", { name: "Theme", exact: true })).toBeVisible();
-      await expect(header.getByText("World of Warcraft", { exact: true })).toHaveCount(0);
+      await expect(header.getByRole("button", { name: "Search", exact: true })).toHaveCount(0);
+      await expect(header.getByText("EN", { exact: true })).toHaveCount(0);
+      await expect(header.getByRole("button", { name: "Theme", exact: true })).toHaveCount(0);
+
+      if (width >= 1024) {
+        await expect(primaryNav).toBeVisible();
+        const headerBox = await header.boundingBox();
+        const navBox = await primaryNav.boundingBox();
+        expect(navBox!.y + navBox!.height).toBeLessThanOrEqual(headerBox!.y + headerBox!.height);
+      } else {
+        await expect(primaryNav).toBeHidden();
+        await expect(header.locator("summary")).toBeVisible();
+      }
+
       expect(await header.evaluate((element) => element.scrollWidth <= innerWidth)).toBe(true);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
         true,
@@ -429,45 +456,51 @@ test("keeps the visible Limbus keyword group within the approved SEO range", asy
   expect(phraseStats[1]!.occurrences).toBeGreaterThan(phraseStats[3]!.occurrences);
 });
 
-test("keeps shared navigation on public game pages and verifies registered games in header", async ({
+test("keeps one shared registry-driven header across game pages and client transitions", async ({
   page,
 }) => {
-  const labels = [
-    "World of Warcraft",
-    "Genshin Impact",
-    "Zenless Zone Zero",
-    "NIKKE",
-    "Limbus Company",
-    "Phantom Blade Zero",
-  ];
-  const registeredGameRoutes = ["/wow-forever/tier-list", "/genshin-impact/tier-list"].filter(
-    (path) => routeRegistry.routes.some((entry) => entry.route === path),
-  );
-  // The clean-setup template deliberately exposes a smaller registered route inventory.
-  for (const path of registeredGameRoutes) {
+  const regressionRoutes = [
+    "/wow-forever/tier-list",
+    "/genshin-impact/tier-list",
+    "/zenless-zone-zero/tier-list",
+    "/nikke/tier-list",
+    route,
+  ].filter((path) => routeRegistry.routes.some((entry) => entry.route === path));
+
+  for (const path of regressionRoutes) {
     await page.goto(path);
-    const nav = page.locator('header nav[aria-label="Primary navigation"]');
-    await expect(nav.getByRole("link")).toHaveText(labels);
-    const mobileNav = page.locator('header nav[aria-label="Mobile navigation"]');
-    for (const gameRoute of [
-      "/wow-forever/tier-list",
-      "/genshin-impact/tier-list",
-      "/zenless-zone-zero/tier-list",
-      "/nikke/tier-list",
-      "/limbus-company/tier-list",
-      "/phantom-blade-zero/tier-list",
-    ]) {
+    const header = page.locator("body > div > header");
+    await expect(header).toHaveCount(1);
+
+    const primaryNav = header.locator('nav[aria-label="Primary navigation"]');
+    const mobileNav = header.locator('nav[aria-label="Mobile navigation"]');
+    await expect(primaryNav.locator("a")).toHaveText(navigationLabels);
+
+    for (const gameRoute of navigationRoutes) {
       await expect(mobileNav.locator(`a[href="${gameRoute}"]`)).toHaveCount(1);
     }
+
+    await expect(primaryNav.locator(`a[href="${path}"]`)).toHaveAttribute("aria-current", "page");
   }
-  await page.goto(route);
+
+  await page.goto("/wow-forever/tier-list");
+  const header = page.locator("body > div > header");
+  const primaryNav = header.locator('nav[aria-label="Primary navigation"]');
+
+  await primaryNav.locator('a[href="/limbus-company/tier-list"]').click();
   await expect(page).toHaveURL(new RegExp(`${route}$`));
-  await expect(page.locator('header nav[aria-label="Primary navigation"]')).toContainText("Games");
+  await expect(page.locator("body > div > header")).toHaveCount(1);
+  await expect(page.locator('header nav[aria-label="Primary navigation"] a')).toHaveText(
+    navigationLabels,
+  );
+
   await page
     .locator('header nav[aria-label="Primary navigation"]')
-    .getByRole("link", { name: "Games", exact: true })
+    .locator('a[href="/wow-forever/tier-list"]')
     .click();
-  await expect(
-    page.locator('header nav[aria-label="Primary navigation"]').getByRole("link"),
-  ).toHaveText(labels);
+  await expect(page).toHaveURL(/\/wow-forever\/tier-list$/);
+  await expect(page.locator("body > div > header")).toHaveCount(1);
+  await expect(page.locator('header nav[aria-label="Primary navigation"] a')).toHaveText(
+    navigationLabels,
+  );
 });
