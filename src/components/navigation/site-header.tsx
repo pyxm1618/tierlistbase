@@ -10,7 +10,6 @@ import { localePath } from "@/platform/i18n/routing";
 
 import { SiteHeaderAccount } from "./site-header-account";
 import { SiteHeaderGameLink, SiteHeaderLinkStatus } from "./site-header-game-link";
-import { SiteHeaderVariant } from "./site-header-variant";
 
 const navLink =
   "rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400";
@@ -47,16 +46,14 @@ function HeaderShell({
   locale,
   desktopAccount,
   mobileAccount,
-  variantAccount,
 }: {
   locale: string;
   desktopAccount?: ReactNode;
   mobileAccount?: ReactNode;
-  variantAccount?: ReactNode;
 }) {
   const homeHref = localePath(siteConfig, locale, "/");
 
-  const header = (
+  return (
     <header className="sticky top-0 z-40 border-b border-[#315072]/60 bg-[#020e1d]/95 text-white backdrop-blur-md">
       <div className="mx-auto flex h-[54px] w-[calc(100%_-_32px)] items-center gap-6 px-4 sm:w-[93.4%] max-w-[1820px] sm:px-0">
         <Brand href={homeHref} />
@@ -98,12 +95,6 @@ function HeaderShell({
       </div>
     </header>
   );
-
-  return (
-    <SiteHeaderVariant brand={<Brand href={homeHref} />} account={variantAccount}>
-      {header}
-    </SiteHeaderVariant>
-  );
 }
 
 async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
@@ -126,14 +117,6 @@ async function AuthenticatedSiteHeader({ locale }: { locale: string }) {
           name={identity?.name ?? null}
           email={identity?.email ?? null}
           mobile
-          className={navLink}
-        />
-      }
-      variantAccount={
-        <SiteHeaderAccount
-          authenticated={Boolean(identity)}
-          name={identity?.name ?? null}
-          email={identity?.email ?? null}
           className={navLink}
         />
       }
