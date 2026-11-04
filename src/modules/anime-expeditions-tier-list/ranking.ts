@@ -1,6 +1,6 @@
 import type { Unit, UnitView, UnitFilters, UnitTier } from "./types";
 import { unitViews } from "./types";
-export const unitTiers: readonly UnitTier[] = ["S+", "S", "A", "B", "C", "Pending"];
+export const unitTiers: readonly UnitTier[] = ["S+", "S", "A", "B", "C", "D", "Pending"];
 export function filterUnits(roster: readonly Unit[], filters: UnitFilters): Unit[] {
   const query = filters.search?.trim().toLocaleLowerCase("en-US") ?? "";
   return roster.filter(
