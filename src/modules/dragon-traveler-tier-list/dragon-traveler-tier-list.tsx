@@ -694,7 +694,8 @@ export function DragonTravelerTierList() {
             <p className={styles.note}>
               Sources were accessed on {snapshotDate} unless a newer audit date is shown. An access
               date does not prove that the publisher’s data is current. This Dragon Traveler tier
-              list remains an independent editorial ranking tied to the cited ranked-source snapshot.
+              list remains an independent editorial ranking tied to the cited ranked-source
+              snapshot.
             </p>
           </section>
           <section className={styles.sources}>
