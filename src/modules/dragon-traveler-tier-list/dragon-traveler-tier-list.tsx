@@ -580,7 +580,7 @@ export function DragonTravelerTierList() {
           <p className={styles.note}>
             Four sourced formations per mode. Order and team grades are editorial recommendations,
             not measured win rates. Both server lists use the same formation advice where every
-            member appears in that server’s ranked pool.
+            member appears in that server&rsquo;s ranked pool.
           </p>
         </section>
         <section aria-labelledby="decisions-title">
