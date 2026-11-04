@@ -2,7 +2,7 @@
 
 import { useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
-import { artworkFor } from "./artwork";
+import { artworkForOptional } from "./artwork";
 import { filterUnits, getQuickPicks, unitTiers } from "./ranking";
 import {
   unitViews,
@@ -15,9 +15,21 @@ import {
 import styles from "./anime-expeditions-tier-list.module.css";
 
 function Portrait({ unit, large = false }: { unit: Unit; large?: boolean }) {
+  const asset = unit.asset ? artworkForOptional(`unit-${unit.asset}`) : null;
+  if (!asset) {
+    return (
+      <div
+        className={`${styles.portrait} ${styles.portraitPlaceholder}`}
+        role="img"
+        aria-label={`${unit.currentForm} artwork pending provenance review`}
+      >
+        <span>{unit.currentForm.slice(0, 1)}</span>
+      </div>
+    );
+  }
   return (
     <Image
-      src={artworkFor(`unit-${unit.asset}`)}
+      src={asset}
       alt={unit.currentForm}
       width={large ? 192 : 128}
       height={large ? 184 : 123}
