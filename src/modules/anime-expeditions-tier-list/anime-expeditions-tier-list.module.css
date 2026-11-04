@@ -422,6 +422,22 @@
   height: auto;
   background: radial-gradient(ellipse, #47376960, transparent 75%);
 }
+.portraitPlaceholder {
+  display: grid;
+  place-items: center;
+  min-height: 50px;
+  border: 1px dashed #665f8f;
+  background:
+    linear-gradient(135deg, #20223f, #101c2c),
+    radial-gradient(ellipse, #47376960, transparent 75%);
+  color: #c7c2e7;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.portraitPlaceholder span {
+  font-size: clamp(18px, 3vw, 36px);
+  line-height: 1;
+}
 .unitCard strong {
   font-size: 11px;
   line-height: 1.3;
@@ -673,8 +689,10 @@
   width: 0;
   min-width: 0;
 }
-.lineup img {
+.lineup img,
+.lineup .portraitPlaceholder {
   width: 100%;
+  aspect-ratio: 64 / 61;
   height: auto;
   object-fit: contain;
   border: 1px solid #50466f;
@@ -743,8 +761,12 @@
   gap: 10px;
   font-weight: 650;
 }
-.evolution summary img {
+.evolution summary img,
+.evolution summary .portraitPlaceholder {
+  width: 48px;
+  aspect-ratio: 48 / 46;
   object-fit: contain;
+  flex: 0 0 auto;
 }
 .evolution summary small {
   display: block;
