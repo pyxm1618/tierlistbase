@@ -342,7 +342,7 @@
       "archetype": "Magical",
       "rarity": "Secret",
       "availability": "Needs Review",
-      "availabilityNote": "Current obtainment not asserted; Update 5 ranking and kit are source-reviewed.",
+      "availabilityNote": "Silver Falcon is the Redemption branch evolved from Broken Falcon; 5th God Hand is the alternate Sacrifice branch. Owning both final forms requires separate Broken Falcon copies.",
       "evolutionState": "Evolved",
       "placementLimit": 1,
       "viewTiers": {
@@ -3362,7 +3362,9 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [],
+        "exclusiveIds": [
+          "awakened-moonblade"
+        ],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
       "partners": [],
@@ -3412,7 +3414,9 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [],
+        "exclusiveIds": [
+          "demonic-pistols"
+        ],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
       "partners": [],
@@ -3467,7 +3471,9 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [],
+        "exclusiveIds": [
+          "lanza-de-luz"
+        ],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
       "partners": [
@@ -3524,7 +3530,9 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [],
+        "exclusiveIds": [
+          "blossom-blade"
+        ],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
       "partners": [
@@ -3581,7 +3589,9 @@
       "build": {
         "traitIds": [],
         "standardIds": [],
-        "exclusiveIds": [],
+        "exclusiveIds": [
+          "hypnotic-edge"
+        ],
         "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
       },
       "partners": [
@@ -3995,7 +4005,7 @@
       "archetype": "Psychic",
       "rarity": "Secret",
       "availability": "Needs Review",
-      "availabilityNote": "Current obtainment is not asserted; Update 5 ranking and kit are source-reviewed.",
+      "availabilityNote": "5th God Hand is the Sacrifice branch evolved from Broken Falcon; owning both final branches requires separate Broken Falcon copies. Current exact soul exchange cost has conflicting secondary-source reports, so it is not asserted here.",
       "evolutionState": "Evolved",
       "placementLimit": 1,
       "viewTiers": {
@@ -4014,13 +4024,15 @@
       ],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
-      "dependency": "One placement and Fated Meter ramp make it strongest when the stage lasts long enough to reach repeated Eclipse payoffs.",
+      "dependency": "Broken Falcon → 5th God Hand is the Sacrifice branch. One placement and Fated Meter ramp make it strongest when the stage lasts long enough to reach repeated Eclipse payoffs.",
       "build": {
         "traitIds": [
           "unbound"
         ],
         "standardIds": [],
-        "exclusiveIds": [],
+        "exclusiveIds": [
+          "orb-of-causality"
+        ],
         "note": "Unbound is source-supported as a current fit; no unsourced equipment claim is added."
       },
       "partners": [
