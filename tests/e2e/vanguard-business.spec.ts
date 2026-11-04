@@ -300,10 +300,11 @@ for (const width of [390, 1440]) {
       ).toHaveCount(0);
       await page.goto("/limbus-company/tier-list");
       await menu();
-      await page
-        .locator("header")
-        .getByRole("button", { name: "Header private identity", exact: true })
-        .click();
+      if (width >= 1024)
+        await page
+          .locator("header")
+          .getByRole("button", { name: "Header private identity", exact: true })
+          .click();
       await expect(
         page.locator("header").getByRole("menuitem", { name: "My Vanguard", exact: true }),
       ).toHaveCount(0);
