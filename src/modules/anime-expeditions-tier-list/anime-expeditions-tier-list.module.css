@@ -382,6 +382,9 @@
 .tierLabel[data-tier="C"] {
   background: linear-gradient(135deg, #b4c0d7, #4f6186);
 }
+.tierLabel[data-tier="D"] {
+  background: linear-gradient(135deg, #7d889c, #344052);
+}
 .tierLabel[data-tier="Pending"] {
   background: #29354a;
   font-size: 13px !important;
@@ -530,6 +533,12 @@
 }
 .badge[data-tier="B"] {
   background: #4760b1;
+}
+.badge[data-tier="C"] {
+  background: #596882;
+}
+.badge[data-tier="D"] {
+  background: #3f4a5d;
 }
 .badge[data-tier="Pending"] {
   background: #334052;
