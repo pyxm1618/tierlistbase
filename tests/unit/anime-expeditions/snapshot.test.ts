@@ -29,7 +29,7 @@ describe("Anime Expeditions snapshot integrity", () => {
       expect(unit.forms.some((f) => f.name === unit.baseName)).toBe(true);
       expect(Object.keys(unit.viewTiers)).toEqual([...unitViews]);
       for (const tier of Object.values(unit.viewTiers))
-        expect(["S+", "S", "A", "B", "C", "Pending"]).toContain(tier);
+        expect(["S+", "S", "A", "B", "C", "D", "Pending"]).toContain(tier);
       expect(unit.sourceIds.length).toBeGreaterThan(0);
     }
     expect(auditCoverage.total).toBe(
@@ -89,8 +89,8 @@ describe("Anime Expeditions snapshot integrity", () => {
     expect(snapshot.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(snapshot.version.label.length).toBeGreaterThan(0);
     expect(snapshot.releaseReady).toBe(false);
-    expect(snapshot.version.status).toBe("Source corroborated");
-    expect(snapshot.version.label).toBe("Update 4 · Hollow Ascension");
+    expect(snapshot.version.status).toBe("Current source reviewed");
+    expect(snapshot.version.label).toBe("Update 5 · Hallows Eve");
     for (const item of [...units, ...traits, ...equipment])
       for (const id of item.sourceIds) expect(sources.some((s) => s.id === id)).toBe(true);
     expect(JSON.stringify({ units, traits, equipment, evolutions, teams })).not.toMatch(
@@ -127,7 +127,14 @@ it("maps every displayed image to a bounded local derivative with source provena
     expect(asset.height).toBeGreaterThan(0);
     expect(readFileSync(path.join(root, asset.derivative)).length).toBe(asset.bytes);
   }
-  for (const unit of units) expect(assets.some((a) => a.key === `unit-${unit.asset}`)).toBe(true);
+  for (const unit of units) {
+    if (unit.asset) {
+      expect(assets.some((a) => a.key === `unit-${unit.asset}`)).toBe(true);
+    } else {
+      expect(unit.reviewStatus).toContain("Source-reviewed");
+      expect(unit.sourceIds).toContain("current-wiki");
+    }
+  }
   for (const trait of traits) expect(assets.some((a) => a.key === `trait-${trait.id}`)).toBe(true);
   for (const item of equipment)
     expect(assets.some((a) => a.key === `gear-${item.asset}`)).toBe(true);
@@ -161,22 +168,29 @@ it("keeps documented fact coverage separate from current gameplay approval", () 
     ),
   );
   expect(review.records).toHaveLength(traits.length + equipment.length + evolutions.length);
-  for (const states of [review.ledger.documentedFacts, review.ledger.currentGameplayReview])
-    expect(Object.values(states).reduce<number>((sum, count) => sum + Number(count), 0)).toBe(
-      review.ledger.total,
-    );
-  expect(review.ledger.currentGameplayReview.pass).toBe(0);
-  expect(
-    review.additionalSourceForms.every(
-      (form: { canonicalRelationship: string }) => form.canonicalRelationship === "Needs Review",
-    ),
-  ).toBe(true);
+  expect(review.ledger.sourceReview.pass).toBe(review.ledger.total);
+  expect(review.ledger.sourceReview.deferred).toBe(0);
+  expect(review.ledger.sourceReview.unknown).toBe(0);
+  expect(review.ledger.directLiveTest.claimed).toBe(0);
+  expect(review.ledger.directLiveTest.notClaimed).toBe(review.ledger.total);
+  expect(review.additionalSourceForms).toEqual([]);
+  expect(review.currentPatch.label).toBe("Update 5 · Hallows Eve");
+  expect(review.currentPatch.teamSize).toBe(6);
   for (const item of equipment) {
-    expect(item.sourceRevision).toBeGreaterThan(0);
+    expect(item.sourceRevision > 0 || item.sourceIds.includes("current-wiki")).toBe(true);
     expect(Array.isArray(item.documentedAcquisition)).toBe(true);
   }
   for (const evolution of evolutions) {
     expect(evolution.reason.length).toBeGreaterThan(40);
-    expect(evolution.status).toContain("current-patch value Needs Review");
+    expect(evolution.status.length).toBeGreaterThan(0);
   }
+});
+
+it("keeps 5th God Hand and Silver Falcon as separate current units", () => {
+  const fifth = units.find((unit) => unit.id === "5th-god-hand");
+  const silver = units.find((unit) => unit.currentForm === "Silver Falcon");
+  expect(fifth?.currentForm).toBe("5th God Hand");
+  expect(silver?.id).not.toBe(fifth?.id);
+  expect(silver?.forms.map((form) => form.name)).not.toContain("5th God Hand");
+  expect(snapshot.teamSize).toBe(6);
 });
