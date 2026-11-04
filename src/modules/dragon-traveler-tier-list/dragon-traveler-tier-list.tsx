@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, type RefObject, type CSSProperties } from "react";
+import { startTransition, useDeferredValue, useRef, useState, type RefObject, type CSSProperties } from "react";
 import { CurrentPullPriority } from "./current-pull-priority";
 import {
   classes,
@@ -239,11 +239,12 @@ export function DragonTravelerTierList() {
   const [teamView, setTeamView] = useState<TeamViewKey>("PvE");
   const [wishlistView, setWishlistView] = useState<"New Player" | "PvE" | "PvP">("New Player");
   const [filters, setFilters] = useState<RosterFilters>({});
+  const deferredFilters = useDeferredValue(filters);
   const [selectedId, setSelectedId] = useState("poseidon");
   const [selectedTeamId, setSelectedTeamId] = useState("");
   const roster = getRoster(server),
     options = getFilters(server);
-  const filtered = filterRoster(roster, filters);
+  const filtered = filterRoster(roster, deferredFilters);
   const selected = filtered.find((c) => c.id === selectedId) ?? filtered[0];
   const currentTeams = teams.filter((t) => t.server === server && t.view === teamView);
   const featured = currentTeams.find((t) => t.id === selectedTeamId) ?? currentTeams[0]!;
@@ -285,14 +286,18 @@ export function DragonTravelerTierList() {
   }
   function switchServer(next: ServerKey) {
     const nextOptions = getFilters(next);
-    setServer(next);
-    setFilters((current) => ({
-      ...current,
-      faction: nextOptions.factions.some((f) => f === current.faction)
-        ? (current.faction ?? "")
-        : "",
-      rarity: nextOptions.rarities.some((r) => r === current.rarity) ? (current.rarity ?? "") : "",
-    }));
+    startTransition(() => {
+      setServer(next);
+      setFilters((current) => ({
+        ...current,
+        faction: nextOptions.factions.some((f) => f === current.faction)
+          ? (current.faction ?? "")
+          : "",
+        rarity: nextOptions.rarities.some((r) => r === current.rarity)
+          ? (current.rarity ?? "")
+          : "",
+      }));
+    });
   }
   function filterControl(
     key: "class" | "faction" | "rarity",
@@ -305,7 +310,7 @@ export function DragonTravelerTierList() {
         <select
           aria-label={label}
           value={filters[key] ?? ""}
-          onChange={(e) => setFilters({ ...filters, [key]: e.target.value })}
+          onChange={(e) => {\n            const value = e.target.value;\n            startTransition(() => setFilters((current) => ({ ...current, [key]: value })));\n          }}
         >
           <option value="">All</option>
           {values.map((value) => (
@@ -402,7 +407,7 @@ export function DragonTravelerTierList() {
                   type="button"
                   role="tab"
                   aria-selected={view === mode}
-                  onClick={() => setView(mode)}
+                  onClick={() => startTransition(() => setView(mode))}
                 >
                   {mode}
                 </button>
