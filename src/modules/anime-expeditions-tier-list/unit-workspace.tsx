@@ -175,8 +175,7 @@ export function UnitWorkspace({
   const [filters, setFilters] = useState<UnitFilters>({ mode: "All Modes" });
   const quickPicks = getQuickPicks(units);
   const initialUnit =
-    quickPicks.find((pick) => pick.view === "Overall")?.unit ??
-    units.find((unit) => !unit.hidden);
+    quickPicks.find((pick) => pick.view === "Overall")?.unit ?? units.find((unit) => !unit.hidden);
   if (!initialUnit) throw new Error("Anime Expeditions requires at least one visible unit");
   const [selectedId, setSelectedId] = useState(initialUnit.id);
   const dialog = useRef<HTMLDialogElement>(null);
