@@ -1,0 +1,578 @@
+[
+  {
+    "id": "ares",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/ares"
+  },
+  {
+    "id": "thor",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/thor"
+  },
+  {
+    "id": "asmodeus",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/asmodeus"
+  },
+  {
+    "id": "azure-dragon",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/azure-dragon"
+  },
+  {
+    "id": "tyrfing",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/tyrfing"
+  },
+  {
+    "id": "andvari",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/andvari"
+  },
+  {
+    "id": "siegfried",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/siegfried"
+  },
+  {
+    "id": "marylis",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/marylis"
+  },
+  {
+    "id": "brynhild",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/brynhild"
+  },
+  {
+    "id": "arthur",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/arthur"
+  },
+  {
+    "id": "guna",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/guna"
+  },
+  {
+    "id": "beowulf",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/beowulf"
+  },
+  {
+    "id": "artemis",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/artemis"
+  },
+  {
+    "id": "dartagnan",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/dartagnan"
+  },
+  {
+    "id": "apollo",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/apollo"
+  },
+  {
+    "id": "ifrit",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/ifrit"
+  },
+  {
+    "id": "ningrose",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/ningrose"
+  },
+  {
+    "id": "mimir",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/mimir"
+  },
+  {
+    "id": "jing",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/jing"
+  },
+  {
+    "id": "orion",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/orion"
+  },
+  {
+    "id": "medusa",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/medusa"
+  },
+  {
+    "id": "huginn-and-muninn",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/huginn-and-muninn"
+  },
+  {
+    "id": "lorillin",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/lorillin"
+  },
+  {
+    "id": "van-helsing",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/van-helsing"
+  },
+  {
+    "id": "talos",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/talos"
+  },
+  {
+    "id": "loki",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/loki"
+  },
+  {
+    "id": "poseidon",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/poseidon"
+  },
+  {
+    "id": "gabriell",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/gabriell"
+  },
+  {
+    "id": "crassus",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/crassus"
+  },
+  {
+    "id": "vermilion-bird",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/vermilion-bird"
+  },
+  {
+    "id": "gullveig",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/gullveig"
+  },
+  {
+    "id": "faust",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/faust"
+  },
+  {
+    "id": "nanalie",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/nanalie"
+  },
+  {
+    "id": "cleopatra",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/cleopatra"
+  },
+  {
+    "id": "melina",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/melina"
+  },
+  {
+    "id": "telperion",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/telperion"
+  },
+  {
+    "id": "cerberus",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/cerberus"
+  },
+  {
+    "id": "arachne",
+    "state": "pass",
+    "reason": "Class/factions from Hideout; Global live banner and S/S/S ratings from AllClash October 25",
+    "sourceUrl": "https://www.allclash.com/best-characters-in-dragon-traveler-global-tier-list/"
+  },
+  {
+    "id": "quetzal",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/quetzal"
+  },
+  {
+    "id": "venus",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/venus"
+  },
+  {
+    "id": "vivian",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/vivian"
+  },
+  {
+    "id": "morgana",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/morgana"
+  },
+  {
+    "id": "hel",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/hel"
+  },
+  {
+    "id": "atanith",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/atanith"
+  },
+  {
+    "id": "scheherazade",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/scheherazade"
+  },
+  {
+    "id": "chiron",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/chiron"
+  },
+  {
+    "id": "spimo",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/spimo"
+  },
+  {
+    "id": "ophelia",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/ophelia"
+  },
+  {
+    "id": "caligula",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/caligula"
+  },
+  {
+    "id": "titania",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/titania"
+  },
+  {
+    "id": "hypnos",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/hypnos"
+  },
+  {
+    "id": "hades",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/hades"
+  },
+  {
+    "id": "rin",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/rin"
+  },
+  {
+    "id": "zagrus",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/zagrus"
+  },
+  {
+    "id": "nemesis",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/nemesis"
+  },
+  {
+    "id": "fenrir",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/fenrir"
+  },
+  {
+    "id": "jormungandr",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/jormungandr"
+  },
+  {
+    "id": "pan-junbao",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/pan-junbao"
+  },
+  {
+    "id": "white-tiger",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/white-tiger"
+  },
+  {
+    "id": "mordred",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/mordred"
+  },
+  {
+    "id": "lancelot",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/lancelot"
+  },
+  {
+    "id": "hermes",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/hermes"
+  },
+  {
+    "id": "athena",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/athena"
+  },
+  {
+    "id": "gaia",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/gaia"
+  },
+  {
+    "id": "galahad",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/galahad"
+  },
+  {
+    "id": "prometheus",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/prometheus"
+  },
+  {
+    "id": "salome",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/salome"
+  },
+  {
+    "id": "caesar",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/caesar"
+  },
+  {
+    "id": "dvalin",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/dvalin"
+  },
+  {
+    "id": "pompey",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/pompey"
+  },
+  {
+    "id": "helveil",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/helveil"
+  },
+  {
+    "id": "herman",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/herman"
+  },
+  {
+    "id": "oberonnie",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/oberonnie"
+  },
+  {
+    "id": "anubis",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/anubis"
+  },
+  {
+    "id": "drasill",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/drasill"
+  },
+  {
+    "id": "goren",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/goren"
+  },
+  {
+    "id": "gudong",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/gudong"
+  },
+  {
+    "id": "lilith",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/lilith"
+  },
+  {
+    "id": "hitomi",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/hitomi"
+  },
+  {
+    "id": "catherine",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/catherine"
+  },
+  {
+    "id": "tamamo",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/tamamo"
+  },
+  {
+    "id": "biqisi",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/biqisi"
+  },
+  {
+    "id": "asteros",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/asteros"
+  },
+  {
+    "id": "heidren",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/heidren"
+  },
+  {
+    "id": "himiko",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/himiko"
+  },
+  {
+    "id": "lupin",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/lupin"
+  },
+  {
+    "id": "hercules",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/hercules"
+  },
+  {
+    "id": "xuanwu",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/xuanwu"
+  },
+  {
+    "id": "sigurd",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/sigurd"
+  },
+  {
+    "id": "zeus",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/zeus"
+  },
+  {
+    "id": "pinocchio",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/pinocchio"
+  },
+  {
+    "id": "hera",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/hera"
+  },
+  {
+    "id": "saad",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/saad"
+  },
+  {
+    "id": "honoka",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/honoka"
+  },
+  {
+    "id": "marie-rose",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/marie-rose"
+  },
+  {
+    "id": "kasumi",
+    "state": "pass",
+    "reason": "Mode ratings, identity and portrait available",
+    "sourceUrl": "https://www.hideoutgacha.com/games/dragon-traveler/characters/kasumi"
+  }
+]

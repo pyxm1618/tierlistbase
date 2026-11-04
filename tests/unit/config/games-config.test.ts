@@ -5,8 +5,8 @@ import { describe, expect, it } from "vitest";
 import { gamesConfig, navigationGames } from "@/config/games.config";
 
 describe("games.config registry", () => {
-  it("registers exactly 6 official games with correct paths and orders", () => {
-    expect(gamesConfig).toHaveLength(6);
+  it("registers released game routes without changing the existing navigation set", () => {
+    expect(gamesConfig).toHaveLength(7);
     expect(gamesConfig.map((g) => g.name)).toEqual([
       "World of Warcraft",
       "Genshin Impact",
@@ -14,6 +14,7 @@ describe("games.config registry", () => {
       "NIKKE",
       "Limbus Company",
       "Phantom Blade Zero",
+      "Dragon Traveler",
     ]);
 
     expect(gamesConfig.map((g) => g.tierListHref)).toEqual([
@@ -23,12 +24,16 @@ describe("games.config registry", () => {
       "/nikke/tier-list",
       "/limbus-company/tier-list",
       "/phantom-blade-zero/tier-list",
+      "/dragon-traveler/tier-list",
     ]);
 
-    expect(gamesConfig.map((g) => g.navigationOrder)).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(gamesConfig.map((g) => g.navigationOrder)).toEqual([1, 2, 3, 4, 5, 6, 7]);
   });
 
   it("exports navigationGames matching the visible games in navigation order", () => {
+    expect(gamesConfig.find((game) => game.slug === "dragon-traveler")?.navigationVisible).toBe(
+      false,
+    );
     expect(navigationGames).toHaveLength(6);
     expect(navigationGames.every((g) => g.navigationVisible)).toBe(true);
     expect(navigationGames.map((g) => g.slug)).toEqual([
