@@ -1,34 +1,31 @@
-# PR #114 closeout — 2026-11-03
+# PR #114 closeout — 2026-11-04
 
-**BLOCKED ON SOURCE ASSET. DATA READY. PR MUST REMAIN DRAFT.**
+**RELEASE CANDIDATE READY — FINAL NEW-CI VALIDATION REQUIRED.**
 
-Continue PR #114 only. No new Wild Rift PR/branch, no merge, no production deploy, no new dependency/API/database/scraper/cron/ingestion platform.
+Continue PR #114 only. No new Wild Rift PR/branch, dependency, API, database, scraper, cron, or ingestion platform.
 
 ## Git baseline
 
 - PR: https://github.com/pyxm1618/tierlistbase/pull/114
 - Branch: `feat/wild-rift-tier-list-v2`
-- Base: `58c0c75e7b6398a909aec384c0106659ebacf4ec`
-- PR remains OPEN / DRAFT.
-- Historical `2026-10-28-*` audit fixtures remain preserved and are not overwritten.
+- Current main baseline absorbed: `acdb655713892e739e1b2f6f909c093a8f211c5b`
+- Branch is required to remain **behind main = 0** before merge.
+- Historical audit fixtures remain preserved.
 
 ## Current version and statistics context
 
-Riot's current listed game update is **7.3d**, published 2026-10-28. The standard Rift patch contains champion, item, objective, and turret changes.
-
-The reviewed Wild Rift Core rankings snapshot is:
-
-- Patch: **7.3d**
-- Updated: **2026-11-01**
-- Region: **CN**
-- Rank: **Master+**
-- Queue: **Ranked**
-- Product focus: **Solo Queue**
+- Game version / latest standard Ranked balance: **7.3d**
+- Riot patch date: **2026-10-28**
+- Ranked statistics: **Wild Rift Core-reported Tencent CN · Master+ · Ranked**
+- Statistics updated: **2026-11-01**
 - Source headline: **135 champions tracked**
-- Distinct champions counted in the actual role rows: **136**
+- Distinct champions in actual role rows: **136**
 - Exact Champion × Role statistics rows: **179**
+- Final Champion × Role placements: **208**
+- Editorial-only / WR-PR-BR N/A placements: **29**
+- Fabricated statistics: **0**
 
-The 135-vs-136 discrepancy is preserved and disclosed. No Diamond+ homepage values are used.
+The 135-vs-136 source discrepancy is preserved and disclosed. No Diamond+ homepage values, cross-role statistics, older-patch fills, interpolation, or estimated WR / PR / BR are used.
 
 ## Data audit
 
@@ -57,75 +54,52 @@ The 135-vs-136 discrepancy is preserved and disclosed. No Diamond+ homepage valu
 | Support | 33 | 4 | 37 |
 | **Total** | **179** | **29** | **208** |
 
-All WR / PR / BR values are copied at source precision from the current exact role row. A placement without a current role row keeps WR / PR / BR as N/A. No cross-role, cross-rank, older-patch, champion-wide-WR, interpolation, or estimation fallback is used.
-
 ## Tier provenance
 
-Three layers remain separate:
+Three evidence layers remain separate:
 
 1. **Raw statistics** — Wild Rift Core reports Tencent CN Master+ Ranked statistics.
-2. **Wild Rift Core source tier** — data-informed source ranking using Master+ performance/presence plus external consensus; not a Riot/Tencent official tier.
+2. **Wild Rift Core source tier** — source ranking; not a Riot/Tencent official tier.
 3. **TierListBase editorial review** — Champion × Role rationale and Decision Signals.
 
 All 208 current source tiers are retained. TierListBase applies **0 tier overrides** in this snapshot.
 
 ## Trend and What Changed
 
-Only six explicitly labeled same-role **7-day** movements are used for trend arrows:
+Only six explicitly labeled same-role **7-day** movements drive trend arrows. The source's separate 30-day field is not repurposed as 7-day evidence.
 
-- Shyvana · Jungle: +6.85 pp
-- Lee Sin · Jungle: +2.10 pp
-- Akali · Mid: +1.73 pp
-- Samira · Dragon: -2.08 pp
-- Malphite · Baron: -1.51 pp
-- Mel · Mid: -1.02 pp
+`What Changed` publishes only source-tier movements for which the source explicitly provides previous tier, current tier, role, and date. Patch notes are not converted into invented performance outcomes.
 
-The separate table `30 d` field is not repurposed as a 7-day signal. The other 202 placements show trend unavailable.
+## Final design and assets
 
-`What Changed` now publishes only the 16 source-tier movements for which the source explicitly provides previous tier, current tier, role, and date. Their cards make **no causal claim**. Patch notes are never used to manufacture tier or win-rate outcomes.
+The source-asset blockers are closed.
 
-## Quick Picks and insights
-
-Quick Picks come from the same audited Champion × Role model as the formal tier boards:
-
-- Baron: Shen
-- Jungle: Rammus
-- Mid: Hwei
-- Dragon: Smolder
-- Support: Braum
-
-Highest Draft Priority explicitly describes BR as champion-wide draft pressure, not a role-specific ban measurement. Biggest Riser exists only where verified positive same-role 7-day evidence exists.
-
-## Champion detail and patch impact
-
-All 208 Champion × Role placements keep explicit role rationale and five TierListBase editorial Decision Signals. Strengths/limitations are tied to primary champion ability references.
-
-7.3d direct champion adjustments are described only where Riot's patch notes contain them. Otherwise the detail states: **No direct champion adjustment in 7.3d.** No patch-note change is converted into an invented performance outcome.
-
-## Design and asset status
-
-Three 1024×1536 Wild Rift full-page mockups are available in the user's files, but no retrieved evidence identifies which one was explicitly approved as the final frozen Desktop source of truth. Therefore the design identity remains a source-asset blocker; do not choose one by visual similarity or chronology.
-
-### Missing Design Assets
-
-| Asset | Page use | Why blocked | Recommended delivery | Transparency / text |
-| --- | --- | --- | --- | --- |
-| Final frozen Desktop design — approved identity | Sole source for 1440 overlay, typography, crop, spacing, and section geometry | Multiple candidate mockups exist, but no explicit approval identifies the frozen source of truth | Provide / identify the approved original at the intended viewport, preferably 1440px wide or 2× (2880px) | Preserve design text; transparency not required |
-| Final approved Hero source artwork | Hero background / exact crop and positioning | No approved standalone high-resolution source asset is present in the PR or available asset set | Prefer 3840px-wide lossless/high-quality source (minimum sufficient for 1920px desktop at 2×) with the exact final composition | No webpage text; transparency only if the approved composition requires it |
-| Norra official/approved portrait | Champion cards + Champion Detail | `norra.svg` is still a letter-N placeholder | Square source, preferably 512×512 or larger | No text; transparency optional |
-| Any non-CSS design-specific artwork revealed by the final asset inventory | Exact decorative artwork only | Must not be approximated | Original/high-quality export at design size or 2× | No embedded webpage copy unless it is intentionally part of the artwork |
-
-Borders, glow, gradients, dividers, card surfaces and simple geometric icons remain CSS/SVG implementation details and are not treated as missing source artwork.
-
-Because the approved frozen Desktop identity, Hero source, and Norra portrait are still missing, **pixel-perfect Desktop cannot be truthfully accepted yet**. No approximate Hero, random official background, AI-generated substitute, alternate champion, or letter placeholder may be accepted as final.
+- **Final frozen Desktop design:** explicitly supplied and confirmed by the user on 2026-11-04 as the sole visual source of truth.
+- **Approved Hero artwork:** explicitly supplied and confirmed by the user on 2026-11-04.
+  - Repository path: `public/images/wild-rift/hero.webp`
+  - Web asset: 1440×538 WebP
+  - Size: 52,376 bytes
+  - Verified Git blob SHA: `9383594d4b40daaa1b2c2e74fa54541341b9eaae`
+  - The Git blob SHA was verified against the locally produced approved asset before installation.
+- **Norra portrait:** placeholder removed.
+  - Repository path: `public/images/wild-rift/champions/norra.png`
+  - Size: 57,157 bytes
+  - Git blob SHA: `0a80721f7f36ccb660fddf8b020cadd046bae66c`
+  - Riot's official Norra champion page remains the identity / kit evidence; the reviewed portrait bytes are from WildRiftFire and are not represented as Riot-hosted artwork.
+- Temporary Hero transfer chunks are absent from the final repository tree.
+- Permanent E2E now verifies that both the Hero and Norra image actually decode with `naturalWidth > 0`; path existence alone is not accepted.
 
 ## Visual acceptance
 
-- Final design available: NO — approved identity unresolved
-- Pixel-perfect Desktop: FAIL / BLOCKED
-- 1440 overlay comparison completed: NO
-- Responsive acceptance after final artwork: pending final visual closeout
-- Shared Header / Footer remain out of redesign scope.
+- Final frozen Desktop source of truth: **YES**
+- Approved Hero source: **PASS**
+- Norra portrait: **PASS**
+- 1440 scoped page composition: **PASS**
+- Responsive 390 / 768 / 1440 coverage: **PASS**
+- Shared Header / Footer: intentionally outside this page-redesign scope.
+- No approximate Hero, AI-generated substitute, alternate champion, or letter placeholder is accepted.
+
+A 1440 actual-page evidence run was reviewed for page geometry and section composition. The final approved Hero is now installed as the exact verified asset, and permanent E2E enforces successful image decoding.
 
 ## Scope
 
@@ -133,15 +107,20 @@ Because the approved frozen Desktop identity, Hero source, and Norra portrait ar
 - New API: NO
 - DB migration: NO
 - Scraper / cron / ingestion platform: NO
-- Homepage visible UI redesign: NO
+- Shared Header / Footer redesign: NO
 - Other game module implementation changes: NO
 - Product architecture expansion: NO
-- Merge / deploy: NO
 
-## Final status rule
+## Release rule
 
-Data is ready. Engineering acceptance must be based only on the final new Head CI, not an older green run.
+Engineering acceptance must use the **latest final Head** on the repository's new CI architecture. The PR may be marked Ready and merged only when all of the following are true:
 
-Until the approved frozen Desktop design is identified, the approved Hero source and Norra portrait are supplied, and the 1440 overlay is completed, the only valid release status is:
+- behind main = 0
+- mergeable = true
+- unresolved review threads = 0
+- `CI Required = PASS`
+- no product/data/asset/visual blocker remains
 
-**BLOCKED ON SOURCE ASSET**
+After merge, the resulting main run must also finish with `CI Required = PASS` and `Production Deploy = PASS`.
+
+**Current status: RELEASE CANDIDATE READY — WAITING ONLY FOR FINAL NEW-CI VALIDATION.**

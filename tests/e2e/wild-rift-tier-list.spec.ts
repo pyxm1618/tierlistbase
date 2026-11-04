@@ -10,6 +10,16 @@ test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All R
 }) => {
   await page.goto(route);
 
+  const heroImage = page.locator(
+    '[data-ia-section="hero"] img[src*="/images/wild-rift/hero.webp"]',
+  );
+  await expect(heroImage).toBeVisible();
+  expect(
+    await heroImage.evaluate(
+      (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
+    ),
+  ).toBe(true);
+
   await expect(page).toHaveTitle(
     "Wild Rift Tier List – Best Champions by Role for Ranked",
   );
@@ -288,6 +298,11 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await expect(norraImage).toBeVisible();
   await expect(norraImage).toHaveAttribute("src", /norra\.png/);
   await expect(norraImage).toHaveAttribute("alt", "");
+  expect(
+    await norraImage.evaluate(
+      (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
+    ),
+  ).toBe(true);
   await norra.click();
   await expect(detail).toContainText("7-day trend unavailable.");
   await expect(detail).toContainText("51.7%");
