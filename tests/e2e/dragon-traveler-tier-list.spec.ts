@@ -260,6 +260,17 @@ test("Dragon Traveler captures the final 1440 visual audit surfaces", async ({ p
     ),
   );
 
+  const featuredMemberCells = page
+    .getByTestId("featured-team")
+    .locator('[data-testid="formation-cell"]:has(button)');
+  await expect(featuredMemberCells).toHaveCount(6);
+  const featuredMemberCellTops = await featuredMemberCells.evaluateAll((cells) =>
+    cells.map((cell) => Math.round(cell.getBoundingClientRect().top)),
+  );
+  expect(
+    Math.max(...featuredMemberCellTops) - Math.min(...featuredMemberCellTops),
+  ).toBeLessThanOrEqual(2);
+
   async function logShot(name: string, target: ReturnType<typeof page.locator>) {
     const shot = await target.screenshot({
       type: "jpeg",
