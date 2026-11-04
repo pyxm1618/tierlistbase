@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeferredValue, useMemo, useState } from "react";
+import { startTransition, useDeferredValue, useMemo, useState } from "react";
 
 import {
   identityRows,
@@ -73,6 +73,7 @@ export function IdentityRanking({
   /** canonical Identity name → 同源图片 URL；由服务端预先解析，避免把素材元数据打进客户端 bundle。 */
   artwork: Readonly<Record<string, string>>;
 }) {
+  const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
   const deferredSearch = useDeferredValue(search);
   const [activeFilter, setActiveFilter] = useState<IdentityFilter>("All Identities");
@@ -214,8 +215,10 @@ export function IdentityRanking({
                 aria-pressed={activeFilter === filter}
                 type="button"
                 onClick={() => {
-                  setActiveFilter(filter);
-                  setFilterValue("");
+                  startTransition(() => {
+                    setActiveFilter(filter);
+                    setFilterValue("");
+                  });
                 }}
               >
                 {filter}
@@ -244,8 +247,12 @@ export function IdentityRanking({
           <input
             type="search"
             aria-label="Search Identity"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            value={searchInput}
+            onChange={(event) => {
+              const value = event.target.value;
+              setSearchInput(value);
+              startTransition(() => setSearch(value));
+            }}
             placeholder="Search Identity..."
           />
         </label>
