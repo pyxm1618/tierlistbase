@@ -5,6 +5,13 @@ import { seoConfig } from "./seo.config";
 
 export const routeDefinitions = [
   {
+    route: "/anime-expeditions/tier-list",
+    class: "public_noindex",
+    title: "Anime Expeditions Tier List – Units, Traits & Equipment",
+    description:
+      "Compare Anime Expeditions units, role-fit traits and standard equipment, with provisional build, team composition and evolution decisions and clear evidence limits.",
+  },
+  {
     route: "/wow-forever/vanguard",
     class: "public_indexable",
     searchIntent: "explore the WoW Forever Vanguard community monument",

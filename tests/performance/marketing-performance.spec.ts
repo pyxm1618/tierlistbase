@@ -22,6 +22,7 @@ const routes = [
   "/phantom-blade-zero/tier-list",
   "/dragon-traveler/tier-list",
   "/wild-rift/tier-list",
+  "/anime-expeditions/tier-list",
 ] as const;
 
 for (const route of routes) {
