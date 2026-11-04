@@ -268,7 +268,7 @@ export function AnimeExpeditionsTierList() {
                   {team.members.map((member) => {
                     const unit = units.find((u) => u.id === member.unitId)!;
                     return (
-                      <figure key={member.role}>
+                      <figure key={`${member.unitId}-${member.role}`}>
                         {unit.asset && artworkForOptional(`unit-${unit.asset}`) ? (
                           <Image
                             src={artworkForOptional(`unit-${unit.asset}`)!}
