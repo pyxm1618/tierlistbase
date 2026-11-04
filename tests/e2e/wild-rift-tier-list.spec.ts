@@ -13,41 +13,24 @@ test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All R
   const heroImage = page.locator('[data-ia-section="hero"] img').first();
   await expect(heroImage).toBeVisible();
   const heroSource = await heroImage.getAttribute("src");
-  expect(decodeURIComponent(heroSource ?? "")).toContain(
-    "/images/wild-rift/hero.webp",
-  );
+  expect(decodeURIComponent(heroSource ?? "")).toContain("/images/wild-rift/hero.webp");
   expect(
-    await heroImage.evaluate(
-      (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
-    ),
+    await heroImage.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0),
   ).toBe(true);
 
-  await expect(page).toHaveTitle(
-    "Wild Rift Tier List – Best Champions by Role for Ranked",
-  );
+  await expect(page).toHaveTitle("Wild Rift Tier List – Best Champions by Role for Ranked");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
     "Compare the current Wild Rift tier list across Baron, Jungle, Mid, Dragon and Support using ranked statistics, role-specific evidence, and reviewed meta context.",
   );
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-    "content",
-    /noindex/,
-  );
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Wild Rift Tier List",
-  );
-  await expect(
-    page.locator('header nav[aria-label="Primary navigation"]'),
-  ).toHaveCount(1);
-  await expect(
-    page.locator('footer nav[aria-label="Footer navigation"]'),
-  ).toHaveCount(1);
-  await expect(
-    page.locator('main nav[aria-label="Primary navigation"]'),
-  ).toHaveCount(0);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Wild Rift Tier List");
+  await expect(page.locator('header nav[aria-label="Primary navigation"]')).toHaveCount(1);
+  await expect(page.locator('footer nav[aria-label="Footer navigation"]')).toHaveCount(1);
+  await expect(page.locator('main nav[aria-label="Primary navigation"]')).toHaveCount(0);
   await expect(page.locator("main footer")).toHaveCount(0);
 
   const roleNav = page.getByRole("tablist", {
@@ -58,49 +41,29 @@ test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All R
     "true",
   );
   const overview = page.getByRole("tabpanel", { name: "All Roles Overview" });
-  for (const role of [
-    "Baron Lane",
-    "Jungle",
-    "Mid Lane",
-    "Dragon Lane",
-    "Support",
-  ]) {
-    await expect(
-      overview.getByRole("heading", { name: role, exact: true }),
-    ).toBeVisible();
+  for (const role of ["Baron Lane", "Jungle", "Mid Lane", "Dragon Lane", "Support"]) {
+    await expect(overview.getByRole("heading", { name: role, exact: true })).toBeVisible();
   }
-  await expect(
-    page.locator('[data-ia-section="role-tier-workspace"]'),
-  ).toHaveCount(0);
-  await expect(overview).toContainText(
-    "not a sixth overall champion tier list",
-  );
+  await expect(page.locator('[data-ia-section="role-tier-workspace"]')).toHaveCount(0);
+  await expect(overview).toContainText("not a sixth overall champion tier list");
 
-  expect(routeRegistry.sitemapEntries().map((entry) => entry.route)).toContain(
-    route,
-  );
-  const structuredData = await page
-    .locator('script[type="application/ld+json"]')
-    .allTextContents();
+  expect(routeRegistry.sitemapEntries().map((entry) => entry.route)).toContain(route);
+  const structuredData = await page.locator('script[type="application/ld+json"]').allTextContents();
   expect(structuredData.length).toBeGreaterThan(0);
-  for (const value of structuredData)
-    expect(() => JSON.parse(value)).not.toThrow();
+  for (const value of structuredData) expect(() => JSON.parse(value)).not.toThrow();
 
   await expect(page.locator('[data-ia-section="faq"] details')).toHaveCount(6);
-  await expect(
-    page.locator('[data-ia-section="sources-evidence"]'),
-  ).toContainText("China-server data · Master+ · Ranked");
-  await expect(
-    page.locator('[data-ia-section="sources-evidence"]'),
-  ).toContainText(
+  await expect(page.locator('[data-ia-section="sources-evidence"]')).toContainText(
+    "China-server data · Master+ · Ranked",
+  );
+  await expect(page.locator('[data-ia-section="sources-evidence"]')).toContainText(
     "not affiliated with, approved by, endorsed by, or partnered with Riot Games",
   );
 
   const audit = await new AxeBuilder({ page }).analyze();
   expect(
     audit.violations.filter(
-      (violation) =>
-        violation.impact === "serious" || violation.impact === "critical",
+      (violation) => violation.impact === "serious" || violation.impact === "critical",
     ),
   ).toEqual([]);
 });
@@ -113,29 +76,15 @@ test("all five frozen role tabs render their own Tier Board and preserve Champio
     name: "Wild Rift role rankings",
   });
 
-  for (const role of [
-    "Baron Lane",
-    "Jungle",
-    "Mid Lane",
-    "Dragon Lane",
-    "Support",
-  ]) {
+  for (const role of ["Baron Lane", "Jungle", "Mid Lane", "Dragon Lane", "Support"]) {
     const tab = roleNav.getByRole("tab", { name: new RegExp(`^${role}`) });
     await tab.click();
     await expect(tab).toHaveAttribute("aria-selected", "true");
-    await expect(
-      page.getByRole("heading", { level: 2, name: `${role} Tier List` }),
-    ).toBeVisible();
-    await expect(
-      page.locator('[data-ia-section="role-tier-workspace"]'),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { level: 2, name: `${role} Tier List` })).toBeVisible();
+    await expect(page.locator('[data-ia-section="role-tier-workspace"]')).toBeVisible();
     for (const tier of ["S+", "S", "A", "B", "C"]) {
       await expect(
-        page
-          .locator(
-            `[data-ia-section="role-tier-workspace"] [data-tier="${tier}"]`,
-          )
-          .first(),
+        page.locator(`[data-ia-section="role-tier-workspace"] [data-tier="${tier}"]`).first(),
       ).toBeVisible();
     }
   }
@@ -170,30 +119,20 @@ test("Wild Rift filters, Other Viable Roles, and Quick Picks stay synchronized w
   await page.getByRole("button", { name: "Reset", exact: true }).click();
   await expect(search).toHaveValue("");
   await expect(page.getByRole("combobox", { name: "Tier" })).toHaveValue("All");
-  await expect(
-    page.getByRole("combobox", { name: "Rank Context" }),
-  ).toBeDisabled();
+  await expect(page.getByRole("combobox", { name: "Rank Context" })).toBeDisabled();
 
   await page.locator('[data-champion-id="malphite"]').click();
   const detail = page.getByRole("complementary", { name: "Champion Detail" });
-  await expect(
-    detail.getByRole("heading", { name: "Other Viable Roles" }),
-  ).toBeVisible();
+  await expect(detail.getByRole("heading", { name: "Other Viable Roles" })).toBeVisible();
   await expect(detail.getByRole("button", { name: /Support/ })).toBeVisible();
 
-  await page
-    .getByRole("button", { name: "Mid Lane quick pick: Hwei, S+ tier" })
-    .click();
-  await expect(
-    roleNav.getByRole("tab", { name: /^Mid Lane$/ }),
-  ).toHaveAttribute("aria-selected", "true");
-  await expect(
-    page.getByRole("complementary", { name: "Champion Detail" }),
-  ).toContainText("Hwei");
-  await expect(page.locator('[data-champion-id="hwei"]')).toHaveAttribute(
-    "aria-pressed",
+  await page.getByRole("button", { name: "Mid Lane quick pick: Hwei, S+ tier" }).click();
+  await expect(roleNav.getByRole("tab", { name: /^Mid Lane$/ })).toHaveAttribute(
+    "aria-selected",
     "true",
   );
+  await expect(page.getByRole("complementary", { name: "Champion Detail" })).toContainText("Hwei");
+  await expect(page.locator('[data-champion-id="hwei"]')).toHaveAttribute("aria-pressed", "true");
 });
 
 test("mobile champion detail uses a modal dialog, traps focus, closes on Escape, and restores focus", async ({
@@ -211,50 +150,35 @@ test("mobile champion detail uses a modal dialog, traps focus, closes on Escape,
 
   const dialog = page.getByRole("dialog", { name: "Nocturne" });
   await expect(dialog).toBeVisible();
-  await expect(
-    dialog.getByRole("button", { name: "Close champion details" }),
-  ).toBeFocused();
-  expect(await page.evaluate(() => document.body.style.overflow)).toBe(
-    "hidden",
-  );
+  await expect(dialog.getByRole("button", { name: "Close champion details" })).toBeFocused();
+  expect(await page.evaluate(() => document.body.style.overflow)).toBe("hidden");
 
   await page.keyboard.press("Shift+Tab");
-  expect(
-    await dialog.evaluate((element) =>
-      element.contains(document.activeElement),
-    ),
-  ).toBe(true);
+  expect(await dialog.evaluate((element) => element.contains(document.activeElement))).toBe(true);
 
   const audit = await new AxeBuilder({ page }).analyze();
   expect(
     audit.violations.filter(
-      (violation) =>
-        violation.impact === "serious" || violation.impact === "critical",
+      (violation) => violation.impact === "serious" || violation.impact === "critical",
     ),
   ).toEqual([]);
 
   await page.keyboard.press("Escape");
   await expect(dialog).toHaveCount(0);
   await expect(trigger).toBeFocused();
-  expect(await page.evaluate(() => document.body.style.overflow)).not.toBe(
-    "hidden",
-  );
+  expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
 });
 
 for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
-  test(`Wild Rift remains within the viewport at ${width}px`, async ({
-    page,
-  }) => {
+  test(`Wild Rift remains within the viewport at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(route);
     await page.evaluate(async () => {
       await document.fonts.ready;
     });
-    expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= innerWidth,
-      ),
-    ).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
     await expect(
       page.getByRole("heading", { level: 1, name: "Wild Rift Tier List" }),
     ).toBeVisible();
@@ -287,12 +211,8 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   );
   await expect(detail).toContainText("Source tier: A (Wild Rift Core)");
   await expect(detail).toContainText("TierListBase editorial assessments");
-  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText(
-    "Gnar",
-  );
-  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText(
-    "C → A",
-  );
+  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("Gnar");
+  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("C → A");
   await roleNav.getByRole("tab", { name: /^Mid Lane$/ }).click();
   await page.getByRole("searchbox", { name: "Search Champions" }).fill("Norra");
   const norra = page.locator('[data-champion-id="norra"]');
@@ -308,47 +228,12 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await norra.click();
   await expect(detail).toContainText("7-day trend unavailable.");
   await expect(detail).toContainText("51.7%");
-  await expect(
-    page.locator('[data-ia-section="source-freshness"]'),
-  ).toContainText("Verified statistics snapshot");
+  await expect(page.locator('[data-ia-section="source-freshness"]')).toContainText(
+    "Verified statistics snapshot",
+  );
   await roleNav.getByRole("tab", { name: /^Jungle$/ }).click();
-  await page
-    .getByRole("searchbox", { name: "Search Champions" })
-    .fill("Shyvana");
+  await page.getByRole("searchbox", { name: "Search Champions" }).fill("Shyvana");
   await page.locator('[data-champion-id="shyvana"]').click();
   await expect(detail).toContainText("+6.85 pp");
-  await expect(detail).toContainText(
-    "Arrows show 7-day win-rate change, not tier movement",
-  );
-});
-
-
-test("__FORMAT_CAPTURE_FILEPATH__", async () => {
-  const { readFile } = await import("node:fs/promises");
-  const prettier = await import("prettier");
-  const cssPath =
-    "src/modules/wild-rift-tier-list/wild-rift-tier-list.module.css";
-  const specPath = "tests/e2e/wild-rift-tier-list.spec.ts";
-  const cssConfig = (await prettier.resolveConfig(cssPath)) ?? {};
-  const specConfig = (await prettier.resolveConfig(specPath)) ?? {};
-  const formattedCss = await prettier.format(await readFile(cssPath, "utf8"), {
-    ...cssConfig,
-    filepath: cssPath,
-  });
-  const formattedSpec = await prettier.format(
-    await readFile(specPath, "utf8"),
-    {
-      ...specConfig,
-      filepath: specPath,
-    },
-  );
-  console.log(
-    `WILD_RIFT_FILEPATH_CONFIG=${JSON.stringify({ cssConfig, specConfig })}`,
-  );
-  console.log(
-    `WILD_RIFT_FILEPATH_FORMATTED_CSS_BASE64=${Buffer.from(formattedCss).toString("base64")}`,
-  );
-  console.log(
-    `WILD_RIFT_FILEPATH_FORMATTED_SPEC_BASE64=${Buffer.from(formattedSpec).toString("base64")}`,
-  );
+  await expect(detail).toContainText("Arrows show 7-day win-rate change, not tier movement");
 });
