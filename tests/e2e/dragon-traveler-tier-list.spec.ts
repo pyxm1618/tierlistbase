@@ -18,7 +18,6 @@ const dragonKeywordGroup = [
   "dragon traveler taiwan tier list",
 ] as const;
 
-
 function tokenize(value: string): string[] {
   return value.toLocaleLowerCase("en-US").match(/[\p{L}\p{N}]+/gu) ?? [];
 }
