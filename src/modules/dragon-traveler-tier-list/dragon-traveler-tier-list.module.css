@@ -829,7 +829,7 @@
     grid-template-columns: minmax(0, 1fr) 295px;
   }
   .quickPicks {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
   .quickPicks > div {
     grid-column: 1/-1;
@@ -1549,7 +1549,7 @@
     font-size: 1.8rem;
   }
   .formation {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     min-height: 118px;
     gap: 0.38rem;
     margin: 0.55rem 0 0.65rem;
