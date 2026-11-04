@@ -1,5 +1,4 @@
 name: CI
-# Temporary PR #122 CI retrigger marker; restored by the next commit.
 
 on:
   push:
