@@ -42,6 +42,13 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     navigationVisible: true,
     navigationOrder: 5,
   },
+  {
+    slug: "phantom-blade-zero",
+    name: "Phantom Blade Zero",
+    tierListHref: "/phantom-blade-zero/tier-list",
+    navigationVisible: true,
+    navigationOrder: 6,
+  },
 ] as const;
 
 export const navigationGames = gamesConfig.filter((game) => game.navigationVisible);
