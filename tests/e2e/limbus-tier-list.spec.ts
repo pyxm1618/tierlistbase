@@ -83,12 +83,14 @@ for (const width of [390, 1440]) {
         await expect(mobileNav.locator(`a[href="${gameRoute}"]`)).toHaveCount(1);
       }
 
-      await expect(
-        primaryNav.locator('a[href="/limbus-company/tier-list"]'),
-      ).toHaveAttribute("aria-current", "page");
-      await expect(
-        mobileNav.locator('a[href="/limbus-company/tier-list"]'),
-      ).toHaveAttribute("aria-current", "page");
+      await expect(primaryNav.locator('a[href="/limbus-company/tier-list"]')).toHaveAttribute(
+        "aria-current",
+        "page",
+      );
+      await expect(mobileNav.locator('a[href="/limbus-company/tier-list"]')).toHaveAttribute(
+        "aria-current",
+        "page",
+      );
 
       for (const label of ["Games", "Tier Lists", "Guides", "Tools"]) {
         await expect(header.getByText(label, { exact: true })).toHaveCount(0);
@@ -478,10 +480,7 @@ test("keeps one shared registry-driven header across game pages and client trans
       await expect(mobileNav.locator(`a[href="${gameRoute}"]`)).toHaveCount(1);
     }
 
-    await expect(primaryNav.locator(`a[href="${path}"]`)).toHaveAttribute(
-      "aria-current",
-      "page",
-    );
+    await expect(primaryNav.locator(`a[href="${path}"]`)).toHaveAttribute("aria-current", "page");
   }
 
   await page.goto("/wow-forever/tier-list");
@@ -491,9 +490,9 @@ test("keeps one shared registry-driven header across game pages and client trans
   await primaryNav.locator('a[href="/limbus-company/tier-list"]').click();
   await expect(page).toHaveURL(new RegExp(`${route}$`));
   await expect(page.locator("body > div > header")).toHaveCount(1);
-  await expect(
-    page.locator('header nav[aria-label="Primary navigation"] a'),
-  ).toHaveText(navigationLabels);
+  await expect(page.locator('header nav[aria-label="Primary navigation"] a')).toHaveText(
+    navigationLabels,
+  );
 
   await page
     .locator('header nav[aria-label="Primary navigation"]')
