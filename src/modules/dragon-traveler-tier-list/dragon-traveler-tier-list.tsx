@@ -1,7 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { startTransition, useDeferredValue, useRef, useState, type RefObject, type CSSProperties } from "react";
+import {
+  startTransition,
+  useDeferredValue,
+  useRef,
+  useState,
+  type CSSProperties,
+  type RefObject,
+} from "react";
 import { CurrentPullPriority } from "./current-pull-priority";
 import {
   classes,
