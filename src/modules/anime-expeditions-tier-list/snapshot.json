@@ -2498,6 +2498,7 @@
         "traitIds": [],
         "standardIds": [],
         "exclusiveIds": [
+          "onis-nature",
           "hair-bells"
         ],
         "note": "Role-fit editorial starting point; compare actual rolls. Two standard slots; the evolved exclusive slot is separate."
@@ -5745,6 +5746,26 @@
       ],
       "asset": "",
       "status": "Current source reviewed; revision unavailable in mirror"
+    },
+    {
+      "documentedAcquisition": [
+        "Crafting: Hair Bells ×1 + Inept Oni's Nature ×1"
+      ],
+      "rollablePassive": false,
+      "sourceRevision": 9666,
+      "id": "onis-nature",
+      "name": "Oni's Nature",
+      "kind": "Exclusive",
+      "unit": "8th Sword (Berserk)",
+      "effect": "+10% to +20% Range; +1% to +5% Physical Damage Dealt; +100% Damage; -20% Cost",
+      "passive": "Savage Rush EX makes Follow-Up Attacks apply Dismembered and retaliates after allied stuns; The Nameless Butcher EX strengthens the Berserk-state payoff.",
+      "tier": null,
+      "bestFor": "8th Sword (Berserk)",
+      "sourceIds": [
+        "current-wiki"
+      ],
+      "asset": "",
+      "status": "Source-reviewed Update 4 Exalted unit equipment"
     }
   ],
   "evolutions": [
