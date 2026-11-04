@@ -1,6 +1,6 @@
 export const unitViews = ["Overall", "DPS", "Utility", "Support", "Crowd Control"] as const;
 export type UnitView = (typeof unitViews)[number];
-export type UnitTier = "S+" | "S" | "A" | "B" | "C" | "Pending";
+export type UnitTier = "S+" | "S" | "A" | "B" | "C" | "D" | "Pending";
 export type ItemTier = Exclude<UnitTier, "S+">;
 export type Unit = {
   id: string;
