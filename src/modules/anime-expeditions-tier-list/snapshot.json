@@ -3394,7 +3394,8 @@
         "Crowd Control": "S"
       },
       "why": "Update 5 source review places this boss-control and retaliation carry in S tier; its kit cleanses status effects, retaliates with Stun, and can drag a boss back once per boss.",
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Needs Review",
@@ -3448,7 +3449,8 @@
         "Crowd Control": "Pending"
       },
       "why": "Update 5 source review places Wolf (Revived) in S tier as a cycle-based carry whose fifth attack gains infinite range and spawns Soul Wolves.",
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Needs Review",
@@ -3504,7 +3506,8 @@
         "Crowd Control": "A"
       },
       "why": "Update 5 source review places Black Heart (Revived) in S tier for anti-regeneration, resistance handling, knockback and Oppression damage amplification.",
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Needs Review",
@@ -3560,7 +3563,8 @@
         "Crowd Control": "A"
       },
       "why": "Update 5 source review places Noble Captain (Vibrant) in A tier; its output depends on movement modifiers, Hard CC and Dismember setup.",
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Needs Review",
@@ -3616,7 +3620,8 @@
         "Crowd Control": "S"
       },
       "why": "Update 5 source review places Traitor (Illusion) in S tier for Hypnosis, Soul-team amplification, modifier cancellation and its explicit Reaper pairing.",
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Limited",
@@ -3665,7 +3670,8 @@
         "Crowd Control": "A"
       },
       "why": "Current wiki data verifies the Update 4 unit and its Limit-release kit, but the current Update 5 ranking source does not place it; it therefore remains Pending rather than receiving a fabricated tier.",
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Limited",
@@ -3724,7 +3730,8 @@
       "exclusiveIds": [
         "piety-obliteration"
       ],
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Limited",
@@ -3783,7 +3790,8 @@
       "exclusiveIds": [
         "morphing-sword"
       ],
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Limited",
@@ -3844,7 +3852,8 @@
       "exclusiveIds": [
         "kings-guitar"
       ],
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Limited",
@@ -3905,7 +3914,8 @@
       "exclusiveIds": [
         "life-eater"
       ],
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "availability": "Limited",
@@ -3966,7 +3976,8 @@
       "exclusiveIds": [
         "evening-umbrella"
       ],
-      "asset": ""
+      "asset": "",
+      "reviewStatus": "Source-reviewed (Update 5)"
     },
     {
       "id": "5th-god-hand",
