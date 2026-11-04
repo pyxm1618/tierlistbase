@@ -362,13 +362,14 @@ export function DragonTravelerTierList() {
           <p className={styles.eyebrow}>Dragon Traveler · Game Meta Board</p>
           <h1 id="dragon-title">Dragon Traveler Tier List</h1>
           <p>
-            Compare the Dragon Traveler tier list for Overall value, PvE progression and PvP impact
-            — with team context, investment requirements, and current Global or Taiwan server data.
+            Use the Dragon Traveler tier list to compare Overall value, PvE progression and PvP
+            impact while keeping Global and Taiwan ranked pools, team context, investment
+            requirements and source dates separate.
           </p>
           <div className={styles.snapshot}>
             <span>{server === "global" ? "Global" : "Taiwan"} server</span>
             <span>Snapshot {snapshotDate}</span>
-            <span>{roster.length} live Luminaries</span>
+            <span>{roster.length} ranked Luminaries</span>
             <span>Reviewed source snapshot</span>
           </div>
         </div>
@@ -377,7 +378,9 @@ export function DragonTravelerTierList() {
         <section className={styles.quickPicks} aria-labelledby="quick-picks-title">
           <div>
             <h2 id="quick-picks-title">Quick Picks</h2>
-            <p>A starting point for your account.</p>
+            <p>
+              Quick Picks turn the Dragon Traveler tier list into a starting point for your account.
+            </p>
           </div>
           {Object.entries(quickPicks).map(([label, id]) => (
             <button type="button" key={label} onClick={() => selectCharacter(id)}>
@@ -396,6 +399,11 @@ export function DragonTravelerTierList() {
               <div>
                 <p className={styles.eyebrow}>Build with a purpose</p>
                 <h2>Luminary Tier List</h2>
+                <p>
+                  The Dragon Traveler tier list defaults to Overall. Switch to the Dragon Traveler
+                  PvE tier list for progression or the Dragon Traveler PvP tier list for competitive
+                  priorities; each view uses the same ranked source pool.
+                </p>
               </div>
               <div className={styles.switches} role="group" aria-label="Server context">
                 {servers.map((s) => (
@@ -442,7 +450,7 @@ export function DragonTravelerTierList() {
               </button>
             </div>
             <p className={styles.count} role="status">
-              Showing {filtered.length} of {roster.length} live Luminaries ·{" "}
+              Showing {filtered.length} of {roster.length} ranked Luminaries ·{" "}
               {server === "global" ? "Global" : "Taiwan"} · {view}
             </p>
             <div className={styles.tierRows}>
@@ -510,7 +518,10 @@ export function DragonTravelerTierList() {
           <div className={styles.sectionHeading}>
             <div>
               <h2 id="teams-title">Best Dragon Traveler Teams</h2>
-              <p>Build around synergy, positioning and the characters you own.</p>
+              <p>
+                Use the Dragon Traveler tier list with sourced formations, then build around
+                synergy, positioning and the characters you own.
+              </p>
             </div>
             <div className={styles.switches} role="tablist" aria-label="Team ranking views">
               {teamViews.map((mode) => (
@@ -575,7 +586,8 @@ export function DragonTravelerTierList() {
         <section aria-labelledby="decisions-title">
           <h2 id="decisions-title">Account Decisions</h2>
           <p className={styles.sectionIntro}>
-            Spend for the team you can finish, not a tier label alone.
+            Turn the Dragon Traveler tier list into account decisions: spend for the team you can
+            finish, not a tier label alone.
           </p>
           <div className={styles.decisionGrid}>
             <article className={styles.paper}>
@@ -637,16 +649,20 @@ export function DragonTravelerTierList() {
               <div>
                 <h3>Server-specific</h3>
                 <p>
-                  Overall ordering and live membership follow the Global / Taiwan source lists.
-                  Arachne’s Global release is corroborated by the October 25 banner report. War
-                  Drummer is a formation helper and is excluded from the Luminary count.
+                  Overall ordering and ranked membership follow the cited Global / Taiwan source
+                  tier lists; the ranked count is not presented as the complete live roster. The
+                  Dragon Traveler tier list Taiwan snapshot stays separate from Global, while the
+                  Dragon Traveler Taiwan tier list label refers only to this ranked source snapshot.
+                  Arachne’s Global release is corroborated by the official October 22 announcement.
+                  War Drummer is a formation helper and is excluded from the ranked Luminary count.
                 </p>
               </div>
               <div>
                 <h3>Mode-aware</h3>
                 <p>
-                  PvE and PvP follow published character assessments, shared between servers by the
-                  source. They are not independently tested server-specific performance results.
+                  The Dragon Traveler PvE tier list and Dragon Traveler PvP tier list views follow
+                  published character assessments shared between servers by the source. They are not
+                  independently tested server-specific performance results.
                 </p>
               </div>
               <div>
@@ -676,9 +692,9 @@ export function DragonTravelerTierList() {
               </p>
             </details>
             <p className={styles.note}>
-              Sources were accessed on {snapshotDate}. An access date does not prove that the
-              publisher’s data is current. This independent editorial ranking is reviewed for
-              release and remains tied to the source snapshot above.
+              Sources were accessed on {snapshotDate} unless a newer audit date is shown. An access
+              date does not prove that the publisher’s data is current. This Dragon Traveler tier
+              list remains an independent editorial ranking tied to the cited ranked-source snapshot.
             </p>
           </section>
           <section className={styles.sources}>
@@ -713,7 +729,7 @@ export function DragonTravelerTierList() {
             ],
             [
               "Is the Taiwan tier list the same as Global?",
-              "No. The live pool and Overall ordering differ. The source uses shared character mode assessments; this page makes that limitation explicit.",
+              "No. The ranked pool and Overall ordering differ. The source uses shared character mode assessments; this page makes that limitation explicit.",
             ],
             [
               "Should I reroll in Dragon Traveler?",
@@ -725,7 +741,7 @@ export function DragonTravelerTierList() {
             ],
             [
               "Are upcoming characters ranked?",
-              "No. Upcoming records are separate and can only appear in pull context with Wait for Testing. They never enter the live board, Quick Picks, teams or live count.",
+              "No. Upcoming records are separate and can only appear in pull context with Wait for Testing. They never enter the ranked board, Quick Picks, teams or ranked count.",
             ],
           ].map(([q, a]) => (
             <details key={q}>
