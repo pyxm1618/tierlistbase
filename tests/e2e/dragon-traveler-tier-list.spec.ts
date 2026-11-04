@@ -18,29 +18,6 @@ const dragonKeywordGroup = [
   "dragon traveler taiwan tier list",
 ] as const;
 
-const dragonVisibleCopySelectors = [
-  'section[aria-labelledby="dragon-title"] h1',
-  'section[aria-labelledby="dragon-title"] p',
-  "#quick-picks-title",
-  "#quick-picks-title + p",
-  'section[aria-label="Luminary rankings and details"] h2',
-  'section[aria-label="Luminary rankings and details"] h2 + p',
-  "#teams-title",
-  "#teams-title + p",
-  'section[aria-labelledby="teams-title"] > p',
-  "#decisions-title",
-  "#decisions-title + p",
-  'section:has(> h2:text-is("What Changed")) > h2',
-  'section:has(> h2:text-is("What Changed")) > p',
-  "#methodology-title",
-  'section[aria-labelledby="methodology-title"] h3',
-  'section[aria-labelledby="methodology-title"] h3 + p',
-  'section[aria-labelledby="methodology-title"] > p',
-  'section h2:has-text("Sources")',
-  'section h2:has-text("Sources") ~ p',
-  'section h2:has-text("FAQ")',
-  'section h2:has-text("FAQ") ~ details > summary',
-] as const;
 
 function tokenize(value: string): string[] {
   return value.toLocaleLowerCase("en-US").match(/[\p{L}\p{N}]+/gu) ?? [];
@@ -379,13 +356,10 @@ test("keeps the visible Dragon Traveler keyword group within the approved SEO ra
 }) => {
   await page.goto(route);
 
-  const visibleCopy: string[] = [];
-  for (const selector of dragonVisibleCopySelectors) {
-    const texts = await page.locator(selector).allInnerTexts();
-    visibleCopy.push(...texts.map((text) => text.trim()).filter(Boolean));
-  }
-
-  const words = tokenize(visibleCopy.join(" "));
+  const dragonPage = page.locator("[data-dragon-traveler-page]");
+  await expect(dragonPage).toHaveCount(1);
+  const visibleText = await dragonPage.innerText();
+  const words = tokenize(visibleText);
   const phraseStats = dragonKeywordGroup.map((phrase) => {
     const occurrences = countPhrase(words, phrase);
     return {
@@ -404,7 +378,8 @@ test("keeps the visible Dragon Traveler keyword group within the approved SEO ra
   console.log(
     "DRAGON_TRAVELER_SEO_DENSITY " +
       JSON.stringify({
-        visibleMainContentWords: words.length,
+        measurementScope: "full visible Dragon Traveler page root innerText",
+        visibleWords: words.length,
         primaryKeyword: primary.phrase,
         primaryCount: primary.occurrences,
         primaryDensity: primary.densityPct,
@@ -424,5 +399,5 @@ test("keeps the visible Dragon Traveler keyword group within the approved SEO ra
     expect(phrase.occurrences).toBeGreaterThan(0);
     expect(primary.occurrences).toBeGreaterThan(phrase.occurrences);
   }
-  expect(primary.occurrences / combinedOccurrences).toBeGreaterThanOrEqual(0.5);
+  expect(primary.occurrences / combinedOccurrences).toBeGreaterThanOrEqual(0.6);
 });
