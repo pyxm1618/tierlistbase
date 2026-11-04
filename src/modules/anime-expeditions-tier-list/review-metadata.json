@@ -1,1549 +1,1261 @@
 {
-  "checked": "2026-10-29",
-  "boundary": "Documented fact checks do not establish current gameplay, availability or comparative ranking.",
+  "checked": "2026-11-04",
+  "boundary": "Current publication claims are source-reviewed. TierListBase does not claim direct personal live testing of every unit, trait, equipment interaction or evolution.",
   "ledger": {
-    "total": 122,
-    "documentedFacts": {
-      "pass": 122,
+    "total": 136,
+    "sourceReview": {
+      "pass": 136,
       "deferred": 0,
       "reject": 0,
       "unknown": 0
     },
-    "currentGameplayReview": {
-      "pass": 0,
-      "deferred": 0,
-      "reject": 0,
-      "unknown": 122
+    "directLiveTest": {
+      "claimed": 0,
+      "notClaimed": 136
     }
   },
   "records": [
     {
       "kind": "trait",
       "name": "Unbound",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Primordial",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Forsaken",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Draconic",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits",
+        "draconic-patch"
+      ]
     },
     {
       "kind": "trait",
       "name": "Investor",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Optics",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Bolt",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Precision 2",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Precision 1",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Limit Breaker",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Range 2",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Speed 2",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Strength 2",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Enlightenment",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Range 1",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Speed 1",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Strength 1",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Traits",
-        "revision": 9249,
-        "timestamp": "2026-09-26T09:43:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Traits&oldid=9249"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Reaper's Glove",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Reaper's Glove",
-        "revision": 9619,
-        "timestamp": "2026-10-27T20:00:42Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Reaper's_Glove&oldid=9619"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Burning Critter",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Burning Critter",
-        "revision": 9235,
-        "timestamp": "2026-09-26T02:11:12Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Burning_Critter&oldid=9235"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Sacrificial Mark",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Sacrificial Mark",
-        "revision": 8928,
-        "timestamp": "2026-09-08T01:05:38Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Sacrificial_Mark&oldid=8928"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Economist's Coin",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Economist's Coin",
-        "revision": 9096,
-        "timestamp": "2026-09-16T02:57:33Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Economist's_Coin&oldid=9096"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Warrior Pole",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Warrior Pole",
-        "revision": 8050,
-        "timestamp": "2026-08-13T21:11:31Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Warrior_Pole&oldid=8050"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Kunai",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Kunai",
-        "revision": 7057,
-        "timestamp": "2026-07-18T19:56:39Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Kunai&oldid=7057"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Enhanced Katana",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Enhanced Katana",
-        "revision": 6867,
-        "timestamp": "2026-07-17T22:47:21Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Enhanced_Katana&oldid=6867"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Magic Book",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Magic Book",
-        "revision": 6857,
-        "timestamp": "2026-07-17T22:46:22Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Magic_Book&oldid=6857"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Pirate's Slingshot",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Pirate's Slingshot",
-        "revision": 6858,
-        "timestamp": "2026-07-17T22:46:26Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Pirate's_Slingshot&oldid=6858"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Raid Cape",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Raid Cape",
-        "revision": 6855,
-        "timestamp": "2026-07-17T22:46:12Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Raid_Cape&oldid=6855"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Warrior's Axe",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Warrior's Axe",
-        "revision": 6851,
-        "timestamp": "2026-07-17T22:45:52Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Warrior's_Axe&oldid=6851"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Shinigami Sword",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Shinigami Sword",
-        "revision": 6862,
-        "timestamp": "2026-07-17T22:46:46Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Shinigami_Sword&oldid=6862"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Bamboo Bottle",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Bamboo Bottle",
-        "revision": 6854,
-        "timestamp": "2026-07-17T22:46:07Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Bamboo_Bottle&oldid=6854"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Elf Suitcase",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Elf Suitcase",
-        "revision": 6860,
-        "timestamp": "2026-07-17T22:46:36Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Elf_Suitcase&oldid=6860"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Magic Orb",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Magic Orb",
-        "revision": 6853,
-        "timestamp": "2026-07-17T22:46:02Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Magic_Orb&oldid=6853"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Soul Splitter",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Soul Splitter",
-        "revision": 6850,
-        "timestamp": "2026-07-17T22:45:46Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Soul_Splitter&oldid=6850"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Red Finger",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Red Finger",
-        "revision": 9580,
-        "timestamp": "2026-10-18T17:21:33Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Red_Finger&oldid=9580"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Three Swords From Hell",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Three Swords From Hell",
-        "revision": 6863,
-        "timestamp": "2026-07-17T22:46:52Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Three_Swords_From_Hell&oldid=6863"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Katana",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Katana",
-        "revision": 6852,
-        "timestamp": "2026-07-17T22:45:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Katana&oldid=6852"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Staff of Chaos",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Staff of Chaos",
-        "revision": 6861,
-        "timestamp": "2026-07-17T22:46:41Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Staff_of_Chaos&oldid=6861"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Dragon Hilt",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Dragon Hilt",
-        "revision": 6866,
-        "timestamp": "2026-07-17T22:47:05Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Dragon_Hilt&oldid=6866"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Accursed Equipment",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Accursed Equipment",
-        "revision": 6864,
-        "timestamp": "2026-07-17T22:46:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Accursed_Equipment&oldid=6864"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Awakened Moonblade",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Awakened Moonblade",
-        "revision": 9614,
-        "timestamp": "2026-10-27T19:57:59Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Awakened_Moonblade&oldid=9614"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Blossom Blade",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Blossom Blade",
-        "revision": 9615,
-        "timestamp": "2026-10-27T19:58:53Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Blossom_Blade&oldid=9615"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Demonic Pistols",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Demonic Pistols",
-        "revision": 9616,
-        "timestamp": "2026-10-27T19:59:20Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Demonic_Pistols&oldid=9616"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Hypnotic Edge",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Hypnotic Edge",
-        "revision": 9617,
-        "timestamp": "2026-10-27T19:59:39Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Hypnotic_Edge&oldid=9617"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Lanza de Luz",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Lanza de Luz",
-        "revision": 9618,
-        "timestamp": "2026-10-27T20:00:12Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Lanza_de_Luz&oldid=9618"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Blade Arm",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Blade Arm",
-        "revision": 9518,
-        "timestamp": "2026-10-07T01:18:57Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Blade_Arm&oldid=9518"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Monster Claws",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Monster Claws",
-        "revision": 9519,
-        "timestamp": "2026-10-07T01:19:47Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Monster_Claws&oldid=9519"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Angel Blade",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Angel Blade",
-        "revision": 9230,
-        "timestamp": "2026-09-26T02:05:47Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Angel_Blade&oldid=9230"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Beacon Of Pride",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Beacon Of Pride",
-        "revision": 9231,
-        "timestamp": "2026-09-26T02:07:23Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Beacon_Of_Pride&oldid=9231"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Fire Helmet",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Fire Helmet",
-        "revision": 9232,
-        "timestamp": "2026-09-26T02:08:31Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Fire_Helmet&oldid=9232"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Ignis Restraint",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Ignis Restraint",
-        "revision": 9233,
-        "timestamp": "2026-09-26T02:09:20Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Ignis_Restraint&oldid=9233"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Joker Card",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Joker Card",
-        "revision": 9234,
-        "timestamp": "2026-09-26T02:10:14Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Joker_Card&oldid=9234"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Blade of Reality",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Blade of Reality",
-        "revision": 9078,
-        "timestamp": "2026-09-16T02:25:41Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Blade_of_Reality&oldid=9078"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Chosen Sabre",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Chosen Sabre",
-        "revision": 9077,
-        "timestamp": "2026-09-16T02:25:18Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Chosen_Sabre&oldid=9077"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Demonslayer",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Demonslayer",
-        "revision": 9076,
-        "timestamp": "2026-09-16T02:24:42Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Demonslayer&oldid=9076"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Orb of Causality",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Orb of Causality",
-        "revision": 9079,
-        "timestamp": "2026-09-16T02:26:01Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Orb_of_Causality&oldid=9079"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Storm Trident",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Storm Trident",
-        "revision": 9010,
-        "timestamp": "2026-09-10T23:04:13Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Storm_Trident&oldid=9010"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Lightning Dagger",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Lightning Dagger",
-        "revision": 9011,
-        "timestamp": "2026-09-10T23:04:55Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Lightning_Dagger&oldid=9011"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Tideblade",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Tideblade",
-        "revision": 8639,
-        "timestamp": "2026-09-02T04:46:18Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Tideblade&oldid=8639"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Fiery Staff",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Fiery Staff",
-        "revision": 8633,
-        "timestamp": "2026-09-02T04:43:10Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Fiery_Staff&oldid=8633"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Poison Hook",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Poison Hook",
-        "revision": 8635,
-        "timestamp": "2026-09-02T04:45:19Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Poison_Hook&oldid=8635"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Poison Frog",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Poison Frog",
-        "revision": 8636,
-        "timestamp": "2026-09-02T04:45:34Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Poison_Frog&oldid=8636"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Spirit King's Blade",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Spirit King's Blade",
-        "revision": 8637,
-        "timestamp": "2026-09-02T04:45:51Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Spirit_King's_Blade&oldid=8637"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Carrot's Gi",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Carrot's Gi",
-        "revision": 8039,
-        "timestamp": "2026-08-13T20:57:25Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Carrot's_Gi&oldid=8039"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Mechanical Wings",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Mechanical Wings",
-        "revision": 8043,
-        "timestamp": "2026-08-13T20:59:09Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Mechanical_Wings&oldid=8043"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Mentor's Cape",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Mentor's Cape",
-        "revision": 8173,
-        "timestamp": "2026-08-14T19:09:51Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Mentor's_Cape&oldid=8173"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Pointy Straw",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Pointy Straw",
-        "revision": 8174,
-        "timestamp": "2026-08-14T19:10:38Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Pointy_Straw&oldid=8174"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Royal Gi",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Royal Gi",
-        "revision": 8042,
-        "timestamp": "2026-08-13T20:58:10Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Royal_Gi&oldid=8042"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Illusion Crow",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Illusion Crow",
-        "revision": 7906,
-        "timestamp": "2026-08-08T17:55:02Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Illusion_Crow&oldid=7906"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Dark Scepter",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Dark Scepter",
-        "revision": 8622,
-        "timestamp": "2026-09-02T02:45:25Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Dark_Scepter&oldid=8622"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Memory Pendant",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Memory Pendant",
-        "revision": 7907,
-        "timestamp": "2026-08-08T17:55:11Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Memory_Pendant&oldid=7907"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Predator's Skull",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Predator's Skull",
-        "revision": 7908,
-        "timestamp": "2026-08-08T17:55:19Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Predator's_Skull&oldid=7908"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Hair Bells",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Hair Bells",
-        "revision": 7910,
-        "timestamp": "2026-08-08T17:56:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Hair_Bells&oldid=7910"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Emperor's Attire",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Emperor's Attire",
-        "revision": 7915,
-        "timestamp": "2026-08-08T17:57:44Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Emperor's_Attire&oldid=7915"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Hell's Flower",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Hell's Flower",
-        "revision": 7916,
-        "timestamp": "2026-08-08T17:57:54Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Hell's_Flower&oldid=7916"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Webbed Fruit",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Webbed Fruit",
-        "revision": 7913,
-        "timestamp": "2026-08-08T17:57:25Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Webbed_Fruit&oldid=7913"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Promise Ring",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Promise Ring",
-        "revision": 7918,
-        "timestamp": "2026-08-08T17:58:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Promise_Ring&oldid=7918"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Spirit of the Moonblade",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Spirit of the Moonblade",
-        "revision": 7911,
-        "timestamp": "2026-08-08T17:56:48Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Spirit_of_the_Moonblade&oldid=7911"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Boulder",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Boulder",
-        "revision": 7914,
-        "timestamp": "2026-08-08T17:57:27Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Boulder&oldid=7914"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Elven Battle Staff",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Elven Battle Staff",
-        "revision": 7912,
-        "timestamp": "2026-08-08T17:56:58Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Elven_Battle_Staff&oldid=7912"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Technique Amplifier",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Technique Amplifier",
-        "revision": 7917,
-        "timestamp": "2026-08-08T17:58:15Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Technique_Amplifier&oldid=7917"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Calamity's Eye",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Calamity's Eye",
-        "revision": 7902,
-        "timestamp": "2026-08-08T17:52:23Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Calamity's_Eye&oldid=7902"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Hexed Blade",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Hexed Blade",
-        "revision": 7909,
-        "timestamp": "2026-08-08T17:56:14Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Hexed_Blade&oldid=7909"
-      }
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "equipment-data"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "Piety & Obliteration",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "Morphing Sword",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "King's Guitar",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "Life Eater",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "equipment",
+      "name": "Evening Umbrella",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Alchemy Brothers (Truth)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Metallic Alchemist → Alchemy Brothers (Truth)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Subject 8 (Monster)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Subject 8 → Subject 8 (Monster)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Fallen Angel (Holy)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Fallen Angel → Fallen Angel (Holy)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Devil (Hero)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Devil → Devil (Hero)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Ignition Commander (Betrayal)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Ignition Commander → Ignition Commander (Betrayal)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Crimson Captain (Moon)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Crimson Captain → Crimson Captain (Moon)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Wild Card (Ace)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Wild Card → Wild Card (Ace)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "5th God Hand",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Broken Falcon → 5th God Hand",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Silver Falcon",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Broken Falcon → Silver Falcon",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Iron Wolf (Struggler)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Iron Wolf → Iron Wolf (Struggler)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Eclipse Hunter (Savior)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Eclipse Hunter → Eclipse Hunter (Savior)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Lightning God (Overcharged)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Lightning God → Lightning God (Overcharged)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Sovereign (Djinn)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Sovereign → Sovereign (Djinn)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Rainman (Forecast)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Rainman → Rainman (Forecast)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Sharkfang (Abyssal)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Sharkfang → Sharkfang (Abyssal)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Head Captain (Char)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Head Captain → Head Captain (Char)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Sand (Alligator)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Sand → Sand (Alligator)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Water Mage (Scholar)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Water Mage → Water Mage (Scholar)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Prodigy (Rage)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Prodigy → Prodigy (Rage)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "The Drink (Juicebox)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "The Drink → The Drink (Juicebox)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Bioinsect (Final Form)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Bioinsect → Bioinsect (Final Form)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Carrot (Unleashed)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Carrot → Carrot (Unleashed)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Vegetable (Prince)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Vegetable → Vegetable (Prince)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Razorjaw (Hunter)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Razorjaw → Razorjaw (Hunter)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Dark Mage (Sovereign)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Dark Mage → Dark Mage (Sovereign)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Cursed Immortal (Black Sun)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Cursed Immortal → Cursed Immortal (Black Sun)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Crow (Black Fire)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Crow → Crow (Black Fire)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "True Saint (Holy)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "True Saint → True Saint (Holy)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "String Demon (Awakened)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "String Demon → String Demon (Awakened)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Crimson (Brother)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Crimson → Crimson (Brother)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Cursed Student (True Love)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Cursed Student → Cursed Student (True Love)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Flame Emperor (Reincarnate)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Flame Emperor → Flame Emperor (Reincarnate)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "8th Sword (Berserk)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "8th Sword → 8th Sword (Berserk)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Hollow (Blaze)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Hollow → Hollow (Blaze)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Shadow (Divine)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Shadow → Shadow (Divine)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Salmon Sorcerer (Grade 1)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Salmon Sorcerer → Salmon Sorcerer (Grade 1)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Reaper (Released)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Reaper → Reaper (Released)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Lady Giant (Envy)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Lady Giant → Lady Giant (Envy)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Elf Mage (Unleashed)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Elf Mage → Elf Mage (Unleashed)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
-      "name": "Puppet (Telekinetic)",
-      "documentedFacts": "pass",
-      "currentGameplayReview": "unknown",
-      "source": {
-        "title": "Module:UnitData/data",
-        "revision": 9555,
-        "timestamp": "2026-10-07T03:30:24Z",
-        "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Module:UnitData/data&oldid=9555"
-      }
+      "name": "Puppet → Puppet (Telekinetic)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "unit-data"
+      ]
+    },
+    {
+      "kind": "evolution",
+      "name": "Wolf → Wolf (Revived)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "evolution",
+      "name": "Black Heart → Black Heart (Revived)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "evolution",
+      "name": "Noble Captain → Noble Captain (Vibrant)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "evolution",
+      "name": "Traitor → Traitor (Illusion)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "evolution",
+      "name": "Impaler → Impaler (Ultimate)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "evolution",
+      "name": "Atom → Atom (Totality)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "evolution",
+      "name": "Dead Melody → Dead Melody (Solo)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "evolution",
+      "name": "First Blade → First Blade (Strongest)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
+    },
+    {
+      "kind": "evolution",
+      "name": "Princess → Princess (Misery)",
+      "sourceReview": "pass",
+      "directLiveTest": "not_claimed",
+      "sourceIds": [
+        "current-wiki"
+      ]
     }
   ],
-  "additionalSourceForms": [
-    {
-      "name": "Reaper (Frenzied)",
-      "canonicalRelationship": "Needs Review",
-      "source": "https://animeexpeditions.miraheze.org/w/index.php?oldid=9614"
-    },
-    {
-      "name": "Noble Captain (Vibrant)",
-      "canonicalRelationship": "Needs Review",
-      "source": "https://animeexpeditions.miraheze.org/w/index.php?oldid=9615"
-    },
-    {
-      "name": "Wolf (Revived)",
-      "canonicalRelationship": "Needs Review",
-      "source": "https://animeexpeditions.miraheze.org/w/index.php?oldid=9616"
-    },
-    {
-      "name": "Traitor (Illusion)",
-      "canonicalRelationship": "Needs Review",
-      "source": "https://animeexpeditions.miraheze.org/w/index.php?oldid=9617"
-    },
-    {
-      "name": "Black Heart (Revived)",
-      "canonicalRelationship": "Needs Review",
-      "source": "https://animeexpeditions.miraheze.org/w/index.php?oldid=9618"
-    },
-    {
-      "name": "Emerald Fist",
-      "canonicalRelationship": "Needs Review",
-      "source": "https://www.youtube.com/watch?v=eSm0m9sb4gw&t=6s"
-    }
-  ],
-  "draconic": {
-    "status": "pass",
-    "scope": "documented currentpatch claim;not personally live tested",
-    "preferred": "+20%DMG,+120%DoT,-15%overallcost",
-    "reason": "Traits revision 9249, dated September 26, follows the older Trait Tome revision 6593. The independent September 25 Update 3 article explicitly reports the DoT change from 50% to 120% and cost reduction change from 10% to 15%.",
-    "rejectAsCurrent": "Mirror50DoT/10cost description lacks update3buff.",
-    "additionalConflict": "The AllThingsHow Ignition Commander guide says 5% cost and 150% Unbound damage. These conflicting numbers are rejected as evidence for the current values."
+  "additionalSourceForms": [],
+  "currentPatch": {
+    "label": "Update 5 · Hallows Eve",
+    "rankingBaseline": "Pro Game Guides, updated 2026-11-02",
+    "roleCrossCheck": "MrGuider, updated 2026-11-01",
+    "canonicalKitSource": "Current Anime Expeditions unit database mirror, checked 2026-11-04",
+    "teamSize": 6
   },
-  "currentPatchGameplayObservations": [
-    {
-      "source": "https://www.youtube.com/watch?v=eSm0m9sb4gw&t=6s",
-      "timestamp": "00:06",
-      "evidenceType": "Community gameplay showing in-game Update Log",
-      "observed": [
-        "Hollow Ascension / Update 4 Patch Notes",
-        "6 New Units",
-        "7 New Equipment",
-        "Rifts",
-        "Spirit City Raid",
-        "Black Heart Evolution",
-        "Emerald Fist"
-      ],
-      "boundary": "Does not establish complete live roster or equipment inventory. Six source-observed new forms have unresolved canonical mappings."
-    },
-    {
-      "source": "https://www.youtube.com/watch?v=1t9G_jAOzGo&t=450s",
-      "timestamp": "07:30",
-      "evidenceType": "Community Sandbox gameplay",
-      "observed": ["UPD 4", "Hollow Desert — Sandbox", "Six occupied combat loadout slots"],
-      "boundary": "Six usable Sandbox loadout slots observed; normal-mode maximum, unlock rules and mode overrides remain Needs Review. Sandbox is not evidence of a normal-mode team clear."
-    }
-  ]
+  "release": {
+    "data": "source-reviewed",
+    "ranking": "current Update 5 baseline established",
+    "teams": "five six-unit current-source compositions",
+    "searchIndexing": "withheld",
+    "navigation": "withheld",
+    "media": "new Update 4/5 unit art withheld until provenance-approved local derivatives are available",
+    "visualAcceptance": "pending frozen-design visual review"
+  }
 }
