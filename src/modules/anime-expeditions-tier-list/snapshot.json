@@ -332,11 +332,6 @@
           "sourceRevision": 9555
         },
         {
-          "name": "5th God Hand",
-          "evolved": true,
-          "sourceRevision": 9555
-        },
-        {
           "name": "Silver Falcon",
           "evolved": true,
           "sourceRevision": 9555
@@ -3972,6 +3967,62 @@
         "evening-umbrella"
       ],
       "asset": ""
+    },
+    {
+      "id": "5th-god-hand",
+      "baseName": "5th God Hand",
+      "currentForm": "5th God Hand",
+      "forms": [
+        {
+          "name": "5th God Hand",
+          "evolved": true,
+          "sourceRevision": 9555
+        }
+      ],
+      "role": "DPS",
+      "element": "Dark",
+      "archetype": "Psychic",
+      "rarity": "Secret",
+      "availability": "Needs Review",
+      "availabilityNote": "Current obtainment is not asserted; Update 5 ranking and kit are source-reviewed.",
+      "evolutionState": "Evolved",
+      "placementLimit": 1,
+      "viewTiers": {
+        "Overall": "S",
+        "DPS": "S",
+        "Utility": "S",
+        "Support": "Pending",
+        "Crowd Control": "S"
+      },
+      "why": "The current Update 5 ranking source places 5th God Hand in S tier for Full AoE damage, Distortion control and Fated Meter scaling.",
+      "reviewStatus": "Source-reviewed (Update 5)",
+      "bestFor": [
+        "Full AoE",
+        "Distortion control",
+        "Long-wave scaling"
+      ],
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "High",
+      "dependency": "One placement and Fated Meter ramp make it strongest when the stage lasts long enough to reach repeated Eclipse payoffs.",
+      "build": {
+        "traitIds": [
+          "unbound"
+        ],
+        "standardIds": [],
+        "exclusiveIds": [],
+        "note": "Unbound is source-supported as a current fit; no unsourced equipment claim is added."
+      },
+      "partners": [
+        "broken-falcon",
+        "lightning-god"
+      ],
+      "hidden": false,
+      "asset": "5th-god-hand",
+      "sourceIds": [
+        "unit-data",
+        "current-wiki",
+        "pgg-update5"
+      ]
     }
   ],
   "traits": [
