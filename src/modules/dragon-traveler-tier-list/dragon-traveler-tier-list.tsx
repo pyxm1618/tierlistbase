@@ -409,8 +409,9 @@ export function DragonTravelerTierList() {
                 <p>
                   The Dragon Traveler tier list defaults to Overall so you can compare general
                   account value first. The Dragon Traveler tier list should then be read by mode:
-                  use the Dragon Traveler PvE tier list for progression and the Dragon Traveler PvP tier
-                  list for competitive priorities. The Dragon Traveler PvE tier list and Dragon
+                  use the Dragon Traveler PvE tier list for progression and the Dragon Traveler
+                  PvP tier list for competitive priorities. The Dragon Traveler PvE tier list and
+                  Dragon
                   Traveler PvP tier list keep the same ranked source pool, while the Dragon Traveler
                   tier list changes only the ranking context shown.
                 </p>
@@ -693,8 +694,9 @@ export function DragonTravelerTierList() {
                   Formation members and substitutes follow the linked community guide. Frontline,
                   midline and backline placement preserves the source’s three-by-three formation
                   coordinates. Use the Dragon Traveler tier list as the character-ranking layer,
-                  then use these formations as team context rather than replacing one with the other.
-                  The Dragon Traveler tier list ranks characters; the formation guide explains how
+                  then use these formations as team context rather than replacing one with the
+                  other. The Dragon Traveler tier list ranks characters; the formation guide explains
+                  how
                   those characters fit together. Local team order reflects a suggested starting
                   sequence.
                 </p>
