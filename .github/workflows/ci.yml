@@ -111,6 +111,25 @@ jobs:
           bunx auth@1.7.7 generate --config src/platform/auth/auth-cli.ts --output /tmp/auth-schema.ts --yes
           bunx prettier --config .prettierrc.json --write /tmp/auth-schema.ts
           diff -u src/platform/database/auth-schema.ts /tmp/auth-schema.ts
+      - name: Format Anime closeout files
+        run: |
+          bunx prettier --config .prettierrc.json --write \
+            src/modules/anime-expeditions-tier-list/anime-expeditions-tier-list.module.css \
+            src/modules/anime-expeditions-tier-list/anime-expeditions-tier-list.tsx \
+            src/modules/anime-expeditions-tier-list/data.ts \
+            src/modules/anime-expeditions-tier-list/review-metadata.json \
+            src/modules/anime-expeditions-tier-list/snapshot.json
+      - name: Upload formatted Anime files
+        uses: actions/upload-artifact@v4
+        with:
+          name: anime-prettier-output
+          path: |
+            src/modules/anime-expeditions-tier-list/anime-expeditions-tier-list.module.css
+            src/modules/anime-expeditions-tier-list/anime-expeditions-tier-list.tsx
+            src/modules/anime-expeditions-tier-list/data.ts
+            src/modules/anime-expeditions-tier-list/review-metadata.json
+            src/modules/anime-expeditions-tier-list/snapshot.json
+          retention-days: 1
       - name: Formatting
         run: bun run format:check
       - name: Lint
