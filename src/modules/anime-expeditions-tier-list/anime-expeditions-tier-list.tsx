@@ -11,7 +11,7 @@ import {
   modeContexts,
 } from "./data";
 import { UnitWorkspace } from "./unit-workspace";
-import { artworkFor } from "./artwork";
+import { artworkFor, artworkForOptional } from "./artwork";
 import styles from "./anime-expeditions-tier-list.module.css";
 
 const faq = [
@@ -37,7 +37,7 @@ const faq = [
   ],
   [
     "How often is this Tier List updated?",
-    "After patch facts and ranking evidence are checked. The snapshot date records this research pass, not a promise of live testing. This preview remains noindex until version, roster, rankings and assets finish release review.",
+    "After current patch facts and ranking evidence are checked. The snapshot date records the source-review pass, not a claim of direct live testing. The Update 5 data baseline is current; this page remains noindex until new-unit media provenance and the frozen visual review are closed.",
   ],
 ] as const;
 
@@ -58,7 +58,7 @@ export function AnimeExpeditionsTierList() {
         />
         <div className={styles.rift} aria-hidden="true" />
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>ANIME EXPEDITIONS · RANKING RESEARCH PREVIEW</p>
+          <p className={styles.eyebrow}>ANIME EXPEDITIONS · UPDATE 5 SOURCE-REVIEWED PREVIEW</p>
           <h1 id="ae-title">Anime Expeditions Tier List</h1>
           <p>Choose units, roll role-fit Traits, and plan equipment, teams and evolutions.</p>
           <dl className={styles.heroFacts}>
@@ -80,14 +80,15 @@ export function AnimeExpeditionsTierList() {
             <div>
               <dt>Review</dt>
               <dd>
-                {units.filter((u) => u.reviewStatus === "Provisional").length} provisional
-                assessments · live review pending
+                {units.filter((u) => u.reviewStatus.startsWith("Source-reviewed")).length} source-reviewed
+                units · comparative gaps stay Pending
               </dd>
             </div>
           </dl>
           <p className={styles.notice}>
-            <strong>Needs Review.</strong> Current roster, rankings and builds await review. This
-            research preview remains excluded from search indexing.{" "}
+            <strong>Update 5 baseline reviewed.</strong> Current S–D rankings, canonical Update 4/5
+            additions and six-unit team cores are source-reviewed. Search indexing remains withheld
+            until new-unit media provenance and the frozen visual review close.{" "}
             <a href="#sources">Evidence limits ↓</a>
           </p>
         </div>
@@ -104,11 +105,12 @@ export function AnimeExpeditionsTierList() {
         <section id="traits" className={styles.section} aria-labelledby="traits-title">
           <div className={styles.sectionHeading}>
             <h2 id="traits-title">Anime Expeditions Trait Tier List</h2>
-            <p>One ranking · role fit before rarity · provisional editorial grades</p>
+            <p>One ranking · role fit before rarity · source-reviewed mechanics, editorial grades</p>
           </div>
           <p className={styles.context}>
-            Effects, roll odds and pity are community documented. The older Draconic discrepancy
-            follows a documented Update 3 buff; current server interactions remain under review.
+            Effects, roll odds and pity are source documented. The older Draconic discrepancy
+            follows a documented Update 3 buff. TierListBase does not claim direct live testing of
+            every trait interaction.
           </p>
           <div data-trait-board>
             {["S", "A", "B", "C", "Pending"].map((tier) => {
@@ -194,8 +196,8 @@ export function AnimeExpeditionsTierList() {
                             <p>
                               {item.rollablePassive ? "Passive values are rolled. " : ""}Documented
                               acquisition:{" "}
-                              {item.documentedAcquisition.join(" / ") || "Not documented"}. Current
-                              availability Needs Review.
+                              {item.documentedAcquisition.join(" / ") || "Not documented"}. Exact
+                              current obtainment is not inferred when the source leaves it blank.
                             </p>
                             <p>
                               {item.status}. TierListBase weighs role compatibility and passive
@@ -253,9 +255,9 @@ export function AnimeExpeditionsTierList() {
             <p>Composition decisions, never a Team Tier List</p>
           </div>
           <p className={styles.context}>
-            Candidate role cores, not verified complete loadouts. Current team capacity is
-            unconfirmed; Carry / Support / Crowd Control / Economy / Flex are planning slots, not a
-            claim about the number of equip slots.
+            Five six-unit cores are grounded in the current Update 5 source. Roles describe the
+            job each slot performs; exact traits, equipment rolls and replacements remain
+            account- and stage-dependent.
           </p>
           <div className={styles.teams}>
             {teams.map((team) => (
@@ -267,14 +269,24 @@ export function AnimeExpeditionsTierList() {
                     const unit = units.find((u) => u.id === member.unitId)!;
                     return (
                       <figure key={member.role}>
-                        <Image
-                          src={artworkFor(`unit-${unit.asset}`)}
-                          alt={unit.currentForm}
-                          width={64}
-                          height={61}
-                          sizes="64px"
-                          loading="lazy"
-                        />
+                        {unit.asset && artworkForOptional(`unit-${unit.asset}`) ? (
+                          <Image
+                            src={artworkForOptional(`unit-${unit.asset}`)!}
+                            alt={unit.currentForm}
+                            width={64}
+                            height={61}
+                            sizes="64px"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div
+                            className={styles.portraitPlaceholder}
+                            role="img"
+                            aria-label={`${unit.currentForm} artwork pending provenance review`}
+                          >
+                            <span>{unit.currentForm.slice(0, 1)}</span>
+                          </div>
+                        )}
                         <figcaption>
                           <strong>{member.role}</strong>
                           <span>{unit.currentForm}</span>
@@ -315,10 +327,10 @@ export function AnimeExpeditionsTierList() {
             <p>Spend for a mechanic unlock, not a copy of the Overall ranking</p>
           </div>
           <p className={styles.context}>
-            {evolutions.filter((evo) => evo.priority !== null).length} conditional editorial
-            investment assessments; current-patch value remains Needs Review.{" "}
-            {evolutions.filter((evo) => evo.priority === null).length} source recipes await
-            assessment and are withheld from these priority groups.
+            {evolutions.filter((evo) => evo.priority !== null).length} source-backed evolution
+            recipes with editorial investment priorities.{" "}
+            {evolutions.filter((evo) => evo.priority === null).length} documented recipes remain
+            unranked rather than receiving an inferred priority.
           </p>
           <div className={styles.evolutionGrid}>
             {["High Priority", "Worth Evolving", "Situational"].map((priority) => (
@@ -331,18 +343,32 @@ export function AnimeExpeditionsTierList() {
                     return (
                       <details key={`${evo.from}-${evo.to}`} className={styles.evolution}>
                         <summary>
-                          <Image
-                            src={artworkFor(
+                          {(() => {
+                            const asset =
                               evo.to === "5th God Hand"
-                                ? "unit-5th-god-hand"
-                                : `unit-${unit.asset}`,
-                            )}
-                            alt=""
-                            width={48}
-                            height={46}
-                            sizes="48px"
-                            loading="lazy"
-                          />
+                                ? artworkForOptional("unit-5th-god-hand")
+                                : unit.asset
+                                  ? artworkForOptional(`unit-${unit.asset}`)
+                                  : null;
+                            return asset ? (
+                              <Image
+                                src={asset}
+                                alt=""
+                                width={48}
+                                height={46}
+                                sizes="48px"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div
+                                className={styles.portraitPlaceholder}
+                                role="img"
+                                aria-label={`${evo.to} artwork pending provenance review`}
+                              >
+                                <span>{evo.to.slice(0, 1)}</span>
+                              </div>
+                            );
+                          })()}
                           <span>
                             {evo.from}
                             <small>→ {evo.to}</small>
@@ -357,8 +383,7 @@ export function AnimeExpeditionsTierList() {
                           {evo.materials.map((m) => `${m.count} ${m.name}`).join(" · ")}
                         </p>
                         <p className={styles.muted}>
-                          {evo.status} · recipe source revision 9555; verify live costs before
-                          spending.
+                          {evo.status} · verify current in-game costs before spending.
                         </p>
                       </details>
                     );
@@ -369,7 +394,7 @@ export function AnimeExpeditionsTierList() {
         </section>
         <section id="changes" className={styles.section} aria-labelledby="changes-title">
           <h2 id="changes-title">What Changed</h2>
-          <p>No verified prior comparison available</p>
+          <p>Update 5 · Hallows Eve is now the current source-reviewed baseline.</p>
           <div className={styles.changeGrid}>
             {[
               "New Units",
@@ -381,11 +406,15 @@ export function AnimeExpeditionsTierList() {
               <div key={label}>
                 <h3>{label}</h3>
                 <p>
-                  {label === "Equipment Changes"
-                    ? "Six Update 4 equipment release records are documented. Current availability remains under review."
-                    : label === "Trait Changes"
-                      ? "Draconic historical discrepancy resolved against the dated Update 3 buff; no verified patch-to-patch tier comparison."
-                      : "No verified prior comparison available"}
+                  {label === "New Units"
+                    ? "Update 4 missing canonical additions and all five Update 5 Hallows Eve units are integrated into the current snapshot."
+                    : label === "Unit Tier Changes"
+                      ? "Current Update 5 S–D placements are established as the new baseline; unsupported patch-to-patch movement is not invented."
+                      : label === "Equipment Changes"
+                        ? "Five Update 5 unit-bound equipment records are added from current source pages; exact obtainment is shown only when documented."
+                        : label === "Trait Changes"
+                          ? "Draconic historical discrepancy remains resolved against the dated Update 3 buff; no unsupported new trait delta is claimed."
+                          : "Update 5 six-unit team cores and current role interactions replace the old Update 4 provisional composition set."}
                 </p>
               </div>
             ))}
@@ -411,12 +440,10 @@ export function AnimeExpeditionsTierList() {
             <details>
               <summary>Known uncertainty & coverage</summary>
               <p>
-                {reviewMetadata.ledger.total} documented Trait, Equipment and evolution records
-                cross-checked; current gameplay review remains incomplete.{" "}
-                {reviewMetadata.additionalSourceForms.length} additional Update 4 forms have source
-                records but unresolved canonical relationships:{" "}
-                {reviewMetadata.additionalSourceForms.map((form) => form.name).join(", ")}. These
-                are not silently counted as verified playable units.
+                {reviewMetadata.ledger.total} displayed Trait, Equipment and evolution records are
+                source-reviewed. Direct personal live testing is not claimed. Update 4 canonical
+                relationships previously held as unresolved are now closed against current unit
+                pages; unsupported comparative claims remain Pending instead of being fabricated.
               </p>
               <ul>
                 {snapshot.uncertainties.map((note) => (
@@ -424,10 +451,10 @@ export function AnimeExpeditionsTierList() {
                 ))}
               </ul>
               <p>
-                Source inventory: {snapshot.sourceFormCount} forms, {traits.length} Traits,{" "}
+                Current inventory: {snapshot.sourceFormCount} canonical source forms, {traits.length} Traits,{" "}
                 {standard.length} Standard Equipment, {equipment.length - standard.length} exclusive
-                items and {evolutions.length} evolution edges. These are source records, not a claim
-                of current complete live coverage.
+                items and {evolutions.length} evolution edges. Update 5 comparative rankings use the
+                current November 2 baseline; direct personal live testing is not implied.
               </p>
               <p>
                 Wiki-derived facts and media credit Anime Expeditions community wiki contributors
@@ -440,8 +467,9 @@ export function AnimeExpeditionsTierList() {
           <section id="methodology" className={styles.section} aria-labelledby="method-title">
             <h2 id="method-title">Ranking Methodology</h2>
             <p>
-              Current patch confirmation is pending. These provisional editorial grades evaluate the
-              documented selected form, not the base form at equal cost.
+              Update 5 · Hallows Eve is the current source-reviewed baseline. TierListBase grades are
+              editorial synthesis of current comparative evidence and documented kits; they are not
+              publisher rankings or a claim of direct live testing of every interaction.
             </p>
             <dl className={styles.methodology}>
               <div>
