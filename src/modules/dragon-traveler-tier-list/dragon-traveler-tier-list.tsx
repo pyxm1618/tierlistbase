@@ -385,8 +385,8 @@ export function DragonTravelerTierList() {
             <h2 id="quick-picks-title">Quick Picks</h2>
             <p>
               Quick Picks turn the Dragon Traveler tier list into a starting point for your account.
-              Use the Dragon Traveler tier list here to shortlist roles first, then open the selected
-              Luminary detail before investing.
+              Use the Dragon Traveler tier list here to shortlist roles first, then open the
+              selected Luminary detail before investing.
             </p>
           </div>
           {Object.entries(quickPicks).map(([label, id]) => (
@@ -408,8 +408,8 @@ export function DragonTravelerTierList() {
                 <h2>Luminary Tier List</h2>
                 <p>
                   The Dragon Traveler tier list defaults to Overall so you can compare general
-                  account value first. The Dragon Traveler tier list should then be read by mode: use
-                  the Dragon Traveler PvE tier list for progression and the Dragon Traveler PvP tier
+                  account value first. The Dragon Traveler tier list should then be read by mode:
+                  use the Dragon Traveler PvE tier list for progression and the Dragon Traveler PvP tier
                   list for competitive priorities. The Dragon Traveler PvE tier list and Dragon
                   Traveler PvP tier list keep the same ranked source pool, while the Dragon Traveler
                   tier list changes only the ranking context shown.
@@ -692,8 +692,8 @@ export function DragonTravelerTierList() {
                 <p>
                   Formation members and substitutes follow the linked community guide. Frontline,
                   midline and backline placement preserves the source’s three-by-three formation
-                  coordinates. Use the Dragon Traveler tier list as the character-ranking layer, then
-                  use these formations as team context rather than replacing one with the other.
+                  coordinates. Use the Dragon Traveler tier list as the character-ranking layer,
+                  then use these formations as team context rather than replacing one with the other.
                   Local team order reflects a suggested starting sequence.
                 </p>
               </div>
