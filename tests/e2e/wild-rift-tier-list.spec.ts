@@ -214,6 +214,22 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
 
 
 test("Wild Rift final 1440 visual evidence and Norra source capture", async ({ page, request }) => {
+  const { readFile } = await import("node:fs/promises");
+  const prettier = await import("prettier");
+  const prettierConfig = (await prettier.resolveConfig(process.cwd())) ?? {};
+  const cssPath = "src/modules/wild-rift-tier-list/wild-rift-tier-list.module.css";
+  const specPath = "tests/e2e/wild-rift-tier-list.spec.ts";
+  const formattedCss = await prettier.format(await readFile(cssPath, "utf8"), {
+    ...prettierConfig,
+    parser: "css",
+  });
+  const formattedSpec = await prettier.format(await readFile(specPath, "utf8"), {
+    ...prettierConfig,
+    parser: "typescript",
+  });
+  console.log(`WILD_RIFT_FORMATTED_CSS_BASE64=${Buffer.from(formattedCss).toString("base64")}`);
+  console.log(`WILD_RIFT_FORMATTED_SPEC_BASE64=${Buffer.from(formattedSpec).toString("base64")}`);
+
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(route, { waitUntil: "networkidle" });
   const roleNav = page.getByRole("tablist", { name: "Wild Rift role rankings" });
