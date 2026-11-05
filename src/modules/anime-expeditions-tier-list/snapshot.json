@@ -828,8 +828,8 @@
       "element": "Flame",
       "archetype": "Magical",
       "rarity": "Mythic",
-      "availability": "Needs Review",
-      "availabilityNote": "Current obtainment not asserted; Update 5 ranking and kit are source-reviewed.",
+      "availability": "Available",
+      "availabilityNote": "Ignition Commander is documented in the Standard / Mini Banner rotation; the evolved form remains obtainable through the base unit when featured.",
       "evolutionState": "Evolved",
       "placementLimit": 3,
       "viewTiers": {
@@ -857,7 +857,8 @@
       "hidden": false,
       "asset": "ignition-commander-betrayal",
       "sourceIds": [
-        "unit-data"
+        "unit-data",
+        "availability-banner-review"
       ]
     },
     {
@@ -1223,8 +1224,8 @@
       "element": "Gale",
       "archetype": "Magical",
       "rarity": "Mythic",
-      "availability": "Available",
-      "availabilityNote": "A permanent banner, raid, trial, portal, or other non-limited acquisition route is documented; the current roster still lists this unit/form.",
+      "availability": "Unavailable",
+      "availabilityNote": "This unit's documented Summer Capsule route belonged to the Update 2 Summer/Tidal event, which is completed; no current replacement acquisition route was verified in the November 5 review.",
       "evolutionState": "Evolved",
       "placementLimit": 2,
       "viewTiers": {
@@ -1252,7 +1253,8 @@
       "hidden": false,
       "asset": "rainman-forecast",
       "sourceIds": [
-        "unit-data"
+        "unit-data",
+        "availability-event-review"
       ]
     },
     {
@@ -1275,8 +1277,8 @@
       "element": "Hydro",
       "archetype": "Physical",
       "rarity": "Mythic",
-      "availability": "Needs Review",
-      "availabilityNote": "Current obtainment not asserted; Update 5 ranking and kit are source-reviewed.",
+      "availability": "Unavailable",
+      "availabilityNote": "Sharkfang's documented Sharktooth Conch route belonged to the limited Tidal Siege event, which ended before the current Update 5 snapshot; no current replacement route was verified.",
       "evolutionState": "Evolved",
       "placementLimit": 3,
       "viewTiers": {
@@ -1304,7 +1306,8 @@
       "hidden": false,
       "asset": "sharkfang-abyssal",
       "sourceIds": [
-        "unit-data"
+        "unit-data",
+        "availability-event-review"
       ]
     },
     {
@@ -1327,8 +1330,8 @@
       "element": "Flame",
       "archetype": "Physical",
       "rarity": "Mythic",
-      "availability": "Needs Review",
-      "availabilityNote": "Current obtainment not asserted; Update 5 ranking and kit are source-reviewed.",
+      "availability": "Unavailable",
+      "availabilityNote": "This unit's documented Summer Capsule route belonged to the Update 2 Summer/Tidal event, which is completed; no current replacement acquisition route was verified in the November 5 review.",
       "evolutionState": "Evolved",
       "placementLimit": 3,
       "viewTiers": {
@@ -1356,7 +1359,8 @@
       "hidden": false,
       "asset": "head-captain-char",
       "sourceIds": [
-        "unit-data"
+        "unit-data",
+        "availability-event-review"
       ]
     },
     {
@@ -1379,8 +1383,8 @@
       "element": "Terra",
       "archetype": "Physical",
       "rarity": "Mythic",
-      "availability": "Needs Review",
-      "availabilityNote": "Current obtainment not asserted; Update 5 ranking and kit are source-reviewed.",
+      "availability": "Unavailable",
+      "availabilityNote": "This unit's documented Summer Capsule route belonged to the Update 2 Summer/Tidal event, which is completed; no current replacement acquisition route was verified in the November 5 review.",
       "evolutionState": "Evolved",
       "placementLimit": 3,
       "viewTiers": {
@@ -1408,7 +1412,8 @@
       "hidden": false,
       "asset": "sand-alligator",
       "sourceIds": [
-        "unit-data"
+        "unit-data",
+        "availability-event-review"
       ]
     },
     {
@@ -1431,8 +1436,8 @@
       "element": "Hydro",
       "archetype": "Magical",
       "rarity": "Mythic",
-      "availability": "Needs Review",
-      "availabilityNote": "Current obtainment not asserted; Update 5 ranking and kit are source-reviewed.",
+      "availability": "Unavailable",
+      "availabilityNote": "This unit's documented Summer Capsule route belonged to the Update 2 Summer/Tidal event, which is completed; no current replacement acquisition route was verified in the November 5 review.",
       "evolutionState": "Evolved",
       "placementLimit": 3,
       "viewTiers": {
@@ -1460,7 +1465,8 @@
       "hidden": false,
       "asset": "water-mage-scholar",
       "sourceIds": [
-        "unit-data"
+        "unit-data",
+        "availability-event-review"
       ]
     },
     {
