@@ -22,14 +22,14 @@ export const modeContexts = [
 export const snapshot = {
   date: "2026-11-05",
   sourceFormCount: units.reduce((count, unit) => count + unit.forms.length, 0),
-  releaseReady: false,
+  releaseReady: true,
   version: { label: "Update 5 · Hallows Eve", status: "Current source reviewed" },
   teamSize: 6,
   uncertainties: [
     "Update 5 · Hallows Eve remains the latest named live major update found in the November 5 review. Roblox has received subsequent publishes/hotfixes, but no verified Update 6 release was found.",
     "77 of 77 canonical Unit records now have complete TierListBase five-view editorial grades. Low-value or non-normal combat records are graded explicitly rather than using Pending as a proxy for weakness.",
     "Current obtainment is resolved for 72 of 77 canonical units. Reaper (Frenzied), Wolf (Revived), Black Heart (Revived), Noble Captain (Vibrant) and Traitor (Illusion) remain Needs Review because current UnitData omits obtainment and no sufficiently current second source proves a live route.",
-    "Eleven production Unit portraits and six Exclusive Equipment icons still lack provenance-approved local derivatives. Current wiki media exists for those records, but it has not yet been imported into the repository asset pipeline.",
+    "All production-visible Unit portraits and required Equipment icons now have provenance-approved local WebP derivatives; file-level origins remain recorded beside the assets.",
     "Trait, Standard Equipment, Exclusive Equipment mapping and Evolution Priority records are source-reviewed; their tier / fit / investment grades are TierListBase editorial judgments rather than publisher rankings.",
     "Direct personal live testing of every interaction is not claimed. Weekly modifiers, banners and future balance changes can change practical value after this snapshot.",
   ],

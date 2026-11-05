@@ -18,7 +18,7 @@ export default function AnimeExpeditionsTierListPage() {
         value={webApplicationJsonLd({
           name: "Anime Expeditions Tier List",
           url: `${routeRegistry.site.canonicalOrigin}${route}`,
-          description: definition.description ?? "Anime Expeditions ranking research preview.",
+          description: definition.description ?? "Anime Expeditions tier list rankings.",
         })}
       />
       <AnimeExpeditionsTierList />

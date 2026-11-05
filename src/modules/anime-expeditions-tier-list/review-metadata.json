@@ -988,9 +988,9 @@
     "data": "source-reviewed; 5 availability records remain unresolved after current-obtainment recheck — Reaper (Frenzied), Wolf (Revived), Black Heart (Revived), Noble Captain (Vibrant), Traitor (Illusion)",
     "ranking": "77/77 canonical units have complete five-view editorial grades; Pending ranking views: 0",
     "teams": "five six-unit current-source compositions",
-    "searchIndexing": "withheld until provenance-approved media and frozen-design browser acceptance pass",
-    "navigation": "withheld until the same media / visual release gates pass",
+    "searchIndexing": "released as public_indexable after 1440 frozen-design acceptance",
+    "navigation": "visible through the existing games.config registry",
     "media": "all production-visible Unit portraits and required Equipment icons have provenance-approved local derivatives",
-    "visualAcceptance": "targeted 1440 frozen-design calibration in progress; final browser comparison pending"
+    "visualAcceptance": "PASS — 1440 frozen-design browser comparison; 390 responsive acceptance covered by final E2E"
   }
 }

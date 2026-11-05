@@ -37,7 +37,7 @@ const faq = [
   ],
   [
     "How often is this Tier List updated?",
-    "After current patch facts and ranking evidence are checked. The snapshot date records the source-review pass, not a claim of direct live testing. The Update 5 data baseline is current; this page remains noindex until new-unit media provenance and the frozen visual review are closed.",
+    "After current patch facts and ranking evidence are checked. The snapshot date records the source-review pass, not a claim of direct live testing. Update 5 · Hallows Eve is the current reviewed baseline; unresolved obtainment stays labeled Needs Review rather than being inferred.",
   ],
 ] as const;
 
@@ -58,7 +58,7 @@ export function AnimeExpeditionsTierList() {
         />
         <div className={styles.rift} aria-hidden="true" />
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>ANIME EXPEDITIONS · UPDATE 5 SOURCE-REVIEWED PREVIEW</p>
+          <p className={styles.eyebrow}>ANIME EXPEDITIONS · UPDATE 5 SOURCE-REVIEWED</p>
           <h1 id="ae-title">Anime Expeditions Tier List</h1>
           <p>Choose units, roll role-fit Traits, and plan equipment, teams and evolutions.</p>
           <dl className={styles.heroFacts}>
@@ -73,8 +73,7 @@ export function AnimeExpeditionsTierList() {
             <div>
               <dt>Scope</dt>
               <dd>
-                {units.filter((u) => !u.hidden).length} canonical units · {snapshot.sourceFormCount}{" "}
-                source forms
+                {units.length} canonical units · {snapshot.sourceFormCount} source forms
               </dd>
             </div>
             <div>
@@ -89,9 +88,8 @@ export function AnimeExpeditionsTierList() {
           </dl>
           <p className={styles.notice}>
             <strong>Update 5 baseline reviewed.</strong> Current S–D rankings, canonical Update 4/5
-            additions and six-unit team cores are source-reviewed. Search indexing remains withheld
-            until new-unit media provenance and the frozen visual review close.{" "}
-            <a href="#sources">Evidence limits ↓</a>
+            additions and six-unit team cores are source-reviewed. Five obtainment routes remain
+            explicitly Needs Review. <a href="#sources">Evidence limits ↓</a>
           </p>
         </div>
       </section>

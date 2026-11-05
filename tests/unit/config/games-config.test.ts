@@ -40,9 +40,9 @@ describe("games.config registry", () => {
     );
     expect(gamesConfig.find((game) => game.slug === "wild-rift")?.navigationVisible).toBe(true);
     expect(gamesConfig.find((game) => game.slug === "anime-expeditions")?.navigationVisible).toBe(
-      false,
+      true,
     );
-    expect(navigationGames).toHaveLength(8);
+    expect(navigationGames).toHaveLength(9);
     expect(navigationGames.every((g) => g.navigationVisible)).toBe(true);
     expect(navigationGames.map((g) => g.slug)).toEqual([
       "wow-forever",
@@ -53,6 +53,7 @@ describe("games.config registry", () => {
       "phantom-blade-zero",
       "dragon-traveler",
       "wild-rift",
+      "anime-expeditions",
     ]);
   });
 

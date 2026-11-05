@@ -91,7 +91,7 @@ describe("Anime Expeditions snapshot integrity", () => {
     }
     expect(snapshot.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(snapshot.version.label.length).toBeGreaterThan(0);
-    expect(snapshot.releaseReady).toBe(false);
+    expect(snapshot.releaseReady).toBe(true);
     expect(snapshot.version.status).toBe("Current source reviewed");
     expect(snapshot.version.label).toBe("Update 5 · Hallows Eve");
     for (const item of [...units, ...traits, ...equipment])
@@ -102,14 +102,15 @@ describe("Anime Expeditions snapshot integrity", () => {
   });
 });
 
-it("keeps the incomplete snapshot noindex in production and out of sitemap", () => {
+it("publishes the reviewed snapshot with production indexing, canonical and sitemap inclusion", () => {
   const route = "/anime-expeditions/tier-list";
-  expect(routeRegistry.get(route).class).toBe("public_noindex");
-  expect(metadataForRoute(routeRegistry, route, "production").robots).toEqual({
-    index: false,
-    follow: true,
-  });
-  expect(routeRegistry.sitemapEntries().some((entry) => entry.route === route)).toBe(false);
+  expect(routeRegistry.get(route).class).toBe("public_indexable");
+  const metadata = metadataForRoute(routeRegistry, route, "production");
+  expect(metadata.robots).toEqual({ index: true, follow: true });
+  expect(metadata.alternates?.canonical).toBe(
+    "https://www.tierlistbase.com/anime-expeditions/tier-list",
+  );
+  expect(routeRegistry.sitemapEntries().some((entry) => entry.route === route)).toBe(true);
 });
 it("maps every displayed image to a bounded local derivative with source provenance", () => {
   const root = path.join(process.cwd(), "src/modules/anime-expeditions-tier-list/assets");

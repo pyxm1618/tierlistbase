@@ -321,7 +321,7 @@ export function UnitWorkspace({
               {visible.length} units · {filters.mode}.{" "}
               {filters.mode !== "All Modes"
                 ? "Context only: canonical tiers stay unchanged. Check stage restrictions, enemy immunities and modifiers before choosing a lineup."
-                : "Provisional tiers; Pending means unranked, never low tier."}
+                : "Five-view grades are reviewed; unresolved obtainment stays Needs Review rather than being inferred."}
             </p>
             <div
               id="ae-unit-panel"

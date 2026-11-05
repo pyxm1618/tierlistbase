@@ -6,10 +6,25 @@ import { seoConfig } from "./seo.config";
 export const routeDefinitions = [
   {
     route: "/anime-expeditions/tier-list",
-    class: "public_noindex",
-    title: "Anime Expeditions Tier List – Units, Traits & Equipment",
+    class: "public_indexable",
+    searchIntent:
+      "find the current Anime Expeditions tier list to compare the best units, traits, equipment, team compositions and evolution priorities",
+    primaryKeyword: "anime expeditions tier list",
+    secondaryKeywords: [
+      "anime expeditions unit tier list",
+      "anime expeditions best units",
+      "anime expeditions trait tier list",
+      "anime expeditions equipment tier list",
+    ],
+    title: "Anime Expeditions Tier List – Best Units, Traits & Equipment",
     description:
-      "Compare Anime Expeditions units, role-fit traits and standard equipment, with provisional build, team composition and evolution decisions and clear evidence limits.",
+      "Use the Anime Expeditions Tier List to compare the best units across Overall, DPS, Utility, Support and Crowd Control, plus traits, equipment, teams and evolution priorities.",
+    h1: "Anime Expeditions Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/"],
+    lastModified: "2026-11-06",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "fa9973fb64a1f9312f9a8db05725ee777f7f0b68d6c3ae1804a9ed07a38e661f",
   },
   { route: "/account/vanguard", class: "private" },
   { route: "/wow-forever/vanguard/my", class: "private" },
@@ -47,10 +62,11 @@ export const routeDefinitions = [
       "/phantom-blade-zero/tier-list",
       "/dragon-traveler/tier-list",
       "/wild-rift/tier-list",
+      "/anime-expeditions/tier-list",
     ],
     lastModified: "2026-11-04",
     reviewStatus: "reviewed",
-    reviewFingerprint: "0123a04ee43d40104bce381cb056c0ec6a8b11e94267051dddfa59472cf77d99",
+    reviewFingerprint: "c00f5241ca140071fb3f06923037614b2309a01a463cff308875566be7c62deb",
   },
   {
     route: "/wow-forever/tier-list",

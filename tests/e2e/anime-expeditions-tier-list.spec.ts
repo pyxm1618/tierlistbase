@@ -14,7 +14,9 @@ test("shared shell, frozen three-system architecture and evidence-safe SEO", asy
     page.getByRole("navigation", { name: "Footer navigation", exact: true }),
   ).toBeVisible();
   await expect(page.locator("h1")).toHaveText("Anime Expeditions Tier List");
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(page.locator('script[type="application/ld+json"]')).toContainText(
+    "Anime Expeditions Tier List",
+  );
   const nav = page.getByRole("navigation", { name: "Ranking systems" });
   for (const name of ["Units", "Traits", "Equipment"])
     await expect(nav.getByRole("link", { name: new RegExp(name) })).toBeVisible();
