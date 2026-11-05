@@ -305,3 +305,23 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await expect(detail).toContainText("+6.85 pp");
   await expect(detail).toContainText("Arrows show 7-day win-rate change, not tier movement");
 });
+
+
+test("visual capture only: 1440 Jungle full-page screenshot", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(route);
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
+
+  const roleNav = page.getByRole("tablist", { name: "Wild Rift role rankings" });
+  await roleNav.getByRole("tab", { name: /^Jungle$/ }).click();
+
+  const leeSin = page.locator('[data-champion-id="lee-sin"]');
+  if (await leeSin.count()) {
+    await leeSin.click();
+  }
+
+  const screenshot = await page.screenshot({ fullPage: true });
+  console.log("WR_VISUAL_BASE64_START" + screenshot.toString("base64") + "WR_VISUAL_BASE64_END");
+});
