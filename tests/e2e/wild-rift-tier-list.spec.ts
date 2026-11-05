@@ -319,9 +319,12 @@ test("visual capture only: 1440 Jungle full-page screenshot", async ({ page }) =
 
   const leeSin = page.locator('[data-champion-id="lee-sin"]');
   if (await leeSin.count()) {
-    await leeSin.click();
+    await leeSin.evaluate((element: HTMLElement) => element.click());
   }
 
+  await page.evaluate(() => window.scrollTo(0, 0));
   const screenshot = await page.screenshot({ fullPage: true });
-  console.log("WR_VISUAL_BASE64_START" + screenshot.toString("base64") + "WR_VISUAL_BASE64_END");
+  console.log(
+    "WR_VISUAL_BASE64_START" + screenshot.toString("base64") + "WR_VISUAL_BASE64_END",
+  );
 });
