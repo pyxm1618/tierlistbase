@@ -32,11 +32,7 @@ export function SiteFooter() {
         </div>
         <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-3">
           {links.map(({ label, href }) => (
-            <Link
-              className="text-[.82rem] text-slate-300 hover:text-white"
-              href={href}
-              key={href}
-            >
+            <Link className="text-[.82rem] text-slate-300 hover:text-white" href={href} key={href}>
               {label}
             </Link>
           ))}
