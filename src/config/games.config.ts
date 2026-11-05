@@ -53,7 +53,7 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     slug: "dragon-traveler",
     name: "Dragon Traveler",
     tierListHref: "/dragon-traveler/tier-list",
-    navigationVisible: false,
+    navigationVisible: true,
     navigationOrder: 7,
   },
   {

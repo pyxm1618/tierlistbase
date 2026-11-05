@@ -30,6 +30,36 @@ function countPhrase(words: readonly string[], phrase: string): number {
   }
   return count;
 }
+
+test("Dragon Traveler appears in shared desktop and mobile navigation", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(path);
+
+  const desktopNavigation = page.getByRole("navigation", { name: "Primary navigation" });
+  const desktopDragon = desktopNavigation.getByRole("link", {
+    name: "Dragon Traveler",
+    exact: true,
+  });
+  await expect(desktopDragon).toBeVisible();
+  await expect(desktopDragon).toHaveAttribute("href", "/dragon-traveler/tier-list");
+  await expect(
+    desktopNavigation.getByRole("link", { name: "Vanguard Monument", exact: true }),
+  ).toHaveCount(0);
+
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.locator("header details > summary").click();
+
+  const mobileNavigation = page.getByRole("navigation", { name: "Mobile navigation" });
+  const mobileDragon = mobileNavigation.getByRole("link", {
+    name: "Dragon Traveler",
+    exact: true,
+  });
+  await expect(mobileDragon).toBeVisible();
+  await expect(mobileDragon).toHaveAttribute("href", "/dragon-traveler/tier-list");
+  await expect(
+    mobileNavigation.getByRole("link", { name: "Vanguard Monument", exact: true }),
+  ).toHaveCount(0);
+});
 test("Dragon Traveler server contexts, filters and decisions", async ({ page }) => {
   await page.goto(path);
   await expect(
