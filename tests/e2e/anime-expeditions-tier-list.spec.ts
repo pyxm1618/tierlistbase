@@ -65,7 +65,7 @@ test("all identity filters combine on a real unit, with honest mode context and 
     ["Element", "Flame"],
     ["Archetype", "Magical"],
     ["Rarity", "Secret"],
-    ["Availability", "Needs Review"],
+    ["Availability", "Available"],
     ["Evolution", "Evolved"],
   ])
     await page.getByRole("combobox", { name: label!, exact: true }).selectOption(value!);
