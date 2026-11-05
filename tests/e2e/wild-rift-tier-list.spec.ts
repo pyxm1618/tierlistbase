@@ -306,7 +306,6 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await expect(detail).toContainText("Arrows show 7-day win-rate change, not tier movement");
 });
 
-
 test("visual capture only: 1440 Jungle full-page screenshot", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(route);
