@@ -30,6 +30,7 @@ export default defineConfig({
       DATABASE_URL: process.env.TEST_DATABASE_URL ?? "postgres://localhost/vanguard_20261019_test",
       CREAT_WEB_E2E_VANGUARD: "1",
       VANGUARD_E2E_LAYOUT_ORIGIN: "http://127.0.0.1:3199",
+      VANGUARD_E2E_AUTHORITY_AT: "2026-10-20T12:00:00.000Z",
       TEST_EMAIL_DIR: "/tmp/tierlistbase-vanguard-e2e-emails",
       BETTER_AUTH_SECRET: authFixtureToken,
       GOOGLE_CLIENT_ID: "vanguard-ui-fixture-google-client",
