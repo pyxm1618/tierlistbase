@@ -322,6 +322,45 @@ test("visual capture only: 1440 Jungle full-page screenshot", async ({ page }) =
   }
 
   await page.evaluate(() => window.scrollTo(0, 0));
+  const geometry = await page.evaluate(() => {
+    const selectors = {
+      hero: '[data-ia-section="hero"]',
+      rankingContext: '[data-ia-section="ranking-context"]',
+      quickPicks: '[data-ia-section="quick-picks"]',
+      roleNav: '[role="tablist"][aria-label="Wild Rift role rankings"]',
+      workspace: '[data-ia-section="role-tier-workspace"]',
+      insights: '[data-ia-section="quick-insights"]',
+      changed: '[data-ia-section="what-changed"]',
+      sources: '[data-ia-section="sources-evidence"]',
+      methodology: '[data-ia-section="methodology"]',
+      faq: '[data-ia-section="faq"]',
+    };
+    const boxes = Object.fromEntries(
+      Object.entries(selectors).map(([key, selector]) => {
+        const element = document.querySelector(selector);
+        if (!element) return [key, null];
+        const rect = element.getBoundingClientRect();
+        return [
+          key,
+          {
+            x: Math.round(rect.x),
+            y: Math.round(rect.y + window.scrollY),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+          },
+        ];
+      }),
+    );
+    return {
+      viewport: { width: innerWidth, height: innerHeight },
+      document: {
+        width: document.documentElement.scrollWidth,
+        height: document.documentElement.scrollHeight,
+      },
+      boxes,
+    };
+  });
+  console.log("WR_VISUAL_GEOMETRY", JSON.stringify(geometry));
   const screenshot = await page.screenshot({ fullPage: true });
   console.log(
     "WR_VISUAL_BASE64_START" + screenshot.toString("base64") + "WR_VISUAL_BASE64_END",
