@@ -12,7 +12,7 @@ export function VanguardEntry(props: {
   assets: VanguardAssets;
   initialSeat: string | null;
   authenticated: boolean;
-  heading: string;
+  heading?: string | undefined;
   hero?: { src: string; mobileSrc?: string; width: number; height: number } | undefined;
 }) {
   const [Experience, setExperience] = useState<React.ComponentType<
@@ -192,7 +192,7 @@ export function VanguardEntry(props: {
           {/* Center / Bottom Monument Call-to-Action Layer */}
           <div className={"vanguard-heroIntroContent"}>
             <div className={"vanguard-heroIntroInner"}>
-              <h1 className={"vanguard-monumentTitle"}>{props.heading}</h1>
+              <h1 className={"vanguard-monumentTitle"}>{props.heading ?? "8016 Vanguard Monument"}</h1>
 
               <p className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">
                 {props.manifest.stage === "WOW_OPEN"
