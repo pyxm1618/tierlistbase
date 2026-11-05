@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 const route = "/anime-expeditions/tier-list";
 
@@ -27,33 +27,37 @@ function emitScreenshot(label: string, data: Buffer) {
   }
 }
 
-test.setTimeout(90_000);
-
-test("captures the temporary Anime Expeditions frozen-design acceptance frames", async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto(route, { waitUntil: "networkidle" });
-  await primePage(page);
-  const desktop = await page.screenshot({
+async function capture(label: string, locator: Locator) {
+  await locator.scrollIntoViewIfNeeded();
+  const data = await locator.screenshot({
     type: "jpeg",
-    quality: 32,
-    fullPage: true,
+    quality: 58,
     animations: "disabled",
     scale: "css",
   });
-  emitScreenshot("1440", desktop);
+  emitScreenshot(label, data);
+}
+
+test.setTimeout(120_000);
+
+test("captures temporary Anime Expeditions frozen-design acceptance sections", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(route, { waitUntil: "networkidle" });
+  await primePage(page);
+
+  await capture("HERO", page.locator("main > section").first());
+  await capture("QUICK", page.locator('section[aria-labelledby="quick-title"]'));
+  await capture("RANKING_NAV", page.getByRole("navigation", { name: "Ranking systems" }));
+  await capture("UNITS", page.locator("#units"));
+  await capture("TRAITS", page.locator("#traits"));
+  await capture("EQUIPMENT", page.locator("#equipment"));
+  await capture("TEAMS", page.locator("#teams"));
+  await capture("EVOLUTION", page.locator("#evolution"));
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(route, { waitUntil: "networkidle" });
   await primePage(page);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  const mobile = await page.screenshot({
-    type: "jpeg",
-    quality: 32,
-    fullPage: true,
-    animations: "disabled",
-    scale: "css",
-  });
-  emitScreenshot("390", mobile);
+  await capture("MOBILE_HERO", page.locator("main > section").first());
+  await capture("MOBILE_UNITS", page.locator("#units"));
 });
