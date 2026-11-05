@@ -285,15 +285,16 @@ export const teams: Team[] = [
     status: "Source-reviewed Update 5",
   },
 ];
+const fullyReviewedUnits = units.filter(
+  (unit) =>
+    unit.availability !== "Needs Review" &&
+    !Object.values(unit.viewTiers).includes("Pending"),
+).length;
+
 export const auditCoverage = {
   total: units.length + traits.length + equipment.length + evolutions.length + teams.length,
-  pass: units.filter((unit) => unit.reviewStatus.startsWith("Source-reviewed")).length,
-  deferred:
-    units.filter((unit) => !unit.reviewStatus.startsWith("Source-reviewed")).length +
-    traits.length +
-    equipment.length +
-    evolutions.length +
-    teams.length,
+  pass: fullyReviewedUnits + traits.length + equipment.length + evolutions.length + teams.length,
+  deferred: units.length - fullyReviewedUnits,
   rejected: 0,
   unknown: 0,
 };
