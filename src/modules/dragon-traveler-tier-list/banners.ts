@@ -105,7 +105,7 @@ export const verifiedBanners: readonly VerifiedBanner[] = [
   },
   {
     server: "taiwan",
-    bannerName: "限定召喚卡池 — 戀歌謬斯‧艾拉托",
+    bannerName: "限定召喚卡池 — 戀歌謬斯",
     characterIds: ["erato"],
     officialPool: ["戀歌謬斯‧艾拉托"],
     startsAt: "2026-11-05T05:00:00+08:00",
