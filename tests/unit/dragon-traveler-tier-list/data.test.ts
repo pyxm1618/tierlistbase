@@ -21,7 +21,7 @@ describe("Dragon Traveler verified data boundaries", () => {
     expect(teamViews).toEqual(["PvE", "PvP"]);
   });
   it.each(["global", "taiwan"] as const)(
-    "keeps %s live rankings complete and traceable",
+    "keeps %s ranked records complete and traceable",
     (server) => {
       const roster = getRoster(server);
       expect(roster.length).toBeGreaterThan(0);
@@ -73,6 +73,10 @@ describe("Dragon Traveler verified data boundaries", () => {
       ),
     ).toBe(true);
     expect(researchLedger.every((r) => r.reason.length > 0)).toBe(true);
+    const rankedIds = new Set(
+      [...getRoster("global"), ...getRoster("taiwan")].map((character) => character.id),
+    );
+    expect(researchLedger.every((record) => rankedIds.has(record.id))).toBe(true);
   });
   it("resolves every team member and alternative in its server", () => {
     for (const team of teams) {
@@ -103,7 +107,7 @@ describe("Dragon Traveler verified data boundaries", () => {
   });
 });
 
-describe("Dragon Traveler published pool", () => {
+describe("Dragon Traveler ranked pools", () => {
   it("matches researched server counts and preserves real server differences", () => {
     expect(getRoster("global")).toHaveLength(73);
     expect(getRoster("taiwan")).toHaveLength(95);

@@ -96,10 +96,38 @@ export const researchLedger = ledger;
 export const sourceRecords: readonly SourceRecord[] = [
   {
     id: "hideout-roster",
-    name: "Hideout Guides — server rosters and Overall ordering",
+    name: "Hideout Guides — ranked tier pool and Overall ordering",
     url: "https://www.hideoutgacha.com/games/dragon-traveler/tier-list",
-    checkedAt: snapshotDate,
+    checkedAt: "2026-11-04",
     sourceType: "community",
+  },
+  {
+    id: "hideout-database",
+    name: "Hideout Guides — cross-server character database (96 records)",
+    url: "https://www.hideoutgacha.com/games/dragon-traveler/characters",
+    checkedAt: "2026-11-04",
+    sourceType: "community",
+  },
+  {
+    id: "global-roster-reference",
+    name: "DragonTraveler.gg — Global character database (85 reported Luminaries)",
+    url: "https://dragontraveler.gg/characters",
+    checkedAt: "2026-11-04",
+    sourceType: "community",
+  },
+  {
+    id: "global-official-arachne",
+    name: "Dragon Traveler official — Arachne Global release announcement (October 22)",
+    url: "https://news.game-tree.com/jx/dtofficialnewsen/20261020/1237.html",
+    checkedAt: "2026-11-04",
+    sourceType: "official",
+  },
+  {
+    id: "taiwan-official-next-release",
+    name: "Taiwan official — November 4 maintenance; Erato opens November 5",
+    url: "https://sod.game-beans.com/jx/sodNotice/20261104/8323.html",
+    checkedAt: "2026-11-04",
+    sourceType: "official",
   },
   {
     id: "hideout-teams",
@@ -167,7 +195,7 @@ const classLimitations: Readonly<Record<ClassKey, string>> = {
 };
 function rankedCharacter(character: VerifiedCharacter, server: ServerKey): Luminary {
   const overall = character.serverOverall[server];
-  if (!overall) throw new Error(`No ${server} live ranking for ${character.id}`);
+  if (!overall) throw new Error(`No ${server} ranked placement for ${character.id}`);
   const roles = character.roles;
   const ratingSource = character.id === "arachne" ? "allclash" : "hideout";
   const affordable = ["fenrir", "oberonnie", "siegfried", "medusa", "chiron", "atanith"].includes(
@@ -195,7 +223,7 @@ function rankedCharacter(character: VerifiedCharacter, server: ServerKey): Lumin
       character.id === "arachne"
         ? "Arachne contributes true damage and control to Punishment teams, but needs compatible partners. Overall, PvE and PvP retain AllClash’s October 25 S grades; this is an early guide assessment, not independent testing."
         : roles
-          ? `${character.name} offers ${roles.toLowerCase()}. The ${server === "global" ? "Global" : "Taiwan"} Overall placement follows the server roster; PvE and PvP use the source character assessment, with five-band normalization.`
+          ? `${character.name} offers ${roles.toLowerCase()}. The ${server === "global" ? "Global" : "Taiwan"} Overall placement follows the server ranked pool; PvE and PvP use the source character assessment, with five-band normalization.`
           : `${character.name} has published Overall, PvE and PvP assessments. Its placement follows those grades; a detailed kit review is not published, so treat investment as conditional.`,
     strengths: roles
       ? [`Role profile: ${roles}`, `Faction coverage: ${character.factions.join(" / ")}`]

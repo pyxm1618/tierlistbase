@@ -7,7 +7,7 @@ it("accounts for each restored identity with an explicit evidence state", () => 
     for (const character of getRoster(server))
       expect(researchLedger.some((record) => record.id === character.id)).toBe(true);
 });
-it("keeps official-banner targets inside their matching live roster", () => {
+it("keeps official-banner targets inside their matching ranked roster", () => {
   for (const banner of verifiedBanners) {
     for (const id of banner.characterIds)
       expect(getRoster(banner.server).some((character) => character.id === id)).toBe(true);
