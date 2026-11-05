@@ -6271,7 +6271,7 @@
       "to": "Ignition Commander (Betrayal)",
       "priority": "Worth Evolving",
       "reason": "Ignition Release adds 75% damage on Rewind and 15% bonus at Heat Stack capacity. The trigger has a 15 second cooldown.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Commander Jacket",
@@ -6337,7 +6337,7 @@
       "to": "Wild Card (Ace)",
       "priority": "Worth Evolving",
       "reason": "Every five attacks doubles Royal Suit effects and increases Fire damage toward a 50% cap. Short rounds may end before that ramp matters.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Pocket Lighter",
@@ -6368,7 +6368,7 @@
       "to": "5th God Hand",
       "priority": "Situational",
       "reason": "Choose Distortion and Mark of Fate for damage and control against surviving targets. This competes with the Silver Falcon support branch.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Eclipse Shard",
@@ -6438,7 +6438,7 @@
       "to": "Iron Wolf (Struggler)",
       "priority": "Worth Evolving",
       "reason": "Bleed teams can leave Crimson Spills when previously bled enemies die. Kill frequency, spill placement and the two spill limit constrain value.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Sprite (Red)",
@@ -6469,7 +6469,7 @@
       "to": "Eclipse Hunter (Savior)",
       "priority": "Situational",
       "reason": "A selected carry's upgrades grant free upgrades and discount placed copies. This requires planning which unit receives upgrades.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Hollowed Egg",
@@ -6500,7 +6500,7 @@
       "to": "Lightning God (Overcharged)",
       "priority": "Worth Evolving",
       "reason": "Tempest Discharge uses 60 Voltage stacks and leaves Electric Residue. Meter generation and enemy range uptime determine its contribution.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Ancient Bell",
@@ -6570,7 +6570,7 @@
       "to": "Rainman (Forecast)",
       "priority": "Situational",
       "reason": "Frog Storm offers a stop and Poison Frogs after Climate Meter builds. Proximity and meter depletion constrain uptime.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Cloud Disc",
@@ -6601,7 +6601,7 @@
       "to": "Sharkfang (Abyssal)",
       "priority": "Situational",
       "reason": "Vapor Clouds add stacking Burn when Waterfall or Tidal Wave expire. Cloud placement and brief duration determine actual coverage.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Sharktooth Necklace",
@@ -6632,7 +6632,7 @@
       "to": "Head Captain (Char)",
       "priority": "Situational",
       "reason": "Takedowns in range create Skeleton path traps and increase damage. Rounds with few kills provide less ramp.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Overgrown Beard",
@@ -6663,7 +6663,7 @@
       "to": "Sand (Alligator)",
       "priority": "Worth Evolving",
       "reason": "Golden Hook increases Poison ticks, especially within Desert Storm or Ground Eruption. Enemies need to stay in the zones.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Desert Fruit",
@@ -6694,7 +6694,7 @@
       "to": "Water Mage (Scholar)",
       "priority": "Situational",
       "reason": "Wall of Ice supports a Hydro control role. Current ability behavior and comparative control value need gameplay evidence.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Spirit King's Cloak",
@@ -6725,7 +6725,7 @@
       "to": "Prodigy (Rage)",
       "priority": "Worth Evolving",
       "reason": "Upgrades three and five and the Prodigy Meter unlock transformation progression. This requires time and in-round currency.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Rage Catalyst",
@@ -6756,7 +6756,7 @@
       "to": "The Drink (Juicebox)",
       "priority": "Worth Evolving",
       "reason": "Perfected Strikes guarantees critical Follow Up Attacks with increased critical damage during the documented transformation and mark conditions.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Sprite (Red)",
@@ -6814,7 +6814,7 @@
       "to": "Carrot (Unleashed)",
       "priority": "Worth Evolving",
       "reason": "Critical attacks and debuffs build Fighting Spirit for transformation, damage, critical damage, immunity and Stagger. The meter drains over time.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Medication",
@@ -6845,7 +6845,7 @@
       "to": "Vegetable (Prince)",
       "priority": "Worth Evolving",
       "reason": "A nearby allied transformation empties its meter and buffs the ally. Without that trigger, takedown ramp is needed.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Prince's Crown",
@@ -6876,7 +6876,7 @@
       "to": "Razorjaw (Hunter)",
       "priority": "Situational",
       "reason": "The recorded attack path and Endless Slashes support a Physical and Stagger role. The source has no evolved passive description supporting an absolute priority.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Jaw Skull",
@@ -6907,7 +6907,7 @@
       "to": "Dark Mage (Sovereign)",
       "priority": "Worth Evolving",
       "reason": "The eight attack Magic Cycle alternates Lightning Orbs and Ice Magic. Rotation uptime determines access to damage and Freeze.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Magical Amulet",
@@ -6938,7 +6938,7 @@
       "to": "Cursed Immortal (Black Sun)",
       "priority": "Situational",
       "reason": "State changes add 5% critical chance toward a 30% cap. Its value depends on state cycling frequency.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Cursed Book",
@@ -7004,7 +7004,7 @@
       "to": "True Saint (Holy)",
       "priority": "Situational",
       "reason": "The documented attack path reaches full AoE and includes Seize. Early accounts should weigh the 5,000 Gold recipe against how long this carry will remain useful.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Holy Pendant",
@@ -7051,7 +7051,7 @@
       "to": "String Demon (Awakened)",
       "priority": "Worth Evolving",
       "reason": "String Sync attaches to the nearest attacking ally and produces follow ups. The three string capacity and 15 second reattachment cooldown constrain output.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Joker of the Nonsensical Pirates",
@@ -7082,7 +7082,7 @@
       "to": "Crimson (Brother)",
       "priority": "Situational",
       "reason": "Crimson Explode leaves damage pools. Six second duration and capacity three favor dense waves over isolated targets.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Sprite (Red)",
@@ -7109,7 +7109,7 @@
       "to": "Cursed Student (True Love)",
       "priority": "Worth Evolving",
       "reason": "Twenty total Bleed stacks trigger Bat Spirits. Capacity three and three attacks per spirit limit the resulting summons.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Student ID",
@@ -7140,7 +7140,7 @@
       "to": "Flame Emperor (Reincarnate)",
       "priority": "Worth Evolving",
       "reason": "Documented Burn and Wall of Fire support Fire teams and Hollow's Burn requirement. This is a role argument rather than a current best carry claim.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Burning Fruit",
@@ -7171,7 +7171,7 @@
       "to": "8th Sword (Berserk)",
       "priority": "Worth Evolving",
       "reason": "Twenty five takedowns activate Berserk, while low health enemies trigger the follow up. A boss without adds may prevent the takedown ramp.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Sprite (Red)",
@@ -7202,7 +7202,7 @@
       "to": "Hollow (Blaze)",
       "priority": "Worth Evolving",
       "reason": "Attack Flames converts an existing Burn application into Austere Flames. Those instances do not stack, so a Burn enabler is required.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Elixir of Life",
@@ -7233,7 +7233,7 @@
       "to": "Shadow (Divine)",
       "priority": "Worth Evolving",
       "reason": "Upgrade gates unlock Winged Spirit, Wolf Spirit and active abilities. Hexed Blade compatibility adds a separate gear condition.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Sprite (Blue)",
@@ -7295,7 +7295,7 @@
       "to": "Reaper (Released)",
       "priority": "Situational",
       "reason": "Critical Tempo requires critical attacks, while Mirage Swap requires Stun and an existing clone. The newer Frenzied form makes the latest evolution path a separate review item.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Hollowed Visor",
@@ -7326,7 +7326,7 @@
       "to": "Lady Giant (Envy)",
       "priority": "Situational",
       "reason": "Rock Storm triggers every four attacks for 100% damage in base form or 125% in Giant form. Transformation uptime changes its contribution.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Giant Hammer",
@@ -7357,7 +7357,7 @@
       "to": "Elf Mage (Unleashed)",
       "priority": "Worth Evolving",
       "reason": "Hybrid placement, Mana Burn and a full AoE attack stage support a coverage role. Current behavior and gear rolls determine the investment ceiling.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Cosmic Magic",
@@ -7388,7 +7388,7 @@
       "to": "Puppet (Telekinetic)",
       "priority": "Worth Evolving",
       "reason": "A marked enemy's death creates a Doll with health based on current damage. The one Doll capacity and kill setup constrain value.",
-      "unlock": "Form change; specific unlock needs review.",
+      "unlock": "The reviewed source confirms the evolution and recipe but does not document a separate new mechanic; no additional unlock is asserted.",
       "materials": [
         {
           "name": "Puppet Heart",
