@@ -12,7 +12,7 @@ export function VanguardEntry(props: {
   assets: VanguardAssets;
   initialSeat: string | null;
   authenticated: boolean;
-  heading?: string | undefined;
+  heading: string;
   hero?: { src: string; mobileSrc?: string; width: number; height: number } | undefined;
 }) {
   const [Experience, setExperience] = useState<React.ComponentType<
@@ -81,19 +81,13 @@ export function VanguardEntry(props: {
     };
   }, [props.initialSeat, audioController]);
 
-  const headingText =
-    props.heading ??
-    {
-      WOW_OPEN: "8016 Vanguard Monument",
-      WOW_COMPLETE_WAITING: "WOW IS COMPLETE",
-      FOREVER_OPEN: "FOREVER IS OPEN",
-      COMPLETE: "THE MONUMENT IS COMPLETE",
-      SEALED: "THE MONUMENT IS SEALED",
-    }[props.manifest.stage];
-  const showEventStatus =
-    props.manifest.stage === "SEALED" ||
-    props.manifest.stage === "COMPLETE" ||
-    props.manifest.stage === "WOW_COMPLETE_WAITING";
+  const stageStatus = {
+    WOW_OPEN: null,
+    WOW_COMPLETE_WAITING: "WOW IS COMPLETE",
+    FOREVER_OPEN: "FOREVER IS OPEN",
+    COMPLETE: "THE MONUMENT IS COMPLETE",
+    SEALED: "THE MONUMENT IS SEALED",
+  }[props.manifest.stage];
 
   return (
     <section aria-label="Monument Stage" data-monument-stage className={"vanguard-stageRoot"}>
@@ -146,17 +140,13 @@ export function VanguardEntry(props: {
 
           {/* Top Stage HUD */}
           <header className="pointer-events-auto absolute left-3 right-3 top-3 z-30 flex flex-wrap items-center justify-between gap-2.5">
-            {showEventStatus ? (
+            {stageStatus ? (
               <div className="flex items-center gap-2 rounded border border-[#7a6336]/40 bg-[#0d0f17]/85 px-3 py-1.5 backdrop-blur-md shadow-md">
                 <p
                   role="status"
                   className="text-xs font-semibold uppercase tracking-widest text-[#dfcaa2]"
                 >
-                  {props.manifest.stage === "SEALED"
-                    ? "THE MONUMENT IS SEALED"
-                    : props.manifest.stage === "COMPLETE"
-                      ? "THE MONUMENT IS COMPLETE"
-                      : "WOW IS COMPLETE"}
+                  {stageStatus}
                 </p>
               </div>
             ) : (
@@ -202,7 +192,7 @@ export function VanguardEntry(props: {
           {/* Center / Bottom Monument Call-to-Action Layer */}
           <div className={"vanguard-heroIntroContent"}>
             <div className={"vanguard-heroIntroInner"}>
-              <h1 className={"vanguard-monumentTitle"}>{headingText}</h1>
+              <h1 className={"vanguard-monumentTitle"}>{props.heading}</h1>
 
               <p className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">
                 {props.manifest.stage === "WOW_OPEN"
