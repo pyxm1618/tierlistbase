@@ -287,8 +287,7 @@ export const teams: Team[] = [
 ];
 const fullyReviewedUnits = units.filter(
   (unit) =>
-    unit.availability !== "Needs Review" &&
-    !Object.values(unit.viewTiers).includes("Pending"),
+    unit.availability !== "Needs Review" && !Object.values(unit.viewTiers).includes("Pending"),
 ).length;
 
 export const auditCoverage = {

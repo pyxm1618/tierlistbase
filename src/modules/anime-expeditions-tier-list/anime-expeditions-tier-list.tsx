@@ -80,8 +80,8 @@ export function AnimeExpeditionsTierList() {
             <div>
               <dt>Review</dt>
               <dd>
-                {units.filter((u) => !Object.values(u.viewTiers).includes("Pending")).length}{" "}
-                fully reviewed units · 4 evidence-gated records remain Pending
+                {units.filter((u) => !Object.values(u.viewTiers).includes("Pending")).length} fully
+                reviewed units · 4 evidence-gated records remain Pending
               </dd>
             </div>
           </dl>
