@@ -1,4 +1,5 @@
 import "server-only";
+import { sql } from "drizzle-orm";
 import { z } from "zod";
 import {
   VanguardError,
@@ -52,6 +53,9 @@ export function getVanguardService() {
     runtimeEnv.appEnv === "test" &&
     process.env.CREAT_WEB_E2E_VANGUARD === "1" &&
     process.env.VANGUARD_E2E_LAYOUT_ORIGIN === "http://127.0.0.1:3199";
+  const e2eAuthorityAt = fixture
+    ? z.string().datetime({ offset: true }).parse(process.env.VANGUARD_E2E_AUTHORITY_AT)
+    : null;
   const layouts = fixture
     ? Object.fromEntries([
         ...["W1", "O", "W2"].map((letter) => [
@@ -74,6 +78,9 @@ export function getVanguardService() {
     return response.arrayBuffer();
   });
   return createVanguardService(db, {
+    ...(e2eAuthorityAt
+      ? { authorityTimeSql: sql`${e2eAuthorityAt}::timestamptz` }
+      : {}),
     seatExists: catalog.exists,
     nearestAvailable: catalog.nearest,
     publishMedia: (media) => createVanguardMediaPublisher(getVanguardR2())(media),
