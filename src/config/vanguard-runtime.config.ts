@@ -78,9 +78,7 @@ export function getVanguardService() {
     return response.arrayBuffer();
   });
   return createVanguardService(db, {
-    ...(e2eAuthorityAt
-      ? { authorityTimeSql: sql`${e2eAuthorityAt}::timestamptz` }
-      : {}),
+    ...(e2eAuthorityAt ? { authorityTimeSql: sql`${e2eAuthorityAt}::timestamptz` } : {}),
     seatExists: catalog.exists,
     nearestAvailable: catalog.nearest,
     publishMedia: (media) => createVanguardMediaPublisher(getVanguardR2())(media),
