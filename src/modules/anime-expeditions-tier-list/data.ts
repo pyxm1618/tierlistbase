@@ -36,6 +36,30 @@ export const snapshot = {
 } as const;
 export const sources = [
   {
+    id: "summer-obtainment",
+    name: "Update 2 Summer / Tidal unit obtainment cross-check",
+    url: "https://allthings.how/anime-expeditions-how-to-get-every-summer-siege-unit-in-update-2/",
+    revision: null,
+    checked: snapshot.date,
+    note: "Documents Summer Capsule routes for Head Captain, Rainman, Sand and Water Mage plus the Tidal Siege Sharkfang route. Used only with the current event-history source to decide whether those routes remain obtainable.",
+  },
+  {
+    id: "current-event-history",
+    name: "Current Anime Expeditions event history",
+    url: "https://bloxodes.com/wiki/anime-expeditions",
+    revision: null,
+    checked: snapshot.date,
+    note: "Current event-history page checked November 5. It lists Update 2 Summer as completed and the game itself as updated November 4, so expired Summer / Tidal-only routes are not presented as currently obtainable without a replacement source.",
+  },
+  {
+    id: "update3-obtainment",
+    name: "Update 3 banner obtainment cross-check",
+    url: "https://allthings.how/ignition-commander-betrayal-anime-expeditions-update-3-0-fire-unit-guide/",
+    revision: null,
+    checked: snapshot.date,
+    note: "Documents Ignition Commander on Standard / Mini Banner rotation. Used to close availability for that unit; rotation timing remains account/client dependent.",
+  },
+  {
     id: "pgg-update5",
     name: "Pro Game Guides — Update 5 tier list and six-unit team cores",
     url: "https://progameguides.com/roblox/anime-expeditions-tier-list-best-units/",
