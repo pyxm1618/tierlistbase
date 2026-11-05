@@ -27,8 +27,8 @@ export const snapshot = {
   teamSize: 6,
   uncertainties: [
     "Update 5 · Hallows Eve remains the latest named live major update found in the November 5 review. Roblox has received subsequent publishes/hotfixes, but no verified Update 6 release was found.",
-    "73 of 77 canonical Unit records now have complete TierListBase five-view editorial grades. Emerald Fist, Cube, Little Carrot and Suited Alchemist remain Pending only where current comparative evidence is insufficient or the record is not a normal combat-ranking case.",
-    "Current obtainment is resolved for most of the roster. A small set remains Needs Review where the current unit database exposes no obtainment and no sufficiently current second source closes the gap.",
+    "77 of 77 canonical Unit records now have complete TierListBase five-view editorial grades. Low-value or non-normal combat records are graded explicitly rather than using Pending as a proxy for weakness.",
+    "Current obtainment is resolved for 72 of 77 canonical units. Reaper (Frenzied), Wolf (Revived), Black Heart (Revived), Noble Captain (Vibrant) and Traitor (Illusion) remain Needs Review because current UnitData omits obtainment and no sufficiently current second source proves a live route.",
     "Eleven production Unit portraits and six Exclusive Equipment icons still lack provenance-approved local derivatives. Current wiki media exists for those records, but it has not yet been imported into the repository asset pipeline.",
     "Trait, Standard Equipment, Exclusive Equipment mapping and Evolution Priority records are source-reviewed; their tier / fit / investment grades are TierListBase editorial judgments rather than publisher rankings.",
     "Direct personal live testing of every interaction is not claimed. Weekly modifiers, banners and future balance changes can change practical value after this snapshot.",
@@ -74,6 +74,22 @@ export const sources = [
     revision: null,
     checked: snapshot.date,
     note: "Current unit pages were used to close Update 4/5 canonical relationships, kits, placement limits, evolution materials and unit-bound equipment. Exact obtainment is not inferred when the source leaves it blank.",
+  },
+  {
+    id: "current-unit-role-crosscheck",
+    name: "ExpeditionValues — current role / low-rarity stat cross-check",
+    url: "https://expeditionvalues.com/tier-list",
+    revision: null,
+    checked: snapshot.date,
+    note: "Current November 5 cross-check used only to verify Little Carrot's carry role and bottom-end raw output. TierListBase retains its own S–D editorial scale rather than copying that site's grade scale.",
+  },
+  {
+    id: "current-roster-obtainment",
+    name: "Bloxron — current roster obtainment cross-check",
+    url: "https://bloxron.com/anime-expeditions/units",
+    revision: null,
+    checked: snapshot.date,
+    note: "Current November 5 roster guide still documents Crimson Captain through District 7 Boss Rush Infernal Dust and the District 7 Secret Banner. Used only to close that obtainment route.",
   },
   {
     id: "mrguider-update5",

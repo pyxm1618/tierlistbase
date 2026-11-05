@@ -20,959 +20,1234 @@
       "name": "Unbound",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Primordial",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Forsaken",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Draconic",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits", "draconic-patch"]
+      "sourceIds": [
+        "traits",
+        "draconic-patch"
+      ]
     },
     {
       "kind": "trait",
       "name": "Investor",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Optics",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Bolt",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Precision 2",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Precision 1",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Limit Breaker",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Range 2",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Speed 2",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Strength 2",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Enlightenment",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Range 1",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Speed 1",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "trait",
       "name": "Strength 1",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["traits"]
+      "sourceIds": [
+        "traits"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Reaper's Glove",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Burning Critter",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Sacrificial Mark",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Economist's Coin",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Warrior Pole",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Kunai",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Enhanced Katana",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Magic Book",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Pirate's Slingshot",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Raid Cape",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Warrior's Axe",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Shinigami Sword",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Bamboo Bottle",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Elf Suitcase",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Magic Orb",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Soul Splitter",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Red Finger",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Three Swords From Hell",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Katana",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Staff of Chaos",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Dragon Hilt",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Accursed Equipment",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Awakened Moonblade",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Blossom Blade",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Demonic Pistols",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Hypnotic Edge",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Lanza de Luz",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Blade Arm",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Monster Claws",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Angel Blade",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Beacon Of Pride",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Fire Helmet",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Ignis Restraint",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Joker Card",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Blade of Reality",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Chosen Sabre",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Demonslayer",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Orb of Causality",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Storm Trident",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Lightning Dagger",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Tideblade",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Fiery Staff",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Poison Hook",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Poison Frog",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Spirit King's Blade",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Carrot's Gi",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Mechanical Wings",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Mentor's Cape",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Pointy Straw",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Royal Gi",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Illusion Crow",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Dark Scepter",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Memory Pendant",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Predator's Skull",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Hair Bells",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Emperor's Attire",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Hell's Flower",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Webbed Fruit",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Promise Ring",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Spirit of the Moonblade",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Boulder",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Elven Battle Staff",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Technique Amplifier",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Calamity's Eye",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Hexed Blade",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["equipment-data"]
+      "sourceIds": [
+        "equipment-data"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Piety & Obliteration",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Morphing Sword",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "equipment",
       "name": "King's Guitar",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Life Eater",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Evening Umbrella",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "equipment",
       "name": "Oni's Nature",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Metallic Alchemist → Alchemy Brothers (Truth)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Subject 8 → Subject 8 (Monster)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Fallen Angel → Fallen Angel (Holy)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Devil → Devil (Hero)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Ignition Commander → Ignition Commander (Betrayal)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Crimson Captain → Crimson Captain (Moon)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Wild Card → Wild Card (Ace)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Broken Falcon → 5th God Hand",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Broken Falcon → Silver Falcon",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Iron Wolf → Iron Wolf (Struggler)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Eclipse Hunter → Eclipse Hunter (Savior)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Lightning God → Lightning God (Overcharged)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Sovereign → Sovereign (Djinn)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Rainman → Rainman (Forecast)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Sharkfang → Sharkfang (Abyssal)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Head Captain → Head Captain (Char)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Sand → Sand (Alligator)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Water Mage → Water Mage (Scholar)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Prodigy → Prodigy (Rage)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "The Drink → The Drink (Juicebox)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Bioinsect → Bioinsect (Final Form)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Carrot → Carrot (Unleashed)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Vegetable → Vegetable (Prince)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Razorjaw → Razorjaw (Hunter)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Dark Mage → Dark Mage (Sovereign)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Cursed Immortal → Cursed Immortal (Black Sun)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Crow → Crow (Black Fire)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "True Saint → True Saint (Holy)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "String Demon → String Demon (Awakened)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Crimson → Crimson (Brother)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Cursed Student → Cursed Student (True Love)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Flame Emperor → Flame Emperor (Reincarnate)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "8th Sword → 8th Sword (Berserk)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Hollow → Hollow (Blaze)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Shadow → Shadow (Divine)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Salmon Sorcerer → Salmon Sorcerer (Grade 1)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Reaper → Reaper (Released)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Lady Giant → Lady Giant (Envy)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Elf Mage → Elf Mage (Unleashed)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Puppet → Puppet (Telekinetic)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["unit-data"]
+      "sourceIds": [
+        "unit-data"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Wolf → Wolf (Revived)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Black Heart → Black Heart (Revived)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Noble Captain → Noble Captain (Vibrant)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Traitor → Traitor (Illusion)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Impaler → Impaler (Ultimate)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Atom → Atom (Totality)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Dead Melody → Dead Melody (Solo)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
       "name": "First Blade → First Blade (Strongest)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     },
     {
       "kind": "evolution",
       "name": "Princess → Princess (Misery)",
       "sourceReview": "pass",
       "directLiveTest": "not_claimed",
-      "sourceIds": ["current-wiki"]
+      "sourceIds": [
+        "current-wiki"
+      ]
     }
   ],
   "additionalSourceForms": [],
@@ -985,11 +1260,11 @@
     "equipmentInventory": 71
   },
   "release": {
-    "data": "source-reviewed; 7 availability records remain unresolved",
-    "ranking": "73/77 canonical units have complete five-view editorial grades; 4 remain evidence-gated Pending",
+    "data": "source-reviewed; 5 availability records remain unresolved after current-obtainment recheck",
+    "ranking": "77/77 canonical units have complete five-view editorial grades; no Pending ranking views remain",
     "teams": "five six-unit current-source compositions",
-    "searchIndexing": "withheld",
-    "navigation": "withheld",
+    "searchIndexing": "withheld until provenance-approved media and frozen-design browser acceptance pass",
+    "navigation": "withheld until the same media / visual release gates pass",
     "media": "11 unit portraits and 6 Exclusive Equipment icons still require provenance-approved local derivatives",
     "visualAcceptance": "pending 1440 frozen-design browser comparison"
   }
