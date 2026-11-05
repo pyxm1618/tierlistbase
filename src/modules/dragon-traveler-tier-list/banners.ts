@@ -103,6 +103,22 @@ export const verifiedBanners: readonly VerifiedBanner[] = [
     evaluationSourceUrl: "https://www.hideoutgacha.com/games/dragon-traveler/tier-list",
     checkedAt: "2026-11-03",
   },
+  {
+    server: "taiwan",
+    bannerName: "限定召喚卡池 — 戀歌謬斯‧艾拉托",
+    characterIds: ["erato"],
+    officialPool: ["戀歌謬斯‧艾拉托"],
+    startsAt: "2026-11-05T05:00:00+08:00",
+    // The official notice's last minute is 04:59; use an exclusive 05:00 boundary.
+    endsAt: "2026-11-19T05:00:00+08:00",
+    windowLabel: "11/5 05:00–11/19 04:59 (UTC+8)",
+    recommendation: "Wait for Testing",
+    rationale:
+      "Erato is live on Taiwan, but the official release notice provides mechanics and availability rather than an independent strength ranking, and no reliable post-release evaluation was verified. Wait for testing before making a power-based pull decision. The 10/29 Mythical Summon (Loki / Prometheus / Hera / Ares) remains active in parallel through 11/12 04:59 (UTC+8).",
+    sourceUrl: "https://sod.game-beans.com/jx/sodNotice/20261104/8323.html",
+    evaluationSourceUrl: "https://sod.game-beans.com/jx/sodNotice/20261104/8323.html",
+    checkedAt: "2026-11-05",
+  },
 ];
 
 export function currentBannerAt(server: ServerKey, now: number): VerifiedBanner | null {
