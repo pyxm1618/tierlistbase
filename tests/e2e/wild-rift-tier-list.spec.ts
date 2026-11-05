@@ -1,3 +1,6 @@
+import { execFileSync } from "node:child_process";
+
+import sharp from "sharp";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
@@ -364,5 +367,42 @@ test("visual capture only: 1440 Jungle full-page screenshot", async ({ page }) =
   const screenshot = await page.screenshot({ fullPage: true });
   console.log(
     "WR_VISUAL_BASE64_START" + screenshot.toString("base64") + "WR_VISUAL_BASE64_END",
+  );
+
+  const sectionSelectors = {
+    hero: '[data-ia-section="hero"]',
+    "quick-picks": '[data-ia-section="quick-picks"]',
+    "role-navigation": '[data-ia-section="role-navigation"]',
+    "role-tier-workspace": '[data-ia-section="role-tier-workspace"]',
+    "quick-insights": '[data-ia-section="quick-insights"]',
+    "what-changed": '[data-ia-section="what-changed"]',
+    "sources-evidence": '[data-ia-section="sources-evidence"]',
+    methodology: '[data-ia-section="methodology"]',
+    faq: '[data-ia-section="faq"]',
+  } as const;
+
+  for (const [label, selector] of Object.entries(sectionSelectors)) {
+    const png = await page.locator(selector).screenshot();
+    const small = await sharp(png).resize({ width: 192 }).jpeg({ quality: 25 }).toBuffer();
+    console.log(
+      "WR_SECTION_" +
+        label +
+        "_START" +
+        small.toString("base64") +
+        "_WR_SECTION_" +
+        label +
+        "_END",
+    );
+  }
+
+  const formattedCss = execFileSync(
+    "bunx",
+    ["prettier", "src/modules/wild-rift-tier-list/wild-rift-tier-list.module.css"],
+    { encoding: "utf8" },
+  );
+  console.log(
+    "WR_FORMATTED_CSS_START" +
+      Buffer.from(formattedCss).toString("base64") +
+      "WR_FORMATTED_CSS_END",
   );
 });
