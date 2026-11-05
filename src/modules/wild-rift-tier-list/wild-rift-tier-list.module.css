@@ -1850,7 +1850,7 @@
   }
 
   .hero {
-    min-height: 300px;
+    min-height: 340px;
     border-bottom-color: rgba(221, 178, 79, 0.76);
   }
 
@@ -1881,7 +1881,7 @@
   }
 
   .heroCopy h1 {
-    font-size: 56px;
+    font-size: 62px;
     line-height: 0.95;
     text-shadow:
       0 3px 18px rgba(0, 0, 0, 0.78),
@@ -1890,7 +1890,7 @@
 
   .heroLead {
     margin-top: 9px;
-    font-size: 22px;
+    font-size: 23px;
   }
 
   .heroDescription {
@@ -1902,8 +1902,8 @@
   }
 
   .rankingContext {
-    bottom: 15px;
-    width: 78%;
+    bottom: 17px;
+    width: 80%;
     border-color: rgba(81, 173, 211, 0.68);
     border-radius: 6px;
     background: rgba(3, 21, 36, 0.9);
@@ -2125,7 +2125,7 @@
   }
 
   .workspace {
-    grid-template-columns: minmax(0, 2.3fr) minmax(390px, 1fr);
+    grid-template-columns: minmax(0, 2.45fr) minmax(390px, 1fr);
     gap: 10px;
   }
 
@@ -2217,8 +2217,8 @@
   }
 
   .championCard {
-    grid-template-columns: 64px minmax(0, 1fr);
-    min-height: 80px;
+    grid-template-columns: 68px minmax(0, 1fr);
+    min-height: 86px;
     border-color: rgba(55, 94, 112, 0.82);
     background: linear-gradient(130deg, rgba(8, 39, 56, 0.96), rgba(3, 20, 31, 0.96));
   }
@@ -2233,8 +2233,8 @@
   }
 
   .cardPortrait {
-    width: 64px;
-    min-height: 78px;
+    width: 68px;
+    min-height: 84px;
   }
 
   .cardBody {
@@ -2242,12 +2242,12 @@
   }
 
   .cardHeader strong {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .cardPrimaryMetric {
     margin-top: 5px;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .detailPanel {
@@ -2262,7 +2262,7 @@
   .detailHero {
     position: relative;
     display: flex;
-    min-height: 176px;
+    min-height: 220px;
     align-items: flex-end;
     overflow: hidden;
     padding: 16px;
@@ -2310,7 +2310,7 @@
   .detailHero h3 {
     margin: 4px 0 8px;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 32px;
+    font-size: 36px;
   }
 
   .detailTierLine {
@@ -2326,7 +2326,7 @@
   }
 
   .metric strong {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .detailContent > .disclosure {
@@ -2373,8 +2373,8 @@
   }
 
   .insightGrid article {
-    grid-template-columns: 68px minmax(0, 1fr) auto;
-    min-height: 84px;
+    grid-template-columns: 74px minmax(0, 1fr) auto;
+    min-height: 96px;
     border-color: rgba(93, 117, 113, 0.7);
     padding: 8px;
     background:
@@ -2383,8 +2383,8 @@
   }
 
   .insightPortrait {
-    width: 68px;
-    height: 68px;
+    width: 74px;
+    height: 74px;
   }
 
   .insightGrid article > div > strong {
