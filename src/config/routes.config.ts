@@ -11,19 +11,6 @@ export const routeDefinitions = [
     description:
       "Compare Anime Expeditions units, role-fit traits and standard equipment, with provisional build, team composition and evolution decisions and clear evidence limits.",
   },
-  {
-    route: "/wow-forever/vanguard",
-    class: "public_indexable",
-    searchIntent: "explore the WoW Forever Vanguard community monument",
-    primaryKeyword: "WoW Forever Vanguard",
-    title: "8016 Vanguard Monument | WoW Forever | TierListBase",
-    description:
-      "Explore the 8016 Vanguard Monument, an unofficial WoW Forever community tribute preserving player memories in 64,128 permanent seats.",
-    h1: "8016 Vanguard Monument",
-    pageType: "WebApplication",
-    relatedRoutes: ["/wow-forever/tier-list", "/privacy", "/terms"],
-    lastModified: "2026-10-19",
-  },
   { route: "/account/vanguard", class: "private" },
   { route: "/wow-forever/vanguard/my", class: "private" },
   ...[
@@ -53,7 +40,6 @@ export const routeDefinitions = [
       "/genshin-impact/tier-list",
       "/limbus-company/tier-list",
       "/nikke/tier-list",
-      "/wow-forever/vanguard",
       "/about",
       "/privacy",
       "/terms",
@@ -64,7 +50,7 @@ export const routeDefinitions = [
     ],
     lastModified: "2026-11-04",
     reviewStatus: "reviewed",
-    reviewFingerprint: "28455d1f1de1682f00e91ecd57b07e24361ec5dfe95b25b766d0d6adeca63b20",
+    reviewFingerprint: "0123a04ee43d40104bce381cb056c0ec6a8b11e94267051dddfa59472cf77d99",
   },
   {
     route: "/wow-forever/tier-list",
