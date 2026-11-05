@@ -16,7 +16,7 @@ describe("games.config registry", () => {
       "Phantom Blade Zero",
       "Dragon Traveler",
       "Wild Rift",
-      "Anime Expeditions",
+      "Anime\u00a0Expeditions",
     ]);
 
     expect(gamesConfig.map((g) => g.tierListHref)).toEqual([
