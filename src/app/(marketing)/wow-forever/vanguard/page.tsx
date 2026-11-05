@@ -10,8 +10,8 @@ import { headers } from "next/headers";
 import { getAccountContext } from "@/platform/auth/account-context";
 import { WOW_CLASSES } from "@/modules/meta-board";
 import { vanguardAssets } from "@/config/vanguard.config";
-import { VanguardEntry, seatIdSchema, createVanguardService } from "@/modules/wow-vanguard";
-import { db } from "@/platform/database/application-database";
+import { VanguardEntry, seatIdSchema } from "@/modules/wow-vanguard";
+import { getVanguardService } from "@/config/vanguard-runtime.config";
 
 export function generateMetadata(): Metadata {
   return metadataForRoute(routeRegistry, "/wow-forever/vanguard", currentSeoEnvironment());
@@ -27,7 +27,7 @@ export default async function VanguardPage({
   const requested = (await searchParams).seat;
   const seat = seatIdSchema.safeParse(requested);
   const account = await getAccountContext(await headers());
-  const manifest = await createVanguardService(db).manifest();
+  const manifest = await getVanguardService().manifest();
   const hero = vanguardAssets.hero[manifest.phase];
 
   return (
