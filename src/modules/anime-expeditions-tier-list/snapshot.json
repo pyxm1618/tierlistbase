@@ -858,7 +858,7 @@
       "asset": "ignition-commander-betrayal",
       "sourceIds": [
         "unit-data",
-        "availability-banner-review"
+        "update3-obtainment"
       ]
     },
     {
@@ -1254,7 +1254,8 @@
       "asset": "rainman-forecast",
       "sourceIds": [
         "unit-data",
-        "availability-event-review"
+        "summer-obtainment",
+        "current-event-history"
       ]
     },
     {
@@ -1307,7 +1308,8 @@
       "asset": "sharkfang-abyssal",
       "sourceIds": [
         "unit-data",
-        "availability-event-review"
+        "summer-obtainment",
+        "current-event-history"
       ]
     },
     {
@@ -1360,7 +1362,8 @@
       "asset": "head-captain-char",
       "sourceIds": [
         "unit-data",
-        "availability-event-review"
+        "summer-obtainment",
+        "current-event-history"
       ]
     },
     {
@@ -1413,7 +1416,8 @@
       "asset": "sand-alligator",
       "sourceIds": [
         "unit-data",
-        "availability-event-review"
+        "summer-obtainment",
+        "current-event-history"
       ]
     },
     {
@@ -1466,7 +1470,8 @@
       "asset": "water-mage-scholar",
       "sourceIds": [
         "unit-data",
-        "availability-event-review"
+        "summer-obtainment",
+        "current-event-history"
       ]
     },
     {
