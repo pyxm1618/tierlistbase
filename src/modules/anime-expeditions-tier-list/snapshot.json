@@ -1312,7 +1312,7 @@
       "partners": [],
       "hidden": true,
       "asset": "cube",
-      "sourceIds": ["unit-data","current-wiki"]
+      "sourceIds": ["unit-data", "current-wiki"]
     },
     {
       "id": "the-drink",
@@ -1739,7 +1739,7 @@
       "partners": [],
       "hidden": false,
       "asset": "little-carrot",
-      "sourceIds": ["unit-data","current-unit-role-crosscheck"]
+      "sourceIds": ["unit-data", "current-unit-role-crosscheck"]
     },
     {
       "id": "reaper",

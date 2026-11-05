@@ -43,7 +43,7 @@ describe("Anime Expeditions snapshot integrity", () => {
       expect(pick.unit.viewTiers[pick.view]).not.toBe("Pending");
     }
     const pending = units.filter((u) => u.viewTiers.Overall === "Pending");
-    expect(pending.length).toBeGreaterThan(0);
+    expect(pending).toHaveLength(0);
   });
   it("filters real identity fields without converting unknown availability to obtainable", () => {
     const first = units.find((u) => u.currentForm === "Crimson Captain (Moon)")!;
