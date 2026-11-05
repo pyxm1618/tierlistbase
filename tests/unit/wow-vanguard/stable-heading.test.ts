@@ -2,10 +2,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { VanguardEntry } from "@/modules/wow-vanguard/client/entry";
-import type {
-  VanguardAssets,
-  VanguardManifest,
-} from "@/modules/wow-vanguard/client/contracts";
+import type { VanguardAssets, VanguardManifest } from "@/modules/wow-vanguard/client/contracts";
 
 const assets: VanguardAssets = {
   hero: {},
