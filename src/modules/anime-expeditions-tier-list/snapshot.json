@@ -839,15 +839,21 @@
         "Support": "D",
         "Crowd Control": "S"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Ignition Commander (Betrayal) at S overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "ignis-restraint"
         ],
@@ -887,15 +893,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Water Sage (Founder) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "High",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -937,15 +949,21 @@
         "Support": "A",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Wild Card (Ace) at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "joker-card"
         ],
@@ -989,15 +1007,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Iron Wolf (Struggler) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "High",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [
           "demonslayer"
         ],
@@ -1041,15 +1065,21 @@
         "Support": "A",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Eclipse Hunter (Savior) at A overall. TierListBase's five-view editorial review rates it A for DPS, A for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "blade-of-reality"
         ],
@@ -1093,15 +1123,21 @@
         "Support": "D",
         "Crowd Control": "S"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Lightning God (Overcharged) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "High",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "storm-trident"
         ],
@@ -1140,15 +1176,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Jester at S overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "High",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -1185,15 +1227,21 @@
         "Support": "S",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Kitsune at S overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, S for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "High",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -1235,15 +1283,21 @@
         "Support": "D",
         "Crowd Control": "S"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Rainman (Forecast) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "poison-frog"
         ],
@@ -1289,15 +1343,21 @@
         "Support": "D",
         "Crowd Control": "S"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Sharkfang (Abyssal) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "tideblade"
         ],
@@ -1343,15 +1403,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Head Captain (Char) at S overall. TierListBase's five-view editorial review rates it S for DPS, S for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "optics"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "fiery-staff"
         ],
@@ -1397,15 +1463,21 @@
         "Support": "D",
         "Crowd Control": "A"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Sand (Alligator) at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and A for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "poison-hook"
         ],
@@ -1451,15 +1523,21 @@
         "Support": "D",
         "Crowd Control": "S"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Water Mage (Scholar) at S overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "spirit-king-s-blade"
         ],
@@ -1505,15 +1583,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Prodigy (Rage) at S overall. TierListBase's five-view editorial review rates it S for DPS, S for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "High",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "optics"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "mentor-s-cape"
         ],
@@ -1602,15 +1686,21 @@
         "Support": "A",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places The Drink (Juicebox) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "pointy-straw"
         ],
@@ -1654,15 +1744,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Carrot (Unleashed) at A overall. TierListBase's five-view editorial review rates it A for DPS, A for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "optics"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "carrot-s-gi"
         ],
@@ -1706,15 +1802,21 @@
         "Support": "S",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Vegetable (Prince) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, S for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "royal-gi"
         ],
@@ -1758,15 +1860,21 @@
         "Support": "D",
         "Crowd Control": "A"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Razorjaw (Hunter) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and A for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "predator-s-skull"
         ],
@@ -1810,15 +1918,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Dark Mage (Sovereign) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "dark-scepter"
         ],
@@ -1862,15 +1976,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Cursed Immortal (Black Sun) at B overall. TierListBase's five-view editorial review rates it D for DPS, B for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "optics"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "memory-pendant"
         ],
@@ -1914,15 +2034,21 @@
         "Support": "S",
         "Crowd Control": "S"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Shadow (Divine) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, S for Support, and S for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "High",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "hexed-blade"
         ],
@@ -1966,15 +2092,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places True Saint (Holy) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2061,15 +2193,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Reaper (Released) at B overall. TierListBase's five-view editorial review rates it B for DPS, B for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "optics"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "spirit-of-the-moonblade"
         ],
@@ -2108,15 +2246,21 @@
         "Support": "A",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Forbidden Teacher at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2153,15 +2297,21 @@
         "Support": "D",
         "Crowd Control": "C"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Ice Mage at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and C for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2198,15 +2348,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Thunder Shinobi at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2248,15 +2404,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Cursed Student (True Love) at A overall. TierListBase's five-view editorial review rates it A for DPS, A for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "optics"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "promise-ring"
         ],
@@ -2300,15 +2462,21 @@
         "Support": "D",
         "Crowd Control": "A"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places String Demon (Awakened) at A overall. TierListBase's five-view editorial review rates it A for DPS, A for Utility, D for Support, and A for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "webbed-fruit"
         ],
@@ -2352,15 +2520,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Crimson (Brother) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2402,15 +2576,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Flame Emperor (Reincarnate) at B overall. TierListBase's five-view editorial review rates it B for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "emperor-s-attire"
         ],
@@ -2449,15 +2629,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Bounty Hunter at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2499,15 +2685,21 @@
         "Support": "D",
         "Crowd Control": "S"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places 8th Sword (Berserk) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "High",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "onis-nature",
           "hair-bells"
@@ -2547,15 +2739,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Nen Hunter at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2592,15 +2790,21 @@
         "Support": "A",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Water Princess at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2637,15 +2841,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Corps Captain at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2687,15 +2897,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Hollow (Blaze) at B overall. TierListBase's five-view editorial review rates it B for DPS, B for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "optics"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "hell-s-flower"
         ],
@@ -2734,15 +2950,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Greed at B overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2784,15 +3006,21 @@
         "Support": "S",
         "Crowd Control": "S"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Puppet (Telekinetic) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, S for Support, and S for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "calamity-s-eye"
         ],
@@ -2831,15 +3059,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Reishi Archer at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -2881,15 +3115,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Lady Giant (Envy) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Situational",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [
           "boulder"
         ],
@@ -2933,15 +3173,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Elf Mage (Unleashed) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Worth Evolving",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "elven-battle-staff"
         ],
@@ -2980,15 +3226,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Toy Maker at B overall. TierListBase's five-view editorial review rates it D for DPS, B for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "optics"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -3025,15 +3277,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Demon Cyborg at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -3070,15 +3328,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Curly Brow at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -3115,15 +3379,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Scissor at B overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -3160,15 +3430,21 @@
         "Support": "D",
         "Crowd Control": "B"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Ice Queen at B overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and B for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -3205,15 +3481,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Kid Assassin at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -3250,15 +3532,21 @@
         "Support": "A",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places The Hero at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -3295,15 +3583,21 @@
         "Support": "D",
         "Crowd Control": "D"
       },
-      "why": "Not enough current evidence to assign a tier. Documented identity is retained while ranking review is pending.",
+      "why": "Current Update 5 comparative evidence places Rubber Boy at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
       "reviewStatus": "Current-source reviewed; multi-view editorial complete",
       "bestFor": [],
-      "investment": "Needs Review",
-      "investmentLevel": "Needs Review",
+      "investment": "Source-reviewed current meta",
+      "investmentLevel": "Moderate",
       "dependency": "Performance depends on the ranked form, Trait and Equipment rolls, stage modifiers, and the documented kit interactions.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [],
         "note": "TierListBase editorial build: first listed Trait / Standard Equipment is the primary recommendation and the second is the alternative; actual roll quality still matters."
       },
@@ -3372,12 +3666,18 @@
       "investmentLevel": "High",
       "dependency": "Its strongest boss-control tools arrive late in the upgrade path; Black Heart can intentionally trigger its retaliation interaction.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "awakened-moonblade"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [],
       "hidden": false,
@@ -3424,12 +3724,18 @@
       "investmentLevel": "High",
       "dependency": "Displayed SPA is not sustained cycle frequency; evaluate the five-attack rhythm rather than raw preview DPS.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "demonic-pistols"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [],
       "hidden": false,
@@ -3481,12 +3787,18 @@
       "investmentLevel": "High",
       "dependency": "Its unusual outside-range targeting changes placement logic; Reaper (Frenzied) enables the named stun interaction.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "optics"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "lanza-de-luz"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [
         "reaper-frenzied"
@@ -3540,12 +3852,18 @@
       "investmentLevel": "Moderate",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "warrior-s-axe",
+          "katana"
+        ],
         "exclusiveIds": [
           "blossom-blade"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [
         "fallen-angel"
@@ -3599,12 +3917,18 @@
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "hypnotic-edge"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [
         "reaper-frenzied"
@@ -3708,12 +4032,18 @@
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "accursed-equipment",
+          "magic-orb"
+        ],
         "exclusiveIds": [
           "piety-obliteration"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [],
       "hidden": false,
@@ -3768,12 +4098,18 @@
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "primordial",
+          "unbound"
+        ],
+        "standardIds": [
+          "magic-book",
+          "accursed-equipment"
+        ],
         "exclusiveIds": [
           "morphing-sword"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [],
       "hidden": false,
@@ -3828,12 +4164,18 @@
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "kings-guitar"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [
         "princess"
@@ -3890,12 +4232,18 @@
       "investmentLevel": "High",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "life-eater"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [
         "8th-sword"
@@ -3952,12 +4300,18 @@
       "investmentLevel": "Moderate",
       "dependency": "Use the documented kit interaction; exact obtainment and future balance can change.",
       "build": {
-        "traitIds": [],
-        "standardIds": [],
+        "traitIds": [
+          "optics",
+          "primordial"
+        ],
+        "standardIds": [
+          "magic-orb",
+          "pirate-s-slingshot"
+        ],
         "exclusiveIds": [
           "evening-umbrella"
         ],
-        "note": "No unsourced best-build claim is made. Unit-specific exclusive gear is listed only where the current source documents it."
+        "note": "TierListBase editorial role-fit recommendation based on the reviewed role, archetype and current item effects; exact roll quality and stage conditions still matter."
       },
       "partners": [
         "dead-melody"
@@ -4041,7 +4395,10 @@
         "traitIds": [
           "unbound"
         ],
-        "standardIds": [],
+        "standardIds": [
+          "accursed-equipment",
+          "magic-orb"
+        ],
         "exclusiveIds": [
           "orb-of-causality"
         ],
