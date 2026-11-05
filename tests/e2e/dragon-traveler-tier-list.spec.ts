@@ -237,6 +237,14 @@ test("Dragon Traveler updates current pull priority at exact banner boundaries",
   await expect(priority).toContainText("11/19 04:59");
   await expect(priority).toContainText("remains active in parallel through 11/12 04:59");
 
+  for (const width of [390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 950 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    await expect(priority).toBeVisible();
+  }
+
   await page.clock.pauseAt(new Date("2026-11-12T04:59:59+08:00"));
   await expect(priority).toContainText("Wait for Testing");
   await page.clock.fastForward(2000);
