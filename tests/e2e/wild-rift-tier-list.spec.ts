@@ -321,88 +321,14 @@ test("visual capture only: 1440 Jungle full-page screenshot", async ({ page }) =
 
   const leeSin = page.locator('[data-champion-id="lee-sin"]');
   if (await leeSin.count()) {
-    await leeSin.evaluate((element: HTMLElement) => element.click());
+    await leeSin.click();
   }
 
   await page.evaluate(() => window.scrollTo(0, 0));
-  const geometry = await page.evaluate(() => {
-    const selectors = {
-      hero: '[data-ia-section="hero"]',
-      rankingContext: '[data-ia-section="ranking-context"]',
-      quickPicks: '[data-ia-section="quick-picks"]',
-      roleNav: '[role="tablist"][aria-label="Wild Rift role rankings"]',
-      workspace: '[data-ia-section="role-tier-workspace"]',
-      insights: '[data-ia-section="quick-insights"]',
-      changed: '[data-ia-section="what-changed"]',
-      sources: '[data-ia-section="sources-evidence"]',
-      methodology: '[data-ia-section="methodology"]',
-      faq: '[data-ia-section="faq"]',
-    };
-    const boxes = Object.fromEntries(
-      Object.entries(selectors).map(([key, selector]) => {
-        const element = document.querySelector(selector);
-        if (!element) return [key, null];
-        const rect = element.getBoundingClientRect();
-        return [
-          key,
-          {
-            x: Math.round(rect.x),
-            y: Math.round(rect.y + window.scrollY),
-            width: Math.round(rect.width),
-            height: Math.round(rect.height),
-          },
-        ];
-      }),
-    );
-    return {
-      viewport: { width: innerWidth, height: innerHeight },
-      document: {
-        width: document.documentElement.scrollWidth,
-        height: document.documentElement.scrollHeight,
-      },
-      boxes,
-    };
-  });
-  console.log("WR_VISUAL_GEOMETRY", JSON.stringify(geometry));
+  await page.waitForTimeout(150);
+
   const screenshot = await page.screenshot({ fullPage: true });
   console.log(
     "WR_VISUAL_BASE64_START" + screenshot.toString("base64") + "WR_VISUAL_BASE64_END",
-  );
-
-  const sectionSelectors = {
-    hero: '[data-ia-section="hero"]',
-    "quick-picks": '[data-ia-section="quick-picks"]',
-    "role-navigation": '[data-ia-section="role-navigation"]',
-    "role-tier-workspace": '[data-ia-section="role-tier-workspace"]',
-    "quick-insights": '[data-ia-section="quick-insights"]',
-    "what-changed": '[data-ia-section="what-changed"]',
-    "sources-evidence": '[data-ia-section="sources-evidence"]',
-    methodology: '[data-ia-section="methodology"]',
-    faq: '[data-ia-section="faq"]',
-  } as const;
-
-  for (const [label, selector] of Object.entries(sectionSelectors)) {
-    const png = await page.locator(selector).screenshot();
-    const small = await sharp(png).resize({ width: 192 }).jpeg({ quality: 25 }).toBuffer();
-    console.log(
-      "WR_SECTION_" +
-        label +
-        "_START" +
-        small.toString("base64") +
-        "_WR_SECTION_" +
-        label +
-        "_END",
-    );
-  }
-
-  const formattedCss = execFileSync(
-    "bunx",
-    ["prettier", "src/modules/wild-rift-tier-list/wild-rift-tier-list.module.css"],
-    { encoding: "utf8" },
-  );
-  console.log(
-    "WR_FORMATTED_CSS_START" +
-      Buffer.from(formattedCss).toString("base64") +
-      "WR_FORMATTED_CSS_END",
   );
 });
