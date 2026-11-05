@@ -80,8 +80,9 @@ export function AnimeExpeditionsTierList() {
             <div>
               <dt>Review</dt>
               <dd>
-                {units.filter((u) => !Object.values(u.viewTiers).includes("Pending")).length} fully
-                reviewed units · 4 evidence-gated records remain Pending
+                {units.filter((u) => !Object.values(u.viewTiers).includes("Pending")).length} five-view
+                reviewed units · {units.filter((u) => u.availability === "Needs Review").length} obtainment
+                records remain Needs Review
               </dd>
             </div>
           </dl>
@@ -446,7 +447,7 @@ export function AnimeExpeditionsTierList() {
                 {reviewMetadata.ledger.total} displayed Trait, Equipment and evolution records are
                 source-reviewed. Direct personal live testing is not claimed. Update 4 canonical
                 relationships previously held as unresolved are now closed against current unit
-                pages; unsupported comparative claims remain Pending instead of being fabricated.
+                pages; unresolved current-obtainment claims remain Needs Review instead of being inferred.
               </p>
               <ul>
                 {snapshot.uncertainties.map((note) => (

@@ -277,7 +277,7 @@
       "archetype": "Magical",
       "rarity": "Secret",
       "availability": "Available",
-      "availabilityNote": "Current obtainment cross-check still lists the District 7 Boss Rush → Infernal Dust → District 7 Secret Banner route. The base unit evolves into Crimson Captain (Moon).",
+      "availabilityNote": "District 7 remains a current Infernal Dust farm as of the November 1 cross-check; the dedicated acquisition guide documents spending that Dust on the District 7 Secret Banner before evolving Crimson Captain into Crimson Captain (Moon).",
       "evolutionState": "Evolved",
       "placementLimit": 2,
       "viewTiers": {
@@ -319,7 +319,8 @@
       "sourceIds": [
         "unit-data",
         "wiki-ranking",
-        "current-roster-obtainment"
+        "current-roster-obtainment",
+        "crimson-captain-obtainment"
       ]
     },
     {

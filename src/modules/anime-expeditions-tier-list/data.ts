@@ -85,11 +85,19 @@ export const sources = [
   },
   {
     id: "current-roster-obtainment",
-    name: "Bloxron — current roster obtainment cross-check",
-    url: "https://bloxron.com/anime-expeditions/units",
+    name: "Bloxron — November current-mode currency cross-check",
+    url: "https://bloxron.com/anime-expeditions/codes",
     revision: null,
     checked: snapshot.date,
-    note: "Current November 5 roster guide still documents Crimson Captain through District 7 Boss Rush Infernal Dust and the District 7 Secret Banner. Used only to close that obtainment route.",
+    note: "Updated November 1, 2026. Confirms Infernal Dust is still farmed from District 7 rather than codes; used with the dedicated Crimson Captain acquisition guide, not as a standalone banner claim.",
+  },
+  {
+    id: "crimson-captain-obtainment",
+    name: "AllThingsHow — Crimson Captain acquisition route",
+    url: "https://allthings.how/anime-expeditions-how-to-get-and-evolve-crimson-captain/",
+    revision: null,
+    checked: snapshot.date,
+    note: "Current fall 2026 acquisition guide documents District 7 Boss Rush Infernal Dust, the District 7 Secret Banner and the Moon evolution path. Cross-checked against the November 1 current-mode currency page before marking the route Available.",
   },
   {
     id: "mrguider-update5",
