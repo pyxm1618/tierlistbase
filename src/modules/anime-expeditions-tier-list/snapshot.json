@@ -32,7 +32,7 @@
         "Crowd Control": "S"
       },
       "why": "The attack cycle combines Alchemy Mark, Magical amplification and slow. Team DoT balance changes its passive outcome, so it should be built around the actual equipped roster.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "All Modes"
       ],
@@ -96,7 +96,7 @@
         "Crowd Control": "A"
       },
       "why": "Colossal Roar combines Dismember with a Physical damage buff in range. Its half-range trigger requires deliberate positioning, rather than placing it at the edge of coverage.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Raid"
       ],
@@ -160,7 +160,7 @@
         "Crowd Control": "S+"
       },
       "why": "Time Stop creates a window for existing DoT effects. The evolved kill interaction extends that window and stores Flame Feathers, so wave density matters more than sheet DPS.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Long-run"
       ],
@@ -224,7 +224,7 @@
         "Crowd Control": "D"
       },
       "why": "Enhanced Burn stored by Demon Head is converted into a detonation. This makes DoT scaling valuable, but the explosion depends on its setup window and enemies remaining grouped.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Raid"
       ],
@@ -288,7 +288,7 @@
         "Crowd Control": "D"
       },
       "why": "Fire Banners add independent Fire instances and eventually become moving summons. The damage ceiling needs time to establish banners; short stages reduce that advantage.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Long-run"
       ],
@@ -353,7 +353,7 @@
         "Crowd Control": "D"
       },
       "why": "The Captain boosts allied damage and rewards the dominant Archetype. Its buffs do not stack; it earns a slot through team output and War Chest income rather than personal DPS.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "All Modes"
       ],
@@ -417,7 +417,7 @@
         "Crowd Control": "A"
       },
       "why": "Lightning chains bounce back onto fewer targets. Boss proximity activates the second Djinn with Freeze and follow-up slow, making its contribution depend on what enters range.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Raid"
       ],
@@ -476,7 +476,7 @@
         "Crowd Control": "A"
       },
       "why": "Cube Link amplifies linked allies while Cube Overload adds stun after regular attacks. Value depends on the linked attackers and their positioning, not Cubert’s own attack damage.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "All Modes"
       ],
@@ -538,7 +538,7 @@
         "Crowd Control": "S"
       },
       "why": "Biogel links slow into stun and the transformation chain needs takedowns and summoned boss kills. A strong long-run tool that cannot be treated as fully ramped at placement.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Long-run"
       ],
@@ -602,7 +602,7 @@
         "Crowd Control": "D"
       },
       "why": "Illusion rewards grouping enemies before its explosion; BlackFire supplies a separate damage route. Isolated targets and poor stacking reduce the value of the same build.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Long-run"
       ],
@@ -666,7 +666,7 @@
         "Crowd Control": "S"
       },
       "why": "The base slow and evolved close-range Stagger create layered stall. Placement must bring enemies inside half of its range for Plummet; extra range alone does not guarantee that trigger.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Story / Challenge"
       ],
@@ -725,7 +725,7 @@
         "Crowd Control": "D"
       },
       "why": "Kill-income amplification helps long waves fund expensive upgrades. Capital Lock returns little on selling, so early placement competes with immediate defensive spending.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Long-run"
       ],
@@ -780,7 +780,7 @@
         "Crowd Control": "D"
       },
       "why": "Wave income can fund the first carry upgrades without using a Secret slot. This is an account-progression choice; short stages can end before a large farm investment pays back.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Story / Challenge"
       ],
@@ -840,7 +840,7 @@
         "Crowd Control": "S"
       },
       "why": "Current Update 5 comparative evidence places Ignition Commander (Betrayal) at S overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -894,7 +894,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Water Sage (Founder) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
@@ -950,7 +950,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Wild Card (Ace) at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -1008,7 +1008,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Iron Wolf (Struggler) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -1066,7 +1066,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Eclipse Hunter (Savior) at A overall. TierListBase's five-view editorial review rates it A for DPS, A for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -1124,7 +1124,7 @@
         "Crowd Control": "S"
       },
       "why": "Current Update 5 comparative evidence places Lightning God (Overcharged) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -1177,7 +1177,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Jester at S overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
@@ -1228,7 +1228,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Kitsune at S overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, S for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "High",
@@ -1284,7 +1284,7 @@
         "Crowd Control": "S"
       },
       "why": "Current Update 5 comparative evidence places Rainman (Forecast) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -1344,7 +1344,7 @@
         "Crowd Control": "S"
       },
       "why": "Current Update 5 comparative evidence places Sharkfang (Abyssal) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -1404,7 +1404,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Head Captain (Char) at S overall. TierListBase's five-view editorial review rates it S for DPS, S for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -1464,7 +1464,7 @@
         "Crowd Control": "A"
       },
       "why": "Current Update 5 comparative evidence places Sand (Alligator) at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and A for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -1524,7 +1524,7 @@
         "Crowd Control": "S"
       },
       "why": "Current Update 5 comparative evidence places Water Mage (Scholar) at S overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -1584,7 +1584,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Prodigy (Rage) at S overall. TierListBase's five-view editorial review rates it S for DPS, S for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -1687,7 +1687,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places The Drink (Juicebox) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -1745,7 +1745,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Carrot (Unleashed) at A overall. TierListBase's five-view editorial review rates it A for DPS, A for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -1803,7 +1803,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Vegetable (Prince) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, S for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -1861,7 +1861,7 @@
         "Crowd Control": "A"
       },
       "why": "Current Update 5 comparative evidence places Razorjaw (Hunter) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and A for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -1919,7 +1919,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Dark Mage (Sovereign) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -1977,7 +1977,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Cursed Immortal (Black Sun) at B overall. TierListBase's five-view editorial review rates it D for DPS, B for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -2035,7 +2035,7 @@
         "Crowd Control": "S"
       },
       "why": "Current Update 5 comparative evidence places Shadow (Divine) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, S for Support, and S for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -2093,7 +2093,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places True Saint (Holy) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -2194,7 +2194,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Reaper (Released) at B overall. TierListBase's five-view editorial review rates it B for DPS, B for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -2247,7 +2247,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Forbidden Teacher at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -2298,7 +2298,7 @@
         "Crowd Control": "C"
       },
       "why": "Current Update 5 comparative evidence places Ice Mage at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and C for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -2349,7 +2349,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Thunder Shinobi at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -2405,7 +2405,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Cursed Student (True Love) at A overall. TierListBase's five-view editorial review rates it A for DPS, A for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -2463,7 +2463,7 @@
         "Crowd Control": "A"
       },
       "why": "Current Update 5 comparative evidence places String Demon (Awakened) at A overall. TierListBase's five-view editorial review rates it A for DPS, A for Utility, D for Support, and A for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -2521,7 +2521,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Crimson (Brother) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -2577,7 +2577,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Flame Emperor (Reincarnate) at B overall. TierListBase's five-view editorial review rates it B for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -2630,7 +2630,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Bounty Hunter at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -2686,7 +2686,7 @@
         "Crowd Control": "S"
       },
       "why": "Current Update 5 comparative evidence places 8th Sword (Berserk) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and S for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -2740,7 +2740,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Nen Hunter at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -2791,7 +2791,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Water Princess at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -2842,7 +2842,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Corps Captain at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -2898,7 +2898,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Hollow (Blaze) at B overall. TierListBase's five-view editorial review rates it B for DPS, B for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -2951,7 +2951,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Greed at B overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3007,7 +3007,7 @@
         "Crowd Control": "S"
       },
       "why": "Current Update 5 comparative evidence places Puppet (Telekinetic) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, S for Support, and S for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -3060,7 +3060,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Reishi Archer at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3116,7 +3116,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Lady Giant (Envy) at A overall. TierListBase's five-view editorial review rates it A for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Situational",
       "investmentLevel": "Moderate",
@@ -3174,7 +3174,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Elf Mage (Unleashed) at S overall. TierListBase's five-view editorial review rates it S for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Worth Evolving",
       "investmentLevel": "Moderate",
@@ -3227,7 +3227,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Toy Maker at B overall. TierListBase's five-view editorial review rates it D for DPS, B for Utility, D for Support, and D for Crowd Control. It is primarily a utility slot whose value comes from solving a specific team or stage need rather than raw sheet damage. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3278,7 +3278,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Demon Cyborg at C overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3329,7 +3329,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Curly Brow at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3380,7 +3380,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Scissor at B overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3431,7 +3431,7 @@
         "Crowd Control": "B"
       },
       "why": "Current Update 5 comparative evidence places Ice Queen at B overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and B for Crowd Control. It is primarily a control slot, so control resistance and stage layout can change its practical value. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3482,7 +3482,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Kid Assassin at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3533,7 +3533,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places The Hero at A overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, A for Support, and D for Crowd Control. It is primarily a support slot, so its value depends on the carry and whether its support effect is actually needed. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3584,7 +3584,7 @@
         "Crowd Control": "D"
       },
       "why": "Current Update 5 comparative evidence places Rubber Boy at D overall. TierListBase's five-view editorial review rates it D for DPS, D for Utility, D for Support, and D for Crowd Control. It is primarily a damage slot rather than a universal support or control pick. Stage modifiers and actual Trait / Equipment rolls can still change practical performance.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [],
       "investment": "Source-reviewed current meta",
       "investmentLevel": "Moderate",
@@ -3709,7 +3709,7 @@
       },
       "why": "Update 5 source review places this boss-control and retaliation carry in S tier; its kit cleanses status effects, retaliates with Stun, and can drag a boss back once per boss.",
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "availability": "Needs Review",
@@ -3772,7 +3772,7 @@
       },
       "why": "Update 5 source review places Wolf (Revived) in S tier as a cycle-based carry whose fifth attack gains infinite range and spawns Soul Wolves.",
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "availability": "Needs Review",
@@ -3837,7 +3837,7 @@
       },
       "why": "Update 5 source review places Black Heart (Revived) in S tier for anti-regeneration, resistance handling, knockback and Oppression damage amplification.",
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "availability": "Needs Review",
@@ -3902,7 +3902,7 @@
       },
       "why": "Update 5 source review places Noble Captain (Vibrant) in A tier; its output depends on movement modifiers, Hard CC and Dismember setup.",
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "availability": "Needs Review",
@@ -3967,7 +3967,7 @@
       },
       "why": "Update 5 source review places Traitor (Illusion) in S tier for Hypnosis, Soul-team amplification, modifier cancellation and its explicit Reaper pairing.",
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "availability": "Limited",
@@ -4083,7 +4083,7 @@
         "piety-obliteration"
       ],
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "availability": "Limited",
@@ -4149,7 +4149,7 @@
         "morphing-sword"
       ],
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "availability": "Limited",
@@ -4217,7 +4217,7 @@
         "kings-guitar"
       ],
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "availability": "Limited",
@@ -4285,7 +4285,7 @@
         "life-eater"
       ],
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "availability": "Limited",
@@ -4353,7 +4353,7 @@
         "evening-umbrella"
       ],
       "asset": "",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete"
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
       "id": "5th-god-hand",
@@ -4382,7 +4382,7 @@
         "Crowd Control": "S"
       },
       "why": "The current Update 5 ranking source places 5th God Hand in S tier for Full AoE damage, Distortion control and Fated Meter scaling.",
-      "reviewStatus": "Current-source reviewed; multi-view editorial complete",
+      "reviewStatus": "Source-reviewed current meta; multi-view editorial complete",
       "bestFor": [
         "Full AoE",
         "Distortion control",
