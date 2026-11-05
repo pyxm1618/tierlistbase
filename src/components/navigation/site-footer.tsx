@@ -4,7 +4,6 @@ import { Brand } from "@/components/navigation/site-header";
 import { PrivacySettingsButton } from "@/components/navigation/privacy-settings-button";
 
 const links = [
-  { label: "Vanguard Monument", href: "/wow-forever/vanguard" },
   { label: "About", href: "/about" },
   { label: "How Rankings Work", href: "/about#about-process-title" },
   { label: "Privacy", href: "/privacy" },
@@ -37,7 +36,6 @@ export function SiteFooter() {
               className="text-[.82rem] text-slate-300 hover:text-white"
               href={href}
               key={href}
-              prefetch={href === "/wow-forever/vanguard" ? false : null}
             >
               {label}
             </Link>
