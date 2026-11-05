@@ -80,8 +80,8 @@ export function AnimeExpeditionsTierList() {
             <div>
               <dt>Review</dt>
               <dd>
-                {units.filter((u) => u.reviewStatus.startsWith("Source-reviewed")).length}{" "}
-                source-reviewed units · comparative gaps stay Pending
+                {units.filter((u) => !Object.values(u.viewTiers).includes("Pending")).length}{" "}
+                fully reviewed units · 4 evidence-gated records remain Pending
               </dd>
             </div>
           </dl>
@@ -166,7 +166,7 @@ export function AnimeExpeditionsTierList() {
         </section>
         <section id="equipment" className={styles.section} aria-labelledby="equipment-title">
           <div className={styles.sectionHeading}>
-            <h2 id="equipment-title">Anime Expeditions Equipment Tier List</h2>
+            <h2 id="equipment-title">Anime Expeditions Standard Equipment Tier List</h2>
             <p>Standard Equipment only · compare rolled values and kit interactions</p>
           </div>
           <div data-standard-board>
@@ -216,8 +216,8 @@ export function AnimeExpeditionsTierList() {
           </div>
           <h3 className={styles.subheading}>Best Equipment by Unit</h3>
           <p className={styles.context}>
-            Editorial build starting points. Exclusive equipment is unit-bound and has no Standard
-            tier.
+            Reviewed TierListBase editorial recommendations. Exclusive equipment is unit-bound and
+            remains outside the Standard Equipment Tier Board.
           </p>
           <div
             className={styles.tableScroll}
@@ -243,7 +243,8 @@ export function AnimeExpeditionsTierList() {
                     <td>{namedEquipment(unit.build.standardIds.slice(1))}</td>
                     <td>{namedEquipment(unit.build.exclusiveIds)}</td>
                     <td>
-                      {unit.archetype} · {unit.role}. {unit.reviewStatus}; compare actual rolls.
+                      {unit.archetype} · {unit.role}. {unit.reviewStatus}; actual roll quality and
+                      stage conditions still matter.
                     </td>
                   </tr>
                 ))}
