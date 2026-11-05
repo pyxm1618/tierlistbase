@@ -81,14 +81,13 @@ export function VanguardEntry(props: {
     };
   }, [props.initialSeat, audioController]);
 
-  const stageStatus =
-    {
-      WOW_OPEN: null,
-      WOW_COMPLETE_WAITING: "WOW IS COMPLETE",
-      FOREVER_OPEN: "FOREVER IS OPEN",
-      COMPLETE: "THE MONUMENT IS COMPLETE",
-      SEALED: "THE MONUMENT IS SEALED",
-    }[props.manifest.stage];
+  const stageStatus = {
+    WOW_OPEN: null,
+    WOW_COMPLETE_WAITING: "WOW IS COMPLETE",
+    FOREVER_OPEN: "FOREVER IS OPEN",
+    COMPLETE: "THE MONUMENT IS COMPLETE",
+    SEALED: "THE MONUMENT IS SEALED",
+  }[props.manifest.stage];
 
   return (
     <section aria-label="Monument Stage" data-monument-stage className={"vanguard-stageRoot"}>
@@ -193,7 +192,9 @@ export function VanguardEntry(props: {
           {/* Center / Bottom Monument Call-to-Action Layer */}
           <div className={"vanguard-heroIntroContent"}>
             <div className={"vanguard-heroIntroInner"}>
-              <h1 className={"vanguard-monumentTitle"}>{props.heading ?? "8016 Vanguard Monument"}</h1>
+              <h1 className={"vanguard-monumentTitle"}>
+                {props.heading ?? "8016 Vanguard Monument"}
+              </h1>
 
               <p className="text-xs font-semibold uppercase tracking-wider text-[#d4af37]">
                 {props.manifest.stage === "WOW_OPEN"
