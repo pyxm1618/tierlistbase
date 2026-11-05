@@ -124,7 +124,7 @@ export function AnimeExpeditionsTierList() {
                   <h3 className={styles.tierLabel} data-tier={tier}>
                     {tier}
                   </h3>
-                  <div className={styles.itemGrid}>
+                  <div className={`${styles.itemGrid} ${styles.traitGrid}`}>
                     {rows.map((trait) => (
                       <article key={trait.id} className={styles.itemCard}>
                         <Image
