@@ -217,7 +217,7 @@ export function UnitWorkspace({
       <section aria-labelledby="quick-title" className={styles.quickSection}>
         <div className={styles.sectionHeading}>
           <h2 id="quick-title">Quick Picks</h2>
-          <p>Provisional editorial picks · current live review pending</p>
+          <p>Update 5 editorial picks · current source-reviewed baseline</p>
         </div>
         <div className={styles.quickPicks}>
           {quickPicks.map((pick) => (
