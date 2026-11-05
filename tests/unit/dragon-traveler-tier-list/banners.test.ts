@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  currentBannerAt,
-  verifiedBanners,
-} from "@/modules/dragon-traveler-tier-list/banners";
+import { currentBannerAt, verifiedBanners } from "@/modules/dragon-traveler-tier-list/banners";
 
 const globalMythicName = "Mythical Summon — Select SSR Ex Luminary";
 const taiwanFirstPool = ["hypnos", "artemis"];
