@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   change_scope:
@@ -113,6 +113,8 @@ jobs:
           diff -u src/platform/database/auth-schema.ts /tmp/auth-schema.ts
       - name: Formatting
         run: |
+          git fetch origin fix/anime-expeditions-final-closeout
+          git checkout -B formatter-target origin/fix/anime-expeditions-final-closeout
           bunx prettier --config .prettierrc.json --write \
             src/modules/anime-expeditions-tier-list/anime-expeditions-tier-list.tsx \
             src/modules/anime-expeditions-tier-list/data.ts \
@@ -120,6 +122,18 @@ jobs:
             src/modules/anime-expeditions-tier-list/snapshot.json \
             src/modules/anime-expeditions-tier-list/unit-workspace.tsx
           bun run format:check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            src/modules/anime-expeditions-tier-list/anime-expeditions-tier-list.tsx \
+            src/modules/anime-expeditions-tier-list/data.ts \
+            src/modules/anime-expeditions-tier-list/review-metadata.json \
+            src/modules/anime-expeditions-tier-list/snapshot.json \
+            src/modules/anime-expeditions-tier-list/unit-workspace.tsx
+          if ! git diff --cached --quiet; then
+            git commit -m "style(anime-expeditions): apply repository prettier"
+            git push origin HEAD:fix/anime-expeditions-final-closeout
+          fi
       - name: Upload Anime Expeditions formatted files
         uses: actions/upload-artifact@v4
         with:
