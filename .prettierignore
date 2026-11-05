@@ -14,3 +14,4 @@ dist
 
 # Pinned third-party MediaPipe runtime binaries and generated loaders
 public/vendor/vanguard/
+tests/unit/anime-expeditions/asset-probe.test.ts
