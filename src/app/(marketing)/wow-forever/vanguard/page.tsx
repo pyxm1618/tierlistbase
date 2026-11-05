@@ -28,13 +28,6 @@ export default async function VanguardPage({
   const seat = seatIdSchema.safeParse(requested);
   const account = await getAccountContext(await headers());
   const manifest = await createVanguardService(db).manifest();
-  const heading = {
-    WOW_OPEN: "8016 Vanguard Monument",
-    WOW_COMPLETE_WAITING: "WOW IS COMPLETE",
-    FOREVER_OPEN: "FOREVER IS OPEN",
-    COMPLETE: "THE MONUMENT IS COMPLETE",
-    SEALED: "THE MONUMENT IS SEALED",
-  }[manifest.stage];
   const hero = vanguardAssets.hero[manifest.phase];
 
   return (
@@ -54,7 +47,7 @@ export default async function VanguardPage({
         assets={vanguardAssets}
         initialSeat={seat.success ? seat.data : null}
         authenticated={Boolean(account)}
-        heading={heading}
+        heading={route.h1}
         hero={hero}
       />
 
