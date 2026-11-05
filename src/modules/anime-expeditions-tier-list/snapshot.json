@@ -2330,8 +2330,8 @@
       "element": "Dark",
       "archetype": "Magical",
       "rarity": "Exclusive",
-      "availability": "Needs Review",
-      "availabilityNote": "Current obtainment not asserted; Update 5 ranking and kit are source-reviewed.",
+      "availability": "Limited",
+      "availabilityNote": "The current unit database marks Crimson Limited and documents Season 1 Battlepass as its acquisition source.",
       "evolutionState": "Evolved",
       "placementLimit": 2,
       "viewTiers": {
@@ -3318,8 +3318,8 @@
       "element": "Neutral",
       "archetype": "Magical",
       "rarity": "Mythic",
-      "availability": "Needs Review",
-      "availabilityNote": "Documented Monster Clash fusion ingredient; current obtainment needs review.",
+      "availability": "Limited",
+      "availabilityNote": "The current unit database marks Suited Alchemist Limited; no broader current obtainment claim is inferred.",
       "evolutionState": "Base",
       "placementLimit": 1,
       "viewTiers": {
