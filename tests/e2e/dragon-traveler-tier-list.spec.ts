@@ -203,7 +203,7 @@ test("Dragon Traveler recommendations reveal the flowing mobile detail", async (
     .toBe(true);
 });
 
-test("Dragon Traveler retires both banners at their exact server-time boundaries", async ({
+test("Dragon Traveler updates current pull priority at exact banner boundaries", async ({
   page,
 }) => {
   await page.clock.install({ time: new Date("2026-10-28T12:00:00+08:00") });
@@ -212,11 +212,13 @@ test("Dragon Traveler retires both banners at their exact server-time boundaries
   const priority = page.locator("[data-current-pull-priority]");
   await expect(priority).toContainText("Consider");
   await expect(priority).toContainText("Arachne");
+
   await page.getByRole("button", { name: "Taiwan", exact: true }).click();
   await expect(priority).toContainText("Consider");
   await page.clock.fastForward(2000);
   await expect(priority).toContainText("洛基");
   await expect(priority).toContainText("11/12 04:59");
+
   await page.getByRole("button", { name: "Global", exact: true }).click();
   await expect(priority).toContainText("Arachne");
   await page.clock.pauseAt(new Date("2026-10-29T04:59:59-05:00"));
@@ -224,15 +226,41 @@ test("Dragon Traveler retires both banners at their exact server-time boundaries
   await page.clock.fastForward(2000);
   await expect(priority).toContainText("Mythical Summon");
   await expect(priority).not.toContainText("Arachne");
+
   await page.getByRole("button", { name: "Taiwan", exact: true }).click();
-  await page.clock.pauseAt(new Date("2026-11-12T04:59:59+08:00"));
+  await page.clock.pauseAt(new Date("2026-11-05T04:59:59+08:00"));
   await expect(priority).toContainText("洛基");
+  await expect(priority).toContainText("11/12 04:59");
   await page.clock.fastForward(2000);
-  await expect(priority).toContainText("No verified current banner recommendation");
+  await expect(priority).toContainText("Wait for Testing");
+  await expect(priority).toContainText("戀歌謬斯");
+  await expect(priority).toContainText("11/19 04:59");
+  await expect(priority).toContainText("remains active in parallel through 11/12 04:59");
+
+  for (const width of [390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 950 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
+    await expect(priority).toBeVisible();
+  }
+
+  await page.clock.pauseAt(new Date("2026-11-12T04:59:59+08:00"));
+  await expect(priority).toContainText("Wait for Testing");
+  await page.clock.fastForward(2000);
+  await expect(priority).toContainText("Wait for Testing");
+  await expect(priority).toContainText("戀歌謬斯");
+
   await page.getByRole("button", { name: "Global", exact: true }).click();
-  await expect(priority).toContainText("Mythical Summon");
   await page.clock.pauseAt(new Date("2026-11-12T04:59:59-05:00"));
   await expect(priority).toContainText("Mythical Summon");
+  await page.clock.fastForward(2000);
+  await expect(priority).toContainText("No verified current banner recommendation");
+
+  await page.getByRole("button", { name: "Taiwan", exact: true }).click();
+  await page.clock.pauseAt(new Date("2026-11-19T04:59:59+08:00"));
+  await expect(priority).toContainText("Wait for Testing");
+  await expect(priority).toContainText("戀歌謬斯");
   await page.clock.fastForward(2000);
   await expect(priority).toContainText("No verified current banner recommendation");
 });
