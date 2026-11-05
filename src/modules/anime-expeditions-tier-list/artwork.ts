@@ -148,6 +148,23 @@ import asset145 from "./assets/trait-strength-1.webp";
 import asset146 from "./assets/hero.webp";
 import asset147 from "./assets/unit-5th-god-hand.webp";
 import asset148 from "./assets/unit-suited-alchemist.webp";
+import asset149 from "./assets/unit-reaper-frenzied.webp";
+import asset150 from "./assets/unit-wolf-revived.webp";
+import asset151 from "./assets/unit-black-heart-revived.webp";
+import asset152 from "./assets/unit-noble-captain-vibrant.webp";
+import asset153 from "./assets/unit-traitor-illusion.webp";
+import asset154 from "./assets/unit-emerald-fist.webp";
+import asset155 from "./assets/unit-impaler-ultimate.webp";
+import asset156 from "./assets/unit-atom-totality.webp";
+import asset157 from "./assets/unit-dead-melody-solo.webp";
+import asset158 from "./assets/unit-first-blade-strongest.webp";
+import asset159 from "./assets/unit-princess-misery.webp";
+import asset160 from "./assets/gear-piety-obliteration.webp";
+import asset161 from "./assets/gear-morphing-sword.webp";
+import asset162 from "./assets/gear-kings-guitar.webp";
+import asset163 from "./assets/gear-life-eater.webp";
+import asset164 from "./assets/gear-evening-umbrella.webp";
+import asset165 from "./assets/gear-onis-nature.webp";
 
 export const artwork: Record<string, StaticImageData> = {
   "unit-alchemy-brothers-truth": asset0,
@@ -299,6 +316,23 @@ export const artwork: Record<string, StaticImageData> = {
   hero: asset146,
   "unit-5th-god-hand": asset147,
   "unit-suited-alchemist": asset148,
+  "unit-reaper-frenzied": asset149,
+  "unit-wolf-revived": asset150,
+  "unit-black-heart-revived": asset151,
+  "unit-noble-captain-vibrant": asset152,
+  "unit-traitor-illusion": asset153,
+  "unit-emerald-fist": asset154,
+  "unit-impaler-ultimate": asset155,
+  "unit-atom-totality": asset156,
+  "unit-dead-melody-solo": asset157,
+  "unit-first-blade-strongest": asset158,
+  "unit-princess-misery": asset159,
+  "gear-piety-obliteration": asset160,
+  "gear-morphing-sword": asset161,
+  "gear-kings-guitar": asset162,
+  "gear-life-eater": asset163,
+  "gear-evening-umbrella": asset164,
+  "gear-onis-nature": asset165,
 };
 export function artworkForOptional(key: string): StaticImageData | null {
   return artwork[key] ?? null;

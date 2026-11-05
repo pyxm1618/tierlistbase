@@ -3035,7 +3035,7 @@
         "Crowd Control": "S"
       },
       "why": "Update 5 source review places this boss-control and retaliation carry in S tier; its kit cleanses status effects, retaliates with Stun, and can drag a boss back once per boss.",
-      "asset": "",
+      "asset": "reaper-frenzied",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -3083,7 +3083,7 @@
         "Crowd Control": "D"
       },
       "why": "Update 5 source review places Wolf (Revived) in S tier as a cycle-based carry whose fifth attack gains infinite range and spawns Soul Wolves.",
-      "asset": "",
+      "asset": "wolf-revived",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -3131,7 +3131,7 @@
         "Crowd Control": "A"
       },
       "why": "Update 5 source review places Black Heart (Revived) in S tier for anti-regeneration, resistance handling, knockback and Oppression damage amplification.",
-      "asset": "",
+      "asset": "black-heart-revived",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -3179,7 +3179,7 @@
         "Crowd Control": "A"
       },
       "why": "Update 5 source review places Noble Captain (Vibrant) in A tier; its output depends on movement modifiers, Hard CC and Dismember setup.",
-      "asset": "",
+      "asset": "noble-captain-vibrant",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -3227,7 +3227,7 @@
         "Crowd Control": "S"
       },
       "why": "Update 5 source review places Traitor (Illusion) in S tier for Hypnosis, Soul-team amplification, modifier cancellation and its explicit Reaper pairing.",
-      "asset": "",
+      "asset": "traitor-illusion",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -3270,7 +3270,7 @@
         "Crowd Control": "A"
       },
       "why": "Current Update 4 kit data verifies a high-output burst carry with timed self-cleanse and repeated Stun windows. Those mechanics support A for DPS, Utility and Crowd Control, while no ally-facing amplification supports only D for Support. Overall remains A rather than S because the current Update 5 comparative ranking source does not independently establish an S-tier meta ceiling.",
-      "asset": "",
+      "asset": "emerald-fist",
       "reviewStatus": "Source-reviewed current kit; five-view editorial complete"
     },
     {
@@ -3319,7 +3319,7 @@
       },
       "why": "Update 5 source review places Impaler (Ultimate) in S tier as a Bleed carry with mode switching, Bleed consumption and emergency control.",
       "exclusiveIds": ["piety-obliteration"],
-      "asset": "",
+      "asset": "impaler-ultimate",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -3368,7 +3368,7 @@
       },
       "why": "Update 5 source review places Atom (Totality) in S tier for Radiation scaling, execute pressure and a charged mapwide finisher.",
       "exclusiveIds": ["morphing-sword"],
-      "asset": "",
+      "asset": "atom-totality",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -3417,7 +3417,7 @@
       },
       "why": "Update 5 source review places Dead Melody (Solo) in S tier for range buffs, Captain support and Deep Freeze Seafarer synergy.",
       "exclusiveIds": ["kings-guitar"],
-      "asset": "",
+      "asset": "dead-melody-solo",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -3466,7 +3466,7 @@
       },
       "why": "Update 5 source review places First Blade (Strongest) in S tier because cleansing allied debuffs can trigger strong damage buffs, with a named interaction for 8th Sword.",
       "exclusiveIds": ["life-eater"],
-      "asset": "",
+      "asset": "first-blade-strongest",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -3515,7 +3515,7 @@
       },
       "why": "Update 5 source review places Princess (Misery) in A tier as a Seafarer controller and summoner built around Gloom, Possession and periodic Special Ghost bursts.",
       "exclusiveIds": ["evening-umbrella"],
-      "asset": "",
+      "asset": "princess-misery",
       "reviewStatus": "Source-reviewed current meta; multi-view editorial complete"
     },
     {
@@ -4839,7 +4839,7 @@
       "rollablePassive": false,
       "sourceRevision": 0,
       "sourceIds": ["current-wiki"],
-      "asset": "",
+      "asset": "piety-obliteration",
       "status": "Current source reviewed; unit mapping verified; not ranked on the Standard Equipment board."
     },
     {
@@ -4855,7 +4855,7 @@
       "rollablePassive": false,
       "sourceRevision": 0,
       "sourceIds": ["current-wiki"],
-      "asset": "",
+      "asset": "morphing-sword",
       "status": "Current source reviewed; unit mapping verified; not ranked on the Standard Equipment board."
     },
     {
@@ -4871,7 +4871,7 @@
       "rollablePassive": false,
       "sourceRevision": 0,
       "sourceIds": ["current-wiki"],
-      "asset": "",
+      "asset": "kings-guitar",
       "status": "Current source reviewed; unit mapping verified; not ranked on the Standard Equipment board."
     },
     {
@@ -4887,7 +4887,7 @@
       "rollablePassive": false,
       "sourceRevision": 0,
       "sourceIds": ["current-wiki"],
-      "asset": "",
+      "asset": "life-eater",
       "status": "Current source reviewed; unit mapping verified; not ranked on the Standard Equipment board."
     },
     {
@@ -4903,7 +4903,7 @@
       "rollablePassive": false,
       "sourceRevision": 0,
       "sourceIds": ["current-wiki"],
-      "asset": "",
+      "asset": "evening-umbrella",
       "status": "Current source reviewed; unit mapping verified; not ranked on the Standard Equipment board."
     },
     {
@@ -4919,7 +4919,7 @@
       "tier": null,
       "bestFor": "8th Sword (Berserk)",
       "sourceIds": ["current-wiki"],
-      "asset": "",
+      "asset": "onis-nature",
       "status": "Current source reviewed; unit mapping verified; not ranked on the Standard Equipment board."
     }
   ],
