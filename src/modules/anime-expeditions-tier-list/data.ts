@@ -29,7 +29,7 @@ export const snapshot = {
     "Update 5 · Hallows Eve remains the latest named live major update found in the November 5 review. Roblox has received subsequent publishes/hotfixes, but no verified Update 6 release was found.",
     "73 of 77 canonical Unit records now have complete TierListBase five-view editorial grades. Emerald Fist, Cube, Little Carrot and Suited Alchemist remain Pending only where current comparative evidence is insufficient or the record is not a normal combat-ranking case.",
     "Current obtainment is resolved for most of the roster. A small set remains Needs Review where the current unit database exposes no obtainment and no sufficiently current second source closes the gap.",
-    "Eleven production Unit portraits still lack a provenance-approved local derivative. Current wiki media exists for those units, but it has not yet been imported into the repository asset pipeline.",
+    "Eleven production Unit portraits and six Exclusive Equipment icons still lack provenance-approved local derivatives. Current wiki media exists for those records, but it has not yet been imported into the repository asset pipeline.",
     "Trait, Standard Equipment, Exclusive Equipment mapping and Evolution Priority records are source-reviewed; their tier / fit / investment grades are TierListBase editorial judgments rather than publisher rankings.",
     "Direct personal live testing of every interaction is not claimed. Weekly modifiers, banners and future balance changes can change practical value after this snapshot.",
   ],
