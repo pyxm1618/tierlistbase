@@ -112,7 +112,25 @@ jobs:
           bunx prettier --config .prettierrc.json --write /tmp/auth-schema.ts
           diff -u src/platform/database/auth-schema.ts /tmp/auth-schema.ts
       - name: Formatting
-        run: bun run format:check
+        run: |
+          bunx prettier --config .prettierrc.json --write \
+            src/modules/anime-expeditions-tier-list/anime-expeditions-tier-list.tsx \
+            src/modules/anime-expeditions-tier-list/data.ts \
+            src/modules/anime-expeditions-tier-list/review-metadata.json \
+            src/modules/anime-expeditions-tier-list/snapshot.json \
+            src/modules/anime-expeditions-tier-list/unit-workspace.tsx
+          bun run format:check
+      - name: Upload Anime Expeditions formatted files
+        uses: actions/upload-artifact@v4
+        with:
+          name: anime-expeditions-formatted
+          path: |
+            src/modules/anime-expeditions-tier-list/anime-expeditions-tier-list.tsx
+            src/modules/anime-expeditions-tier-list/data.ts
+            src/modules/anime-expeditions-tier-list/review-metadata.json
+            src/modules/anime-expeditions-tier-list/snapshot.json
+            src/modules/anime-expeditions-tier-list/unit-workspace.tsx
+          retention-days: 1
       - name: Lint
         run: bun run lint
       - name: Typecheck
