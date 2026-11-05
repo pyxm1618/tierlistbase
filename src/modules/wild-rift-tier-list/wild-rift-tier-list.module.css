@@ -1832,7 +1832,7 @@
 
   .page > .shell {
     display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
     column-gap: 10px;
     align-items: start;
   }
@@ -2452,14 +2452,35 @@
     min-width: 0;
   }
 
+  .methodology {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 8px;
+    align-content: start;
+  }
+
   .methodology .sectionTitleInline,
-  .faq .sectionTitleInline {
+  .methodology .methodGrid,
+  .methodology .tierDefinitions {
+    grid-column: 1 / -1;
+  }
+
+  .methodology .sectionTitleInline {
     display: block;
   }
 
-  .methodology .sectionTitleInline p,
-  .faq .sectionTitleInline p {
+  .faq .sectionTitleInline {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  .methodology .sectionTitleInline p {
     margin-top: 4px;
+  }
+
+  .faq .sectionTitleInline p {
+    margin-top: 0;
   }
 
   .methodology > .disclosure {
@@ -2511,7 +2532,7 @@
   }
 
   .faq summary {
-    min-height: 38px;
+    min-height: 34px;
     padding: 8px 10px;
     font-size: 9px;
   }
