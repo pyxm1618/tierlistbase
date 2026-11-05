@@ -53,7 +53,8 @@ function UnitDetail({
   roster: readonly Unit[];
 }) {
   const names = (ids: readonly string[], collection: readonly { id: string; name: string }[]) =>
-    ids.map((id) => collection.find((item) => item.id === id)!.name).join(" / ") || "Needs Review";
+    ids.map((id) => collection.find((item) => item.id === id)!.name).join(" / ") ||
+    "No reviewed recommendation";
   return (
     <>
       <div className={styles.identity}>
@@ -86,7 +87,7 @@ function UnitDetail({
         </div>
         <div>
           <dt>Placement limit</dt>
-          <dd>{unit.placementLimit ?? "Needs Review"} · source documented</dd>
+          <dd>{unit.placementLimit ?? "Not documented"} · source reviewed</dd>
         </div>
       </dl>
       <h4>Rating Summary</h4>
@@ -137,7 +138,7 @@ function UnitDetail({
         <strong>Core partners:</strong>{" "}
         {unit.partners
           .map((id) => roster.find((partner) => partner.id === id)!.currentForm)
-          .join(" · ") || "Needs Review"}
+          .join(" · ") || "No unit-specific core partner recommendation"}
       </p>
       <p>
         <strong>Synergy:</strong>{" "}
