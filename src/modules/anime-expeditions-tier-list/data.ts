@@ -20,18 +20,18 @@ export const modeContexts = [
   "Tournament",
 ] as const;
 export const snapshot = {
-  date: "2026-11-04",
+  date: "2026-11-05",
   sourceFormCount: units.reduce((count, unit) => count + unit.forms.length, 0),
   releaseReady: false,
   version: { label: "Update 5 · Hallows Eve", status: "Current source reviewed" },
   teamSize: 6,
   uncertainties: [
-    "The Update 5 ranking baseline is sourced from a November 2 current-patch tier list and cross-checked against current unit-kit pages. TierListBase role grades remain editorial synthesis, not publisher rankings.",
-    "Exact current obtainment is not asserted for units whose current source does not document it. Limited status is shown only where the current source explicitly marks the unit Limited.",
-    "Emerald Fist is verified as an Update 4 unit, but the current Update 5 ranking source does not place it; its comparative tier therefore remains Pending rather than inferred.",
-    "Newly integrated Update 4 and Update 5 unit artwork is intentionally withheld until a provenance-approved local derivative is available. The UI uses an explicit placeholder instead of substituting incorrect art.",
-    "Trait, equipment and evolution facts are source-reviewed where displayed; direct personal live testing of every interaction is not claimed.",
-    "Weekly modifiers, banners and future balance changes are dynamic and can change practical value after this snapshot.",
+    "Update 5 · Hallows Eve remains the latest named live major update found in the November 5 review. Roblox has received subsequent publishes/hotfixes, but no verified Update 6 release was found.",
+    "73 of 77 canonical Unit records now have complete TierListBase five-view editorial grades. Emerald Fist, Cube, Little Carrot and Suited Alchemist remain Pending only where current comparative evidence is insufficient or the record is not a normal combat-ranking case.",
+    "Current obtainment is resolved for most of the roster. A small set remains Needs Review where the current unit database exposes no obtainment and no sufficiently current second source closes the gap.",
+    "Eleven production Unit portraits still lack a provenance-approved local derivative. Current wiki media exists for those units, but it has not yet been imported into the repository asset pipeline.",
+    "Trait, Standard Equipment, Exclusive Equipment mapping and Evolution Priority records are source-reviewed; their tier / fit / investment grades are TierListBase editorial judgments rather than publisher rankings.",
+    "Direct personal live testing of every interaction is not claimed. Weekly modifiers, banners and future balance changes can change practical value after this snapshot.",
   ],
 } as const;
 export const sources = [
