@@ -358,6 +358,7 @@ function RoleNavigation({
             key={view}
             role="tab"
             type="button"
+            aria-label={label}
             aria-selected={active === view}
             onClick={() => onChange(view)}
           >
