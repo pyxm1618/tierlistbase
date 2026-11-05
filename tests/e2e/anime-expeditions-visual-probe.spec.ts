@@ -1,8 +1,8 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 const route = "/anime-expeditions/tier-list";
 
-async function waitForImages(page: Parameters<typeof test>[0] extends never ? never : any) {
+async function waitForImages(page: Page) {
   await page.waitForFunction(() =>
     Array.from(document.images)
       .filter((image) => {
