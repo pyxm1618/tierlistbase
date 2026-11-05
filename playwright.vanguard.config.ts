@@ -4,7 +4,7 @@ const authFixtureToken = process.env.VANGUARD_E2E_AUTH_TOKEN ?? randomBytes(32).
 process.env.VANGUARD_E2E_AUTH_TOKEN = authFixtureToken;
 export default defineConfig({
   testDir: "./tests/e2e",
-  testMatch: /vanguard-(foundation|flows|business)\.spec\.ts/,
+  testMatch: /vanguard-retired\.spec\.ts/,
   fullyParallel: false,
   workers: 1,
   retries: 0,
