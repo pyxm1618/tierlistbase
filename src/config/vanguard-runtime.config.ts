@@ -53,8 +53,9 @@ export function getVanguardService() {
     runtimeEnv.appEnv === "test" &&
     process.env.CREAT_WEB_E2E_VANGUARD === "1" &&
     process.env.VANGUARD_E2E_LAYOUT_ORIGIN === "http://127.0.0.1:3199";
-  const e2eAuthorityAt = fixture
-    ? z.string().datetime({ offset: true }).parse(process.env.VANGUARD_E2E_AUTHORITY_AT)
+  const e2eAuthorityInput = fixture ? process.env.VANGUARD_E2E_AUTHORITY_AT : undefined;
+  const e2eAuthorityAt = e2eAuthorityInput
+    ? z.string().datetime({ offset: true }).parse(e2eAuthorityInput)
     : null;
   const layouts = fixture
     ? Object.fromEntries([
