@@ -232,10 +232,54 @@ test("reports visible Anime Expeditions SEO keyword coverage", async ({ page }) 
     }),
   );
 
+  const keywordFamily = [
+    "anime expeditions unit tier list",
+    "anime expeditions trait tier list",
+    "anime expeditions equipment tier list",
+    "current anime expeditions tier list",
+    "anime expeditions tier list",
+    "anime expeditions best units",
+    "best anime expeditions units",
+    "best units in anime expeditions",
+    "anime expeditions rankings",
+    "anime expeditions unit rankings",
+    "anime expeditions traits",
+    "best anime expeditions traits",
+    "anime expeditions trait rankings",
+    "anime expeditions equipment",
+    "best anime expeditions equipment",
+    "anime expeditions equipment rankings",
+    "anime expeditions team comps",
+    "best anime expeditions team comps",
+    "anime expeditions evolution priority",
+    "anime expeditions meta",
+    "current anime expeditions meta",
+  ]
+    .map((phrase) => phrase.split(" "))
+    .sort((a, b) => b.length - a.length);
+
+  let keywordFamilyWeightedTokens = 0;
+  for (let index = 0; index < words.length; ) {
+    const match = keywordFamily.find((phraseWords) =>
+      phraseWords.every((word, offset) => words[index + offset] === word),
+    );
+    if (match) {
+      keywordFamilyWeightedTokens += match.length;
+      index += match.length;
+    } else {
+      index += 1;
+    }
+  }
+  const keywordFamilyWeightedDensity = Number(
+    ((keywordFamilyWeightedTokens / words.length) * 100).toFixed(6),
+  );
+
   console.log(
     `ANIME_EXPEDITIONS_SEO_METRICS ${JSON.stringify({
       visibleWordCount: words.length,
       metrics,
+      keywordFamilyWeightedTokens,
+      keywordFamilyWeightedDensity,
     })}`,
   );
 
