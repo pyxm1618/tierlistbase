@@ -200,13 +200,13 @@ test("Quick Picks use the chosen view and the mobile team link dismisses detail"
   ).toBeInViewport();
 });
 
-
 test("reports visible Anime Expeditions SEO keyword coverage", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(route);
 
   const main = page.locator("main");
   await expect(main).toBeVisible();
+
   const text = await main.innerText();
   const normalized = text.toLowerCase().replace(/\s+/g, " ").trim();
   const words = normalized.match(/[a-z0-9]+(?:['’][a-z0-9]+)*/g) ?? [];
@@ -240,4 +240,7 @@ test("reports visible Anime Expeditions SEO keyword coverage", async ({ page }) 
   );
 
   await expect(page.locator("h1")).toHaveText("Anime Expeditions Tier List");
+  for (const phrase of phrases.slice(0, 5)) {
+    expect(metrics[phrase]?.count, `${phrase} should remain visible`).toBeGreaterThanOrEqual(1);
+  }
 });
