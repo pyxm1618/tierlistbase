@@ -15,6 +15,11 @@ async function expectLoadedImage(image: Locator) {
     .toBe(true);
 }
 
+async function expectLoadedImageSample(images: Locator, count: number) {
+  await expect(images).toHaveCount(count);
+  for (let index = 0; index < count; index += 1) await expectLoadedImage(images.nth(index));
+}
+
 test("Slay the Spire 2 uses the shared shell, real snapshot and complete ranking systems", async ({
   page,
 }) => {
@@ -100,18 +105,22 @@ test("card pool tabs, search, filters, sort and selection stay synchronized", as
 test("representative remote artwork loads under the enforced CSP", async ({ page }) => {
   await page.goto(route);
 
-  await expectLoadedImage(page.locator("[data-card-id] img").first());
+  await expectLoadedImageSample(page.locator("[data-card-id] img").first().locator("xpath=..").locator("img"), 1);
+  for (let index = 0; index < 5; index += 1)
+    await expectLoadedImage(page.locator("[data-card-id] img").nth(index));
   await expectLoadedImage(page.locator("[data-card-detail] img"));
 
   const tabs = page.getByRole("tablist", { name: "Slay the Spire 2 ranking systems" });
   await tabs.getByRole("tab", { name: /^Relics/ }).click();
-  await expectLoadedImage(page.locator("[data-relic-tier] img").first());
+  for (let index = 0; index < 5; index += 1)
+    await expectLoadedImage(page.locator("[data-relic-tier] img").nth(index));
 
   await tabs.getByRole("tab", { name: /^Characters/ }).click();
-  await expectLoadedImage(page.locator("[data-character-id] img").first());
+  await expectLoadedImageSample(page.locator("[data-character-id] img"), 5);
 
   await tabs.getByRole("tab", { name: /^Potions/ }).click();
-  await expectLoadedImage(page.locator("[data-potion-tier] img").first());
+  for (let index = 0; index < 5; index += 1)
+    await expectLoadedImage(page.locator("[data-potion-tier] img").nth(index));
 });
 
 test("secondary ranking systems use source-native labels and readable game text", async ({
