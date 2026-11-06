@@ -37,7 +37,7 @@ const faq = [
   ],
   [
     "How often is this Tier List updated?",
-    "After current patch facts and ranking evidence are checked. The snapshot date records the source-review pass, not a claim of direct live testing. The Update 5 data baseline is current; this page remains noindex until new-unit media provenance and the frozen visual review are closed.",
+    "After current patch facts and ranking evidence are checked. The snapshot date records the source-review pass, not a claim of direct live testing. Update 5 · Hallows Eve is the current reviewed baseline; unresolved obtainment stays labeled Needs Review rather than being inferred.",
   ],
 ] as const;
 
@@ -58,7 +58,7 @@ export function AnimeExpeditionsTierList() {
         />
         <div className={styles.rift} aria-hidden="true" />
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>ANIME EXPEDITIONS · UPDATE 5 SOURCE-REVIEWED PREVIEW</p>
+          <p className={styles.eyebrow}>ANIME EXPEDITIONS · UPDATE 5 SOURCE-REVIEWED</p>
           <h1 id="ae-title">Anime Expeditions Tier List</h1>
           <p>Choose units, roll role-fit Traits, and plan equipment, teams and evolutions.</p>
           <dl className={styles.heroFacts}>
@@ -73,23 +73,23 @@ export function AnimeExpeditionsTierList() {
             <div>
               <dt>Scope</dt>
               <dd>
-                {units.filter((u) => !u.hidden).length} canonical units · {snapshot.sourceFormCount}{" "}
-                source forms
+                {units.length} canonical units · {snapshot.sourceFormCount} source forms
               </dd>
             </div>
             <div>
               <dt>Review</dt>
               <dd>
-                {units.filter((u) => u.reviewStatus.startsWith("Source-reviewed")).length}{" "}
-                source-reviewed units · comparative gaps stay Pending
+                {units.filter((u) => !Object.values(u.viewTiers).includes("Pending")).length}{" "}
+                five-view reviewed units ·{" "}
+                {units.filter((u) => u.availability === "Needs Review").length} obtainment records
+                remain Needs Review
               </dd>
             </div>
           </dl>
           <p className={styles.notice}>
             <strong>Update 5 baseline reviewed.</strong> Current S–D rankings, canonical Update 4/5
-            additions and six-unit team cores are source-reviewed. Search indexing remains withheld
-            until new-unit media provenance and the frozen visual review close.{" "}
-            <a href="#sources">Evidence limits ↓</a>
+            additions and six-unit team cores are source-reviewed. Five obtainment routes remain
+            explicitly Needs Review. <a href="#sources">Evidence limits ↓</a>
           </p>
         </div>
       </section>
@@ -122,7 +122,7 @@ export function AnimeExpeditionsTierList() {
                   <h3 className={styles.tierLabel} data-tier={tier}>
                     {tier}
                   </h3>
-                  <div className={styles.itemGrid}>
+                  <div className={`${styles.itemGrid} ${styles.traitGrid}`}>
                     {rows.map((trait) => (
                       <article key={trait.id} className={styles.itemCard}>
                         <Image
@@ -166,7 +166,7 @@ export function AnimeExpeditionsTierList() {
         </section>
         <section id="equipment" className={styles.section} aria-labelledby="equipment-title">
           <div className={styles.sectionHeading}>
-            <h2 id="equipment-title">Anime Expeditions Equipment Tier List</h2>
+            <h2 id="equipment-title">Anime Expeditions Standard Equipment Tier List</h2>
             <p>Standard Equipment only · compare rolled values and kit interactions</p>
           </div>
           <div data-standard-board>
@@ -216,8 +216,8 @@ export function AnimeExpeditionsTierList() {
           </div>
           <h3 className={styles.subheading}>Best Equipment by Unit</h3>
           <p className={styles.context}>
-            Editorial build starting points. Exclusive equipment is unit-bound and has no Standard
-            tier.
+            Reviewed TierListBase editorial recommendations. Exclusive equipment is unit-bound and
+            remains outside the Standard Equipment Tier Board.
           </p>
           <div
             className={styles.tableScroll}
@@ -243,7 +243,8 @@ export function AnimeExpeditionsTierList() {
                     <td>{namedEquipment(unit.build.standardIds.slice(1))}</td>
                     <td>{namedEquipment(unit.build.exclusiveIds)}</td>
                     <td>
-                      {unit.archetype} · {unit.role}. {unit.reviewStatus}; compare actual rolls.
+                      {unit.archetype} · {unit.role}. {unit.reviewStatus}; actual roll quality and
+                      stage conditions still matter.
                     </td>
                   </tr>
                 ))}
@@ -445,7 +446,8 @@ export function AnimeExpeditionsTierList() {
                 {reviewMetadata.ledger.total} displayed Trait, Equipment and evolution records are
                 source-reviewed. Direct personal live testing is not claimed. Update 4 canonical
                 relationships previously held as unresolved are now closed against current unit
-                pages; unsupported comparative claims remain Pending instead of being fabricated.
+                pages; unresolved current-obtainment claims remain Needs Review instead of being
+                inferred.
               </p>
               <ul>
                 {snapshot.uncertainties.map((note) => (

@@ -20,21 +20,45 @@ export const modeContexts = [
   "Tournament",
 ] as const;
 export const snapshot = {
-  date: "2026-11-04",
+  date: "2026-11-05",
   sourceFormCount: units.reduce((count, unit) => count + unit.forms.length, 0),
-  releaseReady: false,
+  releaseReady: true,
   version: { label: "Update 5 · Hallows Eve", status: "Current source reviewed" },
   teamSize: 6,
   uncertainties: [
-    "The Update 5 ranking baseline is sourced from a November 2 current-patch tier list and cross-checked against current unit-kit pages. TierListBase role grades remain editorial synthesis, not publisher rankings.",
-    "Exact current obtainment is not asserted for units whose current source does not document it. Limited status is shown only where the current source explicitly marks the unit Limited.",
-    "Emerald Fist is verified as an Update 4 unit, but the current Update 5 ranking source does not place it; its comparative tier therefore remains Pending rather than inferred.",
-    "Newly integrated Update 4 and Update 5 unit artwork is intentionally withheld until a provenance-approved local derivative is available. The UI uses an explicit placeholder instead of substituting incorrect art.",
-    "Trait, equipment and evolution facts are source-reviewed where displayed; direct personal live testing of every interaction is not claimed.",
-    "Weekly modifiers, banners and future balance changes are dynamic and can change practical value after this snapshot.",
+    "Update 5 · Hallows Eve remains the latest named live major update found in the November 5 review. Roblox has received subsequent publishes/hotfixes, but no verified Update 6 release was found.",
+    "77 of 77 canonical Unit records now have complete TierListBase five-view editorial grades. Low-value or non-normal combat records are graded explicitly rather than using Pending as a proxy for weakness.",
+    "Current obtainment is resolved for 72 of 77 canonical units. Reaper (Frenzied), Wolf (Revived), Black Heart (Revived), Noble Captain (Vibrant) and Traitor (Illusion) remain Needs Review because current UnitData omits obtainment and no sufficiently current second source proves a live route.",
+    "All production-visible Unit portraits and required Equipment icons now have provenance-approved local WebP derivatives; file-level origins remain recorded beside the assets.",
+    "Trait, Standard Equipment, Exclusive Equipment mapping and Evolution Priority records are source-reviewed; their tier / fit / investment grades are TierListBase editorial judgments rather than publisher rankings.",
+    "Direct personal live testing of every interaction is not claimed. Weekly modifiers, banners and future balance changes can change practical value after this snapshot.",
   ],
 } as const;
 export const sources = [
+  {
+    id: "summer-obtainment",
+    name: "Update 2 Summer / Tidal unit obtainment cross-check",
+    url: "https://allthings.how/anime-expeditions-how-to-get-every-summer-siege-unit-in-update-2/",
+    revision: null,
+    checked: snapshot.date,
+    note: "Documents Summer Capsule routes for Head Captain, Rainman, Sand and Water Mage plus the Tidal Siege Sharkfang route. Used only with the current event-history source to decide whether those routes remain obtainable.",
+  },
+  {
+    id: "current-event-history",
+    name: "Current Anime Expeditions event history",
+    url: "https://bloxodes.com/wiki/anime-expeditions",
+    revision: null,
+    checked: snapshot.date,
+    note: "Current event-history page checked November 5. It lists Update 2 Summer as completed and the game itself as updated November 4, so expired Summer / Tidal-only routes are not presented as currently obtainable without a replacement source.",
+  },
+  {
+    id: "update3-obtainment",
+    name: "Update 3 banner obtainment cross-check",
+    url: "https://allthings.how/ignition-commander-betrayal-anime-expeditions-update-3-0-fire-unit-guide/",
+    revision: null,
+    checked: snapshot.date,
+    note: "Documents Ignition Commander on Standard / Mini Banner rotation. Used to close availability for that unit; rotation timing remains account/client dependent.",
+  },
   {
     id: "pgg-update5",
     name: "Pro Game Guides — Update 5 tier list and six-unit team cores",
@@ -50,6 +74,30 @@ export const sources = [
     revision: null,
     checked: snapshot.date,
     note: "Current unit pages were used to close Update 4/5 canonical relationships, kits, placement limits, evolution materials and unit-bound equipment. Exact obtainment is not inferred when the source leaves it blank.",
+  },
+  {
+    id: "current-unit-role-crosscheck",
+    name: "ExpeditionValues — current role / low-rarity stat cross-check",
+    url: "https://expeditionvalues.com/tier-list",
+    revision: null,
+    checked: snapshot.date,
+    note: "Current November 5 cross-check used only to verify Little Carrot's carry role and bottom-end raw output. TierListBase retains its own S–D editorial scale rather than copying that site's grade scale.",
+  },
+  {
+    id: "current-roster-obtainment",
+    name: "Bloxron — November current-mode currency cross-check",
+    url: "https://bloxron.com/anime-expeditions/codes",
+    revision: null,
+    checked: snapshot.date,
+    note: "Updated November 1, 2026. Confirms Infernal Dust is still farmed from District 7 rather than codes; used with the dedicated Crimson Captain acquisition guide, not as a standalone banner claim.",
+  },
+  {
+    id: "crimson-captain-obtainment",
+    name: "AllThingsHow — Crimson Captain acquisition route",
+    url: "https://allthings.how/anime-expeditions-how-to-get-and-evolve-crimson-captain/",
+    revision: null,
+    checked: snapshot.date,
+    note: "Current fall 2026 acquisition guide documents District 7 Boss Rush Infernal Dust, the District 7 Secret Banner and the Moon evolution path. Cross-checked against the November 1 current-mode currency page before marking the route Available.",
   },
   {
     id: "mrguider-update5",
@@ -261,15 +309,15 @@ export const teams: Team[] = [
     status: "Source-reviewed Update 5",
   },
 ];
+const fullyReviewedUnits = units.filter(
+  (unit) =>
+    unit.availability !== "Needs Review" && !Object.values(unit.viewTiers).includes("Pending"),
+).length;
+
 export const auditCoverage = {
   total: units.length + traits.length + equipment.length + evolutions.length + teams.length,
-  pass: units.filter((unit) => unit.reviewStatus.startsWith("Source-reviewed")).length,
-  deferred:
-    units.filter((unit) => !unit.reviewStatus.startsWith("Source-reviewed")).length +
-    traits.length +
-    equipment.length +
-    evolutions.length +
-    teams.length,
+  pass: fullyReviewedUnits + traits.length + equipment.length + evolutions.length + teams.length,
+  deferred: units.length - fullyReviewedUnits,
   rejected: 0,
   unknown: 0,
 };

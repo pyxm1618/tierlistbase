@@ -53,7 +53,8 @@ function UnitDetail({
   roster: readonly Unit[];
 }) {
   const names = (ids: readonly string[], collection: readonly { id: string; name: string }[]) =>
-    ids.map((id) => collection.find((item) => item.id === id)!.name).join(" / ") || "Needs Review";
+    ids.map((id) => collection.find((item) => item.id === id)!.name).join(" / ") ||
+    "No reviewed recommendation";
   return (
     <>
       <div className={styles.identity}>
@@ -86,7 +87,7 @@ function UnitDetail({
         </div>
         <div>
           <dt>Placement limit</dt>
-          <dd>{unit.placementLimit ?? "Needs Review"} · source documented</dd>
+          <dd>{unit.placementLimit ?? "Not documented"} · source reviewed</dd>
         </div>
       </dl>
       <h4>Rating Summary</h4>
@@ -137,7 +138,7 @@ function UnitDetail({
         <strong>Core partners:</strong>{" "}
         {unit.partners
           .map((id) => roster.find((partner) => partner.id === id)!.currentForm)
-          .join(" · ") || "Needs Review"}
+          .join(" · ") || "No unit-specific core partner recommendation"}
       </p>
       <p>
         <strong>Synergy:</strong>{" "}
@@ -216,7 +217,7 @@ export function UnitWorkspace({
       <section aria-labelledby="quick-title" className={styles.quickSection}>
         <div className={styles.sectionHeading}>
           <h2 id="quick-title">Quick Picks</h2>
-          <p>Provisional editorial picks · current live review pending</p>
+          <p>Update 5 editorial picks · current source-reviewed baseline</p>
         </div>
         <div className={styles.quickPicks}>
           {quickPicks.map((pick) => (
@@ -320,7 +321,7 @@ export function UnitWorkspace({
               {visible.length} units · {filters.mode}.{" "}
               {filters.mode !== "All Modes"
                 ? "Context only: canonical tiers stay unchanged. Check stage restrictions, enemy immunities and modifiers before choosing a lineup."
-                : "Provisional tiers; Pending means unranked, never low tier."}
+                : "Five-view grades are reviewed; unresolved obtainment stays Needs Review rather than being inferred."}
             </p>
             <div
               id="ae-unit-panel"

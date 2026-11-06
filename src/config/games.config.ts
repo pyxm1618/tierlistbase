@@ -65,9 +65,9 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
   },
   {
     slug: "anime-expeditions",
-    name: "Anime Expeditions",
+    name: "Anime Exp.",
     tierListHref: "/anime-expeditions/tier-list",
-    navigationVisible: false,
+    navigationVisible: true,
     navigationOrder: 9,
   },
 ] as const;

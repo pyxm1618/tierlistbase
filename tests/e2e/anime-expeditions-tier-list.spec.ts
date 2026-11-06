@@ -14,7 +14,10 @@ test("shared shell, frozen three-system architecture and evidence-safe SEO", asy
     page.getByRole("navigation", { name: "Footer navigation", exact: true }),
   ).toBeVisible();
   await expect(page.locator("h1")).toHaveText("Anime Expeditions Tier List");
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  const jsonLd = await page
+    .locator('script[type="application/ld+json"]')
+    .evaluateAll((nodes) => nodes.map((node) => node.textContent ?? "").join("\n"));
+  expect(jsonLd).toContain("Anime Expeditions Tier List");
   const nav = page.getByRole("navigation", { name: "Ranking systems" });
   for (const name of ["Units", "Traits", "Equipment"])
     await expect(nav.getByRole("link", { name: new RegExp(name) })).toBeVisible();
@@ -65,7 +68,7 @@ test("all identity filters combine on a real unit, with honest mode context and 
     ["Element", "Flame"],
     ["Archetype", "Magical"],
     ["Rarity", "Secret"],
-    ["Availability", "Needs Review"],
+    ["Availability", "Available"],
     ["Evolution", "Evolved"],
   ])
     await page.getByRole("combobox", { name: label!, exact: true }).selectOption(value!);

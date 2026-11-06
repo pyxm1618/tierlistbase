@@ -1,5 +1,5 @@
 {
-  "checked": "2026-11-04",
+  "checked": "2026-11-05",
   "boundary": "Current publication claims are source-reviewed. TierListBase does not claim direct personal live testing of every unit, trait, equipment interaction or evolution.",
   "ledger": {
     "total": 137,
@@ -980,17 +980,17 @@
     "label": "Update 5 · Hallows Eve",
     "rankingBaseline": "Pro Game Guides, updated 2026-11-02",
     "roleCrossCheck": "MrGuider, updated 2026-11-01",
-    "canonicalKitSource": "Current Anime Expeditions unit database mirror, checked 2026-11-04",
+    "canonicalKitSource": "Current Anime Expeditions unit database mirror, checked 2026-11-05",
     "teamSize": 6,
     "equipmentInventory": 71
   },
   "release": {
-    "data": "source-reviewed",
-    "ranking": "current Update 5 baseline established",
+    "data": "source-reviewed; 5 availability records remain unresolved after current-obtainment recheck — Reaper (Frenzied), Wolf (Revived), Black Heart (Revived), Noble Captain (Vibrant), Traitor (Illusion)",
+    "ranking": "77/77 canonical units have complete five-view editorial grades; Pending ranking views: 0",
     "teams": "five six-unit current-source compositions",
-    "searchIndexing": "withheld",
-    "navigation": "withheld",
-    "media": "new Update 4/5 unit art withheld until provenance-approved local derivatives are available",
-    "visualAcceptance": "pending frozen-design visual review"
+    "searchIndexing": "released as public_indexable after 1440 frozen-design acceptance",
+    "navigation": "visible through the existing games.config registry",
+    "media": "all production-visible Unit portraits and required Equipment icons have provenance-approved local derivatives",
+    "visualAcceptance": "PASS — 1440 frozen-design browser comparison; 390 responsive acceptance covered by final E2E"
   }
 }
