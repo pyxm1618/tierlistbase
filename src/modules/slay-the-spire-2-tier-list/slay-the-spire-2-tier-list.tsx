@@ -20,6 +20,7 @@ import {
   type CardPool,
   type SlayCard,
 } from "./data";
+import { formatSlayGameText } from "./game-text";
 import styles from "./slay-the-spire-2-tier-list.module.css";
 
 type RankingSection = "cards" | "relics" | "characters" | "potions";
@@ -72,6 +73,36 @@ function sourceLabel(card: SlayCard): string {
   return `Current Main v0.107.1 source placement: ${card.tier} tier.`;
 }
 
+function CardOption({
+  card,
+  selected,
+  showTier,
+  onSelect,
+}: {
+  card: SlayCard;
+  selected: boolean;
+  showTier: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={styles.cardButton}
+      data-card-id={card.id.toLocaleLowerCase("en-US")}
+      data-tier={card.tier}
+      aria-pressed={selected}
+      aria-label={`${card.name}, ${card.tier} tier`}
+      onClick={onSelect}
+    >
+      <img src={card.image} alt="" loading="lazy" decoding="async" />
+      <span>{card.name}</span>
+      <small data-card-tier={showTier ? card.tier : undefined}>
+        {showTier ? `${card.tier} tier · ${card.type}` : card.type}
+      </small>
+    </button>
+  );
+}
+
 function CardDetail({ card }: { card: SlayCard }) {
   return (
     <aside className={styles.detail} aria-label="Card Detail" data-card-detail>
@@ -92,7 +123,7 @@ function CardDetail({ card }: { card: SlayCard }) {
       <section>
         <h4>Why This Tier</h4>
         <p>{sourceLabel(card)}</p>
-        <p>{card.description}</p>
+        <p>{formatSlayGameText(card.description)}</p>
       </section>
 
       {card.context ? (
@@ -271,6 +302,18 @@ function CardsWorkspace() {
             <div className={styles.empty} role="status">
               No cards match the current filters.
             </div>
+          ) : sort === "name" ? (
+            <div className={styles.cardGrid} data-name-sort-grid>
+              {filtered.map((card) => (
+                <CardOption
+                  key={card.id}
+                  card={card}
+                  selected={selected.id === card.id}
+                  showTier
+                  onSelect={() => setSelectedId(card.id)}
+                />
+              ))}
+            </div>
           ) : (
             cardTierOrder.map((tier) => {
               const tierCards = filtered.filter((card) => card.tier === tier);
@@ -295,20 +338,13 @@ function CardsWorkspace() {
                   </div>
                   <div className={styles.cardGrid}>
                     {tierCards.map((card) => (
-                      <button
-                        type="button"
+                      <CardOption
                         key={card.id}
-                        className={styles.cardButton}
-                        data-card-id={card.id.toLocaleLowerCase("en-US")}
-                        data-tier={card.tier}
-                        aria-pressed={selected.id === card.id}
-                        aria-label={`${card.name}, ${card.tier} tier`}
-                        onClick={() => setSelectedId(card.id)}
-                      >
-                        <img src={card.image} alt="" loading="lazy" decoding="async" />
-                        <span>{card.name}</span>
-                        <small>{card.type}</small>
-                      </button>
+                        card={card}
+                        selected={selected.id === card.id}
+                        showTier={false}
+                        onSelect={() => setSelectedId(card.id)}
+                      />
                     ))}
                   </div>
                 </section>
@@ -386,7 +422,7 @@ function RelicsPanel() {
                     <img src={relic.image} alt="" loading="lazy" decoding="async" />
                     <div>
                       <h4>{relic.name}</h4>
-                      <p>{relic.description}</p>
+                      <p>{formatSlayGameText(relic.description)}</p>
                       <small>
                         {relic.rarity} · {relic.pool}
                       </small>
@@ -484,7 +520,7 @@ function PotionsPanel() {
                     <img src={potion.image} alt="" loading="lazy" decoding="async" />
                     <div>
                       <h4>{potion.name}</h4>
-                      <p>{potion.description}</p>
+                      <p>{formatSlayGameText(potion.description)}</p>
                       <small>
                         {potion.rarity} · {potion.pool}
                       </small>
