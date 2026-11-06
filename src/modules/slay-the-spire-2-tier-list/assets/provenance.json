@@ -1,0 +1,37 @@
+[
+  {
+    "key": "hero-spire",
+    "asset": "/images/slay-the-spire-2/hero-spire.svg",
+    "source": "TierListBase original vector artwork",
+    "sourceType": "Original development asset",
+    "verification": "Non-factual atmospheric hero; no game object or card art claim."
+  },
+  {
+    "key": "card-art-pattern",
+    "asset": "https://spire-codex.com/static/images/cards/{card}.webp",
+    "source": "https://github.com/ptrlrd/spire-codex/tree/main/backend/static/images/cards",
+    "sourceType": "Extracted Slay the Spire 2 game asset mirror",
+    "verification": "Asset path is supplied by v0.107.1 card master data."
+  },
+  {
+    "key": "relic-art-pattern",
+    "asset": "https://spire-codex.com/static/images/relics/{relic}.webp",
+    "source": "https://github.com/ptrlrd/spire-codex/tree/main/backend/static/images/relics",
+    "sourceType": "Extracted Slay the Spire 2 game asset mirror",
+    "verification": "Asset path is supplied by v0.107.1 relic master data."
+  },
+  {
+    "key": "potion-art-pattern",
+    "asset": "https://spire-codex.com/static/images/potions/{potion}.webp",
+    "source": "https://github.com/ptrlrd/spire-codex/tree/main/backend/static/images/potions",
+    "sourceType": "Extracted Slay the Spire 2 game asset mirror",
+    "verification": "Asset path is supplied by v0.107.1 potion master data."
+  },
+  {
+    "key": "character-icon-pattern",
+    "asset": "https://spire-codex.com/static/images/characters/character_icon_{character}.png",
+    "source": "https://github.com/ptrlrd/spire-codex/tree/main/backend/static/images/characters",
+    "sourceType": "Extracted Slay the Spire 2 game asset mirror",
+    "verification": "Five character identities match the v0.107.1 character master."
+  }
+]

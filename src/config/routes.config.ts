@@ -63,10 +63,11 @@ export const routeDefinitions = [
       "/dragon-traveler/tier-list",
       "/wild-rift/tier-list",
       "/anime-expeditions/tier-list",
+      "/slay-the-spire-2/tier-list",
     ],
-    lastModified: "2026-11-04",
+    lastModified: "2026-11-06",
     reviewStatus: "reviewed",
-    reviewFingerprint: "c00f5241ca140071fb3f06923037614b2309a01a463cff308875566be7c62deb",
+    reviewFingerprint: "64636639863d56fc7be03862b70dea0c44fd734cae2cef9b34bcdd010bd293e8",
   },
   {
     route: "/wow-forever/tier-list",
@@ -249,6 +250,27 @@ export const routeDefinitions = [
     lastModified: "2026-10-28",
     reviewStatus: "reviewed",
     reviewFingerprint: "8d248c2c16b6b7fc8b3581127fd89bfbc50a0bcb0239224e9020463193982c36",
+  },
+  {
+    route: "/slay-the-spire-2/tier-list",
+    class: "public_indexable",
+    searchIntent:
+      "compare current Slay the Spire 2 Main card, relic, character and potion rankings with contextual evidence",
+    primaryKeyword: "slay the spire 2 tier list",
+    secondaryKeywords: [
+      "slay the spire 2 card tier list",
+      "slay the spire 2 cards tier list",
+      "slay the spire 2 relic tier list",
+      "slay the spire 2 character tier list",
+    ],
+    title: "Slay the Spire 2 Tier List – Best Cards, Relics & Characters",
+    description:
+      "Compare the Slay the Spire 2 tier list for Main v0.107.1 across cards, relics, characters and potions, with contextual rankings and linked evidence.",
+    h1: "Slay the Spire 2 Tier List",
+    pageType: "WebApplication",
+    relatedRoutes: ["/", "/privacy", "/terms"],
+    lastModified: "2026-11-06",
+    reviewStatus: "draft",
   },
   {
     route: "/privacy",

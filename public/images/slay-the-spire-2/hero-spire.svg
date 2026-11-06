@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 560" role="img" aria-label="Abstract dark spire above an ember-lit fantasy landscape">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#08141d"/><stop offset=".55" stop-color="#152231"/><stop offset="1" stop-color="#05090d"/></linearGradient>
+    <radialGradient id="moon"><stop stop-color="#ffbd6b"/><stop offset=".38" stop-color="#df4d2d"/><stop offset=".72" stop-color="#7d251d"/><stop offset="1" stop-color="#221116" stop-opacity="0"/></radialGradient>
+    <linearGradient id="lava" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#6a1e14"/><stop offset=".5" stop-color="#f05b32"/><stop offset="1" stop-color="#7c2415"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="13"/></filter>
+  </defs>
+  <rect width="1920" height="560" fill="url(#sky)"/>
+  <circle cx="1500" cy="105" r="180" fill="url(#moon)" opacity=".95"/>
+  <circle cx="1500" cy="105" r="92" fill="#d54529" opacity=".17" filter="url(#glow)"/>
+  <path d="M0 430 140 330 265 376 420 248 520 326 680 223 790 330 910 270 1050 350 1210 258 1350 337 1505 250 1650 332 1805 245 1920 320V560H0Z" fill="#071017"/>
+  <path d="M0 464 190 382 314 423 486 338 650 410 832 331 1016 410 1190 345 1368 420 1575 336 1750 416 1920 355V560H0Z" fill="#0d171d"/>
+  <g transform="translate(1455 108)">
+    <path d="M-50 305-24 158-8 158 1 72 14 72 23 0 33 72 46 72 55 158 72 158 96 305Z" fill="#06090c"/>
+    <path d="M1 72 23 0 33 72 46 72 55 158-63 158-50 305 96 305 72 158 55 158" fill="none" stroke="#8c2d22" stroke-width="5" opacity=".75"/>
+    <path d="M-12 120h48M-22 182h78M-31 236h98" stroke="#df4b2f" stroke-width="5" opacity=".75"/>
+    <rect x="8" y="92" width="28" height="24" rx="3" fill="#f15e36" opacity=".55"/>
+    <rect x="-2" y="194" width="25" height="28" rx="3" fill="#f15e36" opacity=".48"/>
+    <rect x="39" y="194" width="23" height="28" rx="3" fill="#f15e36" opacity=".48"/>
+  </g>
+  <path d="M0 520c220-45 405-9 580 4 190 14 360-15 550-10 265 7 470 63 790-5v51H0Z" fill="#04080b"/>
+  <path d="M0 545c250-38 390-19 590-4 230 17 418-26 640-8 210 17 433 42 690-3" fill="none" stroke="url(#lava)" stroke-width="10" opacity=".68"/>
+  <g fill="#ff7a3e" opacity=".78">
+    <circle cx="188" cy="452" r="3"/><circle cx="302" cy="487" r="2"/><circle cx="528" cy="442" r="4"/><circle cx="702" cy="486" r="2"/>
+    <circle cx="1080" cy="474" r="3"/><circle cx="1240" cy="447" r="2"/><circle cx="1730" cy="468" r="4"/><circle cx="1830" cy="428" r="2"/>
+  </g>
+</svg>
