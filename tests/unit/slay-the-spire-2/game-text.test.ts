@@ -24,15 +24,13 @@ describe("formatSlayGameText", () => {
   });
 
   it("formats multiple token types in one description", () => {
-    expect(
-      formatSlayGameText("[gold]Block[/gold]. Gain [energy:2] and [star:1]."),
-    ).toBe("Block. Gain 2 Energy and 1 Star.");
+    expect(formatSlayGameText("[gold]Block[/gold]. Gain [energy:2] and [star:1].")).toBe(
+      "Block. Gain 2 Energy and 1 Star.",
+    );
   });
 
   it("uses a bracket-free safe fallback for unknown tokens", () => {
-    expect(formatSlayGameText("Unknown [mystery:2] token.")).toBe(
-      "Unknown 2 token.",
-    );
+    expect(formatSlayGameText("Unknown [mystery:2] token.")).toBe("Unknown 2 token.");
     expect(formatSlayGameText("[color]Readable[/color]")).toBe("Readable");
     expect(formatSlayGameText("Choose [Card].")).toBe("Choose Card.");
   });
