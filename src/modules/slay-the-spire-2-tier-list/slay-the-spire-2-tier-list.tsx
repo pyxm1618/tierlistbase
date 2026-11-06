@@ -578,8 +578,8 @@ export function SlayTheSpire2TierList() {
             Current rankings use Main {snapshot.mainVersion}. Beta {snapshot.betaVersion} is
             documented separately. Card value is contextual: baseline value, consistency, deck
             flexibility, opportunity cost, scaling and verified evidence inform the review without
-            creating a hidden numeric score. Use the ranking tabs for the Slay the Spire 2 relic tier
-            list and Slay the Spire 2 character tier list.
+            creating a hidden numeric score. Use the ranking tabs for the Slay the Spire 2 relic
+            tier list and Slay the Spire 2 character tier list.
           </p>
         </section>
 

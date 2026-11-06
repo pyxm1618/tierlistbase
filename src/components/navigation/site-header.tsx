@@ -59,7 +59,10 @@ function HeaderShell({
     <header className="sticky top-0 z-40 border-b border-[#315072]/60 bg-[#020e1d]/95 text-white backdrop-blur-md">
       <div className="mx-auto flex h-[54px] w-[calc(100%_-_32px)] items-center gap-6 px-4 sm:w-[93.4%] max-w-[1820px] sm:px-0">
         <Brand href={homeHref} />
-        <nav className="hidden items-center gap-1 xl:flex 2xl:gap-5" aria-label="Primary navigation">
+        <nav
+          className="hidden items-center gap-1 xl:flex 2xl:gap-5"
+          aria-label="Primary navigation"
+        >
           {navigationGames.map((game) => (
             <SiteHeaderGameLink
               key={game.slug}
