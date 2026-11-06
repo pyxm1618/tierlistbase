@@ -5,32 +5,37 @@ const PREFIXED_RESOURCE = /(\d+)\s*\[(energy|star):\d+\]/gi;
 const VALUE_TOKEN = /\[(energy|star):(\d+)\]/gi;
 const UNKNOWN_TOKEN = /\[(\/?)([a-z][a-z0-9_-]*)(?::([^\]\r\n]+))?\]/gi;
 
-export function formatSlayGameText(value: string): string {
-  const formatResource = (kind: string, amountText: string) => {
-    const amount = Number.parseInt(amountText, 10);
-    if (kind.toLowerCase() === "energy") return `${amount} Energy`;
-    return `${amount} ${amount === 1 ? "Star" : "Stars"}`;
-  };
+function formatResource(kind: string, amountText: string): string {
+  const amount = Number.parseInt(amountText, 10);
+  if (kind.toLowerCase() === "energy") return `${amount} Energy`;
+  return `${amount} ${amount === 1 ? "Star" : "Stars"}`;
+}
 
+function replacePrefixedResource(_match: string, amountText: string, kind: string): string {
+  return formatResource(kind, amountText);
+}
+
+function replaceValueToken(_match: string, kind: string, amountText: string): string {
+  return formatResource(kind, amountText);
+}
+
+function replaceUnknownToken(
+  _match: string,
+  closing: string,
+  name: string,
+  argument: string | undefined,
+): string {
+  if (closing) return "";
+  return argument ?? name;
+}
+
+export function formatSlayGameText(value: string): string {
   return value
-    .replace(
-      FORMATTED_PREFIXED_RESOURCE,
-      (_match, amountText: string, kind: string) => formatResource(kind, amountText),
-    )
-    .replace(PREFIXED_RESOURCE, (_match, amountText: string, kind: string) =>
-      formatResource(kind, amountText),
-    )
-    .replace(VALUE_TOKEN, (_match, kind: string, amountText: string) =>
-      formatResource(kind, amountText),
-    )
+    .replace(FORMATTED_PREFIXED_RESOURCE, replacePrefixedResource)
+    .replace(PREFIXED_RESOURCE, replacePrefixedResource)
+    .replace(VALUE_TOKEN, replaceValueToken)
     .replace(RICH_TEXT_TAG, "")
-    .replace(
-      UNKNOWN_TOKEN,
-      (_match, closing: string, name: string, argument: string | undefined) => {
-        if (closing) return "";
-        return argument ?? name;
-      },
-    )
+    .replace(UNKNOWN_TOKEN, replaceUnknownToken)
     .replace(/[ \t]+([,.;:!?])/g, "$1")
     .replace(/[ \t]{2,}/g, " ")
     .trim();
