@@ -43,6 +43,16 @@ test("Slay the Spire 2 uses the shared shell, real snapshot and complete ranking
   for (const name of ["Cards", "Relics", "Characters", "Potions"])
     await expect(tabs.getByRole("tab", { name: new RegExp(`^${name}`) })).toBeVisible();
 
+  const cardsTab = tabs.getByRole("tab", { name: /^Cards/ });
+  const relicsTab = tabs.getByRole("tab", { name: /^Relics/ });
+  await cardsTab.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(relicsTab).toBeFocused();
+  await expect(relicsTab).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("ArrowLeft");
+  await expect(cardsTab).toBeFocused();
+  await expect(cardsTab).toHaveAttribute("aria-selected", "true");
+
   const structuredData = await page.locator('script[type="application/ld+json"]').allTextContents();
   expect(structuredData.length).toBeGreaterThanOrEqual(2);
   for (const value of structuredData) expect(() => JSON.parse(value)).not.toThrow();
@@ -58,8 +68,10 @@ test("card pool tabs, search, filters, sort and selection stay synchronized", as
     "true",
   );
   await page.getByRole("searchbox", { name: "Search cards" }).fill("Offering");
-  await expect(page.locator('[data-card-id="offering"]')).toHaveCount(1);
-  await page.locator('[data-card-id="offering"]').click();
+  const offering = page.locator('[data-card-id="offering"]');
+  await expect(offering).toHaveCount(1);
+  await offering.focus();
+  await page.keyboard.press("Enter");
   const detail = page.getByRole("complementary", { name: "Card Detail" });
   await expect(detail).toContainText("Offering");
   await expect(detail).toContainText("Lose 6 HP");
@@ -103,6 +115,7 @@ test("card pool tabs, search, filters, sort and selection stay synchronized", as
 });
 
 test("representative remote artwork loads under the enforced CSP", async ({ page }) => {
+  test.setTimeout(120_000);
   await page.goto(route);
 
   for (let index = 0; index < 5; index += 1)
@@ -144,7 +157,9 @@ test("secondary ranking systems use source-native labels and readable game text"
   await tabs.getByRole("tab", { name: /^Potions/ }).click();
   await expect(page.locator('[data-potion-tier="S"]')).toContainText("Vulnerable Potion");
   await expect(page.locator('[data-potion-tier="F"]')).toContainText("Glowwater Potion");
-  const energyPotion = page.locator("article").filter({ hasText: "Energy Potion" });
+  const energyPotion = page
+    .locator('[data-potion-tier="A"] article')
+    .filter({ hasText: "Energy Potion" });
   await expect(energyPotion).toContainText("Gain 2 Energy");
   await expect(page.locator("main")).not.toContainText("[/gold]");
   await expect(page.locator("main")).not.toContainText("[star:");
