@@ -128,8 +128,8 @@ export function AnimeExpeditionsTierList() {
           <p className={styles.notice}>
             <strong>Update 5 baseline reviewed.</strong> Current Anime Expeditions rankings,
             canonical Update 4/5 additions and six-unit team cores are source-reviewed. Five
-            obtainment routes remain
-            explicitly Needs Review. <a href="#sources">Evidence limits ↓</a>
+            obtainment routes remain explicitly Needs Review.{" "}
+            <a href="#sources">Evidence limits ↓</a>
           </p>
         </div>
       </section>
