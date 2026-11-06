@@ -263,8 +263,8 @@ export function AnimeExpeditionsTierList() {
           <p className={styles.context}>
             The best Anime Expeditions equipment depends on each unit&apos;s kit and slot type.
             Standard, alternative and documented exclusive options are reviewed separately. The
-            Anime Expeditions equipment rankings above cover interchangeable Standard items;
-            exclusive equipment remains unit-bound and outside the Standard Equipment Tier Board.
+            rankings above cover interchangeable Standard items; exclusive equipment remains
+            unit-bound and outside the Standard Equipment Tier Board.
           </p>
           <div
             className={styles.equipmentRecommendations}
@@ -339,10 +339,10 @@ export function AnimeExpeditionsTierList() {
             <p>Composition decisions, never a Team Tier List</p>
           </div>
           <p className={styles.context}>
-            Five six-unit cores are grounded in the current Update 5 source. These Anime Expeditions
-            team comps keep each slot&apos;s role explicit. Exact traits, equipment rolls and
-            replacements remain account- and stage-dependent. The current Anime Expeditions meta is
-            the baseline, not a promise that one lineup fits every stage.
+            These best Anime Expeditions team comps use five six-unit cores grounded in the current
+            Update 5 source. Roles keep each slot&apos;s job explicit, while exact traits, equipment
+            rolls and replacements remain account- and stage-dependent. They are a reviewed
+            baseline, not a promise that one lineup fits every stage.
           </p>
           <div className={styles.teams}>
             {teams.map((team) => (
@@ -415,7 +415,7 @@ export function AnimeExpeditionsTierList() {
             Use this Anime Expeditions evolution priority to see which units are worth evolving
             across {evolutions.filter((evo) => evo.priority !== null).length} source-backed recipes
             and editorial investment priorities. Priorities reflect mechanic unlocks rather than the
-            Overall grade. They complement the Anime Expeditions rankings instead of duplicating
+            Overall grade, so this section complements the main rankings instead of duplicating
             them. {evolutions.filter((evo) => evo.priority === null).length} documented recipes
             remain unranked rather than receiving an inferred priority.
           </p>
@@ -514,8 +514,9 @@ export function AnimeExpeditionsTierList() {
           <section id="sources" className={styles.section} aria-labelledby="sources-title">
             <h2 id="sources-title">Sources & Evidence</h2>
             <p>
-              Research snapshot: {snapshot.date}. {snapshot.version.label}. Publisher facts and
-              community observations are separate from TierListBase grades.
+              This source review covers the current Anime Expeditions meta as of {snapshot.date}.{" "}
+              {snapshot.version.label}. Publisher facts and community observations are separate from
+              TierListBase grades.
             </p>
             <ul className={styles.sources}>
               {sources.map((source) => (
