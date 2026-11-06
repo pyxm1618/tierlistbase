@@ -1,7 +1,5 @@
-import { readFile } from "node:fs/promises";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { format } from "prettier";
 
 const route = "/anime-expeditions/tier-list";
 test("shared shell, frozen three-system architecture and evidence-safe SEO", async ({ page }) => {
@@ -203,19 +201,6 @@ test("Quick Picks use the chosen view and the mobile team link dismisses detail"
 });
 
 test("reports visible Anime Expeditions SEO keyword coverage", async ({ page }) => {
-  const source = await readFile(
-    "src/modules/anime-expeditions-tier-list/anime-expeditions-tier-list.tsx",
-    "utf8",
-  );
-  const formattedSource = await format(source, {
-    parser: "typescript",
-    printWidth: 100,
-    semi: true,
-    singleQuote: false,
-    trailingComma: "all",
-  });
-  console.log(`ANIME_EXPEDITIONS_PRETTIER_FILE ${JSON.stringify(formattedSource)}`);
-
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(route);
 
