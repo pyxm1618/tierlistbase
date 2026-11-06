@@ -13,6 +13,7 @@ const limbusHref = "/limbus-company/tier-list";
 const zzzHref = "/zenless-zone-zero/tier-list";
 const dragonTravelerHref = "/dragon-traveler/tier-list";
 const wildRiftHref = "/wild-rift/tier-list";
+const slayTheSpire2Href = "/slay-the-spire-2/tier-list";
 
 type IconName =
   | "chart"
@@ -282,6 +283,14 @@ const popular: {
     ready: true,
     tone: "blue",
     href: wildRiftHref,
+  },
+  {
+    title: "Slay the Spire 2",
+    subtitle: "Cards",
+    icon: "document",
+    ready: true,
+    tone: "coral",
+    href: slayTheSpire2Href,
   },
 ];
 

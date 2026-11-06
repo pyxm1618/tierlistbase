@@ -70,6 +70,13 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     navigationVisible: true,
     navigationOrder: 9,
   },
+  {
+    slug: "slay-the-spire-2",
+    name: "Slay the Spire 2",
+    tierListHref: "/slay-the-spire-2/tier-list",
+    navigationVisible: true,
+    navigationOrder: 10,
+  },
 ] as const;
 
 export const navigationGames = gamesConfig.filter((game) => game.navigationVisible);
