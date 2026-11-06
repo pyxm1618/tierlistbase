@@ -444,7 +444,9 @@ function CharactersPanel() {
                       <p>
                         <strong>Playstyle:</strong> {character.playstyle}
                       </p>
-                      <small>{character.rank} · Starting HP: {character.startingHp}</small>
+                      <small>
+                        {character.rank} · Starting HP: {character.startingHp}
+                      </small>
                     </div>
                   </article>
                 ))}
