@@ -1,4 +1,5 @@
-const RICH_TEXT_TAG = /\[\/?(?:gold|red|blue|green|purple|orange|pink|aqua|color|sine|jitter|b|i)\]/gi;
+const RICH_TEXT_TAG =
+  /\[\/?(?:gold|red|blue|green|purple|orange|pink|aqua|color|sine|jitter|b|i)\]/gi;
 const PREFIXED_ENERGY = /(\d+)\[energy:\d+\]/gi;
 const VALUE_TOKEN = /\[(energy|star):(\d+)\]/gi;
 const UNKNOWN_TOKEN = /\[(\/?)([a-z][a-z0-9_-]*)(?::([^\]\r\n]+))?\]/gi;
