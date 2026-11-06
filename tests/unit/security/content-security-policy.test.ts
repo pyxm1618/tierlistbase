@@ -62,6 +62,7 @@ describe("buildContentSecurityPolicy", () => {
     expect(tokens).toContain("blob:");
     expect(tokens).toContain("https://media.tierlistbase.com");
     expect(tokens).toContain("https://spire-codex.com");
+    expect(tokens).toContain("https://cdn.spire-codex.com");
 
     expect(tokens).not.toContain("*");
     expect(tokens).not.toContain("https:");
