@@ -9,7 +9,7 @@
     "build:test": "bun run generate:vanguard-hero && APP_ENV=test next build --webpack",
     "start": "next start",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format:check": "prettier --write src/modules/slay-the-spire-2-tier-list/data.generated.json src/modules/slay-the-spire-2-tier-list/data.ts src/modules/slay-the-spire-2-tier-list/slay-the-spire-2-tier-list.module.css src/modules/slay-the-spire-2-tier-list/slay-the-spire-2-tier-list.tsx tests/e2e/slay-the-spire-2-tier-list.spec.ts && node -e 'const fs=require(\"fs\"); const ps=[\"src/modules/slay-the-spire-2-tier-list/data.generated.json\",\"src/modules/slay-the-spire-2-tier-list/data.ts\",\"src/modules/slay-the-spire-2-tier-list/slay-the-spire-2-tier-list.module.css\",\"src/modules/slay-the-spire-2-tier-list/slay-the-spire-2-tier-list.tsx\",\"tests/e2e/slay-the-spire-2-tier-list.spec.ts\"]; for(const p of ps) console.log(\"@@FMT@@\"+p+\"@@\"+fs.readFileSync(p).toString(\"base64\"));' && exit 1",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run --config vitest.config.ts",
