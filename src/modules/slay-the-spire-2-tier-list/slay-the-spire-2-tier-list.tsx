@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState, type KeyboardEvent } from "react";
 
 import {
@@ -17,7 +18,6 @@ import {
   snapshot,
   sources,
   type CardPool,
-  type CardTier,
   type SlayCard,
 } from "./data";
 import styles from "./slay-the-spire-2-tier-list.module.css";
@@ -44,7 +44,8 @@ function moveTab<T extends string>(
 ) {
   if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
   event.preventDefault();
-  const currentIndex = order.indexOf(current);
+  const focusedIndex = order.indexOf(event.currentTarget.getAttribute(attribute) as T);
+  const currentIndex = focusedIndex >= 0 ? focusedIndex : order.indexOf(current);
   let nextIndex = currentIndex;
   if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % order.length;
   if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + order.length) % order.length;
@@ -443,7 +444,7 @@ function CharactersPanel() {
                       <p>
                         <strong>Playstyle:</strong> {character.playstyle}
                       </p>
-                      <small>Starting HP: {character.startingHp}</small>
+                      <small>{character.rank} · Starting HP: {character.startingHp}</small>
                     </div>
                   </article>
                 ))}
@@ -535,7 +536,7 @@ export function SlayTheSpire2TierList() {
         <div className={styles.heroShade} aria-hidden="true" />
         <div className={styles.heroInner}>
           <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
             <span aria-hidden="true">›</span>
             <span>Slay the Spire 2</span>
             <span aria-hidden="true">›</span>
@@ -577,7 +578,8 @@ export function SlayTheSpire2TierList() {
             Current rankings use Main {snapshot.mainVersion}. Beta {snapshot.betaVersion} is
             documented separately. Card value is contextual: baseline value, consistency, deck
             flexibility, opportunity cost, scaling and verified evidence inform the review without
-            creating a hidden numeric score.
+            creating a hidden numeric score. Use the ranking tabs for the Slay the Spire 2 relic tier
+            list and Slay the Spire 2 character tier list.
           </p>
         </section>
 

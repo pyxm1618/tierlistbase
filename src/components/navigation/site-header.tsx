@@ -12,7 +12,9 @@ import { SiteHeaderAccount } from "./site-header-account";
 import { SiteHeaderGameLink, SiteHeaderLinkStatus } from "./site-header-game-link";
 
 const navLink =
-  "rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400";
+  "whitespace-nowrap rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400";
+const desktopNavLink =
+  "whitespace-nowrap rounded-sm px-1 py-2 text-[.72rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400 2xl:px-2 2xl:text-[.82rem]";
 
 export function Brand({ href = "/" }: { href?: string }) {
   return (
@@ -57,19 +59,19 @@ function HeaderShell({
     <header className="sticky top-0 z-40 border-b border-[#315072]/60 bg-[#020e1d]/95 text-white backdrop-blur-md">
       <div className="mx-auto flex h-[54px] w-[calc(100%_-_32px)] items-center gap-6 px-4 sm:w-[93.4%] max-w-[1820px] sm:px-0">
         <Brand href={homeHref} />
-        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary navigation">
+        <nav className="hidden items-center gap-1 xl:flex 2xl:gap-5" aria-label="Primary navigation">
           {navigationGames.map((game) => (
             <SiteHeaderGameLink
               key={game.slug}
               href={localePath(siteConfig, locale, game.tierListHref)}
-              className={navLink}
+              className={desktopNavLink}
             >
               {game.name}
             </SiteHeaderGameLink>
           ))}
         </nav>
-        {desktopAccount ? <div className="ml-auto hidden lg:block">{desktopAccount}</div> : null}
-        <details className="group relative ml-auto lg:hidden">
+        {desktopAccount ? <div className="ml-auto hidden xl:block">{desktopAccount}</div> : null}
+        <details className="group relative ml-auto xl:hidden">
           <summary className="flex cursor-pointer list-none items-center gap-2 rounded-md border border-[#2d5a7e] px-3 py-1.5 text-sm marker:content-none">
             Menu <span aria-hidden="true">☰</span>
           </summary>
