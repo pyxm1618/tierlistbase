@@ -16,28 +16,28 @@ import styles from "./anime-expeditions-tier-list.module.css";
 
 const faq = [
   [
-    "Why do rankings vary by mode?",
-    "Wave count, boss immunities, placement rules and upgrade budgets change the value of the same kit. Mode Context keeps those tradeoffs visible without creating extra tier lists.",
+    "How does the Anime Expeditions tier list work across modes?",
+    "Wave count, boss immunities, placement rules and upgrade budgets change the value of the same kit. The current Anime Expeditions tier list keeps canonical grades stable while Mode Context makes those tradeoffs visible without creating extra tier lists.",
   ],
   [
-    "Are evolved forms ranked separately?",
+    "How do Anime Expeditions unit rankings handle evolved forms?",
     "Base and evolved forms belong to one canonical unit. The board shows the selected ranked form. Broken Falcon has divergent evolution paths: this snapshot selects Silver Falcon for support and keeps the other path in the same identity record.",
   ],
   [
-    "Do Traits change a Unit's tier?",
-    "They can change practical performance. Unbound trades multiple placements for one amplified unit; Draconic rewards damaging DoT. A trait suited to one role is not automatically best for another. These editorial grades assume the build named in the detail.",
+    "What are the best Anime Expeditions traits?",
+    "The best Anime Expeditions traits depend on role fit rather than rarity alone. Unbound trades multiple placements for one amplified unit, while Draconic rewards damaging DoT. These editorial grades assume the build named in Unit Detail.",
   ],
   [
-    "How does Equipment affect rankings?",
-    "Compare actual rolled values and kit interactions. Standard items occupy two shared slots. Evolved unit-exclusive equipment has a separate slot and is recommended per unit, never ranked against interchangeable Standard items.",
+    "How do Anime Expeditions equipment rankings work?",
+    "The Anime Expeditions equipment tier list compares Standard items by rolled values, kit interactions and role fit. Evolved unit-exclusive equipment uses a separate slot and is recommended per unit, never ranked against interchangeable Standard items.",
   ],
   [
-    "How are new Units handled before enough live testing exists?",
-    "They stay Pending / Needs Review. An unranked unit is not C tier, and missing evidence never becomes a fabricated score.",
+    "What are the best units in Anime Expeditions?",
+    "The strongest reviewed units appear in the Unit Tier List and Quick Picks for the selected role view. New or under-evidenced units stay Pending / Needs Review; missing evidence never becomes a fabricated score.",
   ],
   [
-    "How often is this Tier List updated?",
-    "After current patch facts and ranking evidence are checked. The snapshot date records the source-review pass, not a claim of direct live testing. Update 5 · Hallows Eve is the current reviewed baseline; unresolved obtainment stays labeled Needs Review rather than being inferred.",
+    "How often is the Anime Expeditions tier list updated?",
+    "The Anime Expeditions tier list is updated after current patch facts and ranking evidence are checked. The snapshot date records the source-review pass, not a claim of direct live testing. Update 5 · Hallows Eve is the current reviewed baseline; unresolved obtainment stays labeled Needs Review rather than being inferred.",
   ],
 ] as const;
 
@@ -96,7 +96,10 @@ export function AnimeExpeditionsTierList() {
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>ANIME EXPEDITIONS · UPDATE 5 SOURCE-REVIEWED</p>
           <h1 id="ae-title">Anime Expeditions Tier List</h1>
-          <p>Choose units, roll role-fit Traits, and plan equipment, teams and evolutions.</p>
+          <p>
+            Use the current Anime Expeditions tier list to compare top units, then plan role-fit
+            Traits, equipment, team comps and evolutions.
+          </p>
           <dl className={styles.heroFacts}>
             <div>
               <dt>Version</dt>
@@ -123,9 +126,10 @@ export function AnimeExpeditionsTierList() {
             </div>
           </dl>
           <p className={styles.notice}>
-            <strong>Update 5 baseline reviewed.</strong> Current S–D rankings, canonical Update 4/5
-            additions and six-unit team cores are source-reviewed. Five obtainment routes remain
-            explicitly Needs Review. <a href="#sources">Evidence limits ↓</a>
+            <strong>Update 5 baseline reviewed.</strong> Current Anime Expeditions rankings,
+            canonical Update 4/5 additions and six-unit team cores are source-reviewed. Five
+            obtainment routes remain explicitly Needs Review.{" "}
+            <a href="#sources">Evidence limits ↓</a>
           </p>
         </div>
       </section>
@@ -142,13 +146,15 @@ export function AnimeExpeditionsTierList() {
           <div className={styles.sectionHeading}>
             <h2 id="traits-title">Anime Expeditions Trait Tier List</h2>
             <p>
-              One ranking · role fit before rarity · source-reviewed mechanics, editorial grades
+              Compare the best Anime Expeditions traits by role fit before rarity, using
+              source-reviewed mechanics and editorial grades.
             </p>
           </div>
           <p className={styles.context}>
-            Effects, roll odds and pity are source documented. The older Draconic discrepancy
-            follows a documented Update 3 buff. TierListBase does not claim direct live testing of
-            every trait interaction.
+            Effects, roll odds and pity are source documented. Anime Expeditions trait rankings
+            still prioritize role fit over rarity; the older Draconic discrepancy follows a
+            documented Update 3 buff. TierListBase does not claim direct live testing of every trait
+            interaction.
           </p>
           <div data-trait-board>
             {["S", "A", "B", "C", "Pending"].map((tier) => {
@@ -203,7 +209,10 @@ export function AnimeExpeditionsTierList() {
         <section id="equipment" className={styles.section} aria-labelledby="equipment-title">
           <div className={styles.sectionHeading}>
             <h2 id="equipment-title">Anime Expeditions Standard Equipment Tier List</h2>
-            <p>Standard Equipment only · compare rolled values and kit interactions</p>
+            <p>
+              The Anime Expeditions equipment tier list covers Standard Equipment only, comparing
+              rolled values and kit interactions while keeping unit-exclusive gear separate.
+            </p>
           </div>
           <div data-standard-board>
             {["S", "A", "B", "C", "Pending"].map((tier) => {
@@ -252,8 +261,10 @@ export function AnimeExpeditionsTierList() {
           </div>
           <h3 className={styles.subheading}>Best Equipment by Unit</h3>
           <p className={styles.context}>
-            Reviewed TierListBase editorial recommendations. Exclusive equipment is unit-bound and
-            remains outside the Standard Equipment Tier Board.
+            The best Anime Expeditions equipment depends on each unit&apos;s kit and slot type.
+            Standard, alternative and documented exclusive options are reviewed separately. The
+            rankings above cover interchangeable Standard items; exclusive equipment remains
+            unit-bound and outside the Standard Equipment Tier Board.
           </p>
           <div
             className={styles.equipmentRecommendations}
@@ -328,9 +339,10 @@ export function AnimeExpeditionsTierList() {
             <p>Composition decisions, never a Team Tier List</p>
           </div>
           <p className={styles.context}>
-            Five six-unit cores are grounded in the current Update 5 source. Roles describe the job
-            each slot performs; exact traits, equipment rolls and replacements remain account- and
-            stage-dependent.
+            These best Anime Expeditions team comps use five six-unit cores grounded in the current
+            Update 5 source. Roles keep each slot&apos;s job explicit, while exact traits, equipment
+            rolls and replacements remain account- and stage-dependent. They are a reviewed
+            baseline, not a promise that one lineup fits every stage.
           </p>
           <div className={styles.teams}>
             {teams.map((team) => (
@@ -400,10 +412,12 @@ export function AnimeExpeditionsTierList() {
             <p>Spend for a mechanic unlock, not a copy of the Overall ranking</p>
           </div>
           <p className={styles.context}>
-            {evolutions.filter((evo) => evo.priority !== null).length} source-backed evolution
-            recipes with editorial investment priorities.{" "}
-            {evolutions.filter((evo) => evo.priority === null).length} documented recipes remain
-            unranked rather than receiving an inferred priority.
+            Use this Anime Expeditions evolution priority to see which units are worth evolving
+            across {evolutions.filter((evo) => evo.priority !== null).length} source-backed recipes
+            and editorial investment priorities. Priorities reflect mechanic unlocks rather than the
+            Overall grade, so this section complements the main rankings instead of duplicating
+            them. {evolutions.filter((evo) => evo.priority === null).length} documented recipes
+            remain unranked rather than receiving an inferred priority.
           </p>
           <div className={styles.evolutionGrid}>
             {["High Priority", "Worth Evolving", "Situational"].map((priority) => (
@@ -467,7 +481,10 @@ export function AnimeExpeditionsTierList() {
         </section>
         <section id="changes" className={styles.section} aria-labelledby="changes-title">
           <h2 id="changes-title">What Changed</h2>
-          <p>Update 5 · Hallows Eve is now the current source-reviewed baseline.</p>
+          <p>
+            Update 5 · Hallows Eve is now the source-reviewed baseline for the current Anime
+            Expeditions tier list and its ranking changes.
+          </p>
           <div className={styles.changeGrid}>
             {[
               "New Units",
@@ -482,12 +499,12 @@ export function AnimeExpeditionsTierList() {
                   {label === "New Units"
                     ? "Update 4 missing canonical additions and all five Update 5 Hallows Eve units are integrated into the current snapshot."
                     : label === "Unit Tier Changes"
-                      ? "Current Update 5 S–D placements are established as the new baseline; unsupported patch-to-patch movement is not invented."
+                      ? "Anime Expeditions rankings use the current Update 5 S–D placements as the new baseline; unsupported patch-to-patch movement is not invented."
                       : label === "Equipment Changes"
                         ? "Five Update 5 unit-bound equipment records are added from current source pages; exact obtainment is shown only when documented."
                         : label === "Trait Changes"
                           ? "Draconic historical discrepancy remains resolved against the dated Update 3 buff; no unsupported new trait delta is claimed."
-                          : "Update 5 six-unit team cores and current role interactions replace the old Update 4 provisional composition set."}
+                          : "The current Anime Expeditions meta uses Update 5 six-unit team cores and current role interactions, replacing the old Update 4 provisional composition set."}
                 </p>
               </div>
             ))}
@@ -497,8 +514,9 @@ export function AnimeExpeditionsTierList() {
           <section id="sources" className={styles.section} aria-labelledby="sources-title">
             <h2 id="sources-title">Sources & Evidence</h2>
             <p>
-              Research snapshot: {snapshot.date}. {snapshot.version.label}. Publisher facts and
-              community observations are separate from TierListBase grades.
+              This source review covers the current Anime Expeditions meta as of {snapshot.date}.{" "}
+              {snapshot.version.label}. Publisher facts and community observations are separate from
+              TierListBase grades.
             </p>
             <ul className={styles.sources}>
               {sources.map((source) => (
@@ -542,17 +560,18 @@ export function AnimeExpeditionsTierList() {
           <section id="methodology" className={styles.section} aria-labelledby="method-title">
             <h2 id="method-title">Ranking Methodology</h2>
             <p>
-              Update 5 · Hallows Eve is the current source-reviewed baseline. TierListBase grades
-              are editorial synthesis of current comparative evidence and documented kits; they are
-              not publisher rankings or a claim of direct live testing of every interaction.
+              Update 5 · Hallows Eve is the current source-reviewed baseline for these Anime
+              Expeditions rankings. TierListBase grades are editorial synthesis of current
+              comparative evidence and documented kits; they are not publisher rankings or a claim
+              of direct live testing of every interaction.
             </p>
             <dl className={styles.methodology}>
               <div>
                 <dt>Trait & equipment assumptions</dt>
                 <dd>
-                  Use the role-fit build in Unit Detail, two rolled Standard items and an evolved
-                  exclusive where documented. An Unbound single-placement build must earn its lost
-                  placement value.
+                  When comparing Anime Expeditions equipment, use the role-fit build in Unit Detail,
+                  two rolled Standard items and an evolved exclusive where documented. An Unbound
+                  single-placement build must earn its lost placement value.
                 </dd>
               </div>
               <div>
@@ -580,8 +599,9 @@ export function AnimeExpeditionsTierList() {
               <div>
                 <dt>Current Meta Modifier</dt>
                 <dd>
-                  No verified current weekly modifier. Temporary elemental, weather or Expedition
-                  bonuses are contextual and are excluded from permanent canonical tiers.
+                  No verified current weekly modifier is included in the current Anime Expeditions
+                  meta. Temporary elemental, weather or Expedition bonuses are contextual and
+                  excluded from permanent canonical tiers.
                 </dd>
               </div>
               <div>

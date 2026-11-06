@@ -217,7 +217,7 @@ export function UnitWorkspace({
       <section aria-labelledby="quick-title" className={styles.quickSection}>
         <div className={styles.sectionHeading}>
           <h2 id="quick-title">Quick Picks</h2>
-          <p>Update 5 editorial picks · current source-reviewed baseline</p>
+          <p>Update 5 editorial picks for the current Anime Expeditions meta</p>
         </div>
         <div className={styles.quickPicks}>
           {quickPicks.map((pick) => (
@@ -259,7 +259,10 @@ export function UnitWorkspace({
           <div className={styles.boardColumn}>
             <div className={styles.sectionHeading}>
               <h2 id="unit-title">Anime Expeditions Unit Tier List</h2>
-              <p>One canonical unit. Its recommended form. Five role views.</p>
+              <p>
+                The Anime Expeditions best units vary by role, so this ranking uses one canonical
+                unit, its recommended form and five role views.
+              </p>
             </div>
 
             <div role="tablist" aria-label="Unit ranking views" className={styles.tabs}>
@@ -321,7 +324,7 @@ export function UnitWorkspace({
               {visible.length} units · {filters.mode}.{" "}
               {filters.mode !== "All Modes"
                 ? "Context only: canonical tiers stay unchanged. Check stage restrictions, enemy immunities and modifiers before choosing a lineup."
-                : "Five-view grades are reviewed; unresolved obtainment stays Needs Review rather than being inferred."}
+                : "Anime Expeditions unit rankings are reviewed across five role views; unresolved obtainment stays Needs Review rather than being inferred."}
             </p>
             <div
               id="ae-unit-panel"
