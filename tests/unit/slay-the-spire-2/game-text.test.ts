@@ -9,14 +9,19 @@ describe("formatSlayGameText", () => {
     expect(formatSlayGameText("[blue]2[/blue] cards")).toBe("2 cards");
   });
 
-  it("translates energy tokens and prefixed zero-cost energy markup", () => {
+  it("translates energy tokens and preserves explicit energy amounts", () => {
     expect(formatSlayGameText("Gain [energy:2].")).toBe("Gain 2 Energy.");
     expect(formatSlayGameText("Add a 0[energy:1] copy.")).toBe("Add a 0 Energy copy.");
+    expect(formatSlayGameText("Skills cost 0 [energy:1].")).toBe("Skills cost 0 Energy.");
   });
 
-  it("translates star tokens with readable singular and plural labels", () => {
+  it("translates star tokens and preserves explicit star amounts", () => {
     expect(formatSlayGameText("Gain [star:1].")).toBe("Gain 1 Star.");
     expect(formatSlayGameText("Gain [star:3].")).toBe("Gain 3 Stars.");
+    expect(formatSlayGameText("Gain 9 [star:1].")).toBe("Gain 9 Stars.");
+    expect(formatSlayGameText("For every [blue]10[/blue] [star:1] spent.")).toBe(
+      "For every 10 Stars spent.",
+    );
   });
 
   it("leaves ordinary text unchanged", () => {
