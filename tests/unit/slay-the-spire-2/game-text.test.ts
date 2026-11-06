@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { cards, potions, relics } from "@/modules/slay-the-spire-2-tier-list/data";
 import { formatSlayGameText } from "@/modules/slay-the-spire-2-tier-list/game-text";
 
 describe("formatSlayGameText", () => {
@@ -34,5 +35,10 @@ describe("formatSlayGameText", () => {
     );
     expect(formatSlayGameText("[color]Readable[/color]")).toBe("Readable");
     expect(formatSlayGameText("Choose [Card].")).toBe("Choose Card.");
+  });
+
+  it("removes raw markup from every current rendered description", () => {
+    for (const item of [...cards, ...relics, ...potions])
+      expect(formatSlayGameText(item.description)).not.toMatch(/\[[^\]]+\]/);
   });
 });
