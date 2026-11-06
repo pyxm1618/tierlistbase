@@ -38,7 +38,6 @@ test("Slay the Spire 2 uses the shared shell, real snapshot and complete ranking
   const imageDirective = csp.match(/(?:^|; )img-src ([^;]+)/)?.[1] ?? "";
   expect(imageDirective.split(/\s+/)).toContain("https://spire-codex.com");
   expect(imageDirective.split(/\s+/)).toContain("https://cdn.spire-codex.com");
-  expect(imageDirective.split(/\s+/)).toContain("https://cdn.spire-codex.com");
 
   const tabs = page.getByRole("tablist", { name: "Slay the Spire 2 ranking systems" });
   for (const name of ["Cards", "Relics", "Characters", "Potions"])
