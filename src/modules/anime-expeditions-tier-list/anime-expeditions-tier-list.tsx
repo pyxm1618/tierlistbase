@@ -44,8 +44,44 @@ const faq = [
 export function AnimeExpeditionsTierList() {
   const standard = equipment.filter((item) => item.kind === "Standard");
   const built = units.filter((unit) => unit.build.standardIds.length && !unit.hidden);
-  const namedEquipment = (ids: readonly string[]) =>
-    ids.map((id) => equipment.find((item) => item.id === id)!.name).join(" / ") || "Not documented";
+  const renderEquipmentOptions = (
+    ids: readonly string[],
+    options: { priority?: boolean; emptyLabel: string },
+  ) => {
+    const items = ids.flatMap((id) => {
+      const item = equipment.find((candidate) => candidate.id === id);
+      return item ? [item] : [];
+    });
+    if (!items.length) return <span className={styles.equipmentEmpty}>{options.emptyLabel}</span>;
+    return (
+      <div className={styles.equipmentOptions}>
+        {items.map((item) => {
+          const art = item.asset ? artworkForOptional(`gear-${item.asset}`) : null;
+          return (
+            <span
+              className={`${styles.equipmentOption} ${
+                options.priority ? styles.equipmentOptionPrimary : ""
+              }`}
+              key={item.id}
+            >
+              {art ? (
+                <Image
+                  src={art}
+                  alt=""
+                  width={36}
+                  height={36}
+                  sizes="36px"
+                  loading="lazy"
+                  className={styles.equipmentIcon}
+                />
+              ) : null}
+              <span>{item.name}</span>
+            </span>
+          );
+        })}
+      </div>
+    );
+  };
   return (
     <main className={styles.page}>
       <section className={styles.hero} aria-labelledby="ae-title">
@@ -220,36 +256,70 @@ export function AnimeExpeditionsTierList() {
             remains outside the Standard Equipment Tier Board.
           </p>
           <div
-            className={styles.tableScroll}
-            tabIndex={0}
+            className={styles.equipmentRecommendations}
             role="region"
             aria-label="Best Equipment by Unit"
+            data-equipment-recommendations
           >
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Unit</th>
-                  <th scope="col">Best Standard Equipment</th>
-                  <th scope="col">Alternative Standard Equipment</th>
-                  <th scope="col">Exclusive Equipment</th>
-                  <th scope="col">Notes / Alternative</th>
-                </tr>
-              </thead>
-              <tbody>
-                {built.map((unit) => (
-                  <tr key={unit.id}>
-                    <th scope="row">{unit.currentForm}</th>
-                    <td>{namedEquipment(unit.build.standardIds.slice(0, 1))}</td>
-                    <td>{namedEquipment(unit.build.standardIds.slice(1))}</td>
-                    <td>{namedEquipment(unit.build.exclusiveIds)}</td>
-                    <td>
-                      {unit.archetype} · {unit.role}. {unit.reviewStatus}; actual roll quality and
-                      stage conditions still matter.
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className={styles.equipmentRecommendationsHeader} aria-hidden="true">
+              <span>Unit</span>
+              <span>Best Standard</span>
+              <span>Alternative</span>
+              <span>Exclusive</span>
+            </div>
+            <div className={styles.equipmentRecommendationList}>
+              {built.map((unit) => {
+                const portrait = unit.asset ? artworkForOptional(`unit-${unit.asset}`) : null;
+                return (
+                  <article className={styles.equipmentRecommendationRow} key={unit.id}>
+                    <div className={styles.equipmentUnit}>
+                      {portrait ? (
+                        <Image
+                          src={portrait}
+                          alt=""
+                          width={48}
+                          height={46}
+                          sizes="48px"
+                          loading="lazy"
+                          className={styles.equipmentUnitPortrait}
+                        />
+                      ) : (
+                        <div
+                          className={styles.equipmentUnitPlaceholder}
+                          role="img"
+                          aria-label={`${unit.currentForm} artwork pending provenance review`}
+                        >
+                          {unit.currentForm.slice(0, 1)}
+                        </div>
+                      )}
+                      <div>
+                        <span className={styles.equipmentCellLabel}>Unit</span>
+                        <strong>{unit.currentForm}</strong>
+                      </div>
+                    </div>
+                    <div className={`${styles.equipmentCell} ${styles.equipmentBest}`}>
+                      <span className={styles.equipmentCellLabel}>Best Standard</span>
+                      {renderEquipmentOptions(unit.build.standardIds.slice(0, 1), {
+                        priority: true,
+                        emptyLabel: "No documented recommendation",
+                      })}
+                    </div>
+                    <div className={styles.equipmentCell}>
+                      <span className={styles.equipmentCellLabel}>Alternative</span>
+                      {renderEquipmentOptions(unit.build.standardIds.slice(1), {
+                        emptyLabel: "No alternative documented",
+                      })}
+                    </div>
+                    <div className={styles.equipmentCell}>
+                      <span className={styles.equipmentCellLabel}>Exclusive</span>
+                      {renderEquipmentOptions(unit.build.exclusiveIds, {
+                        emptyLabel: "No documented exclusive",
+                      })}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
           </div>
         </section>
         <section id="teams" className={styles.section} aria-labelledby="teams-title">
