@@ -105,7 +105,6 @@ test("card pool tabs, search, filters, sort and selection stay synchronized", as
 test("representative remote artwork loads under the enforced CSP", async ({ page }) => {
   await page.goto(route);
 
-  await expectLoadedImageSample(page.locator("[data-card-id] img").first().locator("xpath=..").locator("img"), 1);
   for (let index = 0; index < 5; index += 1)
     await expectLoadedImage(page.locator("[data-card-id] img").nth(index));
   await expectLoadedImage(page.locator("[data-card-detail] img"));
