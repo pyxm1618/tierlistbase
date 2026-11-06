@@ -287,4 +287,6 @@ test("reports visible Anime Expeditions SEO keyword coverage", async ({ page }) 
   for (const phrase of phrases.slice(0, 5)) {
     expect(metrics[phrase]?.count, `${phrase} should remain visible`).toBeGreaterThanOrEqual(1);
   }
+  expect(keywordFamilyWeightedDensity).toBeGreaterThanOrEqual(2.8);
+  expect(keywordFamilyWeightedDensity).toBeLessThanOrEqual(3.2);
 });
