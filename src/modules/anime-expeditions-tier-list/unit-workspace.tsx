@@ -260,8 +260,9 @@ export function UnitWorkspace({
             <div className={styles.sectionHeading}>
               <h2 id="unit-title">Anime Expeditions Unit Tier List</h2>
               <p>
-                For players comparing Anime Expeditions best units, the current Anime Expeditions
-                rankings use one canonical unit, its recommended form and five role views.
+                For players searching for Anime Expeditions best units, the current Anime
+                Expeditions rankings use one canonical unit, its recommended form and five role
+                views.
               </p>
             </div>
 
