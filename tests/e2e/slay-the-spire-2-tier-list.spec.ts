@@ -3,7 +3,9 @@ import { expect, test } from "@playwright/test";
 
 const route = "/slay-the-spire-2/tier-list";
 
-test("Slay the Spire 2 uses the shared shell, real snapshot and complete ranking systems", async ({ page }) => {
+test("Slay the Spire 2 uses the shared shell, real snapshot and complete ranking systems", async ({
+  page,
+}) => {
   await page.goto(route);
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Slay the Spire 2 Tier List");
@@ -29,7 +31,10 @@ test("card pool tabs, search, filters, sort and selection stay synchronized", as
   await page.goto(route);
 
   const poolTabs = page.getByRole("tablist", { name: "Slay the Spire 2 card pools" });
-  await expect(poolTabs.getByRole("tab", { name: /^Ironclad/ })).toHaveAttribute("aria-selected", "true");
+  await expect(poolTabs.getByRole("tab", { name: /^Ironclad/ })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
   await page.getByRole("searchbox", { name: "Search cards" }).fill("Offering");
   await expect(page.locator('[data-card-id="offering"]')).toHaveCount(1);
   await page.locator('[data-card-id="offering"]').click();
@@ -45,15 +50,23 @@ test("card pool tabs, search, filters, sort and selection stay synchronized", as
 
   await poolTabs.getByRole("tab", { name: /^Colorless/ }).click();
   await expect(page.locator('[data-tier-row="Needs Review"]')).toBeVisible();
-  await expect(page.locator('[data-card-id="alchemize"]')).toHaveAttribute("data-tier", "Needs Review");
+  await expect(page.locator('[data-card-id="alchemize"]')).toHaveAttribute(
+    "data-tier",
+    "Needs Review",
+  );
 
   await poolTabs.getByRole("tab", { name: /^Ironclad/ }).focus();
   await page.keyboard.press("ArrowRight");
   await expect(poolTabs.getByRole("tab", { name: /^Silent/ })).toBeFocused();
-  await expect(poolTabs.getByRole("tab", { name: /^Silent/ })).toHaveAttribute("aria-selected", "true");
+  await expect(poolTabs.getByRole("tab", { name: /^Silent/ })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
 });
 
-test("secondary ranking systems use source-native labels and real current objects", async ({ page }) => {
+test("secondary ranking systems use source-native labels and real current objects", async ({
+  page,
+}) => {
   await page.goto(route);
   const tabs = page.getByRole("tablist", { name: "Slay the Spire 2 ranking systems" });
 
@@ -72,10 +85,14 @@ test("secondary ranking systems use source-native labels and real current object
 });
 
 for (const width of [390, 768, 1440, 1920]) {
-  test(`Slay the Spire 2 remains within the viewport at ${width}px and has no serious accessibility violations`, async ({ page }) => {
+  test(`Slay the Spire 2 remains within the viewport at ${width}px and has no serious accessibility violations`, async ({
+    page,
+  }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(route);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
     const axe = await new AxeBuilder({ page }).analyze();
     expect(
       axe.violations.filter(
@@ -85,7 +102,9 @@ for (const width of [390, 768, 1440, 1920]) {
   });
 }
 
-test("visible copy covers the single Slay the Spire 2 tier-list keyword family without fake statistics", async ({ page }) => {
+test("visible copy covers the single Slay the Spire 2 tier-list keyword family without fake statistics", async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(route);
   const text = (await page.locator("main").innerText()).toLowerCase();
@@ -95,7 +114,8 @@ test("visible copy covers the single Slay the Spire 2 tier-list keyword family w
     "slay the spire 2 cards tier list",
     "slay the spire 2 relic tier list",
     "slay the spire 2 character tier list",
-  ]) expect(text).toContain(phrase);
+  ])
+    expect(text).toContain(phrase);
   expect(text).not.toContain("28.4% pick rate");
   expect(text).not.toContain("24,831 runs");
 });

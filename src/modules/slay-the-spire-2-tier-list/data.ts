@@ -130,7 +130,9 @@ export function cardPoolName(pool: CardPool): string {
 
 export function defaultCardForPool(pool: CardPool): SlayCard {
   const poolCards = cards.filter((card) => card.pool === pool);
-  return poolCards.find((card) => card.name === "Offering")
-    ?? poolCards.find((card) => card.tier === "S")
-    ?? poolCards[0]!;
+  return (
+    poolCards.find((card) => card.name === "Offering") ??
+    poolCards.find((card) => card.tier === "S") ??
+    poolCards[0]!
+  );
 }

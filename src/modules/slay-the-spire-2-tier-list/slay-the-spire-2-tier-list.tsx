@@ -53,9 +53,7 @@ function moveTab<T extends string>(
   const next = order[nextIndex]!;
   setCurrent(next);
   requestAnimationFrame(() => {
-    document
-      .querySelector<HTMLButtonElement>(`button[${attribute}="${next}"]`)
-      ?.focus();
+    document.querySelector<HTMLButtonElement>(`button[${attribute}="${next}"]`)?.focus();
   });
 }
 
@@ -158,17 +156,17 @@ function CardsWorkspace() {
   }, [poolCards, rarityFilter, search, sort, typeFilter]);
 
   const selected =
-    filtered.find((card) => card.id === selectedId)
-    ?? poolCards.find((card) => card.id === selectedId)
-    ?? filtered[0]
-    ?? poolCards[0]!;
+    filtered.find((card) => card.id === selectedId) ??
+    poolCards.find((card) => card.id === selectedId) ??
+    filtered[0] ??
+    poolCards[0]!;
 
   const sCards = poolCards.filter((card) => card.tier === "S");
   const sTypeCounts = new Map<string, number>();
   for (const card of sCards) sTypeCounts.set(card.type, (sTypeCounts.get(card.type) ?? 0) + 1);
   const dominantSType =
-    [...sTypeCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0]
-    ?? "N/A";
+    [...sTypeCounts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0] ??
+    "N/A";
   const zeroCostS = sCards.filter((card) => card.cost === 0).length;
   const needsReview = poolCards.filter((card) => card.tier === "Needs Review").length;
 
@@ -196,11 +194,7 @@ function CardsWorkspace() {
         </div>
       </section>
 
-      <div
-        className={styles.poolTabs}
-        role="tablist"
-        aria-label="Slay the Spire 2 card pools"
-      >
+      <div className={styles.poolTabs} role="tablist" aria-label="Slay the Spire 2 card pools">
         {cardPools.map((item) => (
           <button
             key={item}
@@ -237,7 +231,9 @@ function CardsWorkspace() {
             onChange={(event) => setTypeFilter(event.target.value)}
           >
             {types.map((type) => (
-              <option key={type} value={type}>{type}</option>
+              <option key={type} value={type}>
+                {type}
+              </option>
             ))}
           </select>
         </label>
@@ -249,7 +245,9 @@ function CardsWorkspace() {
             onChange={(event) => setRarityFilter(event.target.value)}
           >
             {rarities.map((rarity) => (
-              <option key={rarity} value={rarity}>{rarity}</option>
+              <option key={rarity} value={rarity}>
+                {rarity}
+              </option>
             ))}
           </select>
         </label>
@@ -281,11 +279,17 @@ function CardsWorkspace() {
                   <div className={styles.tierLabel} data-tier={tier}>
                     <strong>{tier === "Needs Review" ? "NR" : tier}</strong>
                     <span>
-                      {tier === "S" ? "Exceptional baseline" :
-                       tier === "A" ? "Strong baseline" :
-                       tier === "B" ? "Solid / contextual" :
-                       tier === "C" ? "Situational" :
-                       tier === "D" ? "Narrow baseline" : "Not independently ranked"}
+                      {tier === "S"
+                        ? "Exceptional baseline"
+                        : tier === "A"
+                          ? "Strong baseline"
+                          : tier === "B"
+                            ? "Solid / contextual"
+                            : tier === "C"
+                              ? "Situational"
+                              : tier === "D"
+                                ? "Narrow baseline"
+                                : "Not independently ranked"}
                     </span>
                   </div>
                   <div className={styles.cardGrid}>
@@ -314,16 +318,36 @@ function CardsWorkspace() {
         <CardDetail card={selected} />
       </div>
 
-      <section className={styles.insights} aria-labelledby="insights-title" data-ia-section="quick-insights">
+      <section
+        className={styles.insights}
+        aria-labelledby="insights-title"
+        data-ia-section="quick-insights"
+      >
         <div className={styles.sectionHeading}>
           <p className={styles.kicker}>QUICK INSIGHTS</p>
           <h2 id="insights-title">{cardPoolName(pool)} snapshot signals</h2>
         </div>
         <div className={styles.insightGrid}>
-          <article><strong>{sCards.length}</strong><span>S-tier cards</span><p>Reviewed Main source placements in this pool.</p></article>
-          <article><strong>{dominantSType}</strong><span>Most common S-tier type</span><p>Derived from the same current pool.</p></article>
-          <article><strong>{zeroCostS}</strong><span>Zero-cost S-tier cards</span><p>Uses verified Main cost data.</p></article>
-          <article><strong>{needsReview}</strong><span>Needs Review</span><p>No tier is invented for uncovered cards.</p></article>
+          <article>
+            <strong>{sCards.length}</strong>
+            <span>S-tier cards</span>
+            <p>Reviewed Main source placements in this pool.</p>
+          </article>
+          <article>
+            <strong>{dominantSType}</strong>
+            <span>Most common S-tier type</span>
+            <p>Derived from the same current pool.</p>
+          </article>
+          <article>
+            <strong>{zeroCostS}</strong>
+            <span>Zero-cost S-tier cards</span>
+            <p>Uses verified Main cost data.</p>
+          </article>
+          <article>
+            <strong>{needsReview}</strong>
+            <span>Needs Review</span>
+            <p>No tier is invented for uncovered cards.</p>
+          </article>
         </div>
       </section>
     </>
@@ -362,7 +386,9 @@ function RelicsPanel() {
                     <div>
                       <h4>{relic.name}</h4>
                       <p>{relic.description}</p>
-                      <small>{relic.rarity} · {relic.pool}</small>
+                      <small>
+                        {relic.rarity} · {relic.pool}
+                      </small>
                     </div>
                   </article>
                 ))}
@@ -397,18 +423,30 @@ function CharactersPanel() {
           <section key={rank} className={styles.characterRank}>
             <h3>{rank}</h3>
             <div className={styles.characterGrid}>
-              {characters.filter((character) => character.rank === rank).map((character) => (
-                <article key={character.id} className={styles.characterCard} data-character-id={character.id.toLocaleLowerCase("en-US")}>
-                  <img src={character.image} alt="" loading="lazy" decoding="async" />
-                  <div>
-                    <h4>{character.name}</h4>
-                    <p><strong>Strengths:</strong> {character.strengths}</p>
-                    <p><strong>Limitations:</strong> {character.limitations}</p>
-                    <p><strong>Playstyle:</strong> {character.playstyle}</p>
-                    <small>Starting HP: {character.startingHp}</small>
-                  </div>
-                </article>
-              ))}
+              {characters
+                .filter((character) => character.rank === rank)
+                .map((character) => (
+                  <article
+                    key={character.id}
+                    className={styles.characterCard}
+                    data-character-id={character.id.toLocaleLowerCase("en-US")}
+                  >
+                    <img src={character.image} alt="" loading="lazy" decoding="async" />
+                    <div>
+                      <h4>{character.name}</h4>
+                      <p>
+                        <strong>Strengths:</strong> {character.strengths}
+                      </p>
+                      <p>
+                        <strong>Limitations:</strong> {character.limitations}
+                      </p>
+                      <p>
+                        <strong>Playstyle:</strong> {character.playstyle}
+                      </p>
+                      <small>Starting HP: {character.startingHp}</small>
+                    </div>
+                  </article>
+                ))}
             </div>
           </section>
         ))}
@@ -444,7 +482,9 @@ function PotionsPanel() {
                     <div>
                       <h4>{potion.name}</h4>
                       <p>{potion.description}</p>
-                      <small>{potion.rarity} · {potion.pool}</small>
+                      <small>
+                        {potion.rarity} · {potion.pool}
+                      </small>
                     </div>
                   </article>
                 ))}
@@ -458,12 +498,30 @@ function PotionsPanel() {
 }
 
 const faq = [
-  ["What are the best cards in Slay the Spire 2?", "There is no automatic best pick. This Slay the Spire 2 card tier list shows reviewed baseline Main v0.107.1 placements, but deck, relics, route, encounters and current run context can make a lower-tier card the correct choice."],
-  ["What is the best character in Slay the Spire 2?", "The cited 1 November 2026 community review places the Silent and Regent together in the Top group. The gaps are small, and the figures are community-uploaded runs rather than official Mega Crit character win rates."],
-  ["Why can an S-tier card still be a bad pick?", "An S-tier label describes strong baseline value, not an instruction to take the card. Opportunity cost, deck size, energy, relics, planned encounters and the route can all change the decision."],
-  ["Does this tier list use Main or Beta?", `Rankings use Main ${snapshot.mainVersion}. Beta ${snapshot.betaVersion} is tracked as change context only and is not mixed into Main placements.`],
-  ["How often is the tier list updated?", "The snapshot is reviewed when a verified Main patch, ranking source or material balance change affects the page. Planned future patches are not pre-applied."],
-  ["Does TierListBase show card pick rates and win rates?", "Not in this snapshot. No card-level statistic is displayed unless it can be verified for the exact Main snapshot and source scope; design-mock numbers were deliberately excluded."],
+  [
+    "What are the best cards in Slay the Spire 2?",
+    "There is no automatic best pick. This Slay the Spire 2 card tier list shows reviewed baseline Main v0.107.1 placements, but deck, relics, route, encounters and current run context can make a lower-tier card the correct choice.",
+  ],
+  [
+    "What is the best character in Slay the Spire 2?",
+    "The cited 1 November 2026 community review places the Silent and Regent together in the Top group. The gaps are small, and the figures are community-uploaded runs rather than official Mega Crit character win rates.",
+  ],
+  [
+    "Why can an S-tier card still be a bad pick?",
+    "An S-tier label describes strong baseline value, not an instruction to take the card. Opportunity cost, deck size, energy, relics, planned encounters and the route can all change the decision.",
+  ],
+  [
+    "Does this tier list use Main or Beta?",
+    `Rankings use Main ${snapshot.mainVersion}. Beta ${snapshot.betaVersion} is tracked as change context only and is not mixed into Main placements.`,
+  ],
+  [
+    "How often is the tier list updated?",
+    "The snapshot is reviewed when a verified Main patch, ranking source or material balance change affects the page. Planned future patches are not pre-applied.",
+  ],
+  [
+    "Does TierListBase show card pick rates and win rates?",
+    "Not in this snapshot. No card-level statistic is displayed unless it can be verified for the exact Main snapshot and source scope; design-mock numbers were deliberately excluded.",
+  ],
 ];
 
 export function SlayTheSpire2TierList() {
@@ -477,7 +535,11 @@ export function SlayTheSpire2TierList() {
         <div className={styles.heroShade} aria-hidden="true" />
         <div className={styles.heroInner}>
           <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-            <a href="/">Home</a><span aria-hidden="true">›</span><span>Slay the Spire 2</span><span aria-hidden="true">›</span><span>Tier List</span>
+            <a href="/">Home</a>
+            <span aria-hidden="true">›</span>
+            <span>Slay the Spire 2</span>
+            <span aria-hidden="true">›</span>
+            <span>Tier List</span>
           </nav>
           <div className={styles.heroCopy}>
             <p className={styles.heroEyebrow}>SLAY THE SPIRE 2</p>
@@ -488,10 +550,22 @@ export function SlayTheSpire2TierList() {
             </p>
           </div>
           <div className={styles.snapshotBar} aria-label="Ranking snapshot">
-            <div><span>Main</span><strong>{snapshot.mainVersion}</strong></div>
-            <div><span>Beta context</span><strong>{snapshot.betaVersion}</strong></div>
-            <div><span>Status</span><strong>{snapshot.releaseStatus}</strong></div>
-            <div><span>Snapshot</span><strong>Nov 6, 2026</strong></div>
+            <div>
+              <span>Main</span>
+              <strong>{snapshot.mainVersion}</strong>
+            </div>
+            <div>
+              <span>Beta context</span>
+              <strong>{snapshot.betaVersion}</strong>
+            </div>
+            <div>
+              <span>Status</span>
+              <strong>{snapshot.releaseStatus}</strong>
+            </div>
+            <div>
+              <span>Snapshot</span>
+              <strong>Nov 6, 2026</strong>
+            </div>
           </div>
         </div>
       </section>
@@ -507,7 +581,11 @@ export function SlayTheSpire2TierList() {
           </p>
         </section>
 
-        <div className={styles.rankingTabs} role="tablist" aria-label="Slay the Spire 2 ranking systems">
+        <div
+          className={styles.rankingTabs}
+          role="tablist"
+          aria-label="Slay the Spire 2 ranking systems"
+        >
           {rankingSections.map((item) => (
             <button
               key={item.key}
@@ -517,7 +595,9 @@ export function SlayTheSpire2TierList() {
               aria-selected={section === item.key}
               aria-controls="ranking-panel"
               onClick={() => setSection(item.key)}
-              onKeyDown={(event) => moveTab(event, sectionKeys, section, setSection, "data-ranking-tab")}
+              onKeyDown={(event) =>
+                moveTab(event, sectionKeys, section, setSection, "data-ranking-tab")
+              }
             >
               <strong>{item.label}</strong>
               <span>{item.note}</span>
@@ -532,7 +612,12 @@ export function SlayTheSpire2TierList() {
           {section === "potions" ? <PotionsPanel /> : null}
         </div>
 
-        <section className={styles.changed} id="changes" data-ia-section="what-changed" aria-labelledby="changes-title">
+        <section
+          className={styles.changed}
+          id="changes"
+          data-ia-section="what-changed"
+          aria-labelledby="changes-title"
+        >
           <div className={styles.sectionHeading}>
             <p className={styles.kicker}>WHAT CHANGED</p>
             <h2 id="changes-title">Initial Reviewed Snapshot</h2>
@@ -556,27 +641,56 @@ export function SlayTheSpire2TierList() {
         </section>
 
         <div className={styles.infoGrid}>
-          <section className={styles.infoPanel} data-ia-section="methodology" aria-labelledby="methodology-title">
+          <section
+            className={styles.infoPanel}
+            data-ia-section="methodology"
+            aria-labelledby="methodology-title"
+          >
             <p className={styles.kicker}>METHODOLOGY</p>
             <h2 id="methodology-title">How this Slay the Spire 2 tier list works</h2>
             <ol>
-              <li><strong>Current snapshot:</strong> Main {snapshot.mainVersion}, reviewed {snapshot.lastReviewed}.</li>
-              <li><strong>Tier means baseline:</strong> a starting point for comparison, not an automatic pick.</li>
-              <li><strong>Context matters:</strong> deck, relics, route, encounters, energy and current run state can change value.</li>
-              <li><strong>Evidence stays separate:</strong> game object facts come from v0.107.1 data; editorial/community placements keep their own source.</li>
-              <li><strong>No fake completeness:</strong> {snapshot.counts.cardsNeedsReview} cards and {snapshot.counts.relicsNeedsReview} relics remain Needs Review where evidence did not cover them.</li>
-              <li><strong>Known limit:</strong> no card-level pick rate, win rate or sample size is presented for this exact Main snapshot.</li>
+              <li>
+                <strong>Current snapshot:</strong> Main {snapshot.mainVersion}, reviewed{" "}
+                {snapshot.lastReviewed}.
+              </li>
+              <li>
+                <strong>Tier means baseline:</strong> a starting point for comparison, not an
+                automatic pick.
+              </li>
+              <li>
+                <strong>Context matters:</strong> deck, relics, route, encounters, energy and
+                current run state can change value.
+              </li>
+              <li>
+                <strong>Evidence stays separate:</strong> game object facts come from v0.107.1 data;
+                editorial/community placements keep their own source.
+              </li>
+              <li>
+                <strong>No fake completeness:</strong> {snapshot.counts.cardsNeedsReview} cards and{" "}
+                {snapshot.counts.relicsNeedsReview} relics remain Needs Review where evidence did
+                not cover them.
+              </li>
+              <li>
+                <strong>Known limit:</strong> no card-level pick rate, win rate or sample size is
+                presented for this exact Main snapshot.
+              </li>
             </ol>
           </section>
 
-          <section className={styles.infoPanel} data-ia-section="sources-evidence" aria-labelledby="sources-title">
+          <section
+            className={styles.infoPanel}
+            data-ia-section="sources-evidence"
+            aria-labelledby="sources-title"
+          >
             <p className={styles.kicker}>SOURCES &amp; EVIDENCE</p>
             <h2 id="sources-title">Traceable snapshot sources</h2>
             <div className={styles.sources}>
               {sources.map((source) => (
                 <article key={source.id}>
                   <span>{source.category}</span>
-                  <a href={source.url} target="_blank" rel="noreferrer">{source.label}</a>
+                  <a href={source.url} target="_blank" rel="noreferrer">
+                    {source.label}
+                  </a>
                   <p>{source.note}</p>
                 </article>
               ))}
