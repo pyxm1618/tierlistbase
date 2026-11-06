@@ -33,5 +33,6 @@ describe("formatSlayGameText", () => {
       "Unknown 2 token.",
     );
     expect(formatSlayGameText("[color]Readable[/color]")).toBe("Readable");
+    expect(formatSlayGameText("Choose [Card].")).toBe("Choose Card.");
   });
 });
