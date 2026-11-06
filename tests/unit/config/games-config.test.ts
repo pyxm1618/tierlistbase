@@ -5,8 +5,8 @@ import { describe, expect, it } from "vitest";
 import { gamesConfig, navigationGames } from "@/config/games.config";
 
 describe("games.config registry", () => {
-  it("registers released game routes without changing the existing navigation set", () => {
-    expect(gamesConfig).toHaveLength(9);
+  it("registers released game routes in navigation order", () => {
+    expect(gamesConfig).toHaveLength(10);
     expect(gamesConfig.map((g) => g.name)).toEqual([
       "World of Warcraft",
       "Genshin Impact",
@@ -17,6 +17,7 @@ describe("games.config registry", () => {
       "Dragon Traveler",
       "Wild Rift",
       "Anime Exp.",
+      "Slay the Spire 2",
     ]);
 
     expect(gamesConfig.map((g) => g.tierListHref)).toEqual([
@@ -29,9 +30,10 @@ describe("games.config registry", () => {
       "/dragon-traveler/tier-list",
       "/wild-rift/tier-list",
       "/anime-expeditions/tier-list",
+      "/slay-the-spire-2/tier-list",
     ]);
 
-    expect(gamesConfig.map((g) => g.navigationOrder)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    expect(gamesConfig.map((g) => g.navigationOrder)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
 
   it("exports navigationGames matching the visible games in navigation order", () => {
@@ -42,7 +44,10 @@ describe("games.config registry", () => {
     expect(gamesConfig.find((game) => game.slug === "anime-expeditions")?.navigationVisible).toBe(
       true,
     );
-    expect(navigationGames).toHaveLength(9);
+    expect(gamesConfig.find((game) => game.slug === "slay-the-spire-2")?.navigationVisible).toBe(
+      true,
+    );
+    expect(navigationGames).toHaveLength(10);
     expect(navigationGames.every((g) => g.navigationVisible)).toBe(true);
     expect(navigationGames.map((g) => g.slug)).toEqual([
       "wow-forever",
@@ -54,6 +59,7 @@ describe("games.config registry", () => {
       "dragon-traveler",
       "wild-rift",
       "anime-expeditions",
+      "slay-the-spire-2",
     ]);
   });
 

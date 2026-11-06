@@ -5707,7 +5707,7 @@
       "cost": 0,
       "description": "Apply 1 [gold]Weak[/gold] to ALL enemies.",
       "keywords": ["Exhaust"],
-      "image": "https://spire-codex.comnull",
+      "image": "https://spire-codex.com/static/images/cards/scare.webp",
       "tier": "Needs Review",
       "sourceIds": ["game-data-v01071"],
       "context": null
@@ -8400,7 +8400,7 @@
       "rarity": "Ancient Relic",
       "pool": "shared",
       "description": "Every [blue]3[/blue] normal combats, [gold]Upgrade[/gold] a random card in your [gold]Deck[/gold].",
-      "image": "https://spire-codex.comnull",
+      "image": "https://spire-codex.com/static/images/relics/fishing_rod.webp",
       "tier": "D",
       "sourceIds": ["game-data-v01071", "relic-rank-v01071"]
     },
@@ -8760,7 +8760,7 @@
       "rarity": "Ancient Relic",
       "pool": "shared",
       "description": "Upon pickup, obtain [blue]2[/blue] card rewards from other characters.",
-      "image": "https://spire-codex.comnull",
+      "image": "https://spire-codex.com/static/images/relics/kaleidoscope.webp",
       "tier": "F",
       "sourceIds": ["game-data-v01071", "relic-rank-v01071"]
     },
@@ -9940,7 +9940,7 @@
       "rarity": "Ancient Relic",
       "pool": "shared",
       "description": "Upon pickup, lose all [gold]Gold[/gold]. [gold]Enchant[/gold] all cards in the first card reward with [purple]Glam[/purple].",
-      "image": "https://spire-codex.comnull",
+      "image": "https://spire-codex.com/static/images/relics/silken_tress.webp",
       "tier": "F",
       "sourceIds": ["game-data-v01071", "relic-rank-v01071"]
     },
