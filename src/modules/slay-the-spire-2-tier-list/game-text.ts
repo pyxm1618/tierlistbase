@@ -1,7 +1,6 @@
 const RICH_TEXT_TAG =
   /\[\/?(?:gold|red|blue|green|purple|orange|pink|aqua|color|sine|jitter|b|i)\]/gi;
-const FORMATTED_PREFIXED_RESOURCE =
-  /\[[a-z]+\](\d+)\[\/[a-z]+\]\s*\[(energy|star):\d+\]/gi;
+const FORMATTED_PREFIXED_RESOURCE = /\[[a-z]+\](\d+)\[\/[a-z]+\]\s*\[(energy|star):\d+\]/gi;
 const PREFIXED_RESOURCE = /(\d+)\s*\[(energy|star):\d+\]/gi;
 const VALUE_TOKEN = /\[(energy|star):(\d+)\]/gi;
 const UNKNOWN_TOKEN = /\[(\/?)([a-z][a-z0-9_-]*)(?::([^\]\r\n]+))?\]/gi;
