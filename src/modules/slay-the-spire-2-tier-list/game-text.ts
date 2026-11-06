@@ -1,7 +1,7 @@
-const RICH_TEXT_TAG = /\[\/?(?:gold|red|blue|green|purple|orange|pink|aqua|sine|jitter|b|i)\]/gi;
+const RICH_TEXT_TAG = /\[\/?(?:gold|red|blue|green|purple|orange|pink|aqua|color|sine|jitter|b|i)\]/gi;
 const PREFIXED_ENERGY = /(\d+)\[energy:\d+\]/gi;
 const VALUE_TOKEN = /\[(energy|star):(\d+)\]/gi;
-const UNKNOWN_TOKEN = /\[\/?([a-z][a-z0-9_-]*)(?::([^\]\r\n]+))?\]/gi;
+const UNKNOWN_TOKEN = /\[(\/?)(([a-z][a-z0-9_-]*))(?::([^\]\r\n]+))?\]/gi;
 
 export function formatSlayGameText(value: string): string {
   return value
@@ -14,7 +14,16 @@ export function formatSlayGameText(value: string): string {
     .replace(RICH_TEXT_TAG, "")
     .replace(
       UNKNOWN_TOKEN,
-      (_match, _name: string, argument: string | undefined) => argument ?? "",
+      (
+        _match,
+        closing: string,
+        name: string,
+        _normalizedName: string,
+        argument: string | undefined,
+      ) => {
+        if (closing) return "";
+        return argument ?? name;
+      },
     )
     .replace(/[ \t]+([,.;:!?])/g, "$1")
     .replace(/[ \t]{2,}/g, " ")
