@@ -81,8 +81,19 @@ test("card pool tabs, search, filters, sort and selection stay synchronized", as
   await expect(detail).not.toContainText("28.4%");
 
   await page.getByRole("searchbox", { name: "Search cards" }).fill("");
-  await page.getByRole("combobox", { name: "Type" }).selectOption("All");
-  await page.getByRole("combobox", { name: "Rarity" }).selectOption("All");
+
+  const typeFilter = page.getByRole("combobox", { name: "Type" });
+  await typeFilter.selectOption("Power");
+  await expect(page.locator('[data-card-id="corruption"]')).toBeVisible();
+  await expect(page.locator('[data-card-id="offering"]')).toHaveCount(0);
+  await typeFilter.selectOption("All");
+
+  const rarityFilter = page.getByRole("combobox", { name: "Rarity" });
+  await rarityFilter.selectOption("Rare");
+  await expect(page.locator('[data-card-id="offering"]')).toBeVisible();
+  await expect(page.locator('[data-card-id="pommel_strike"]')).toHaveCount(0);
+  await rarityFilter.selectOption("All");
+
   await page.getByRole("combobox", { name: "Sort" }).selectOption("name");
 
   const nameGrid = page.locator("[data-name-sort-grid]");
