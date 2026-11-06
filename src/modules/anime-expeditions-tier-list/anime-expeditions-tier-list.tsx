@@ -414,8 +414,8 @@ export function AnimeExpeditionsTierList() {
           <p className={styles.context}>
             Use this Anime Expeditions evolution priority to see which units are worth evolving
             across {evolutions.filter((evo) => evo.priority !== null).length} source-backed recipes
-            and editorial investment priorities. Priorities reflect mechanic unlocks rather than
-            the Overall grade. They complement the Anime Expeditions rankings instead of duplicating
+            and editorial investment priorities. Priorities reflect mechanic unlocks rather than the
+            Overall grade. They complement the Anime Expeditions rankings instead of duplicating
             them. {evolutions.filter((evo) => evo.priority === null).length} documented recipes
             remain unranked rather than receiving an inferred priority.
           </p>
