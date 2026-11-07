@@ -390,8 +390,8 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
             )}
           </h1>
           <p>
-            TierListBase helps you explore game tier lists, compare current rankings, and understand
-            the evidence behind how characters, classes, and builds move between tiers.
+            TierListBase helps you use each tier list to compare current rankings and understand the
+            evidence behind how characters, classes, and builds move between tiers.
           </p>
         </div>
       </section>
@@ -400,7 +400,7 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
         <section className="tlb-section" id="explore" aria-labelledby="explore-title">
           <SectionTitle
             id="explore-title"
-            subtitle="Browse current game tier lists and compare character, class, and specialization rankings."
+            subtitle="Browse current rankings across supported games, then compare characters, classes, and specializations."
           >
             Explore Tier Lists
           </SectionTitle>
@@ -457,7 +457,7 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
           id="popular-rankings"
           aria-labelledby="popular-title"
         >
-          <SectionTitle id="popular-title" subtitle="Hand-picked entry points to game tier lists.">
+          <SectionTitle id="popular-title" subtitle="Hand-picked entry points to game tier list rankings.">
             Popular Rankings
           </SectionTitle>
           <div className="tlb-popular-grid">
