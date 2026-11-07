@@ -42,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 const getWowPageData = unstable_cache(
   async (role: ValidWowRole) => {
-    // Dungeon / Level 30 / current stored version are fixed V1 context dimensions.
+    // Dungeon / Level 30 / stored Beta version remain fixed V1 snapshot dimensions.
     const data = await getGameMetaBoardData({
       gameSlug: "wow-forever",
       mode: "dungeon",
@@ -124,39 +124,42 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
           <div className={styles.heroContent}>
             <div>
               <h1>{route.h1}</h1>
-              <p className={styles.heroSubtitle}>Level 30 Beta · Dungeon DPS / Tank / Healer</p>
+              <p className={styles.heroSubtitle}>
+                Archived Level 30 Beta Snapshot · Dungeon DPS / Tank / Healer
+              </p>
               <p>
-                This WoW Tier List ranks DPS, Tank and Healer specializations for World of Warcraft:
-                Forever using observed dungeon performance data and reviewed evidence. The WoW
-                Forever Tier List is limited to selected near-cap dungeons in the current Level 30
-                Beta context.
+                This WoW Tier List preserves the reviewed Level 30 Beta dungeon snapshot for DPS,
+                Tank and Healer specializations in World of Warcraft: Forever. It is an archived WoW
+                Forever Tier List, not a current live ranking. For readers comparing a WoW DPS Tier
+                List, the scores below describe Beta-era dungeon observations only.
               </p>
             </div>
             <dl className={styles.heroFacts}>
               <div>
-                <dt>Recorded Beta Phase / Version</dt>
-                <dd>{data.version?.version ?? "Current Beta · verification pending"}</dd>
+                <dt>Archived Beta Phase / Version</dt>
+                <dd>{data.version?.version ?? "Beta snapshot · verification pending"}</dd>
               </div>
               <div>
                 <dt>Level Cap Context</dt>
                 <dd>30</dd>
               </div>
               <div>
-                <dt>Data Updated · UTC</dt>
+                <dt>Data Captured · UTC</dt>
                 <dd>{retrieved ? retrieved.slice(0, 10) : "No recorded data"}</dd>
               </div>
               <div>
-                <dt>Data Status</dt>
+                <dt>Snapshot Evidence Status</dt>
                 <dd data-status={status}>{status}</dd>
               </div>
             </dl>
           </div>
         </header>
         <section className={styles.context} aria-labelledby="wow-context-heading">
-          <h2 id="wow-context-heading">WoW Tier List Ranking Context</h2>
+          <h2 id="wow-context-heading">Ranking Context</h2>
           <p>
-            The WoW Tier List context stays fixed to Dungeon, Level 30 Beta and the current WoW
-            Forever Beta version.
+            This WoW Tier List is fixed to the archived Dungeon, Level 30 Beta snapshot captured
+            before launch. The rankings and evidence below describe the Beta environment and must
+            not be interpreted as current WoW Forever rankings.
           </p>
           <dl>
             <div>
@@ -169,7 +172,7 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
             </div>
             <div>
               <dt>Version</dt>
-              <dd>Current WoW Forever Beta context</dd>
+              <dd>Archived WoW Forever Beta snapshot</dd>
             </div>
           </dl>
           <WowRoleLinks
