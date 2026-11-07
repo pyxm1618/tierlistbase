@@ -41,13 +41,13 @@ describe("SEO keyword density calculator", () => {
   });
 
   test("does not token-weight a four-word keyword", () => {
-    const result = calculateKeywordDensity("wild rift champion tier list filler", {
-      primaryKeyword: "wild rift champion tier list",
+    const result = calculateKeywordDensity("wild rift tier list filler", {
+      primaryKeyword: "wild rift tier list",
       secondaryKeywords: [],
     });
     expect(result.primaryOccurrences).toBe(1);
     expect(result.keywordGroupOccurrences).toBe(1);
-    expect(result.keywordGroupDensityPct).toBeCloseTo(100 / 6);
+    expect(result.keywordGroupDensityPct).toBeCloseTo(20);
   });
 
   test("primary dominance compares primary against every secondary", () => {
