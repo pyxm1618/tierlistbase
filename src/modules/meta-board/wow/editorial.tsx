@@ -128,8 +128,8 @@ export function WowSources({ specs }: { specs: WowSpec[] }) {
           <strong>Primary Performance Data</strong>
           <p>
             {sources.filter((s) => s.sourceType === "data").length} linked performance data
-            source(s). This WoW Tier List preserves aggregate dungeon performance visibly
-            attributed to Forever Logs.
+            source(s). This WoW Tier List preserves aggregate dungeon performance visibly attributed
+            to Forever Logs.
           </p>
         </article>
         <article>
