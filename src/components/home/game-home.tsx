@@ -313,10 +313,10 @@ function UpdateCard({ update }: { update: RecentRatingChangeItem | undefined }) 
   const isGenshin = update?.gameSlug === "genshin-impact";
   const title = update
     ? update.entityName + ": " + update.previousTier + " → " + update.newTier
-    : "No verified update yet";
+    : "No update yet";
   const description = update
-    ? update.reason || "Verified tier change recorded for " + update.contextLabel + "."
-    : "New verified ranking changes will appear here when published.";
+    ? update.reason || "Tier change recorded for " + update.contextLabel + "."
+    : "New ranking changes will appear here when available.";
   return (
     <article className="tlb-update-card">
       <div
@@ -364,7 +364,7 @@ function UpdateCard({ update }: { update: RecentRatingChangeItem | undefined }) 
                   day: "numeric",
                   timeZone: "UTC",
                 }).format(new Date(update.changedAt))
-              : "Pending verification"}
+              : "No update available"}
           </span>
         </div>
         <h3>{title}</h3>
@@ -450,9 +450,9 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
           <div className="tlb-heading-row">
             <SectionTitle
               id="updates-title"
-              subtitle="Stay on top of verified tier list changes from the ranking feeds currently available for WoW Forever and Genshin Impact."
+              subtitle="Stay on top of recent tier list changes from the ranking feeds currently available for WoW Forever and Genshin Impact."
             >
-              Latest Verified Updates
+              Latest Updates
             </SectionTitle>
             <Link className="tlb-all-updates" href="#explore">
               View rankings <Icon name="arrow" size={17} />
