@@ -178,9 +178,7 @@ export function getSeoDensityGameConfigs(): readonly SeoDensityGameConfig[] {
     const registrySecondaryKeywords = definition.secondaryKeywords ?? [];
     const secondaryKeywords = registrySecondaryKeywords.filter((keyword, index, keywords) => {
       if (keyword === definition.primaryKeyword) {
-        warnings.push(
-          `${config.route}: secondaryKeywords duplicates primaryKeyword: "${keyword}"`,
-        );
+        warnings.push(`${config.route}: secondaryKeywords duplicates primaryKeyword: "${keyword}"`);
         return false;
       }
       if (keywords.indexOf(keyword) !== index) {
