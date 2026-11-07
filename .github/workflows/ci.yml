@@ -372,9 +372,7 @@ jobs:
         if: always() && needs.change_scope.outputs.seo_density_targets != 'skip'
         env:
           SEO_DENSITY_TARGETS: ${{ needs.change_scope.outputs.seo_density_targets }}
-          # Migration baseline mode: keep real PASS/FAIL reporting without blocking Required CI.
-          # Switch this one value to "enforce" after page-level density remediation is complete.
-          SEO_DENSITY_MODE: report
+          SEO_DENSITY_MODE: enforce
         run: bun run test:seo-density
 
   vanguard_e2e:
