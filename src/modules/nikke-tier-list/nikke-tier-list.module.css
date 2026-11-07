@@ -184,7 +184,7 @@
   display: grid;
   grid-template-columns: auto auto;
   align-content: center;
-  gap: 0 8px;
+  gap: 2px 8px;
   min-width: 190px;
   padding-left: 12px;
   border-left: 1px solid #345268;
@@ -368,6 +368,42 @@
 
 .topControls input {
   width: 220px;
+}
+
+.rankingContext {
+  display: grid;
+  gap: 5px;
+  margin-top: 9px;
+  padding: 8px 10px;
+  border: 1px solid #2d5c76;
+  border-left: 3px solid #ff334e;
+  border-radius: 5px;
+  background: #071a28;
+}
+
+.rankingContextMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.rankingContextMeta strong {
+  color: #f4f7fa;
+}
+
+.rankingContextMeta time,
+.rankingContextMeta span {
+  color: #a8bcc9;
+}
+
+.rankingContext p {
+  margin: 0;
+  color: #93a9b8;
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 .modeGrid {

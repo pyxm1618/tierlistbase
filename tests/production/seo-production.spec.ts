@@ -140,30 +140,38 @@ test("WoW production SEO keeps the approved registry and structured data contrac
 });
 
 test("NIKKE production SEO is indexable", async ({ page, request }) => {
+  const nikkeTitle = "NIKKE Tier List – Best Characters in Goddess of Victory";
+  const nikkeDescription =
+    "Review the Goddess of Victory NIKKE tier list as a v122.8 pre-anniversary character ranking snapshot from October 25, 2026, with Campaign, Boss and PvP tiers.";
+
   const nikke = routeRegistry.get("/nikke/tier-list");
   expect(nikke.class).toBe("public_indexable");
   if (nikke.class !== "public_indexable") throw new Error("NIKKE route must be indexable");
   expect(nikke.primaryKeyword).toBe("nikke tier list");
   expect(nikke.secondaryKeywords).toEqual([
-    "nikke character tier list",
     "goddess of victory nikke tier list",
-    "goddess of victory nikke character tier list",
+    "nikke character tier list",
   ]);
-  expect(nikke.title).toBe("NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE");
-  expect(nikke.description).toBe(
-    "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and team context for the best NIKKE characters.",
-  );
+  expect(nikke.title).toBe(nikkeTitle);
+  expect(nikke.description).toBe(nikkeDescription);
+  expect(nikke.description).not.toMatch(/\b(current|latest|live|real-time)\b/i);
   expect(nikke.h1).toBe("NIKKE Tier List");
 
   const response = await page.goto("/nikke/tier-list", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
-  await expect(page).toHaveTitle("NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE");
+  await expect(page).toHaveTitle(nikkeTitle);
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
-    "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and team context for the best NIKKE characters.",
+    nikkeDescription,
   );
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.locator("h1")).toHaveText("NIKKE Tier List");
+
+  const rankingContext = page.getByRole("note", { name: "Ranking snapshot context" });
+  await expect(rankingContext).toContainText("Version v122.8");
+  await expect(rankingContext.locator("time")).toHaveAttribute("datetime", "2026-10-25");
+  await expect(rankingContext).toContainText("Pre-Anniversary snapshot");
+  await expect(rankingContext).toContainText("not live rankings");
 
   const robots = (
     (await page.locator('meta[name="robots"]').getAttribute("content")) ?? ""
@@ -177,11 +185,15 @@ test("NIKKE production SEO is indexable", async ({ page, request }) => {
     "https://www.tierlistbase.com/nikke/tier-list",
   );
 
-  const schemas = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const schemas = (await page.locator('script[type="application/ld+json"]').allTextContents()).map(
+    (schema) => JSON.parse(schema) as Record<string, unknown>,
+  );
   expect(schemas.length).toBeGreaterThan(0);
-  const serializedSchemas = JSON.stringify(schemas.map((schema) => JSON.parse(schema)));
-  expect(serializedSchemas).toContain('"@type":"WebApplication"');
-  expect(serializedSchemas).not.toMatch(/AggregateRating|Review|Offer|FAQPage|BreadcrumbList/);
+  const webApplication = schemas.find((schema) => schema["@type"] === "WebApplication");
+  expect(webApplication?.description).toBe(nikkeDescription);
+  expect(schemas.map((schema) => schema["@type"])).not.toEqual(
+    expect.arrayContaining(["AggregateRating", "Review", "Offer", "FAQPage", "BreadcrumbList"]),
+  );
 
   const bodyText = await page.locator("body").innerText();
   expect(bodyText).not.toMatch(
