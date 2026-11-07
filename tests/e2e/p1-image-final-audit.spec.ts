@@ -148,7 +148,10 @@ async function exerciseRoute(
     const tabs = page.getByRole("tablist", { name: "Slay the Spire 2 ranking systems" });
 
     await tabs.getByRole("tab", { name: /^Relics/ }).click();
-    keySources.relic = await optimizedImage(page.locator("[data-relic-tier] img").first(), responses);
+    keySources.relic = await optimizedImage(
+      page.locator("[data-relic-tier] img").first(),
+      responses,
+    );
     brokenImages += (await imageHealth(page)).broken;
 
     await tabs.getByRole("tab", { name: /^Characters/ }).click();
