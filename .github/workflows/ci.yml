@@ -237,6 +237,10 @@ jobs:
         run: bun run verify:secrets
       - name: SEO verification
         run: bun run verify:seo
+      - name: Production SEO review gate
+        env:
+          APP_ENV: production
+        run: bun run verify:seo
       - name: i18n verification
         run: bun run verify:i18n
       - name: Security verification
