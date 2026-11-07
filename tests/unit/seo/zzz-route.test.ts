@@ -29,7 +29,7 @@ describe("ZZZ production SEO release", () => {
     );
     expect(definition.reviewStatus).toBe("reviewed");
     expect(definition.reviewFingerprint).toBe(seoReviewFingerprint(definition));
-    expect(definition.lastModified).toBe("2026-10-27");
+    expect(definition.lastModified).toBe("2026-11-07");
     expect(routeRegistry.sitemapEntries().filter((entry) => entry.route === route)).toHaveLength(1);
   });
 
