@@ -158,8 +158,8 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
           <h2 id="wow-context-heading">Ranking Context</h2>
           <p>
             This WoW Tier List is fixed to the archived Dungeon, Level 30 Beta snapshot captured
-            before launch. The rankings and evidence below describe the Beta environment and
-            must not be interpreted as current WoW Forever rankings.
+            before launch. The rankings and evidence below describe the Beta environment and must
+            not be interpreted as current WoW Forever rankings.
           </p>
           <dl>
             <div>
