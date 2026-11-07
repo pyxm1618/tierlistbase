@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
+import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryCacheHandler, setDataCacheHandler } from "vinext/shims/cache";
 
 vi.mock("server-only", () => ({}));
@@ -50,7 +51,7 @@ it("retries after an unavailable read instead of caching the failure", async () 
 it("renders the runtime ranking version as an archived snapshot", async () => {
   reads.load.mockResolvedValue(available);
 
-  const rendered = JSON.stringify(await GenshinImpactTierListPage());
+  const rendered = renderToStaticMarkup(await GenshinImpactTierListPage());
 
   expect(rendered).toContain("Version test-version Snapshot");
   expect(rendered).toContain("Snapshot Version");
