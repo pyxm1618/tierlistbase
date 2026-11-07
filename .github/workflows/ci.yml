@@ -141,7 +141,12 @@ jobs:
           bunx prettier --config .prettierrc.json --write /tmp/auth-schema.ts
           diff -u src/platform/database/auth-schema.ts /tmp/auth-schema.ts
       - name: Formatting
-        run: bun run format:check
+        shell: bash
+        run: |
+          set -euo pipefail
+          bunx prettier --config .prettierrc.json --write tests/e2e/seo-keyword-density.spec.ts tests/seo/keyword-density.config.ts
+          git diff -- tests/e2e/seo-keyword-density.spec.ts tests/seo/keyword-density.config.ts
+          exit 1
       - name: Lint
         run: bun run lint
       - name: Typecheck
