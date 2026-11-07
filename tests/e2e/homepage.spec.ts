@@ -17,10 +17,15 @@ test("homepage renders the approved game-discovery information architecture", as
     "content",
     home.description,
   );
-  await expect(page.getByRole("heading", { name: "Explore Tier Lists" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Featured Tier Lists" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Why TierListBase?" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Latest Updates" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Popular Rankings" })).toBeVisible();
+  const updatesSection = page.locator("#latest-updates");
+  await expect(updatesSection.getByRole("heading", { name: "Latest Updates" })).toBeVisible();
+  await expect(updatesSection).toContainText(
+    "ranking feeds currently available for WoW Forever and Genshin Impact",
+  );
+  await expect(updatesSection).not.toContainText(/verified/i);
+  await expect(page.getByRole("heading", { name: "Browse All Supported Games" })).toBeVisible();
   await expect(page.locator("a[href='/wow-forever/tier-list']").first()).toBeVisible();
   await expect(page.locator("a[href='/genshin-impact/tier-list']").first()).toBeVisible();
 
@@ -45,7 +50,7 @@ test("homepage renders the approved game-discovery information architecture", as
 
   const popular = page.locator("#popular-rankings");
   const readyRankings = popular.locator("a.tlb-popular-item");
-  await expect(readyRankings).toHaveCount(8);
+  await expect(readyRankings).toHaveCount(10);
   await expect(popular.getByRole("link", { name: "Open WoW ranking: DPS" })).toHaveAttribute(
     "href",
     "/wow-forever/tier-list?mode=dungeon&role=dps&level=30",
@@ -64,17 +69,21 @@ test("homepage renders the approved game-discovery information architecture", as
     popular.getByRole("link", { name: "Open Limbus Company ranking: Identities" }),
   ).toHaveAttribute("href", "/limbus-company/tier-list");
   await expect(
+    popular.getByRole("link", { name: "Open Phantom Blade Zero ranking: Weapons" }),
+  ).toHaveAttribute("href", "/phantom-blade-zero/tier-list");
+  await expect(
     popular.getByRole("link", { name: "Open Dragon Traveler ranking: Luminaries" }),
   ).toHaveAttribute("href", "/dragon-traveler/tier-list");
   await expect(
     popular.getByRole("link", { name: "Open Wild Rift ranking: Ranked" }),
   ).toHaveAttribute("href", "/wild-rift/tier-list");
   await expect(
+    popular.getByRole("link", { name: "Open Anime Expeditions ranking: Units" }),
+  ).toHaveAttribute("href", "/anime-expeditions/tier-list");
+  await expect(
     popular.getByRole("link", { name: "Open Slay the Spire 2 ranking: Cards" }),
   ).toHaveAttribute("href", "/slay-the-spire-2/tier-list");
-  await expect(popular.getByLabel("WoW PvP: coming soon")).toBeVisible();
-  await expect(popular.getByLabel("WoW Leveling: coming soon")).toBeVisible();
-  await expect(popular.getByLabel("Spiral Abyss: coming soon")).toBeVisible();
+  await expect(popular.locator(".tlb-popular-soon")).toHaveCount(0);
 
   const heroImage = page.locator(".tlb-hero-art img");
   await expect(heroImage).toHaveAttribute(
@@ -115,7 +124,7 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(page.getByText(/best online tool/i)).toHaveCount(0);
 
   const html = await response?.text();
-  expect(html).toContain("Explore Tier Lists");
+  expect(html).toContain("Featured Tier Lists");
 });
 
 for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
