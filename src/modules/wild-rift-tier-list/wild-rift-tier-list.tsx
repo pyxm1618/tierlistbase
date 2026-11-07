@@ -213,8 +213,8 @@ export function WildRiftTierList() {
           </div>
           <p className={styles.disclosure}>
             For the Wild Rift tier list and Wild Rift champions tier list, the scope is CN Server ·
-            Master+ · Ranked. Champion catalog: 142; statistics-backed role placements: 179 across 136
-            distinct champions counted in the current source tables. The source headline says 135
+            Master+ · Ranked. Champion catalog: 142; statistics-backed role placements: 179 across
+            136 distinct champions counted in the current source tables. The source headline says 135
             tracked champions; that discrepancy is preserved rather than normalized away. Another 29
             placements have explicit Wild Rift Core source-tier evidence and display N/A for every
             role statistic. Catalog membership never creates a ranked placement.
@@ -239,8 +239,8 @@ export function WildRiftTierList() {
             In the Wild Rift tier list, trend arrows show same-role seven-day win-rate change only.
             Only six explicitly labeled seven-day spotlight deltas are verified in the reviewed
             source capture; 202 placements have unavailable trends. The table&apos;s separate “30 d”
-            column is not repurposed as a seven-day signal. The verified statistics snapshot is dated
-            2026-11-01 and labeled 7.3d · Master+ CN. Patch notes establish balance changes, not
+            column is not repurposed as a seven-day signal. The verified statistics snapshot is
+            dated 2026-11-01 and labeled 7.3d · Master+ CN. Patch notes establish balance changes, not
             causal performance outcomes.
           </p>
           <div className={styles.methodGrid}>
