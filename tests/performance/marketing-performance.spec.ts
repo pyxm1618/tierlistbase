@@ -540,21 +540,29 @@ test("Wild Rift Champion portraits stay on Next Image without direct PNG request
   const response = await page.goto("/wild-rift/tier-list", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
 
-  const portraits = [
-    ["small", page.locator('[data-ia-section="all-roles-overview"] img').first()],
-    ["card", page.locator('[data-ia-section="role-tier-workspace"] [data-champion-id] img').first()],
-    ["detail", page.locator('aside[aria-label="Champion Detail"] img').first()],
-  ] as const;
-
   const samples = [];
-  for (const [name, image] of portraits) {
+  const assertOptimizedPortrait = async (name: string, image: ReturnType<typeof page.locator>) => {
     await image.scrollIntoViewIfNeeded();
     await expect(image).toBeVisible();
     await expect(image).toHaveJSProperty("complete", true);
     const currentSrc = await image.evaluate((element) => (element as HTMLImageElement).currentSrc);
     expect(new URL(currentSrc).pathname).toBe("/_next/image");
     samples.push({ name, currentSrc });
-  }
+  };
+
+  await assertOptimizedPortrait(
+    "small",
+    page.locator('[data-ia-section="all-roles-overview"] img').first(),
+  );
+
+  await page.getByRole("tab", { name: /^Jungle$/ }).click();
+  await expect(page.locator('[data-ia-section="role-tier-workspace"]')).toBeVisible();
+  const nocturne = page.locator('[data-champion-id="nocturne"]');
+  await assertOptimizedPortrait("card", nocturne.locator("img").first());
+
+  await nocturne.click();
+  const detail = page.getByRole("complementary", { name: "Champion Detail" });
+  await assertOptimizedPortrait("detail", detail.locator("img").first());
 
   await test.info().attach("wild-rift-champion-image-evidence", {
     body: JSON.stringify(samples, null, 2),
