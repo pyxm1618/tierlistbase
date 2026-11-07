@@ -149,7 +149,10 @@ export default async function GenshinImpactTierListPage() {
       <div className={styles.shell}>
         <div className={styles.mockNotice}>
           <strong>Archived Genshin Tier List Snapshot</strong>
-          <span>Character rankings captured for Version {data.version}; this snapshot is not a live-version ranking.</span>
+          <span>
+            Character rankings captured for Version {data.version}; this snapshot is not a
+            live-version ranking.
+          </span>
         </div>
         <GenshinTierBoard characters={data.characters} changes={<GenshinChanges data={data} />} />
         <GenshinEditorial data={data} />
