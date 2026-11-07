@@ -1,4 +1,5 @@
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 import sharp from "sharp";
@@ -7,39 +8,59 @@ import { describe, expect, it } from "vitest";
 const root = process.cwd();
 
 describe("P1 image performance contracts", () => {
-  it("keeps Limbus Identity and E.G.O production assets bounded WebP derivatives", async () => {
+  it("locks every Limbus Identity and E.G.O production derivative to the reviewed manifest", async () => {
     const assetRoot = path.join(root, "src/modules/limbus-tier-list/assets");
     const manifest = JSON.parse(
       readFileSync(path.join(assetRoot, "asset-manifest.json"), "utf8"),
     ) as {
+      counts: { identities: number; ego: number; total: number };
       entries: Record<
         "identities" | "ego",
-        Array<{ file: string; width: number; height: number; bytes: number }>
+        Array<{
+          file: string;
+          width: number;
+          height: number;
+          bytes: number;
+          sha256: string;
+        }>
       >;
     };
+    const expectedCounts = { identities: 190, ego: 116 } as const;
+
+    expect(manifest.counts).toEqual({ identities: 190, ego: 116, total: 306 });
 
     for (const category of ["identities", "ego"] as const) {
       const dir = path.join(assetRoot, category);
       const files = readdirSync(dir).filter((file) => /\.(?:png|webp|avif)$/i.test(file));
       const entries = manifest.entries[category];
+      const expectedCount = expectedCounts[category];
 
-      expect(files).toHaveLength(entries.length);
+      expect(entries).toHaveLength(expectedCount);
+      expect(files).toHaveLength(expectedCount);
+      expect(new Set(files)).toEqual(new Set(entries.map((entry) => path.basename(entry.file))));
       expect(files.every((file) => file.endsWith(".webp"))).toBe(true);
-      expect(entries.every((entry) => entry.file.endsWith(".webp"))).toBe(true);
 
       let maxBytes = 0;
       for (const entry of entries) {
+        expect(entry.file.startsWith(`${category}/`), entry.file).toBe(true);
+        expect(entry.file.endsWith(".webp"), entry.file).toBe(true);
+        expect(entry.width, entry.file).toBe(96);
+        expect(entry.height, entry.file).toBe(96);
+
         const file = path.join(assetRoot, entry.file);
-        const bytes = statSync(file).size;
-        const metadata = await sharp(file).metadata();
+        const fileBuffer = readFileSync(file);
+        const bytes = fileBuffer.byteLength;
+        const metadata = await sharp(fileBuffer).metadata();
+        const sha256 = createHash("sha256").update(fileBuffer).digest("hex");
 
         expect(metadata.format, entry.file).toBe("webp");
-        expect(metadata.width, entry.file).toBeLessThanOrEqual(96);
-        expect(metadata.height, entry.file).toBeLessThanOrEqual(96);
+        expect(metadata.width, entry.file).toBe(96);
+        expect(metadata.height, entry.file).toBe(96);
         expect(bytes, entry.file).toBeLessThanOrEqual(8_000);
+        expect(entry.bytes, entry.file).toBe(bytes);
+        expect(entry.sha256, entry.file).toBe(sha256);
         expect(entry.width, entry.file).toBe(metadata.width);
         expect(entry.height, entry.file).toBe(metadata.height);
-        expect(entry.bytes, entry.file).toBe(bytes);
         maxBytes = Math.max(maxBytes, bytes);
       }
 
