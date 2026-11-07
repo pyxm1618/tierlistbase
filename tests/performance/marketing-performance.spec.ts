@@ -202,6 +202,167 @@ for (const route of routes) {
   });
 }
 
+const coreImageRoutes = [
+  "/wow-forever/tier-list",
+  "/genshin-impact/tier-list",
+  "/wild-rift/tier-list",
+] as const;
+
+for (const route of coreImageRoutes) {
+  for (const width of [390, 768, 1440, 1920]) {
+    test(`${route} image browser matrix stays healthy at ${width}px`, async ({ page }) => {
+      const consoleErrors: string[] = [];
+      page.on("console", (message) => {
+        if (message.type() === "error") consoleErrors.push(message.text());
+      });
+
+      await page.setViewportSize({ width, height: 900 });
+      await page.addInitScript(() => {
+        window.__cwv = { cls: 0, inp: 0, lcp: 0 };
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            const shift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+            if (!shift.hadRecentInput) window.__cwv!.cls += shift.value ?? 0;
+          }
+        }).observe({ type: "layout-shift", buffered: true });
+      });
+
+      const response = await page.goto(route, { waitUntil: "networkidle" });
+      expect(response?.status()).toBe(200);
+      await page.waitForTimeout(100);
+
+      const metrics = await page.evaluate(() => ({
+        brokenImages: [...document.images]
+          .filter((image) => image.complete && image.naturalWidth === 0)
+          .map((image) => image.currentSrc || image.src),
+        overflow: document.documentElement.scrollWidth > innerWidth,
+        cls: window.__cwv?.cls ?? 0,
+      }));
+
+      expect(metrics.brokenImages).toEqual([]);
+      expect(consoleErrors).toEqual([]);
+      expect(metrics.overflow).toBe(false);
+      expect(metrics.cls).toBeLessThanOrEqual(0.1);
+    });
+  }
+}
+
+for (const width of [390, 1440]) {
+  test(`Anime Expeditions image health stays clean at ${width}px`, async ({ page }) => {
+    const consoleErrors: string[] = [];
+    page.on("console", (message) => {
+      if (message.type() === "error") consoleErrors.push(message.text());
+    });
+
+    await page.setViewportSize({ width, height: 900 });
+    await page.addInitScript(() => {
+      window.__cwv = { cls: 0, inp: 0, lcp: 0 };
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          const shift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+          if (!shift.hadRecentInput) window.__cwv!.cls += shift.value ?? 0;
+        }
+      }).observe({ type: "layout-shift", buffered: true });
+    });
+
+    const response = await page.goto("/anime-expeditions/tier-list", {
+      waitUntil: "networkidle",
+    });
+    expect(response?.status()).toBe(200);
+    await page.waitForTimeout(100);
+
+    const metrics = await page.evaluate(() => {
+      const resources = performance.getEntriesByType("resource") as PerformanceResourceTiming[];
+      const animeImages = resources.filter((resource) =>
+        decodeURIComponent(resource.name).includes("/images/anime-expeditions/"),
+      );
+      return {
+        brokenImages: [...document.images]
+          .filter((image) => image.complete && image.naturalWidth === 0)
+          .map((image) => image.currentSrc || image.src),
+        overflow: document.documentElement.scrollWidth > innerWidth,
+        cls: window.__cwv?.cls ?? 0,
+        giantImages: animeImages
+          .filter((image) => Math.max(image.encodedBodySize, image.transferSize) > 500_000)
+          .map((image) => ({ name: image.name, bytes: image.encodedBodySize })),
+        directLargeImages: animeImages
+          .filter((image) => {
+            const url = new URL(image.name);
+            return (
+              url.pathname.startsWith("/images/anime-expeditions/") &&
+              Math.max(image.encodedBodySize, image.transferSize) > 150_000
+            );
+          })
+          .map((image) => ({ name: image.name, bytes: image.encodedBodySize })),
+      };
+    });
+
+    expect(metrics.brokenImages).toEqual([]);
+    expect(consoleErrors).toEqual([]);
+    expect(metrics.overflow).toBe(false);
+    expect(metrics.cls).toBeLessThanOrEqual(0.1);
+    expect(metrics.giantImages).toEqual([]);
+    expect(metrics.directLargeImages).toEqual([]);
+  });
+}
+
+test("Core image network benchmark @1440 DPR2", async ({ browser }) => {
+  const results = [];
+
+  for (const route of coreImageRoutes) {
+    const context = await browser.newContext({
+      viewport: { width: 1440, height: 900 },
+      deviceScaleFactor: 2,
+    });
+    const page = await context.newPage();
+    const response = await page.goto(route, { waitUntil: "networkidle" });
+    expect(response?.status()).toBe(200);
+
+    await page.evaluate(async () => {
+      const step = 700;
+      for (let top = 0; top < document.documentElement.scrollHeight; top += step) {
+        scrollTo(0, top);
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      }
+      scrollTo(0, 0);
+    });
+    await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(100);
+
+    const metrics = await page.evaluate(() => {
+      const resources = performance.getEntriesByType("resource") as PerformanceResourceTiming[];
+      const images = resources.filter((resource) => {
+        const url = new URL(resource.name);
+        return (
+          resource.initiatorType === "img" ||
+          url.pathname === "/_next/image" ||
+          /\.(?:avif|webp|png|jpe?g)$/i.test(url.pathname)
+        );
+      });
+      return {
+        route: location.pathname,
+        imageRequestCount: images.length,
+        imageTransferredBytes: images.reduce((sum, image) => sum + image.transferSize, 0),
+        largestImageResponse: images.reduce(
+          (largest, image) => Math.max(largest, image.transferSize),
+          0,
+        ),
+      };
+    });
+
+    results.push(metrics);
+    await context.close();
+  }
+
+  await test.info().attach("core-image-network-1440-dpr2", {
+    body: JSON.stringify(results, null, 2),
+    contentType: "application/json",
+  });
+
+  expect(results).toHaveLength(3);
+  for (const result of results) expect(result.imageRequestCount).toBeGreaterThan(0);
+});
+
 for (const width of [390, 768, 1440]) {
   test(`Phantom Blade Zero P0 images stay within budgets at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
@@ -361,7 +522,49 @@ test("Wild Rift Hero reuses one direct WebP across header and Tier Board", async
   expect(afterBytes - beforeBytes).toBe(0);
 });
 
-for (const width of [390, 1920, 2560]) {
+test("Wild Rift Champion portraits stay on Next Image without direct PNG requests", async ({
+  page,
+}) => {
+  const directChampionPngRequests: string[] = [];
+  page.on("request", (request) => {
+    const url = new URL(request.url());
+    if (
+      url.pathname.startsWith("/images/wild-rift/champions/") &&
+      url.pathname.endsWith(".png")
+    ) {
+      directChampionPngRequests.push(request.url());
+    }
+  });
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const response = await page.goto("/wild-rift/tier-list", { waitUntil: "networkidle" });
+  expect(response?.status()).toBe(200);
+
+  const portraits = [
+    ["small", page.locator('[data-ia-section="all-roles-overview"] img').first()],
+    ["card", page.locator('[data-ia-section="role-tier-workspace"] [data-champion-id] img').first()],
+    ["detail", page.locator('aside[aria-label="Champion Detail"] img').first()],
+  ] as const;
+
+  const samples = [];
+  for (const [name, image] of portraits) {
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toBeVisible();
+    await expect(image).toHaveJSProperty("complete", true);
+    const currentSrc = await image.evaluate((element) => (element as HTMLImageElement).currentSrc);
+    expect(new URL(currentSrc).pathname).toBe("/_next/image");
+    samples.push({ name, currentSrc });
+  }
+
+  await test.info().attach("wild-rift-champion-image-evidence", {
+    body: JSON.stringify(samples, null, 2),
+    contentType: "application/json",
+  });
+
+  expect(directChampionPngRequests).toEqual([]);
+});
+
+for (const width of [390, 768, 1440, 1920]) {
   test(`Genshin image candidates at ${width}px match DPR without avatar preloads`, async ({
     page,
     request,
@@ -434,6 +637,8 @@ for (const width of [390, 1920, 2560]) {
           Math.min(3840, sample.renderedWidth * sample.dpr),
         );
       } else {
+        const sourceUrl = decodeURIComponent(candidateUrl.searchParams.get("url") ?? "");
+        expect(sourceUrl).toMatch(/^https:\/\/media\.tierlistbase\.com\//);
         await expect(image).toHaveAttribute("loading", "lazy");
         expect(candidateWidth).toBeLessThanOrEqual(384);
         expect(candidateWidth).toBeGreaterThanOrEqual(
