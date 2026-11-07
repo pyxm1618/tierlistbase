@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import sharp from "sharp";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 import { seedGenshinTestDatabase } from "../genshin-tier-list/database";
 import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
@@ -18,8 +19,6 @@ const healthRoutes = [
   { label: "PhantomBladeZero", path: "/phantom-blade-zero/tier-list" },
 ] as const;
 
-const optimizerWidths = [640, 750, 828, 1080, 1200, 1920, 2048, 3840] as const;
-
 async function autoScroll(page: Page) {
   await page.evaluate(async () => {
     const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -36,6 +35,92 @@ async function autoScroll(page: Page) {
   await page.waitForTimeout(350);
 }
 
+async function loadedImage(locator: Locator) {
+  await locator.scrollIntoViewIfNeeded();
+  await expect(locator).toBeVisible();
+  await expect
+    .poll(() =>
+      locator.evaluate((element) => {
+        const image = element as HTMLImageElement;
+        return image.complete && image.naturalWidth > 0;
+      }),
+    )
+    .toBe(true);
+  return locator.evaluate((element) => {
+    const image = element as HTMLImageElement;
+    const timing = (
+      performance.getEntriesByType("resource") as PerformanceResourceTiming[]
+    ).find((entry) => entry.name === image.currentSrc);
+    const url = new URL(image.currentSrc);
+    return {
+      currentSrc: image.currentSrc,
+      sizes: image.getAttribute("sizes"),
+      loading: image.loading,
+      naturalWidth: image.naturalWidth,
+      naturalHeight: image.naturalHeight,
+      renderedWidth: Math.round(image.getBoundingClientRect().width),
+      renderedHeight: Math.round(image.getBoundingClientRect().height),
+      candidateWidth: Number(url.searchParams.get("w")) || null,
+      encodedBodySize: timing?.encodedBodySize ?? null,
+      transferSize: timing?.transferSize ?? null,
+      dpr: devicePixelRatio,
+    };
+  });
+}
+
+async function fidelity(page: Page, currentSrc: string) {
+  const optimizedUrl = new URL(currentSrc);
+  if (optimizedUrl.pathname !== "/_next/image") return null;
+  const sourcePath = optimizedUrl.searchParams.get("url");
+  if (!sourcePath) return null;
+
+  const headers = {
+    accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+  };
+  const [sourceResponse, optimizedResponse] = await Promise.all([
+    page.request.get(new URL(sourcePath, page.url()).toString()),
+    page.request.get(currentSrc, { headers }),
+  ]);
+  expect(sourceResponse.status()).toBe(200);
+  expect(optimizedResponse.status()).toBe(200);
+
+  const sourceBuffer = await sourceResponse.body();
+  const optimizedBuffer = await optimizedResponse.body();
+  const optimizedMetadata = await sharp(optimizedBuffer).metadata();
+  expect(optimizedMetadata.width).toBeGreaterThan(0);
+  expect(optimizedMetadata.height).toBeGreaterThan(0);
+
+  const width = optimizedMetadata.width!;
+  const height = optimizedMetadata.height!;
+  const reference = await sharp(sourceBuffer)
+    .resize(width, height, { fit: "fill" })
+    .removeAlpha()
+    .toColourspace("srgb")
+    .raw()
+    .toBuffer();
+  const candidate = await sharp(optimizedBuffer)
+    .removeAlpha()
+    .toColourspace("srgb")
+    .raw()
+    .toBuffer();
+
+  expect(candidate.length).toBe(reference.length);
+  let squaredError = 0;
+  for (let index = 0; index < reference.length; index += 1) {
+    const delta = reference[index]! - candidate[index]!;
+    squaredError += delta * delta;
+  }
+  const mse = squaredError / reference.length;
+  const psnr = mse === 0 ? 99 : 10 * Math.log10((255 * 255) / mse);
+  return {
+    width,
+    height,
+    bytes: optimizedBuffer.length,
+    contentType: optimizedResponse.headers()["content-type"] ?? "",
+    psnr,
+  };
+}
+
 async function imageHealth(page: Page) {
   return page.locator("main img").evaluateAll((images) => ({
     total: images.length,
@@ -44,65 +129,6 @@ async function imageHealth(page: Page) {
       return img.complete && img.naturalWidth === 0;
     }).length,
   }));
-}
-
-async function sampleImage(page: Page, selector: string) {
-  const image = page.locator(selector).filter({ visible: true }).first();
-  await expect(image).toBeVisible();
-  await expect
-    .poll(() =>
-      image.evaluate((element) => {
-        const img = element as HTMLImageElement;
-        return img.complete && img.naturalWidth > 0;
-      }),
-    )
-    .toBe(true);
-  return image.evaluate((element) => {
-    const img = element as HTMLImageElement;
-    return {
-      currentSrc: img.currentSrc,
-      src: img.src,
-      sizes: img.getAttribute("sizes"),
-      loading: img.loading,
-      naturalWidth: img.naturalWidth,
-      naturalHeight: img.naturalHeight,
-      renderedWidth: Math.round(img.getBoundingClientRect().width),
-      renderedHeight: Math.round(img.getBoundingClientRect().height),
-      dpr: devicePixelRatio,
-    };
-  });
-}
-
-async function optimizerBench(
-  page: Page,
-  directCurrentSrc: string,
-  renderedWidth: number,
-  dpr: number,
-) {
-  const source = new URL(directCurrentSrc);
-  const target = Math.ceil(renderedWidth * dpr);
-  const chosenWidth =
-    optimizerWidths.find((width) => width >= target) ?? optimizerWidths.at(-1)!;
-  const samples = [];
-  for (const width of optimizerWidths) {
-    const url = new URL("/_next/image", page.url());
-    url.searchParams.set("url", source.pathname);
-    url.searchParams.set("w", String(width));
-    url.searchParams.set("q", "75");
-    const response = await page.request.get(url.toString());
-    samples.push({
-      width,
-      status: response.status(),
-      bytes: (await response.body()).length,
-      contentType: response.headers()["content-type"] ?? "",
-    });
-  }
-  return {
-    targetWidth: target,
-    chosenWidth,
-    chosen: samples.find((sample) => sample.width === chosenWidth) ?? null,
-    samples,
-  };
 }
 
 async function auditRoute(
@@ -127,11 +153,13 @@ async function auditRoute(
       }
     };
     const onConsole = (message: import("@playwright/test").ConsoleMessage) => {
-      if (message.type() === "error" && /(image|img|_next\/image|\.png|\.webp)/i.test(message.text())) {
+      if (
+        message.type() === "error" &&
+        /(image|img|_next\/image|\.png|\.webp)/i.test(message.text())
+      ) {
         imageConsoleErrors.push(message.text());
       }
     };
-
     page.on("response", onResponse);
     page.on("console", onConsole);
 
@@ -141,7 +169,10 @@ async function auditRoute(
       state.__p2p3Cls = 0;
       new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
-          const shift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+          const shift = entry as PerformanceEntry & {
+            hadRecentInput?: boolean;
+            value?: number;
+          };
           if (!shift.hadRecentInput) state.__p2p3Cls! += shift.value ?? 0;
         }
       }).observe({ type: "layout-shift", buffered: true });
@@ -164,6 +195,7 @@ async function auditRoute(
           const name = decodeURIComponent(entry.name);
           return (
             entry.initiatorType === "img" ||
+            entry.initiatorType === "css" ||
             /\.(?:png|webp|avif)(?:\?|$)/i.test(name) ||
             name.includes("/_next/image?")
           );
@@ -176,43 +208,91 @@ async function auditRoute(
         })),
     );
     const largest = resources.reduce(
-      (current, entry) => (entry.transferSize > current.transferSize ? entry : current),
+      (current, entry) =>
+        entry.transferSize > current.transferSize ? entry : current,
       { url: "", initiatorType: "", encodedBodySize: 0, transferSize: 0 },
     );
 
     const details: Record<string, unknown> = {};
     if (label === "WoW") {
-      const hero = await sampleImage(page, "[data-wow-hero] img");
+      const hero = await loadedImage(page.locator("[data-wow-hero] img"));
       details.hero = hero;
-      details.optimizer = await optimizerBench(page, hero.currentSrc, hero.renderedWidth, hero.dpr);
-      const spec = page.locator("[data-spec-id] img").filter({ visible: true }).first();
-      if (await spec.count()) details.specIcon = await sampleImage(page, "[data-spec-id] img");
+      details.heroFidelity = await fidelity(page, hero.currentSrc);
+      details.specIcon = await loadedImage(
+        page.locator("[data-spec-id] img").first(),
+      );
+      details.preloads = await page
+        .locator('link[rel="preload"][as="image"]')
+        .evaluateAll((links) =>
+          links.map((link) => ({
+            href: link.getAttribute("href"),
+            imageSrcSet: link.getAttribute("imagesrcset"),
+            imageSizes: link.getAttribute("imagesizes"),
+          })),
+        );
     }
+
     if (label === "Genshin") {
-      const hero = await sampleImage(page, '[data-ia-section="page-header"] img');
+      const hero = await loadedImage(
+        page.locator('[data-ia-section="page-header"] img'),
+      );
       details.hero = hero;
-      details.optimizer = await optimizerBench(page, hero.currentSrc, hero.renderedWidth, hero.dpr);
-      const board = page.locator('[data-avatar="board"] img').filter({ visible: true }).first();
-      if (await board.count()) details.boardAvatar = await sampleImage(page, '[data-avatar="board"] img');
+      details.heroFidelity = await fidelity(page, hero.currentSrc);
+      details.preloads = await page
+        .locator('link[rel="preload"][as="image"]')
+        .evaluateAll((links) =>
+          links.map((link) => ({
+            href: link.getAttribute("href"),
+            imageSrcSet: link.getAttribute("imagesrcset"),
+            imageSizes: link.getAttribute("imagesizes"),
+          })),
+        );
+
+      const search = page.getByRole("searchbox", { name: "Search characters" });
+      await search.fill("Nahida");
+      const nahida = page.getByRole("button", { name: /Nahida, Dendro/ });
+      await expect(nahida).toBeVisible();
+      details.remoteBoardAvatar = await loadedImage(
+        nahida.locator('[data-avatar="board"] img'),
+      );
+      await nahida.click();
+      details.remoteDetailAvatar = await loadedImage(
+        page
+          .locator('[data-ia-section="character-detail"] [data-avatar="detail"] img')
+          .filter({ visible: true })
+          .first(),
+      );
     }
+
     if (label === "WildRift") {
-      details.hero = await sampleImage(page, '[data-ia-section="hero"] img');
+      details.hero = await loadedImage(
+        page.locator('[data-ia-section="hero"] img').first(),
+      );
       const heroResources = resources.filter((entry) =>
         decodeURIComponent(entry.url).includes("/images/wild-rift/hero.webp"),
       );
       details.heroResources = heroResources;
-      for (const [name, selector] of [
-        ["quick", '[class*="quickPickPortrait"] img'],
-        ["card", '[class*="cardPortrait"] img'],
-        ["detail", '[class*="detailPortrait"] img'],
-      ] as const) {
-        const locator = page.locator(selector).filter({ visible: true }).first();
-        if (await locator.count()) details[name] = await sampleImage(page, selector);
-      }
+      details.rawHeroTransfers = heroResources.filter(
+        (entry) => new URL(entry.url).pathname === "/images/wild-rift/hero.webp",
+      ).length;
+      details.smallPortrait = await loadedImage(
+        page.locator('[data-ia-section="all-roles-overview"] img').first(),
+      );
+      const card = page.locator("[data-champion-id]").first();
+      details.cardPortrait = await loadedImage(card.locator("img"));
+      await card.click();
+      const detailRoot =
+        width <= 700
+          ? page.getByRole("dialog").filter({ visible: true }).first()
+          : page
+              .getByRole("complementary", { name: "Champion Detail" })
+              .filter({ visible: true })
+              .first();
+      details.detailPortrait = await loadedImage(detailRoot.locator("img").first());
     }
 
     const result = {
-      event: "P2P3_IMAGE_BASELINE",
+      event: "P2P3_IMAGE_FINAL_PROBE",
       label,
       path,
       viewportWidth: width,
@@ -224,12 +304,15 @@ async function auditRoute(
       horizontalOverflow,
       cls,
       imageRequestCount: imageResponses.length,
-      imageTransferredBytes: resources.reduce((sum, entry) => sum + entry.transferSize, 0),
+      imageTransferredBytes: resources.reduce(
+        (sum, entry) => sum + entry.transferSize,
+        0,
+      ),
       largestImageResponseBytes: largest.transferSize,
       largestImageResponseUrl: largest.url,
       details,
     };
-    console.log(`P2P3_IMAGE_BASELINE ${JSON.stringify(result)}`);
+    console.log(`P2P3_IMAGE_FINAL_PROBE ${JSON.stringify(result)}`);
 
     expect(httpStatus).toBe(200);
     expect(health.broken).toBe(0);
@@ -237,6 +320,20 @@ async function auditRoute(
     expect(horizontalOverflow).toBe(0);
     expect(cls).toBeLessThanOrEqual(0.1);
     expect(imageResponses.filter((item) => item.status >= 400)).toEqual([]);
+
+    if (label === "WoW" || label === "Genshin") {
+      const hero = details.hero as Awaited<ReturnType<typeof loadedImage>>;
+      expect(new URL(hero.currentSrc).pathname).toBe("/_next/image");
+      const quality = details.heroFidelity as Awaited<ReturnType<typeof fidelity>>;
+      expect(quality?.psnr ?? 0).toBeGreaterThanOrEqual(30);
+    }
+    if (label === "WildRift") {
+      expect(details.rawHeroTransfers).toBe(0);
+      for (const key of ["smallPortrait", "cardPortrait", "detailPortrait"]) {
+        const portrait = details[key] as Awaited<ReturnType<typeof loadedImage>>;
+        expect(new URL(portrait.currentSrc).pathname).toBe("/_next/image");
+      }
+    }
 
     page.off("response", onResponse);
     page.off("console", onConsole);
@@ -246,7 +343,7 @@ async function auditRoute(
 }
 
 for (const route of coreRoutes) {
-  test(`${route.label} P2 P3 baseline matrix`, async ({ page }) => {
+  test(`${route.label} P2 P3 final matrix`, async ({ page }) => {
     test.setTimeout(600000);
     await auditRoute(page, route.label, route.path, [390, 768, 1440, 1920]);
   });
