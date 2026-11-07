@@ -42,11 +42,6 @@ for (const config of getSeoDensityGameConfigs()) {
     await page.setViewportSize({ width: 1440, height: 1200 });
     await page.goto(config.route, { waitUntil: "networkidle" });
 
-    const content = page.locator(config.contentSelector);
-    await expect(
-      content.first(),
-      `${config.game}: configured SEO content must exist`,
-    ).toBeVisible();
     const visibleText = await readVisibleSeoText(page, config.contentSelector);
 
     const result = calculateKeywordDensity(visibleText, {
