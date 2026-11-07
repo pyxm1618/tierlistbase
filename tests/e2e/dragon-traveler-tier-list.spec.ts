@@ -10,7 +10,6 @@ test.beforeEach(() => {
 const route = "/dragon-traveler/tier-list";
 const path = "/dragon-traveler/tier-list";
 
-
 test("Dragon Traveler appears in shared desktop and mobile navigation", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(path);
