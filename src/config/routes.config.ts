@@ -42,7 +42,7 @@ export const routeDefinitions = [
     route: "/",
     class: "public_indexable",
     searchIntent:
-      "discover and explore game tier lists to compare current character and class rankings",
+      "discover and explore game tier lists across supported games to compare current character, class, unit, weapon, and card rankings",
     primaryKeyword: "tier list",
     secondaryKeywords: ["tier lists", "game tier list", "gaming tier list"],
     title: "Tier List – Explore Game Tier Lists | TierListBase",
@@ -67,7 +67,7 @@ export const routeDefinitions = [
     ],
     lastModified: "2026-11-07",
     reviewStatus: "reviewed",
-    reviewFingerprint: "88ea99fe75aaaacf3685227278885dc3568815d4cbc8c50afffa89e82d06ff06",
+    reviewFingerprint: "93249eeafc787cdf67c168cc49ab5426e4e5d9711f48e6af16b7487fd45cd74d",
   },
   {
     route: "/wow-forever/tier-list",
