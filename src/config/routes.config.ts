@@ -90,7 +90,7 @@ export const routeDefinitions = [
     route: "/genshin-impact/tier-list",
     class: "public_indexable",
     searchIntent:
-      "find current Genshin character tier rankings and identify the strongest characters",
+      "review an archived Genshin Impact Version 7.1 character tier ranking snapshot with reviewed evidence and recorded version context",
     primaryKeyword: "genshin tier list",
     secondaryKeywords: [
       "genshin impact tier list",
@@ -99,13 +99,13 @@ export const routeDefinitions = [
     ],
     title: "Genshin Tier List – Best Genshin Impact Characters Ranked",
     description:
-      "Explore the Genshin Impact Tier List with current character rankings, the best Genshin characters, ranking explanations, evidence, and the latest version changes.",
+      "Explore the Genshin Impact Tier List as an archived Version 7.1 character ranking snapshot with tier explanations, reviewed evidence, and recorded version changes.",
     h1: "Genshin Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/", "/privacy", "/terms"],
-    lastModified: "2026-10-16",
+    lastModified: "2026-11-07",
     reviewStatus: "reviewed",
-    reviewFingerprint: "c65df52835515113512c411f218aa87af3d942e9e300953993e59fda09948664",
+    reviewFingerprint: "c2be982038ce42002b773349dc2a57c6e20da27d6b22ae9285c47915c887cfff",
   },
   {
     route: "/about",
