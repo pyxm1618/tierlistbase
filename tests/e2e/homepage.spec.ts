@@ -19,7 +19,12 @@ test("homepage renders the approved game-discovery information architecture", as
   );
   await expect(page.getByRole("heading", { name: "Featured Tier Lists" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Why TierListBase?" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Latest Verified Updates" })).toBeVisible();
+  const updatesSection = page.locator("#latest-updates");
+  await expect(updatesSection.getByRole("heading", { name: "Latest Updates" })).toBeVisible();
+  await expect(updatesSection).toContainText(
+    "ranking feeds currently available for WoW Forever and Genshin Impact",
+  );
+  await expect(updatesSection).not.toContainText(/verified/i);
   await expect(page.getByRole("heading", { name: "Browse All Supported Games" })).toBeVisible();
   await expect(page.locator("a[href='/wow-forever/tier-list']").first()).toBeVisible();
   await expect(page.locator("a[href='/genshin-impact/tier-list']").first()).toBeVisible();
