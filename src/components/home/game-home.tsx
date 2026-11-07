@@ -11,8 +11,10 @@ const genshinHref = "/genshin-impact/tier-list";
 const nikkeHref = "/nikke/tier-list";
 const limbusHref = "/limbus-company/tier-list";
 const zzzHref = "/zenless-zone-zero/tier-list";
+const phantomBladeZeroHref = "/phantom-blade-zero/tier-list";
 const dragonTravelerHref = "/dragon-traveler/tier-list";
 const wildRiftHref = "/wild-rift/tier-list";
+const animeExpeditionsHref = "/anime-expeditions/tier-list";
 const slayTheSpire2Href = "/slay-the-spire-2/tier-list";
 
 type IconName =
@@ -233,8 +235,6 @@ const popular: {
     tone: "coral",
     href: wowHref + "?mode=dungeon&role=dps&level=30",
   },
-  { title: "WoW", subtitle: "PvP", icon: "shield", ready: false, tone: "gold" },
-  { title: "WoW", subtitle: "Leveling", icon: "boot", ready: false, tone: "orange" },
   {
     title: "Genshin",
     subtitle: "Characters",
@@ -242,14 +242,6 @@ const popular: {
     ready: true,
     tone: "ice",
     href: genshinHref,
-  },
-  {
-    title: "NIKKE",
-    subtitle: "Characters",
-    icon: "star",
-    ready: true,
-    tone: "ice",
-    href: nikkeHref,
   },
   {
     title: "ZZZ",
@@ -260,12 +252,28 @@ const popular: {
     href: zzzHref,
   },
   {
+    title: "NIKKE",
+    subtitle: "Characters",
+    icon: "star",
+    ready: true,
+    tone: "ice",
+    href: nikkeHref,
+  },
+  {
     title: "Limbus Company",
     subtitle: "Identities",
     icon: "document",
     ready: true,
     tone: "gold",
     href: limbusHref,
+  },
+  {
+    title: "Phantom Blade Zero",
+    subtitle: "Weapons",
+    icon: "swords",
+    ready: true,
+    tone: "coral",
+    href: phantomBladeZeroHref,
   },
   {
     title: "Dragon Traveler",
@@ -275,7 +283,6 @@ const popular: {
     tone: "gold",
     href: dragonTravelerHref,
   },
-  { title: "Spiral", subtitle: "Abyss", icon: "swirl", ready: false, tone: "blue" },
   {
     title: "Wild Rift",
     subtitle: "Ranked",
@@ -283,6 +290,14 @@ const popular: {
     ready: true,
     tone: "blue",
     href: wildRiftHref,
+  },
+  {
+    title: "Anime Expeditions",
+    subtitle: "Units",
+    icon: "star",
+    ready: true,
+    tone: "ice",
+    href: animeExpeditionsHref,
   },
   {
     title: "Slay the Spire 2",
@@ -390,8 +405,9 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
             )}
           </h1>
           <p>
-            TierListBase helps you use each tier list to compare current rankings and understand the
-            evidence behind how characters, classes, and builds move between tiers.
+            TierListBase helps you compare current rankings across supported games with each tier
+            list, plus the evidence and methodology behind how characters, classes, units, weapons,
+            and more move between tiers.
           </p>
         </div>
       </section>
@@ -400,9 +416,9 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
         <section className="tlb-section" id="explore" aria-labelledby="explore-title">
           <SectionTitle
             id="explore-title"
-            subtitle="Browse current rankings across supported games, then compare characters, classes, and specializations."
+            subtitle="Start with two featured games, then browse every supported game below."
           >
-            Explore Tier Lists
+            Featured Tier Lists
           </SectionTitle>
           <div className="tlb-game-grid">
             <GameCard game="wow" />
@@ -434,9 +450,9 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
           <div className="tlb-heading-row">
             <SectionTitle
               id="updates-title"
-              subtitle="Stay on top of verified tier list updates and changes."
+              subtitle="Stay on top of verified tier list changes from the ranking feeds currently available for WoW Forever and Genshin Impact."
             >
-              Latest Updates
+              Latest Verified Updates
             </SectionTitle>
             <Link className="tlb-all-updates" href="#explore">
               View rankings <Icon name="arrow" size={17} />
@@ -459,9 +475,9 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
         >
           <SectionTitle
             id="popular-title"
-            subtitle="Hand-picked entry points to game tier list rankings."
+            subtitle="Open a game tier list for each supported title."
           >
-            Popular Rankings
+            Browse All Supported Games
           </SectionTitle>
           <div className="tlb-popular-grid">
             {popular.map((item) => {
