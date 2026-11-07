@@ -40,6 +40,16 @@ describe("SEO keyword density calculator", () => {
     expect(result.keywordGroupOccurrences).toBe(2);
   });
 
+  test("does not double-count overlapping shorter phrases", () => {
+    const result = calculateKeywordDensity("genshin impact tier list", {
+      primaryKeyword: "genshin tier list",
+      secondaryKeywords: ["genshin impact tier list"],
+    });
+    expect(result.primaryOccurrences).toBe(0);
+    expect(result.secondaryOccurrences["genshin impact tier list"]).toBe(1);
+    expect(result.keywordGroupOccurrences).toBe(1);
+  });
+
   test("does not token-weight a four-word keyword", () => {
     const result = calculateKeywordDensity("wild rift tier list filler", {
       primaryKeyword: "wild rift tier list",
