@@ -347,9 +347,9 @@ test("Wild Rift Hero reuses one direct WebP across header and Tier Board", async
   const after = await heroResources();
   const afterBytes = after.reduce((sum, entry) => sum + entry.transferSize, 0);
   expect(after.length).toBeGreaterThanOrEqual(1);
-  expect(after.every((entry) => new URL(entry.url).pathname === "/images/wild-rift/hero.webp")).toBe(
-    true,
-  );
+  expect(
+    after.every((entry) => new URL(entry.url).pathname === "/images/wild-rift/hero.webp"),
+  ).toBe(true);
   expect(new Set(after.map((entry) => entry.url)).size).toBe(1);
   expect(afterBytes).toBeLessThanOrEqual(60_000);
   expect(afterBytes - beforeBytes).toBe(0);
