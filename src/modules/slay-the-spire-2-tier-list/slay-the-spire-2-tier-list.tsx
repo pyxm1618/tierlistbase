@@ -586,8 +586,8 @@ export function SlayTheSpire2TierList() {
             <h1 id="page-title">Slay the Spire 2 Tier List</h1>
             <p>
               Use this Slay the Spire 2 tier list to compare current Main cards, relics, characters
-              and potions using traceable game data and reviewed ranking evidence. Tier does not mean
-              automatic pick.
+              and potions using traceable game data and reviewed ranking evidence. Tier does not
+              mean automatic pick.
             </p>
           </div>
           <div className={styles.snapshotBar} aria-label="Ranking snapshot">
@@ -739,8 +739,8 @@ export function SlayTheSpire2TierList() {
             </div>
             <p className={styles.disclaimer}>
               The Slay the Spire 2 tier list is independent third-party analysis from TierListBase
-              and is not affiliated with Mega Crit. Community and editorial rankings are not official
-              game balance statements.
+              and is not affiliated with Mega Crit. Community and editorial rankings are not
+              official game balance statements.
             </p>
           </section>
         </div>
