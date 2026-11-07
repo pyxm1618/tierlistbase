@@ -3,6 +3,18 @@
   "gameVersion": "3.3",
   "baseSha": "18e7b41214e669bb67ed740657c73483b05e9fe8",
   "auditDate": "2026-10-26",
+  "historicalSourcingAudit": {
+    "scope": "Historical sourcing and identity audit state before production asset optimization; these values do not describe the current production encoding.",
+    "noItemsDeleted": true,
+    "existingFilesUnchanged": true,
+    "originalFormatsPreserved": true,
+    "localImageTransformations": 0,
+    "productionMappingsChanged": false
+  },
+  "productionAssetState": {
+    "transformed": true,
+    "transformation": "resize + WebP encode"
+  },
   "workspace": "/Users/milushangdi/.codex/worktrees/zzz-asset-sourcing/tier list",
   "baseline": {
     "headEqualsOriginMain": true,
@@ -9156,7 +9168,6 @@
       "p0MissingLogicalEntries": 137,
       "optionalHeroMissing": 60
     },
-    "noItemsDeleted": true,
     "requirementReconciliation": {
       "previousScopedTotal": 223,
       "retiredWrongCategoryRequirement": 1,
@@ -9228,10 +9239,7 @@
         "agentId": "pyrois",
         "uses": ["teamVisual", "optionalAgentDetailArtwork"]
       }
-    ],
-    "existingFilesUnchanged": true,
-    "originalFormatsPreserved": true,
-    "localImageTransformations": 0
+    ]
   },
   "readiness": {
     "finalResult": "PASS",
@@ -9241,7 +9249,6 @@
     "p0Unresolved": 0,
     "reason": "All current required live Agent portraits, used Bangboo, deduplicated W-Engines and current Team visual strategies have verified asset mappings. Velina bestAlternative is corrected to the already-sourced Bellicose Blaze.",
     "optionalHeroesBlockReadiness": false,
-    "productionMappingsChanged": false,
     "supplementalUpcomingPortrait": "Severian remains Needs Review outside the defined 61-live-Agent asset gate; not relabeled as verified."
   },
   "sourceValidation": {
