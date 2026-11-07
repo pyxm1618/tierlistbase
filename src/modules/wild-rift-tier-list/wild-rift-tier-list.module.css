@@ -2154,9 +2154,7 @@
 
   .tierBoard {
     padding: 12px;
-    background:
-      linear-gradient(180deg, rgba(2, 17, 28, 0.92), rgba(2, 15, 25, 0.96)),
-      url("/images/wild-rift/hero.webp") center bottom / cover no-repeat;
+    background: linear-gradient(180deg, rgba(2, 17, 28, 0.92), rgba(2, 15, 25, 0.96)), #061725;
   }
 
   .workspaceHeading {
