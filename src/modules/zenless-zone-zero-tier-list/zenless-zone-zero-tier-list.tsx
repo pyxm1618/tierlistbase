@@ -1002,11 +1002,7 @@ export function ZenlessZoneZeroTierList() {
                 title="ZZZ Character Tier List"
                 description="Compare agents by role, attribute, and endgame value. The ZZZ Tier List helps you judge which characters deserve build priority while keeping official Agent terminology in the ranking experience."
               />
-              <div
-                className={styles.rankingContext}
-                role="note"
-                aria-label="Agent ranking context"
-              >
+              <div className={styles.rankingContext} role="note" aria-label="Agent ranking context">
                 <div className={styles.rankingContextMeta}>
                   <strong>Version {gameVersion}</strong>
                   <time dateTime={snapshotDate}>
