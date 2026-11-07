@@ -69,7 +69,7 @@ export default async function GenshinImpactTierListPage() {
           name: "Genshin Tier List",
           url: `${routeRegistry.site.canonicalOrigin}/genshin-impact/tier-list`,
           description:
-            "Current Genshin Impact character rankings with tier explanations, ranking evidence, and version changes.",
+            "Archived Genshin Impact character ranking snapshot with tier explanations, ranking evidence, and recorded version changes.",
         })}
       />
       <header className={styles.hero} data-ia-section="page-header">
@@ -103,10 +103,11 @@ export default async function GenshinImpactTierListPage() {
               </div>
               <div>
                 <h1>Genshin Tier List</h1>
-                <p>Current Version · Endgame Overall Character Rankings</p>
+                <p>Version {data.version} Snapshot · Endgame Overall Character Rankings</p>
                 <p className={styles.subtitle}>
-                  This Genshin Tier List ranks current characters for endgame play under shared
-                  assumptions, with clear tier explanations and documented evidence.
+                  This Genshin Tier List preserves the reviewed Version {data.version} character
+                  rankings for endgame play under shared assumptions, with clear tier explanations
+                  and documented evidence. It is an archived snapshot, not a live ranking claim.
                 </p>
               </div>
             </div>
@@ -116,11 +117,11 @@ export default async function GenshinImpactTierListPage() {
               aria-label="Ranking Context"
             >
               <div>
-                <span>Current Version</span>
+                <span>Snapshot Version</span>
                 <strong>{data.version}</strong>
               </div>
               <div>
-                <span>Ranking Data Updated</span>
+                <span>Ranking Data Captured</span>
                 <strong>
                   <time dateTime={data.updatedAt}>{data.updatedAt.slice(0, 10)}</time>
                 </strong>
@@ -147,8 +148,11 @@ export default async function GenshinImpactTierListPage() {
       </header>
       <div className={styles.shell}>
         <div className={styles.mockNotice}>
-          <strong>Current Genshin Tier List</strong>
-          <span>Character rankings reviewed for version {data.version}.</span>
+          <strong>Archived Genshin Tier List Snapshot</strong>
+          <span>
+            Character rankings captured for Version {data.version}; this snapshot is not a
+            live-version ranking.
+          </span>
         </div>
         <GenshinTierBoard characters={data.characters} changes={<GenshinChanges data={data} />} />
         <GenshinEditorial data={data} />

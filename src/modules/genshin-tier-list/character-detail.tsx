@@ -19,7 +19,7 @@ export function CharacterDetail({ character, titleId }: { character: Character; 
       </div>
       <dl className={styles.characterFacts}>
         <div>
-          <dt>Current Tier</dt>
+          <dt>Snapshot Tier</dt>
           <dd>{character.tier}</dd>
         </div>
         <div>
@@ -89,7 +89,7 @@ export function CharacterDetail({ character, titleId }: { character: Character; 
         )}
       </section>
       <p className={styles.updated}>
-        Last Updated (ranking data){" "}
+        Ranking Data Captured{" "}
         <strong>
           <time dateTime={character.updatedAt}>{character.updatedAt.slice(0, 10)}</time>
         </strong>
