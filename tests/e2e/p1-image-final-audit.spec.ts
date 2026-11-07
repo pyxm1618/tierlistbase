@@ -243,8 +243,7 @@ for (const route of routes) {
             transferSize: entry.transferSize,
           }));
         const largest = entries.reduce(
-          (current, entry) =>
-            entry.encodedBodySize > current.encodedBodySize ? entry : current,
+          (current, entry) => (entry.encodedBodySize > current.encodedBodySize ? entry : current),
           { url: "", encodedBodySize: 0, transferSize: 0 },
         );
         return {
