@@ -276,6 +276,7 @@ for (const width of [390, 768, 1440, 1920]) {
     });
     const heroUrl = new URL(heroSample.currentSrc);
     expect(heroUrl.pathname).toBe("/_next/image");
+    expect(heroUrl.searchParams.get("q")).toBe("85");
     expect(decodeURIComponent(heroUrl.searchParams.get("url") ?? "")).toMatch(
       /hero-3b7bb10711.*\.webp$/,
     );
@@ -365,8 +366,10 @@ for (const width of [390, 1920, 2560]) {
       expect(response.status()).toBe(200);
       const bytes = (await response.body()).length;
       expect(bytes).toBeLessThan(name === "hero" ? 280_000 : 50_000);
-      const candidateWidth = Number(new URL(sample.currentSrc).searchParams.get("w"));
+      const candidateUrl = new URL(sample.currentSrc);
+      const candidateWidth = Number(candidateUrl.searchParams.get("w"));
       if (name === "hero") {
+        expect(candidateUrl.searchParams.get("q")).toBe("85");
         expect(
           decodeURIComponent(new URL(sample.currentSrc).searchParams.get("url") ?? ""),
         ).toMatch(/hero-f958fb67df.*\.webp$/);
