@@ -337,14 +337,16 @@ export function AnimeExpeditionsTierList() {
         <section id="teams" className={styles.section} aria-labelledby="teams-title">
           <div className={styles.sectionHeading}>
             <h2 id="teams-title">Best Anime Expeditions Team Comps</h2>
-            <p>Composition decisions alongside the Anime Expeditions tier list, never a Team Tier List</p>
+            <p>
+              Composition decisions alongside the Anime Expeditions tier list, never a Team Tier List
+            </p>
           </div>
           <p className={styles.context}>
             These best Anime Expeditions team comps use five six-unit cores grounded in the current
             Update 5 source and complement the Anime Expeditions tier list. Roles keep each
             slot&apos;s job explicit, while exact traits, equipment rolls and replacements remain
-            account- and stage-dependent. They are a reviewed baseline, not a promise that one lineup
-            fits every stage.
+            account- and stage-dependent. They are a reviewed baseline, not a promise that one
+            lineup fits every stage.
           </p>
           <div className={styles.teams}>
             {teams.map((team) => (
@@ -581,8 +583,9 @@ export function AnimeExpeditionsTierList() {
                 <dt>Role contribution</dt>
                 <dd>
                   The Anime Expeditions unit tier list separates role contribution before comparing
-                  grades. DPS values damage delivery; Utility values mechanics beyond damage; Support
-                  values allied output; Crowd Control values reliable stall. Pending means evidence
+                  grades. DPS values damage delivery; Utility values mechanics beyond damage;
+                  Support values allied output; Crowd Control values reliable stall. Pending means
+                  evidence
                   is missing, not that contribution is zero.
                 </dd>
               </div>
