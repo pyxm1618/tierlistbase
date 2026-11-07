@@ -37,9 +37,17 @@ beforeEach(() => {
   setDataCacheHandler(new MemoryCacheHandler());
 });
 
-it("queries changes and caches a successful board without showing unavailable", async () => {
+it("queries changes, preserves the archived Beta framing, and caches a successful board", async () => {
   reads.board.mockResolvedValue(available);
-  expect(JSON.stringify(await renderPage())).not.toContain("currently unavailable");
+  const rendered = JSON.stringify(await renderPage());
+  expect(rendered).not.toContain("currently unavailable");
+  expect(rendered).toContain("Archived Level 30 Beta Snapshot");
+  expect(rendered).toContain("not a current live ranking");
+  expect(rendered).toContain("Data Captured · UTC");
+  expect(rendered).toContain("Archived WoW Forever Beta snapshot");
+  expect(rendered).not.toContain("current Level 30 Beta context");
+  expect(rendered).not.toContain("Current WoW Forever Beta context");
+
   await renderPage();
   expect(reads.board).toHaveBeenCalledTimes(1);
   expect(reads.changes).toHaveBeenCalledExactlyOnceWith("wow-forever", 10, undefined, {
