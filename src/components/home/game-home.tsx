@@ -457,7 +457,10 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
           id="popular-rankings"
           aria-labelledby="popular-title"
         >
-          <SectionTitle id="popular-title" subtitle="Hand-picked entry points to game tier list rankings.">
+          <SectionTitle
+            id="popular-title"
+            subtitle="Hand-picked entry points to game tier list rankings."
+          >
             Popular Rankings
           </SectionTitle>
           <div className="tlb-popular-grid">
