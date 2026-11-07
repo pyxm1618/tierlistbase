@@ -171,9 +171,7 @@ describe("homepage multi-game updates", () => {
 
     expect(updateCards[2]).toContain("No update yet");
     expect(updateCards[2]).toContain("No update available");
-    expect(updateCards[2]).toContain(
-      "New ranking changes will appear here when available.",
-    );
+    expect(updateCards[2]).toContain("New ranking changes will appear here when available.");
     expect(updateCards[2]).not.toContain("PvP ranking updates");
     expect(updateCards[2]).not.toContain("WoW");
     expect(updateCards[2]).not.toContain("Genshin");
