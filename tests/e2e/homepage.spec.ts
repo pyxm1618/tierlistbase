@@ -192,7 +192,7 @@ test("Genshin tier-list route remains public and clickable", async ({ page }) =>
   expect(response?.status()).toBe(200);
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Genshin Tier List");
-  await expect(page.getByText("Current Genshin Tier List", { exact: true })).toBeVisible();
+  await expect(page.getByText("Archived Genshin Tier List Snapshot", { exact: true })).toBeVisible();
 });
 
 test("cross-route prefetch isolation: Genshin and WoW pages do not leak Home Hero preload or requests", async ({
