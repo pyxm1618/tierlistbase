@@ -7,7 +7,9 @@ import {
   agentRankingViews,
   agents,
   filterOptions,
+  gameVersion,
   pullAdvices,
+  snapshotDate,
   teamRankingViews,
   teams,
   type Agent,
@@ -22,6 +24,15 @@ import { agentIcons, bangbooIcons, getWEngineIcon, teamVisuals } from "./icons";
 import styles from "./zenless-zone-zero-tier-list.module.css";
 
 const tiers: readonly Tier[] = ["S+", "S", "A", "B"];
+
+function formatSnapshotDate(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T00:00:00Z`));
+}
 
 type PrimarySection = "agents" | "teams" | "pull";
 type AgentDetailTab = "build" | "teams" | "details";
@@ -991,6 +1002,24 @@ export function ZenlessZoneZeroTierList() {
                 title="ZZZ Character Tier List"
                 description="Compare agents by role, attribute, and endgame value. The ZZZ Tier List helps you judge which characters deserve build priority while keeping official Agent terminology in the ranking experience."
               />
+              <div
+                className={styles.rankingContext}
+                role="note"
+                aria-label="Agent ranking context"
+              >
+                <div className={styles.rankingContextMeta}>
+                  <strong>Version {gameVersion}</strong>
+                  <time dateTime={snapshotDate}>
+                    Snapshot · {formatSnapshotDate(snapshotDate)}
+                  </time>
+                  <span>Source · TierListBase editorial data</span>
+                </div>
+                <p>
+                  Rankings use the five views below and the existing Agent data model, including
+                  mode-specific tiers, strengths and limitations, investment, build requirements,
+                  and team context.
+                </p>
+              </div>
               <div className={styles.rankingTabs} role="tablist" aria-label="Agent ranking views">
                 {agentRankingViews.map((view) => (
                   <button
