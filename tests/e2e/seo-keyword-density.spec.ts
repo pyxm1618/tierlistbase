@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 import { calculateKeywordDensity } from "../seo/keyword-density";
 import {
@@ -22,6 +22,16 @@ function selectedGames(): Set<SeoDensityGameId> {
 
 const selected = selectedGames();
 
+async function readVisibleSeoText(page: Page, selector: string): Promise<string> {
+  const elements = page.locator(selector);
+  const texts: string[] = [];
+  for (let index = 0; index < (await elements.count()); index += 1) {
+    const element = elements.nth(index);
+    if (await element.isVisible()) texts.push(await element.innerText());
+  }
+  return texts.join(" ");
+}
+
 for (const config of getSeoDensityGameConfigs()) {
   test(`SEO keyword density: ${config.game}`, async ({ page }) => {
     test.skip(!selected.has(config.id), "SEO density audit not selected by changed-file scope");
@@ -31,7 +41,7 @@ for (const config of getSeoDensityGameConfigs()) {
 
     const content = page.locator(config.contentSelector);
     await expect(content.first(), `${config.game}: configured SEO content must exist`).toBeVisible();
-    const visibleText = (await content.allInnerTexts()).join(" ");
+    const visibleText = await readVisibleSeoText(page, config.contentSelector);
 
     const result = calculateKeywordDensity(visibleText, {
       primaryKeyword: config.primaryKeyword,
