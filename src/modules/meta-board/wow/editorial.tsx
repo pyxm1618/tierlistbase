@@ -99,8 +99,8 @@ export function WowChanges({ changes }: { changes: RecentRatingChangeItem[] }) {
       )}
       <p className={styles.contextNote}>
         For this archived WoW Forever Tier List, only movement recorded within the selected Beta
-        context and version is shown. A missing record does not establish Stable; ranking changes
-        do not establish buffs or nerfs.
+        context and version is shown. A missing record does not establish Stable. The WoW Tier List
+        does not infer launch-era buffs or nerfs from this Beta record.
       </p>
     </section>
   );
@@ -128,7 +128,8 @@ export function WowSources({ specs }: { specs: WowSpec[] }) {
           <strong>Primary Performance Data</strong>
           <p>
             {sources.filter((s) => s.sourceType === "data").length} linked performance data
-            source(s). Aggregate dungeon performance, visibly attributed to Forever Logs.
+            source(s). This WoW Tier List preserves aggregate dungeon performance visibly
+            attributed to Forever Logs.
           </p>
         </article>
         <article>
@@ -141,8 +142,8 @@ export function WowSources({ specs }: { specs: WowSpec[] }) {
           </a>
           <strong>Official Beta Snapshot Context</strong>
           <p>
-            Official Beta level cap and dungeon availability used for this archived snapshot. Not a
-            live post-launch performance source.
+            The WoW Tier List uses the official Beta level cap and dungeon availability for this
+            archived snapshot. This is not a live post-launch performance source.
           </p>
         </article>
         {["Wowhead", "Mobalytics"].map((name) => (
