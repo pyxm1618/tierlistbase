@@ -150,3 +150,92 @@ for (const route of [
     );
   });
 }
+
+
+async function autoScroll(page: Page) {
+  await page.evaluate(async () => {
+    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const step = Math.max(innerHeight - 140, 360);
+    for (let y = 0; y < document.body.scrollHeight; y += step) {
+      scrollTo(0, y);
+      await sleep(25);
+    }
+    scrollTo(0, document.body.scrollHeight);
+    await sleep(120);
+    scrollTo(0, 0);
+    await sleep(120);
+  });
+  await page.waitForTimeout(250);
+}
+
+test("P2 P3 final 12 viewport browser matrix", async ({ page }) => {
+  test.setTimeout(600_000);
+  const session = await page.context().newCDPSession(page);
+  await session.send("Network.enable");
+  await session.send("Network.setCacheDisabled", { cacheDisabled: true });
+
+  const results = [];
+  for (const route of [
+    { label: "WoW", path: "/wow-forever/tier-list" },
+    { label: "Genshin", path: "/genshin-impact/tier-list" },
+    { label: "WildRift", path: "/wild-rift/tier-list" },
+  ] as const) {
+    for (const width of [390, 768, 1440, 1920]) {
+      await session.send("Network.clearBrowserCache");
+      await page.setViewportSize({ width, height: 900 });
+      const imageErrors: string[] = [];
+      const onConsole = (message: import("@playwright/test").ConsoleMessage) => {
+        if (
+          message.type() === "error" &&
+          /(image|img|_next\/image|\.png|\.webp|\.avif)/i.test(message.text())
+        ) {
+          imageErrors.push(message.text());
+        }
+      };
+      page.on("console", onConsole);
+      await page.addInitScript(() => {
+        const state = window as Window & { __p2p3FinalCls?: number };
+        state.__p2p3FinalCls = 0;
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            const shift = entry as PerformanceEntry & {
+              hadRecentInput?: boolean;
+              value?: number;
+            };
+            if (!shift.hadRecentInput) state.__p2p3FinalCls! += shift.value ?? 0;
+          }
+        }).observe({ type: "layout-shift", buffered: true });
+      });
+
+      const response = await page.goto(route.path, { waitUntil: "networkidle" });
+      await autoScroll(page);
+      const health = await page.locator("main img").evaluateAll((images) => ({
+        broken: images.filter((image) => {
+          const img = image as HTMLImageElement;
+          return img.complete && img.naturalWidth === 0;
+        }).length,
+        overflow: Math.max(0, document.documentElement.scrollWidth - innerWidth),
+        cls: (window as Window & { __p2p3FinalCls?: number }).__p2p3FinalCls ?? 0,
+      }));
+
+      const row = {
+        label: route.label,
+        width,
+        status: response?.status() ?? 0,
+        broken: health.broken,
+        imageErrors: imageErrors.length,
+        overflow: health.overflow,
+        cls: health.cls,
+      };
+      results.push(row);
+      expect(row.status).toBe(200);
+      expect(row.broken).toBe(0);
+      expect(row.imageErrors).toBe(0);
+      expect(row.overflow).toBe(0);
+      expect(row.cls).toBeLessThanOrEqual(0.1);
+      page.off("console", onConsole);
+    }
+  }
+  await session.detach();
+  console.log(`P2P3_FINAL_BROWSER_MATRIX ${JSON.stringify(results)}`);
+});
