@@ -148,6 +148,7 @@ async function exerciseRoute(
     const tabs = page.getByRole("tablist", { name: "Slay the Spire 2 ranking systems" });
 
     await tabs.getByRole("tab", { name: /^Relics/ }).click();
+    await autoScroll(page);
     keySources.relic = await optimizedImage(
       page.locator("[data-relic-tier] img").first(),
       responses,
@@ -155,6 +156,7 @@ async function exerciseRoute(
     brokenImages += (await imageHealth(page)).broken;
 
     await tabs.getByRole("tab", { name: /^Characters/ }).click();
+    await autoScroll(page);
     keySources.character = await optimizedImage(
       page.locator("[data-character-id] img").first(),
       responses,
@@ -162,6 +164,7 @@ async function exerciseRoute(
     brokenImages += (await imageHealth(page)).broken;
 
     await tabs.getByRole("tab", { name: /^Potions/ }).click();
+    await autoScroll(page);
     keySources.potion = await optimizedImage(
       page.locator("[data-potion-tier] img").first(),
       responses,
@@ -227,6 +230,7 @@ for (const route of routes) {
       const response = await page.goto(route.path, { waitUntil: "load" });
       const httpStatus = response?.status() ?? 0;
       expect(httpStatus).toBe(200);
+      await page.waitForLoadState("networkidle");
       expect(await page.evaluate(() => devicePixelRatio)).toBe(2);
       await expect(page.locator("main")).toBeVisible();
 
@@ -243,13 +247,15 @@ for (const route of routes) {
             transferSize: entry.transferSize,
           }));
         const largest = entries.reduce(
-          (current, entry) => (entry.encodedBodySize > current.encodedBodySize ? entry : current),
+          (current, entry) => (entry.transferSize > current.transferSize ? entry : current),
           { url: "", encodedBodySize: 0, transferSize: 0 },
         );
         return {
           requestCount: entries.length,
-          transferredBytes: entries.reduce((sum, entry) => sum + entry.encodedBodySize, 0),
-          largestResponseBytes: largest.encodedBodySize,
+          transferredBytes: entries.reduce((sum, entry) => sum + entry.transferSize, 0),
+          encodedBodyBytes: entries.reduce((sum, entry) => sum + entry.encodedBodySize, 0),
+          largestResponseBytes: largest.transferSize,
+          largestResponseEncodedBodyBytes: largest.encodedBodySize,
           largestResponseUrl: largest.url,
         };
       });
@@ -288,7 +294,7 @@ for (const route of routes) {
         dpr: 2,
         cache: "disabled-cold",
         measurement:
-          "fresh navigation; load; default page full-scroll; representative hidden image tabs exercised; encodedBodySize for browser img resources",
+          "fresh navigation; load + networkidle; cold cache; full-scroll default page and every Slay ranking tab; PerformanceResourceTiming transferSize for browser img resources",
         httpStatus,
         brokenImageCount: routeEvidence.brokenImages,
         consoleImageErrorCount: imageConsoleErrors.length,
@@ -297,7 +303,9 @@ for (const route of routes) {
         clsBudget,
         imageRequestCount: network.requestCount,
         imageTransferredBytes: network.transferredBytes,
+        imageEncodedBodyBytes: network.encodedBodyBytes,
         largestImageResponseBytes: network.largestResponseBytes,
+        largestImageResponseEncodedBodyBytes: network.largestResponseEncodedBodyBytes,
         largestImageResponseUrl: network.largestResponseUrl,
         imageErrorStatusCount: imageErrorStatuses.length,
         staleLimbusPngRequests: routeEvidence.staleLimbusPngRequests,
