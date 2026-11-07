@@ -16,7 +16,7 @@ export const SEO_DENSITY_TARGET_IDS = [
   "slay-the-spire-2",
 ] as const;
 
-export type SeoDensityTargetId = (typeof SEO_DENSITY_GAME_IDS)[number];
+export type SeoDensityTargetId = (typeof SEO_DENSITY_TARGET_IDS)[number];
 export type SeoDensityMode = "report" | "enforce";
 
 type AdditionalMeasurementView = {
