@@ -44,16 +44,30 @@ for (const width of [390, 1440]) {
         await panel.getByRole("button", { name: `Close ${name}`, exact: true }).click();
     }
 
-    const hero = page.getByRole("heading", { level: 1, name: "ZZZ Tier List", exact: true });
+    const hero = page
+      .getByRole("heading", { level: 1, name: "ZZZ Tier List", exact: true })
+      .locator("..");
     const agents = page
       .getByRole("region", { name: "Agent Ranking", exact: true })
-      .getByRole("heading", { level: 2, name: "ZZZ Character Tier List", exact: true });
-
+      .getByRole("heading", { level: 2, name: "ZZZ Character Tier List", exact: true })
+      .locator("..");
     await expect(hero).toBeVisible();
     await expect(agents).toBeVisible();
 
-    const visibleMain = (await page.locator("main").innerText()).toLowerCase();
-    expect(visibleMain).not.toMatch(/mock|placeholder|production data later|2025/);
+    const texts = [await hero.innerText(), await agents.innerText()];
+    await page
+      .locator('nav[aria-label="Tier list primary sections"]')
+      .getByRole("tab", { name: /^Teams/ })
+      .click();
+    const teams = page
+      .getByRole("region", { name: "Team Ranking", exact: true })
+      .getByRole("heading", { level: 2, name: "Team Ranking", exact: true })
+      .locator("..");
+    await expect(teams).toBeVisible();
+    texts.push(await teams.innerText());
+
+    const staticEditorial = texts.join(" ").toLowerCase().replace(/\s+/g, " ").trim();
+    expect(staticEditorial).not.toMatch(/mock|placeholder|production data later|2025/);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );
