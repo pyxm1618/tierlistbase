@@ -338,7 +338,8 @@ export function AnimeExpeditionsTierList() {
           <div className={styles.sectionHeading}>
             <h2 id="teams-title">Best Anime Expeditions Team Comps</h2>
             <p>
-              Composition decisions alongside the Anime Expeditions tier list, never a Team Tier List
+              Composition decisions alongside the Anime Expeditions tier list, never a Team Tier
+              List
             </p>
           </div>
           <p className={styles.context}>
@@ -585,8 +586,7 @@ export function AnimeExpeditionsTierList() {
                   The Anime Expeditions unit tier list separates role contribution before comparing
                   grades. DPS values damage delivery; Utility values mechanics beyond damage;
                   Support values allied output; Crowd Control values reliable stall. Pending means
-                  evidence
-                  is missing, not that contribution is zero.
+                  evidence is missing, not that contribution is zero.
                 </dd>
               </div>
               <div>
