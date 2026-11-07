@@ -130,7 +130,7 @@ test("homepage visible keyword group stays natural and non-overlapping", async (
   const visibleMainContent = await page.locator("main").innerText();
   const result = calculateKeywordDensity(visibleMainContent, {
     primaryKeyword: homepage.primaryKeyword,
-    secondaryKeywords: homepage.secondaryKeywords,
+    secondaryKeywords: homepage.secondaryKeywords ?? [],
   });
 
   console.log(
