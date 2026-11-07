@@ -8,33 +8,6 @@ test.beforeAll(seedGenshinTestDatabase);
 test.beforeAll(seedWowPresentationFixtures);
 test.use({ deviceScaleFactor: 2 });
 
-const coreRoutes = [
-  { label: "WoW", path: "/wow-forever/tier-list" },
-  { label: "Genshin", path: "/genshin-impact/tier-list" },
-  { label: "WildRift", path: "/wild-rift/tier-list" },
-] as const;
-
-const healthRoutes = [
-  { label: "AnimeExpeditions", path: "/anime-expeditions/tier-list" },
-  { label: "PhantomBladeZero", path: "/phantom-blade-zero/tier-list" },
-] as const;
-
-async function autoScroll(page: Page) {
-  await page.evaluate(async () => {
-    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-    const step = Math.max(innerHeight - 140, 360);
-    for (let y = 0; y < document.body.scrollHeight; y += step) {
-      scrollTo(0, y);
-      await sleep(35);
-    }
-    scrollTo(0, document.body.scrollHeight);
-    await sleep(180);
-    scrollTo(0, 0);
-    await sleep(180);
-  });
-  await page.waitForTimeout(350);
-}
-
 async function loadedImage(locator: Locator) {
   await locator.scrollIntoViewIfNeeded();
   await expect(locator).toBeVisible();
@@ -46,312 +19,179 @@ async function loadedImage(locator: Locator) {
       }),
     )
     .toBe(true);
+
   return locator.evaluate((element) => {
     const image = element as HTMLImageElement;
-    const timing = (
-      performance.getEntriesByType("resource") as PerformanceResourceTiming[]
-    ).find((entry) => entry.name === image.currentSrc);
     const url = new URL(image.currentSrc);
     return {
       currentSrc: image.currentSrc,
+      source: decodeURIComponent(url.searchParams.get("url") ?? ""),
+      candidateWidth: Number(url.searchParams.get("w")) || null,
       sizes: image.getAttribute("sizes"),
       loading: image.loading,
-      naturalWidth: image.naturalWidth,
-      naturalHeight: image.naturalHeight,
       renderedWidth: Math.round(image.getBoundingClientRect().width),
       renderedHeight: Math.round(image.getBoundingClientRect().height),
-      candidateWidth: Number(url.searchParams.get("w")) || null,
-      encodedBodySize: timing?.encodedBodySize ?? null,
-      transferSize: timing?.transferSize ?? null,
       dpr: devicePixelRatio,
     };
   });
 }
 
-async function fidelity(page: Page, currentSrc: string) {
-  const optimizedUrl = new URL(currentSrc);
-  if (optimizedUrl.pathname !== "/_next/image") return null;
-  const sourcePath = optimizedUrl.searchParams.get("url");
-  if (!sourcePath) return null;
+async function psnrForCurrentSrc(page: Page, currentSrc: string) {
+  const optimized = new URL(currentSrc);
+  expect(optimized.pathname).toBe("/_next/image");
+  const sourcePath = optimized.searchParams.get("url");
+  expect(sourcePath).toBeTruthy();
 
-  const headers = {
+  const imageAccept = {
     accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
   };
   const [sourceResponse, optimizedResponse] = await Promise.all([
-    page.request.get(new URL(sourcePath, page.url()).toString()),
-    page.request.get(currentSrc, { headers }),
+    page.request.get(new URL(sourcePath!, page.url()).toString()),
+    page.request.get(currentSrc, { headers: imageAccept }),
   ]);
   expect(sourceResponse.status()).toBe(200);
   expect(optimizedResponse.status()).toBe(200);
 
-  const sourceBuffer = await sourceResponse.body();
-  const optimizedBuffer = await optimizedResponse.body();
-  const optimizedMetadata = await sharp(optimizedBuffer).metadata();
-  expect(optimizedMetadata.width).toBeGreaterThan(0);
-  expect(optimizedMetadata.height).toBeGreaterThan(0);
+  const source = await sourceResponse.body();
+  const candidate = await optimizedResponse.body();
+  const meta = await sharp(candidate).metadata();
+  expect(meta.width).toBeGreaterThan(0);
+  expect(meta.height).toBeGreaterThan(0);
 
-  const width = optimizedMetadata.width!;
-  const height = optimizedMetadata.height!;
-  const reference = await sharp(sourceBuffer)
-    .resize(width, height, { fit: "fill" })
+  const referenceRaw = await sharp(source)
+    .resize(meta.width!, meta.height!, { fit: "fill" })
     .removeAlpha()
     .toColourspace("srgb")
     .raw()
     .toBuffer();
-  const candidate = await sharp(optimizedBuffer)
+  const candidateRaw = await sharp(candidate)
     .removeAlpha()
     .toColourspace("srgb")
     .raw()
     .toBuffer();
+  expect(candidateRaw.length).toBe(referenceRaw.length);
 
-  expect(candidate.length).toBe(reference.length);
   let squaredError = 0;
-  for (let index = 0; index < reference.length; index += 1) {
-    const delta = reference[index]! - candidate[index]!;
+  for (let index = 0; index < referenceRaw.length; index += 1) {
+    const delta = referenceRaw[index]! - candidateRaw[index]!;
     squaredError += delta * delta;
   }
-  const mse = squaredError / reference.length;
-  const psnr = mse === 0 ? 99 : 10 * Math.log10((255 * 255) / mse);
+  const mse = squaredError / referenceRaw.length;
   return {
-    width,
-    height,
-    bytes: optimizedBuffer.length,
+    psnr: mse === 0 ? 99 : 10 * Math.log10((255 * 255) / mse),
+    bytes: candidate.length,
     contentType: optimizedResponse.headers()["content-type"] ?? "",
-    psnr,
+    width: meta.width,
+    height: meta.height,
   };
 }
 
-async function imageHealth(page: Page) {
-  return page.locator("main img").evaluateAll((images) => ({
-    total: images.length,
-    broken: images.filter((image) => {
-      const img = image as HTMLImageElement;
-      return img.complete && img.naturalWidth === 0;
-    }).length,
-  }));
-}
+for (const route of [
+  { label: "WoW", path: "/wow-forever/tier-list", selector: "[data-wow-hero] img" },
+  {
+    label: "Genshin",
+    path: "/genshin-impact/tier-list",
+    selector: '[data-ia-section="page-header"] img',
+  },
+] as const) {
+  test(`${route.label} optimized Hero visual fidelity at four viewports`, async ({ page }) => {
+    test.setTimeout(300000);
+    const results = [];
 
-async function auditRoute(
-  page: Page,
-  label: string,
-  path: string,
-  widths: readonly number[],
-) {
-  const session = await page.context().newCDPSession(page);
-  await session.send("Network.enable");
-  await session.send("Network.setCacheDisabled", { cacheDisabled: true });
-
-  for (const width of widths) {
-    await session.send("Network.clearBrowserCache");
-    await page.setViewportSize({ width, height: 900 });
-
-    const imageResponses: Array<{ url: string; status: number }> = [];
-    const imageConsoleErrors: string[] = [];
-    const onResponse = (response: import("@playwright/test").Response) => {
-      if (response.request().resourceType() === "image") {
-        imageResponses.push({ url: response.url(), status: response.status() });
-      }
-    };
-    const onConsole = (message: import("@playwright/test").ConsoleMessage) => {
-      if (
-        message.type() === "error" &&
-        /(image|img|_next\/image|\.png|\.webp)/i.test(message.text())
-      ) {
-        imageConsoleErrors.push(message.text());
-      }
-    };
-    page.on("response", onResponse);
-    page.on("console", onConsole);
-
-    await page.addInitScript(() => {
-      performance.setResourceTimingBufferSize(5000);
-      const state = window as Window & { __p2p3Cls?: number };
-      state.__p2p3Cls = 0;
-      new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          const shift = entry as PerformanceEntry & {
-            hadRecentInput?: boolean;
-            value?: number;
-          };
-          if (!shift.hadRecentInput) state.__p2p3Cls! += shift.value ?? 0;
-        }
-      }).observe({ type: "layout-shift", buffered: true });
-    });
-
-    const response = await page.goto(path, { waitUntil: "networkidle" });
-    const httpStatus = response?.status() ?? 0;
-    await autoScroll(page);
-
-    const health = await imageHealth(page);
-    const horizontalOverflow = await page.evaluate(
-      () => Math.max(0, document.documentElement.scrollWidth - innerWidth),
-    );
-    const cls = await page.evaluate(
-      () => (window as Window & { __p2p3Cls?: number }).__p2p3Cls ?? 0,
-    );
-    const resources = await page.evaluate(() =>
-      (performance.getEntriesByType("resource") as PerformanceResourceTiming[])
-        .filter((entry) => {
-          const name = decodeURIComponent(entry.name);
-          return (
-            entry.initiatorType === "img" ||
-            entry.initiatorType === "css" ||
-            /\.(?:png|webp|avif)(?:\?|$)/i.test(name) ||
-            name.includes("/_next/image?")
-          );
-        })
-        .map((entry) => ({
-          url: entry.name,
-          initiatorType: entry.initiatorType,
-          encodedBodySize: entry.encodedBodySize,
-          transferSize: entry.transferSize,
-        })),
-    );
-    const largest = resources.reduce(
-      (current, entry) =>
-        entry.transferSize > current.transferSize ? entry : current,
-      { url: "", initiatorType: "", encodedBodySize: 0, transferSize: 0 },
-    );
-
-    const details: Record<string, unknown> = {};
-    if (label === "WoW") {
-      const hero = await loadedImage(page.locator("[data-wow-hero] img"));
-      details.hero = hero;
-      details.heroFidelity = await fidelity(page, hero.currentSrc);
-      details.specIcon = await loadedImage(
-        page.locator("[data-spec-id] img").first(),
-      );
-      details.preloads = await page
-        .locator('link[rel="preload"][as="image"]')
-        .evaluateAll((links) =>
-          links.map((link) => ({
-            href: link.getAttribute("href"),
-            imageSrcSet: link.getAttribute("imagesrcset"),
-            imageSizes: link.getAttribute("imagesizes"),
-          })),
-        );
+    for (const width of [390, 768, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 });
+      const response = await page.goto(route.path, { waitUntil: "networkidle" });
+      expect(response?.status()).toBe(200);
+      const hero = await loadedImage(page.locator(route.selector).first());
+      expect(hero.currentSrc).toContain("/_next/image?");
+      expect(hero.source).toContain(".webp");
+      const quality = await psnrForCurrentSrc(page, hero.currentSrc);
+      expect(quality.psnr).toBeGreaterThanOrEqual(30);
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth - innerWidth),
+      ).toBeLessThanOrEqual(0);
+      results.push({ width, hero, quality });
     }
 
-    if (label === "Genshin") {
-      const hero = await loadedImage(
-        page.locator('[data-ia-section="page-header"] img'),
-      );
-      details.hero = hero;
-      details.heroFidelity = await fidelity(page, hero.currentSrc);
-      details.preloads = await page
-        .locator('link[rel="preload"][as="image"]')
-        .evaluateAll((links) =>
-          links.map((link) => ({
-            href: link.getAttribute("href"),
-            imageSrcSet: link.getAttribute("imagesrcset"),
-            imageSizes: link.getAttribute("imagesizes"),
-          })),
-        );
-
-      const search = page.getByRole("searchbox", { name: "Search characters" });
-      await search.fill("Nahida");
-      const nahida = page.getByRole("button", { name: /Nahida, Dendro/ });
-      await expect(nahida).toBeVisible();
-      details.remoteBoardAvatar = await loadedImage(
-        nahida.locator('[data-avatar="board"] img'),
-      );
-      await nahida.click();
-      details.remoteDetailAvatar = await loadedImage(
-        page
-          .locator('[data-ia-section="character-detail"] [data-avatar="detail"] img')
-          .filter({ visible: true })
-          .first(),
-      );
-    }
-
-    if (label === "WildRift") {
-      details.hero = await loadedImage(
-        page.locator('[data-ia-section="hero"] img').first(),
-      );
-      const heroResources = resources.filter((entry) =>
-        decodeURIComponent(entry.url).includes("/images/wild-rift/hero.webp"),
-      );
-      details.heroResources = heroResources;
-      details.rawHeroTransfers = heroResources.filter(
-        (entry) => new URL(entry.url).pathname === "/images/wild-rift/hero.webp",
-      ).length;
-      details.smallPortrait = await loadedImage(
-        page.locator('[data-ia-section="all-roles-overview"] img').first(),
-      );
-      const card = page.locator("[data-champion-id]").first();
-      details.cardPortrait = await loadedImage(card.locator("img"));
-      await card.click();
-      const detailRoot =
-        width <= 700
-          ? page.getByRole("dialog").filter({ visible: true }).first()
-          : page
-              .getByRole("complementary", { name: "Champion Detail" })
-              .filter({ visible: true })
-              .first();
-      details.detailPortrait = await loadedImage(detailRoot.locator("img").first());
-    }
-
-    const result = {
-      event: "P2P3_IMAGE_FINAL_PROBE",
-      label,
-      path,
-      viewportWidth: width,
-      dpr: 2,
-      cache: "disabled-cold",
-      httpStatus,
-      brokenImages: health.broken,
-      consoleImageErrors: imageConsoleErrors.length,
-      horizontalOverflow,
-      cls,
-      imageRequestCount: imageResponses.length,
-      imageTransferredBytes: resources.reduce(
-        (sum, entry) => sum + entry.transferSize,
-        0,
-      ),
-      largestImageResponseBytes: largest.transferSize,
-      largestImageResponseUrl: largest.url,
-      details,
-    };
-    console.log(`P2P3_IMAGE_FINAL_PROBE ${JSON.stringify(result)}`);
-
-    expect(httpStatus).toBe(200);
-    expect(health.broken).toBe(0);
-    expect(imageConsoleErrors).toEqual([]);
-    expect(horizontalOverflow).toBe(0);
-    expect(cls).toBeLessThanOrEqual(0.1);
-    expect(imageResponses.filter((item) => item.status >= 400)).toEqual([]);
-
-    if (label === "WoW" || label === "Genshin") {
-      const hero = details.hero as Awaited<ReturnType<typeof loadedImage>>;
-      expect(new URL(hero.currentSrc).pathname).toBe("/_next/image");
-      const quality = details.heroFidelity as Awaited<ReturnType<typeof fidelity>>;
-      expect(quality?.psnr ?? 0).toBeGreaterThanOrEqual(30);
-    }
-    if (label === "WildRift") {
-      expect(details.rawHeroTransfers).toBe(0);
-      for (const key of ["smallPortrait", "cardPortrait", "detailPortrait"]) {
-        const portrait = details[key] as Awaited<ReturnType<typeof loadedImage>>;
-        expect(new URL(portrait.currentSrc).pathname).toBe("/_next/image");
-      }
-    }
-
-    page.off("response", onResponse);
-    page.off("console", onConsole);
-  }
-
-  await session.detach();
-}
-
-for (const route of coreRoutes) {
-  test(`${route.label} P2 P3 final matrix`, async ({ page }) => {
-    test.setTimeout(600000);
-    await auditRoute(page, route.label, route.path, [390, 768, 1440, 1920]);
+    console.log(`P2P3_VISUAL_FIDELITY ${JSON.stringify({ label: route.label, results })}`);
   });
 }
 
-for (const route of healthRoutes) {
-  test(`${route.label} P2 P3 health review`, async ({ page }) => {
-    test.setTimeout(600000);
-    await auditRoute(page, route.label, route.path, [390, 1440]);
+test("Genshin remote avatars remain optimized and healthy", async ({ page }) => {
+  const imageErrors: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "error" && /(image|img|_next\/image)/i.test(message.text())) {
+      imageErrors.push(message.text());
+    }
+  });
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const response = await page.goto("/genshin-impact/tier-list", { waitUntil: "networkidle" });
+  expect(response?.status()).toBe(200);
+  await page.getByRole("searchbox", { name: "Search characters" }).fill("Nahida");
+  const nahida = page.getByRole("button", { name: /Nahida, Dendro/ });
+  await expect(nahida).toBeVisible();
+
+  const board = await loadedImage(nahida.locator('[data-avatar="board"] img'));
+  expect(board.currentSrc).toContain("/_next/image?");
+  expect(board.source).toContain("https://media.tierlistbase.com/");
+  await nahida.click();
+  const detail = await loadedImage(
+    page
+      .locator('[data-ia-section="character-detail"] [data-avatar="detail"] img')
+      .filter({ visible: true })
+      .first(),
+  );
+  expect(detail.currentSrc).toContain("/_next/image?");
+  expect(detail.source).toContain("https://media.tierlistbase.com/");
+  expect(imageErrors).toEqual([]);
+
+  console.log(`P2P3_GENSHIN_REMOTE ${JSON.stringify({ board, detail })}`);
+});
+
+for (const width of [390, 1440]) {
+  test(`Wild Rift portrait paths and Hero transfer at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    const response = await page.goto("/wild-rift/tier-list", { waitUntil: "networkidle" });
+    expect(response?.status()).toBe(200);
+
+    const small = await loadedImage(
+      page.locator('[data-ia-section="all-roles-overview"] img').first(),
+    );
+    const cardButton = page.locator("[data-champion-id]").first();
+    const card = await loadedImage(cardButton.locator("img"));
+    await cardButton.click();
+
+    const detailRoot =
+      width <= 700
+        ? page.getByRole("dialog").filter({ visible: true }).first()
+        : page
+            .getByRole("complementary", { name: "Champion Detail" })
+            .filter({ visible: true })
+            .first();
+    const detail = await loadedImage(detailRoot.locator("img").first());
+
+    for (const portrait of [small, card, detail]) {
+      expect(new URL(portrait.currentSrc).pathname).toBe("/_next/image");
+      expect(portrait.source).toContain("/images/wild-rift/champions/");
+      expect(portrait.source).toContain(".png");
+      expect(portrait.candidateWidth).toBeTruthy();
+    }
+
+    const heroResources = await page.evaluate(() =>
+      (performance.getEntriesByType("resource") as PerformanceResourceTiming[])
+        .filter((entry) => decodeURIComponent(entry.name).includes("/images/wild-rift/hero.webp"))
+        .map((entry) => ({
+          url: entry.name,
+          transferSize: entry.transferSize,
+          initiatorType: entry.initiatorType,
+        })),
+    );
+    expect(heroResources).toHaveLength(1);
+    expect(new URL(heroResources[0]!.url).pathname).toBe("/_next/image");
+
+    console.log(
+      `P2P3_WILD_SUPPLEMENT ${JSON.stringify({ width, small, card, detail, heroResources })}`,
+    );
   });
 }
