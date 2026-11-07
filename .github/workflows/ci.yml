@@ -368,7 +368,7 @@ jobs:
       - name: Production-mode canonical and security output
         run: DATABASE_URL="$TEST_DATABASE_URL" bun run verify:seo:production
       - name: Targeted SEO keyword density audit
-        if: needs.change_scope.outputs.seo_density_targets != 'skip'
+        if: always() && needs.change_scope.outputs.seo_density_targets != 'skip'
         env:
           SEO_DENSITY_TARGETS: ${{ needs.change_scope.outputs.seo_density_targets }}
         run: bun run test:seo-density
