@@ -12,7 +12,10 @@ function selectedGames(): Set<SeoDensityGameId> {
   if (!raw) return new Set();
   if (raw === "all") return new Set(SEO_DENSITY_GAME_IDS);
 
-  const requested = raw.split(",").map((value) => value.trim()).filter(Boolean);
+  const requested = raw
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
   const unknown = requested.filter(
     (value): value is string => !SEO_DENSITY_GAME_IDS.includes(value as SeoDensityGameId),
   );
@@ -34,13 +37,19 @@ async function readVisibleSeoText(page: Page, selector: string): Promise<string>
 
 for (const config of getSeoDensityGameConfigs()) {
   test(`SEO keyword density: ${config.game}`, async ({ page }) => {
-    test.skip(!selected.has(config.id), "SEO density audit not selected by changed-file scope");
+    test.skip(
+      !selected.has(config.id),
+      "SEO density audit not selected by changed-file scope",
+    );
 
     await page.setViewportSize({ width: 1440, height: 1200 });
     await page.goto(config.route, { waitUntil: "networkidle" });
 
     const content = page.locator(config.contentSelector);
-    await expect(content.first(), `${config.game}: configured SEO content must exist`).toBeVisible();
+    await expect(
+      content.first(),
+      `${config.game}: configured SEO content must exist`,
+    ).toBeVisible();
     const visibleText = await readVisibleSeoText(page, config.contentSelector);
 
     const result = calculateKeywordDensity(visibleText, {
@@ -65,7 +74,10 @@ for (const config of getSeoDensityGameConfigs()) {
 
     console.log(`SEO_KEYWORD_DENSITY ${JSON.stringify(report)}`);
 
-    expect(result.visibleWordCount, `${config.game}: visible SEO word count`).toBeGreaterThan(0);
+    expect(
+      result.visibleWordCount,
+      `${config.game}: visible SEO word count`,
+    ).toBeGreaterThan(0);
     expect(
       result.primaryDominance,
       `${config.game}: primary occurrences must exceed every secondary keyword`,
