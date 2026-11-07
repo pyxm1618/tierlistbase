@@ -16,6 +16,7 @@
     "test:integration": "vitest run --config vitest.integration.config.ts --passWithNoTests",
     "test:contract": "vitest run --config vitest.contract.config.ts --passWithNoTests",
     "test:e2e": "playwright test",
+    "test:seo-density": "playwright test tests/e2e/seo-keyword-density.spec.ts",
     "test:build-matrix": "bun tests/build/run-feature-matrix.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "bun scripts/db-migrate.ts",
