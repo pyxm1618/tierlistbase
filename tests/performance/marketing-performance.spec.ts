@@ -369,7 +369,7 @@ for (const width of [390, 1920, 2560]) {
       const candidateUrl = new URL(sample.currentSrc);
       const candidateWidth = Number(candidateUrl.searchParams.get("w"));
       if (name === "hero") {
-        expect(candidateUrl.searchParams.get("q")).toBe("85");
+        expect(candidateUrl.searchParams.get("q")).toBe("90");
         expect(
           decodeURIComponent(new URL(sample.currentSrc).searchParams.get("url") ?? ""),
         ).toMatch(/hero-f958fb67df.*\.webp$/);
