@@ -47,6 +47,20 @@ it("retries after an unavailable read instead of caching the failure", async () 
   }
 });
 
+it("renders the runtime ranking version as an archived snapshot", async () => {
+  reads.load.mockResolvedValue(available);
+
+  const rendered = JSON.stringify(await GenshinImpactTierListPage());
+
+  expect(rendered).toContain("Version test-version Snapshot");
+  expect(rendered).toContain("Snapshot Version");
+  expect(rendered).toContain("Ranking Data Captured");
+  expect(rendered).toContain("Archived Genshin Tier List Snapshot");
+  expect(rendered).toContain("not a live-version ranking");
+  expect(rendered).not.toContain("Current Version");
+  expect(rendered).not.toContain("Current Genshin Tier List");
+});
+
 it("bypasses the shared reviewed-data cache in the test environment", async () => {
   vi.stubEnv("APP_ENV", "test");
   reads.load.mockResolvedValue(available);
