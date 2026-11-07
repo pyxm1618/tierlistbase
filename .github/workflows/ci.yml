@@ -141,6 +141,12 @@ jobs:
           bunx auth@1.7.7 generate --config src/platform/auth/auth-cli.ts --output /tmp/auth-schema.ts --yes
           bunx prettier --config .prettierrc.json --write /tmp/auth-schema.ts
           diff -u src/platform/database/auth-schema.ts /tmp/auth-schema.ts
+      - name: Temporary P1 Prettier probe
+        run: |
+          bunx prettier --config .prettierrc.json --write tests/e2e/p1-image-final-audit.spec.ts
+          echo "P1_PRETTIER_BEGIN"
+          cat tests/e2e/p1-image-final-audit.spec.ts
+          echo "P1_PRETTIER_END"
       - name: Formatting
         run: bun run format:check
       - name: Lint
