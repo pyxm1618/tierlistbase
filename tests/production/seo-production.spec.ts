@@ -121,33 +121,6 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
   }
 });
 
-test("homepage visible keyword group stays natural and non-overlapping", async ({ page }) => {
-  await page.goto("/", { waitUntil: "networkidle" });
-
-  const homepage = routeRegistry.get("/");
-  if (homepage.class !== "public_indexable") throw new Error("Homepage must remain indexable");
-  const visibleMainContent = await page.locator("main").innerText();
-  const result = calculateKeywordDensity(visibleMainContent, {
-    primaryKeyword: homepage.primaryKeyword,
-    secondaryKeywords: homepage.secondaryKeywords ?? [],
-  });
-
-  console.log(
-    JSON.stringify({
-      event: "homepage_keyword_group_audit",
-      visibleMainContentWords: result.visibleWordCount,
-      primaryKeyword: result.primaryKeyword,
-      primaryOccurrences: result.primaryOccurrences,
-      secondaryOccurrences: result.secondaryOccurrences,
-      combinedOccurrences: result.keywordGroupOccurrences,
-      combinedDensityPct: Number(result.keywordGroupDensityPct.toFixed(3)),
-    }),
-  );
-
-  expect(result.densityGate).toBe(true);
-  expect(result.primaryDominance).toBe(true);
-});
-
 test("WoW production SEO keeps the approved registry and structured data contracts", async ({
   page,
 }) => {

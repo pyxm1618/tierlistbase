@@ -74,6 +74,7 @@ jobs:
               fi
             }
 
+            if printf '%s\n' "$changed" | grep -Eq '^src/app/\(marketing\)/page\.tsx$|^src/components/home/game-home\.tsx$'; then add_seo_density_target "home"; fi
             if printf '%s\n' "$changed" | grep -Eq '^src/app/\(marketing\)/wow-forever/tier-list/|^src/modules/meta-board/wow/'; then add_seo_density_target "wow"; fi
             if printf '%s\n' "$changed" | grep -Eq '^src/app/\(marketing\)/genshin-impact/tier-list/|^src/modules/genshin-tier-list/'; then add_seo_density_target "genshin"; fi
             if printf '%s\n' "$changed" | grep -Eq '^src/app/\(marketing\)/zenless-zone-zero/tier-list/|^src/modules/.*(zenless|zzz).*tier-list/'; then add_seo_density_target "zzz"; fi
@@ -371,9 +372,7 @@ jobs:
         if: always() && needs.change_scope.outputs.seo_density_targets != 'skip'
         env:
           SEO_DENSITY_TARGETS: ${{ needs.change_scope.outputs.seo_density_targets }}
-          # Migration baseline mode: keep real PASS/FAIL reporting without blocking Required CI.
-          # Switch this one value to "enforce" after page-level density remediation is complete.
-          SEO_DENSITY_MODE: report
+          SEO_DENSITY_MODE: enforce
         run: bun run test:seo-density
 
   vanguard_e2e:

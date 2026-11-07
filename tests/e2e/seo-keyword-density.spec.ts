@@ -3,29 +3,29 @@ import { expect, test, type Page } from "@playwright/test";
 import { calculateKeywordDensity } from "../seo/keyword-density";
 import {
   assertSeoDensityResult,
-  getSeoDensityGameConfigs,
+  getSeoDensityTargetConfigs,
   parseSeoDensityMode,
-  SEO_DENSITY_GAME_IDS,
-  type SeoDensityGameId,
+  SEO_DENSITY_TARGET_IDS,
+  type SeoDensityTargetId,
 } from "../seo/keyword-density.config";
 
-function selectedGames(): Set<SeoDensityGameId> {
+function selectedTargets(): Set<SeoDensityTargetId> {
   const raw = process.env.SEO_DENSITY_TARGETS?.trim();
   if (!raw) return new Set();
-  if (raw === "all") return new Set(SEO_DENSITY_GAME_IDS);
+  if (raw === "all") return new Set(SEO_DENSITY_TARGET_IDS);
 
   const requested = raw
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean);
   const unknown = requested.filter(
-    (value): value is string => !SEO_DENSITY_GAME_IDS.includes(value as SeoDensityGameId),
+    (value): value is string => !SEO_DENSITY_TARGET_IDS.includes(value as SeoDensityTargetId),
   );
   if (unknown.length > 0) throw new Error(`Unknown SEO density targets: ${unknown.join(", ")}`);
-  return new Set(requested as SeoDensityGameId[]);
+  return new Set(requested as SeoDensityTargetId[]);
 }
 
-const selected = selectedGames();
+const selected = selectedTargets();
 const mode = parseSeoDensityMode();
 
 async function readVisibleSeoText(page: Page, selector: string): Promise<string> {
@@ -105,8 +105,8 @@ test("SEO editorial reader excludes hidden and non-editorial UI", async ({ page 
   expect(text).not.toContain("DYNAMIC DETAIL COPY");
 });
 
-for (const config of getSeoDensityGameConfigs()) {
-  test(`SEO keyword density: ${config.game}`, async ({ page }) => {
+for (const config of getSeoDensityTargetConfigs()) {
+  test(`SEO keyword density: ${config.label}`, async ({ page }) => {
     test.skip(!selected.has(config.id), "SEO density audit not selected by changed-file scope");
 
     await page.setViewportSize({ width: 1440, height: 1200 });
@@ -128,7 +128,7 @@ for (const config of getSeoDensityGameConfigs()) {
     });
 
     const report = {
-      game: config.game,
+      target: config.label,
       route: config.route,
       mode,
       contentSelector: config.contentSelector,
@@ -149,7 +149,7 @@ for (const config of getSeoDensityGameConfigs()) {
 
     console.log(`SEO_KEYWORD_DENSITY ${JSON.stringify(report)}`);
 
-    expect(result.visibleWordCount, `${config.game}: visible SEO word count`).toBeGreaterThan(0);
-    assertSeoDensityResult(result, mode, config.game);
+    expect(result.visibleWordCount, `${config.label}: visible SEO word count`).toBeGreaterThan(0);
+    assertSeoDensityResult(result, mode, config.label);
   });
 }

@@ -2,7 +2,8 @@ import { routeRegistry } from "@/config/routes.config";
 
 import type { KeywordDensityResult } from "./keyword-density";
 
-export const SEO_DENSITY_GAME_IDS = [
+export const SEO_DENSITY_TARGET_IDS = [
+  "home",
   "wow",
   "genshin",
   "zzz",
@@ -15,7 +16,7 @@ export const SEO_DENSITY_GAME_IDS = [
   "slay-the-spire-2",
 ] as const;
 
-export type SeoDensityGameId = (typeof SEO_DENSITY_GAME_IDS)[number];
+export type SeoDensityTargetId = (typeof SEO_DENSITY_TARGET_IDS)[number];
 export type SeoDensityMode = "report" | "enforce";
 
 type AdditionalMeasurementView = {
@@ -24,19 +25,40 @@ type AdditionalMeasurementView = {
   description: string;
 };
 
-type GameSelectorConfig = {
-  id: SeoDensityGameId;
-  game: string;
+type TargetSelectorConfig = {
+  id: SeoDensityTargetId;
+  label: string;
   route: string;
   contentSelector: string;
   scopeDescription: string;
   additionalViews?: readonly AdditionalMeasurementView[];
 };
 
-const configs: readonly GameSelectorConfig[] = [
+const configs: readonly TargetSelectorConfig[] = [
+  {
+    id: "home",
+    label: "Homepage",
+    route: "/",
+    contentSelector: [
+      ".tlb-hero h1",
+      ".tlb-hero-inner > p",
+      "#explore .tlb-section-heading h2",
+      "#explore .tlb-section-heading p",
+      "#why-tierlistbase .tlb-section-heading h2",
+      "#why-tierlistbase .tlb-section-heading p",
+      "#why-tierlistbase .tlb-benefit h3",
+      "#why-tierlistbase .tlb-benefit p",
+      "#latest-updates .tlb-section-heading h2",
+      "#latest-updates .tlb-section-heading p",
+      "#popular-rankings .tlb-section-heading h2",
+      "#popular-rankings .tlb-section-heading p",
+    ].join(","),
+    scopeDescription:
+      "Stable homepage SEO editorial copy: Hero, Explore/Why/Latest/Popular headings and intros, plus fixed benefit headings/descriptions; excludes game cards, dynamic Latest Updates entities/dates/reasons, Popular Rankings entity items, tags, links/buttons/controls, navigation, and Coming Soon UI.",
+  },
   {
     id: "wow",
-    game: "WoW",
+    label: "WoW",
     route: "/wow-forever/tier-list",
     contentSelector: [
       "header[data-wow-hero] h1",
@@ -62,7 +84,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
   {
     id: "genshin",
-    game: "Genshin Impact",
+    label: "Genshin Impact",
     route: "/genshin-impact/tier-list",
     contentSelector: [
       '[data-ia-section="page-header"] h1',
@@ -86,7 +108,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
   {
     id: "zzz",
-    game: "Zenless Zone Zero",
+    label: "Zenless Zone Zero",
     route: "/zenless-zone-zero/tier-list",
     contentSelector: [
       "main > section:first-of-type div:has(> h1)",
@@ -105,7 +127,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
   {
     id: "nikke",
-    game: "NIKKE",
+    label: "NIKKE",
     route: "/nikke/tier-list",
     contentSelector: [
       'section[aria-label="NIKKE hero"] h1',
@@ -130,7 +152,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
   {
     id: "limbus",
-    game: "Limbus Company",
+    label: "Limbus Company",
     route: "/limbus-company/tier-list",
     contentSelector: [
       'section[aria-labelledby="limbus-title"] h1',
@@ -153,7 +175,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
   {
     id: "phantom-blade-zero",
-    game: "Phantom Blade Zero",
+    label: "Phantom Blade Zero",
     route: "/phantom-blade-zero/tier-list",
     contentSelector: [
       '[data-testid="pbz-page"] > header h1',
@@ -176,7 +198,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
   {
     id: "dragon-traveler",
-    game: "Dragon Traveler",
+    label: "Dragon Traveler",
     route: "/dragon-traveler/tier-list",
     contentSelector: [
       'section[aria-labelledby="dragon-title"] h1',
@@ -206,7 +228,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
   {
     id: "wild-rift",
-    game: "Wild Rift",
+    label: "Wild Rift",
     route: "/wild-rift/tier-list",
     contentSelector: [
       '[data-ia-section="hero"] h1',
@@ -230,7 +252,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
   {
     id: "anime-expeditions",
-    game: "Anime Expeditions",
+    label: "Anime Expeditions",
     route: "/anime-expeditions/tier-list",
     contentSelector: [
       'section[aria-labelledby="ae-title"] h1',
@@ -267,7 +289,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
   {
     id: "slay-the-spire-2",
-    game: "Slay the Spire 2",
+    label: "Slay the Spire 2",
     route: "/slay-the-spire-2/tier-list",
     contentSelector: [
       '[data-ia-section="hero"] h1',
@@ -291,7 +313,7 @@ const configs: readonly GameSelectorConfig[] = [
   },
 ];
 
-export type SeoDensityGameConfig = GameSelectorConfig & {
+export type SeoDensityTargetConfig = TargetSelectorConfig & {
   primaryKeyword: string;
   secondaryKeywords: readonly string[];
   configurationWarnings: readonly string[];
@@ -306,18 +328,18 @@ export function parseSeoDensityMode(raw = process.env.SEO_DENSITY_MODE): SeoDens
 export function assertSeoDensityResult(
   result: KeywordDensityResult,
   mode: SeoDensityMode,
-  game: string,
+  label: string,
 ): void {
   if (mode === "report") return;
   if (!result.primaryDominance) {
-    throw new Error(`${game}: primary occurrences must exceed every secondary keyword`);
+    throw new Error(`${label}: primary occurrences must exceed every secondary keyword`);
   }
   if (!result.densityGate) {
-    throw new Error(`${game}: keyword-group density must be between 3% and 5%`);
+    throw new Error(`${label}: keyword-group density must be between 3% and 5%`);
   }
 }
 
-export function getSeoDensityGameConfigs(): readonly SeoDensityGameConfig[] {
+export function getSeoDensityTargetConfigs(): readonly SeoDensityTargetConfig[] {
   return configs.map((config) => {
     const definition = routeRegistry.get(config.route);
     if (definition.class !== "public_indexable") {
