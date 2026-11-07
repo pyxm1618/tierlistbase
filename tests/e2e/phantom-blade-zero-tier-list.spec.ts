@@ -66,7 +66,6 @@ test.describe("Phantom Blade Zero tier list release", () => {
     );
   }
 
-
   test("emits valid structured data", async ({ page }) => {
     const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
     expect(scripts.length).toBeGreaterThan(0);
