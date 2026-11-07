@@ -4,7 +4,11 @@ import {
   calculateKeywordDensity,
   SEO_KEYWORD_DENSITY_MAX_PCT,
   SEO_KEYWORD_DENSITY_MIN_PCT,
-} from "../../seo/keyword-density";\nimport {\n  assertSeoDensityResult,\n  parseSeoDensityMode,\n} from "../../seo/keyword-density.config";
+} from "../../seo/keyword-density";
+import {
+  assertSeoDensityResult,
+  parseSeoDensityMode,
+} from "../../seo/keyword-density.config";
 
 function hundredWords(keyword: string, occurrences: number): string {
   return [
@@ -121,7 +125,6 @@ describe("SEO keyword density calculator", () => {
     expect(result.primaryDominance).toBe(true);
   });
 });
-
 
 describe("SEO keyword density migration enforcement", () => {
   const failingResult = calculateKeywordDensity(hundredWords("alpha", 2), {
