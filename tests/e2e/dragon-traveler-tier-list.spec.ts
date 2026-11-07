@@ -387,4 +387,3 @@ test("Dragon Traveler has no serious accessibility violations", async ({ page })
   const taiwan = await new AxeBuilder({ page }).include("[data-dragon-traveler-page]").analyze();
   expect(taiwan.violations).toEqual([]);
 });
-
