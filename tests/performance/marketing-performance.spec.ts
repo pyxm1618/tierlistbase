@@ -250,6 +250,62 @@ for (const width of [390, 768, 1440]) {
   });
 }
 
+for (const width of [390, 768, 1440, 1920]) {
+  test(`WoW Hero at ${width}px uses responsive Next Image while tiny spec icons stay direct`, async ({
+    page,
+    request,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
+
+    const hero = page.locator("[data-wow-hero] img").first();
+    await expect(hero).toBeVisible();
+    await expect(hero).toHaveJSProperty("complete", true);
+    await expect(hero).toHaveAttribute(
+      "sizes",
+      "(max-width: 767px) calc(100vw - 24px), (max-width: 1640px) calc(100vw - 48px), 1592px",
+    );
+
+    const heroSample = await hero.evaluate((element) => {
+      const image = element as HTMLImageElement;
+      return {
+        currentSrc: image.currentSrc,
+        renderedWidth: image.getBoundingClientRect().width,
+        dpr: devicePixelRatio,
+      };
+    });
+    const heroUrl = new URL(heroSample.currentSrc);
+    expect(heroUrl.pathname).toBe("/_next/image");
+    expect(decodeURIComponent(heroUrl.searchParams.get("url") ?? "")).toMatch(
+      /hero-3b7bb10711.*\.webp$/,
+    );
+    const heroCandidateWidth = Number(heroUrl.searchParams.get("w"));
+    expect(heroCandidateWidth).toBeGreaterThanOrEqual(
+      Math.min(3840, heroSample.renderedWidth * heroSample.dpr),
+    );
+    expect(heroCandidateWidth).toBeLessThanOrEqual(3840);
+
+    const heroResponse = await request.get(heroSample.currentSrc);
+    expect(heroResponse.status()).toBe(200);
+    const heroBytes = (await heroResponse.body()).length;
+    expect(heroBytes).toBeLessThan(260_000);
+    if (width <= 390) expect(heroBytes).toBeLessThan(100_000);
+    else if (width <= 768) expect(heroBytes).toBeLessThan(220_000);
+
+    const specIcon = page.locator("[data-spec-id] img").first();
+    await expect(specIcon).toBeVisible();
+    await expect(specIcon).toHaveAttribute("loading", "lazy");
+    const specCurrentSrc = await specIcon.evaluate(
+      (element) => (element as HTMLImageElement).currentSrc,
+    );
+    expect(new URL(specCurrentSrc).pathname).not.toBe("/_next/image");
+    expect(specCurrentSrc).toContain(".webp");
+    const specResponse = await request.get(specCurrentSrc);
+    expect(specResponse.status()).toBe(200);
+    expect((await specResponse.body()).length).toBeLessThan(10_000);
+  });
+}
+
 for (const width of [390, 1920, 2560]) {
   test(`Genshin image candidates at ${width}px match DPR without avatar preloads`, async ({
     page,
@@ -259,7 +315,13 @@ for (const width of [390, 1920, 2560]) {
     await page.goto("/genshin-impact/tier-list", { waitUntil: "networkidle" });
     const preloads = page.locator('link[rel="preload"][as="image"]');
     await expect(preloads).toHaveCount(1);
-    await expect(preloads).toHaveAttribute("href", /hero-f958fb67df/);
+    const heroPreload = preloads.first();
+    const preloadTarget = [
+      (await heroPreload.getAttribute("href")) ?? "",
+      (await heroPreload.getAttribute("imagesrcset")) ?? "",
+    ].join(" ");
+    expect(decodeURIComponent(preloadTarget)).toContain("hero-f958fb67df");
+    expect(preloadTarget).toContain("/_next/image?");
     await expect(
       page.locator('head link[rel="preload"][imagesrcset*="/images/home/hero-"]'),
     ).toHaveCount(0);
@@ -281,9 +343,7 @@ for (const width of [390, 1920, 2560]) {
       const image = page.locator(selector).filter({ visible: true }).first();
       await expect(image).toBeVisible();
       await expect(image).toHaveJSProperty("complete", true);
-      if (name !== "hero") {
-        await expect(image).toHaveAttribute("sizes", /.+/);
-      }
+      await expect(image).toHaveAttribute("sizes", /.+/);
       const sample = await image.evaluate((element) => {
         const image = element as HTMLImageElement;
         const timing = (
@@ -299,16 +359,23 @@ for (const width of [390, 1920, 2560]) {
       });
       expect(sample.naturalWidth).toBeGreaterThan(0);
       expect(sample.renderedWidth).toBeGreaterThan(0);
-      if (name === "hero") expect(sample.currentSrc).not.toContain("/_next/image?");
-      else expect(sample.currentSrc).toContain("/_next/image?");
+      expect(sample.currentSrc).toContain("/_next/image?");
       expect(sample.currentSrc).toContain(".webp");
       const response = await request.get(sample.currentSrc);
       expect(response.status()).toBe(200);
       const bytes = (await response.body()).length;
-      expect(bytes).toBeLessThan(name === "hero" ? 500_000 : 50_000);
-      if (name !== "hero") {
+      expect(bytes).toBeLessThan(name === "hero" ? 280_000 : 50_000);
+      const candidateWidth = Number(new URL(sample.currentSrc).searchParams.get("w"));
+      if (name === "hero") {
+        expect(
+          decodeURIComponent(new URL(sample.currentSrc).searchParams.get("url") ?? ""),
+        ).toMatch(/hero-f958fb67df.*\.webp$/);
+        expect(candidateWidth).toBeLessThanOrEqual(3840);
+        expect(candidateWidth).toBeGreaterThanOrEqual(
+          Math.min(3840, sample.renderedWidth * sample.dpr),
+        );
+      } else {
         await expect(image).toHaveAttribute("loading", "lazy");
-        const candidateWidth = Number(new URL(sample.currentSrc).searchParams.get("w"));
         expect(candidateWidth).toBeLessThanOrEqual(384);
         expect(candidateWidth).toBeGreaterThanOrEqual(
           Math.min(256, sample.renderedWidth * sample.dpr),
