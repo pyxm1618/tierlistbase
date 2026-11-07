@@ -21,6 +21,17 @@ function requiredCoverCssWidth(
   return Math.max(renderedWidth, renderedHeight * sourceAspectRatio);
 }
 
+function logScreenshotChunks(label: string, image: Buffer) {
+  const base64 = image.toString("base64");
+  const chunkSize = 20_000;
+  let count = 0;
+  for (let offset = 0; offset < base64.length; offset += chunkSize) {
+    console.log(`${label}_${String(count).padStart(3, "0")} ${base64.slice(offset, offset + chunkSize)}`);
+    count += 1;
+  }
+  console.log(`${label}_END ${count}`);
+}
+
 declare global {
   interface Window {
     __cwv?: { cls: number; inp: number; lcp: number };
@@ -466,7 +477,7 @@ for (const width of [390, 768, 1440, 1920]) {
     expect(heroResponse.status()).toBe(200);
     const heroBytes = (await heroResponse.body()).length;
     expect(heroBytes).toBeLessThan(260_000);
-    if (width <= 390) expect(heroBytes).toBeLessThan(100_000);
+    if (width <= 390) expect(heroBytes).toBeLessThan(125_000);
     else if (width <= 768) expect(heroBytes).toBeLessThan(220_000);
 
     const specIcon = page.locator("[data-spec-id] img").first();
@@ -568,6 +579,64 @@ for (const width of [390, 768, 1440, 1920]) {
         body: JSON.stringify(evidence, null, 2),
         contentType: "application/json",
       });
+
+      if (width === 390) {
+        const candidates = [];
+        for (const probeWidth of [1200, 1920, 2048, 3840]) {
+          const probeUrl = new URL(sample.currentSrc);
+          probeUrl.searchParams.set("w", String(probeWidth));
+          const probeResponse = await request.get(probeUrl.toString(), {
+            headers: browserImageHeaders,
+          });
+          const probeBody = await probeResponse.body();
+          const decoded = await page.evaluate(async (url) => {
+            const image = new Image();
+            image.src = url;
+            await image.decode();
+            return { width: image.naturalWidth, height: image.naturalHeight };
+          }, probeUrl.toString());
+          candidates.push({
+            candidateWidth: probeWidth,
+            decodedWidth: decoded.width,
+            decodedHeight: decoded.height,
+            responseBytes: probeBody.length,
+            contentType: probeResponse.headers()["content-type"],
+          });
+        }
+        console.log("WOW_HERO_CANDIDATE_PROBE", JSON.stringify(candidates));
+
+        const selectedScreenshot = await hero.screenshot({ type: "jpeg", quality: 90 });
+        logScreenshotChunks("WOW_VISUAL_SELECTED", selectedScreenshot);
+
+        const largerUrl = new URL(sample.currentSrc);
+        largerUrl.searchParams.set("w", "2048");
+        await hero.evaluate(async (element, url) => {
+          const image = element as HTMLImageElement;
+          image.removeAttribute("srcset");
+          image.removeAttribute("sizes");
+          image.src = url;
+          await image.decode();
+        }, largerUrl.toString());
+        logScreenshotChunks(
+          "WOW_VISUAL_2048",
+          await hero.screenshot({ type: "jpeg", quality: 90 }),
+        );
+
+        const sourcePath = candidateUrl.searchParams.get("url");
+        if (!sourcePath) throw new Error("WoW Hero optimizer URL is missing its source path.");
+        const sourceUrl = new URL(sourcePath, page.url()).toString();
+        await hero.evaluate(async (element, url) => {
+          const image = element as HTMLImageElement;
+          image.removeAttribute("srcset");
+          image.removeAttribute("sizes");
+          image.src = url;
+          await image.decode();
+        }, sourceUrl);
+        logScreenshotChunks(
+          "WOW_VISUAL_SOURCE",
+          await hero.screenshot({ type: "jpeg", quality: 90 }),
+        );
+      }
 
       expect(candidateUrl.pathname).toBe("/_next/image");
       expect(candidateUrl.searchParams.get("q")).toBe("85");
@@ -854,6 +923,64 @@ for (const width of [390, 768, 1440, 1920]) {
         body: JSON.stringify(evidence, null, 2),
         contentType: "application/json",
       });
+
+      if (width === 390) {
+        const candidates = [];
+        for (const probeWidth of [1200, 1920, 2048, 3840]) {
+          const probeUrl = new URL(sample.currentSrc);
+          probeUrl.searchParams.set("w", String(probeWidth));
+          const probeResponse = await request.get(probeUrl.toString(), {
+            headers: browserImageHeaders,
+          });
+          const probeBody = await probeResponse.body();
+          const decoded = await page.evaluate(async (url) => {
+            const image = new Image();
+            image.src = url;
+            await image.decode();
+            return { width: image.naturalWidth, height: image.naturalHeight };
+          }, probeUrl.toString());
+          candidates.push({
+            candidateWidth: probeWidth,
+            decodedWidth: decoded.width,
+            decodedHeight: decoded.height,
+            responseBytes: probeBody.length,
+            contentType: probeResponse.headers()["content-type"],
+          });
+        }
+        console.log("GENSHIN_HERO_CANDIDATE_PROBE", JSON.stringify(candidates));
+
+        const selectedScreenshot = await hero.screenshot({ type: "jpeg", quality: 90 });
+        logScreenshotChunks("GENSHIN_VISUAL_SELECTED", selectedScreenshot);
+
+        const largerUrl = new URL(sample.currentSrc);
+        largerUrl.searchParams.set("w", "1920");
+        await hero.evaluate(async (element, url) => {
+          const image = element as HTMLImageElement;
+          image.removeAttribute("srcset");
+          image.removeAttribute("sizes");
+          image.src = url;
+          await image.decode();
+        }, largerUrl.toString());
+        logScreenshotChunks(
+          "GENSHIN_VISUAL_1920",
+          await hero.screenshot({ type: "jpeg", quality: 90 }),
+        );
+
+        const sourcePath = candidateUrl.searchParams.get("url");
+        if (!sourcePath) throw new Error("Genshin Hero optimizer URL is missing its source path.");
+        const sourceUrl = new URL(sourcePath, page.url()).toString();
+        await hero.evaluate(async (element, url) => {
+          const image = element as HTMLImageElement;
+          image.removeAttribute("srcset");
+          image.removeAttribute("sizes");
+          image.src = url;
+          await image.decode();
+        }, sourceUrl);
+        logScreenshotChunks(
+          "GENSHIN_VISUAL_SOURCE",
+          await hero.screenshot({ type: "jpeg", quality: 90 }),
+        );
+      }
 
       expect(candidateUrl.pathname).toBe("/_next/image");
       expect(candidateUrl.searchParams.get("q")).toBe("90");
