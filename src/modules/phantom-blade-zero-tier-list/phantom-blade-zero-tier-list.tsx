@@ -285,7 +285,8 @@ export function PhantomBladeZeroTierListPage() {
             Use this <strong>Phantom Blade Zero tier list</strong> to compare verified Main Weapons
             and Phantom Edges through independent ranking evidence, strengths, weaknesses, and
             practical use cases. The <strong>Phantom Blade Zero weapon tier list</strong> publishes
-            a tier only when at least two independent comprehensive rankings support it. This ranking therefore separates verified identity from ranked consensus and remains
+            a tier only when at least two independent comprehensive rankings support it. This
+            ranking therefore separates verified identity from ranked consensus and remains
             source-led.
           </p>
 
@@ -401,7 +402,8 @@ export function PhantomBladeZeroTierListPage() {
             <p className={styles.sectionIntro}>
               The default <strong>Phantom Blade Zero weapons tier list</strong> view covers Main
               Weapons. Switch to Phantom Edges to inspect the current
-              <strong> Phantom Blade Zero Phantom Edge tier list</strong>. This ranking keeps missing source coverage neutral rather than scoring it as zero. The{" "}
+              <strong> Phantom Blade Zero Phantom Edge tier list</strong>. This ranking keeps
+              missing source coverage neutral rather than scoring it as zero. The{" "}
               <strong>Phantom Blade Zero Phantom Edges tier list</strong> remains evidence-gated
               until another qualifying comprehensive ranking source exists.
             </p>
@@ -495,8 +497,8 @@ export function PhantomBladeZeroTierListPage() {
               </p>
               <p>
                 An entity needs at least two independent comprehensive ranking sources to leave
-                Pending. The methodology uses Needs Review when qualifying sources disagree enough that a
-                precise consensus tier would overstate the evidence. It remains deliberately
+                Pending. The methodology uses Needs Review when qualifying sources disagree enough
+                that a precise consensus tier would overstate the evidence. It remains deliberately
                 conservative when independent evidence is incomplete.
               </p>
               <p>
