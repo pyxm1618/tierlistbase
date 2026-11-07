@@ -147,9 +147,9 @@ export const routeDefinitions = [
     h1: "ZZZ Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/", "/genshin-impact/tier-list"],
-    lastModified: "2026-10-27",
+    lastModified: "2026-11-07",
     reviewStatus: "reviewed",
-    reviewFingerprint: "a3e2ac43dcc14bf2eb1d3c0c58df0572639279bdece5752e72196a84ae299ef0",
+    reviewFingerprint: "02026681a52ba82d0b413d6831cfdf06f5d7142365f62e4cda7c2efbc3decb19",
   },
   {
     route: "/nikke/tier-list",
