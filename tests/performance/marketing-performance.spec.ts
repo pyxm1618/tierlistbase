@@ -528,10 +528,7 @@ test("Wild Rift Champion portraits stay on Next Image without direct PNG request
   const directChampionPngRequests: string[] = [];
   page.on("request", (request) => {
     const url = new URL(request.url());
-    if (
-      url.pathname.startsWith("/images/wild-rift/champions/") &&
-      url.pathname.endsWith(".png")
-    ) {
+    if (url.pathname.startsWith("/images/wild-rift/champions/") && url.pathname.endsWith(".png")) {
       directChampionPngRequests.push(request.url());
     }
   });
@@ -540,7 +537,7 @@ test("Wild Rift Champion portraits stay on Next Image without direct PNG request
   const response = await page.goto("/wild-rift/tier-list", { waitUntil: "networkidle" });
   expect(response?.status()).toBe(200);
 
-  const samples = [];
+  const samples: { name: string; currentSrc: string }[] = [];
   const assertOptimizedPortrait = async (name: string, image: ReturnType<typeof page.locator>) => {
     await image.scrollIntoViewIfNeeded();
     await expect(image).toBeVisible();
