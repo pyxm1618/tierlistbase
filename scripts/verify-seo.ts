@@ -1,11 +1,11 @@
 import "./verify-indexnow";
 
 import type { LandingSection } from "@/components/landing/landing-page";
-import { homeConfig } from "@/config/home.config";
 import { routeRegistry } from "@/config/routes.config";
 import { seoConfig } from "@/config/seo.config";
 import { seoLandingPages } from "@/config/seo-landings.config";
 import { hasDedicatedMarketingPage } from "./lib/indexable-route-content";
+import { assertProductionSeoReviewContract } from "./lib/seo-production-review";
 
 const indexable = routeRegistry.indexable();
 const sitemap = routeRegistry.sitemapEntries();
@@ -15,10 +15,9 @@ const PLACEHOLDER = /\b(todo|tbd|placeholder|replace[ -]?me|lorem ipsum)\b/i;
 if (indexable.length === 0) throw new Error("at least one indexable route is required");
 if (sitemap.length !== indexable.length) throw new Error("sitemap/indexable route mismatch");
 
-const contentByRoute = new Map<string, readonly LandingSection[]>([
-  ["/", homeConfig.sections],
-  ...seoLandingPages.map((page) => [page.route, page.sections] as const),
-]);
+const contentByRoute = new Map<string, readonly LandingSection[]>(
+  seoLandingPages.map((page) => [page.route, page.sections] as const),
+);
 function internalLinks(sections: readonly LandingSection[]) {
   const links: { label: string; href: string }[] = [];
   for (const section of sections.filter((item) => item.enabled !== false)) {
@@ -134,18 +133,7 @@ if (
 }
 
 if (process.env.APP_ENV === "production") {
-  const releaseStatus: string = seoConfig.releaseStatus;
-  if (releaseStatus !== "reviewed") {
-    throw new Error("production SEO config must be reviewed");
-  }
-  if (/example\.com/i.test(seoConfig.canonicalOrigin)) {
-    throw new Error("production SEO canonical origin is a placeholder");
-  }
-  for (const route of indexable) {
-    if (route.reviewStatus !== "reviewed") {
-      throw new Error(`production SEO route must be reviewed: ${route.route}`);
-    }
-  }
+  assertProductionSeoReviewContract(seoConfig, indexable);
 }
 
 console.log(
