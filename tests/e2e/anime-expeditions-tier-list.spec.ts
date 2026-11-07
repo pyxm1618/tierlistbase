@@ -199,4 +199,3 @@ test("Quick Picks use the chosen view and the mobile team link dismisses detail"
     page.getByRole("heading", { name: "Best Anime Expeditions Team Comps", exact: true }),
   ).toBeInViewport();
 });
-
