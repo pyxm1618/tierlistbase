@@ -94,7 +94,6 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
       `${route.route}: primary keyword tokens must be present in visible content`,
     ).toBe(1);
 
-
     const renderedInternalPaths = new Set(
       await page.locator('a[href^="/"]').evaluateAll((links) =>
         links.flatMap((link) => {
@@ -210,7 +209,6 @@ test("NIKKE production SEO is indexable", async ({ page, request }) => {
   const serializedSchemas = JSON.stringify(schemas.map((schema) => JSON.parse(schema)));
   expect(serializedSchemas).toContain('"@type":"WebApplication"');
   expect(serializedSchemas).not.toMatch(/AggregateRating|Review|Offer|FAQPage|BreadcrumbList/);
-
 
   const bodyText = await page.locator("body").innerText();
   expect(bodyText).not.toMatch(
