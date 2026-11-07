@@ -1005,9 +1005,7 @@ export function ZenlessZoneZeroTierList() {
               <div className={styles.rankingContext} role="note" aria-label="Agent ranking context">
                 <div className={styles.rankingContextMeta}>
                   <strong>Version {gameVersion}</strong>
-                  <time dateTime={snapshotDate}>
-                    Snapshot · {formatSnapshotDate(snapshotDate)}
-                  </time>
+                  <time dateTime={snapshotDate}>Snapshot · {formatSnapshotDate(snapshotDate)}</time>
                   <span>Source · TierListBase editorial data</span>
                 </div>
                 <p>
