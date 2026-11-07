@@ -93,7 +93,6 @@ test("Wild Rift is discoverable and active in the shared mobile menu", async ({ 
   await expect(wildRiftLink).toHaveAttribute("aria-current", "page");
 });
 
-
 test("all five frozen role tabs render their own Tier Board and preserve Champion × Role data", async ({
   page,
 }) => {
