@@ -12,7 +12,10 @@ function selectedGames(): Set<SeoDensityGameId> {
   if (!raw) return new Set();
   if (raw === "all") return new Set(SEO_DENSITY_GAME_IDS);
 
-  const requested = raw.split(",").map((value) => value.trim()).filter(Boolean);
+  const requested = raw
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
   const unknown = requested.filter(
     (value): value is string => !SEO_DENSITY_GAME_IDS.includes(value as SeoDensityGameId),
   );
