@@ -379,7 +379,6 @@ test("serves final Limbus SEO copy while respecting the test-environment noindex
   expect(await sitemap.text()).not.toContain(canonical);
 });
 
-
 test("keeps one shared registry-driven header across game pages and client transitions", async ({
   page,
 }) => {
