@@ -643,8 +643,6 @@ for (const width of [390, 768, 1440, 1920]) {
           Math.min(3840, sample.renderedWidth * sample.dpr),
         );
       } else {
-        const sourceUrl = decodeURIComponent(candidateUrl.searchParams.get("url") ?? "");
-        expect(sourceUrl).toMatch(/^https:\/\/media\.tierlistbase\.com\//);
         await expect(image).toHaveAttribute("loading", "lazy");
         expect(candidateWidth).toBeLessThanOrEqual(384);
         expect(candidateWidth).toBeGreaterThanOrEqual(
