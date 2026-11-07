@@ -68,7 +68,14 @@ test("Genshin V1 preserves the complete architecture, local filters and reviewed
   ]);
   await expect(page.locator("[data-character-card]")).toHaveCount(121);
   await expect(page.locator("[data-character-card][aria-pressed=true]")).toHaveCount(0);
+  await expect(page.locator('[data-ia-section="ranking-context"]')).toContainText("Snapshot Version");
   await expect(page.locator('[data-ia-section="ranking-context"]')).toContainText("7.1");
+  await expect(page.locator('[data-ia-section="ranking-context"]')).not.toContainText(
+    "Current Version",
+  );
+  await expect(page.locator('[data-ia-section="changes"]')).toContainText(
+    "Archived Version 7.1 Snapshot",
+  );
   await expect(page.locator('[data-ia-section="sources"]')).toContainText(
     "4 evidence-linked sources · 130 verified evidence observations",
   );
@@ -168,7 +175,8 @@ test("Genshin V1 preserves the complete architecture, local filters and reviewed
     await expect(detail).toContainText(value);
   await expect(detail).not.toContainText('["');
   await expect(detail).toContainText("C0 / No Signature Weapon");
-  await expect(detail).toContainText("Last Updated (ranking data)");
+  await expect(detail).toContainText("Snapshot Tier");
+  await expect(detail).toContainText("Ranking Data Captured");
   await page.getByRole("searchbox").fill("not-a-character");
   await expect(page.getByText("No characters match these filters.")).toBeVisible();
   expect(requests.length).toBe(before);
