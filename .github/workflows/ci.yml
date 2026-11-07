@@ -292,7 +292,7 @@ jobs:
 
   performance:
     name: Performance
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     services:
       postgres:
@@ -328,7 +328,7 @@ jobs:
   e2e:
     name: End-to-End
     needs: [change_scope]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 50
     services:
       postgres:
@@ -377,7 +377,7 @@ jobs:
     name: Vanguard Full E2E
     needs: [change_scope]
     if: needs.change_scope.outputs.vanguard == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 50
     services:
       postgres:
