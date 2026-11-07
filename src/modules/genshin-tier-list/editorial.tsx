@@ -19,7 +19,10 @@ const faq = [
     "How is this Genshin Impact Tier List created?",
     "The list considers Endgame Performance, Team Contribution, Flexibility, Replaceability and Consistency. Official facts, observed performance data and editorial cross-check provide the evidence structure. Snapshot ratings use reviewed database records.",
   ],
-  ["What version is this Genshin Tier List for?", "This archived ranking snapshot uses database version {version}; it is not presented as the live Genshin version."],
+  [
+    "What version is this Genshin Tier List for?",
+    "This archived ranking snapshot uses database version {version}; it is not presented as the live Genshin version.",
+  ],
   [
     "What endgame content is considered?",
     "The scope is Endgame Overall. Reference encounters and team contexts are recorded in each character’s reviewed Best-use Context.",
