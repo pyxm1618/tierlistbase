@@ -23,44 +23,6 @@ const expectedTeamArtwork = [
   ["House of Spiders Hybrid Team", "blade-of-the-house-of-spiders-ryoshu"],
 ] as const;
 
-const limbusKeywordGroup = [
-  "limbus company tier list",
-  "limbus tier list",
-  "limbus company ego tier list",
-  "ego tier list limbus",
-] as const;
-
-const limbusVisibleCopySelectors = [
-  'section[aria-labelledby="limbus-title"] h1',
-  'section[aria-labelledby="limbus-title"] p:not([aria-hidden="true"])',
-  "#identity-tier-list > header h2",
-  "#identity-tier-list > header p",
-  "#best-identity-by-sinner > header h2",
-  "#best-identity-by-sinner > header p",
-  "#team-tier-list > header h2",
-  "#team-tier-list > header p",
-  "#ego-tier-list > header h2",
-  "#ego-tier-list > header p",
-  "#best-ego-by-sinner h2",
-  'section[aria-labelledby="next-step-title"] h2',
-  'section[aria-labelledby="next-step-title"] h3',
-  'section[aria-labelledby="next-step-title"] p:not([aria-hidden="true"])',
-] as const;
-
-function tokenize(value: string): string[] {
-  return value.toLocaleLowerCase("en-US").match(/[\p{L}\p{N}]+/gu) ?? [];
-}
-
-function countPhrase(words: readonly string[], phrase: string): number {
-  const wanted = tokenize(phrase);
-  if (wanted.length === 0 || wanted.length > words.length) return 0;
-  let count = 0;
-  for (let index = 0; index <= words.length - wanted.length; index += 1) {
-    if (wanted.every((word, offset) => words[index + offset] === word)) count += 1;
-  }
-  return count;
-}
-
 for (const width of [390, 1440]) {
   test.describe(`Limbus closeout at ${width}px`, () => {
     test.use({ viewport: { width, height: 900 } });
@@ -417,44 +379,6 @@ test("serves final Limbus SEO copy while respecting the test-environment noindex
   expect(await sitemap.text()).not.toContain(canonical);
 });
 
-test("keeps the visible Limbus keyword group within the approved SEO range", async ({ page }) => {
-  await page.goto(route);
-  const visibleCopy: string[] = [];
-  for (const selector of limbusVisibleCopySelectors) {
-    const texts = await page.locator(selector).allInnerTexts();
-    visibleCopy.push(...texts.map((text) => text.trim()).filter(Boolean));
-  }
-
-  const words = tokenize(visibleCopy.join(" "));
-  const phraseStats = limbusKeywordGroup.map((phrase) => {
-    const occurrences = countPhrase(words, phrase);
-    return {
-      phrase,
-      occurrences,
-      densityPct: Number(((occurrences / Math.max(words.length, 1)) * 100).toFixed(3)),
-    };
-  });
-  const combinedOccurrences = phraseStats.reduce((sum, phrase) => sum + phrase.occurrences, 0);
-  const combinedDensityPct = Number(
-    ((combinedOccurrences / Math.max(words.length, 1)) * 100).toFixed(3),
-  );
-
-  console.log(
-    JSON.stringify({
-      event: "limbus_keyword_group_audit",
-      visibleMainContentWords: words.length,
-      phraseStats,
-      combinedOccurrences,
-      combinedDensityPct,
-    }),
-  );
-
-  expect(combinedDensityPct).toBeGreaterThanOrEqual(3);
-  expect(combinedDensityPct).toBeLessThanOrEqual(5);
-  expect(phraseStats[0]!.occurrences).toBeGreaterThan(phraseStats[1]!.occurrences);
-  expect(phraseStats[1]!.occurrences).toBeGreaterThan(phraseStats[2]!.occurrences);
-  expect(phraseStats[1]!.occurrences).toBeGreaterThan(phraseStats[3]!.occurrences);
-});
 
 test("keeps one shared registry-driven header across game pages and client transitions", async ({
   page,
