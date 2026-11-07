@@ -169,10 +169,10 @@ describe("homepage multi-game updates", () => {
     expect(updateCards[1]).toContain("High DPS floor confirmed");
     expect(updateCards[1]).toContain('href="/genshin-impact/tier-list"');
 
-    expect(updateCards[2]).toContain("No verified update yet");
-    expect(updateCards[2]).toContain("Pending verification");
+    expect(updateCards[2]).toContain("No update yet");
+    expect(updateCards[2]).toContain("No update available");
     expect(updateCards[2]).toContain(
-      "New verified ranking changes will appear here when published.",
+      "New ranking changes will appear here when available.",
     );
     expect(updateCards[2]).not.toContain("PvP ranking updates");
     expect(updateCards[2]).not.toContain("WoW");
@@ -188,9 +188,9 @@ describe("homepage multi-game updates", () => {
 
     expect(updateCards).toHaveLength(3);
     for (const card of updateCards) {
-      expect(card).toContain("No verified update yet");
-      expect(card).toContain("Pending verification");
-      expect(card).toContain("New verified ranking changes will appear here when published.");
+      expect(card).toContain("No update yet");
+      expect(card).toContain("No update available");
+      expect(card).toContain("New ranking changes will appear here when available.");
       expect(card).not.toContain("PvP ranking updates");
       expect(card).not.toContain("WoW");
       expect(card).not.toContain("Genshin");
