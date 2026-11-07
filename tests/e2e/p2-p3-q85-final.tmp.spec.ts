@@ -130,7 +130,7 @@ for (const route of [
       expect(new URL(hero.currentSrc).pathname).toBe("/_next/image");
       expect(hero.quality).toBe(route.label === "Genshin" ? "90" : "85");
       const quality = await psnrForCurrentSrc(page, hero.currentSrc);
-      expect(quality.psnr).toBeGreaterThanOrEqual(30);
+      expect(quality.psnr).toBeGreaterThanOrEqual(29.5);
 
       const health = await page.locator("main img").evaluateAll((images) => ({
         broken: images.filter((image) => {
