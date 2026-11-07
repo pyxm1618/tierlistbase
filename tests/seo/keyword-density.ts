@@ -37,10 +37,9 @@ export function calculateKeywordDensity(
     .filter((candidate) => candidate.words.length > 0)
     .sort((a, b) => b.words.length - a.words.length || a.order - b.order);
 
-  const counts = Object.fromEntries(phrases.map((phrase) => [phrase, 0])) as Record<
-    string,
-    number
-  >;
+  const counts = Object.fromEntries(
+    phrases.map((phrase) => [phrase, 0]),
+  ) as Record<string, number>;
 
   for (let index = 0; index < words.length; ) {
     const match = candidates.find(
