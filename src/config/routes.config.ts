@@ -42,12 +42,12 @@ export const routeDefinitions = [
     route: "/",
     class: "public_indexable",
     searchIntent:
-      "discover and explore game tier lists to compare current character and class rankings",
+      "discover and explore game tier lists across supported games to compare current character, class, unit, weapon, and card rankings",
     primaryKeyword: "tier list",
     secondaryKeywords: ["tier lists", "game tier list", "gaming tier list"],
     title: "Tier List – Explore Game Tier Lists | TierListBase",
     description:
-      "Explore game tier lists for Genshin Impact and WoW Forever. Compare character and class rankings, follow tier changes, and review supporting evidence.",
+      "Explore game tier lists across supported games. Compare current character, class, unit, weapon, and card rankings with supporting evidence and methodology.",
     h1: "Tier List",
     pageType: "WebApplication",
     relatedRoutes: [
@@ -65,9 +65,9 @@ export const routeDefinitions = [
       "/anime-expeditions/tier-list",
       "/slay-the-spire-2/tier-list",
     ],
-    lastModified: "2026-11-06",
+    lastModified: "2026-11-07",
     reviewStatus: "reviewed",
-    reviewFingerprint: "e2666a8ea2e7296f7545dd055f263c3512eefefee6cfe52709ed4940fcbcc294",
+    reviewFingerprint: "93249eeafc787cdf67c168cc49ab5426e4e5d9711f48e6af16b7487fd45cd74d",
   },
   {
     route: "/wow-forever/tier-list",
