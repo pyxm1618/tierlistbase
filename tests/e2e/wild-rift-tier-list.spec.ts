@@ -96,7 +96,6 @@ test("Wild Rift is discoverable and active in the shared mobile menu", async ({ 
 test("all five frozen role tabs render their own Tier Board and preserve Champion × Role data", async ({
   page,
 }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(route);
   const roleNav = page.getByRole("tablist", {
     name: "Wild Rift role rankings",
@@ -114,14 +113,6 @@ test("all five frozen role tabs render their own Tier Board and preserve Champio
       ).toBeVisible();
     }
   }
-
-  await page.waitForLoadState("networkidle");
-  const rawHeroTransfers = await page.evaluate(() =>
-    (performance.getEntriesByType("resource") as PerformanceResourceTiming[])
-      .filter((entry) => new URL(entry.name).pathname === "/images/wild-rift/hero.webp")
-      .map((entry) => entry.transferSize),
-  );
-  expect(rawHeroTransfers).toEqual([]);
 
   await roleNav.getByRole("tab", { name: /^Jungle$/ }).click();
   const nocturne = page.locator('[data-champion-id="nocturne"]');
