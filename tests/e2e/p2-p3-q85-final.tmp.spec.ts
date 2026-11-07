@@ -170,6 +170,21 @@ async function autoScroll(page: Page) {
 
 test("P2 P3 final 12 viewport browser matrix", async ({ page }) => {
   test.setTimeout(600_000);
+  await page.addInitScript(() => {
+    performance.setResourceTimingBufferSize(5_000);
+    const state = window as Window & { __p2p3FinalCls?: number };
+    state.__p2p3FinalCls = 0;
+    new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        const shift = entry as PerformanceEntry & {
+          hadRecentInput?: boolean;
+          value?: number;
+        };
+        if (!shift.hadRecentInput) state.__p2p3FinalCls! += shift.value ?? 0;
+      }
+    }).observe({ type: "layout-shift", buffered: true });
+  });
+
   const session = await page.context().newCDPSession(page);
   await session.send("Network.enable");
   await session.send("Network.setCacheDisabled", { cacheDisabled: true });
@@ -193,19 +208,6 @@ test("P2 P3 final 12 viewport browser matrix", async ({ page }) => {
         }
       };
       page.on("console", onConsole);
-      await page.addInitScript(() => {
-        const state = window as Window & { __p2p3FinalCls?: number };
-        state.__p2p3FinalCls = 0;
-        new PerformanceObserver((list) => {
-          for (const entry of list.getEntries()) {
-            const shift = entry as PerformanceEntry & {
-              hadRecentInput?: boolean;
-              value?: number;
-            };
-            if (!shift.hadRecentInput) state.__p2p3FinalCls! += shift.value ?? 0;
-          }
-        }).observe({ type: "layout-shift", buffered: true });
-      });
 
       const response = await page.goto(route.path, { waitUntil: "networkidle" });
       await autoScroll(page);
@@ -217,6 +219,46 @@ test("P2 P3 final 12 viewport browser matrix", async ({ page }) => {
         overflow: Math.max(0, document.documentElement.scrollWidth - innerWidth),
         cls: (window as Window & { __p2p3FinalCls?: number }).__p2p3FinalCls ?? 0,
       }));
+      const network = await page.evaluate(() => {
+        const resources = (
+          performance.getEntriesByType("resource") as PerformanceResourceTiming[]
+        )
+          .filter((entry) => {
+            const name = decodeURIComponent(entry.name);
+            return (
+              entry.initiatorType === "img" ||
+              name.includes("/_next/image?") ||
+              /\.(?:png|webp|avif)(?:\?|$)/i.test(name)
+            );
+          })
+          .map((entry) => ({
+            url: entry.name,
+            transferSize: entry.transferSize,
+            encodedBodySize: entry.encodedBodySize,
+          }));
+        const largest = resources.reduce(
+          (current, entry) =>
+            entry.transferSize > current.transferSize ? entry : current,
+          { url: "", transferSize: 0, encodedBodySize: 0 },
+        );
+        const wildHeroResources = resources.filter((entry) =>
+          decodeURIComponent(entry.url).includes("/images/wild-rift/hero.webp"),
+        );
+        return {
+          requestCount: resources.length,
+          transferredBytes: resources.reduce((sum, entry) => sum + entry.transferSize, 0),
+          largestImageResponseBytes: largest.transferSize,
+          largestImageResponseUrl: largest.url,
+          wildHeroRequestCount: wildHeroResources.length,
+          wildHeroTransferredBytes: wildHeroResources.reduce(
+            (sum, entry) => sum + entry.transferSize,
+            0,
+          ),
+          wildRawHeroTransfers: wildHeroResources.filter(
+            (entry) => new URL(entry.url).pathname === "/images/wild-rift/hero.webp",
+          ).length,
+        };
+      });
 
       const row = {
         label: route.label,
@@ -226,6 +268,7 @@ test("P2 P3 final 12 viewport browser matrix", async ({ page }) => {
         imageErrors: imageErrors.length,
         overflow: health.overflow,
         cls: health.cls,
+        ...network,
       };
       results.push(row);
       expect(row.status).toBe(200);
@@ -233,9 +276,14 @@ test("P2 P3 final 12 viewport browser matrix", async ({ page }) => {
       expect(row.imageErrors).toBe(0);
       expect(row.overflow).toBe(0);
       expect(row.cls).toBeLessThanOrEqual(0.1);
+      if (route.label === "WildRift") {
+        expect(row.wildHeroRequestCount).toBe(1);
+        expect(row.wildRawHeroTransfers).toBe(0);
+      }
       page.off("console", onConsole);
     }
   }
   await session.detach();
   console.log(`P2P3_FINAL_BROWSER_MATRIX ${JSON.stringify(results)}`);
 });
+
