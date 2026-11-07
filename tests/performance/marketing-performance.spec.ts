@@ -307,6 +307,54 @@ for (const width of [390, 768, 1440, 1920]) {
   });
 }
 
+test("Wild Rift Hero reuses one direct WebP across header and Tier Board", async ({
+  page,
+  request,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const response = await page.goto("/wild-rift/tier-list", { waitUntil: "networkidle" });
+  expect(response?.status()).toBe(200);
+
+  const hero = page.locator('[data-ia-section="hero"] img').first();
+  await expect(hero).toBeVisible();
+  await expect(hero).toHaveJSProperty("complete", true);
+  const currentSrc = await hero.evaluate((element) => (element as HTMLImageElement).currentSrc);
+  expect(new URL(currentSrc).pathname).toBe("/images/wild-rift/hero.webp");
+
+  const sourceResponse = await request.get(currentSrc);
+  expect(sourceResponse.status()).toBe(200);
+  expect(sourceResponse.headers()["content-type"]).toContain("image/webp");
+  expect((await sourceResponse.body()).length).toBeLessThan(60_000);
+
+  const heroResources = () =>
+    page.evaluate(() =>
+      (performance.getEntriesByType("resource") as PerformanceResourceTiming[])
+        .filter((entry) => decodeURIComponent(entry.name).includes("/images/wild-rift/hero.webp"))
+        .map((entry) => ({
+          url: entry.name,
+          transferSize: entry.transferSize,
+        })),
+    );
+
+  const before = await heroResources();
+  const beforeBytes = before.reduce((sum, entry) => sum + entry.transferSize, 0);
+
+  await page.getByRole("tab", { name: /^Jungle$/ }).click();
+  await expect(page.locator('[data-ia-section="role-tier-workspace"]')).toBeVisible();
+  await page.waitForLoadState("networkidle");
+  await page.waitForTimeout(100);
+
+  const after = await heroResources();
+  const afterBytes = after.reduce((sum, entry) => sum + entry.transferSize, 0);
+  expect(after.length).toBeGreaterThanOrEqual(1);
+  expect(after.every((entry) => new URL(entry.url).pathname === "/images/wild-rift/hero.webp")).toBe(
+    true,
+  );
+  expect(new Set(after.map((entry) => entry.url)).size).toBe(1);
+  expect(afterBytes).toBeLessThanOrEqual(60_000);
+  expect(afterBytes - beforeBytes).toBe(0);
+});
+
 for (const width of [390, 1920, 2560]) {
   test(`Genshin image candidates at ${width}px match DPR without avatar preloads`, async ({
     page,

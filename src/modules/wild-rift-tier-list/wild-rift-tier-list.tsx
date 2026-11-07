@@ -59,7 +59,7 @@ export function WildRiftTierList() {
     <main className={styles.page}>
       <header className={styles.hero} data-ia-section="hero">
         <div className={styles.heroArtwork} aria-hidden="true">
-          <Image src="/images/wild-rift/hero.webp" alt="" fill priority sizes="100vw" />
+          <Image src="/images/wild-rift/hero.webp" alt="" fill priority sizes="100vw" unoptimized />
         </div>
         <div className={styles.heroAtmosphere} aria-hidden="true">
           <span />
