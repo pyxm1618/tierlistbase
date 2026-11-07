@@ -5,10 +5,7 @@ import {
   SEO_KEYWORD_DENSITY_MAX_PCT,
   SEO_KEYWORD_DENSITY_MIN_PCT,
 } from "../../seo/keyword-density";
-import {
-  assertSeoDensityResult,
-  parseSeoDensityMode,
-} from "../../seo/keyword-density.config";
+import { assertSeoDensityResult, parseSeoDensityMode } from "../../seo/keyword-density.config";
 
 function hundredWords(keyword: string, occurrences: number): string {
   return [

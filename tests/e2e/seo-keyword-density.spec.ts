@@ -78,7 +78,7 @@ async function readVisibleSeoText(page: Page, selector: string): Promise<string>
   return texts.join(" ");
 }
 
-test("SEO editorial reader excludes hidden text, controls, and dialog content", async ({ page }) => {
+test("SEO editorial reader excludes hidden and non-editorial UI", async ({ page }) => {
   test.skip(selected.size === 0, "SEO density audit not selected by changed-file scope");
 
   await page.setContent(`
