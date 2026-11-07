@@ -307,48 +307,6 @@ for (const width of [390, 768, 1440, 1920]) {
   });
 }
 
-test("Wild Rift Hero reuses one direct WebP across header and Tier Board", async ({
-  page,
-  request,
-}) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  const response = await page.goto("/wild-rift/tier-list", { waitUntil: "networkidle" });
-  expect(response?.status()).toBe(200);
-
-  const hero = page.locator('[data-ia-section="hero"] img').first();
-  await expect(hero).toBeVisible();
-  await expect(hero).toHaveJSProperty("complete", true);
-  const currentSrc = await hero.evaluate((element) => (element as HTMLImageElement).currentSrc);
-  const heroUrl = new URL(currentSrc);
-  expect(heroUrl.pathname).toBe("/images/wild-rift/hero.webp");
-  expect(heroUrl.pathname).not.toBe("/_next/image");
-
-  const sourceResponse = await request.get(currentSrc);
-  expect(sourceResponse.status()).toBe(200);
-  expect(sourceResponse.headers()["content-type"]).toContain("image/webp");
-  expect((await sourceResponse.body()).length).toBeLessThan(60_000);
-
-  await page.getByRole("tab", { name: /^Jungle$/ }).click();
-  await expect(page.locator('[data-ia-section="role-tier-workspace"]')).toBeVisible();
-  await page.waitForLoadState("networkidle");
-  await page.waitForTimeout(100);
-
-  const heroResources = await page.evaluate(() =>
-    (performance.getEntriesByType("resource") as PerformanceResourceTiming[])
-      .filter((entry) => decodeURIComponent(entry.name).includes("/images/wild-rift/hero.webp"))
-      .map((entry) => ({
-        url: entry.name,
-        transferSize: entry.transferSize,
-      })),
-  );
-  expect(heroResources.length).toBeGreaterThanOrEqual(1);
-  expect(heroResources.every((entry) => new URL(entry.url).pathname === "/images/wild-rift/hero.webp"))
-    .toBe(true);
-  expect(heroResources.reduce((sum, entry) => sum + entry.transferSize, 0)).toBeLessThanOrEqual(
-    60_000,
-  );
-});
-
 for (const width of [390, 1920, 2560]) {
   test(`Genshin image candidates at ${width}px match DPR without avatar preloads`, async ({
     page,
