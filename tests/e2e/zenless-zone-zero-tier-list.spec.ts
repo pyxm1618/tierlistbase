@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 import { routeRegistry } from "@/config/routes.config";
+import { gameVersion, snapshotDate } from "@/modules/zenless-zone-zero-tier-list/data";
 
 const route = "/zenless-zone-zero/tier-list";
 const hasProjectRouteInventory = routeRegistry.routes.some(
@@ -43,6 +44,13 @@ test("ZZZ uses the shared marketing shell and preserves the frozen decision arch
   await expect(page.locator('nav[aria-label="ZZZ page utility navigation"]')).toHaveCount(0);
 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("ZZZ Tier List");
+
+  const rankingContext = page.getByRole("note", { name: "Agent ranking context" });
+  await expect(rankingContext).toBeVisible();
+  await expect(rankingContext).toContainText(`Version ${gameVersion}`);
+  await expect(rankingContext.locator("time")).toHaveAttribute("datetime", snapshotDate);
+  await expect(rankingContext).toContainText("Source · TierListBase editorial data");
+  await expect(rankingContext).toContainText("mode-specific tiers");
 
   const primary = page.locator('nav[aria-label="Tier list primary sections"]');
   const agentsTab = primary.getByRole("tab", { name: /^Agents/ });
