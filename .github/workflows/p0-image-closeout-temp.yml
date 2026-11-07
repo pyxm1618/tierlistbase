@@ -299,7 +299,7 @@ jobs:
           git fetch origin main
           git diff --cached --name-only HEAD > /tmp/p0-final-files.txt
           git diff --cached --diff-filter=ACMRTUXB --name-only HEAD > /tmp/p0-final-nondeletes.txt
-          bad="$(grep -Ev '^(\.github/workflows/p0-image-closeout-temp\.yml|zzz-asset-manifest\.json|src/modules/zenless-zone-zero-tier-list/(assets/|icons\.ts$)|tests/unit/zenless-zone-zero-tier-list/|src/modules/nikke-tier-list/(assets/avatars/|character-avatars\.ts$)|tests/unit/nikke/|tests/performance/p0-(codec-bundle\\.js|nikke-batch\\.js|image-optimize\\.mjs)$)' /tmp/p0-final-nondeletes.txt || true)"
+          bad="$(grep -Ev '^(\.github/workflows/p0-image-closeout-temp\.yml|zzz-asset-manifest\.json|src/modules/zenless-zone-zero-tier-list/(assets/|icons\.ts$)|tests/unit/zenless-zone-zero-tier-list/|src/modules/nikke-tier-list/(assets/avatars/|character-avatars\.ts$)|tests/unit/nikke/|tests/performance/p0-(codec-bundle\.js|nikke-batch\.js|image-optimize\\.mjs)$)' /tmp/p0-final-nondeletes.txt || true)"
           if [ -n "$bad" ]; then
             echo "Unexpected final P0 path(s):"
             echo "$bad"
