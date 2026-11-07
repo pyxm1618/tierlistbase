@@ -56,11 +56,11 @@ export function WowInsights({
   return (
     <section className={styles.section} aria-labelledby="wow-insights-heading">
       <h2 id="wow-insights-heading">
-        WoW Tier List Quick Insights <span>· Level 30 Beta</span>
+        Quick Insights <span>· Archived Level 30 Beta Snapshot</span>
       </h2>
       <p>
-        These WoW Tier List insights summarize the current ranking context without changing the
-        underlying scores, samples or evidence.
+        These WoW Tier List insights summarize the archived Beta ranking snapshot without changing
+        the underlying scores, samples or evidence.
       </p>
       <div className={styles.insights}>
         {insights.map(([label, name, detail]) => (
@@ -78,7 +78,7 @@ export function WowChanges({ changes }: { changes: RecentRatingChangeItem[] }) {
   return (
     <section className={styles.section} aria-labelledby="wow-changes-heading">
       <h2 id="wow-changes-heading">
-        WoW Tier List Changes <span>· Ranking movement</span>
+        What Changed <span>· Beta snapshot movement</span>
       </h2>
       {changes.length === 0 ? (
         <p>No recorded tier changes yet.</p>
@@ -98,8 +98,9 @@ export function WowChanges({ changes }: { changes: RecentRatingChangeItem[] }) {
         </ol>
       )}
       <p className={styles.contextNote}>
-        For this WoW Forever Tier List, only the selected context and version are shown. A missing
-        record does not establish Stable; ranking changes do not establish buffs or nerfs.
+        For this archived WoW Forever Tier List, only movement recorded within the selected Beta
+        context and version is shown. A missing record does not establish Stable. The WoW Tier List
+        does not infer launch-era buffs or nerfs from this Beta record.
       </p>
     </section>
   );
@@ -114,10 +115,10 @@ export function WowSources({ specs }: { specs: WowSpec[] }) {
   ];
   return (
     <section className={styles.section} aria-labelledby="wow-sources-heading">
-      <h2 id="wow-sources-heading">WoW Tier List Sources &amp; Evidence</h2>
+      <h2 id="wow-sources-heading">Sources &amp; Evidence</h2>
       <p>
-        Evidence for the WoW Forever Tier List links performance data to Forever Logs and official
-        Beta context to Blizzard.
+        Evidence for this archived WoW Tier List links the recorded Beta performance data to Forever
+        Logs and the historical Beta context to Blizzard.
       </p>
       <div className={styles.sourceGrid}>
         <article>
@@ -127,7 +128,8 @@ export function WowSources({ specs }: { specs: WowSpec[] }) {
           <strong>Primary Performance Data</strong>
           <p>
             {sources.filter((s) => s.sourceType === "data").length} linked performance data
-            source(s). Aggregate dungeon performance, visibly attributed to Forever Logs.
+            source(s). This WoW Tier List preserves aggregate dungeon performance visibly attributed
+            to Forever Logs.
           </p>
         </article>
         <article>
@@ -138,8 +140,11 @@ export function WowSources({ specs }: { specs: WowSpec[] }) {
           >
             Blizzard ↗
           </a>
-          <strong>Official Beta / Game Context</strong>
-          <p>Official Level Cap and Dungeon availability. Not a performance rating source.</p>
+          <strong>Official Beta Snapshot Context</strong>
+          <p>
+            The WoW Tier List uses the official Beta level cap and dungeon availability for this
+            archived snapshot. This is not a live post-launch performance source.
+          </p>
         </article>
         {["Wowhead", "Mobalytics"].map((name) => (
           <article key={name}>
@@ -185,11 +190,11 @@ export function WowMethodology() {
     ],
     [
       "Does Level 30 mean only Level 30 players?",
-      "No. Level 30 is the Beta level-cap context. Forever Logs aggregate statistics do not expose a player-level filter. This board uses selected near-cap dungeons.",
+      "No. Level 30 was the Beta level-cap context for this archived snapshot. Forever Logs aggregate statistics did not expose a player-level filter. This board preserves the selected near-cap dungeons from that Beta dataset.",
     ],
     [
-      "What does Current mean?",
-      "Current requires stored phase provenance consistent with the reviewed official Beta context and both observations and publication verification within 24 hours. Unverified data is Preliminary; expired evidence is Stale. This is a publication policy, not statistical confidence.",
+      "What does the snapshot status mean?",
+      "The status describes evidence freshness against the stored Beta publication policy at the time of capture. It does not mean these Beta rankings are current for the live post-launch game. The page remains archived until a separately reviewed post-launch dataset is available.",
     ],
     [
       "Which dungeons are included?",
@@ -199,11 +204,11 @@ export function WowMethodology() {
   ];
   return (
     <section className={styles.methodology} aria-labelledby="wow-methodology-heading">
-      <h2 id="wow-methodology-heading">WoW Tier List Methodology &amp; FAQ</h2>
+      <h2 id="wow-methodology-heading">Methodology &amp; FAQ</h2>
       <p>
-        The WoW Tier List methodology applies the existing score, sample and tier-band rules to this
-        fixed Dungeon context. The WoW Forever Tier List keeps Pending when evidence is
-        insufficient.
+        This WoW Tier List methodology preserves the existing score, sample and tier-band rules for
+        the archived Dungeon snapshot. The WoW Forever Tier List keeps Pending when Beta evidence
+        was insufficient.
       </p>
       <div>
         {faqs.map(([question, answer]) => (
