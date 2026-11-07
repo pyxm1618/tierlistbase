@@ -68,7 +68,9 @@ test("Genshin V1 preserves the complete architecture, local filters and reviewed
   ]);
   await expect(page.locator("[data-character-card]")).toHaveCount(121);
   await expect(page.locator("[data-character-card][aria-pressed=true]")).toHaveCount(0);
-  await expect(page.locator('[data-ia-section="ranking-context"]')).toContainText("Snapshot Version");
+  await expect(page.locator('[data-ia-section="ranking-context"]')).toContainText(
+    "Snapshot Version",
+  );
   await expect(page.locator('[data-ia-section="ranking-context"]')).toContainText("7.1");
   await expect(page.locator('[data-ia-section="ranking-context"]')).not.toContainText(
     "Current Version",
