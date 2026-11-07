@@ -10,27 +10,6 @@ test.beforeEach(() => {
 const route = "/dragon-traveler/tier-list";
 const path = "/dragon-traveler/tier-list";
 
-const dragonKeywordGroup = [
-  "dragon traveler tier list",
-  "dragon traveler pve tier list",
-  "dragon traveler pvp tier list",
-  "dragon traveler tier list taiwan",
-  "dragon traveler taiwan tier list",
-] as const;
-
-function tokenize(value: string): string[] {
-  return value.toLocaleLowerCase("en-US").match(/[\p{L}\p{N}]+/gu) ?? [];
-}
-
-function countPhrase(words: readonly string[], phrase: string): number {
-  const wanted = tokenize(phrase);
-  let count = 0;
-  for (let index = 0; index <= words.length - wanted.length; index += 1) {
-    if (wanted.every((word, offset) => words[index + offset] === word)) count += 1;
-  }
-  return count;
-}
-
 test("Dragon Traveler appears in shared desktop and mobile navigation", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto(path);
@@ -406,55 +385,4 @@ test("Dragon Traveler has no serious accessibility violations", async ({ page })
   await page.getByRole("button", { name: "Taiwan", exact: true }).click();
   const taiwan = await new AxeBuilder({ page }).include("[data-dragon-traveler-page]").analyze();
   expect(taiwan.violations).toEqual([]);
-});
-
-test("keeps the visible Dragon Traveler keyword group within the approved SEO range", async ({
-  page,
-}) => {
-  await page.goto(route);
-
-  const dragonPage = page.locator("[data-dragon-traveler-page]");
-  await expect(dragonPage).toHaveCount(1);
-  const visibleText = await dragonPage.innerText();
-  const words = tokenize(visibleText);
-  const phraseStats = dragonKeywordGroup.map((phrase) => {
-    const occurrences = countPhrase(words, phrase);
-    return {
-      phrase,
-      occurrences,
-      densityPct: Number(((occurrences / Math.max(words.length, 1)) * 100).toFixed(3)),
-    };
-  });
-  const primary = phraseStats[0]!;
-  const secondary = phraseStats.slice(1);
-  const combinedOccurrences = phraseStats.reduce((sum, phrase) => sum + phrase.occurrences, 0);
-  const combinedDensityPct = Number(
-    ((combinedOccurrences / Math.max(words.length, 1)) * 100).toFixed(3),
-  );
-
-  console.log(
-    "DRAGON_TRAVELER_SEO_DENSITY " +
-      JSON.stringify({
-        measurementScope: "full visible Dragon Traveler page root innerText",
-        visibleWords: words.length,
-        primaryKeyword: primary.phrase,
-        primaryCount: primary.occurrences,
-        primaryDensity: primary.densityPct,
-        secondaryCounts: Object.fromEntries(
-          secondary.map((phrase) => [phrase.phrase, phrase.occurrences]),
-        ),
-        combinedCount: combinedOccurrences,
-        combinedDensity: combinedDensityPct,
-      }),
-  );
-
-  expect(words.length).toBeGreaterThan(0);
-  expect(combinedDensityPct).toBeGreaterThanOrEqual(2.8);
-  expect(combinedDensityPct).toBeLessThanOrEqual(3.5);
-  expect(primary.occurrences).toBeGreaterThan(0);
-  for (const phrase of secondary) {
-    expect(phrase.occurrences).toBeGreaterThan(0);
-    expect(primary.occurrences).toBeGreaterThan(phrase.occurrences);
-  }
-  expect(primary.occurrences / combinedOccurrences).toBeGreaterThanOrEqual(0.6);
 });

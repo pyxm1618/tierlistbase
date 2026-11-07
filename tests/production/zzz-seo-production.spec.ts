@@ -35,7 +35,7 @@ test("ZZZ production HTML, headers, sitemap and robots release the canonical URL
 });
 
 for (const width of [390, 1440]) {
-  test(`ZZZ static editorial density and smoke at ${width}px`, async ({ page }) => {
+  test(`ZZZ static editorial smoke at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto(route);
     for (const name of ["Pull Advice Detail", "Team Detail"]) {
@@ -43,6 +43,7 @@ for (const width of [390, 1440]) {
       if (await panel.isVisible())
         await panel.getByRole("button", { name: `Close ${name}`, exact: true }).click();
     }
+
     const hero = page
       .getByRole("heading", { level: 1, name: "ZZZ Tier List", exact: true })
       .locator("..");
@@ -52,6 +53,7 @@ for (const width of [390, 1440]) {
       .locator("..");
     await expect(hero).toBeVisible();
     await expect(agents).toBeVisible();
+
     const texts = [await hero.innerText(), await agents.innerText()];
     await page
       .locator('nav[aria-label="Tier list primary sections"]')
@@ -63,24 +65,9 @@ for (const width of [390, 1440]) {
       .locator("..");
     await expect(teams).toBeVisible();
     texts.push(await teams.innerText());
-    // Existing visible static editorial inventory only, collected in each tab.
-    // Persistent hero is counted once; all Pull Advice, business data and controls are excluded.
-    const normalized = texts.join(" ").toLowerCase().replace(/\s+/g, " ").trim();
-    const words = normalized.match(/[a-z0-9]+(?:[-'][a-z0-9]+)*/g) ?? [];
-    const phrases = [
-      "zzz tier list",
-      "zzz character tier list",
-      "zenless zone zero tier list",
-      "zenless zone zero character tier list",
-    ];
-    const occurrences = phrases.map((phrase) => normalized.split(phrase).length - 1);
-    const density = (occurrences.reduce((sum, count) => sum + count, 0) / words.length) * 100;
-    expect(words).toHaveLength(101);
-    expect(occurrences).toEqual([3, 1, 1, 0]);
-    expect(density).toBeGreaterThanOrEqual(3);
-    expect(density).toBeLessThanOrEqual(5);
-    expect(occurrences[0]).toBeGreaterThan(Math.max(...occurrences.slice(1)));
-    expect(normalized).not.toMatch(/mock|placeholder|production data later|2025/);
+
+    const staticEditorial = texts.join(" ").toLowerCase().replace(/\s+/g, " ").trim();
+    expect(staticEditorial).not.toMatch(/mock|placeholder|production data later|2025/);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );

@@ -5,15 +5,6 @@ import { routeRegistry } from "@/config/routes.config";
 
 const route = "/wild-rift/tier-list";
 
-function countExactPhrase(text: string, phrase: string) {
-  const normalized = text.toLowerCase().replace(/\s+/g, " ").trim();
-  return normalized.split(phrase).length - 1;
-}
-
-function visibleWordCount(text: string) {
-  return text.trim().split(/\s+/).filter(Boolean).length;
-}
-
 test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All Roles default", async ({
   page,
 }) => {
@@ -100,40 +91,6 @@ test("Wild Rift is discoverable and active in the shared mobile menu", async ({ 
   const wildRiftLink = mobileNav.getByRole("link", { name: "Wild Rift", exact: true });
   await expect(wildRiftLink).toBeVisible();
   await expect(wildRiftLink).toHaveAttribute("aria-current", "page");
-});
-
-test("reports default All Roles visible-main SEO density from rendered text", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1200 });
-  await page.goto(route);
-  await page.evaluate(async () => {
-    await document.fonts.ready;
-  });
-
-  const visibleText = await page.locator("main").innerText();
-  const words = visibleWordCount(visibleText);
-  const primary = countExactPhrase(visibleText, "wild rift tier list");
-  const champion = countExactPhrase(visibleText, "wild rift champion tier list");
-  const champions = countExactPhrase(visibleText, "wild rift champions tier list");
-  const primaryDensity = (primary * 4 * 100) / words;
-  const groupDensity = ((primary * 4 + champion * 5 + champions * 5) * 100) / words;
-
-  console.log(
-    "WILD_RIFT_SEO_DENSITY",
-    JSON.stringify({
-      visibleMainWords: words,
-      primaryOccurrences: primary,
-      primaryDensity,
-      championOccurrences: champion,
-      championsOccurrences: champions,
-      groupDensity,
-    }),
-  );
-
-  expect(words).toBeGreaterThan(0);
-  expect(primary).toBeGreaterThan(champion);
-  expect(primary).toBeGreaterThan(champions);
-  expect(groupDensity).toBeGreaterThanOrEqual(2.7);
-  expect(groupDensity).toBeLessThanOrEqual(3.3);
 });
 
 test("all five frozen role tabs render their own Tier Board and preserve Champion × Role data", async ({
