@@ -50,7 +50,6 @@ function Portrait({
       alt={name ? `${name} portrait` : ""}
       width={size}
       height={size}
-      unoptimized
     />
   );
 }
@@ -81,8 +80,7 @@ function CharacterDetail({
           src={portraits[character.id]!}
           alt={character.displayName}
           fill
-          sizes="(max-width: 600px) 100vw, 335px"
-          unoptimized
+          sizes="(max-width: 600px) 100vw, (max-width: 850px) 240px, 422px"
         />
         <div>
           <p className={styles.eyebrow}>

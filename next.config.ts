@@ -46,6 +46,31 @@ const nextConfig: NextConfig = {
         hostname: "media.tierlistbase.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "spire-codex.com",
+        pathname: "/static/images/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.spire-codex.com",
+        pathname: "/cards/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.spire-codex.com",
+        pathname: "/relics/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.spire-codex.com",
+        pathname: "/characters/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.spire-codex.com",
+        pathname: "/potions/**",
+      },
     ],
   },
   async headers() {

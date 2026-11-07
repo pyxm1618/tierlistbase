@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState, type KeyboardEvent } from "react";
 
@@ -94,7 +95,14 @@ function CardOption({
       aria-label={`${card.name}, ${card.tier} tier`}
       onClick={onSelect}
     >
-      <img src={card.image} alt="" loading="lazy" decoding="async" />
+      <Image
+        src={card.image}
+        alt=""
+        width={250}
+        height={172}
+        sizes="(max-width: 620px) calc((100vw - 133px) / 2), 90px"
+        loading="lazy"
+      />
       <span>{card.name}</span>
       <small data-card-tier={showTier ? card.tier : undefined}>
         {showTier ? `${card.tier} tier · ${card.type}` : card.type}
@@ -107,7 +115,13 @@ function CardDetail({ card }: { card: SlayCard }) {
   return (
     <aside className={styles.detail} aria-label="Card Detail" data-card-detail>
       <div className={styles.detailTop}>
-        <img src={card.image} alt={`${card.name} card artwork`} loading="lazy" decoding="async" />
+        <Image
+          src={card.image}
+          alt={`${card.name} card artwork`}
+          width={96}
+          height={130}
+          loading="lazy"
+        />
         <div>
           <p className={styles.eyebrow}>{card.poolName}</p>
           <h3>{card.name}</h3>
@@ -420,7 +434,7 @@ function RelicsPanel() {
               <div className={styles.secondaryGrid}>
                 {items.map((relic) => (
                   <article key={relic.id} className={styles.entityCard}>
-                    <img src={relic.image} alt="" loading="lazy" decoding="async" />
+                    <Image src={relic.image} alt="" width={54} height={54} loading="lazy" />
                     <div>
                       <h4>{relic.name}</h4>
                       <p>{formatSlayGameText(relic.description)}</p>
@@ -469,7 +483,7 @@ function CharactersPanel() {
                     className={styles.characterCard}
                     data-character-id={character.id.toLocaleLowerCase("en-US")}
                   >
-                    <img src={character.image} alt="" loading="lazy" decoding="async" />
+                    <Image src={character.image} alt="" width={86} height={86} loading="lazy" />
                     <div>
                       <h4>{character.name}</h4>
                       <p>
@@ -518,7 +532,7 @@ function PotionsPanel() {
               <div className={styles.secondaryGrid}>
                 {items.map((potion) => (
                   <article key={potion.id} className={styles.entityCard}>
-                    <img src={potion.image} alt="" loading="lazy" decoding="async" />
+                    <Image src={potion.image} alt="" width={54} height={54} loading="lazy" />
                     <div>
                       <h4>{potion.name}</h4>
                       <p>{formatSlayGameText(potion.description)}</p>
