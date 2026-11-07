@@ -13,5 +13,5 @@ export const seoConfig = {
   defaultDescription:
     "The evidence-based Game Meta Board for World of Warcraft: Forever. Multi-source consensus, patch tracking, and transparent tier changes.",
   defaultOgImage: "/og/default.svg",
-  releaseStatus: "draft",
+  releaseStatus: "reviewed",
 } as const satisfies SiteSeoConfig;

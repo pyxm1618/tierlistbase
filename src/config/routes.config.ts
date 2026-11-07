@@ -270,7 +270,8 @@ export const routeDefinitions = [
     pageType: "WebApplication",
     relatedRoutes: ["/", "/privacy", "/terms"],
     lastModified: "2026-11-06",
-    reviewStatus: "draft",
+    reviewStatus: "reviewed",
+    reviewFingerprint: "035f13e6e337b511080f022178515646e88c0d5e7e6e9ed902f8e2904765f58f",
   },
   {
     route: "/privacy",
