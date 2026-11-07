@@ -117,8 +117,8 @@ export function WowSources({ specs }: { specs: WowSpec[] }) {
     <section className={styles.section} aria-labelledby="wow-sources-heading">
       <h2 id="wow-sources-heading">Sources &amp; Evidence</h2>
       <p>
-        Evidence for this archived WoW Tier List links the recorded Beta performance data to
-        Forever Logs and the historical Beta context to Blizzard.
+        Evidence for this archived WoW Tier List links the recorded Beta performance data to Forever
+        Logs and the historical Beta context to Blizzard.
       </p>
       <div className={styles.sourceGrid}>
         <article>
