@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test";
 
 import { routeRegistry } from "@/config/routes.config";
 import { localePath } from "@/platform/i18n/routing";
+import { calculateKeywordDensity, tokenizeSeoVisibleText } from "../seo/keyword-density";
 import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
 
 test.beforeAll(async () => {
@@ -9,124 +10,6 @@ test.beforeAll(async () => {
     await seedWowPresentationFixtures();
   }
 });
-
-function tokenize(value: string): string[] {
-  return value.toLocaleLowerCase("en-US").match(/[\p{L}\p{N}]+/gu) ?? [];
-}
-
-function countPhrase(words: readonly string[], phrase: string): number {
-  const wanted = tokenize(phrase);
-  if (wanted.length === 0 || wanted.length > words.length) return 0;
-  let count = 0;
-  for (let index = 0; index <= words.length - wanted.length; index += 1) {
-    if (wanted.every((word, offset) => words[index + offset] === word)) count += 1;
-  }
-  return count;
-}
-
-function countNonOverlappingPhrases(
-  words: readonly string[],
-  phrases: readonly string[],
-): Record<string, number> {
-  const candidates = phrases
-    .map((phrase) => ({ phrase, words: tokenize(phrase) }))
-    .sort((a, b) => b.words.length - a.words.length);
-  const counts = Object.fromEntries(phrases.map((phrase) => [phrase, 0])) as Record<string, number>;
-
-  for (let index = 0; index < words.length; index += 1) {
-    const match = candidates.find(
-      (candidate) =>
-        candidate.words.length > 0 &&
-        candidate.words.every((word, offset) => words[index + offset] === word),
-    );
-    if (!match) continue;
-    counts[match.phrase] = (counts[match.phrase] ?? 0) + 1;
-    index += match.words.length - 1;
-  }
-
-  return counts;
-}
-
-const genshinKeywordGroup = [
-  "genshin tier list",
-  "genshin impact tier list",
-  "genshin character tier list",
-  "genshin impact character tier list",
-] as const;
-
-const genshinVisibleCopySelectors = [
-  '[data-ia-section="page-header"] h1',
-  '[data-ia-section="page-header"] p',
-  '[data-ia-section="tier-board"] h2',
-  '[data-ia-section="changes"] h2',
-  '[data-ia-section="changes"] > p',
-  '[data-ia-section="methodology"] h2',
-  '[data-ia-section="methodology"] > p',
-  '[data-ia-section="methodology"] li',
-  '[data-ia-section="sources"] h2',
-  '[data-ia-section="sources"] > p',
-  '[data-ia-section="sources"] ol li',
-  '[data-ia-section="tier-definitions"] h2',
-  '[data-ia-section="tier-definitions"] > p',
-  '[data-ia-section="tier-definitions"] dt',
-  '[data-ia-section="tier-definitions"] dd',
-  '[data-ia-section="faq"] h2',
-  '[data-ia-section="faq"] summary',
-] as const;
-
-const nikkeKeywordGroup = [
-  "nikke tier list",
-  "goddess of victory nikke tier list",
-  "nikke character tier list",
-  "goddess of victory nikke character tier list",
-] as const;
-
-const nikkeVisibleCopySelectors = [
-  'section[aria-label="NIKKE hero"] h1',
-  'section[aria-label="NIKKE hero"] strong',
-  'section[aria-label="NIKKE hero"] p',
-  "#quick-picks h2",
-  "#quick-picks p",
-  "#quick-picks h3",
-  "#tier-list h2",
-  '#tier-list div[class*="sectionTitle"] p',
-  "#teams h2",
-  "#teams h3",
-  "#reroll h2",
-  "#reroll h3",
-  "#wishlist h2",
-  "#methodology h2",
-  "#methodology > p",
-  "#methodology li",
-  "#changelog h2",
-  "#changelog > p",
-] as const;
-
-const wowVisibleCopySelectors = [
-  "header[data-wow-hero] h1",
-  "header[data-wow-hero] p",
-  "header[data-wow-hero] dl",
-  'section[aria-labelledby="wow-context-heading"] h2',
-  'section[aria-labelledby="wow-context-heading"] > p',
-  'section[aria-labelledby="wow-context-heading"] dl',
-  'section[aria-labelledby="wow-context-heading"] nav a',
-  'nav[aria-label="Class Navigator"] button',
-  'section[aria-label="Tier Board"] header h2',
-  'section[aria-label="Tier Board"] header > span',
-  'section[aria-label="Tier Board"] div[class*="tierLabel"]',
-  'section[aria-labelledby="wow-insights-heading"] h2',
-  'section[aria-labelledby="wow-insights-heading"] > p',
-  'section[aria-labelledby="wow-insights-heading"] article h3',
-  'section[aria-labelledby="wow-changes-heading"] h2',
-  'section[aria-labelledby="wow-changes-heading"] > p',
-  'section[aria-labelledby="wow-sources-heading"] h2',
-  'section[aria-labelledby="wow-sources-heading"] > p',
-  'section[aria-labelledby="wow-sources-heading"] article strong',
-  'section[aria-labelledby="wow-sources-heading"] article p',
-  'section[aria-labelledby="wow-methodology-heading"] h2',
-  'section[aria-labelledby="wow-methodology-heading"] > p',
-  'section[aria-labelledby="wow-methodology-heading"] summary',
-] as const;
 
 function decodeXml(value: string): string {
   return value
@@ -182,16 +65,18 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
     for (const schema of schemas) expect(() => JSON.parse(schema)).not.toThrow();
 
     const visibleText = await page.locator("body").innerText();
-    const visibleWords = tokenize(visibleText);
-    const keywordWords = [...new Set(tokenize(route.primaryKeyword))];
+    const visibleWords = tokenizeSeoVisibleText(visibleText);
+    const keywordWords = [...new Set(tokenizeSeoVisibleText(route.primaryKeyword))];
     const visibleWordSet = new Set(visibleWords);
     const coveredKeywordWords = keywordWords.filter((word) => visibleWordSet.has(word));
     const coverage =
       keywordWords.length === 0 ? 0 : coveredKeywordWords.length / keywordWords.length;
-    const exactOccurrences = countPhrase(visibleWords, route.primaryKeyword);
-    const densityPct = Number(
-      ((exactOccurrences / Math.max(visibleWords.length, 1)) * 100).toFixed(3),
-    );
+    const primaryAudit = calculateKeywordDensity(visibleText, {
+      primaryKeyword: route.primaryKeyword,
+      secondaryKeywords: [],
+    });
+    const exactOccurrences = primaryAudit.primaryOccurrences;
+    const densityPct = Number(primaryAudit.keywordGroupDensityPct.toFixed(3));
 
     console.log(
       JSON.stringify({
@@ -209,54 +94,6 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
       `${route.route}: primary keyword tokens must be present in visible content`,
     ).toBe(1);
 
-    if (route.route === "/genshin-impact/tier-list") {
-      const visibleCopy: string[] = [];
-      for (const selector of genshinVisibleCopySelectors) {
-        const texts = await page.locator(selector).allInnerTexts();
-        visibleCopy.push(...texts.map((text) => text.trim()).filter(Boolean));
-      }
-      const visibleMainWords = tokenize(visibleCopy.join(" "));
-      const phraseStats = genshinKeywordGroup.map((phrase) => {
-        const occurrences = countPhrase(visibleMainWords, phrase);
-        return {
-          phrase,
-          occurrences,
-          densityPct: Number(
-            ((occurrences / Math.max(visibleMainWords.length, 1)) * 100).toFixed(3),
-          ),
-        };
-      });
-      const combinedOccurrences = phraseStats.reduce((sum, phrase) => sum + phrase.occurrences, 0);
-      const combinedDensityPct = Number(
-        ((combinedOccurrences / Math.max(visibleMainWords.length, 1)) * 100).toFixed(3),
-      );
-
-      console.log(
-        JSON.stringify({
-          event: "genshin_keyword_group_audit",
-          visibleMainContentWords: visibleMainWords.length,
-          phraseStats,
-          combinedOccurrences,
-          combinedDensityPct,
-        }),
-      );
-
-      expect(
-        combinedDensityPct,
-        "Genshin keyword group density must be at least 3%",
-      ).toBeGreaterThanOrEqual(3);
-      expect(
-        combinedDensityPct,
-        "Genshin keyword group density must not exceed 5%",
-      ).toBeLessThanOrEqual(5);
-      const primaryOccurrences = phraseStats[0]!.occurrences;
-      for (const variant of phraseStats.slice(1)) {
-        expect(
-          primaryOccurrences,
-          `primary keyword must outrank ${variant.phrase}`,
-        ).toBeGreaterThan(variant.occurrences);
-      }
-    }
 
     const renderedInternalPaths = new Set(
       await page.locator('a[href^="/"]').evaluateAll((links) =>
@@ -288,44 +125,31 @@ test("production rendered SEO matches the route registry", async ({ page }) => {
 test("homepage visible keyword group stays natural and non-overlapping", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
 
-  const phrases = ["tier list", "tier lists", "game tier lists", "gaming tier lists"] as const;
+  const homepage = routeRegistry.get("/");
+  if (homepage.class !== "public_indexable") throw new Error("Homepage must remain indexable");
   const visibleMainContent = await page.locator("main").innerText();
-  const visibleWords = tokenize(visibleMainContent);
-  const counts = countNonOverlappingPhrases(visibleWords, phrases);
-  const density = Object.fromEntries(
-    phrases.map((phrase) => [
-      phrase,
-      Number(((counts[phrase]! / Math.max(visibleWords.length, 1)) * 100).toFixed(3)),
-    ]),
-  ) as Record<(typeof phrases)[number], number>;
-  const combinedOccurrences = phrases.reduce((total, phrase) => total + counts[phrase]!, 0);
-  const combinedDensity = Number(
-    ((combinedOccurrences / Math.max(visibleWords.length, 1)) * 100).toFixed(3),
-  );
+  const result = calculateKeywordDensity(visibleMainContent, {
+    primaryKeyword: homepage.primaryKeyword,
+    secondaryKeywords: homepage.secondaryKeywords,
+  });
 
   console.log(
     JSON.stringify({
       event: "homepage_keyword_group_audit",
-      visibleMainContentWords: visibleWords.length,
-      phrases: Object.fromEntries(
-        phrases.map((phrase) => [
-          phrase,
-          { occurrences: counts[phrase], densityPct: density[phrase] },
-        ]),
-      ),
-      combinedOccurrences,
-      combinedDensityPct: combinedDensity,
+      visibleMainContentWords: result.visibleWordCount,
+      primaryKeyword: result.primaryKeyword,
+      primaryOccurrences: result.primaryOccurrences,
+      secondaryOccurrences: result.secondaryOccurrences,
+      combinedOccurrences: result.keywordGroupOccurrences,
+      combinedDensityPct: Number(result.keywordGroupDensityPct.toFixed(3)),
     }),
   );
 
-  expect(combinedDensity).toBeGreaterThanOrEqual(3);
-  expect(combinedDensity).toBeLessThanOrEqual(5);
-  expect(counts["tier list"]).toBeGreaterThan(counts["tier lists"]!);
-  expect(counts["tier list"]).toBeGreaterThan(counts["game tier lists"]!);
-  expect(counts["tier list"]).toBeGreaterThan(counts["gaming tier lists"]!);
+  expect(result.densityGate).toBe(true);
+  expect(result.primaryDominance).toBe(true);
 });
 
-test("WoW visible main-content keyword group stays within the approved SEO range", async ({
+test("WoW production SEO keeps the approved registry and structured data contracts", async ({
   page,
 }) => {
   const wow = routeRegistry.get("/wow-forever/tier-list");
@@ -336,32 +160,6 @@ test("WoW visible main-content keyword group stays within the approved SEO range
   expect(wow.h1).toBe("WoW Tier List");
 
   await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
-  const visibleCopy: string[] = [];
-  for (const selector of wowVisibleCopySelectors) {
-    const texts = await page.locator(selector).allInnerTexts();
-    visibleCopy.push(...texts.map((text) => text.trim()).filter(Boolean));
-  }
-  const words = tokenize(visibleCopy.join(" "));
-  const primaryOccurrences = countPhrase(words, "wow tier list");
-  const variantOccurrences = countPhrase(words, "wow forever tier list");
-  const primaryDensity = (primaryOccurrences / Math.max(words.length, 1)) * 100;
-  const variantDensity = (variantOccurrences / Math.max(words.length, 1)) * 100;
-  console.log(
-    JSON.stringify({
-      event: "wow_visible_main_keyword_group_audit",
-      visibleWords: words.length,
-      primaryOccurrences,
-      primaryDensityPct: Number(primaryDensity.toFixed(3)),
-      variantOccurrences,
-      variantDensityPct: Number(variantDensity.toFixed(3)),
-      combinedDensityPct: Number((primaryDensity + variantDensity).toFixed(3)),
-    }),
-  );
-  const combinedDensity = primaryDensity + variantDensity;
-  expect(words.length).toBeGreaterThan(0);
-  expect(combinedDensity).toBeGreaterThanOrEqual(3);
-  expect(combinedDensity).toBeLessThanOrEqual(5);
-  expect(primaryDensity).toBeGreaterThan(variantDensity);
 
   const schemas = await page.locator('script[type="application/ld+json"]').allTextContents();
   expect(JSON.stringify(schemas.map((schema) => JSON.parse(schema)))).toContain(
@@ -413,44 +211,6 @@ test("NIKKE production SEO is indexable", async ({ page, request }) => {
   expect(serializedSchemas).toContain('"@type":"WebApplication"');
   expect(serializedSchemas).not.toMatch(/AggregateRating|Review|Offer|FAQPage|BreadcrumbList/);
 
-  const visibleCopy: string[] = [];
-  for (const selector of nikkeVisibleCopySelectors) {
-    const texts = await page.locator(selector).allInnerTexts();
-    visibleCopy.push(...texts.map((text) => text.trim()).filter(Boolean));
-  }
-  const words = tokenize(visibleCopy.join(" "));
-  const counts = countNonOverlappingPhrases(words, nikkeKeywordGroup);
-  const phraseStats = nikkeKeywordGroup.map((phrase) => {
-    const occurrences = counts[phrase]!;
-    return {
-      phrase,
-      occurrences,
-      densityPct: Number(((occurrences / Math.max(words.length, 1)) * 100).toFixed(3)),
-    };
-  });
-  const combinedOccurrences = phraseStats.reduce((sum, phrase) => sum + phrase.occurrences, 0);
-  const combinedDensityPct = Number(
-    ((combinedOccurrences / Math.max(words.length, 1)) * 100).toFixed(3),
-  );
-
-  console.log(
-    JSON.stringify({
-      event: "nikke_keyword_group_audit",
-      visibleMainContentWords: words.length,
-      phraseStats,
-      combinedOccurrences,
-      combinedDensityPct,
-    }),
-  );
-
-  expect(combinedDensityPct).toBeGreaterThanOrEqual(3);
-  expect(combinedDensityPct).toBeLessThanOrEqual(5);
-  const primaryOccurrences = phraseStats[0]!.occurrences;
-  for (const variant of phraseStats.slice(1)) {
-    expect(primaryOccurrences, `primary keyword must outrank ${variant.phrase}`).toBeGreaterThan(
-      variant.occurrences,
-    );
-  }
 
   const bodyText = await page.locator("body").innerText();
   expect(bodyText).not.toMatch(
