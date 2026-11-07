@@ -734,6 +734,42 @@
   border-radius: 6px;
 }
 
+.rankingContext {
+  display: grid;
+  gap: 6px;
+  margin-top: 5px;
+  padding: 7px 9px;
+  border: 1px solid #243241;
+  border-left: 3px solid var(--zzz-yellow);
+  border-radius: 5px;
+  background: #0a1118;
+}
+
+.rankingContextMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px 12px;
+  font-size: 9px;
+  line-height: 1.3;
+}
+
+.rankingContextMeta strong {
+  color: #f6f8fb;
+}
+
+.rankingContextMeta time,
+.rankingContextMeta span {
+  color: #a8b5c2;
+}
+
+.rankingContext p {
+  margin: 0;
+  color: #8f9dac;
+  font-size: 8.5px;
+  line-height: 1.45;
+}
+
 .rankingTabs {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
