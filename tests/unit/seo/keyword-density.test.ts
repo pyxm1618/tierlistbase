@@ -4,7 +4,7 @@ import {
   calculateKeywordDensity,
   SEO_KEYWORD_DENSITY_MAX_PCT,
   SEO_KEYWORD_DENSITY_MIN_PCT,
-} from "../../seo/keyword-density";
+} from "../../seo/keyword-density";\nimport {\n  assertSeoDensityResult,\n  parseSeoDensityMode,\n} from "../../seo/keyword-density.config";
 
 function hundredWords(keyword: string, occurrences: number): string {
   return [
@@ -119,5 +119,30 @@ describe("SEO keyword density calculator", () => {
     });
     expect(result.secondaryOccurrences).toEqual({ beta: 1, gamma: 1, delta: 1 });
     expect(result.primaryDominance).toBe(true);
+  });
+});
+
+
+describe("SEO keyword density migration enforcement", () => {
+  const failingResult = calculateKeywordDensity(hundredWords("alpha", 2), {
+    primaryKeyword: "alpha",
+    secondaryKeywords: [],
+  });
+
+  test("report mode preserves a FAIL verdict without throwing", () => {
+    expect(failingResult.pass).toBe(false);
+    expect(() => assertSeoDensityResult(failingResult, "report", "Fixture")).not.toThrow();
+  });
+
+  test("enforce mode turns the same FAIL verdict into a blocking failure", () => {
+    expect(() => assertSeoDensityResult(failingResult, "enforce", "Fixture")).toThrow(
+      "keyword-group density must be between 3% and 5%",
+    );
+  });
+
+  test("defaults to enforce and rejects unknown modes", () => {
+    expect(parseSeoDensityMode(undefined)).toBe("enforce");
+    expect(parseSeoDensityMode("report")).toBe("report");
+    expect(() => parseSeoDensityMode("invalid")).toThrow("Unknown SEO_DENSITY_MODE");
   });
 });
