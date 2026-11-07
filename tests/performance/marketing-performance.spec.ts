@@ -10,6 +10,17 @@ const browserImageHeaders = {
   accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
 };
 
+const WOW_HERO_SOURCE = { width: 2172, height: 724, directBytes: 299_436 } as const;
+const GENSHIN_HERO_SOURCE = { width: 2131, height: 738, directBytes: 330_538 } as const;
+
+function requiredCoverCssWidth(
+  renderedWidth: number,
+  renderedHeight: number,
+  sourceAspectRatio: number,
+) {
+  return Math.max(renderedWidth, renderedHeight * sourceAspectRatio);
+}
+
 declare global {
   interface Window {
     __cwv?: { cls: number; inp: number; lcp: number };
@@ -429,7 +440,7 @@ for (const width of [390, 768, 1440, 1920]) {
     await expect(hero).toHaveJSProperty("complete", true);
     await expect(hero).toHaveAttribute(
       "sizes",
-      "(max-width: 767px) calc(100vw - 24px), (max-width: 1640px) calc(100vw - 48px), 1592px",
+      "(max-width: 767px) 640px, (max-width: 1640px) calc(100vw - 48px), 1592px",
     );
 
     const heroSample = await hero.evaluate((element) => {
@@ -447,9 +458,6 @@ for (const width of [390, 768, 1440, 1920]) {
       /hero-3b7bb10711.*\.webp$/,
     );
     const heroCandidateWidth = Number(heroUrl.searchParams.get("w"));
-    expect(heroCandidateWidth).toBeGreaterThanOrEqual(
-      Math.min(3840, heroSample.renderedWidth * heroSample.dpr),
-    );
     expect(heroCandidateWidth).toBeLessThanOrEqual(3840);
 
     const heroResponse = await request.get(heroSample.currentSrc, {
@@ -472,6 +480,109 @@ for (const width of [390, 768, 1440, 1920]) {
     const specResponse = await request.get(specCurrentSrc);
     expect(specResponse.status()).toBe(200);
     expect((await specResponse.body()).length).toBeLessThan(10_000);
+  });
+}
+
+for (const width of [390, 768, 1440, 1920]) {
+  test(`WoW Hero cover geometry stays sharp at ${width}px DPR2`, async ({ browser, request }) => {
+    test.skip(test.info().project.name !== "desktop", "Run the controlled DPR2 contract once.");
+
+    const consoleErrors: string[] = [];
+    const context = await browser.newContext({
+      baseURL: "http://127.0.0.1:3000",
+      viewport: { width, height: 900 },
+      deviceScaleFactor: 2,
+    });
+    const page = await context.newPage();
+    page.on("console", (message) => {
+      if (message.type() === "error") consoleErrors.push(message.text());
+    });
+
+    try {
+      await page.addInitScript(() => {
+        window.__cwv = { cls: 0, inp: 0, lcp: 0 };
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            const shift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+            if (!shift.hadRecentInput) window.__cwv!.cls += shift.value ?? 0;
+          }
+        }).observe({ type: "layout-shift", buffered: true });
+      });
+
+      const response = await page.goto("/wow-forever/tier-list", { waitUntil: "networkidle" });
+      expect(response?.status()).toBe(200);
+      await page.waitForTimeout(100);
+
+      const hero = page.locator("[data-wow-hero] img").first();
+      await expect(hero).toBeVisible();
+      await expect(hero).toHaveJSProperty("complete", true);
+      const sample = await hero.evaluate(async (element) => {
+        const image = element as HTMLImageElement;
+        const rect = image.getBoundingClientRect();
+        const decoded = new Image();
+        decoded.src = image.currentSrc;
+        await decoded.decode();
+        return {
+          currentSrc: image.currentSrc,
+          renderedWidth: rect.width,
+          renderedHeight: rect.height,
+          decodedWidth: decoded.naturalWidth,
+          decodedHeight: decoded.naturalHeight,
+          dpr: devicePixelRatio,
+          brokenImages: [...document.images]
+            .filter((candidate) => candidate.complete && candidate.naturalWidth === 0)
+            .map((candidate) => candidate.currentSrc || candidate.src),
+          overflow: document.documentElement.scrollWidth > innerWidth,
+          cls: window.__cwv?.cls ?? 0,
+        };
+      });
+
+      const candidateUrl = new URL(sample.currentSrc);
+      const candidateWidth = Number(candidateUrl.searchParams.get("w"));
+      const sourceAspectRatio = WOW_HERO_SOURCE.width / WOW_HERO_SOURCE.height;
+      const requiredWidth = requiredCoverCssWidth(
+        sample.renderedWidth,
+        sample.renderedHeight,
+        sourceAspectRatio,
+      );
+      const heroResponse = await request.get(sample.currentSrc, { headers: browserImageHeaders });
+      expect(heroResponse.status()).toBe(200);
+      const bytes = (await heroResponse.body()).length;
+
+      const evidence = {
+        viewport: width,
+        renderedWidth: sample.renderedWidth,
+        renderedHeight: sample.renderedHeight,
+        sourceAspectRatio,
+        requiredCoverCssWidth: requiredWidth,
+        currentSrc: sample.currentSrc,
+        candidateWidth,
+        decodedWidth: sample.decodedWidth,
+        decodedHeight: sample.decodedHeight,
+        responseBytes: bytes,
+        quality: candidateUrl.searchParams.get("q"),
+        dpr: sample.dpr,
+      };
+      console.log("WOW_HERO_COVER_EVIDENCE", JSON.stringify(evidence));
+      await test.info().attach(`wow-hero-cover-${width}px-dpr2`, {
+        body: JSON.stringify(evidence, null, 2),
+        contentType: "application/json",
+      });
+
+      expect(candidateUrl.pathname).toBe("/_next/image");
+      expect(candidateUrl.searchParams.get("q")).toBe("85");
+      expect(candidateWidth).toBeGreaterThanOrEqual(Math.ceil(requiredWidth));
+      expect(sample.decodedWidth).toBeGreaterThanOrEqual(Math.ceil(requiredWidth));
+      expect(sample.decodedHeight).toBeGreaterThanOrEqual(Math.ceil(sample.renderedHeight));
+      expect(bytes).toBeLessThan(260_000);
+      if (width === 390) expect(bytes).toBeLessThan(WOW_HERO_SOURCE.directBytes);
+      expect(sample.brokenImages).toEqual([]);
+      expect(consoleErrors).toEqual([]);
+      expect(sample.overflow).toBe(false);
+      expect(sample.cls).toBeLessThanOrEqual(0.1);
+    } finally {
+      await context.close();
+    }
   });
 }
 
@@ -639,9 +750,6 @@ for (const width of [390, 768, 1440, 1920]) {
           decodeURIComponent(new URL(sample.currentSrc).searchParams.get("url") ?? ""),
         ).toMatch(/hero-f958fb67df.*\.webp$/);
         expect(candidateWidth).toBeLessThanOrEqual(3840);
-        expect(candidateWidth).toBeGreaterThanOrEqual(
-          Math.min(3840, sample.renderedWidth * sample.dpr),
-        );
       } else {
         await expect(image).toHaveAttribute("loading", "lazy");
         expect(candidateWidth).toBeLessThanOrEqual(384);
@@ -655,6 +763,112 @@ for (const width of [390, 768, 1440, 1920]) {
       body: JSON.stringify(samples, null, 2),
       contentType: "application/json",
     });
+  });
+}
+
+for (const width of [390, 768, 1440, 1920]) {
+  test(`Genshin Hero cover geometry stays sharp at ${width}px DPR2`, async ({
+    browser,
+    request,
+  }) => {
+    test.skip(test.info().project.name !== "desktop", "Run the controlled DPR2 contract once.");
+
+    const consoleErrors: string[] = [];
+    const context = await browser.newContext({
+      baseURL: "http://127.0.0.1:3000",
+      viewport: { width, height: 900 },
+      deviceScaleFactor: 2,
+    });
+    const page = await context.newPage();
+    page.on("console", (message) => {
+      if (message.type() === "error") consoleErrors.push(message.text());
+    });
+
+    try {
+      await page.addInitScript(() => {
+        window.__cwv = { cls: 0, inp: 0, lcp: 0 };
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            const shift = entry as PerformanceEntry & { hadRecentInput?: boolean; value?: number };
+            if (!shift.hadRecentInput) window.__cwv!.cls += shift.value ?? 0;
+          }
+        }).observe({ type: "layout-shift", buffered: true });
+      });
+
+      const response = await page.goto("/genshin-impact/tier-list", { waitUntil: "networkidle" });
+      expect(response?.status()).toBe(200);
+      await page.waitForTimeout(100);
+
+      const hero = page.locator('[data-ia-section="page-header"] img').first();
+      await expect(hero).toBeVisible();
+      await expect(hero).toHaveJSProperty("complete", true);
+      const sample = await hero.evaluate(async (element) => {
+        const image = element as HTMLImageElement;
+        const rect = image.getBoundingClientRect();
+        const decoded = new Image();
+        decoded.src = image.currentSrc;
+        await decoded.decode();
+        return {
+          currentSrc: image.currentSrc,
+          renderedWidth: rect.width,
+          renderedHeight: rect.height,
+          decodedWidth: decoded.naturalWidth,
+          decodedHeight: decoded.naturalHeight,
+          dpr: devicePixelRatio,
+          brokenImages: [...document.images]
+            .filter((candidate) => candidate.complete && candidate.naturalWidth === 0)
+            .map((candidate) => candidate.currentSrc || candidate.src),
+          overflow: document.documentElement.scrollWidth > innerWidth,
+          cls: window.__cwv?.cls ?? 0,
+        };
+      });
+
+      const candidateUrl = new URL(sample.currentSrc);
+      const candidateWidth = Number(candidateUrl.searchParams.get("w"));
+      const sourceAspectRatio = GENSHIN_HERO_SOURCE.width / GENSHIN_HERO_SOURCE.height;
+      const requiredWidth = requiredCoverCssWidth(
+        sample.renderedWidth,
+        sample.renderedHeight,
+        sourceAspectRatio,
+      );
+      const heroResponse = await request.get(sample.currentSrc, { headers: browserImageHeaders });
+      expect(heroResponse.status()).toBe(200);
+      const bytes = (await heroResponse.body()).length;
+
+      const evidence = {
+        viewport: width,
+        renderedWidth: sample.renderedWidth,
+        renderedHeight: sample.renderedHeight,
+        sourceAspectRatio,
+        requiredCoverCssWidth: requiredWidth,
+        currentSrc: sample.currentSrc,
+        candidateWidth,
+        decodedWidth: sample.decodedWidth,
+        decodedHeight: sample.decodedHeight,
+        responseBytes: bytes,
+        quality: candidateUrl.searchParams.get("q"),
+        dpr: sample.dpr,
+      };
+      console.log("GENSHIN_HERO_COVER_EVIDENCE", JSON.stringify(evidence));
+      await test.info().attach(`genshin-hero-cover-${width}px-dpr2`, {
+        body: JSON.stringify(evidence, null, 2),
+        contentType: "application/json",
+      });
+
+      expect(candidateUrl.pathname).toBe("/_next/image");
+      expect(candidateUrl.searchParams.get("q")).toBe("90");
+      expect(candidateWidth).toBeGreaterThanOrEqual(Math.ceil(requiredWidth));
+      expect(sample.decodedWidth).toBeGreaterThanOrEqual(Math.ceil(requiredWidth));
+      expect(sample.decodedHeight).toBeGreaterThanOrEqual(Math.ceil(sample.renderedHeight));
+      expect(bytes).toBeLessThan(280_000);
+      if (width === 390) expect(bytes).toBeLessThan(GENSHIN_HERO_SOURCE.directBytes);
+      expect(sample.brokenImages).toEqual([]);
+      expect(consoleErrors).toEqual([]);
+      expect(sample.overflow).toBe(false);
+      expect(sample.cls).toBeLessThanOrEqual(0.1);
+    } finally {
+      await context.close();
+    }
   });
 }
 

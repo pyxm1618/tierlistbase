@@ -117,7 +117,7 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
             alt=""
             fill
             quality={85}
-            sizes="(max-width: 767px) calc(100vw - 24px), (max-width: 1640px) calc(100vw - 48px), 1592px"
+            sizes="(max-width: 767px) 640px, (max-width: 1640px) calc(100vw - 48px), 1592px"
             priority
             className={styles.heroImage}
           />
