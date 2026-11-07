@@ -117,7 +117,7 @@ for (const route of [
     selector: '[data-ia-section="page-header"] img',
   },
 ] as const) {
-  test(`${route.label} q85 hero four-viewport quality and network`, async ({ page }) => {
+  test(`${route.label} responsive hero four-viewport quality and network`, async ({ page }) => {
     test.setTimeout(300_000);
     const results = [];
 
@@ -128,7 +128,7 @@ for (const route of [
 
       const hero = await loadedImage(page.locator(route.selector).first());
       expect(new URL(hero.currentSrc).pathname).toBe("/_next/image");
-      expect(hero.quality).toBe("85");
+      expect(hero.quality).toBe(route.label === "Genshin" ? "90" : "85");
       const quality = await psnrForCurrentSrc(page, hero.currentSrc);
       expect(quality.psnr).toBeGreaterThanOrEqual(30);
 
@@ -146,7 +146,7 @@ for (const route of [
     }
 
     console.log(
-      `P2P3_Q85_HERO_OK ${JSON.stringify({ label: route.label, results })}`,
+      `P2P3_FINAL_HERO_OK ${JSON.stringify({ label: route.label, results })}`,
     );
   });
 }
