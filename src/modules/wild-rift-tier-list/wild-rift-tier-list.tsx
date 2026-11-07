@@ -14,13 +14,13 @@ import styles from "./wild-rift-tier-list.module.css";
 import { WildRiftWorkspace } from "./wild-rift-workspace";
 
 const heroDescription =
-  "Use this Wild Rift tier list to compare current Baron Lane, Jungle, Mid Lane, Dragon Lane, and Support rankings using role-specific evidence, ranked statistics, and reviewed patch context.";
+  "Use this Wild Rift tier list to compare current Baron Lane, Jungle, Mid Lane, Dragon Lane, and Support rankings using role-specific evidence, ranked statistics, and reviewed patch context. The Wild Rift champions tier list keeps those role views separate so one champion can rank differently by position.";
 const sourcesIntro =
-  "Evidence behind this Wild Rift tier list: patch facts, ranked statistics, and role-specific editorial review.";
+  "Evidence behind this Wild Rift tier list: patch facts, ranked statistics, and role-specific editorial review. The Wild Rift champion tier list keeps those evidence types separate instead of treating one statistic as the ranking.";
 const methodologyIntro =
-  "This Wild Rift champion tier list evaluates champions separately by role. Win Rate alone does not determine Tier; ranked statistics are interpreted with role context, reliability, execution burden, draft value, and patch evidence.";
+  "This Wild Rift champion tier list evaluates champions separately by role. The Wild Rift tier list interprets Win Rate with role context, reliability, execution burden, draft value, and patch evidence instead of using one statistic alone.";
 const faqIntro =
-  "Common questions about the current Wild Rift champions tier list and Ranked snapshot.";
+  "Common questions about the current Wild Rift champions tier list, the Wild Rift tier list methodology, and this Ranked snapshot.";
 
 const faq = [
   [
@@ -28,23 +28,23 @@ const faq = [
     "This reviewed snapshot uses China server Master+ Ranked statistics, with a solo-queue decision focus. The region and rank context are shown explicitly because this is not a global ranked dataset.",
   ],
   [
-    "Why do champions have different tiers in different roles?",
+    "Why does the Wild Rift champion tier list rank champions differently by role?",
     "The ranking unit is Champion × Role. A champion can have different value in Baron Lane, Jungle, Mid, Dragon Lane, or Support because each role has different responsibilities, matchups, economy, and map impact.",
   ],
   [
-    "Why isn't the Tier List sorted only by win rate?",
+    "Why isn't the Wild Rift tier list sorted only by win rate?",
     "This snapshot retains Wild Rift Core source tiers after TierListBase role review. Wild Rift Core describes its tier list as a data-informed ranking using Master+ performance and consensus; it is not a Riot or Tencent official tier. TierListBase Decision Signals are separate editorial assessments. WR / PR / BR remain raw evidence, not a TierListBase tier formula.",
   ],
   [
-    "Is the current game patch included?",
+    "Does the Wild Rift champion tier list include the current game patch?",
     `The current game version and latest standard Ranked balance are ${snapshot.gameVersion}. The reviewed Master+ CN statistics are dated ${snapshot.snapshotDate} and labeled ${snapshot.statisticsPatch}. Raw role statistics, Wild Rift Core source tiers, and TierListBase editorial signals remain separate.`,
   ],
   [
-    "What is the difference between Dragon Lane and ADC?",
+    "How does the Wild Rift champions tier list treat Dragon Lane and ADC?",
     "Dragon Lane is Wild Rift's lane name. ADC describes the ranged carry role most commonly played there. This page uses Dragon Lane as the primary label and ADC / Duo only as an explanatory alias.",
   ],
   [
-    "What is the difference between Baron Lane, Solo Lane and Top Lane?",
+    "How does the Wild Rift tier list treat Baron Lane, Solo Lane and Top Lane?",
     "Baron Lane is Wild Rift's official lane label. Solo Lane and Top Lane are common community terms for the same general position. This page uses Baron Lane as the primary label and Solo / Top as an alias.",
   ],
 ] as const;
@@ -212,34 +212,36 @@ export function WildRiftTierList() {
             <p>{methodologyIntro}</p>
           </div>
           <p className={styles.disclosure}>
-            CN Server · Master+ · Ranked. Champion catalog: 142; statistics-backed role placements:
-            179 across 136 distinct champions counted in the current source tables. The source
-            headline says 135 tracked champions; that discrepancy is preserved rather than
-            normalized away. Another 29 placements have explicit Wild Rift Core source-tier evidence
-            and display N/A for every role statistic. Catalog membership never creates a ranked
-            placement.
+            For the Wild Rift tier list and Wild Rift champions tier list, the scope is CN Server ·
+            Master+ · Ranked. Champion catalog: 142; statistics-backed role placements: 179 across
+            136 distinct champions counted in the current source tables. The source headline says
+            135 tracked champions; that discrepancy is preserved rather than normalized away.
+            Another 29 placements have explicit Wild Rift Core source-tier evidence and display N/A
+            for every role statistic. Catalog membership never creates a ranked placement.
           </p>
           <p className={styles.disclosure}>
-            Tiers retain Wild Rift Core source tiers after TierListBase review, with no TierListBase
-            overrides in this snapshot. They are not official Riot or Tencent tiers. The statistics
-            are reported by Wild Rift Core as Tencent CN data; TierListBase has not independently
-            fetched them from Tencent. Ban rates reflect champion-wide draft pressure.
+            The Wild Rift tier list retains Wild Rift Core source tiers after TierListBase review,
+            with no TierListBase overrides in this snapshot. The Wild Rift champion tier list does
+            not treat them as official Riot or Tencent tiers. The statistics are reported by Wild
+            Rift Core as Tencent CN data; TierListBase has not independently fetched them from
+            Tencent. Ban rates reflect champion-wide draft pressure.
           </p>
           <p className={styles.disclosure}>
-            Decision Signals are TierListBase editorial assessments, reviewed for each Champion ×
-            Role: reliability considers repeatable access and fallback utility; blind safety
-            considers lane exposure, range, and counterplay; ease considers aiming, combos, and
-            resource management; impact considers damage or control access; dependence considers
-            allied setup, protection, and follow-up. High Team Dependence means greater reliance on
-            allies, not a better score. No signal is computed from Tier. High Ease means easier
-            execution.
+            For the Wild Rift champions tier list, Decision Signals are TierListBase editorial
+            assessments reviewed for each Champion × Role: reliability considers repeatable access
+            and fallback utility; blind safety considers lane exposure, range, and counterplay; ease
+            considers aiming, combos, and resource management; impact considers damage or control
+            access; dependence considers allied setup, protection, and follow-up. High Team
+            Dependence means greater reliance on allies, not a better score. The Wild Rift tier list
+            does not compute a signal from Tier. High Ease means easier execution.
           </p>
           <p className={styles.disclosure}>
-            Trend arrows show same-role seven-day win-rate change only. Only six explicitly labeled
-            seven-day spotlight deltas are verified in the reviewed source capture; 202 placements
-            have unavailable trends. The table&apos;s separate “30 d” column is not repurposed as a
-            seven-day signal. The verified statistics snapshot is dated 2026-11-01 and labeled 7.3d
-            · Master+ CN. Patch notes establish balance changes, not causal performance outcomes.
+            In the Wild Rift tier list, trend arrows show same-role seven-day win-rate change only.
+            Only six explicitly labeled seven-day spotlight deltas are verified in the reviewed
+            source capture; 202 placements have unavailable trends. The table&apos;s separate “30 d”
+            column is not repurposed as a seven-day signal. The verified statistics snapshot is
+            dated 2026-11-01 and labeled 7.3d · Master+ CN. Patch notes establish balance changes,
+            not causal performance outcomes.
           </p>
           <div className={styles.methodGrid}>
             {roleKeys.map((role) => (

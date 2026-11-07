@@ -217,8 +217,9 @@ function CardsWorkspace() {
           <p className={styles.kicker}>SLAY THE SPIRE 2 CARD TIER LIST</p>
           <h2 id="cards-title">Cards</h2>
           <p>
-            Compare baseline card value by current Main card pool. This Slay the Spire 2 cards tier
-            list is contextual: tier does not mean automatic pick.
+            The Slay the Spire 2 card tier list compares baseline card value by current Main card
+            pool. The broader Slay the Spire 2 cards tier list is contextual: tier does not mean
+            automatic pick.
           </p>
         </div>
         <div className={styles.contextNote}>
@@ -538,11 +539,11 @@ function PotionsPanel() {
 
 const faq = [
   [
-    "What are the best cards in Slay the Spire 2?",
+    "What are the best cards in the Slay the Spire 2 card tier list?",
     "There is no automatic best pick. This Slay the Spire 2 card tier list shows reviewed baseline Main v0.107.1 placements, but deck, relics, route, encounters and current run context can make a lower-tier card the correct choice.",
   ],
   [
-    "What is the best character in Slay the Spire 2?",
+    "What is the best character in the Slay the Spire 2 character tier list?",
     "The cited 1 November 2026 community review places the Silent and Regent together in the Top group. The gaps are small, and the figures are community-uploaded runs rather than official Mega Crit character win rates.",
   ],
   [
@@ -550,11 +551,11 @@ const faq = [
     "An S-tier label describes strong baseline value, not an instruction to take the card. Opportunity cost, deck size, energy, relics, planned encounters and the route can all change the decision.",
   ],
   [
-    "Does this tier list use Main or Beta?",
+    "Does the Slay the Spire 2 tier list use Main or Beta?",
     `Rankings use Main ${snapshot.mainVersion}. Beta ${snapshot.betaVersion} is tracked as change context only and is not mixed into Main placements.`,
   ],
   [
-    "How often is the tier list updated?",
+    "How often is the Slay the Spire 2 tier list updated?",
     "The snapshot is reviewed when a verified Main patch, ranking source or material balance change affects the page. Planned future patches are not pre-applied.",
   ],
   [
@@ -584,8 +585,9 @@ export function SlayTheSpire2TierList() {
             <p className={styles.heroEyebrow}>SLAY THE SPIRE 2</p>
             <h1 id="page-title">Slay the Spire 2 Tier List</h1>
             <p>
-              Compare current Main cards, relics, characters and potions using traceable game data
-              and reviewed ranking evidence. Tier does not mean automatic pick.
+              Use this Slay the Spire 2 tier list to compare current Main cards, relics, characters
+              and potions using traceable game data and reviewed ranking evidence. Tier does not
+              mean automatic pick.
             </p>
           </div>
           <div className={styles.snapshotBar} aria-label="Ranking snapshot">
@@ -613,11 +615,11 @@ export function SlayTheSpire2TierList() {
         <section className={styles.rankingContext} aria-label="Ranking Context">
           <strong>Ranking Context</strong>
           <p>
-            Current rankings use Main {snapshot.mainVersion}. Beta {snapshot.betaVersion} is
-            documented separately. Card value is contextual: baseline value, consistency, deck
-            flexibility, opportunity cost, scaling and verified evidence inform the review without
-            creating a hidden numeric score. Use the ranking tabs for the Slay the Spire 2 relic
-            tier list and Slay the Spire 2 character tier list.
+            The Slay the Spire 2 tier list uses Main {snapshot.mainVersion}. Beta{" "}
+            {snapshot.betaVersion} is documented separately. Card value is contextual: baseline
+            value, consistency, deck flexibility, opportunity cost, scaling and verified evidence
+            inform the review without creating a hidden numeric score. Use the ranking tabs for the
+            Slay the Spire 2 relic tier list and Slay the Spire 2 character tier list.
           </p>
         </section>
 
@@ -666,7 +668,7 @@ export function SlayTheSpire2TierList() {
             <article>
               <strong>Main {snapshot.mainVersion}</strong>
               <p>
-                First TierListBase Slay the Spire 2 snapshot. There is no previous reviewed
+                First reviewed Slay the Spire 2 tier list snapshot. There is no previous reviewed
                 TierListBase snapshot, so no A→S or S→B movements are fabricated.
               </p>
             </article>
@@ -694,8 +696,8 @@ export function SlayTheSpire2TierList() {
                 {snapshot.lastReviewed}.
               </li>
               <li>
-                <strong>Tier means baseline:</strong> a starting point for comparison, not an
-                automatic pick.
+                <strong>Tier means baseline:</strong> the Slay the Spire 2 tier list is a starting
+                point for comparison, not an automatic pick.
               </li>
               <li>
                 <strong>Context matters:</strong> deck, relics, route, encounters, energy and
@@ -736,8 +738,9 @@ export function SlayTheSpire2TierList() {
               ))}
             </div>
             <p className={styles.disclaimer}>
-              TierListBase is an independent third-party analysis site and is not affiliated with
-              Mega Crit. Community and editorial rankings are not official game balance statements.
+              The Slay the Spire 2 tier list is independent third-party analysis from TierListBase
+              and is not affiliated with Mega Crit. Community and editorial rankings are not
+              official game balance statements.
             </p>
           </section>
         </div>
