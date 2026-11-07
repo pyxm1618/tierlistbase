@@ -5,6 +5,8 @@ on:
     branches:
       - perf/image-p0-zzz-nikke
   pull_request:
+    types:
+      - reopened
     branches:
       - main
 
@@ -296,7 +298,8 @@ jobs:
 
           git fetch origin main
           git diff --cached --name-only HEAD > /tmp/p0-final-files.txt
-          bad="$(grep -Ev '^(\.github/workflows/p0-image-closeout-temp\.yml|zzz-asset-manifest\.json|src/modules/zenless-zone-zero-tier-list/(assets/|icons\.ts$)|tests/unit/zenless-zone-zero-tier-list/|src/modules/nikke-tier-list/(assets/avatars/|character-avatars\.ts$)|tests/unit/nikke/)' /tmp/p0-final-files.txt || true)"
+          git diff --cached --diff-filter=ACMRTUXB --name-only HEAD > /tmp/p0-final-nondeletes.txt
+          bad="$(grep -Ev '^(\.github/workflows/p0-image-closeout-temp\.yml|zzz-asset-manifest\.json|src/modules/zenless-zone-zero-tier-list/(assets/|icons\.ts$)|tests/unit/zenless-zone-zero-tier-list/|src/modules/nikke-tier-list/(assets/avatars/|character-avatars\.ts$)|tests/unit/nikke/)' /tmp/p0-final-nondeletes.txt || true)"
           if [ -n "$bad" ]; then
             echo "Unexpected final P0 path(s):"
             echo "$bad"
@@ -306,6 +309,9 @@ jobs:
             echo "Temporary P0 scripts must only be deleted"
             exit 1
           fi
+          test ! -e tests/performance/p0-codec-bundle.js
+          test ! -e tests/performance/p0-nikke-batch.js
+          test ! -e tests/performance/p0-image-optimize.mjs
           cat /tmp/p0-final-files.txt
 
       - name: Commit transformed production assets
