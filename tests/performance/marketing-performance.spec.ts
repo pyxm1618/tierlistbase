@@ -6,6 +6,10 @@ import { expect, test } from "@playwright/test";
 test.beforeAll(seedGenshinTestDatabase);
 test.beforeAll(seedWowPresentationFixtures);
 
+const browserImageHeaders = {
+  accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+};
+
 declare global {
   interface Window {
     __cwv?: { cls: number; inp: number; lcp: number };
@@ -286,7 +290,9 @@ for (const width of [390, 768, 1440, 1920]) {
     );
     expect(heroCandidateWidth).toBeLessThanOrEqual(3840);
 
-    const heroResponse = await request.get(heroSample.currentSrc);
+    const heroResponse = await request.get(heroSample.currentSrc, {
+      headers: browserImageHeaders,
+    });
     expect(heroResponse.status()).toBe(200);
     const heroBytes = (await heroResponse.body()).length;
     expect(heroBytes).toBeLessThan(260_000);
@@ -410,7 +416,9 @@ for (const width of [390, 1920, 2560]) {
       expect(sample.renderedWidth).toBeGreaterThan(0);
       expect(sample.currentSrc).toContain("/_next/image?");
       expect(sample.currentSrc).toContain(".webp");
-      const response = await request.get(sample.currentSrc);
+      const response = await request.get(sample.currentSrc, {
+        headers: browserImageHeaders,
+      });
       expect(response.status()).toBe(200);
       const bytes = (await response.body()).length;
       expect(bytes).toBeLessThan(name === "hero" ? 280_000 : 50_000);
