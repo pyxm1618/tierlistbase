@@ -17,9 +17,9 @@ const evidence = [
 const faq = [
   [
     "How is this Genshin Impact Tier List created?",
-    "The list considers Endgame Performance, Team Contribution, Flexibility, Replaceability and Consistency. Official facts, observed performance data and editorial cross-check provide the evidence structure. Current ratings use reviewed database records.",
+    "The list considers Endgame Performance, Team Contribution, Flexibility, Replaceability and Consistency. Official facts, observed performance data and editorial cross-check provide the evidence structure. Snapshot ratings use reviewed database records.",
   ],
-  ["What version is this Genshin Tier List for?", "The current database version is {version}."],
+  ["What version is this Genshin Tier List for?", "This archived ranking snapshot uses database version {version}; it is not presented as the live Genshin version."],
   [
     "What endgame content is considered?",
     "The scope is Endgame Overall. Reference encounters and team contexts are recorded in each character’s reviewed Best-use Context.",
@@ -47,7 +47,7 @@ export function GenshinChanges({ data }: { data: GenshinData }) {
       <h2 id="changes-heading">
         <span aria-hidden="true">▤</span> What&apos;s Changed in the Genshin Tier List
       </h2>
-      <p className={styles.label}>Version {data.version}</p>
+      <p className={styles.label}>Archived Version {data.version} Snapshot</p>
       <h3>New Characters</h3>
       <ul>
         {newCharacters.map((character) => (
@@ -90,8 +90,8 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
           <span aria-hidden="true">◈</span> How the Genshin Impact Tier List Is Ranked
         </h2>
         <p>
-          The Genshin Tier List uses five consistent dimensions to compare current characters under
-          the same endgame assumptions.
+          The Genshin Tier List uses five consistent dimensions to compare characters in this
+          archived snapshot under the same endgame assumptions.
         </p>
         <ol className={styles.numberedList}>
           {methodology.map(([name, explanation]) => (
@@ -111,8 +111,8 @@ export function GenshinEditorial({ data }: { data: GenshinData }) {
           <span aria-hidden="true">▱</span> Sources &amp; Evidence
         </h2>
         <p>
-          Evidence for this Genshin Tier List includes {data.sources.length} evidence-linked sources
-          · {data.evidenceCount} verified evidence observations.
+          Evidence for this archived Genshin Tier List snapshot includes {data.sources.length}{" "}
+          evidence-linked sources · {data.evidenceCount} verified evidence observations.
         </p>
         <ul className={styles.sourceList}>
           {data.sources.map((source) => (
