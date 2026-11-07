@@ -155,22 +155,18 @@ export const routeDefinitions = [
     route: "/nikke/tier-list",
     class: "public_indexable",
     searchIntent:
-      "Users want current NIKKE character tier rankings and guidance on which characters are strongest across the supported game modes and account contexts.",
+      "review a recorded NIKKE character tier ranking snapshot from the v122.8 pre-anniversary roster without treating it as live anniversary rankings",
     primaryKeyword: "nikke tier list",
-    secondaryKeywords: [
-      "nikke character tier list",
-      "goddess of victory nikke tier list",
-      "goddess of victory nikke character tier list",
-    ],
-    title: "NIKKE Tier List – Best Characters in Goddess of Victory: NIKKE",
+    secondaryKeywords: ["goddess of victory nikke tier list", "nikke character tier list"],
+    title: "NIKKE Tier List – Best Characters in Goddess of Victory",
     description:
-      "Explore the Goddess of Victory: NIKKE tier list with current character rankings, tier explanations, strengths, limitations, and team context for the best NIKKE characters.",
+      "Review the Goddess of Victory NIKKE tier list as a v122.8 pre-anniversary character ranking snapshot from October 25, 2026, with Campaign, Boss and PvP tiers.",
     h1: "NIKKE Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/", "/privacy", "/terms"],
-    lastModified: "2026-10-25",
+    lastModified: "2026-11-07",
     reviewStatus: "reviewed",
-    reviewFingerprint: "815693650d6887f5a88ebe27abd1cf183216496905e8ffe25bc2d4a8119eb0f7",
+    reviewFingerprint: "a1bf6747cab2b6dac276ba397795156b0a3242941e3dfcfc2258a3692aa18d8c",
   },
   {
     route: "/limbus-company/tier-list",

@@ -15,6 +15,9 @@ import {
   recommendedTeams,
   rerollTargets,
   snapshot,
+  snapshotDate,
+  snapshotPhase,
+  snapshotVersion,
   sourceSummary,
   wishlistData,
   type Character,
@@ -22,6 +25,17 @@ import {
   type Rating,
 } from "./data";
 import styles from "./nikke-tier-list.module.css";
+
+function formatSnapshotDate(value: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T00:00:00Z`));
+}
+
+const snapshotContextLabel = `${snapshotPhase} snapshot`;
 
 const modes: Array<{
   key: ModeKey;
@@ -69,7 +83,7 @@ const navItems = [
   ["teams", "Teams"],
   ["reroll", "Reroll"],
   ["wishlist", "Wishlist"],
-  ["current-banner", "Current Banner"],
+  ["banner-advice", "Banner Advice"],
   ["methodology", "Methodology"],
   ["changelog", "Changelog"],
 ] as const;
@@ -426,8 +440,12 @@ export function NikkeTierListPage() {
             ))}
           </div>
           <div className={styles.versionInfo}>
+            <span>Version</span>
+            <strong>{snapshotVersion}</strong>
             <span>Data Snapshot</span>
-            <strong>{snapshot.data_snapshot_date}</strong>
+            <strong>
+              <time dateTime={snapshotDate}>{snapshotDate}</time>
+            </strong>
             <span>Roster</span>
             <strong>{snapshot.collected_characters} Characters</strong>
           </div>
@@ -500,6 +518,19 @@ export function NikkeTierListPage() {
                 </select>
               </label>
             </div>
+          </div>
+
+          <div className={styles.rankingContext} role="note" aria-label="Ranking snapshot context">
+            <div className={styles.rankingContextMeta}>
+              <strong>Version {snapshotVersion}</strong>
+              <time dateTime={snapshotDate}>Snapshot · {formatSnapshotDate(snapshotDate)}</time>
+              <span>{snapshotContextLabel}</span>
+            </div>
+            <p>
+              These tiers record the {snapshotPhase.toLowerCase()} ranking state for{" "}
+              {snapshotVersion}. They are not live rankings for the anniversary update or later
+              versions, so re-check newly released characters before committing resources.
+            </p>
           </div>
 
           <div className={styles.modeGrid}>
@@ -857,8 +888,9 @@ export function NikkeTierListPage() {
           <section id="methodology" className={styles.panel}>
             <h2>♜ Ranking Methodology</h2>
             <p>
-              The Goddess of Victory NIKKE character tier list evaluates character performance by
-              game mode, team flexibility, investment requirements, and new-player value.
+              The Goddess of Victory NIKKE tier list evaluates character performance by game mode,
+              team flexibility, investment requirements, and new-player value, using the recorded{" "}
+              {snapshotPhase.toLowerCase()} snapshot.
             </p>
             <div className={styles.panelTabs}>
               <button
@@ -898,18 +930,19 @@ export function NikkeTierListPage() {
             <p>Track material NIKKE tier list changes and important ranking updates.</p>
             <div className={styles.changeList}>
               <div>
-                <span>{snapshot.data_snapshot_date}</span>
-                <strong>Production data snapshot</strong>
+                <span>{snapshotDate}</span>
+                <strong>
+                  {snapshotContextLabel} · {snapshotVersion}
+                </strong>
                 <em>
-                  {snapshot.collected_characters} characters refreshed across Campaign, Boss and
-                  PvP.
+                  {snapshot.collected_characters} characters recorded across Campaign, Boss and PvP.
                 </em>
               </div>
             </div>
           </section>
 
-          <section id="current-banner" className={styles.panel}>
-            <h2>▣ Current Banner Advice</h2>
+          <section id="banner-advice" className={styles.panel}>
+            <h2>▣ Banner Advice · Snapshot</h2>
             <div className={styles.bannerBody}>
               <CharacterAvatar name={currentBanner.character} />
               <div>
@@ -923,7 +956,10 @@ export function NikkeTierListPage() {
                   <li>
                     {currentBanner.startDate} – {currentBanner.endDate}
                   </li>
-                  <li>Official banner status checked {currentBanner.asOf}.</li>
+                  <li>
+                    Banner status recorded {currentBanner.asOf}; confirm the live schedule in-game
+                    before pulling.
+                  </li>
                 </ul>
               </div>
             </div>
@@ -932,8 +968,8 @@ export function NikkeTierListPage() {
           <section className={styles.panel}>
             <h2>▤ Data Sources</h2>
             <p>
-              Rankings use the {snapshot.data_snapshot_date} production data snapshot and its
-              audited source log.
+              Rankings use the {snapshotDate} {snapshotPhase.toLowerCase()} snapshot (
+              {snapshotVersion}) and its audited source log.
             </p>
             <div className={styles.evidenceGrid}>
               {sourceSummary.map((source) => (
