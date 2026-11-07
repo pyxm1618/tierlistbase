@@ -311,6 +311,7 @@ test("Core image network benchmark @1440 DPR2", async ({ browser }) => {
 
   for (const route of coreImageRoutes) {
     const context = await browser.newContext({
+      baseURL: "http://127.0.0.1:3000",
       viewport: { width: 1440, height: 900 },
       deviceScaleFactor: 2,
     });
