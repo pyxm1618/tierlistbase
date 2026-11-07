@@ -124,7 +124,9 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
           <div className={styles.heroContent}>
             <div>
               <h1>{route.h1}</h1>
-              <p className={styles.heroSubtitle}>Archived Level 30 Beta Snapshot · Dungeon DPS / Tank / Healer</p>
+              <p className={styles.heroSubtitle}>
+                Archived Level 30 Beta Snapshot · Dungeon DPS / Tank / Healer
+              </p>
               <p>
                 This WoW Tier List preserves the reviewed Level 30 Beta dungeon snapshot for DPS,
                 Tank and Healer specializations in World of Warcraft: Forever. It is an archived WoW
@@ -156,8 +158,8 @@ export default async function WowForeverTierListPage({ searchParams }: PageProps
           <h2 id="wow-context-heading">Ranking Context</h2>
           <p>
             This WoW Tier List is fixed to the archived Dungeon, Level 30 Beta snapshot captured
-            before launch. The rankings and evidence below describe the Beta environment and must
-            not be interpreted as current WoW Forever rankings.
+            before launch. The rankings and evidence below describe the Beta environment and
+            must not be interpreted as current WoW Forever rankings.
           </p>
           <dl>
             <div>
