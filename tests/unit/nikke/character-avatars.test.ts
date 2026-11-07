@@ -21,7 +21,7 @@ describe("NIKKE Character Avatars", () => {
     for (const file of files) {
       const stats = statSync(`${avatarsDir}/${file}`);
       expect(stats.size).toBeGreaterThan(0);
-      expect(file.endsWith(".png")).toBe(true);
+      expect(file.endsWith(".webp")).toBe(true);
     }
   });
 

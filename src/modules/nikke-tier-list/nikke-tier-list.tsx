@@ -101,7 +101,7 @@ function CharacterAvatar({
           variant === "compact"
             ? "92px"
             : variant === "feature"
-              ? "(max-width: 768px) 132px, 256px"
+              ? "132px"
               : "(max-width: 768px) 60px, 80px"
         }
         priority={priority}
