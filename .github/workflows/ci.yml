@@ -141,12 +141,6 @@ jobs:
           bunx auth@1.7.7 generate --config src/platform/auth/auth-cli.ts --output /tmp/auth-schema.ts --yes
           bunx prettier --config .prettierrc.json --write /tmp/auth-schema.ts
           diff -u src/platform/database/auth-schema.ts /tmp/auth-schema.ts
-      - name: Temporary IndexNow Prettier probe
-        run: |
-          echo '--- indexnow-internal-route.test.ts ---'
-          bunx prettier --config .prettierrc.json tests/unit/seo/indexnow-internal-route.test.ts
-          echo '--- indexnow-production-wiring.test.ts ---'
-          bunx prettier --config .prettierrc.json tests/unit/seo/indexnow-production-wiring.test.ts
       - name: Formatting
         run: bun run format:check
       - name: Lint
