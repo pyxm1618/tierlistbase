@@ -9,18 +9,15 @@ test.describe("Real Navigation Latency", () => {
     await seedWowPresentationFixtures();
     await page.goto("/", { waitUntil: "networkidle" });
 
-    let link;
+    const navigation = isMobile
+      ? page.locator('header nav[aria-label="Mobile navigation"]')
+      : page.locator('header nav[aria-label="Primary navigation"]');
     if (isMobile) {
       const mobileMenu = page.locator("header details").first();
       await mobileMenu.locator(":scope > summary").click();
-      const mobileNav = page.locator('header nav[aria-label="Mobile navigation"]');
-      await mobileNav.locator("details > summary").click();
-      link = mobileNav.locator('a[href="/wow-forever/tier-list"]');
-    } else {
-      const primaryNav = page.locator('header nav[aria-label="Primary navigation"]');
-      await primaryNav.locator("details > summary").click();
-      link = primaryNav.locator('a[href="/wow-forever/tier-list"]');
     }
+    await navigation.locator("details > summary").click();
+    const link = navigation.locator('a[href="/wow-forever/tier-list"]');
     await expect(link).toBeVisible();
 
     const start = performance.now();
@@ -40,18 +37,15 @@ test.describe("Real Navigation Latency", () => {
   }) => {
     await page.goto("/", { waitUntil: "networkidle" });
 
-    let link;
+    const navigation = isMobile
+      ? page.locator('header nav[aria-label="Mobile navigation"]')
+      : page.locator('header nav[aria-label="Primary navigation"]');
     if (isMobile) {
       const mobileMenu = page.locator("header details").first();
       await mobileMenu.locator(":scope > summary").click();
-      const mobileNav = page.locator('header nav[aria-label="Mobile navigation"]');
-      await mobileNav.locator("details > summary").click();
-      link = mobileNav.locator('a[href="/genshin-impact/tier-list"]');
-    } else {
-      const primaryNav = page.locator('header nav[aria-label="Primary navigation"]');
-      await primaryNav.locator("details > summary").click();
-      link = primaryNav.locator('a[href="/genshin-impact/tier-list"]');
     }
+    await navigation.locator("details > summary").click();
+    const link = navigation.locator('a[href="/genshin-impact/tier-list"]');
     await expect(link).toBeVisible();
 
     const start = performance.now();
