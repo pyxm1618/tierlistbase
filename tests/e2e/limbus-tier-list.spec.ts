@@ -444,7 +444,10 @@ test("keeps one shared registry-driven header across game pages and client trans
   );
 
   const transitionedPrimaryNav = page.locator('header nav[aria-label="Primary navigation"]');
-  await transitionedPrimaryNav.locator("summary").filter({ hasText: "Games" }).click();
+  const transitionedGames = transitionedPrimaryNav.locator("details");
+  if ((await transitionedGames.getAttribute("open")) === null) {
+    await transitionedGames.locator(":scope > summary").click();
+  }
   await transitionedPrimaryNav.locator('a[href="/wow-forever/tier-list"]').click();
   await expect(page).toHaveURL(/\/wow-forever\/tier-list$/);
   await expect(page.locator("body > div > header")).toHaveCount(1);
