@@ -362,7 +362,7 @@ test("shows the reviewed ranking snapshot and blocks unsupported current-ranking
   const context = page.getByRole("note", { name: "Ranking snapshot context" });
   const sourceTime = context.locator(`time[datetime="${masterSourceMetadata.sourceUpdatedAt}"]`);
   const reviewTime = context.locator(`time[datetime="${masterSourceMetadata.reviewedAt}"]`);
-  const snapshotDisclaimer = "does not automatically represent the current live game state";
+  const snapshotDisclaimer = "do not automatically represent the current live game state";
 
   await expect(context).toBeVisible();
   await expect(context).toContainText(`Version ${masterSourceMetadata.gameVersion}`);
