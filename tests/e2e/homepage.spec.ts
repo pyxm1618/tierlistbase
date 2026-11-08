@@ -191,14 +191,15 @@ test("game navigation active state follows pathname only", async ({ page }) => {
   }
 });
 
-test("mobile header nests all concrete games under Games", async ({ page }) => {
+test("mobile game navigation closes both menu levels after selection", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/");
+  await page.goto("/wow-forever/tier-list");
 
   const mobileMenu = page.locator('header details:has(nav[aria-label="Mobile navigation"])');
   const menuSummary = mobileMenu.locator(":scope > summary");
   await expect(menuSummary).toContainText("Menu");
   await menuSummary.click();
+  await expect(mobileMenu).toHaveAttribute("open", "");
 
   const mobileNav = page.getByRole("navigation", { name: "Mobile navigation" });
   await expect(mobileNav.getByRole("link", { name: "Home" })).toBeVisible();
@@ -208,11 +209,24 @@ test("mobile header nests all concrete games under Games", async ({ page }) => {
   const gamesSummary = gamesDetails.locator(":scope > summary");
   await expect(gamesSummary).toContainText("Games");
   await gamesSummary.click();
+  await expect(gamesDetails).toHaveAttribute("open", "");
 
   await expect(gamesDetails.locator('a[href$="/tier-list"]')).toHaveCount(10);
-  await expect(gamesDetails.getByRole("link", { name: "World of Warcraft" })).toBeVisible();
   await expect(gamesDetails.getByRole("link", { name: "Anime Expeditions" })).toBeVisible();
   await expect(gamesDetails.getByRole("link", { name: "Slay the Spire 2" })).toBeVisible();
+
+  const wildRift = gamesDetails.getByRole("link", { name: "Wild Rift", exact: true });
+  await expect(wildRift).toHaveAttribute("href", "/wild-rift/tier-list");
+  await wildRift.click();
+
+  await expect(page).toHaveURL(/\/wild-rift\/tier-list$/);
+  await expect(mobileMenu).not.toHaveAttribute("open", "");
+  await expect(gamesDetails).not.toHaveAttribute("open", "");
+  await expect(
+    page
+      .getByRole("navigation", { name: "Mobile navigation" })
+      .getByRole("link", { name: "Wild Rift", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
 });
 
 test("Genshin tier-list route remains public and clickable", async ({ page }) => {
