@@ -13,7 +13,7 @@ test.describe("Real Navigation Latency", () => {
       ? page.locator('header nav[aria-label="Mobile navigation"]')
       : page.locator('header nav[aria-label="Primary navigation"]');
     if (isMobile) {
-      const mobileMenu = page.locator("header details").first();
+      const mobileMenu = page.locator('header details:has(nav[aria-label="Mobile navigation"])');
       await mobileMenu.locator(":scope > summary").click();
     }
     await navigation.locator("details > summary").click();
@@ -41,7 +41,7 @@ test.describe("Real Navigation Latency", () => {
       ? page.locator('header nav[aria-label="Mobile navigation"]')
       : page.locator('header nav[aria-label="Primary navigation"]');
     if (isMobile) {
-      const mobileMenu = page.locator("header details").first();
+      const mobileMenu = page.locator('header details:has(nav[aria-label="Mobile navigation"])');
       await mobileMenu.locator(":scope > summary").click();
     }
     await navigation.locator("details > summary").click();
