@@ -201,7 +201,7 @@ test("mobile game navigation closes both menu levels after selection", async ({ 
   await menuSummary.click();
   await expect(mobileMenu).toHaveAttribute("open", "");
 
-  const mobileNav = page.getByRole("navigation", { name: "Mobile navigation" });
+  const mobileNav = mobileMenu.locator('nav[aria-label="Mobile navigation"]');
   await expect(mobileNav.getByRole("link", { name: "Home" })).toBeVisible();
   await expect(mobileNav.locator(':scope > a[href$="/tier-list"]')).toHaveCount(0);
 
@@ -222,11 +222,10 @@ test("mobile game navigation closes both menu levels after selection", async ({ 
   await expect(page).toHaveURL(/\/wild-rift\/tier-list$/);
   await expect(mobileMenu).not.toHaveAttribute("open", "");
   await expect(gamesDetails).not.toHaveAttribute("open", "");
-  await expect(
-    page
-      .getByRole("navigation", { name: "Mobile navigation" })
-      .getByRole("link", { name: "Wild Rift", exact: true }),
-  ).toHaveAttribute("aria-current", "page");
+  await expect(mobileNav.locator('a[href="/wild-rift/tier-list"]')).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
 });
 
 test("Genshin tier-list route remains public and clickable", async ({ page }) => {
