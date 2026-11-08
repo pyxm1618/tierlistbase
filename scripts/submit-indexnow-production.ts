@@ -30,11 +30,9 @@ function manifestUrls(contents: string): string[] {
 
 export const productionIndexNowDependencies: IndexNowProductionDependencies = {
   async listChangedFiles(base, head) {
-    const stdout = execFileSync(
-      "git",
-      ["diff", "--diff-filter=AM", "--name-only", base, head],
-      { encoding: "utf8" },
-    );
+    const stdout = execFileSync("git", ["diff", "--diff-filter=AM", "--name-only", base, head], {
+      encoding: "utf8",
+    });
     return stdout
       .split(/\r?\n/)
       .map((line) => line.trim())
@@ -85,7 +83,8 @@ export async function runIndexNowProductionWiring(
       return {
         kind: "failed",
         urls,
-        error: "IndexNow post-deploy submission cannot authenticate because CRON_SECRET is not configured.",
+        error:
+          "IndexNow post-deploy submission cannot authenticate because CRON_SECRET is not configured.",
       };
     }
 
@@ -115,9 +114,7 @@ async function main(): Promise<void> {
 
   const pushBase = process.env.PUSH_BASE_SHA?.trim();
   const base =
-    !pushBase || pushBase === "0000000000000000000000000000000000000000"
-      ? `${head}^`
-      : pushBase;
+    !pushBase || pushBase === "0000000000000000000000000000000000000000" ? `${head}^` : pushBase;
 
   const result = await runIndexNowProductionWiring({
     base,

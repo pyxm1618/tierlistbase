@@ -142,11 +142,7 @@ jobs:
           bunx prettier --config .prettierrc.json --write /tmp/auth-schema.ts
           diff -u src/platform/database/auth-schema.ts /tmp/auth-schema.ts
       - name: Formatting
-        shell: bash
-        run: |
-          bunx prettier --config .prettierrc.json --write scripts/submit-indexnow-production.ts
-          git diff -- scripts/submit-indexnow-production.ts
-          exit 1
+        run: bun run format:check
       - name: Lint
         run: bun run lint
       - name: Typecheck
