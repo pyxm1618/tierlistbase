@@ -16,7 +16,7 @@ describe("games.config registry", () => {
       "Phantom Blade Zero",
       "Dragon Traveler",
       "Wild Rift",
-      "Anime Exp.",
+      "Anime Expeditions",
       "Slay the Spire 2",
     ]);
 
