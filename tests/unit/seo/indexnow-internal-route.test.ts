@@ -72,7 +72,10 @@ describe("internal IndexNow submission endpoint", () => {
   });
 
   it("maps provider rate limiting to a non-success internal response", async () => {
-    vi.stubGlobal("fetch", vi.fn(async () => new Response(null, { status: 429 })));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response(null, { status: 429 })),
+    );
 
     const response = await POST(makeRequest(["/"]));
 
