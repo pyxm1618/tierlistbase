@@ -62,11 +62,8 @@ export async function runIndexNowProductionWiring(
     const changedFiles = await dependencies.listChangedFiles(input.base, input.head);
     const manifests = changedFiles.filter((path) => RELEASE_MANIFEST_PATTERN.test(path));
 
-    // MUTATION PROBE: deliberately wrong fallback. The semantic tests must reject this.
     if (manifests.length === 0) {
-      const urls = ["https://www.tierlistbase.com/sitemap.xml"];
-      const httpStatus = await dependencies.submit(urls, input.cronSecret ?? "");
-      return { kind: "submitted", urls, httpStatus };
+      return { kind: "skipped", reason: "no-manifest", urls: [] };
     }
 
     const urls: string[] = [];
