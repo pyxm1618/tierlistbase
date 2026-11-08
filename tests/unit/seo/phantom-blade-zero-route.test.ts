@@ -21,8 +21,50 @@ describe("Phantom Blade Zero release SEO", () => {
     expect(route.h1).toBe(PHANTOM_BLADE_ZERO_SEO.h1);
     expect(route.reviewStatus).toBe("reviewed");
     expect(route.reviewFingerprint).toBe(
-      "2760712d550f0796a0fe97048cff212781e4ddd6cda582f58cdd91a3f94cca4c",
+      "84593b90ce92e7af3fc6403a1d441ff114bf083adfd31b1530185d78611ee96c",
     );
+  });
+
+  it("keeps the frozen keyword mapping free of duplicates and plural variants", () => {
+    const route = routeRegistry.get(PHANTOM_BLADE_ZERO_ROUTE);
+    if (route.class !== "public_indexable") throw new Error("route must be indexable");
+
+    expect(PHANTOM_BLADE_ZERO_SEO.primaryKeyword).toBe("phantom blade zero tier list");
+    expect(PHANTOM_BLADE_ZERO_SEO.secondaryKeywords).toEqual([
+      "phantom blade zero weapon tier list",
+      "phantom blade zero phantom edge tier list",
+    ]);
+
+    expect(route.primaryKeyword).toBe("phantom blade zero tier list");
+
+    const secondaryKeywords = route.secondaryKeywords ?? [];
+    expect(secondaryKeywords).toEqual([
+      "phantom blade zero weapon tier list",
+      "phantom blade zero phantom edge tier list",
+    ]);
+
+    // The primary keyword must never be repeated inside the secondary list.
+    expect(secondaryKeywords).not.toContain(route.primaryKeyword);
+
+    // Plural variants are removed so a single canonical form owns each secondary intent.
+    expect(secondaryKeywords).not.toContain("phantom blade zero weapons tier list");
+    expect(secondaryKeywords).not.toContain("phantom blade zero phantom edges tier list");
+    for (const keyword of secondaryKeywords) {
+      expect(keyword.endsWith("weapons tier list")).toBe(false);
+      expect(keyword.endsWith("phantom edges tier list")).toBe(false);
+    }
+
+    // A duplicated primary would otherwise register as a second "secondary" and break dominance.
+    expect(secondaryKeywords.length).toBe(new Set(secondaryKeywords).size);
+  });
+
+  it("keeps the reviewed TDH fields stable across the keyword cleanup", () => {
+    const route = routeRegistry.get(PHANTOM_BLADE_ZERO_ROUTE);
+    if (route.class !== "public_indexable") throw new Error("route must be indexable");
+
+    expect(route.title).toBe("Phantom Blade Zero Tier List – Weapons & Phantom Edges");
+    expect(route.h1).toBe("Phantom Blade Zero Tier List");
+    expect(route.lastModified).toBe("2026-11-08");
   });
 
   it("is emitted through the existing sitemap registry", () => {

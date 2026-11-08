@@ -196,11 +196,8 @@ export const routeDefinitions = [
       "compare Phantom Blade Zero Main Weapon and Phantom Edge rankings using verified multi-source evidence",
     primaryKeyword: "phantom blade zero tier list",
     secondaryKeywords: [
-      "phantom blade zero tier list",
       "phantom blade zero weapon tier list",
-      "phantom blade zero weapons tier list",
       "phantom blade zero phantom edge tier list",
-      "phantom blade zero phantom edges tier list",
     ],
     title: "Phantom Blade Zero Tier List – Weapons & Phantom Edges",
     description:
@@ -208,9 +205,9 @@ export const routeDefinitions = [
     h1: "Phantom Blade Zero Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/", "/privacy", "/terms"],
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-08",
     reviewStatus: "reviewed",
-    reviewFingerprint: "2760712d550f0796a0fe97048cff212781e4ddd6cda582f58cdd91a3f94cca4c",
+    reviewFingerprint: "84593b90ce92e7af3fc6403a1d441ff114bf083adfd31b1530185d78611ee96c",
   },
   {
     route: "/dragon-traveler/tier-list",
