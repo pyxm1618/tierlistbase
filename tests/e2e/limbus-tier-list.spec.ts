@@ -447,11 +447,19 @@ test("keeps one shared registry-driven header across game pages and client trans
 
   const transitionedPrimaryNav = page.locator('header nav[aria-label="Primary navigation"]');
   const transitionedGames = transitionedPrimaryNav.locator("details");
-  if ((await transitionedGames.getAttribute("open")) === null) {
-    await transitionedGames.locator(":scope > summary").click();
-  }
-  await transitionedPrimaryNav.locator('a[href="/wow-forever/tier-list"]').click();
-  await expect(page).toHaveURL(/\/wow-forever\/tier-list$/);
+  await expect(transitionedGames).not.toHaveAttribute("open", "");
+  await expect(
+    transitionedPrimaryNav.locator('a[href="/limbus-company/tier-list"]'),
+  ).toHaveAttribute("aria-current", "page");
+
+  await transitionedGames.locator(":scope > summary").click();
+  await expect(transitionedGames).toHaveAttribute("open", "");
+  await transitionedPrimaryNav.locator('a[href="/wild-rift/tier-list"]').click();
+  await expect(page).toHaveURL(/\/wild-rift\/tier-list$/);
+  await expect(transitionedGames).not.toHaveAttribute("open", "");
+  await expect(
+    transitionedPrimaryNav.locator('a[href="/wild-rift/tier-list"]'),
+  ).toHaveAttribute("aria-current", "page");
   await expect(page.locator("body > div > header")).toHaveCount(1);
   await expect(page.locator('header nav[aria-label="Primary navigation"] a')).toHaveText(
     navigationLabels,
