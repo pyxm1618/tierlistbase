@@ -31,6 +31,26 @@ describe("IndexNow payload", () => {
     });
   });
 
+  it("allows a deleted same-origin URL without requiring a live route", () => {
+    const payload = buildIndexNowPayload({
+      canonicalOrigin: CANONICAL_ORIGIN,
+      key: KEY,
+      urls: ["https://example.com/removed-page"],
+    });
+
+    expect(payload.urlList).toEqual(["https://example.com/removed-page"]);
+  });
+
+  it("rejects malformed URLs", () => {
+    expect(() =>
+      buildIndexNowPayload({
+        canonicalOrigin: CANONICAL_ORIGIN,
+        key: KEY,
+        urls: ["https://[::1"],
+      }),
+    ).toThrow(/invalid/i);
+  });
+
   it("rejects cross-origin and credential-bearing URLs", () => {
     expect(() =>
       buildIndexNowPayload({
@@ -93,19 +113,22 @@ describe("IndexNow submission", () => {
     expect(result).toEqual({ statusCode, submitted: 1 });
   });
 
-  it("raises a typed error for provider rejection", async () => {
-    const fetchImpl: typeof fetch = async () => new Response("rate limited", { status: 429 });
+  it.each([400, 429, 500, 503])(
+    "raises a typed error for provider rejection HTTP %s",
+    async (statusCode) => {
+      const fetchImpl: typeof fetch = async () => new Response(null, { status: statusCode });
 
-    const submission = submitIndexNowUrls({
-      canonicalOrigin: CANONICAL_ORIGIN,
-      key: KEY,
-      urls: ["/changed"],
-      fetchImpl,
-    });
+      const submission = submitIndexNowUrls({
+        canonicalOrigin: CANONICAL_ORIGIN,
+        key: KEY,
+        urls: ["/changed"],
+        fetchImpl,
+      });
 
-    await expect(submission).rejects.toBeInstanceOf(IndexNowSubmissionError);
-    await expect(submission).rejects.toMatchObject({ statusCode: 429 });
-  });
+      await expect(submission).rejects.toBeInstanceOf(IndexNowSubmissionError);
+      await expect(submission).rejects.toMatchObject({ statusCode });
+    },
+  );
 
   it("fails closed when the provider is unavailable", async () => {
     const fetchImpl: typeof fetch = async () => {
