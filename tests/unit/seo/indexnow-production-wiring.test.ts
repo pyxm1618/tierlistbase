@@ -30,7 +30,7 @@ describe("IndexNow production wiring", () => {
     const submitBlock = workflow.slice(submitIndex);
 
     expect(submitBlock).toContain(
-      "git diff --diff-filter=AM --name-only \"$base\" \"$GITHUB_SHA\" -- '.github/indexnow/releases/*.txt'",
+      'git diff --diff-filter=AM --name-only "$base" "$GITHUB_SHA" -- \'.github/indexnow/releases/*.txt\'',
     );
     expect(submitBlock).toContain("No IndexNow release manifest changed; skipping submission.");
     expect(submitBlock).toContain(
