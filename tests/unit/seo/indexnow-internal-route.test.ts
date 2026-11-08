@@ -19,9 +19,7 @@ function makeRequest(urls: string[], authorized = true): Request {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      ...(authorized
-        ? { authorization: `Bearer ${state.env.cronSecret}` }
-        : {}),
+      ...(authorized ? { authorization: `Bearer ${state.env.cronSecret}` } : {}),
     },
     body: JSON.stringify({ urls }),
   });
