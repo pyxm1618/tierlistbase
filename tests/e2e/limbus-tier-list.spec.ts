@@ -362,9 +362,15 @@ test("shows the reviewed ranking snapshot and blocks unsupported current-ranking
   const context = page.getByRole("note", { name: "Ranking snapshot context" });
   await expect(context).toBeVisible();
   await expect(context).toContainText(`Version ${masterSourceMetadata.gameVersion}`);
-  await expect(context.locator(`time[datetime="${masterSourceMetadata.sourceUpdatedAt}"]`)).toHaveCount(1);
-  await expect(context.locator(`time[datetime="${masterSourceMetadata.reviewedAt}"]`)).toHaveCount(1);
-  await expect(context).toContainText("does not automatically represent the current live game state");
+  await expect(
+    context.locator(`time[datetime="${masterSourceMetadata.sourceUpdatedAt}"]`),
+  ).toHaveCount(1);
+  await expect(
+    context.locator(`time[datetime="${masterSourceMetadata.reviewedAt}"]`),
+  ).toHaveCount(1);
+  await expect(context).toContainText(
+    "does not automatically represent the current live game state",
+  );
 
   const visibleText = await page.locator("[data-limbus-page]").innerText();
   expect(visibleText).not.toMatch(
