@@ -21,9 +21,19 @@ import {
   teamArtworkSrc,
 } from "./artwork";
 import { IdentityRanking } from "./identity-ranking";
+import { masterSourceMetadata } from "./data/index";
 import { SinnerPortrait } from "./sinner-portrait";
 import styles from "./limbus-tier-list.module.css";
 import { TeamWorkspace } from "./team-workspace";
+
+function formatSnapshotDate(value: string): string {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${value}T00:00:00Z`));
+}
 
 function TierBadge({ value }: { value: TierValue }) {
   return (
@@ -114,11 +124,34 @@ export function LimbusTierList() {
       </section>
 
       <main className={styles.content}>
+        <aside className={styles.snapshotContext} role="note" aria-label="Ranking snapshot context">
+          <strong>Reviewed ranking snapshot</strong>
+          <div className={styles.snapshotFacts}>
+            <span>Version {masterSourceMetadata.gameVersion}</span>
+            <span>
+              Source Updated ·{" "}
+              <time dateTime={masterSourceMetadata.sourceUpdatedAt}>
+                {formatSnapshotDate(masterSourceMetadata.sourceUpdatedAt)}
+              </time>
+            </span>
+            <span>
+              Reviewed ·{" "}
+              <time dateTime={masterSourceMetadata.reviewedAt}>
+                {formatSnapshotDate(masterSourceMetadata.reviewedAt)}
+              </time>
+            </span>
+          </div>
+          <p>
+            These rankings reflect this reviewed snapshot and do not automatically represent the
+            current live game state.
+          </p>
+        </aside>
+
         <section className={styles.paperSection} id="identity-tier-list">
           <SectionHeader
             number="01"
             title="IDENTITY TIER LIST"
-            question="Which Identities are the strongest in the current meta?"
+            question="Which Identities are strongest in this reviewed ranking snapshot?"
             description="This Limbus Company Tier List ranks Identities by overall combat strength. Use the Limbus Tier List to compare generalist value, beginner friendliness, team dependency, and availability without mixing those factors into the core tier."
             action="View Guide"
             actionHref="#identity-tier-list"

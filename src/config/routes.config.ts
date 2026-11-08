@@ -174,16 +174,20 @@ export const routeDefinitions = [
     searchIntent:
       "compare Limbus Company Identity, team, and E.G.O rankings to decide what to build",
     primaryKeyword: "limbus company tier list",
-    secondaryKeywords: ["limbus tier list", "limbus company ego tier list", "ego tier list limbus"],
+    secondaryKeywords: [
+      "limbus tier list",
+      "limbus company ego tier list",
+      "limbus company identity tier list",
+    ],
     title: "Limbus Company Tier List – Best Identities & E.G.O Ranked",
     description:
       "Use the Limbus Company Tier List to compare Identity, team, and E.G.O rankings, identify the strongest options, and decide what is worth building for your account.",
     h1: "LIMBUS COMPANY TIER LIST",
     pageType: "WebApplication",
     relatedRoutes: ["/"],
-    lastModified: "2026-10-25",
+    lastModified: "2026-11-08",
     reviewStatus: "reviewed",
-    reviewFingerprint: "ad8c87ce5846da9c45f0c12a385a6ab70193e78c54dbea364cf0ce17cbc20dd7",
+    reviewFingerprint: "2634a2ead7701a3bc4fefa2eafd6beb4e303e5c2266894d89bb917ab0a1c6712",
   },
   {
     route: "/phantom-blade-zero/tier-list",

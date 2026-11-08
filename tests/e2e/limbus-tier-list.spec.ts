@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test";
 
 import { navigationGames } from "../../src/config/games.config";
 import { routeRegistry } from "../../src/config/routes.config";
+import { masterSourceMetadata } from "../../src/modules/limbus-tier-list/data/index";
 
 const route = "/limbus-company/tier-list";
 const limbusRouteDefinition = routeRegistry.get(route);
@@ -352,6 +353,28 @@ for (const width of [390, 1440]) {
     });
   });
 }
+
+test("shows the reviewed ranking snapshot and blocks unsupported current-ranking claims", async ({
+  page,
+}) => {
+  await page.goto(route);
+
+  const context = page.getByRole("note", { name: "Ranking snapshot context" });
+  const sourceTime = context.locator(`time[datetime="${masterSourceMetadata.sourceUpdatedAt}"]`);
+  const reviewTime = context.locator(`time[datetime="${masterSourceMetadata.reviewedAt}"]`);
+  const snapshotDisclaimer = "do not automatically represent the current live game state";
+
+  await expect(context).toBeVisible();
+  await expect(context).toContainText(`Version ${masterSourceMetadata.gameVersion}`);
+  await expect(sourceTime).toHaveCount(1);
+  await expect(reviewTime).toHaveCount(1);
+  await expect(context).toContainText(snapshotDisclaimer);
+
+  const visibleText = await page.locator("[data-limbus-page]").innerText();
+  expect(visibleText).not.toMatch(
+    /\bcurrent meta\b|\bcurrent rankings?\b|\blatest rankings?\b|\blive rankings?\b|\breal-time rankings?\b/i,
+  );
+});
 
 test("serves final Limbus SEO copy while respecting the test-environment noindex policy", async ({
   page,

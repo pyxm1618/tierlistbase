@@ -18,6 +18,12 @@ describe("project Limbus SEO launch", () => {
     expect(definition.class).toBe("public_indexable");
     if (definition.class !== "public_indexable") throw new Error("Limbus route must be indexable");
     expect(definition.primaryKeyword).toBe("limbus company tier list");
+    expect(definition.secondaryKeywords).toEqual([
+      "limbus tier list",
+      "limbus company ego tier list",
+      "limbus company identity tier list",
+    ]);
+    expect(definition.secondaryKeywords).not.toContain("ego tier list limbus");
     expect(definition.title).toBe("Limbus Company Tier List – Best Identities & E.G.O Ranked");
     expect(definition.description).toBe(
       "Use the Limbus Company Tier List to compare Identity, team, and E.G.O rankings, identify the strongest options, and decide what is worth building for your account.",
