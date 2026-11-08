@@ -195,7 +195,7 @@ test("mobile header nests all concrete games under Games", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
-  const mobileMenu = page.locator("header details").first();
+  const mobileMenu = page.locator('header details:has(nav[aria-label="Mobile navigation"])');
   const menuSummary = mobileMenu.locator(":scope > summary");
   await expect(menuSummary).toContainText("Menu");
   await menuSummary.click();
