@@ -244,7 +244,7 @@ async function main() {
     });
     const mobilePage = await mobileContext.newPage();
     await mobilePage.goto("http://127.0.0.1:3100/", { waitUntil: "domcontentloaded" });
-    const mobileMenu = mobilePage.locator("header details").first();
+    const mobileMenu = mobilePage.locator('header details:has(nav[aria-label="Mobile navigation"])');
     await mobileMenu.locator(":scope > summary").click();
     const mobileNav = mobilePage.locator('header nav[aria-label="Mobile navigation"]');
     await mobileNav.locator("details > summary").click();
