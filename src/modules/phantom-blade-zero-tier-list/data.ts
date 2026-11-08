@@ -85,6 +85,15 @@ export const phantomBladeZeroSources: readonly RankingSource[] = [
     methodology: "S/A/B editorial tiers emphasizing repeatable combat advantages.",
   },
   {
+    id: "mobalytics-main",
+    name: "Mobalytics – Weapon Tier List – Phantom Blade Zero",
+    url: "https://mobalytics.gg/gamebase/guides/phantom-blade-zero-weapon-tier-list",
+    nature: "ranking",
+    independenceGroup: "mobalytics",
+    methodology:
+      "S/A/B editorial tiers for the 30 Main Weapons with per-weapon reasoning; updated 6 November 2026.",
+  },
+  {
     id: "keen-edge",
     name: "KeenGamer – Best Phantom Edges Tier List",
     url: "https://www.keengamer.com/articles/guides/phantom-blade-zero-best-phantom-edges-tier-list/",
@@ -122,20 +131,19 @@ export const phantomBladeZeroSources: readonly RankingSource[] = [
   },
 ];
 
-const mainSPlacements = [
-  { sourceId: "keen-main", method: "tier", tier: "S" },
-  { sourceId: "gamesgg-main", method: "tier", tier: "S" },
-] as const satisfies readonly SourcePlacement[];
-
-const mainAPlacements = [
-  { sourceId: "keen-main", method: "tier", tier: "A" },
-  { sourceId: "gamesgg-main", method: "tier", tier: "A" },
-] as const satisfies readonly SourcePlacement[];
-
-const mainBPlacements = [
-  { sourceId: "keen-main", method: "tier", tier: "B" },
-  { sourceId: "gamesgg-main", method: "tier", tier: "B" },
-] as const satisfies readonly SourcePlacement[];
+// Every reviewed Main Weapon carries one explicit placement per independent
+// ranking source, so a reader can audit the exact evidence behind each tier.
+function mainWeaponPlacements(
+  keenTier: Tier,
+  gamesggTier: Tier,
+  mobalyticsTier: Tier,
+): readonly SourcePlacement[] {
+  return [
+    { sourceId: "keen-main", method: "tier", tier: keenTier },
+    { sourceId: "gamesgg-main", method: "tier", tier: gamesggTier },
+    { sourceId: "mobalytics-main", method: "tier", tier: mobalyticsTier },
+  ];
+}
 
 const mainWeapons: readonly RankingEntity[] = [
   {
@@ -151,10 +159,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Guard breaking is weaker than dedicated shield-breaking options",
     ],
     whyThisTier:
-      "Both independent launch tier lists place Jagged Steel in S and converge on repeatable Bleed pressure and strong boss damage.",
+      "KeenGamer and games.gg both place Jagged Steel in S, while Mobalytics rates it A. All three agree on repeatable Bleed pressure, with enemy-type immunity as the shared caveat.",
     acquisition: "Defeat Jagged Steel, the Frenzied Brute, in Weeping Creek Valley.",
     mechanics: ["Bleed Gauge", "Blood Blade", "Jagged Steel Rampage"],
-    placements: mainSPlacements,
+    placements: mainWeaponPlacements("S", "S", "A"),
   },
   {
     id: "white-serpent-crimson-viper",
@@ -169,10 +177,10 @@ const mainWeapons: readonly RankingEntity[] = [
     ],
     limitations: ["Short-range combo starters", "Strong techniques consume Sha-Chi quickly"],
     whyThisTier:
-      "KeenGamer and games.gg independently place the pair in S, emphasizing sustained pressure, combo versatility, and ranged utility.",
+      "KeenGamer and games.gg place the pair in S and Mobalytics in A; all three point to sustained pressure, combo versatility, and ranged utility.",
     acquisition: "Defeat Bai Chilian and claim the weapon after the Crimson Forest encounter.",
     mechanics: ["Twin Serpent Dance", "Crimson Viper Orbit", "Ranged Execution"],
-    placements: mainSPlacements,
+    placements: mainWeaponPlacements("S", "S", "A"),
   },
   {
     id: "fiend-saws",
@@ -190,11 +198,11 @@ const mainWeapons: readonly RankingEntity[] = [
       "Fiend Form is time-limited",
     ],
     whyThisTier:
-      "Both qualifying tier sources rate Fiend Saws S and separately point to its fast pressure plus burst once a target is guard-broken.",
+      "KeenGamer and games.gg rate Fiend Saws S and Mobalytics A, with all three citing fast pressure and the burst window that follows a guard break.",
     acquisition:
       "Earned from Mu Xiaokui’s Village of Lu encounter after satisfying its weapon requirements.",
     mechanics: ["Fiend-Aura Erosion", "Fiend Form", "Unblockable burst window"],
-    placements: mainSPlacements,
+    placements: mainWeaponPlacements("S", "S", "A"),
   },
   {
     id: "freezing-chaos",
@@ -209,10 +217,10 @@ const mainWeapons: readonly RankingEntity[] = [
     ],
     limitations: ["Requires substantial progression", "Form management adds execution overhead"],
     whyThisTier:
-      "The two independent launch tier lists both place Freezing Chaos in S because its three forms cover multiple encounter needs.",
+      "KeenGamer and games.gg place Freezing Chaos in S, while Mobalytics rates it A and stresses the execution cost of its three forms.",
     acquisition: "Defeat Yucong, No. 34 Twisted Puppet, through the Triple Threat questline.",
     mechanics: ["Threefold Shift", "Steel form", "Chaos form", "Frost form"],
-    placements: mainSPlacements,
+    placements: mainWeaponPlacements("S", "S", "A"),
   },
   {
     id: "soft-snake-sword",
@@ -224,10 +232,10 @@ const mainWeapons: readonly RankingEntity[] = [
     strengths: ["Guard stance does not drain Sha-Chi", "High-value deflection and counter tools"],
     limitations: ["Steep timing requirement", "Standard attacks have limited reach"],
     whyThisTier:
-      "Both ranking sources put Soft Snake Sword in S, citing defensive resource efficiency and high-value counters.",
+      "KeenGamer and games.gg put Soft Snake Sword in S; Mobalytics rates it A while still calling it a strong defensive option. Counter timing is the shared limitation.",
     acquisition: "Defeat Wu Lengshuang, the Soft Sword, in Mandate Encampment.",
     mechanics: ["Guard Stance", "Serpentine Reversal", "Wild Serpent Dance"],
-    placements: mainSPlacements,
+    placements: mainWeaponPlacements("S", "S", "A"),
   },
   {
     id: "seamless-death",
@@ -241,14 +249,17 @@ const mainWeapons: readonly RankingEntity[] = [
       "Reaping Rings creates distance while attacking",
     ],
     limitations: [
-      "Only one qualifying independent tier source currently covers it",
-      "Formal consensus cannot be calculated yet",
+      "games.gg publishes no placement for it",
+      "Damage and guard break trail other dual-wield options",
     ],
     whyThisTier:
-      "KeenGamer places Seamless Death in A, but games.gg does not rate it. TierListBase therefore keeps it Pending instead of treating the missing placement as zero.",
+      "KeenGamer places Seamless Death in A and Mobalytics in B, so two independent rankings now cover it. games.gg publishes no placement, and the two-source average lands in B.",
     acquisition: "Defeat Jade-Face near The Lady’s Shrine in Mountain of Imprisonment.",
     mechanics: ["Flying Rings", "Reaping Rings", "Phantom Step"],
-    placements: [{ sourceId: "keen-main", method: "tier", tier: "A" }],
+    placements: [
+      { sourceId: "keen-main", method: "tier", tier: "A" },
+      { sourceId: "mobalytics-main", method: "tier", tier: "B" },
+    ],
   },
   {
     id: "parting-hooks",
@@ -260,10 +271,10 @@ const mainWeapons: readonly RankingEntity[] = [
     strengths: ["Guard Stance can answer eligible melee attacks", "Strong counterattack identity"],
     limitations: ["Does not answer every attack type", "Still requires correct defensive judgment"],
     whyThisTier:
-      "KeenGamer and games.gg both place Parting Hooks in S and highlight Guard Stance as a reliable counter-focused advantage.",
+      "All three independent rankings place Parting Hooks in S and single out Guard Stance as a reliable counter-focused advantage.",
     acquisition: "Defeat Shadow Warden Soulclaimer in Pangzhen.",
     mechanics: ["Guard Stance", "Automatic counter", "Peerless Hook"],
-    placements: mainSPlacements,
+    placements: mainWeaponPlacements("S", "S", "S"),
   },
   {
     id: "scarlet-wraithblade",
@@ -281,10 +292,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Area effects are strongest when enemies stay inside them",
     ],
     whyThisTier:
-      "Both independent launch tier lists place Scarlet Wraithblade in A, valuing its area control and Sha-Chi pressure while noting its slower commitments.",
+      "KeenGamer and games.gg place Scarlet Wraithblade in A, while Mobalytics rates it B for slower late-game commitments. All three value its area control and Sha-Chi pressure.",
     acquisition: "Defeat Hua, Deadly Betrothed, at Flesh Lily Fields in Weeping Creek Valley.",
     mechanics: ["Red Spider Lilies", "Rouge Bloomstorm", "Delayed area explosions"],
-    placements: mainAPlacements,
+    placements: mainWeaponPlacements("A", "A", "B"),
   },
   {
     id: "baishan-stormswords",
@@ -302,10 +313,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Needs sustained pressure before its buff comes online",
     ],
     whyThisTier:
-      "KeenGamer and games.gg both rate Baishan Stormswords A for elemental buildup and temporary damage amplification.",
+      "KeenGamer and games.gg rate Baishan Stormswords A, and Mobalytics places it in S for its elemental payoff. The three placements still resolve to an A consensus.",
     acquisition: "Defeat Yubi, the No. 21 Swordfighter Puppet, in Mandate Encampment.",
     mechanics: ["Wind Gauge", "Thunder Gauge", "Baishan’s Blessing"],
-    placements: mainAPlacements,
+    placements: mainWeaponPlacements("A", "A", "S"),
   },
   {
     id: "sundering-dual-axes",
@@ -323,10 +334,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Less immediate than burst-focused weapons",
     ],
     whyThisTier:
-      "Both independent tier lists place Sundering Dual Axes in A, emphasizing Baleful Aura and lingering damage as strong but setup-dependent tools.",
+      "All three independent tier lists place Sundering Dual Axes in A, emphasizing Baleful Aura and lingering damage as strong but setup-dependent tools.",
     acquisition: "Defeat Shadow Warden Heartpiercer at White Serpent House in Meigu Lake.",
     mechanics: ["Baleful Aura", "Lingering thrown axes", "Sha-Chi depletion"],
-    placements: mainAPlacements,
+    placements: mainWeaponPlacements("A", "A", "A"),
   },
   {
     id: "whiteshadow",
@@ -341,11 +352,11 @@ const mainWeapons: readonly RankingEntity[] = [
       "Its value is tied to elemental control rather than universal burst",
     ],
     whyThisTier:
-      "Both launch tier sources place Whiteshadow in A for dependable Chill and freezing control, with acquisition complexity as a practical limitation.",
+      "KeenGamer and games.gg place Whiteshadow in A while Mobalytics rates it S for reliable freezing. The three placements still resolve to an A consensus.",
     acquisition:
       "Defeat the Blizzard Blademaster in the secret Meigu Lake mountain area after collecting four Acolyte Masks.",
     mechanics: ["Chill buildup", "Frozen Gauge", "Whiteshadow’s Frosthowl"],
-    placements: mainAPlacements,
+    placements: mainWeaponPlacements("A", "A", "S"),
   },
   {
     id: "juggernaut",
@@ -360,10 +371,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Less forgiving if you avoid defensive timing mechanics",
     ],
     whyThisTier:
-      "KeenGamer and games.gg both place Juggernaut in A because it converts successful parries into powerful heavy attacks.",
+      "KeenGamer and games.gg place Juggernaut in A; Mobalytics rates it B because its stats fall off late. The three placements still resolve to an A consensus.",
     acquisition: "Defeat Bi Feng, the Giant Saber Commander, in Mountain of Imprisonment.",
     mechanics: ["Red Edge stacks", "Parry conversion", "Bandit-Slaying Rampage"],
-    placements: mainAPlacements,
+    placements: mainWeaponPlacements("A", "A", "B"),
   },
   {
     id: "outlaw-warblade",
@@ -378,10 +389,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Some enemy types resist lifesteal without supporting gear",
     ],
     whyThisTier:
-      "Both independent sources rate Outlaw Warblade A for sustained melee healing, balanced by HP-cost mechanics and enemy-type restrictions.",
+      "All three sources rate Outlaw Warblade A for sustained melee healing, balanced by HP-cost mechanics and enemy-type restrictions.",
     acquisition: "Defeat Jing Ye, the Outlaw, in Crimson Forest.",
     mechanics: ["Lifesteal", "Bloodthirst Frenzy", "HP-cost heavy attacks"],
-    placements: mainAPlacements,
+    placements: mainWeaponPlacements("A", "A", "A"),
   },
   {
     id: "wooden-sanguine",
@@ -399,10 +410,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Later weapons offer broader specialist mechanics",
     ],
     whyThisTier:
-      "Both launch tier lists rate Wooden Sanguine A as an unusually useful early guard-breaking and parry-focused support weapon.",
+      "KeenGamer and games.gg rate Wooden Sanguine A as an early guard-breaking support weapon; Mobalytics rates it B and warns it is not beginner friendly.",
     acquisition: "Received during the tutorial.",
     mechanics: ["Guard Break", "Parry pressure", "Weapon-swap setup"],
-    placements: mainAPlacements,
+    placements: mainWeaponPlacements("A", "A", "B"),
   },
   {
     id: "armybreaker",
@@ -420,10 +431,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Less flexible when raw damage is the only priority",
     ],
     whyThisTier:
-      "KeenGamer and games.gg both place Armybreaker in A for dependable Sha-Chi pressure and gap-closing utility.",
+      "All three rankings place Armybreaker in A for dependable Sha-Chi pressure and gap-closing utility.",
     acquisition: "Defeat Shadow Warden Cavalrybane in the Pangzhen marketplace.",
     mechanics: ["Forward rush", "Formation Breaking Art", "Sha-Chi depletion"],
-    placements: mainAPlacements,
+    placements: mainWeaponPlacements("A", "A", "A"),
   },
   {
     id: "wild-oriole-sword",
@@ -441,10 +452,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Requires the additional Mu Xiaokui boss phase",
     ],
     whyThisTier:
-      "Both independent ranking sources place Wild Oriole Sword in A for temporary blade-wave reach and aggressive combo pressure.",
+      "All three independent rankings place Wild Oriole Sword in A for temporary blade-wave reach and aggressive combo pressure.",
     acquisition: "Earn it through Mu Xiaokui’s additional boss phase in Village of Lu.",
     mechanics: ["Oriole Song", "Blade waves", "10-second enhanced state"],
-    placements: mainAPlacements,
+    placements: mainWeaponPlacements("A", "A", "A"),
   },
   {
     id: "the-fanatics-broken-blade",
@@ -462,10 +473,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Drunk state restricts mobility and disables normal blocking",
     ],
     whyThisTier:
-      "Both independent tier lists place The Fanatic’s Broken Blade in B because its range can be valuable, but setup and movement restrictions reduce consistency.",
+      "All three independent tier lists place The Fanatic’s Broken Blade in B: its range is valuable, but setup and movement restrictions reduce consistency.",
     acquisition: "Defeat Hua Qianxiao, the Sword Fanatic, in Crimson Forest.",
     mechanics: ["Bottomless Drink", "Tipsy state", "Drunk state"],
-    placements: mainBPlacements,
+    placements: mainWeaponPlacements("B", "B", "B"),
   },
   {
     id: "sanguine-twin",
@@ -480,11 +491,11 @@ const mainWeapons: readonly RankingEntity[] = [
       "Later dual-wield weapons offer stronger specialist mechanics",
     ],
     whyThisTier:
-      "Both launch tier lists place Sanguine Twin in B: it is fast and accessible, but short reach and limited specialization reduce late-game priority.",
+      "All three tier lists place Sanguine Twin in B: it is fast and accessible, but short reach and limited late-game specialization reduce its priority.",
     acquisition:
       "Found on a weapon rack below the First Meeting with Yu’er bell in Weeping Creek Valley.",
     mechanics: ["Dual-Blade Flurry", "Fast multi-hit strings", "Short-range starters"],
-    placements: mainBPlacements,
+    placements: mainWeaponPlacements("B", "B", "B"),
   },
   {
     id: "sanguine-reach",
@@ -499,10 +510,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Its damage-buff value requires additional management",
     ],
     whyThisTier:
-      "KeenGamer and games.gg both place Sanguine Reach in B as a dependable early crowd option that is eventually outclassed by more specialized weapons.",
+      "All three rankings place Sanguine Reach in B as a dependable early crowd option that is eventually outclassed by more specialized weapons.",
     acquisition: "Found on the weapon rack beside Forge at the Weeping Creek Valley Outpost.",
     mechanics: ["Longblade Chain Strikes", "Wide sweeping attacks", "Temporary damage buffs"],
-    placements: mainBPlacements,
+    placements: mainWeaponPlacements("B", "B", "B"),
   },
   {
     id: "sanguine",
@@ -517,10 +528,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Later perks improve less dramatically than competing options",
     ],
     whyThisTier:
-      "Both independent launch tier lists place Sanguine in B: it is reliable for learning the game, but later weapons offer more impactful mechanics.",
+      "All three independent tier lists place Sanguine in B: it is reliable for learning the game, but later weapons offer more impactful mechanics.",
     acquisition: "Soul’s default starting weapon.",
     mechanics: ["Sweeping Blade", "Straightforward combos", "Beginner-friendly pressure"],
-    placements: mainBPlacements,
+    placements: mainWeaponPlacements("B", "B", "B"),
   },
   {
     id: "tianxuan-bronze-sword",
@@ -538,10 +549,10 @@ const mainWeapons: readonly RankingEntity[] = [
       "Its specialization is narrow if you prefer perfect-parry play",
     ],
     whyThisTier:
-      "Both qualifying tier sources place Tianxuan Bronze Sword in B because reduced blocking costs are useful, but losing normal parries creates a major trade-off.",
+      "All three qualifying rankings place Tianxuan Bronze Sword in B because reduced blocking costs are useful, but losing normal parries is a major trade-off.",
     acquisition: "Obtain it from Master Bi Yuan in Village of Lu.",
     mechanics: ["Natural Order", "Reduced block cost", "No normal parry"],
-    placements: mainBPlacements,
+    placements: mainWeaponPlacements("B", "B", "B"),
   },
 ];
 
@@ -847,9 +858,17 @@ function scoreToTier(score: number): Tier {
 }
 
 export function reviewPhantomBladeZeroEntity(entity: RankingEntity): ReviewedRankingEntity {
-  const rankingSources = entity.placements
+  // One qualifying-placement set drives the gate, the vote, and the disagreement
+  // check. Official and supporting placements are never tier votes, so they must
+  // not reach normalizePlacement, the mean, or the consensus tier.
+  const rankingPlacements = entity.placements.filter((placement) => {
+    const source = phantomBladeZeroSources.find((candidate) => candidate.id === placement.sourceId);
+    return source?.nature === "ranking";
+  });
+
+  const rankingSources = rankingPlacements
     .map((placement) => phantomBladeZeroSources.find((source) => source.id === placement.sourceId))
-    .filter((source): source is RankingSource => Boolean(source && source.nature === "ranking"));
+    .filter((source): source is RankingSource => Boolean(source));
 
   const independentSourceCount = new Set(
     rankingSources.map((source) => source.independenceGroup ?? source.id),
@@ -865,7 +884,7 @@ export function reviewPhantomBladeZeroEntity(entity: RankingEntity): ReviewedRan
     };
   }
 
-  const normalized = entity.placements.map(normalizePlacement);
+  const normalized = rankingPlacements.map(normalizePlacement);
   const mean = normalized.reduce((sum, value) => sum + value, 0) / normalized.length;
   const disagreement = Math.max(...normalized) - Math.min(...normalized) >= 0.5;
   const consensusTier = scoreToTier(mean);
@@ -896,7 +915,7 @@ const reviewedMainWeapons = mainWeapons.map(reviewPhantomBladeZeroEntity);
 const reviewedPhantomEdges = phantomEdges.map(reviewPhantomBladeZeroEntity);
 
 export const phantomBladeZeroSnapshot = {
-  snapshotDate: "2026-11-03",
+  snapshotDate: "2026-11-08",
   releaseVersion: "Launch snapshot",
   officialScale: {
     mainWeapons: "30+",
@@ -911,16 +930,17 @@ export const phantomBladeZeroSnapshot = {
       label: "Boss Bleed Pick",
       entityId: "jagged-steel",
       reason:
-        "Both independent main-weapon tier sources place it in S for repeatable Bleed pressure.",
+        "KeenGamer and games.gg place it in S and Mobalytics in A, so the consensus stays S for repeatable Bleed pressure.",
     },
     {
       label: "Defensive Pick",
       entityId: "soft-snake-sword",
-      reason: "Both sources place it in S and specifically value its counter-focused defense.",
+      reason:
+        "KeenGamer and games.gg place it in S and Mobalytics in A, with all three valuing its counter-focused defense.",
     },
   ] as const,
   whatChanged:
-    "First TierListBase snapshot. No previous verified snapshot exists, so no tier movements are claimed.",
+    "Mobalytics was added as an independent Main Weapon ranking source on 8 November 2026, so the evidence package was reviewed again. Every reviewed Main Weapon now carries three independent placements instead of two, Seamless Death left Pending for B, and no Phantom Edge changed.",
 } as const;
 
 export function getPhantomBladeZeroReleaseReadiness() {

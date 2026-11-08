@@ -517,12 +517,12 @@ export function PhantomBladeZeroTierListPage() {
 
             <p className={styles.sectionIntro}>
               Sources for the <strong>Phantom Blade Zero tier list</strong> are separated by what
-              they can prove. The <strong>Phantom Blade Zero weapon tier list</strong> currently has
-              two qualifying comprehensive Main Weapon sources, and supporting data cannot cast a
-              Final Tier vote. Official facts can verify identity or mechanics without becoming
-              ranking votes. Post-snapshot reviews were re-checked for this snapshot: none of the
-              newer third-party rankings met the independence and completeness bar, so the evidence
-              package is unchanged.
+              they can prove. The <strong>Phantom Blade Zero weapon tier list</strong> now counts
+              three independent comprehensive Main Weapon rankings: KeenGamer, games.gg, and
+              Mobalytics. Supporting data cannot cast a Final Tier vote, and official facts verify
+              identity or mechanics without becoming ranking votes. The evidence package was
+              re-reviewed on 8 November 2026, when the <strong>Phantom Blade Zero tier list</strong>{" "}
+              gained Mobalytics as a qualifying independent Main Weapon source.
             </p>
 
             <div className={styles.sourceColumns}>
@@ -563,12 +563,7 @@ export function PhantomBladeZeroTierListPage() {
           >
             <div className={styles.proseCard}>
               <h2 id="changes-title">What Changed</h2>
-              <p>
-                This is the first reviewed <strong>Phantom Blade Zero tier list</strong> snapshot,
-                so no previous verified TierListBase baseline exists and no tier movement is
-                claimed. Ranking data, source count, consensus and Pending states are unchanged
-                since 3 November 2026.
-              </p>
+              <p>{phantomBladeZeroSnapshot.whatChanged}</p>
             </div>
           </section>
 

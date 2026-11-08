@@ -32,10 +32,10 @@ describe("Phantom Blade Zero module integration", () => {
   });
 
   it("preserves the reviewed evidence snapshot after the post-snapshot re-check", () => {
-    // Path A: no post-2026-11-03 source met the existing methodology, so the
-    // evidence package, source count and snapshot date stay frozen.
-    expect(phantomBladeZeroSnapshot.snapshotDate).toBe("2026-11-03");
-    expect(phantomBladeZeroSnapshot.sources).toHaveLength(10);
+    // Mobalytics qualified as an independent Main Weapon ranking, so the
+    // evidence package changed and the snapshot moved to the review date.
+    expect(phantomBladeZeroSnapshot.snapshotDate).toBe("2026-11-08");
+    expect(phantomBladeZeroSnapshot.sources).toHaveLength(11);
   });
 
   it("counts only independent ranking sources as tier evidence", () => {
@@ -43,15 +43,15 @@ describe("Phantom Blade Zero module integration", () => {
       phantomBladeZeroSnapshot.sources.filter((source) => source.nature === nature);
 
     expect(byNature("official")).toHaveLength(3);
-    expect(byNature("ranking")).toHaveLength(3);
+    expect(byNature("ranking")).toHaveLength(4);
     expect(byNature("supporting")).toHaveLength(4);
 
-    // Three ranking articles resolve to two independent publishers: KeenGamer
+    // Four ranking articles resolve to three independent publishers: KeenGamer
     // contributes both a Main Weapon and a Phantom Edge list under one group.
     const independentGroups = new Set(
       byNature("ranking").map((source) => source.independenceGroup ?? source.id),
     );
-    expect(independentGroups).toEqual(new Set(["keengamer", "gamesgg"]));
+    expect(independentGroups).toEqual(new Set(["keengamer", "gamesgg", "mobalytics"]));
 
     // Supporting data must never be able to cast a tier vote.
     for (const source of byNature("supporting")) {
@@ -80,7 +80,7 @@ describe("Phantom Blade Zero module integration", () => {
       Math.max(...phantomBladeZeroSnapshot.phantomEdges.map((edge) => edge.independentSourceCount)),
     ).toBe(1);
 
-    // Main Weapons keep their reviewed distribution; exactly one remains Pending.
+    // Every Main Weapon now clears the two-source gate, so none stays Pending.
     const countByTier = phantomBladeZeroSnapshot.mainWeapons.reduce<Record<string, number>>(
       (accumulator, entity) => {
         accumulator[entity.finalTier] = (accumulator[entity.finalTier] ?? 0) + 1;
@@ -88,6 +88,7 @@ describe("Phantom Blade Zero module integration", () => {
       },
       {},
     );
-    expect(countByTier).toEqual({ S: 6, A: 9, B: 5, Pending: 1 });
+    expect(countByTier).toEqual({ S: 6, A: 9, B: 6 });
+    expect(countByTier.Pending).toBeUndefined();
   });
 });
