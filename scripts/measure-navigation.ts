@@ -38,6 +38,21 @@ const ROUTES: NavRoute[] = [
     linkSelector: 'header nav[aria-label="Primary navigation"] a[href="/wow-forever/tier-list"]',
     readySelector: 'section[aria-label="Tier Board"]',
   },
+  {
+    name: "Genshin -> Wild Rift",
+    fromUrl: "http://127.0.0.1:3100/genshin-impact/tier-list",
+    toUrl: "http://127.0.0.1:3100/wild-rift/tier-list",
+    linkSelector: 'header nav[aria-label="Primary navigation"] a[href="/wild-rift/tier-list"]',
+    readySelector: "h1",
+  },
+  {
+    name: "Wild Rift -> Slay the Spire 2",
+    fromUrl: "http://127.0.0.1:3100/wild-rift/tier-list",
+    toUrl: "http://127.0.0.1:3100/slay-the-spire-2/tier-list",
+    linkSelector:
+      'header nav[aria-label="Primary navigation"] a[href="/slay-the-spire-2/tier-list"]',
+    readySelector: "h1",
+  },
 ];
 
 type TimingResult = {
@@ -102,6 +117,11 @@ async function runSample(
   }
 
   await page.goto(route.fromUrl, { waitUntil: "domcontentloaded" });
+
+  const gamesSummary = page.locator(
+    'header nav[aria-label="Primary navigation"] details > summary',
+  );
+  await gamesSummary.click();
 
   const link = page.locator(route.linkSelector);
   await link.waitFor({ state: "visible" });
@@ -224,11 +244,13 @@ async function main() {
     });
     const mobilePage = await mobileContext.newPage();
     await mobilePage.goto("http://127.0.0.1:3100/", { waitUntil: "domcontentloaded" });
-    const menuSummary = mobilePage.locator("header details summary");
-    await menuSummary.click();
-    const wowMobileLink = mobilePage.locator(
-      'header nav[aria-label="Mobile navigation"] a[href="/wow-forever/tier-list"]',
+    const mobileMenu = mobilePage.locator(
+      'header details:has(nav[aria-label="Mobile navigation"])',
     );
+    await mobileMenu.locator(":scope > summary").click();
+    const mobileNav = mobilePage.locator('header nav[aria-label="Mobile navigation"]');
+    await mobileNav.locator("details > summary").click();
+    const wowMobileLink = mobileNav.locator('a[href="/wow-forever/tier-list"]');
     await wowMobileLink.click();
     await mobilePage.waitForURL("**/wow-forever/tier-list");
     await mobilePage.locator('section[aria-label="Tier Board"]').waitFor({ state: "visible" });

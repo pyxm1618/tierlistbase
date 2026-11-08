@@ -9,15 +9,15 @@ test.describe("Real Navigation Latency", () => {
     await seedWowPresentationFixtures();
     await page.goto("/", { waitUntil: "networkidle" });
 
-    let link = page.locator(
-      'header nav[aria-label="Primary navigation"] a[href="/wow-forever/tier-list"]',
-    );
+    const navigation = isMobile
+      ? page.locator('header nav[aria-label="Mobile navigation"]')
+      : page.locator('header nav[aria-label="Primary navigation"]');
     if (isMobile) {
-      await page.locator("header details summary").click();
-      link = page.locator(
-        'header nav[aria-label="Mobile navigation"] a[href="/wow-forever/tier-list"]',
-      );
+      const mobileMenu = page.locator('header details:has(nav[aria-label="Mobile navigation"])');
+      await mobileMenu.locator(":scope > summary").click();
     }
+    await navigation.locator("details > summary").click();
+    const link = navigation.locator('a[href="/wow-forever/tier-list"]');
     await expect(link).toBeVisible();
 
     const start = performance.now();
@@ -37,15 +37,15 @@ test.describe("Real Navigation Latency", () => {
   }) => {
     await page.goto("/", { waitUntil: "networkidle" });
 
-    let link = page.locator(
-      'header nav[aria-label="Primary navigation"] a[href="/genshin-impact/tier-list"]',
-    );
+    const navigation = isMobile
+      ? page.locator('header nav[aria-label="Mobile navigation"]')
+      : page.locator('header nav[aria-label="Primary navigation"]');
     if (isMobile) {
-      await page.locator("header details summary").click();
-      link = page.locator(
-        'header nav[aria-label="Mobile navigation"] a[href="/genshin-impact/tier-list"]',
-      );
+      const mobileMenu = page.locator('header details:has(nav[aria-label="Mobile navigation"])');
+      await mobileMenu.locator(":scope > summary").click();
     }
+    await navigation.locator("details > summary").click();
+    const link = navigation.locator('a[href="/genshin-impact/tier-list"]');
     await expect(link).toBeVisible();
 
     const start = performance.now();

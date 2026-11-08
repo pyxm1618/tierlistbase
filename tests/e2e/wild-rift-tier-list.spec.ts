@@ -29,9 +29,12 @@ test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All R
   await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Wild Rift Tier List");
   await expect(page.locator('header nav[aria-label="Primary navigation"]')).toHaveCount(1);
-  const desktopWildRiftLink = page
-    .locator('header nav[aria-label="Primary navigation"]')
-    .getByRole("link", { name: "Wild Rift", exact: true });
+  const desktopNavigation = page.locator('header nav[aria-label="Primary navigation"]');
+  await desktopNavigation.locator("summary").filter({ hasText: "Games" }).click();
+  const desktopWildRiftLink = desktopNavigation.getByRole("link", {
+    name: "Wild Rift",
+    exact: true,
+  });
   await expect(desktopWildRiftLink).toBeVisible();
   await expect(desktopWildRiftLink).toHaveAttribute("aria-current", "page");
   await expect(page.locator('footer nav[aria-label="Footer navigation"]')).toHaveCount(1);
@@ -86,8 +89,10 @@ test("Wild Rift is discoverable and active in the shared mobile menu", async ({ 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(route);
 
-  await page.locator("header details summary").click();
+  const mobileMenu = page.locator('header details:has(nav[aria-label="Mobile navigation"])');
+  await mobileMenu.locator(":scope > summary").click();
   const mobileNav = page.locator('header nav[aria-label="Mobile navigation"]');
+  await mobileNav.locator("details > summary").click();
   const wildRiftLink = mobileNav.getByRole("link", { name: "Wild Rift", exact: true });
   await expect(wildRiftLink).toBeVisible();
   await expect(wildRiftLink).toHaveAttribute("aria-current", "page");

@@ -55,7 +55,9 @@ for (const width of [390, 1440]) {
         "page",
       );
 
-      for (const label of ["Games", "Tier Lists", "Guides", "Tools"]) {
+      await expect(primaryNav.locator("summary").filter({ hasText: "Games" })).toHaveCount(1);
+      await expect(mobileNav.locator("summary").filter({ hasText: "Games" })).toHaveCount(1);
+      for (const label of ["Tier Lists", "Guides", "Tools"]) {
         await expect(header.getByText(label, { exact: true })).toHaveCount(0);
       }
       await expect(header.getByRole("button", { name: "Search", exact: true })).toHaveCount(0);
@@ -69,7 +71,9 @@ for (const width of [390, 1440]) {
         expect(navBox!.y + navBox!.height).toBeLessThanOrEqual(headerBox!.y + headerBox!.height);
       } else {
         await expect(primaryNav).toBeHidden();
-        await expect(header.locator("summary")).toBeVisible();
+        await expect(
+          header.locator('details:has(nav[aria-label="Mobile navigation"]) > summary'),
+        ).toBeVisible();
       }
 
       expect(await header.evaluate((element) => element.scrollWidth <= innerWidth)).toBe(true);
@@ -433,6 +437,7 @@ test("keeps one shared registry-driven header across game pages and client trans
   const header = page.locator("body > div > header");
   const primaryNav = header.locator('nav[aria-label="Primary navigation"]');
 
+  await primaryNav.locator("summary").filter({ hasText: "Games" }).click();
   await primaryNav.locator('a[href="/limbus-company/tier-list"]').click();
   await expect(page).toHaveURL(new RegExp(`${route}$`));
   await expect(page.locator("body > div > header")).toHaveCount(1);
@@ -440,11 +445,22 @@ test("keeps one shared registry-driven header across game pages and client trans
     navigationLabels,
   );
 
-  await page
-    .locator('header nav[aria-label="Primary navigation"]')
-    .locator('a[href="/wow-forever/tier-list"]')
-    .click();
-  await expect(page).toHaveURL(/\/wow-forever\/tier-list$/);
+  const transitionedPrimaryNav = page.locator('header nav[aria-label="Primary navigation"]');
+  const transitionedGames = transitionedPrimaryNav.locator("details");
+  await expect(transitionedGames).not.toHaveAttribute("open", "");
+  await expect(
+    transitionedPrimaryNav.locator('a[href="/limbus-company/tier-list"]'),
+  ).toHaveAttribute("aria-current", "page");
+
+  await transitionedGames.locator(":scope > summary").click();
+  await expect(transitionedGames).toHaveAttribute("open", "");
+  await transitionedPrimaryNav.locator('a[href="/wild-rift/tier-list"]').click();
+  await expect(page).toHaveURL(/\/wild-rift\/tier-list$/);
+  await expect(transitionedGames).not.toHaveAttribute("open", "");
+  await expect(transitionedPrimaryNav.locator('a[href="/wild-rift/tier-list"]')).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
   await expect(page.locator("body > div > header")).toHaveCount(1);
   await expect(page.locator('header nav[aria-label="Primary navigation"] a')).toHaveText(
     navigationLabels,
