@@ -15,6 +15,7 @@ test("Dragon Traveler appears in shared desktop and mobile navigation", async ({
   await page.goto(path);
 
   const desktopNavigation = page.getByRole("navigation", { name: "Primary navigation" });
+  await desktopNavigation.locator("summary").filter({ hasText: "Games" }).click();
   const desktopDragon = desktopNavigation.getByRole("link", {
     name: "Dragon Traveler",
     exact: true,
@@ -26,9 +27,11 @@ test("Dragon Traveler appears in shared desktop and mobile navigation", async ({
   ).toHaveCount(0);
 
   await page.setViewportSize({ width: 390, height: 900 });
-  await page.locator("header details > summary").click();
+  const mobileMenu = page.locator("header details").first();
+  await mobileMenu.locator(":scope > summary").click();
 
   const mobileNavigation = page.getByRole("navigation", { name: "Mobile navigation" });
+  await mobileNavigation.locator("details > summary").click();
   const mobileDragon = mobileNavigation.getByRole("link", {
     name: "Dragon Traveler",
     exact: true,
