@@ -27,7 +27,7 @@ test("Dragon Traveler appears in shared desktop and mobile navigation", async ({
   ).toHaveCount(0);
 
   await page.setViewportSize({ width: 390, height: 900 });
-  const mobileMenu = page.locator("header details").first();
+  const mobileMenu = page.locator('header details:has(nav[aria-label="Mobile navigation"])');
   await mobileMenu.locator(":scope > summary").click();
 
   const mobileNavigation = page.getByRole("navigation", { name: "Mobile navigation" });
