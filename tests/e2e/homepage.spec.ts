@@ -213,7 +213,12 @@ test("cross-route prefetch isolation: Genshin and WoW pages do not leak Home Her
   const genshinPreloads = page.locator('link[rel="preload"][as="image"]');
   if (process.env.TEST_DATABASE_URL) {
     await expect(genshinPreloads).toHaveCount(1);
-    await expect(genshinPreloads).toHaveAttribute("href", /hero-f958fb67df/);
+    const genshinPreloadsTarget = [
+      (await genshinPreloads.getAttribute("href")) ?? "",
+      (await genshinPreloads.getAttribute("imagesrcset")) ?? "",
+    ].join(" ");
+    expect(decodeURIComponent(genshinPreloadsTarget)).toContain("hero-f958fb67df");
+    expect(genshinPreloadsTarget).toContain("/_next/image?");
   }
   await expect(
     page.locator('head link[rel="preload"][imagesrcset*="/images/home/hero-"]'),
@@ -235,7 +240,12 @@ test("cross-route prefetch isolation: Genshin and WoW pages do not leak Home Her
 
   const wowPreloads = page.locator('link[rel="preload"][as="image"]');
   await expect(wowPreloads).toHaveCount(1);
-  await expect(wowPreloads).toHaveAttribute("href", /hero-3b7bb10711/);
+  const wowPreloadsTarget = [
+    (await wowPreloads.getAttribute("href")) ?? "",
+    (await wowPreloads.getAttribute("imagesrcset")) ?? "",
+  ].join(" ");
+  expect(decodeURIComponent(wowPreloadsTarget)).toContain("hero-3b7bb10711");
+  expect(wowPreloadsTarget).toContain("/_next/image?");
   await expect(
     page.locator('head link[rel="preload"][imagesrcset*="/images/home/hero-"]'),
   ).toHaveCount(0);
