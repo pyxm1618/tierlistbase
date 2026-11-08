@@ -26,15 +26,23 @@ describe("IndexNow production wiring", () => {
   });
 
   it("submits only explicitly declared changed-URL manifests and has no full-site fallback", () => {
-    const submitIndex = workflow.indexOf("- name: Submit explicitly declared IndexNow URL changes");
+    const submitIndex = workflow.indexOf(
+      "- name: Submit explicitly declared IndexNow URL changes",
+    );
     const submitBlock = workflow.slice(submitIndex);
 
     expect(submitBlock).toContain(
       "git diff --diff-filter=AM --name-only \"$base\" \"$GITHUB_SHA\" -- '.github/indexnow/releases/*.txt'",
     );
-    expect(submitBlock).toContain("No IndexNow release manifest changed; skipping submission.");
-    expect(submitBlock).toContain("Changed IndexNow release manifests contain no URLs; skipping submission.");
-    expect(submitBlock).toContain("https://www.tierlistbase.com/api/internal/seo/indexnow");
+    expect(submitBlock).toContain(
+      "No IndexNow release manifest changed; skipping submission.",
+    );
+    expect(submitBlock).toContain(
+      "Changed IndexNow release manifests contain no URLs; skipping submission.",
+    );
+    expect(submitBlock).toContain(
+      "https://www.tierlistbase.com/api/internal/seo/indexnow",
+    );
     expect(submitBlock).toContain("CRON_SECRET: ${{ secrets.CRON_SECRET }}");
     expect(submitBlock).not.toContain("sitemap.xml");
     expect(submitBlock).not.toContain("public_indexable");
