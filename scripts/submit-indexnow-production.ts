@@ -83,7 +83,8 @@ export async function runIndexNowProductionWiring(
       return {
         kind: "failed",
         urls,
-        error:\n          "IndexNow post-deploy submission cannot authenticate because CRON_SECRET is not configured.",
+        error:
+          "IndexNow post-deploy submission cannot authenticate because CRON_SECRET is not configured.",
       };
     }
 
@@ -105,7 +106,9 @@ export async function runIndexNowProductionWiring(
 async function main(): Promise<void> {
   const head = process.env.GITHUB_SHA?.trim();
   if (!head) {
-    console.error(\n      "::error::IndexNow post-deploy submission cannot run because GITHUB_SHA is missing.",\n    );
+    console.error(
+      "::error::IndexNow post-deploy submission cannot run because GITHUB_SHA is missing.",
+    );
     return;
   }
 
