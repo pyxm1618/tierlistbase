@@ -30,9 +30,11 @@ function manifestUrls(contents: string): string[] {
 
 export const productionIndexNowDependencies: IndexNowProductionDependencies = {
   async listChangedFiles(base, head) {
-    const stdout = execFileSync("git", ["diff", "--diff-filter=AM", "--name-only", base, head], {
-      encoding: "utf8",
-    });
+    const stdout = execFileSync(
+      "git",
+      ["diff", "--diff-filter=AM", "--name-only", base, head],
+      { encoding: "utf8" },
+    );
     return stdout
       .split(/\r?\n/)
       .map((line) => line.trim())
