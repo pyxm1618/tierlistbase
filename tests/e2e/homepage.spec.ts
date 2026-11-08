@@ -26,18 +26,21 @@ test("homepage renders the approved game-discovery information architecture", as
   );
   await expect(updatesSection).not.toContainText(/verified/i);
   await expect(page.getByRole("heading", { name: "Browse All Supported Games" })).toBeVisible();
-  await expect(page.locator("a[href='/wow-forever/tier-list']").first()).toBeVisible();
-  await expect(page.locator("a[href='/genshin-impact/tier-list']").first()).toBeVisible();
+  await expect(page.locator("main a[href='/wow-forever/tier-list']").first()).toBeVisible();
+  await expect(page.locator("main a[href='/genshin-impact/tier-list']").first()).toBeVisible();
 
   const primaryNav = page.getByRole("navigation", { name: "Primary navigation" });
-  const wowNav = primaryNav.getByRole("link", { name: "World of Warcraft" });
-  const genshinNav = primaryNav.getByRole("link", { name: "Genshin Impact" });
-  await expect(wowNav).toBeVisible();
-  await expect(genshinNav).toBeVisible();
-  await expect(wowNav).not.toHaveAttribute("aria-current", "page");
-  await expect(genshinNav).not.toHaveAttribute("aria-current", "page");
-  expect(await wowNav.getAttribute("class")).not.toContain("border-b-2");
-  expect(await genshinNav.getAttribute("class")).not.toContain("border-b-2");
+  const gamesSummary = primaryNav.locator("summary").filter({ hasText: "Games" });
+  await expect(gamesSummary).toBeVisible();
+  await expect(primaryNav.locator(':scope > a[href$="/tier-list"]')).toHaveCount(0);
+
+  await gamesSummary.click();
+  const gameLinks = primaryNav.locator('a[href$="/tier-list"]');
+  await expect(gameLinks).toHaveCount(10);
+  await expect(primaryNav.getByRole("link", { name: "World of Warcraft" })).toBeVisible();
+  await expect(primaryNav.getByRole("link", { name: "Genshin Impact" })).toBeVisible();
+  await expect(primaryNav.getByRole("link", { name: "Anime Expeditions" })).toBeVisible();
+  await expect(primaryNav.getByRole("link", { name: "Slay the Spire 2" })).toBeVisible();
 
   await expect(
     page.getByText("Explore current Genshin Impact character rankings backed by reviewed data."),
@@ -154,7 +157,9 @@ for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
 test("WoW route remains navigable and ranked content remains intact", async ({ page }) => {
   await seedWowPresentationFixtures();
   await page.goto("/");
-  const link = page.locator("a[href='/wow-forever/tier-list']").first();
+  const primaryNav = page.getByRole("navigation", { name: "Primary navigation" });
+  await primaryNav.locator("summary").filter({ hasText: "Games" }).click();
+  const link = primaryNav.getByRole("link", { name: "World of Warcraft" });
   await expect(link).toBeVisible();
   await link.click();
   await expect(page).toHaveURL(/\/wow-forever\/tier-list/);
@@ -169,20 +174,45 @@ test("WoW route remains navigable and ranked content remains intact", async ({ p
 
 test("game navigation active state follows pathname only", async ({ page }) => {
   const primaryNav = page.getByRole("navigation", { name: "Primary navigation" });
-  const wowNav = primaryNav.getByRole("link", { name: "World of Warcraft" });
-  const genshinNav = primaryNav.getByRole("link", { name: "Genshin Impact" });
+  const cases = [
+    "/wow-forever/tier-list",
+    "/genshin-impact/tier-list",
+    "/wild-rift/tier-list",
+    "/slay-the-spire-2/tier-list",
+  ];
 
   await page.goto("/");
-  await expect(wowNav).not.toHaveAttribute("aria-current", "page");
-  await expect(genshinNav).not.toHaveAttribute("aria-current", "page");
+  await expect(primaryNav.locator('a[aria-current="page"]')).toHaveCount(0);
 
-  await page.goto("/wow-forever/tier-list?mode=dungeon&role=dps&level=30");
-  await expect(wowNav).toHaveAttribute("aria-current", "page");
-  await expect(genshinNav).not.toHaveAttribute("aria-current", "page");
+  for (const href of cases) {
+    await page.goto(href);
+    await expect(primaryNav.locator(`a[href="${href}"]`)).toHaveAttribute("aria-current", "page");
+    await expect(primaryNav.locator('a[aria-current="page"]')).toHaveCount(1);
+  }
+});
 
-  await page.goto("/genshin-impact/tier-list?mode=spiral-abyss");
-  await expect(wowNav).not.toHaveAttribute("aria-current", "page");
-  await expect(genshinNav).toHaveAttribute("aria-current", "page");
+test("mobile header nests all concrete games under Games", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const mobileMenu = page.locator("header details").first();
+  const menuSummary = mobileMenu.locator(":scope > summary");
+  await expect(menuSummary).toContainText("Menu");
+  await menuSummary.click();
+
+  const mobileNav = page.getByRole("navigation", { name: "Mobile navigation" });
+  await expect(mobileNav.getByRole("link", { name: "Home" })).toBeVisible();
+  await expect(mobileNav.locator(':scope > a[href$="/tier-list"]')).toHaveCount(0);
+
+  const gamesDetails = mobileNav.locator("details");
+  const gamesSummary = gamesDetails.locator(":scope > summary");
+  await expect(gamesSummary).toContainText("Games");
+  await gamesSummary.click();
+
+  await expect(gamesDetails.locator('a[href$="/tier-list"]')).toHaveCount(10);
+  await expect(gamesDetails.getByRole("link", { name: "World of Warcraft" })).toBeVisible();
+  await expect(gamesDetails.getByRole("link", { name: "Anime Expeditions" })).toBeVisible();
+  await expect(gamesDetails.getByRole("link", { name: "Slay the Spire 2" })).toBeVisible();
 });
 
 test("Genshin tier-list route remains public and clickable", async ({ page }) => {
