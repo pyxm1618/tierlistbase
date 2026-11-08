@@ -457,9 +457,10 @@ test("keeps one shared registry-driven header across game pages and client trans
   await transitionedPrimaryNav.locator('a[href="/wild-rift/tier-list"]').click();
   await expect(page).toHaveURL(/\/wild-rift\/tier-list$/);
   await expect(transitionedGames).not.toHaveAttribute("open", "");
-  await expect(
-    transitionedPrimaryNav.locator('a[href="/wild-rift/tier-list"]'),
-  ).toHaveAttribute("aria-current", "page");
+  await expect(transitionedPrimaryNav.locator('a[href="/wild-rift/tier-list"]')).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
   await expect(page.locator("body > div > header")).toHaveCount(1);
   await expect(page.locator('header nav[aria-label="Primary navigation"] a')).toHaveText(
     navigationLabels,
