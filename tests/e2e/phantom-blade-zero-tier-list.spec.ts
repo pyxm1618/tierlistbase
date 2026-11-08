@@ -21,7 +21,9 @@ test.describe("Phantom Blade Zero tier list release", () => {
   test("supports search, category filtering, clear, and Pending", async ({ page }) => {
     await page.getByRole("searchbox", { name: "Search main weapons" }).fill("Seamless");
     await expect(page.getByRole("button", { name: /Seamless Death/ })).toBeVisible();
-    await expect(page.locator('[aria-label="Pending tier"]')).toBeVisible();
+    // Two independent rankings now cover Seamless Death, so it leaves Pending.
+    await expect(page.locator('[aria-label="B tier"]')).toBeVisible();
+    await expect(page.locator('[aria-label="Pending tier"]')).toHaveCount(0);
 
     await page.getByRole("button", { name: "Clear filters" }).click();
     await page.getByRole("tab", { name: "Phantom Edges" }).click();

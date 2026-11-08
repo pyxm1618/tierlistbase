@@ -284,10 +284,9 @@ export function PhantomBladeZeroTierListPage() {
           <p className={styles.heroCopy}>
             Use this <strong>Phantom Blade Zero tier list</strong> to compare verified Main Weapons
             and Phantom Edges through independent ranking evidence, strengths, weaknesses, and
-            practical use cases. The <strong>Phantom Blade Zero weapon tier list</strong> publishes
-            a tier only when at least two independent comprehensive rankings support it. This
-            ranking therefore separates verified identity from ranked consensus and remains
-            source-led.
+            practical use cases. A tier appears only when at least two independent comprehensive
+            rankings support it. Verified identity and ranked consensus stay separate, so the page
+            never claims more certainty than its sources carry.
           </p>
 
           <div className={styles.heroStats}>
@@ -310,9 +309,8 @@ export function PhantomBladeZeroTierListPage() {
           </div>
 
           <p className={styles.coverageNote}>
-            Coverage note: this <strong>Phantom Blade Zero tier list</strong> reviews 21 verified
-            Main Weapons and 14 verified Phantom Edges; it does not treat the full announced arsenal
-            as ranked evidence.
+            Coverage note: this snapshot reviews 21 verified Main Weapons and 14 verified Phantom
+            Edges. The wider announced arsenal is not treated as ranked evidence.
           </p>
 
           <div className={styles.releaseGate} data-testid="p0-release-gate">
@@ -336,9 +334,9 @@ export function PhantomBladeZeroTierListPage() {
               </div>
             </div>
             <p className={styles.sectionIntro}>
-              Quick Picks summarize the clearest recommendations from the current rankings without
-              replacing the evidence below. Every shortcut stays tied to the same source rules used
-              in the full workspace.
+              Quick Picks summarize the clearest recommendations in this{" "}
+              <strong>Phantom Blade Zero tier list</strong> without replacing the evidence below.
+              Every shortcut follows the same source rules as the full workspace.
             </p>
             <div className={styles.quickGrid}>
               {phantomBladeZeroSnapshot.quickPicks.map((pick) => {
@@ -400,12 +398,10 @@ export function PhantomBladeZeroTierListPage() {
             </div>
 
             <p className={styles.sectionIntro}>
-              The default <strong>Phantom Blade Zero weapons tier list</strong> view covers Main
-              Weapons. Switch to Phantom Edges to inspect the current
-              <strong> Phantom Blade Zero Phantom Edge tier list</strong>. This ranking keeps
-              missing source coverage neutral rather than scoring it as zero. The{" "}
-              <strong>Phantom Blade Zero Phantom Edges tier list</strong> remains evidence-gated
-              until another qualifying comprehensive ranking source exists.
+              The default view covers Main Weapons. Switch to Phantom Edges to inspect the{" "}
+              <strong>Phantom Blade Zero Phantom Edge tier list</strong>. Missing source coverage
+              stays neutral rather than counting as zero, and Phantom Edge rankings remain
+              evidence-gated until another qualifying comprehensive ranking exists.
             </p>
 
             <div className={styles.controls}>
@@ -491,14 +487,13 @@ export function PhantomBladeZeroTierListPage() {
               <h2 id="methodology-title">Ranking Methodology</h2>
               <p>
                 The <strong>Phantom Blade Zero tier list</strong> counts only qualifying
-                comprehensive editorial rankings. The{" "}
-                <strong>Phantom Blade Zero weapons tier list</strong>
-                ignores missing placements instead of scoring them as zero.
+                comprehensive editorial rankings. The weapon rankings ignore missing placements
+                instead of scoring them as zero.
               </p>
               <p>
                 An entity needs at least two independent comprehensive ranking sources to leave
-                Pending. The methodology uses Needs Review when qualifying sources disagree enough
-                that a precise consensus tier would overstate the evidence. It remains deliberately
+                Pending. Needs Review is used when qualifying sources disagree enough that one
+                precise consensus tier would overstate the evidence. The approach stays deliberately
                 conservative when independent evidence is incomplete.
               </p>
               <p>
@@ -522,10 +517,12 @@ export function PhantomBladeZeroTierListPage() {
 
             <p className={styles.sectionIntro}>
               Sources for the <strong>Phantom Blade Zero tier list</strong> are separated by what
-              they can prove. The <strong>Phantom Blade Zero weapon tier list</strong> currently has
-              two qualifying comprehensive Main Weapon sources; supporting data cannot cast a Final
-              Tier vote. For the <strong>Phantom Blade Zero tier list</strong>, official facts can
-              verify identity or mechanics without becoming ranking votes.
+              they can prove. The <strong>Phantom Blade Zero weapon tier list</strong> now counts
+              three independent comprehensive Main Weapon rankings: KeenGamer, games.gg, and
+              Mobalytics. Supporting data cannot cast a Final Tier vote, and official facts verify
+              identity or mechanics without becoming ranking votes. The evidence package was
+              re-reviewed on 8 November 2026, when the <strong>Phantom Blade Zero tier list</strong>{" "}
+              gained Mobalytics as a qualifying independent Main Weapon source.
             </p>
 
             <div className={styles.sourceColumns}>
@@ -566,11 +563,7 @@ export function PhantomBladeZeroTierListPage() {
           >
             <div className={styles.proseCard}>
               <h2 id="changes-title">What Changed</h2>
-              <p>
-                This is the first reviewed <strong>Phantom Blade Zero tier list</strong> snapshot.
-                No previous verified TierListBase snapshot exists, so no tier movement is claimed.
-                This <strong>Phantom Blade Zero tier list</strong> is the release baseline.
-              </p>
+              <p>{phantomBladeZeroSnapshot.whatChanged}</p>
             </div>
           </section>
 
@@ -588,17 +581,13 @@ export function PhantomBladeZeroTierListPage() {
                 <summary>Why does the Phantom Blade Zero tier list show Pending?</summary>
                 <p>
                   Pending means the entity is verified but does not yet have enough independent
-                  comprehensive ranking evidence for a formal tier. The{" "}
-                  <strong>Phantom Blade Zero Phantom Edges tier list</strong> therefore stays
-                  Pending until another qualifying comprehensive ranking source appears. The{" "}
-                  <strong>Phantom Blade Zero Phantom Edges tier list</strong> uses separate
-                  evidence.
+                  comprehensive ranking evidence for a formal tier. Phantom Edge rankings therefore
+                  stay Pending until another qualifying comprehensive ranking source appears,
+                  because those entries are assessed on separate evidence from the Main Weapons.
                 </p>
               </details>
               <details>
-                <summary>
-                  Does the Phantom Blade Zero weapons tier list mix Main Weapons and Phantom Edges?
-                </summary>
+                <summary>Does the weapon ranking mix Main Weapons and Phantom Edges?</summary>
                 <p>
                   No. Main Weapons and boss-derived Phantom Edges stay separate because their combat
                   roles and evidence coverage differ.
