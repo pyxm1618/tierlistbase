@@ -313,7 +313,7 @@ const mainWeapons: readonly RankingEntity[] = [
       "Needs sustained pressure before its buff comes online",
     ],
     whyThisTier:
-      "KeenGamer and games.gg rate Baishan Stormswords A, and Mobalytics places it in S for its elemental payoff. The three placements still resolve to an A consensus.",
+      "KeenGamer and games.gg rate Baishan Stormswords A, and Mobalytics places it in S for its elemental payoff. The three placements average to a consensus S.",
     acquisition: "Defeat Yubi, the No. 21 Swordfighter Puppet, in Mandate Encampment.",
     mechanics: ["Wind Gauge", "Thunder Gauge", "Baishan’s Blessing"],
     placements: mainWeaponPlacements("A", "A", "S"),
@@ -352,7 +352,7 @@ const mainWeapons: readonly RankingEntity[] = [
       "Its value is tied to elemental control rather than universal burst",
     ],
     whyThisTier:
-      "KeenGamer and games.gg place Whiteshadow in A while Mobalytics rates it S for reliable freezing. The three placements still resolve to an A consensus.",
+      "KeenGamer and games.gg place Whiteshadow in A while Mobalytics rates it S for reliable freezing. The three placements average to a consensus S.",
     acquisition:
       "Defeat the Blizzard Blademaster in the secret Meigu Lake mountain area after collecting four Acolyte Masks.",
     mechanics: ["Chill buildup", "Frozen Gauge", "Whiteshadow’s Frosthowl"],
@@ -850,10 +850,23 @@ function normalizePlacement(placement: SourcePlacement): number {
   return 1 - (placement.rank - 1) / (placement.fieldSize - 1);
 }
 
+// Tier scores are exact decimals, but binary floating point cannot represent
+// every sum or quotient exactly: three placements of 1.0, 0.7 and 0.7 have a
+// mathematical mean of 0.8, yet the division returns 0.7999999999999999 and
+// falls below the S threshold. Snapping to this precision restores the intended
+// threshold semantics without widening the band enough to promote a score that
+// is genuinely below a boundary.
+const SCORE_PRECISION_DECIMALS = 9;
+
+function stableScore(score: number): number {
+  return Number(score.toFixed(SCORE_PRECISION_DECIMALS));
+}
+
 function scoreToTier(score: number): Tier {
-  if (score >= 0.8) return "S";
-  if (score >= 0.6) return "A";
-  if (score >= 0.4) return "B";
+  const value = stableScore(score);
+  if (value >= 0.8) return "S";
+  if (value >= 0.6) return "A";
+  if (value >= 0.4) return "B";
   return "C";
 }
 
@@ -886,7 +899,7 @@ export function reviewPhantomBladeZeroEntity(entity: RankingEntity): ReviewedRan
 
   const normalized = rankingPlacements.map(normalizePlacement);
   const mean = normalized.reduce((sum, value) => sum + value, 0) / normalized.length;
-  const disagreement = Math.max(...normalized) - Math.min(...normalized) >= 0.5;
+  const disagreement = stableScore(Math.max(...normalized) - Math.min(...normalized)) >= 0.5;
   const consensusTier = scoreToTier(mean);
 
   if (entity.override) {
@@ -940,7 +953,7 @@ export const phantomBladeZeroSnapshot = {
     },
   ] as const,
   whatChanged:
-    "Mobalytics was added as an independent Main Weapon ranking source on 8 November 2026, so the evidence package was reviewed again. Every reviewed Main Weapon now carries three independent placements instead of two, Seamless Death left Pending for B, and no Phantom Edge changed.",
+    "Mobalytics was added as an independent Main Weapon ranking source on 8 November 2026, so the evidence package was reviewed again. Main Weapons with Mobalytics coverage now carry three independent placements. Seamless Death left Pending for B, Baishan Stormswords and Whiteshadow moved from A to S, and no Phantom Edge changed.",
 } as const;
 
 export function getPhantomBladeZeroReleaseReadiness() {

@@ -6,6 +6,7 @@ import {
   reviewPhantomBladeZeroEntity,
 } from "@/modules/phantom-blade-zero-tier-list";
 import { phantomBladeZeroAssetProvenance } from "@/modules/phantom-blade-zero-tier-list/asset-provenance";
+import type { SourcePlacement } from "@/modules/phantom-blade-zero-tier-list/data";
 
 describe("Phantom Blade Zero reviewed snapshot", () => {
   const allEntities = [
@@ -163,6 +164,108 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
     expect(rankingOnly.independentSourceCount).toBe(2);
   });
 
+  it("resolves an exact 0.8 boundary to S instead of losing it to floating point", () => {
+    const fixture = (placements: readonly SourcePlacement[]) =>
+      reviewPhantomBladeZeroEntity({
+        id: "floating-boundary-fixture",
+        name: "Floating Boundary Fixture",
+        kind: "main_weapon",
+        category: "Test",
+        bestFor: ["Test"],
+        easeOfUse: "Needs Review",
+        strengths: ["Test"],
+        limitations: ["Test"],
+        whyThisTier: "Test fixture.",
+        acquisition: "Test fixture.",
+        mechanics: ["Test"],
+        placements,
+      });
+
+    // Premise of the defect, asserted independently of the PBZ snapshot: the
+    // mathematical mean is exactly 0.8, but binary floating point reports less.
+    const tiers = [1, 0.7, 0.7] as const;
+    expect(tiers.reduce((sum, value) => sum + value, 0) / tiers.length).toBeLessThan(0.8);
+
+    const boundary = fixture([
+      { sourceId: "keen-main", method: "tier", tier: "S" },
+      { sourceId: "gamesgg-main", method: "tier", tier: "A" },
+      { sourceId: "mobalytics-main", method: "tier", tier: "A" },
+    ]);
+
+    expect(boundary.consensusTier).toBe("S");
+    expect(boundary.finalTier).toBe("S");
+    expect(boundary.disagreement).toBe(false);
+
+    // The same boundary must hold regardless of placement order.
+    const reordered = fixture([
+      { sourceId: "keen-main", method: "tier", tier: "A" },
+      { sourceId: "gamesgg-main", method: "tier", tier: "S" },
+      { sourceId: "mobalytics-main", method: "tier", tier: "A" },
+    ]);
+    expect(reordered.consensusTier).toBe("S");
+
+    // 0.7 + 0.7 + 0.4 = 0.6 and 0.4 + 0.4 + 0.4 = 0.4 are the other two
+    // published boundaries and must stay exactly on their tiers.
+    expect(
+      fixture([
+        { sourceId: "keen-main", method: "tier", tier: "A" },
+        { sourceId: "gamesgg-main", method: "tier", tier: "A" },
+        { sourceId: "mobalytics-main", method: "tier", tier: "B" },
+      ]).consensusTier,
+    ).toBe("A");
+
+    expect(
+      fixture([
+        { sourceId: "keen-main", method: "tier", tier: "B" },
+        { sourceId: "gamesgg-main", method: "tier", tier: "B" },
+        { sourceId: "mobalytics-main", method: "tier", tier: "B" },
+      ]).consensusTier,
+    ).toBe("B");
+  });
+
+  it("keeps a score that is genuinely below a boundary on the lower tier", () => {
+    const fixture = (placements: readonly SourcePlacement[]) =>
+      reviewPhantomBladeZeroEntity({
+        id: "floating-lower-boundary-fixture",
+        name: "Floating Lower Boundary Fixture",
+        kind: "main_weapon",
+        category: "Test",
+        bestFor: ["Test"],
+        easeOfUse: "Needs Review",
+        strengths: ["Test"],
+        limitations: ["Test"],
+        whyThisTier: "Test fixture.",
+        acquisition: "Test fixture.",
+        mechanics: ["Test"],
+        placements,
+      });
+
+    // 1.0, 0.7 and an ordinal worth ~0.69997 average to ~0.79999, which is
+    // below the S boundary by far more than any rounding tolerance.
+    const justBelowS = fixture([
+      { sourceId: "keen-main", method: "tier", tier: "S" },
+      { sourceId: "gamesgg-main", method: "tier", tier: "A" },
+      { sourceId: "mobalytics-main", method: "ordinal", rank: 3001, fieldSize: 10000 },
+    ]);
+    expect(justBelowS.consensusTier).toBe("A");
+
+    // 0.7 + 0.4 + 0.4 = 0.5 sits clearly below the A boundary.
+    const belowA = fixture([
+      { sourceId: "keen-main", method: "tier", tier: "A" },
+      { sourceId: "gamesgg-main", method: "tier", tier: "B" },
+      { sourceId: "mobalytics-main", method: "tier", tier: "B" },
+    ]);
+    expect(belowA.consensusTier).toBe("B");
+
+    // 0.4 + 0.1 + 0.1 = 0.2 sits clearly below the B boundary.
+    const belowB = fixture([
+      { sourceId: "keen-main", method: "tier", tier: "B" },
+      { sourceId: "gamesgg-main", method: "tier", tier: "C" },
+      { sourceId: "mobalytics-main", method: "tier", tier: "C" },
+    ]);
+    expect(belowB.consensusTier).toBe("C");
+  });
+
   it("never accepts an override without reason and evidence", () => {
     expect(() =>
       reviewPhantomBladeZeroEntity({
@@ -196,7 +299,7 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
   it("records the reviewed evidence package without drifting from the snapshot date", () => {
     expect(phantomBladeZeroSnapshot.snapshotDate).toBe("2026-11-08");
     expect(phantomBladeZeroSnapshot.whatChanged).toBe(
-      "Mobalytics was added as an independent Main Weapon ranking source on 8 November 2026, so the evidence package was reviewed again. Every reviewed Main Weapon now carries three independent placements instead of two, Seamless Death left Pending for B, and no Phantom Edge changed.",
+      "Mobalytics was added as an independent Main Weapon ranking source on 8 November 2026, so the evidence package was reviewed again. Main Weapons with Mobalytics coverage now carry three independent placements. Seamless Death left Pending for B, Baishan Stormswords and Whiteshadow moved from A to S, and no Phantom Edge changed.",
     );
   });
 
@@ -270,10 +373,19 @@ describe("Phantom Blade Zero reviewed snapshot", () => {
       },
       {},
     );
-    expect(distributions).toEqual({ S: 6, A: 9, B: 6 });
+    expect(distributions).toEqual({ S: 8, A: 7, B: 6 });
     expect(
       phantomBladeZeroSnapshot.mainWeapons.filter((entity) => entity.finalTier === "Pending"),
     ).toHaveLength(0);
+
+    // Both A + A + S weapons sit on the exact 0.8 boundary and must resolve to S.
+    for (const entityId of ["baishan-stormswords", "whiteshadow"]) {
+      const entity = phantomBladeZeroSnapshot.mainWeapons.find((item) => item.id === entityId);
+      expect(entity?.placements).toHaveLength(3);
+      expect(entity?.consensusTier).toBe("S");
+      expect(entity?.finalTier).toBe("S");
+      expect(entity?.disagreement).toBe(false);
+    }
 
     for (const entity of phantomBladeZeroSnapshot.mainWeapons) {
       expect(entity.independentSourceCount).toBeGreaterThanOrEqual(2);

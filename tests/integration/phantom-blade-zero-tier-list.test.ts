@@ -88,7 +88,8 @@ describe("Phantom Blade Zero module integration", () => {
       },
       {},
     );
-    expect(countByTier).toEqual({ S: 6, A: 9, B: 6 });
+    expect(countByTier).toEqual({ S: 8, A: 7, B: 6 });
     expect(countByTier.Pending).toBeUndefined();
+    expect(countByTier["Needs Review"]).toBeUndefined();
   });
 });
