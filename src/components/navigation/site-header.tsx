@@ -13,8 +13,12 @@ import { SiteHeaderGameLink, SiteHeaderLinkStatus } from "./site-header-game-lin
 
 const navLink =
   "whitespace-nowrap rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400";
-const desktopNavLink =
-  "whitespace-nowrap rounded-sm px-1 py-2 text-[.72rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400 2xl:px-2 2xl:text-[.82rem]";
+const desktopGamesTrigger =
+  "flex cursor-pointer list-none items-center gap-1 rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400 marker:content-none";
+const desktopGameLink =
+  "rounded-md px-3 py-2 text-sm font-medium text-slate-100 transition hover:bg-[#0b2a46] hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400";
+const mobileGamesTrigger =
+  "flex cursor-pointer list-none items-center justify-between rounded-sm px-2 py-2 text-[.82rem] font-medium text-slate-100 transition hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-400 marker:content-none";
 
 export function Brand({ href = "/" }: { href?: string }) {
   return (
@@ -44,6 +48,24 @@ export function Brand({ href = "/" }: { href?: string }) {
   );
 }
 
+function GamesMenuLinks({
+  locale,
+  className,
+}: Readonly<{
+  locale: string;
+  className: string;
+}>) {
+  return navigationGames.map((game) => (
+    <SiteHeaderGameLink
+      key={game.slug}
+      href={localePath(siteConfig, locale, game.tierListHref)}
+      className={className}
+    >
+      {game.name}
+    </SiteHeaderGameLink>
+  ));
+}
+
 function HeaderShell({
   locale,
   desktopAccount,
@@ -59,19 +81,20 @@ function HeaderShell({
     <header className="sticky top-0 z-40 border-b border-[#315072]/60 bg-[#020e1d]/95 text-white backdrop-blur-md">
       <div className="mx-auto flex h-[54px] w-[calc(100%_-_32px)] items-center gap-6 px-4 sm:w-[93.4%] max-w-[1820px] sm:px-0">
         <Brand href={homeHref} />
-        <nav
-          className="hidden items-center gap-1 xl:flex 2xl:gap-5"
-          aria-label="Primary navigation"
-        >
-          {navigationGames.map((game) => (
-            <SiteHeaderGameLink
-              key={game.slug}
-              href={localePath(siteConfig, locale, game.tierListHref)}
-              className={desktopNavLink}
-            >
-              {game.name}
-            </SiteHeaderGameLink>
-          ))}
+        <nav className="hidden items-center xl:flex" aria-label="Primary navigation">
+          <details className="group relative">
+            <summary className={desktopGamesTrigger}>
+              Games <span aria-hidden="true">▾</span>
+            </summary>
+            <div className="absolute left-0 top-full z-50 mt-2 w-[34rem] rounded-lg border border-[#265174] bg-[#061b30] p-4 shadow-xl">
+              <div className="mb-2 px-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                Games
+              </div>
+              <div className="grid grid-cols-2 gap-1">
+                <GamesMenuLinks locale={locale} className={desktopGameLink} />
+              </div>
+            </div>
+          </details>
         </nav>
         {desktopAccount ? <div className="ml-auto hidden xl:block">{desktopAccount}</div> : null}
         <details className="group relative ml-auto xl:hidden">
@@ -80,20 +103,19 @@ function HeaderShell({
           </summary>
           <nav
             aria-label="Mobile navigation"
-            className="absolute right-0 top-full mt-2 flex min-w-56 flex-col gap-2 rounded-lg border border-[#265174] bg-[#061b30] p-3 shadow-xl"
+            className="absolute right-0 top-full mt-2 flex min-w-64 flex-col gap-2 rounded-lg border border-[#265174] bg-[#061b30] p-3 shadow-xl"
           >
             <Link href={homeHref} className={navLink} prefetch={true}>
               Home
             </Link>
-            {navigationGames.map((game) => (
-              <SiteHeaderGameLink
-                key={game.slug}
-                href={localePath(siteConfig, locale, game.tierListHref)}
-                className={navLink}
-              >
-                {game.name}
-              </SiteHeaderGameLink>
-            ))}
+            <details>
+              <summary className={mobileGamesTrigger}>
+                Games <span aria-hidden="true">▾</span>
+              </summary>
+              <div className="mt-1 grid gap-1 pl-2">
+                <GamesMenuLinks locale={locale} className={navLink} />
+              </div>
+            </details>
             {mobileAccount}
           </nav>
         </details>
