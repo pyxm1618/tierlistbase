@@ -8,7 +8,7 @@ import { masterSourceMetadata } from "@/modules/limbus-tier-list/data/index";
 
 const route = "/limbus-company/tier-list";
 const UNSUPPORTED_CURRENT_CLAIM =
-  /\\bcurrent meta\\b|\\bcurrent rankings?\\b|\\blatest rankings?\\b|\\blive rankings?\\b|\\breal-time rankings?\\b/i;
+  /\bcurrent meta\b|\bcurrent rankings?\b|\blatest rankings?\b|\blive rankings?\b|\breal-time rankings?\b/i;
 
 function limbusDefinition() {
   const definition = routeRegistry.get(route);
@@ -18,9 +18,9 @@ function limbusDefinition() {
 
 describe("Limbus ranking snapshot freshness", () => {
   it("uses structured runtime version, source-update and review metadata", () => {
-    expect(masterSourceMetadata.gameVersion).toMatch(/^\\d+(?:\\.\\d+)+$/);
-    expect(masterSourceMetadata.sourceUpdatedAt).toMatch(/^\\d{4}-\\d{2}-\\d{2}$/);
-    expect(masterSourceMetadata.reviewedAt).toMatch(/^\\d{4}-\\d{2}-\\d{2}$/);
+    expect(masterSourceMetadata.gameVersion).toMatch(/^\d+(?:\.\d+)+$/);
+    expect(masterSourceMetadata.sourceUpdatedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(masterSourceMetadata.reviewedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(masterSourceMetadata.reviewedAt >= masterSourceMetadata.sourceUpdatedAt).toBe(true);
     expect(masterSourceMetadata.identitiesCount).toBe(190);
     expect(masterSourceMetadata.egoCount).toBe(116);

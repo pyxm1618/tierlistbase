@@ -368,7 +368,7 @@ test("shows the reviewed ranking snapshot and blocks unsupported current-ranking
 
   const visibleText = await page.locator("[data-limbus-page]").innerText();
   expect(visibleText).not.toMatch(
-    /\\bcurrent meta\\b|\\bcurrent rankings?\\b|\\blatest rankings?\\b|\\blive rankings?\\b|\\breal-time rankings?\\b/i,
+    /\bcurrent meta\b|\bcurrent rankings?\b|\blatest rankings?\b|\blive rankings?\b|\breal-time rankings?\b/i,
   );
 });
 
