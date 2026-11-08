@@ -85,8 +85,7 @@ export async function runIndexNowProductionWiring(
       return {
         kind: "failed",
         urls,
-        error:
-          "IndexNow post-deploy submission cannot authenticate because CRON_SECRET is not configured.",
+        error: "IndexNow post-deploy submission cannot authenticate because CRON_SECRET is not configured.",
       };
     }
 
