@@ -89,7 +89,7 @@ test("Wild Rift is discoverable and active in the shared mobile menu", async ({ 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(route);
 
-  const mobileMenu = page.locator("header details").first();
+  const mobileMenu = page.locator('header details:has(nav[aria-label="Mobile navigation"])');
   await mobileMenu.locator(":scope > summary").click();
   const mobileNav = page.locator('header nav[aria-label="Mobile navigation"]');
   await mobileNav.locator("details > summary").click();
