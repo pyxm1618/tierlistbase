@@ -77,9 +77,9 @@ export default async function GenshinImpactTierListPage() {
           src={hero}
           alt=""
           fill
-          unoptimized
           priority
-          sizes="(max-width: 1820px) 100vw, 1820px"
+          quality={90}
+          sizes="(max-width: 600px) 560px, (max-width: 1820px) 100vw, 1820px"
           className={styles.heroImage}
         />
         <div className={styles.heroShade} />
