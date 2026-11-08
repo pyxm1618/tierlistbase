@@ -71,7 +71,7 @@ for (const width of [390, 1440]) {
         expect(navBox!.y + navBox!.height).toBeLessThanOrEqual(headerBox!.y + headerBox!.height);
       } else {
         await expect(primaryNav).toBeHidden();
-        await expect(header.locator("summary")).toBeVisible();
+        await expect(header.locator('details:has(nav[aria-label="Mobile navigation"]) > summary')).toBeVisible();
       }
 
       expect(await header.evaluate((element) => element.scrollWidth <= innerWidth)).toBe(true);
