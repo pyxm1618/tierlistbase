@@ -55,7 +55,7 @@ export const productionIndexNowDependencies: IndexNowProductionDependencies = {
 };
 
 export async function runIndexNowProductionWiring(
-  input: { base: string; head: string; cronSecret?: string },
+  input: { base: string; head: string; cronSecret?: string | undefined },
   dependencies: IndexNowProductionDependencies = productionIndexNowDependencies,
 ): Promise<IndexNowProductionResult> {
   try {
