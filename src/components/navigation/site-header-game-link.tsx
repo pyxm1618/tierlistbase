@@ -2,7 +2,16 @@
 
 import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
+
+function closeAncestorDetails(event: MouseEvent<HTMLAnchorElement>) {
+  let details = event.currentTarget.closest("details");
+
+  while (details) {
+    details.open = false;
+    details = details.parentElement?.closest("details") ?? null;
+  }
+}
 
 export function SiteHeaderLinkStatus() {
   const { pending } = useLinkStatus();
@@ -31,6 +40,7 @@ export function SiteHeaderGameLink({
       }
       prefetch={false}
       aria-current={active ? "page" : undefined}
+      onClick={closeAncestorDetails}
     >
       {children}
       <SiteHeaderLinkStatus />
