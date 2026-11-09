@@ -236,16 +236,18 @@ export const routeDefinitions = [
     searchIntent:
       "compare current Wild Rift Ranked champion strength by role and decide which champions to prioritize for Baron Lane, Jungle, Mid Lane, Dragon Lane, and Support",
     primaryKeyword: "wild rift tier list",
-    secondaryKeywords: ["wild rift champion tier list", "wild rift champions tier list"],
+    // Round 3C: "wild rift champions tier list" is a rejected singular/plural duplicate of the
+    // only approved secondary. It is not a formal target and must not sit in the registry.
+    secondaryKeywords: ["wild rift champion tier list"],
     title: "Wild Rift Tier List – Best Champions by Role for Ranked",
     description:
       "Compare the current Wild Rift tier list across Baron, Jungle, Mid, Dragon and Support using ranked statistics, role-specific evidence, and reviewed meta context.",
     h1: "Wild Rift Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/", "/privacy", "/terms"],
-    lastModified: "2026-10-28",
+    lastModified: "2026-11-09",
     reviewStatus: "reviewed",
-    reviewFingerprint: "8d248c2c16b6b7fc8b3581127fd89bfbc50a0bcb0239224e9020463193982c36",
+    reviewFingerprint: "065fcb364f9374a597f2e036f91b208debfd1f5d6d76abc1893e45954ee6578f",
   },
   {
     route: "/slay-the-spire-2/tier-list",

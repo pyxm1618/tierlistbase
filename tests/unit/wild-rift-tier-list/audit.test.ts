@@ -8,7 +8,7 @@ import tierEvidence from "../../../docs/wild-rift/reviewed-tier-evidence.json";
 import ledger from "../../../docs/wild-rift/placement-audit.json";
 import changeAudit from "../../../docs/wild-rift/change-audit.json";
 import kitEvidence from "../../../docs/wild-rift/official-kit-evidence.json";
-import { championForId } from "@/modules/wild-rift-tier-list";
+import { championForId, coverage } from "@/modules/wild-rift-tier-list";
 import {
   changes,
   quickInsights,
@@ -52,7 +52,7 @@ describe("Wild Rift source integrity closeout", () => {
   it("keeps all individual content reviews tied to real primary ability references", () => {
     expect(kitEvidence.champions).toHaveLength(142);
     expect(kitEvidence.champions.every((row) => row.status === "fetched")).toBe(true);
-    expect(new Set(rankings.map((ranking) => ranking.whyThisTier)).size).toBe(208);
+    expect(new Set(rankings.map((ranking) => ranking.whyThisTier)).size).toBe(209);
     for (const ranking of rankings) {
       const reference = kitEvidence.champions.find((row) => row.championId === ranking.championId);
       expect(ranking.abilitySourceUrl).toBe(reference?.url);
@@ -66,39 +66,43 @@ describe("Wild Rift source integrity closeout", () => {
     const digest = createHash("sha256")
       .update(readFileSync("docs/wild-rift/reviewed-source-snapshot.json"))
       .digest("hex");
-    expect(digest).toBe("6723afded0d47ee8941900a732aa6aa8dd994abf45b8b46f2444ffd1d734809b");
-    expect(raw.placements).toHaveLength(179);
+    expect(digest).toBe("b948e98f45aee474c437f6ee110937ac14ea056ed653f0182375bde7e90ea077");
+    expect(raw.placements).toHaveLength(180);
+    expect(
+      createHash("sha256")
+        .update(readFileSync("docs/wild-rift/2026-11-07-reviewed-source-snapshot.json"))
+        .digest("hex"),
+    ).toBe(digest);
     expect(
       createHash("sha256")
         .update(readFileSync("docs/wild-rift/2026-10-28-reviewed-source-snapshot.json"))
         .digest("hex"),
     ).toBe("8abb7cf2adfcfa139e13f340515911f83867c9e63db57a3b8150cee2f783c259");
-    expect(raw.trackedChampions).toBe(135);
+    expect(raw.trackedChampions).toBe(134);
     expect(raw.observedUniqueChampions).toBe(136);
+    expect(raw.sourceUpdatedAt).toBe("2026-11-07");
+    expect(raw.sourcePatchLabel).toBe("7.3e");
+    expect(raw.latestRankedBalancePatch).toBe("7.3d");
   });
 
   it("reconciles every original placement with an explicit evidenced disposition", () => {
     expect(ledger.originalTotal).toBe(208);
-    expect(ledger.placements).toHaveLength(208);
-    expect(Object.values(ledger.states).reduce((sum, count) => sum + count, 0)).toBe(208);
+    expect(ledger.placements).toHaveLength(209);
+    expect(Object.values(ledger.states).reduce((sum, count) => sum + count, 0)).toBe(209);
     expect(ledger.states.unreviewed).toBe(0);
-    expect(ledger.crossRoleStatisticsRemoved).toBe(20);
     expect(ledger.statisticsBecameAvailable).toEqual([
-      { championId: "diana", role: "mid" },
-      { championId: "corki", role: "dragon" },
+      { championId: "akali", role: "baron" },
+      { championId: "jayce", role: "jungle" },
     ]);
-    expect(ledger.statisticsBecameUnavailable).toEqual([
-      { championId: "singed", role: "baron" },
-      { championId: "tristana", role: "baron" },
-      { championId: "malphite", role: "mid" },
-    ]);
-    expect(new Set(ledger.placements.map((row) => key(row.championId, row.role))).size).toBe(208);
+    expect(ledger.statisticsBecameUnavailable).toEqual([{ championId: "diana", role: "mid" }]);
+    expect(new Set(ledger.placements.map((row) => key(row.championId, row.role))).size).toBe(209);
     for (const row of ledger.placements) {
       expect(row.statisticsEvidence !== null || row.tierEvidence !== null).toBe(true);
+      expect(row.status).toBe("approved");
     }
   });
 
-  it("preserves all 537 exact source rates and never borrows statistics across roles", () => {
+  it("preserves every exact source rate and never borrows statistics across roles", () => {
     let verified = 0;
     let unavailable = 0;
     for (const ranking of rankings) {
@@ -117,22 +121,32 @@ describe("Wild Rift source integrity closeout", () => {
         unavailable++;
       }
     }
-    expect(verified).toBe(179);
+    expect(verified).toBe(coverage.statisticsBackedPlacements);
+    expect(verified).toBe(180);
+    expect(unavailable).toBe(coverage.editorialPlacements);
     expect(unavailable).toBe(29);
   });
 
-  it("keeps source tiers and any editorial overrides separately auditable", () => {
+  it("keeps source tiers separately auditable and states which ones are carried forward", () => {
+    expect(tierEvidence.placements).toHaveLength(209);
+    expect(tierEvidence.summary).toEqual({ total: 209, currentCapture: 180, carriedForward: 29 });
     for (const ranking of rankings) {
       const evidence = sourceTiers.get(key(ranking.championId, ranking.role));
       expect(evidence).toBeDefined();
       expect(ranking.sourceTier).toBe(evidence?.sourceTier);
+      expect(ranking.tier).toBe(ranking.sourceTier);
       expect(ranking.tierSourceId).toBe("core-editorial-tier");
-      if (ranking.tier !== ranking.sourceTier)
-        expect(ranking.editorialTierReason?.trim()).toBeTruthy();
-      else expect(ranking.editorialTierReason).toBeNull();
+      expect(ranking.editorialTierReason).toBeNull();
       expect(ranking.placementKind).toBe(
         statistics.has(key(ranking.championId, ranking.role)) ? "statistics-backed" : "editorial",
       );
+      // A placement can only be carried forward when the current capture has no row for it.
+      expect(evidence?.evidenceStatus).toBe(
+        ranking.placementKind === "statistics-backed" ? "current-capture" : "carried-forward",
+      );
+      if (evidence?.evidenceStatus === "carried-forward") {
+        expect(statistics.has(key(ranking.championId, ranking.role))).toBe(false);
+      }
     }
   });
 
@@ -147,19 +161,20 @@ describe("Wild Rift source integrity closeout", () => {
       if (delta !== null) available++;
     }
     expect(available).toBe(6);
+    expect(available).toBe(coverage.verifiedTrendPlacements);
   });
 
-  it("publishes only source-tier movements with explicit previous tier, current tier, role and date", () => {
-    expect(changeAudit.currentTotal).toBe(16);
-    expect(changeAudit.changes).toHaveLength(16);
+  it("publishes only observed source-tier movements with previous tier, current tier, role and capture date", () => {
+    expect(changeAudit.currentTotal).toBe(17);
+    expect(changeAudit.changes).toHaveLength(17);
     expect(changeAudit.states).toEqual({
-      approved: 16,
+      approved: 17,
       deferred: 0,
       confirmed_reject: 0,
       unreviewed: 0,
     });
-    expect(changeAudit.publishedTotal).toBe(16);
-    expect(changes).toHaveLength(16);
+    expect(changeAudit.publishedTotal).toBe(17);
+    expect(changes).toHaveLength(17);
     for (const change of changeAudit.changes) {
       const published = changes.find(
         (row) => row.championId === change.championId && row.role === change.role,
@@ -169,36 +184,46 @@ describe("Wild Rift source integrity closeout", () => {
         to: change.toTier,
         date: change.date,
       });
-      expect(
-        rankings.find((row) => row.championId === change.championId && row.role === change.role)
-          ?.tier,
-      ).toBe(change.toTier);
+      expect(published?.reason).toBe(change.reason);
+      const ranking = rankings.find(
+        (row) => row.championId === change.championId && row.role === change.role,
+      );
+      expect(ranking?.tier).toBe(change.toTier);
+      expect(ranking?.sourceTier).toBe(change.toTier);
       expect(change.status).toBe("approved");
-      expect(change.evidenceMissing).toEqual([]);
+      expect(change.evidenceMissing).toEqual(["publisher-dated movement timestamp"]);
+      expect(change.date).toBe(raw.sourceUpdatedAt);
     }
   });
 
-  it("uses the verified current 7.3d Master+ snapshot without overstating trend coverage", () => {
-    expect(snapshot.gameVersion).toBe("7.3d");
+  it("separates the current game version from the latest standard Ranked balance", () => {
+    expect(snapshot.gameVersion).toBe("7.3e");
     expect(snapshot.latestRankedBalance).toBe("7.3d");
     expect(snapshot.statisticsPatch).toBe(raw.sourcePatchLabel);
-    expect(snapshot.snapshotDate).toBe("2026-11-01");
+    expect(snapshot.snapshotDate).toBe(raw.sourceUpdatedAt);
+    expect(snapshot.snapshotDate).toBe("2026-11-07");
+    expect(snapshot.reviewedAt).toBe("2026-11-09");
     expect(snapshot.postBalanceStatisticsVerified).toBe(true);
     expect(raw.postBalanceStatisticsVerified).toBe(true);
-    expect(raw.sourceCapture).toContain("Updated 2026-11-01");
-    expect(raw.trackedChampions).toBe(135);
-    expect(raw.observedUniqueChampions).toBe(136);
-    expect(rankingFor("diana", "mid")?.placementKind).toBe("statistics-backed");
-    expect(rankingFor("diana", "mid")?.winRate).toBe(47.39);
+    expect(raw.sourceCapture).toContain("Updated 2026-11-07");
     for (const ranking of rankings) {
       expect(ranking.patchImpact).toContain("7.3d");
       expect(ranking.patchImpact).not.toContain("outcome statistics are not verified");
-      expect(ranking.whyThisTier).toContain("7.3d · CN Master+");
+      expect(ranking.whyThisTier).toContain("latest Ranked balance 7.3d");
+      expect(ranking.whyThisTier).toContain("Statistics snapshot 2026-11-07");
     }
-    for (const role of ["baron", "dragon", "support"] as const)
-      expect(quickInsights[role].some((row) => row.label === "Biggest Riser")).toBe(false);
-    expect(quickInsights.mid.some((row) => row.label === "Biggest Riser")).toBe(true);
-    expect(quickInsights.jungle.some((row) => row.label === "Biggest Riser")).toBe(true);
+  });
+
+  it("reports a Biggest Riser only where a positive same-role seven-day delta exists", () => {
+    const riserRoles = (["baron", "jungle", "mid", "dragon", "support"] as const).filter((role) =>
+      quickInsights[role].some((row) => row.label === "Biggest Riser"),
+    );
+    expect(riserRoles).toEqual(["baron", "jungle", "mid"]);
+    for (const role of ["dragon", "support"] as const) {
+      expect(rankings.some((row) => row.role === role && (row.winRateChange7d ?? 0) > 0)).toBe(
+        false,
+      );
+    }
   });
 
   it("supports each Biggest Riser with the largest available same-role seven-day change", () => {
