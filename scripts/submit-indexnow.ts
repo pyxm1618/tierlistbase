@@ -1,5 +1,4 @@
 import { routeRegistry } from "@/config/routes.config";
-import { env } from "@/platform/config/env";
 import { submitIndexNowUrls } from "@/platform/seo/indexnow";
 
 const urls = process.argv
@@ -7,7 +6,9 @@ const urls = process.argv
   .map((value) => value.trim())
   .filter(Boolean);
 
-if (!env.indexNowKey) {
+const indexNowKey = process.env.INDEXNOW_KEY?.trim();
+
+if (!indexNowKey) {
   throw new Error("INDEXNOW_KEY is required before submitting URL changes");
 }
 if (urls.length === 0) {
@@ -16,7 +17,7 @@ if (urls.length === 0) {
 
 const result = await submitIndexNowUrls({
   canonicalOrigin: routeRegistry.site.canonicalOrigin,
-  key: env.indexNowKey,
+  key: indexNowKey,
   urls,
 });
 
