@@ -587,7 +587,8 @@ export function DragonTravelerTierList() {
           </div>
           <p className={styles.note}>
             Four sourced formations per mode. Order and team grades are editorial recommendations,
-            not measured win rates. Both server lists use the same formation advice where every
+            not measured win rates. The Dragon Traveler tier list keeps character grades separate
+            from these team suggestions; both server lists use the same formation advice where every
             member appears in that server&rsquo;s ranked pool.
           </p>
         </section>
@@ -661,10 +662,9 @@ export function DragonTravelerTierList() {
                 <p>
                   Overall ordering and ranked membership follow the cited Global / Taiwan source
                   tier lists; the ranked count is not presented as the complete live roster. The
-                  Dragon Traveler tier list Taiwan snapshot stays separate from Global, so read it
-                  against the Taiwan source tier list rather than the live roster. For server
-                  comparisons, the Dragon Traveler tier list Taiwan view draws on the same shared
-                  mode assessments but keeps its own ranked membership. Arachne’s Global release is
+                  Taiwan server snapshot stays separate from Global, so read those placements
+                  against the Taiwan source tier list. Both servers draw on the same character mode
+                  assessments, but each keeps its own ranked membership. Arachne’s Global release is
                   corroborated by the official October 22 announcement. War Drummer is a formation
                   helper and is excluded from the ranked Luminary count.
                 </p>
@@ -753,7 +753,7 @@ export function DragonTravelerTierList() {
               "There is no universal best for every account. Quick Picks offer a starting point; compare mode ratings, duplicate requirements and the team you already own.",
             ],
             [
-              "Is the Dragon Traveler tier list Taiwan view the same as Global?",
+              "Are the Taiwan server rankings the same as Global?",
               "No. The ranked pool and Overall ordering differ. The source uses shared character mode assessments; this page makes that limitation explicit.",
             ],
             [
@@ -765,7 +765,7 @@ export function DragonTravelerTierList() {
               "Choose a faction whose damage, protection and support core you can build together. Faction is a filter, not an additional ranking.",
             ],
             [
-              "Are upcoming characters ranked?",
+              "Are upcoming characters on the Dragon Traveler tier list?",
               "No. Upcoming records are separate and can only appear in pull context with Wait for Testing. They never enter the ranked board, Quick Picks, teams or ranked count.",
             ],
           ].map(([q, a]) => (
