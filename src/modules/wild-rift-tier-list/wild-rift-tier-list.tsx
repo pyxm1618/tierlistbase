@@ -216,8 +216,8 @@ export function WildRiftTierList() {
             Scope: CN Server · Master+ · Ranked. This Wild Rift tier list includes{" "}
             {coverage.statisticsBackedPlacements} statistics-backed Champion × Role placements
             across {coverage.distinctStatisticsChampions} champions from {snapshot.snapshotDate}.
-            The source headline reports {coverage.sourceTrackedChampions} champions; that discrepancy
-            is preserved. Another {coverage.editorialPlacements} placements keep the{" "}
+            The source headline reports {coverage.sourceTrackedChampions} champions; that
+            discrepancy is preserved. Another {coverage.editorialPlacements} placements keep the{" "}
             {coverage.carriedForwardTierCapture} Wild Rift Core tier but show N/A for WR / PR / BR
             without current statistics.
           </p>
@@ -243,8 +243,8 @@ export function WildRiftTierList() {
             {coverage.statisticsBackedPlacements +
               coverage.editorialPlacements -
               coverage.verifiedTrendPlacements}{" "}
-            placements have none. The “30 d” column is separate. Patch {snapshot.gameVersion} changes
-            AAA ARAM augments only, so the {snapshot.snapshotDate} snapshot remains post-balance
+            placements have none. The “30 d” column is separate. Patch {snapshot.gameVersion}{" "}
+            changes AAA ARAM augments only, so the {snapshot.snapshotDate} snapshot remains post-balance
             against {snapshot.latestRankedBalance}. Buffs alone do not change tiers.
           </p>
           <div className={styles.methodGrid}>
