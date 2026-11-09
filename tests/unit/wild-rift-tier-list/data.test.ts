@@ -8,6 +8,7 @@ import {
   championForId,
   champions,
   changes,
+  coverage,
   expectedRoleCounts,
   otherViableRoles,
   quickInsights,
@@ -28,22 +29,30 @@ const tierSet = new Set(tiers);
 const championIds = new Set(champions.map((champion) => champion.id));
 const sourceIds = new Set(sources.map((source) => source.id));
 describe("Wild Rift reviewed snapshot", () => {
-  it("pins the current 7.3d Master+ statistics snapshot", () => {
+  it("pins the current 7.3e Master+ statistics snapshot and separates all four freshness facts", () => {
     expect(snapshot).toEqual({
-      gameVersion: "7.3d",
+      gameVersion: "7.3e",
       latestRankedBalance: "7.3d",
-      snapshotDate: "2026-11-01",
-      reviewedAt: "2026-11-03",
-      statisticsPatch: "7.3d",
+      snapshotDate: "2026-11-07",
+      reviewedAt: "2026-11-09",
+      statisticsPatch: "7.3e",
       postBalanceStatisticsVerified: true,
       region: "CN",
       rankContext: "Master+",
       queueContext: "Ranked",
       focus: "Solo Queue Focus",
     });
+    // The game moved to 7.3e, but 7.3e carries only AAA ARAM augments, so the latest
+    // standard Ranked balance patch stays 7.3d. The four facts must not be collapsed.
+    expect(snapshot.gameVersion).not.toBe(snapshot.latestRankedBalance);
+    expect(snapshot.snapshotDate).not.toBe(snapshot.reviewedAt);
+    expect(snapshot.statisticsPatch).toBe(snapshot.gameVersion);
     expect(sources.some((source) => source.type === "official_patch")).toBe(true);
     expect(sources.some((source) => source.type === "ranked_statistics")).toBe(true);
     expect(sources.some((source) => source.type === "editorial_review")).toBe(true);
+    expect(sources.find((source) => source.id === "riot-7-3e")?.context).toContain(
+      "AAA ARAM augments only",
+    );
   });
 
   it("ships a local portrait asset for every reviewed champion", () => {
@@ -56,7 +65,14 @@ describe("Wild Rift reviewed snapshot", () => {
   it("keeps champion ids and Champion × Role placements unique and valid", () => {
     expect(championIds.size).toBe(142);
     expect(champions).toHaveLength(142);
-    expect(rankings).toHaveLength(208);
+    expect(rankings).toHaveLength(209);
+    expect(coverage.catalogSize).toBe(champions.length);
+    expect(coverage.statisticsBackedPlacements).toBe(180);
+    expect(coverage.editorialPlacements).toBe(29);
+    expect(coverage.statisticsBackedPlacements + coverage.editorialPlacements).toBe(
+      rankings.length,
+    );
+    expect(coverage.sourceRoleRows).toBe(coverage.statisticsBackedPlacements);
 
     const placements = new Set<string>();
     for (const ranking of rankings) {
@@ -124,7 +140,7 @@ describe("Wild Rift reviewed snapshot", () => {
   it("keeps Quick Insights and dated changes tied to valid Champion × Role rankings", () => {
     for (const role of roleKeys) {
       expect(quickInsights[role]).toHaveLength(
-        ({ baron: 3, jungle: 4, mid: 4, dragon: 3, support: 3 } as const)[role],
+        ({ baron: 4, jungle: 4, mid: 4, dragon: 3, support: 3 } as const)[role],
       );
       for (const insight of quickInsights[role]) {
         expect(rankingFor(insight.championId, role)).toBeDefined();
@@ -154,10 +170,7 @@ describe("Wild Rift SEO contract", () => {
       throw new Error("Wild Rift route must be indexable");
 
     expect(definition.primaryKeyword).toBe("wild rift tier list");
-    expect(definition.secondaryKeywords).toEqual([
-      "wild rift champion tier list",
-      "wild rift champions tier list",
-    ]);
+    expect(definition.secondaryKeywords).toEqual(["wild rift champion tier list"]);
     expect(definition.h1).toBe("Wild Rift Tier List");
     expect(definition.title).toBe("Wild Rift Tier List – Best Champions by Role for Ranked");
     expect(definition.relatedRoutes).not.toContain("/wild-rift/jungle-tier-list");

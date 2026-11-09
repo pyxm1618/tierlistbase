@@ -126,9 +126,9 @@ test("all five frozen role tabs render their own Tier Board and preserve Champio
   const detail = page.getByRole("complementary", { name: "Champion Detail" });
   await expect(detail).toContainText("Nocturne");
   await expect(detail.locator('[data-tier="S+"]').first()).toBeVisible();
-  await expect(detail).toContainText("52.5%");
-  await expect(detail).toContainText("6.6%");
-  await expect(detail).toContainText("66.7%");
+  await expect(detail).toContainText("52.9%");
+  await expect(detail).toContainText("6.3%");
+  await expect(detail).toContainText("66.3%");
 });
 
 test("Wild Rift filters, Other Viable Roles, and Quick Picks stay synchronized with the reviewed model", async ({
@@ -241,8 +241,8 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   );
   await expect(detail).toContainText("Source tier: A (Wild Rift Core)");
   await expect(detail).toContainText("TierListBase editorial assessments");
-  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("Gnar");
-  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("C → A");
+  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("Fiora");
+  await expect(page.locator('[data-ia-section="what-changed"]')).toContainText("B → A");
   await roleNav.getByRole("tab", { name: /^Mid Lane$/ }).click();
   await page.getByRole("searchbox", { name: "Search Champions" }).fill("Norra");
   const norra = page.locator('[data-champion-id="norra"]');
@@ -257,13 +257,13 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   ).toBe(true);
   await norra.click();
   await expect(detail).toContainText("7-day trend unavailable.");
-  await expect(detail).toContainText("51.7%");
+  await expect(detail).toContainText("50.2%");
   await expect(page.locator('[data-ia-section="source-freshness"]')).toContainText(
     "Verified statistics snapshot",
   );
   await roleNav.getByRole("tab", { name: /^Jungle$/ }).click();
-  await page.getByRole("searchbox", { name: "Search Champions" }).fill("Shyvana");
-  await page.locator('[data-champion-id="shyvana"]').click();
-  await expect(detail).toContainText("+6.85 pp");
+  await page.getByRole("searchbox", { name: "Search Champions" }).fill("Nidalee");
+  await page.locator('[data-champion-id="nidalee"]').click();
+  await expect(detail).toContainText("+1.33 pp");
   await expect(detail).toContainText("Arrows show 7-day win-rate change, not tier movement");
 });

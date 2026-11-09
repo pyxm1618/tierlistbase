@@ -76,12 +76,19 @@ export type EvidenceSource = {
   readonly context: string;
 };
 
+// Four separate freshness concepts. They are deliberately not collapsed into one date or one
+// patch label: the game can move to a new patch while standard Ranked balance stays unchanged.
 export const snapshot = {
-  gameVersion: "7.3d",
+  // Riot's current game version.
+  gameVersion: "7.3e",
+  // The most recent patch that changed standard Ranked champions, items or objectives.
   latestRankedBalance: "7.3d",
-  snapshotDate: "2026-11-01",
-  reviewedAt: "2026-11-03",
-  statisticsPatch: "7.3d",
+  // The patch label the statistics publisher attaches to the captured dataset.
+  statisticsPatch: "7.3e",
+  // The publisher's own "Updated" stamp for the captured dataset.
+  snapshotDate: "2026-11-07",
+  // The date TierListBase performed this review.
+  reviewedAt: "2026-11-09",
   postBalanceStatisticsVerified: true,
   region: "CN",
   rankContext: "Master+",
@@ -151,27 +158,36 @@ export const roleCriteria: Readonly<Record<RoleKey, readonly string[]>> = {
 
 export const sources: readonly EvidenceSource[] = [
   {
+    id: "riot-7-3e",
+    name: "Riot Games · Wild Rift Patch Notes 7.3e",
+    type: "official_patch",
+    checkedAt: "2026-11-09",
+    url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3e/",
+    context:
+      "Current game version, published 2026-11-04. The patch notes change AAA ARAM augments only: there are no standard Ranked champion, item, objective or turret adjustments, so 7.3d remains the latest standard Ranked balance patch.",
+  },
+  {
     id: "riot-7-3d",
     name: "Riot Games · Wild Rift Patch Notes 7.3d",
     type: "official_patch",
-    checkedAt: "2026-11-03",
+    checkedAt: "2026-11-09",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3d/",
     context:
-      "Current game version and latest standard Ranked balance, published 2026-10-28. Champion, item, objective, and turret changes. The reviewed statistics snapshot is post-balance and labeled patch 7.3d.",
+      "Latest standard Ranked balance patch, published 2026-10-28. Champion, item, objective, and turret changes. No later patch has changed standard Ranked balance, so the reviewed statistics snapshot is post-balance.",
   },
   {
     id: "riot-7-3c",
     name: "Riot Games · Wild Rift Patch Notes 7.3c",
     type: "official_patch",
-    checkedAt: "2026-11-03",
+    checkedAt: "2026-11-09",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3c/",
-    context: "Historical patch: 7.3c focused on AAA ARAM; it is not the current game version.",
+    context: "Historical patch: 7.3c focused on AAA ARAM; it changed no standard Ranked balance.",
   },
   {
     id: "riot-7-3b",
     name: "Riot Games · Wild Rift Patch Notes 7.3b",
     type: "official_patch",
-    checkedAt: "2026-11-03",
+    checkedAt: "2026-11-09",
     url: "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3b/",
     context: "Historical standard Ranked balance patch; superseded by 7.3d.",
   },
@@ -179,25 +195,25 @@ export const sources: readonly EvidenceSource[] = [
     id: "tencent-master",
     name: "Wild Rift Core · Tencent CN Ranked Statistics",
     type: "ranked_statistics",
-    checkedAt: "2026-11-03",
+    checkedAt: "2026-11-09",
     url: "https://wildriftcore.com/en/rankings/",
     context:
-      "Wild Rift Core reports Tencent China-server data · Master+ · Ranked · source updated 2026-11-01 (7.3d). 179 exact Champion × Role rows cover 136 distinct champions; the source headline says 135 tracked champions, so that discrepancy is preserved. TierListBase did not independently fetch Tencent.",
+      "Wild Rift Core reports Tencent China-server data · Master+ · Ranked · source updated 2026-11-07 (patch 7.3e). The capture holds 180 exact Champion × Role rows across 136 distinct champions; the source headline says 134 tracked champions, so that discrepancy is preserved. TierListBase did not independently fetch Tencent.",
   },
   {
     id: "core-editorial-tier",
     name: "Wild Rift Core · Source Role Tier List & History",
     type: "source_tier",
-    checkedAt: "2026-11-03",
+    checkedAt: "2026-11-09",
     url: "https://wildriftcore.com/en/tierlist/",
     context:
-      "Source tiers are Wild Rift Core's data-informed role ranking, which the source describes as recomputed from Master+ rates, presence, and expert/community consensus. It is not a Riot or Tencent official tier. TierListBase keeps it separate from raw Tencent statistics and from its own Champion × Role editorial signals; no tier overrides are applied.",
+      "Source tiers are Wild Rift Core's data-informed role ranking, published against each Champion × Role row and recomputed from Master+ rates, presence, and expert/community consensus. It is not a Riot or Tencent official tier. TierListBase keeps it separate from raw Tencent statistics and from its own Champion × Role editorial signals; no tier overrides are applied.",
   },
   {
     id: "editorial-review",
     name: "TierListBase Editorial Review",
     type: "editorial_review",
-    checkedAt: "2026-11-03",
+    checkedAt: "2026-11-09",
     url: "/about#about-process-title",
     context:
       "TierListBase Champion × Role editorial assessments and decision signals. These are explicitly editorial and are not Tencent statistics or Riot facts. The current snapshot retains Wild Rift Core source tiers with no overrides.",
@@ -217,180 +233,191 @@ const championById = new Map(champions.map((champion) => [champion.id, champion]
 // statistics. The item-level gate is recorded in docs/wild-rift/change-audit.json.
 export const changes: readonly RankingChange[] = [
   {
-    championId: "gnar",
+    championId: "fiora",
     role: "baron",
-    from: "C",
+    from: "B",
     to: "A",
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
-    date: "2026-11-02",
+    date: "2026-11-07",
     reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
   },
   {
-    championId: "kogmaw",
+    championId: "fizz",
+    role: "jungle",
+    from: "C",
+    to: "B",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "samira",
     role: "dragon",
     from: "B",
-    to: "S",
+    to: "A",
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
-    date: "2026-11-01",
+    date: "2026-11-07",
     reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
   },
   {
-    championId: "vladimir",
+    championId: "senna",
+    role: "support",
+    from: "B",
+    to: "A",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "sett",
+    role: "support",
+    from: "B",
+    to: "A",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "swain",
     role: "mid",
     from: "B",
+    to: "A",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "teemo",
+    role: "baron",
+    from: "S",
+    to: "S+",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "yuumi",
+    role: "support",
+    from: "C",
+    to: "B",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "zyra",
+    role: "mid",
+    from: "S",
+    to: "S+",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "blitzcrank",
+    role: "support",
+    from: "B",
+    to: "C",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "jayce",
+    role: "baron",
+    from: "A",
+    to: "B",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "jayce",
+    role: "mid",
+    from: "A",
+    to: "B",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "kalista",
+    role: "baron",
+    from: "S+",
     to: "S",
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
-    date: "2026-11-01",
+    date: "2026-11-07",
     reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "leona",
+    role: "support",
+    from: "S+",
+    to: "S",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
+  },
+  {
+    championId: "pyke",
+    role: "support",
+    from: "A",
+    to: "B",
+    type: "Source tier movement",
+    sourceId: "core-editorial-tier",
+    date: "2026-11-07",
+    reason:
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
   },
   {
     championId: "sivir",
     role: "dragon",
-    from: "C",
-    to: "A",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-11-01",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "malphite",
-    role: "mid",
-    from: "B",
-    to: "S",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-10-27",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "kalista",
-    role: "dragon",
-    from: "B",
-    to: "S",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-10-25",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "ashe",
-    role: "dragon",
     from: "A",
-    to: "S+",
+    to: "B",
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
-    date: "2026-10-17",
+    date: "2026-11-07",
     reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
   },
   {
-    championId: "twitch",
+    championId: "vayne",
     role: "dragon",
-    from: "C",
-    to: "A",
+    from: "B",
+    to: "C",
     type: "Source tier movement",
     sourceId: "core-editorial-tier",
-    date: "2026-10-09",
+    date: "2026-11-07",
     reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "miss-fortune",
-    role: "dragon",
-    from: "S+",
-    to: "B",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-10-03",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "volibear",
-    role: "baron",
-    from: "S+",
-    to: "B",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-10-03",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "jhin",
-    role: "dragon",
-    from: "S",
-    to: "B",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-11-02",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "kassadin",
-    role: "mid",
-    from: "S+",
-    to: "A",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-11-02",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "yunara",
-    role: "dragon",
-    from: "S",
-    to: "B",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-11-01",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "garen",
-    role: "baron",
-    from: "S",
-    to: "B",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-11-01",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "olaf",
-    role: "baron",
-    from: "S+",
-    to: "A",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-11-01",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
-  },
-  {
-    championId: "ahri",
-    role: "mid",
-    from: "S+",
-    to: "A",
-    type: "Source tier movement",
-    sourceId: "core-editorial-tier",
-    date: "2026-10-27",
-    reason:
-      "Wild Rift Core reports this net source-tier movement since the first 7.3 update; TierListBase does not infer a causal reason.",
+      "Both tier values are recorded source tiers. The publisher does not date individual tier movements, so the entry carries the capture date on which the change was verified. No causal reason is claimed.",
   },
 ];
 
@@ -461,7 +488,7 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
     seed.winRate === null
       ? "Role statistics unavailable (WR / PR / BR: N/A); this is an editorial placement without inventing missing statistics."
       : `CN Master+ evidence: ${seed.winRate.toFixed(2)}% WR, ${seed.pickRate?.toFixed(2)}% PR, ${seed.banRate?.toFixed(2)}% BR. These observations are not a causal explanation or a tier formula.`;
-  const whyThisTier = `${review.rationale} Evidence snapshot: ${snapshot.snapshotDate} · 7.3d · CN Master+. ${statisticalContext} TierListBase retains Wild Rift Core's ${tier} source tier for ${roleLabels[role]} after this separate editorial review.`;
+  const whyThisTier = `${review.rationale} Statistics snapshot ${snapshot.snapshotDate} (source patch ${snapshot.statisticsPatch}) · CN Master+ · latest Ranked balance ${snapshot.latestRankedBalance}. ${statisticalContext} TierListBase retains Wild Rift Core's ${tier} source tier for ${roleLabels[role]} after this separate editorial review.`;
 
   return {
     championId: seed.championId,
@@ -501,6 +528,25 @@ function makeRanking(seed: (typeof rankingSeeds)[number]): ChampionRoleRanking {
 }
 
 export const rankings: readonly ChampionRoleRanking[] = rankingSeeds.map(makeRanking);
+
+// Derived once so page copy and tests cannot drift from the published rows.
+export const coverage = {
+  catalogSize: champions.length,
+  statisticsBackedPlacements: rankings.filter(
+    (ranking) => ranking.placementKind === "statistics-backed",
+  ).length,
+  editorialPlacements: rankings.filter((ranking) => ranking.placementKind === "editorial").length,
+  distinctStatisticsChampions: new Set(
+    rankings
+      .filter((ranking) => ranking.placementKind === "statistics-backed")
+      .map((ranking) => ranking.championId),
+  ).size,
+  verifiedTrendPlacements: rankings.filter((ranking) => ranking.winRateChange7d !== null).length,
+  sourceRoleRows: 180,
+  sourceTrackedChampions: 134,
+  sourceObservedChampions: 136,
+  carriedForwardTierCapture: "2026-11-01",
+} as const;
 
 export const quickPickChampionIds: Readonly<Record<RoleKey, string>> = {
   baron: "shen",

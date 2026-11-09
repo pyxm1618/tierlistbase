@@ -300,7 +300,7 @@
     "signals": "MLHHH"
   },
   "jayce:jungle": {
-    "rationale": "Form-switched damage and poke can pressure river fights, but demanding clears and absent jungle statistics make the role specialist-only.",
+    "rationale": "Form-switched damage and poke can pressure river fights, but demanding clears and a thin Jungle sample keep the role specialist-only.",
     "signals": "LLLHM"
   },
   "poppy:jungle": {
@@ -652,8 +652,8 @@
     "signals": "MMMMM"
   },
   "corki:dragon": {
-    "rationale": "Ranged spells give an alternative lane pressure pattern, but mana demand and unavailable Dragon statistics keep the placement editorial.",
-    "signals": "MLMHM"
+    "rationale": "Ranged spells give an alternative lane pressure pattern, but mana demand and low pick presence limit confidence in the placement.",
+    "signals": "MLMHH"
   },
   "zeri:dragon": {
     "rationale": "Mobility can sustain long-fight damage, but aiming demands and reliance on an uninterrupted fighting window lower consistency.",
@@ -830,5 +830,9 @@
   "swain:support": {
     "rationale": "Close-range attrition can punish enemies who keep fighting, but ranged disengage and weak support results make his access unreliable.",
     "signals": "LLMHH"
+  },
+  "akali:baron": {
+    "rationale": "Shroud access and energy-gated dashes create short trade windows in melee lanes, but wave clear and sustained side-lane pressure stay limited without an early lead.",
+    "signals": "MLMHM"
   }
 }
