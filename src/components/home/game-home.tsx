@@ -518,6 +518,22 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
           </div>
         </section>
       </div>
+
+      <div className="tlb-badge-strip">
+        <a
+          href="https://startupfa.me/s/tierlistbase?utm_source=www.tierlistbase.com"
+          target="_blank"
+          rel="noopener"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element -- Startup Fame badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
+          <img
+            src="https://startupfa.me/badges/featured-badge-small.webp"
+            alt="Tier List Base - Featured on Startup Fame"
+            width="224"
+            height="36"
+          />
+        </a>
+      </div>
     </div>
   );
 }

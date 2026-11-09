@@ -566,3 +566,18 @@
     transition: none !important;
   }
 }
+.tlb-badge-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-top: 1px solid #16354d;
+}
+.tlb-badge-strip img {
+  display: block;
+  width: 224px;
+  height: 36px;
+  max-width: 100%;
+}
