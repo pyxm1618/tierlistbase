@@ -70,6 +70,9 @@ test("Wild Rift uses the shared marketing shell, correct SEO metadata, and All R
   for (const value of structuredData) expect(() => JSON.parse(value)).not.toThrow();
 
   await expect(page.locator('[data-ia-section="faq"] details')).toHaveCount(6);
+  // The rejected singular/plural variant must never reach the browser-visible page.
+  const visibleCopy = (await page.locator("main").innerText()).toLocaleLowerCase("en-US");
+  expect(visibleCopy).not.toContain("wild rift champions tier list");
   await expect(page.locator('[data-ia-section="sources-evidence"]')).toContainText(
     "China-server data · Master+ · Ranked",
   );
@@ -250,11 +253,15 @@ test("Wild Rift never borrows role statistics or presents missing portraits and 
   await expect(norraImage).toBeVisible();
   await expect(norraImage).toHaveAttribute("src", /norra\.png/);
   await expect(norraImage).toHaveAttribute("alt", "");
-  expect(
-    await norraImage.evaluate(
-      (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
-    ),
-  ).toBe(true);
+  // Lazy portraits resolve asynchronously; poll instead of sampling one frame so the
+  // assertion still requires a real decoded image.
+  await expect
+    .poll(
+      async () =>
+        norraImage.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0),
+      { timeout: 5_000 },
+    )
+    .toBe(true);
   await norra.click();
   await expect(detail).toContainText("7-day trend unavailable.");
   await expect(detail).toContainText("50.2%");

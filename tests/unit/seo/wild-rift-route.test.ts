@@ -16,9 +16,6 @@ const PAGE_LAST_MODIFIED = "2026-11-09";
 const EVIDENCE_SNAPSHOT_DATE = "2026-11-07";
 const SOURCE_REVIEW_DATE = "2026-11-09";
 
-// The neutral-product (clean setup) inventory does not register this game page.
-const hasWildRiftRoute = routeRegistry.routes.some((entry) => entry.route === route);
-
 function indexableDefinition() {
   const definition = routeRegistry.get(route);
   if (definition.class !== "public_indexable") {
@@ -27,7 +24,17 @@ function indexableDefinition() {
   return definition;
 }
 
-describe.skipIf(!hasWildRiftRoute)("Wild Rift production SEO release", () => {
+// The Wild Rift page is a production route. If it disappears from the registry this suite must
+// fail, never skip: a silently skipped release contract is indistinguishable from a passing one.
+describe("Wild Rift production SEO release", () => {
+  it("keeps the route registered as a reviewed public page", () => {
+    const registered = routeRegistry.routes.filter((entry) => entry.route === route);
+
+    expect(registered).toHaveLength(1);
+    const definition = indexableDefinition();
+    expect(definition.reviewStatus).toBe("reviewed");
+  });
+
   it("registers the frozen primary and the single approved secondary", () => {
     const definition = indexableDefinition();
     const secondary = definition.secondaryKeywords ?? [];
