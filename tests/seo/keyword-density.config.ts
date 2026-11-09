@@ -197,6 +197,9 @@ const configs: readonly TargetSelectorConfig[] = [
       "Hero and coverage copy plus Quick Picks/Ranking Workspace intros, Methodology, Sources explanatory copy, What Changed, and FAQ questions; excludes weapon/Phantom Edge entities, tier board, search/filter controls, entity detail, source lists, and release counters.",
   },
   {
+    // Round 3C: the frozen group is resolved from routeRegistry and has exactly three
+    // secondaries. "dragon traveler taiwan tier list" is a rejected low-volume word-order
+    // variant of the Taiwan intent, not a separate density target.
     id: "dragon-traveler",
     label: "Dragon Traveler",
     route: "/dragon-traveler/tier-list",
