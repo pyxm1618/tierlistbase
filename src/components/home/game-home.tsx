@@ -531,6 +531,7 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
             alt="Tier List Base - Featured on Startup Fame"
             width="224"
             height="36"
+            loading="lazy"
           />
         </a>
       </div>
