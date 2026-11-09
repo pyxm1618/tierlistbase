@@ -366,8 +366,8 @@ export function DragonTravelerTierList() {
           <p>
             Use the Dragon Traveler tier list to compare Overall value, PvE progression and PvP
             impact while keeping Global and Taiwan ranked pools, team context, investment
-            requirements and source dates separate. Treat the Dragon Traveler tier list as a ranking
-            reference, then confirm mode fit, team needs and account cost before acting.
+            requirements and source dates separate. Treat these results as a starting point, then
+            confirm mode fit, team needs and account cost before acting.
           </p>
           <div className={styles.snapshot}>
             <span>{server === "global" ? "Global" : "Taiwan"} server</span>
@@ -382,9 +382,9 @@ export function DragonTravelerTierList() {
           <div>
             <h2 id="quick-picks-title">Quick Picks</h2>
             <p>
-              Quick Picks turn the Dragon Traveler tier list into a starting point for your account.
-              Use the Dragon Traveler tier list here to shortlist roles first, then open the
-              selected Luminary detail before investing.
+              Quick Picks turn the Dragon Traveler tier list into a starting point for your account:
+              shortlist the roles you are missing first, then open the selected Luminary detail
+              before investing.
             </p>
           </div>
           {Object.entries(quickPicks).map(([label, id]) => (
@@ -406,11 +406,10 @@ export function DragonTravelerTierList() {
                 <h2>Luminary Tier List</h2>
                 <p>
                   The Dragon Traveler tier list defaults to Overall so you can compare general
-                  account value first. The Dragon Traveler tier list should then be read by mode:
-                  use the Dragon Traveler PvE tier list for progression and the Dragon Traveler PvP
-                  tier list for competitive priorities. The Dragon Traveler PvE tier list and Dragon
-                  Traveler PvP tier list keep the same ranked source pool, while the Dragon Traveler
-                  tier list changes only the ranking context shown.
+                  account value first. Read it by mode next: the Dragon Traveler PvE tier list
+                  covers progression priorities, while the Dragon Traveler PvP tier list covers
+                  competitive ones. All three views share one ranked source pool, so switching the
+                  mode changes only the ranking context shown.
                 </p>
               </div>
               <div className={styles.switches} role="group" aria-label="Server context">
@@ -527,9 +526,9 @@ export function DragonTravelerTierList() {
             <div>
               <h2 id="teams-title">Best Dragon Traveler Teams</h2>
               <p>
-                Use the Dragon Traveler tier list with sourced formations, then build around
-                synergy, positioning and the characters you own. The Dragon Traveler tier list can
-                rank individual value, but a team still depends on role coverage and formation fit.
+                Pair the Dragon Traveler tier list with sourced formations, then build around
+                synergy, positioning and the characters you own. A Dragon Traveler tier list ranks
+                individual value, but a team still depends on role coverage and formation fit.
               </p>
             </div>
             <div className={styles.switches} role="tablist" aria-label="Team ranking views">
@@ -588,7 +587,8 @@ export function DragonTravelerTierList() {
           </div>
           <p className={styles.note}>
             Four sourced formations per mode. Order and team grades are editorial recommendations,
-            not measured win rates. Both server lists use the same formation advice where every
+            not measured win rates. The Dragon Traveler tier list keeps character grades separate
+            from these team suggestions; both server lists use the same formation advice where every
             member appears in that server&rsquo;s ranked pool.
           </p>
         </section>
@@ -596,10 +596,9 @@ export function DragonTravelerTierList() {
           <h2 id="decisions-title">Account Decisions</h2>
           <p className={styles.sectionIntro}>
             Turn the Dragon Traveler tier list into account decisions: spend for the team you can
-            finish, not a tier label alone. Use the Dragon Traveler tier list to shortlist
-            candidates, then compare the Dragon Traveler PvE tier list for progression priorities
-            and the Dragon Traveler PvP tier list for competitive priorities before reroll, wishlist
-            or pull decisions.
+            finish, not a tier label alone. Shortlist candidates, then compare the Dragon Traveler
+            PvE tier list for progression priorities and the Dragon Traveler PvP tier list for
+            competitive ones before any reroll, wishlist or pull.
           </p>
           <div className={styles.decisionGrid}>
             <article className={styles.paper}>
@@ -651,8 +650,7 @@ export function DragonTravelerTierList() {
           <h2>What Changed</h2>
           <p>
             This is the first verified Dragon Traveler tier list source capture on {snapshotDate}.
-            There is no previous TierListBase Dragon Traveler tier list snapshot to compare, so no
-            tier movements are claimed.
+            With no earlier TierListBase snapshot to compare, no tier movements are claimed.
           </p>
         </section>
         <div className={styles.methodologySources}>
@@ -664,13 +662,11 @@ export function DragonTravelerTierList() {
                 <p>
                   Overall ordering and ranked membership follow the cited Global / Taiwan source
                   tier lists; the ranked count is not presented as the complete live roster. The
-                  Dragon Traveler tier list Taiwan snapshot stays separate from Global, while the
-                  Dragon Traveler Taiwan tier list label refers only to this ranked source snapshot.
-                  For server comparisons, the Dragon Traveler tier list Taiwan view and Dragon
-                  Traveler Taiwan tier list wording both describe ranked-source coverage, not a
-                  complete live roster. Arachne’s Global release is corroborated by the official
-                  October 22 announcement. War Drummer is a formation helper and is excluded from
-                  the ranked Luminary count.
+                  Taiwan server snapshot stays separate from Global, so read those placements
+                  against the Taiwan source tier list. Both servers draw on the same character mode
+                  assessments, but each keeps its own ranked membership. Arachne’s Global release is
+                  corroborated by the official October 22 announcement. War Drummer is a formation
+                  helper and is excluded from the ranked Luminary count.
                 </p>
               </div>
               <div>
@@ -678,11 +674,10 @@ export function DragonTravelerTierList() {
                 <p>
                   The Dragon Traveler PvE tier list and Dragon Traveler PvP tier list views follow
                   published character assessments shared between servers by the source. Use the
-                  Dragon Traveler PvE tier list when progression value matters most and the Dragon
-                  Traveler PvP tier list when competitive value matters most. The Dragon Traveler
-                  tier list keeps those mode views separate so a strong Overall placement is not
-                  treated as proof of identical performance everywhere. They are not independently
-                  tested server-specific performance results.
+                  former when progression value matters most and the latter when competitive value
+                  matters most. The Dragon Traveler tier list keeps those mode views separate so a
+                  strong Overall placement is not treated as proof of identical performance
+                  everywhere. They are not independently tested server-specific performance results.
                 </p>
               </div>
               <div>
@@ -690,11 +685,10 @@ export function DragonTravelerTierList() {
                 <p>
                   Formation members and substitutes follow the linked community guide. Frontline,
                   midline and backline placement preserves the source’s three-by-three formation
-                  coordinates. Use the Dragon Traveler tier list as the character-ranking layer,
-                  then use these formations as team context rather than replacing one with the
-                  other. The Dragon Traveler tier list ranks characters; the formation guide
-                  explains how those characters fit together. Local team order reflects a suggested
-                  starting sequence.
+                  coordinates. Use the Dragon Traveler tier list as the character-ranking layer and
+                  these formations as team context, rather than replacing one with the other. The
+                  guide explains how those characters fit together; local team order reflects a
+                  suggested starting sequence.
                 </p>
               </div>
               <div>
@@ -703,8 +697,8 @@ export function DragonTravelerTierList() {
                   New-player value, cost, dependency and flexibility are editorial estimates from
                   rarity, starter access and published build notes. The Dragon Traveler tier list
                   uses these fields to explain why two similarly ranked Luminaries can lead to
-                  different account decisions. The Dragon Traveler tier list does not replace cost
-                  and dependency checks. They are not usage statistics or spending guarantees.
+                  different account decisions, but it does not replace cost and dependency checks.
+                  They are not usage statistics or spending guarantees.
                 </p>
               </div>
             </div>
@@ -728,8 +722,8 @@ export function DragonTravelerTierList() {
             <h2>Sources</h2>
             <p>
               Character evidence supporting the Dragon Traveler tier list is linked from each detail
-              panel. The Dragon Traveler tier list should be read against these dated sources rather
-              than treated as timeless. General references:
+              panel. Read these results against the dated sources rather than treating them as
+              timeless. General references:
             </p>
             <ul>
               {sourceRecords
@@ -759,7 +753,7 @@ export function DragonTravelerTierList() {
               "There is no universal best for every account. Quick Picks offer a starting point; compare mode ratings, duplicate requirements and the team you already own.",
             ],
             [
-              "Is the Taiwan tier list the same as Global?",
+              "Are the Taiwan server rankings the same as Global?",
               "No. The ranked pool and Overall ordering differ. The source uses shared character mode assessments; this page makes that limitation explicit.",
             ],
             [
@@ -771,7 +765,7 @@ export function DragonTravelerTierList() {
               "Choose a faction whose damage, protection and support core you can build together. Faction is a filter, not an additional ranking.",
             ],
             [
-              "Are upcoming characters ranked?",
+              "Are upcoming characters on the Dragon Traveler tier list?",
               "No. Upcoming records are separate and can only appear in pull context with Wait for Testing. They never enter the ranked board, Quick Picks, teams or ranked count.",
             ],
           ].map(([q, a]) => (
