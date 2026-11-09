@@ -216,8 +216,8 @@ export function WildRiftTierList() {
             Scope: CN Server · Master+ · Ranked. This Wild Rift tier list includes{" "}
             {coverage.statisticsBackedPlacements} statistics-backed Champion × Role placements
             across {coverage.distinctStatisticsChampions} champions from {snapshot.snapshotDate}.
-            The source headline reports {coverage.sourceTrackedChampions} champions; that
-            discrepancy is preserved. Another {coverage.editorialPlacements} placements keep the{" "}
+            The source lists {coverage.sourceTrackedChampions} champions. This discrepancy is
+            preserved. Another {coverage.editorialPlacements} placements keep the{" "}
             {coverage.carriedForwardTierCapture} Wild Rift Core tier but show N/A for WR / PR / BR
             without current statistics.
           </p>
