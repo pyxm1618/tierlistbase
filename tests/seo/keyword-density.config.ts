@@ -230,6 +230,8 @@ const configs: readonly TargetSelectorConfig[] = [
       "Hero plus Quick Picks, ranking, teams, account-decision intros, What Changed, Methodology, Sources explanations, and FAQ questions; excludes Luminary cards/details, formation members, tabs/filters, wishlist/reroll entities, Current Pull Priority, and live account data.",
   },
   {
+    // Round 3C: the frozen group is resolved from routeRegistry and has exactly one secondary.
+    // "wild rift champions tier list" is a rejected singular/plural duplicate, not a density target.
     id: "wild-rift",
     label: "Wild Rift",
     route: "/wild-rift/tier-list",

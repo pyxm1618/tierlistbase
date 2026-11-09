@@ -673,13 +673,16 @@ function WhatChanged({ role }: { role: RoleView }) {
         <div>
           <h2 id="changed-title">What Changed</h2>
           <p>
-            Wild Rift Core-reported source-tier history since the first 7.3 update; not TierListBase
-            historical rankings.
+            Wild Rift Core source-tier changes verified between the 2026-11-01 and 2026-11-07
+            reviewed captures; not TierListBase historical rankings. The publisher does not date
+            individual movements, so each entry carries the capture date it was verified on.
           </p>
         </div>
         <div>
           <strong>Latest Ranked Balance: {snapshot.latestRankedBalance}</strong>
-          <span>Statistics snapshot: 7.3d · Master+ CN · {snapshot.snapshotDate}.</span>
+          <span>
+            Statistics snapshot: {snapshot.statisticsPatch} · Master+ CN · {snapshot.snapshotDate}.
+          </span>
         </div>
       </div>
       {visible.length ? (
@@ -704,7 +707,7 @@ function WhatChanged({ role }: { role: RoleView }) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Source history
+                    Source tiers
                   </a>
                 </div>
                 <span className={styles.changeType}>{change.type}</span>
