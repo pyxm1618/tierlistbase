@@ -77,6 +77,7 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
     "https://media.tierlistbase.com",
     "https://spire-codex.com",
     "https://cdn.spire-codex.com",
+    "https://startupfa.me",
     ...cmpImageOrigins,
     ...(input.analytics.ga4 ? ["https://www.google-analytics.com"] : []),
     ...(input.analytics.clarity ? ["https://*.clarity.ms"] : []),
