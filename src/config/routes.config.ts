@@ -219,7 +219,6 @@ export const routeDefinitions = [
       "dragon traveler pve tier list",
       "dragon traveler pvp tier list",
       "dragon traveler tier list taiwan",
-      "dragon traveler taiwan tier list",
     ],
     title: "Dragon Traveler Tier List – Best Luminaries Ranked",
     description:
@@ -227,9 +226,9 @@ export const routeDefinitions = [
     h1: "Dragon Traveler Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/", "/privacy", "/terms"],
-    lastModified: "2026-11-03",
+    lastModified: "2026-11-09",
     reviewStatus: "reviewed",
-    reviewFingerprint: "903f0ac9c765325041f6e5b8fa53fd8cdccc00c36a8103f003c3d3790e42e356",
+    reviewFingerprint: "443adb31f045b81059c988b97ec61ba28df4b7cad7795417df28aaa77c6d46ec",
   },
   {
     route: "/wild-rift/tier-list",
