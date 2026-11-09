@@ -244,8 +244,8 @@ export function WildRiftTierList() {
               coverage.editorialPlacements -
               coverage.verifiedTrendPlacements}{" "}
             placements have none. The “30 d” column is separate. Patch {snapshot.gameVersion}{" "}
-            changes AAA ARAM augments only, so the {snapshot.snapshotDate} snapshot remains post-balance
-            against {snapshot.latestRankedBalance}. Buffs alone do not change tiers.
+            changes AAA ARAM augments only, so the {snapshot.snapshotDate} snapshot remains
+            post-balance against {snapshot.latestRankedBalance}. Buffs alone do not change tiers.
           </p>
           <div className={styles.methodGrid}>
             {roleKeys.map((role) => (
