@@ -30,8 +30,12 @@ const provenanceDisclosure =
   "The Wild Rift tier list preserves Wild Rift Core role rankings without TierListBase overrides; they are not official Riot or Tencent tiers. TierListBase has not independently fetched the reported Tencent CN data. Rates are publisher-supplied; ban rate is champion-wide.";
 const decisionSignalsDisclosure =
   "Alongside Tier, the Wild Rift tier list publishes five editorial signals per Champion × Role: reliability, blind safety, ease, impact and team dependence. They cover access, lane exposure, execution, damage or control and reliance on allies. Signals are independent of Tier; high dependence means more reliance on allies.";
+const unavailableTrendPlacements =
+  coverage.statisticsBackedPlacements +
+  coverage.editorialPlacements -
+  coverage.verifiedTrendPlacements;
 const trendDisclosure =
-  `Trend arrows in the Wild Rift tier list show same-role seven-day win-rate change. The capture verifies ${coverage.verifiedTrendPlacements} labelled deltas; the other ${coverage.statisticsBackedPlacements + coverage.editorialPlacements - coverage.verifiedTrendPlacements} placements have none. The “30 d” column is separate. Patch ${snapshot.gameVersion} changes AAA ARAM augments only, so the ${snapshot.snapshotDate} snapshot remains post-balance against ${snapshot.latestRankedBalance}. Buffs alone do not change tiers.`;
+  `Trend arrows in the Wild Rift tier list show same-role seven-day win-rate change. The capture verifies ${coverage.verifiedTrendPlacements} labelled deltas; the other ${unavailableTrendPlacements} placements have none. The “30 d” column is separate. Patch ${snapshot.gameVersion} changes AAA ARAM augments only, so the ${snapshot.snapshotDate} snapshot remains post-balance against ${snapshot.latestRankedBalance}. Buffs alone do not change tiers.`;
 
 const faq = [
   [
