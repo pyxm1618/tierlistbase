@@ -1,0 +1,79 @@
+{
+  "finding": "R3C-AE-02",
+  "purpose": "Round 3C freshness impact review for /anime-expeditions/tier-list. Records which sources were re-read after the 2026-11-05 evidence snapshot, what actually changed, and whether any published ranking was affected.",
+  "assessedAt": "2026-11-10",
+  "currentGameVersion": "Update 5 · Hallows Eve",
+  "rankedPatchBaseline": "2026-11-01",
+  "evidenceSnapshotBefore": "2026-11-05",
+  "evidenceSnapshotAfter": "2026-11-08",
+  "sourceReviewDate": "2026-11-10",
+  "updateSixFound": false,
+  "rankingImpact": "NO",
+  "datesAreDistinct": {
+    "evidenceSnapshot": "2026-11-08",
+    "sourceReview": "2026-11-10",
+    "pageLastModified": "2026-11-10",
+    "note": "The snapshot date is the newest source revision actually reconciled. The review date is when the pass ran. lastModified only records that the page changed; it is never used as evidence that the evidence is current."
+  },
+  "sources": [
+    {
+      "id": "pgg-update5",
+      "name": "Pro Game Guides — Update 5 tier list and six-unit team cores",
+      "url": "https://progameguides.com/roblox/anime-expeditions-tier-list-best-units/",
+      "previousRevision": "2026-11-02",
+      "currentRevision": "2026-11-08",
+      "revisionAdvanced": true,
+      "whatChanged": "Publisher note: 'Updated on November 8, 2026: Added Emerald Fist and refreshed all Update 4 and 5 unit evaluations with full upgrade stats, total costs, and current ability details.' The page also clarifies Dead Melody's summon-selection restriction: summons and clones are ignored when a melody is chosen and cannot become Captain.",
+      "rankingImpact": "NO",
+      "basis": "Every published Overall tier was reconciled against the 2026-11-08 revision. 75 of 77 units appear in that revision and all 75 agree; 0 disagreements. Published tier-bucket counts match the source exactly (S 32, A 23, B 9, C 5, D 6).",
+      "correction": "The previous snapshot attributed Emerald Fist's comparative baseline to the 2026-11-02 revision, but the publisher only added Emerald Fist on 2026-11-08. Refreshing the baseline to 2026-11-08 makes that attribution truthful rather than retroactive."
+    },
+    {
+      "id": "mrguider-update5",
+      "name": "MrGuider — Update 5 role ranking cross-check",
+      "url": "https://www.mrguider.org/tier-list/anime-expeditions-tier-list/",
+      "previousRevision": "2026-11-01",
+      "currentRevision": "2026-11-01",
+      "revisionAdvanced": false,
+      "whatChanged": "None. The page is still dated November 1, 2026 and still states that the five Update 5 units 'will be ranked soon'.",
+      "rankingImpact": "NO",
+      "basis": "Used only as a page-level role cross-check. No unit record attaches it as its own ranking evidence, so no per-unit claim depends on it."
+    },
+    {
+      "id": "wiki-ranking",
+      "name": "Community role ranking",
+      "url": "https://animeexpeditions.miraheze.org/w/index.php?title=Template:Tierlist&oldid=9561",
+      "previousRevision": "2026-10-08",
+      "currentRevision": "2026-10-08",
+      "revisionAdvanced": false,
+      "whatChanged": "None. Revision 9561 predates Update 5 · Hallows Eve.",
+      "rankingImpact": "NO",
+      "basis": "It corroborates role reads on 13 units but cannot certify a current placement, and the page no longer presents it as a current ranking source."
+    },
+    {
+      "id": "current-unit-role-crosscheck",
+      "name": "ExpeditionValues — current role / low-rarity stat cross-check",
+      "url": "https://expeditionvalues.com/tier-list",
+      "previousRevision": "2026-11-05",
+      "currentRevision": "2026-11-05",
+      "revisionAdvanced": false,
+      "whatChanged": "None observed for the single record it supports.",
+      "rankingImpact": "NO",
+      "basis": "Scoped to one unit's carry role and bottom-end output; not a roster-wide ranking input."
+    }
+  ],
+  "versionCheck": {
+    "whatWasChecked": "Whether a named Update 6 or a balance change superseding Hallows Eve existed as of 2026-11-10.",
+    "result": "No Update 6 was found. Every current source still presents Update 5 · Hallows Eve as the live version, and the Halloween event window is still running (event codes expire 2026-11-14).",
+    "conclusion": "The page may keep describing Hallows Eve as the current baseline, because that was verified rather than assumed."
+  },
+  "whatChangedOnPage": [
+    "Evidence snapshot moved from 2026-11-05 to 2026-11-08 after reconciling the November 8 revision.",
+    "The comparative baseline label changed from 'updated 2026-11-02' to 'updated 2026-11-08'.",
+    "The 'What Changed' section now records the re-read and the zero tier movement instead of only the Update 5 launch.",
+    "No unit tier was changed. No unit was added or removed."
+  ],
+  "whatDidNotChange": "All 77 published five-view grades. The refresh corrected evidence dating and claim scope; it did not re-rank anything.",
+  "residualRisk": "The page only proves current-ness up to the newest source revision it reconciled (2026-11-08). If the publisher advances that page again without a matching review, the snapshot date must move with it, not just lastModified.",
+  "rankingImpactSummary": "No published tier moved. The November 8 revision added Emerald Fist (already published here at A, and A in the source) and refreshed evaluation detail; every one of the 75 reconciled placements still agrees."
+}
