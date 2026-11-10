@@ -20,19 +20,19 @@ const sourcesIntro =
   "This Wild Rift tier list combines patch facts, statistics and role review.";
 const methodologyIntro =
   "This Wild Rift champion tier list reviews roles using Win Rate, reliability, execution, draft value and patch evidence.";
-const faqIntro = "Questions about this Wild Rift tier list.";
-const coverageDisclosure = `CN · Master+ · Ranked. This Wild Rift tier list has ${coverage.statisticsBackedPlacements} statistics-backed Champion × Role rows across ${coverage.distinctStatisticsChampions} champions (${snapshot.snapshotDate}), versus the source headline's ${coverage.sourceTrackedChampions}. Another ${coverage.editorialPlacements} retain the ${coverage.carriedForwardTierCapture} Wild Rift Core tier; current WR / PR / BR are N/A.`;
+const faqIntro = "Ranked scope and methodology.";
+const coverageDisclosure = `CN · Master+ · Ranked. This Wild Rift tier list has ${coverage.statisticsBackedPlacements} statistics-backed Champion × Role rows across ${coverage.distinctStatisticsChampions} champions (${snapshot.snapshotDate}); source headline: ${coverage.sourceTrackedChampions}. Another ${coverage.editorialPlacements} retain the ${coverage.carriedForwardTierCapture} Wild Rift Core tier; WR / PR / BR are N/A.`;
 const roleRowsDisclosure =
-  "Every captured Champion × Role row appears; role tiers stay separate.";
+  "Every Champion × Role row appears; role tiers stay separate.";
 const provenanceDisclosure =
-  "Wild Rift Core role tiers remain unchanged and are not official Riot or Tencent tiers. Tencent CN data and rates are publisher-reported, not independently fetched by TierListBase; ban rate is champion-wide.";
+  "Wild Rift Core role tiers remain unchanged and unofficial. Tencent CN rates are publisher-reported, not independently fetched by TierListBase; ban rate is champion-wide.";
 const decisionSignalsDisclosure =
-  "The Wild Rift tier list adds five editorial signals per Champion × Role: reliability, blind safety, ease, impact and team dependence. They summarize access, lane exposure, execution, damage/control and reliance on allies; they do not set Tier.";
+  "The Wild Rift tier list adds five editorial signals per Champion × Role: reliability, blind safety, ease, impact and team dependence. They summarize access, exposure, execution, damage/control and ally reliance; they do not set Tier.";
 const unavailableTrendPlacements =
   coverage.statisticsBackedPlacements +
   coverage.editorialPlacements -
   coverage.verifiedTrendPlacements;
-const trendDisclosure = `Trend arrows show same-role seven-day win-rate change; ${coverage.verifiedTrendPlacements} deltas are verified and ${unavailableTrendPlacements} placements have none. “30 d” is separate. Patch ${snapshot.gameVersion} changes AAA ARAM only, so ${snapshot.snapshotDate} remains post-balance to ${snapshot.latestRankedBalance}; buffs alone do not change tiers.`;
+const trendDisclosure = `Trend arrows show same-role 7-day win-rate change; ${coverage.verifiedTrendPlacements} verified, ${unavailableTrendPlacements} unavailable. “30 d” is separate. Patch ${snapshot.gameVersion} changes AAA ARAM only; ${snapshot.snapshotDate} stays post-balance to ${snapshot.latestRankedBalance}. Buffs do not change tiers.`;
 
 const faq = [
   [
@@ -48,11 +48,11 @@ const faq = [
     "This snapshot retains Wild Rift Core source tiers after TierListBase role review. Wild Rift Core describes its tier list as a data-informed ranking using Master+ performance and consensus; it is not a Riot or Tencent official tier. TierListBase Decision Signals are separate editorial assessments. WR / PR / BR remain raw evidence, not a TierListBase tier formula.",
   ],
   [
-    "Does this ranking cover the current patch?",
+    "Current patch?",
     `The current game version is ${snapshot.gameVersion}. Its patch notes change AAA ARAM augments only, so ${snapshot.latestRankedBalance} remains the latest standard Ranked balance patch. The reviewed Master+ CN statistics were captured on ${snapshot.snapshotDate} and the publisher labels that dataset ${snapshot.statisticsPatch}. Raw role statistics, Wild Rift Core source tiers, and TierListBase editorial signals remain separate.`,
   ],
   [
-    "How are Dragon Lane and ADC handled?",
+    "Dragon Lane vs ADC?",
     "Dragon Lane is Wild Rift's lane name. ADC describes the ranged carry role most commonly played there. This page uses Dragon Lane as the primary label and ADC / Duo only as an explanatory alias.",
   ],
   [
