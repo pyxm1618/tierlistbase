@@ -1,4 +1,4 @@
-import snapshotSource from "./snapshot-source.json";
+import { snapshotSource } from "./snapshot-source";
 
 import { readSnapshotMetadata } from "./snapshot";
 
