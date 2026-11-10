@@ -66,11 +66,12 @@ describe("games.config registry", () => {
   it("keeps homepage lifecycle eligibility in the shared game registry", () => {
     expect(
       gamesConfig.filter((game) => game.tierListStatus === "archived").map((game) => game.slug),
-    ).toEqual(["wow-forever", "genshin-impact", "nikke"]);
+    ).toEqual(["wow-forever", "genshin-impact"]);
     expect(
       gamesConfig.filter((game) => game.tierListStatus === "active").map((game) => game.slug),
     ).toEqual([
       "zenless-zone-zero",
+      "nikke",
       "limbus-company",
       "phantom-blade-zero",
       "dragon-traveler",
