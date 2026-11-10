@@ -1,1 +1,1 @@
-export { snapshotDate as contentFreshnessDate } from "./data";
+export { snapshotDate as contentFreshnessDate } from "./snapshot-metadata";
