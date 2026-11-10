@@ -20,8 +20,7 @@ const sourcesIntro =
   "This Wild Rift tier list combines patch facts, ranked statistics and role review; no statistic alone determines placement.";
 const methodologyIntro =
   "This Wild Rift champion tier list reviews each role separately, combining Win Rate with reliability, execution, draft value and patch evidence.";
-const faqIntro =
-  "Questions about this Wild Rift tier list, methodology and Ranked snapshot.";
+const faqIntro = "Questions about this Wild Rift tier list, methodology and Ranked snapshot.";
 const coverageDisclosure = `Scope: CN Server · Master+ · Ranked. This Wild Rift tier list includes ${coverage.statisticsBackedPlacements} statistics-backed Champion × Role placements across ${coverage.distinctStatisticsChampions} champions from ${snapshot.snapshotDate}. The source lists ${coverage.sourceTrackedChampions} champions. This discrepancy is preserved. Another ${coverage.editorialPlacements} placements keep the ${coverage.carriedForwardTierCapture} Wild Rift Core tier but show N/A for WR / PR / BR without current statistics.`;
 const roleRowsDisclosure =
   "Every captured Champion × Role row appears in this Wild Rift tier list; role tiers stay separate rather than averaged.";
