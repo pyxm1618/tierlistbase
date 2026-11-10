@@ -9,7 +9,7 @@
     "build:test": "bun run generate:vanguard-hero && APP_ENV=test next build --webpack",
     "start": "next start",
     "format": "prettier --write .",
-    "format:check": "prettier --write src/modules/wild-rift-tier-list/wild-rift-tier-list.tsx && git diff -- src/modules/wild-rift-tier-list/wild-rift-tier-list.tsx && exit 1",
+    "format:check": "prettier --check .",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:unit": "vitest run --config vitest.config.ts",
