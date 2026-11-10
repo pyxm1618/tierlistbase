@@ -10,32 +10,32 @@ type FreshnessLoader = () => Promise<string>;
 
 const freshnessLoaders: Readonly<Record<string, FreshnessLoader>> = {
   "zenless-zone-zero": async () => {
-    const { snapshotDate } = await import("@/modules/zenless-zone-zero-tier-list/data");
+    const { snapshotDate } = await import("@/modules/zenless-zone-zero-tier-list");
     return snapshotDate;
   },
   "limbus-company": async () => {
-    const { masterSourceMetadata } = await import("@/modules/limbus-tier-list/data/sources");
+    const { masterSourceMetadata } = await import("@/modules/limbus-tier-list");
     return masterSourceMetadata.reviewedAt;
   },
   "phantom-blade-zero": async () => {
     const { phantomBladeZeroSnapshot } =
-      await import("@/modules/phantom-blade-zero-tier-list/data");
+      await import("@/modules/phantom-blade-zero-tier-list");
     return phantomBladeZeroSnapshot.snapshotDate;
   },
   "dragon-traveler": async () => {
-    const { snapshotDate } = await import("@/modules/dragon-traveler-tier-list/data");
+    const { snapshotDate } = await import("@/modules/dragon-traveler-tier-list");
     return snapshotDate;
   },
   "wild-rift": async () => {
-    const { snapshot } = await import("@/modules/wild-rift-tier-list/data");
+    const { snapshot } = await import("@/modules/wild-rift-tier-list");
     return snapshot.reviewedAt;
   },
   "anime-expeditions": async () => {
-    const { snapshot } = await import("@/modules/anime-expeditions-tier-list/data");
+    const { snapshot } = await import("@/modules/anime-expeditions-tier-list");
     return snapshot.reviewedAt;
   },
   "slay-the-spire-2": async () => {
-    const { snapshot } = await import("@/modules/slay-the-spire-2-tier-list/data");
+    const { snapshot } = await import("@/modules/slay-the-spire-2-tier-list");
     return snapshot.lastReviewed;
   },
 };
