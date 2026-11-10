@@ -16,14 +16,12 @@ import { WildRiftWorkspace } from "./wild-rift-workspace";
 
 const heroDescription =
   "Use this Wild Rift tier list to compare roles using ranked statistics and patch context.";
-const sourcesIntro =
-  "This Wild Rift tier list combines patch facts, statistics and role review.";
+const sourcesIntro = "This Wild Rift tier list combines patch facts, statistics and role review.";
 const methodologyIntro =
   "This Wild Rift champion tier list reviews roles using Win Rate, reliability, execution, draft value and patch evidence.";
 const faqIntro = "Ranked scope and methodology.";
 const coverageDisclosure = `CN · Master+ · Ranked. This Wild Rift tier list has ${coverage.statisticsBackedPlacements} statistics-backed Champion × Role rows across ${coverage.distinctStatisticsChampions} champions (${snapshot.snapshotDate}); source headline: ${coverage.sourceTrackedChampions}. Another ${coverage.editorialPlacements} retain the ${coverage.carriedForwardTierCapture} Wild Rift Core tier; WR / PR / BR are N/A.`;
-const roleRowsDisclosure =
-  "Every Champion × Role row appears; role tiers stay separate.";
+const roleRowsDisclosure = "Every Champion × Role row appears; role tiers stay separate.";
 const provenanceDisclosure =
   "Wild Rift Core role tiers remain unchanged and unofficial. Tencent CN rates are publisher-reported, not independently fetched by TierListBase; ban rate is champion-wide.";
 const decisionSignalsDisclosure =
