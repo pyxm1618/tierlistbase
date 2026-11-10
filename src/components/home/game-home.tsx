@@ -394,7 +394,7 @@ export function GameHome({
         <section className="tlb-section" id="explore" aria-labelledby="explore-title">
           <SectionTitle
             id="explore-title"
-            subtitle="The most recently reviewed active tier lists, selected automatically from canonical game freshness data."
+            subtitle="The most recently reviewed active tier list pages, selected automatically from canonical game freshness data."
           >
             Recently Updated Tier Lists
           </SectionTitle>
