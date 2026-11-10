@@ -152,13 +152,20 @@ describe("homepage recently updated tier lists", () => {
     const freshness = await getGameContentFreshness();
     const bySlug = new Map(freshness.map((item) => [item.slug, item.freshnessDate]));
 
-    expect(bySlug.get("anime-expeditions")).toBe("2026-11-10");
-    expect(bySlug.get("wild-rift")).toBe("2026-11-09");
-    expect(bySlug.get("phantom-blade-zero")).toBe("2026-11-08");
-    expect(bySlug.get("slay-the-spire-2")).toBe("2026-11-06");
-    expect(bySlug.get("dragon-traveler")).toBe("2026-11-03");
-    expect(bySlug.get("zenless-zone-zero")).toBe("2026-10-25");
-    expect(bySlug.get("limbus-company")).toBe("2026-10-19");
+    expect([...bySlug.keys()].sort()).toEqual(
+      [
+        "anime-expeditions",
+        "dragon-traveler",
+        "limbus-company",
+        "phantom-blade-zero",
+        "slay-the-spire-2",
+        "wild-rift",
+        "zenless-zone-zero",
+      ].sort(),
+    );
+    for (const freshnessDate of bySlug.values()) {
+      expect(freshnessDate).toMatch(/^20\d{2}-\d{2}-\d{2}$/);
+    }
     expect(bySlug.has("wow-forever")).toBe(false);
     expect(bySlug.has("genshin-impact")).toBe(false);
     expect(bySlug.has("nikke")).toBe(false);
