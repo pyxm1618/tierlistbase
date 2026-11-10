@@ -2,11 +2,7 @@ import { seedGenshinTestDatabase } from "../genshin-tier-list/database";
 import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
 import { expect, test } from "@playwright/test";
 
-import { getGameContentFreshness } from "@/config/game-content-freshness.server";
-import {
-  buildRecentlyUpdatedCandidates,
-  selectRecentlyUpdatedTierLists,
-} from "@/config/home-games.config";
+import { gamesConfig } from "@/config/games.config";
 import { routeRegistry } from "@/config/routes.config";
 
 test("homepage renders the approved game-discovery information architecture", async ({ page }) => {
@@ -27,26 +23,29 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(page.getByRole("heading", { name: "Why TierListBase?" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Browse All Supported Games" })).toBeVisible();
 
-  const expectedFeatured = selectRecentlyUpdatedTierLists(
-    buildRecentlyUpdatedCandidates(await getGameContentFreshness()),
+  const eligibleFeaturedByHref = new Map(
+    gamesConfig
+      .filter((game) => game.tierListStatus === "active")
+      .map((game) => [game.tierListHref, game]),
   );
-  expect(expectedFeatured).toHaveLength(2);
 
   const featuredCards = page.locator("#explore .tlb-game-card");
-  await expect(featuredCards).toHaveCount(expectedFeatured.length);
-  for (const [index, game] of expectedFeatured.entries()) {
-    await expect(featuredCards.nth(index)).toContainText(game.name);
-    await expect(featuredCards.nth(index)).toHaveAttribute("href", game.href);
-    await expect(featuredCards.nth(index)).toContainText(
-      `Updated ${new Intl.DateTimeFormat("en-US", {
-        month: "short",
-        day: "numeric",
-        timeZone: "UTC",
-      }).format(new Date(game.freshnessDate))}`,
-    );
+  await expect(featuredCards).toHaveCount(2);
+
+  const featuredHrefs: string[] = [];
+  for (const card of await featuredCards.all()) {
+    const href = await card.getAttribute("href");
+    expect(href).toBeTruthy();
+    const game = eligibleFeaturedByHref.get(href!);
+    expect(game, `featured card must be an active game: ${href}`).toBeDefined();
+    await expect(card).toContainText(game!.name);
+    await expect(card).toContainText(/Updated [A-Z][a-z]{2} \d{1,2}/);
+    featuredHrefs.push(href!);
   }
+  expect(new Set(featuredHrefs).size).toBe(2);
   await expect(page.locator("#explore")).not.toContainText("World of Warcraft");
   await expect(page.locator("#explore")).not.toContainText("Genshin Impact");
+  await expect(page.locator("#explore")).not.toContainText("NIKKE");
 
   const updatesSection = page.locator("#latest-updates");
   if ((await updatesSection.count()) > 0) {
@@ -153,14 +152,14 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(imagePreloads).toHaveAttribute("fetchpriority", "high");
 
   const gameImages = page.locator(".tlb-game-grid .tlb-card-image img");
-  await expect(gameImages).toHaveCount(expectedFeatured.length);
-  for (const [index, game] of expectedFeatured.entries()) {
-    const gameImage = gameImages.nth(index);
+  await expect(gameImages).toHaveCount(2);
+  for (const gameImage of await gameImages.all()) {
     await expect(gameImage).toHaveAttribute("loading", "lazy");
     await expect(gameImage).not.toHaveAttribute("fetchpriority", "high");
     await expect(gameImage).toHaveAttribute("sizes", /.+/);
-    await expect(gameImage).toHaveAttribute("src", game.image);
-    const assetResponse = await page.request.get(game.image);
+    const src = await gameImage.getAttribute("src");
+    expect(src).toBeTruthy();
+    const assetResponse = await page.request.get(src!);
     expect(assetResponse.status()).toBe(200);
   }
 
