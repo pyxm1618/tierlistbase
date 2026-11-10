@@ -47,7 +47,7 @@ export const routeDefinitions = [
     secondaryKeywords: ["tier lists", "game tier list", "gaming tier list"],
     title: "Tier List – Explore Game Tier Lists | TierListBase",
     description:
-      "Explore game tier lists across supported games. Compare character, class, unit, weapon, and card rankings with supporting evidence, methodology, and clearly labeled version or snapshot context.",
+      "Explore game tier lists across supported games. Compare character, class, unit, weapon, and card rankings with evidence, methodology, and clear version or snapshot context.",
     h1: "Tier List",
     pageType: "WebApplication",
     relatedRoutes: [
@@ -67,7 +67,7 @@ export const routeDefinitions = [
     ],
     lastModified: "2026-11-10",
     reviewStatus: "reviewed",
-    reviewFingerprint: "7abb957cc6d82012033acd5654c3a8759d14cbc2d898c34967130b5cf4aeb28e",
+    reviewFingerprint: "1af536a697889bee3e1af48c89da2d488fb263fef1c638ef76f37b73810dbec0",
   },
   {
     route: "/wow-forever/tier-list",
