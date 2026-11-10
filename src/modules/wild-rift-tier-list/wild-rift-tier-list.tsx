@@ -15,24 +15,24 @@ import styles from "./wild-rift-tier-list.module.css";
 import { WildRiftWorkspace } from "./wild-rift-workspace";
 
 const heroDescription =
-  "Use this Wild Rift tier list to compare Baron, Jungle, Mid, Dragon and Support using ranked statistics, role evidence and patch context.";
+  "Use this Wild Rift tier list to compare roles using ranked statistics and patch context.";
 const sourcesIntro =
-  "This Wild Rift tier list combines patch facts, ranked statistics and role review; no statistic alone determines placement.";
+  "This Wild Rift tier list combines patch facts, statistics and role review.";
 const methodologyIntro =
-  "This Wild Rift champion tier list reviews roles separately, using Win Rate, reliability, execution, draft value and patch evidence.";
-const faqIntro = "Questions about this Wild Rift tier list and Ranked methodology.";
-const coverageDisclosure = `Scope: CN Server · Master+ · Ranked. This Wild Rift tier list includes ${coverage.statisticsBackedPlacements} statistics-backed Champion × Role placements across ${coverage.distinctStatisticsChampions} champions (${snapshot.snapshotDate}). The source lists ${coverage.sourceTrackedChampions} champions; the discrepancy is preserved. Another ${coverage.editorialPlacements} placements keep the ${coverage.carriedForwardTierCapture} Wild Rift Core tier with N/A WR / PR / BR and no current statistics.`;
+  "This Wild Rift champion tier list reviews roles using Win Rate, reliability, execution, draft value and patch evidence.";
+const faqIntro = "Questions about this Wild Rift tier list.";
+const coverageDisclosure = `CN · Master+ · Ranked. This Wild Rift tier list has ${coverage.statisticsBackedPlacements} statistics-backed Champion × Role rows across ${coverage.distinctStatisticsChampions} champions (${snapshot.snapshotDate}), versus the source headline's ${coverage.sourceTrackedChampions}. Another ${coverage.editorialPlacements} retain the ${coverage.carriedForwardTierCapture} Wild Rift Core tier; current WR / PR / BR are N/A.`;
 const roleRowsDisclosure =
-  "Every captured Champion × Role row appears; the Wild Rift tier list keeps role tiers separate.";
+  "Every captured Champion × Role row appears; role tiers stay separate.";
 const provenanceDisclosure =
-  "The ranking preserves Wild Rift Core role tiers without TierListBase overrides; they are not official Riot or Tencent tiers. TierListBase has not independently fetched the reported Tencent CN data. Rates are publisher-supplied; ban rate is champion-wide.";
+  "Wild Rift Core role tiers remain unchanged and are not official Riot or Tencent tiers. Tencent CN data and rates are publisher-reported, not independently fetched by TierListBase; ban rate is champion-wide.";
 const decisionSignalsDisclosure =
-  "Five editorial signals accompany each Champion × Role in the Wild Rift tier list: reliability, blind safety, ease, impact and team dependence. They cover access, lane exposure, execution, damage/control and reliance on allies. Signals do not set Tier; high dependence means greater reliance on allies.";
+  "The Wild Rift tier list adds five editorial signals per Champion × Role: reliability, blind safety, ease, impact and team dependence. They summarize access, lane exposure, execution, damage/control and reliance on allies; they do not set Tier.";
 const unavailableTrendPlacements =
   coverage.statisticsBackedPlacements +
   coverage.editorialPlacements -
   coverage.verifiedTrendPlacements;
-const trendDisclosure = `For the Wild Rift tier list, trend arrows show same-role seven-day win-rate change. The capture verifies ${coverage.verifiedTrendPlacements} labelled deltas; ${unavailableTrendPlacements} placements have none. “30 d” is separate. Patch ${snapshot.gameVersion} changes AAA ARAM augments only, so the ${snapshot.snapshotDate} snapshot remains post-balance against ${snapshot.latestRankedBalance}. Buffs alone do not change tiers.`;
+const trendDisclosure = `Trend arrows show same-role seven-day win-rate change; ${coverage.verifiedTrendPlacements} deltas are verified and ${unavailableTrendPlacements} placements have none. “30 d” is separate. Patch ${snapshot.gameVersion} changes AAA ARAM only, so ${snapshot.snapshotDate} remains post-balance to ${snapshot.latestRankedBalance}; buffs alone do not change tiers.`;
 
 const faq = [
   [
@@ -48,7 +48,7 @@ const faq = [
     "This snapshot retains Wild Rift Core source tiers after TierListBase role review. Wild Rift Core describes its tier list as a data-informed ranking using Master+ performance and consensus; it is not a Riot or Tencent official tier. TierListBase Decision Signals are separate editorial assessments. WR / PR / BR remain raw evidence, not a TierListBase tier formula.",
   ],
   [
-    "Does this ranking cover the current game patch?",
+    "Does this ranking cover the current patch?",
     `The current game version is ${snapshot.gameVersion}. Its patch notes change AAA ARAM augments only, so ${snapshot.latestRankedBalance} remains the latest standard Ranked balance patch. The reviewed Master+ CN statistics were captured on ${snapshot.snapshotDate} and the publisher labels that dataset ${snapshot.statisticsPatch}. Raw role statistics, Wild Rift Core source tiers, and TierListBase editorial signals remain separate.`,
   ],
   [
@@ -56,7 +56,7 @@ const faq = [
     "Dragon Lane is Wild Rift's lane name. ADC describes the ranged carry role most commonly played there. This page uses Dragon Lane as the primary label and ADC / Duo only as an explanatory alias.",
   ],
   [
-    "How does the Wild Rift tier list use Baron, Solo and Top Lane?",
+    "How does the Wild Rift tier list treat Baron, Solo and Top?",
     "Baron Lane is Wild Rift's official lane label. Solo Lane and Top Lane are common community terms for the same general position. This page uses Baron Lane as the primary label and Solo / Top as an alias.",
   ],
 ] as const;
@@ -209,8 +209,7 @@ export function WildRiftTierList() {
             </article>
           </div>
           <p className={styles.disclosure}>
-            TierListBase is independent. This Wild Rift tier list is not affiliated with or endorsed
-            by Riot Games; related IP belongs to its rights holders.
+            This Wild Rift tier list is independent of and not endorsed by Riot Games.
           </p>
         </section>
 
