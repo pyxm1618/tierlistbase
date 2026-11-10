@@ -39,7 +39,7 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     navigationVisible: true,
     navigationOrder: 3,
     tierListStatus: "active",
-    homepageTags: ["Characters", "Version 3.3"],
+    homepageTags: ["Characters", "Teams", "Builds"],
   },
   {
     slug: "nikke",
@@ -86,7 +86,7 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     navigationOrder: 8,
     tierListStatus: "active",
     homepageImage: "/images/wild-rift/hero.webp",
-    homepageTags: ["Ranked", "Roles", "Patch 7.3e"],
+    homepageTags: ["Ranked", "Roles", "Statistics"],
   },
   {
     slug: "anime-expeditions",
@@ -105,7 +105,7 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     navigationOrder: 10,
     tierListStatus: "active",
     homepageImage: "/images/slay-the-spire-2/hero-spire.svg",
-    homepageTags: ["Cards", "Relics", "Main v0.107.1"],
+    homepageTags: ["Cards", "Relics", "Characters"],
   },
 ] as const;
 
