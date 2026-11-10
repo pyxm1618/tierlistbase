@@ -1,6 +1,9 @@
 import { verifiedCharacters, type VerifiedCharacter } from "./data/verified-roster";
 import ledger from "./data/research-ledger.json";
 import { teamRecommendations } from "./data/teams";
+import { snapshotDate } from "./snapshot-metadata";
+
+export { snapshotDate } from "./snapshot-metadata";
 
 export const classes = ["Guardian", "Warrior", "Assassin", "Archer", "Mage", "Priest"] as const;
 export type ClassKey = (typeof classes)[number];
@@ -90,7 +93,6 @@ export type RosterFilters = {
   readonly faction?: string;
   readonly rarity?: string;
 };
-export const snapshotDate = "2026-11-03";
 export const upcomingLuminaries: readonly UpcomingLuminary[] = [];
 export const researchLedger = ledger;
 export const sourceRecords: readonly SourceRecord[] = [
