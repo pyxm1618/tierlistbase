@@ -1,9 +1,14 @@
+export type GameTierListStatus = "active" | "archived";
+
 export interface GameRegistryEntry {
-  slug: string;
-  name: string;
-  tierListHref: string;
-  navigationVisible: boolean;
-  navigationOrder: number;
+  readonly slug: string;
+  readonly name: string;
+  readonly tierListHref: string;
+  readonly navigationVisible: boolean;
+  readonly navigationOrder: number;
+  readonly tierListStatus: GameTierListStatus;
+  readonly homepageImage?: string;
+  readonly homepageTags: readonly string[];
 }
 
 export const gamesConfig: readonly GameRegistryEntry[] = [
@@ -13,6 +18,9 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/wow-forever/tier-list",
     navigationVisible: true,
     navigationOrder: 1,
+    tierListStatus: "archived",
+    homepageImage: "/images/home/wow.webp",
+    homepageTags: ["Dungeons", "Level 30 Beta"],
   },
   {
     slug: "genshin-impact",
@@ -20,6 +28,9 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/genshin-impact/tier-list",
     navigationVisible: true,
     navigationOrder: 2,
+    tierListStatus: "archived",
+    homepageImage: "/images/home/genshin.webp",
+    homepageTags: ["Characters", "Version 7.1"],
   },
   {
     slug: "zenless-zone-zero",
@@ -27,6 +38,8 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/zenless-zone-zero/tier-list",
     navigationVisible: true,
     navigationOrder: 3,
+    tierListStatus: "active",
+    homepageTags: ["Characters", "Version 3.3"],
   },
   {
     slug: "nikke",
@@ -34,6 +47,8 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/nikke/tier-list",
     navigationVisible: true,
     navigationOrder: 4,
+    tierListStatus: "archived",
+    homepageTags: ["Characters", "v122.8 Snapshot"],
   },
   {
     slug: "limbus-company",
@@ -41,6 +56,8 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/limbus-company/tier-list",
     navigationVisible: true,
     navigationOrder: 5,
+    tierListStatus: "active",
+    homepageTags: ["Identities", "E.G.O", "Teams"],
   },
   {
     slug: "phantom-blade-zero",
@@ -48,6 +65,9 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/phantom-blade-zero/tier-list",
     navigationVisible: true,
     navigationOrder: 6,
+    tierListStatus: "active",
+    homepageImage: "/images/phantom-blade-zero/hero.webp",
+    homepageTags: ["Weapons", "Phantom Edges", "Evidence"],
   },
   {
     slug: "dragon-traveler",
@@ -55,6 +75,8 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/dragon-traveler/tier-list",
     navigationVisible: true,
     navigationOrder: 7,
+    tierListStatus: "active",
+    homepageTags: ["Luminaries", "PvE", "PvP"],
   },
   {
     slug: "wild-rift",
@@ -62,6 +84,9 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/wild-rift/tier-list",
     navigationVisible: true,
     navigationOrder: 8,
+    tierListStatus: "active",
+    homepageImage: "/images/wild-rift/hero.webp",
+    homepageTags: ["Ranked", "Roles", "Patch 7.3e"],
   },
   {
     slug: "anime-expeditions",
@@ -69,6 +94,8 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/anime-expeditions/tier-list",
     navigationVisible: true,
     navigationOrder: 9,
+    tierListStatus: "active",
+    homepageTags: ["Units", "Traits", "Equipment"],
   },
   {
     slug: "slay-the-spire-2",
@@ -76,6 +103,9 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/slay-the-spire-2/tier-list",
     navigationVisible: true,
     navigationOrder: 10,
+    tierListStatus: "active",
+    homepageImage: "/images/slay-the-spire-2/hero-spire.svg",
+    homepageTags: ["Cards", "Relics", "Main v0.107.1"],
   },
 ] as const;
 
