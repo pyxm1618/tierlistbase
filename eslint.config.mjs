@@ -114,8 +114,9 @@ const productConfigRoot = path.join(workspaceRoot, "src/config");
  * - A module may not import product configuration. Configuration composes
  *   modules (a `tool-demo` surface pulls in product UI), so the reverse edge
  *   would close a cycle.
- * - Everything outside a module reaches it only through its public entry,
- *   `@/modules/<product>`, leaving the module free to rearrange its internals.
+ * - Everything outside a module reaches it only through declared public
+ *   entries: `@/modules/<product>` for the normal product API and
+ *   `@/modules/<product>/freshness` for canonical read-only freshness metadata.
  *
  * Platform code is covered separately by `no-restricted-imports`, which bans
  * `@/modules/*` outright.
@@ -128,7 +129,7 @@ const productModuleBoundaryRule = {
       configDependency:
         "Product modules must not import product configuration; configuration composes modules, not the reverse.",
       deepImport:
-        "Import a product module through its public entry (@/modules/<product>) instead of reaching into its internals.",
+        "Import a product module through a declared public entry (@/modules/<product> or @/modules/<product>/freshness) instead of reaching into its internals.",
     },
   },
   create(context) {
@@ -159,7 +160,7 @@ const productModuleBoundaryRule = {
         .slice(1)
         .join("/")
         .replace(/\.(?:ts|tsx)$/, "");
-      if (entry !== "" && entry !== "index") {
+      if (entry !== "" && entry !== "index" && entry !== "freshness") {
         context.report({ node: sourceNode, messageId: "deepImport" });
       }
     }

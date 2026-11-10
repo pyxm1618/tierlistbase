@@ -21,18 +21,18 @@ test("keyboard reaches primary navigation, CTA and footer", async ({ page }) => 
   await page.keyboard.press("Tab");
   await expect(page.locator(":focus")).toHaveAttribute("href", "/");
 
-  let reachedMetaBoard = false;
+  let reachedTierList = false;
   let reachedFooter = false;
   for (let index = 0; index < 30; index += 1) {
     const focused = page.locator(":focus");
     const href = await focused.getAttribute("href").catch(() => null);
-    if (href === "/wow-forever/tier-list") reachedMetaBoard = true;
+    if (href?.includes("/tier-list")) reachedTierList = true;
     if (href === "/privacy") reachedFooter = true;
-    if (reachedMetaBoard && reachedFooter) break;
+    if (reachedTierList && reachedFooter) break;
     await page.keyboard.press("Tab");
   }
 
-  expect(reachedMetaBoard).toBe(true);
+  expect(reachedTierList).toBe(true);
   expect(reachedFooter).toBe(true);
 });
 

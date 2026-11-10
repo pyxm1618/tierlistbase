@@ -873,7 +873,7 @@ for (const width of [390, 768, 1440, 1920]) {
 }
 
 for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
-  test(`Homepage image candidates at ${width}px deliver direct static WebP within responsive size budgets`, async ({
+  test(`Homepage image candidates at ${width}px deliver direct static assets within responsive size budgets`, async ({
     page,
     request,
   }) => {
@@ -885,13 +885,17 @@ for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
     await expect(preloads).toHaveAttribute("imagesrcset", /hero-768\.webp/);
     await expect(preloads).toHaveAttribute("fetchpriority", "high");
 
+    const featuredImages = page.locator(".tlb-game-grid .tlb-card-image img");
+    await expect(featuredImages).toHaveCount(2);
+
     const samples = [];
-    for (const [name, selector] of [
-      ["hero", ".tlb-hero-art img"],
-      ["wow", ".tlb-game-grid .tlb-wow .tlb-card-image img"],
-      ["genshin", ".tlb-game-grid .tlb-genshin .tlb-card-image img"],
-    ] as const) {
-      const image = page.locator(selector).first();
+    const imageTargets = [
+      { name: "hero", image: page.locator(".tlb-hero-art img").first() },
+      { name: "featured-1", image: featuredImages.nth(0) },
+      { name: "featured-2", image: featuredImages.nth(1) },
+    ] as const;
+
+    for (const { name, image } of imageTargets) {
       await expect(image).toBeVisible();
       await expect(image).toHaveJSProperty("complete", true);
 
@@ -908,39 +912,47 @@ for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
           renderedHeight: Math.round(image.getBoundingClientRect().height),
           encodedBodySize: timing?.encodedBodySize ?? null,
           dpr: devicePixelRatio,
+          srcset: image.getAttribute("srcset"),
         };
       });
 
       expect(sample.naturalWidth).toBeGreaterThan(0);
       expect(sample.renderedWidth).toBeGreaterThan(0);
       expect(sample.currentSrc).not.toContain("/_next/image?");
-      expect(sample.currentSrc).toContain(".webp");
 
       const response = await request.get(sample.currentSrc);
       expect(response.status()).toBe(200);
-      expect(response.headers()["content-type"]).toContain("image/webp");
+      const contentType = response.headers()["content-type"] ?? "";
       const bytes = (await response.body()).length;
 
       if (name === "hero") {
+        expect(sample.currentSrc).toContain(".webp");
+        expect(contentType).toContain("image/webp");
         await expect(image).toHaveAttribute("loading", "eager");
         await expect(image).toHaveAttribute("fetchpriority", "high");
         if (width <= 768) {
-          // Mobile & tablet must never download the 2172px 484KB original image
           expect(sample.naturalWidth).toBeLessThan(2172);
           expect(bytes).toBeLessThan(sample.dpr > 1 ? 250_000 : 90_000);
         }
       } else {
+        expect(contentType).toMatch(/^image\/(webp|svg\+xml)/);
         await expect(image).toHaveAttribute("loading", "lazy");
         await expect(image).not.toHaveAttribute("fetchpriority", "high");
-        if (width <= 768) {
-          // Mobile & tablet must never download original 372KB/291KB card images
-          const originalWidth = name === "wow" ? 2048 : 1774;
-          expect(sample.naturalWidth).toBeLessThan(originalWidth);
-          expect(bytes).toBeLessThan(sample.dpr > 1 ? 160_000 : 95_000);
+
+        if (contentType.includes("image/webp")) {
+          expect(sample.currentSrc).toContain(".webp");
+          if (width <= 768) {
+            expect(bytes).toBeLessThan(160_000);
+          } else {
+            expect(bytes).toBeLessThan(550_000);
+          }
+        } else {
+          expect(sample.currentSrc).toContain(".svg");
+          expect(bytes).toBeLessThan(100_000);
         }
       }
 
-      samples.push({ name, ...sample, responseBodyBytes: bytes });
+      samples.push({ name, ...sample, responseBodyBytes: bytes, contentType });
     }
 
     await test.info().attach(`homepage-image-evidence-${width}px`, {

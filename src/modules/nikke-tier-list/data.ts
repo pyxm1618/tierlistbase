@@ -1,6 +1,6 @@
 import rawData from "../../../nikke-real-data.json";
 
-import { readSnapshotMetadata } from "./snapshot";
+import { snapshot, snapshotDate, snapshotPhase, snapshotVersion } from "./snapshot-metadata";
 
 export type ModeKey = "campaign" | "boss" | "pvp";
 export type Rating = "SSS" | "SS" | "S" | "A" | "B" | "C" | "D";
@@ -102,14 +102,5 @@ export const recommendedTeams = rawData.recommendedTeams;
 export const rerollTargets = rawData.reroll.rerollTargets;
 export const wishlistData = rawData.wishlist;
 export const currentBanner = rawData.currentBanners[0]!;
-export const snapshot = rawData.snapshot;
+export { snapshot, snapshotDate, snapshotPhase, snapshotVersion };
 export const sourceSummary = rawData.initialBaseline.sources;
-
-const snapshotMetadata = readSnapshotMetadata({
-  dataSnapshotDate: rawData.snapshot.data_snapshot_date,
-  gameVersion: rawData.snapshot.game_version_if_confirmable,
-});
-
-export const snapshotDate = snapshotMetadata.date;
-export const snapshotVersion = snapshotMetadata.version;
-export const snapshotPhase = snapshotMetadata.phase;

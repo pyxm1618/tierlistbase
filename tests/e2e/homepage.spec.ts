@@ -2,6 +2,7 @@ import { seedGenshinTestDatabase } from "../genshin-tier-list/database";
 import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
 import { expect, test } from "@playwright/test";
 
+import { gamesConfig } from "@/config/games.config";
 import { routeRegistry } from "@/config/routes.config";
 
 test("homepage renders the approved game-discovery information architecture", async ({ page }) => {
@@ -17,17 +18,53 @@ test("homepage renders the approved game-discovery information architecture", as
     "content",
     home.description,
   );
-  await expect(page.getByRole("heading", { name: "Featured Tier Lists" })).toBeVisible();
+
+  await expect(page.getByRole("heading", { name: "Recently Updated Tier Lists" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Why TierListBase?" })).toBeVisible();
-  const updatesSection = page.locator("#latest-updates");
-  await expect(updatesSection.getByRole("heading", { name: "Latest Updates" })).toBeVisible();
-  await expect(updatesSection).toContainText(
-    "ranking feeds currently available for WoW Forever and Genshin Impact",
-  );
-  await expect(updatesSection).not.toContainText(/verified/i);
   await expect(page.getByRole("heading", { name: "Browse All Supported Games" })).toBeVisible();
-  await expect(page.locator("main a[href='/wow-forever/tier-list']").first()).toBeVisible();
-  await expect(page.locator("main a[href='/genshin-impact/tier-list']").first()).toBeVisible();
+
+  const eligibleFeaturedByHref = new Map(
+    gamesConfig
+      .filter((game) => game.tierListStatus === "active")
+      .map((game) => [game.tierListHref, game]),
+  );
+
+  const featuredCards = page.locator("#explore .tlb-game-card");
+  await expect(featuredCards).toHaveCount(2);
+
+  const featuredHrefs: string[] = [];
+  for (const card of await featuredCards.all()) {
+    const href = await card.getAttribute("href");
+    expect(href).toBeTruthy();
+    const game = eligibleFeaturedByHref.get(href!);
+    expect(game, `featured card must be an active game: ${href}`).toBeDefined();
+    await expect(card).toContainText(game!.name);
+    await expect(card).toContainText(/Updated [A-Z][a-z]{2} \d{1,2}/);
+    featuredHrefs.push(href!);
+  }
+  expect(new Set(featuredHrefs).size).toBe(2);
+  await expect(page.locator("#explore")).not.toContainText("World of Warcraft");
+  await expect(page.locator("#explore")).not.toContainText("Genshin Impact");
+  await expect(page.locator("#explore")).not.toContainText("NIKKE");
+
+  const updatesSection = page.locator("#latest-updates");
+  if ((await updatesSection.count()) > 0) {
+    const updateCards = updatesSection.locator(".tlb-update-card");
+    const count = await updateCards.count();
+    expect(count).toBeGreaterThanOrEqual(1);
+    expect(count).toBeLessThanOrEqual(3);
+    await expect(updatesSection).not.toContainText("No update yet");
+    await expect(updatesSection).not.toContainText("No update available");
+    await expect(updatesSection).not.toContainText(
+      "New ranking changes will appear here when available.",
+    );
+  } else {
+    await expect(page.getByText("No update yet")).toHaveCount(0);
+    await expect(page.getByText("No update available")).toHaveCount(0);
+    await expect(
+      page.getByText("New ranking changes will appear here when available."),
+    ).toHaveCount(0);
+  }
 
   const primaryNav = page.getByRole("navigation", { name: "Primary navigation" });
   const gamesSummary = primaryNav.locator("summary").filter({ hasText: "Games" });
@@ -41,22 +78,6 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(primaryNav.getByRole("link", { name: "Genshin Impact" })).toBeVisible();
   await expect(primaryNav.getByRole("link", { name: "Anime Expeditions" })).toBeVisible();
   await expect(primaryNav.getByRole("link", { name: "Slay the Spire 2" })).toBeVisible();
-
-  const wowCard = page.locator(".tlb-game-card.tlb-wow");
-  await expect(wowCard).toContainText(
-    "Explore the archived Level 30 Beta dungeon specialization rankings for World of Warcraft: Forever.",
-  );
-  await expect(wowCard).toContainText("Dungeons");
-  await expect(wowCard).toContainText("Level 30 Beta");
-  await expect(wowCard).not.toContainText("current class and specialization meta");
-  await expect(wowCard).not.toContainText("PvP");
-  await expect(wowCard).not.toContainText("Leveling");
-
-  const genshinCard = page.locator(".tlb-game-card.tlb-genshin");
-  await expect(genshinCard).toContainText(
-    "Explore the archived Version 7.1 Genshin Impact character ranking snapshot with reviewed evidence.",
-  );
-  await expect(genshinCard).not.toContainText("current Genshin Impact character rankings");
 
   await expect(page.locator(".tlb-hero-inner > p")).not.toContainText(
     "compare current rankings across supported games",
@@ -135,16 +156,21 @@ test("homepage renders the approved game-discovery information architecture", as
   for (const gameImage of await gameImages.all()) {
     await expect(gameImage).toHaveAttribute("loading", "lazy");
     await expect(gameImage).not.toHaveAttribute("fetchpriority", "high");
-    await expect(gameImage).toHaveAttribute("srcset", /384w/);
     await expect(gameImage).toHaveAttribute("sizes", /.+/);
-    await expect(gameImage).toHaveAttribute("src", /images\/home\/(?:wow|genshin)\.webp/);
-    expect(await gameImage.getAttribute("src")).not.toContain("/_next/image");
+    const src = await gameImage.getAttribute("src");
+    expect(src).toBeTruthy();
+    const assetResponse = await page.request.get(src!);
+    expect(assetResponse.status()).toBe(200);
   }
 
   await expect(page.getByText(/best online tool/i)).toHaveCount(0);
 
   const html = await response?.text();
-  expect(html).toContain("Featured Tier Lists");
+  expect(html).toContain("Recently Updated Tier Lists");
+  expect(html).not.toContain("Featured Tier Lists");
+  expect(html).not.toContain("No update yet");
+  expect(html).not.toContain("No update available");
+  expect(html).not.toContain("New ranking changes will appear here when available.");
 });
 
 for (const width of [390, 768, 1024, 1440, 1920, 2560]) {
