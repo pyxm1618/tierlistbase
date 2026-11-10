@@ -11,7 +11,7 @@ type FreshnessLoader = () => Promise<string>;
 const freshnessLoaders: Readonly<Record<string, FreshnessLoader>> = {
   "zenless-zone-zero": async () =>
     (await import("@/modules/zenless-zone-zero-tier-list/freshness")).contentFreshnessDate,
-  "nikke": async () => (await import("@/modules/nikke-tier-list/freshness")).contentFreshnessDate,
+  nikke: async () => (await import("@/modules/nikke-tier-list/freshness")).contentFreshnessDate,
   "limbus-company": async () =>
     (await import("@/modules/limbus-tier-list/freshness")).contentFreshnessDate,
   "phantom-blade-zero": async () =>
