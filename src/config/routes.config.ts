@@ -255,9 +255,11 @@ export const routeDefinitions = [
     searchIntent:
       "compare current Slay the Spire 2 Main card, relic, character and potion rankings with contextual evidence",
     primaryKeyword: "slay the spire 2 tier list",
+    // Round 3C: "slay the spire 2 cards tier list" is a rejected singular/plural duplicate of the
+    // approved card secondary. It is not a formal target and must not sit in the registry.
+    // "slay the spire 2 potion tier list" stays page content / search intent only.
     secondaryKeywords: [
       "slay the spire 2 card tier list",
-      "slay the spire 2 cards tier list",
       "slay the spire 2 relic tier list",
       "slay the spire 2 character tier list",
     ],
@@ -267,9 +269,9 @@ export const routeDefinitions = [
     h1: "Slay the Spire 2 Tier List",
     pageType: "WebApplication",
     relatedRoutes: ["/", "/privacy", "/terms"],
-    lastModified: "2026-11-06",
+    lastModified: "2026-11-10",
     reviewStatus: "reviewed",
-    reviewFingerprint: "035f13e6e337b511080f022178515646e88c0d5e7e6e9ed902f8e2904765f58f",
+    reviewFingerprint: "22db1dc43c3455c4fc395f2eccea0bee2a8ae7bda553b540e4895db20056abfa",
   },
   {
     route: "/privacy",
