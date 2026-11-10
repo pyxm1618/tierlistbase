@@ -14,6 +14,7 @@ import {
   type HomepageTierListCard,
 } from "@/config/home-games.config";
 import { getMultiGameRecentRatingChanges, type RecentRatingChangeItem } from "@/modules/meta-board";
+import { snapshotDate as nikkeSnapshotDate } from "@/modules/nikke-tier-list/snapshot-metadata";
 import type { DatabaseClient } from "@/platform/database/client";
 
 function update(
@@ -157,6 +158,7 @@ describe("homepage recently updated tier lists", () => {
         "anime-expeditions",
         "dragon-traveler",
         "limbus-company",
+        "nikke",
         "phantom-blade-zero",
         "slay-the-spire-2",
         "wild-rift",
@@ -168,31 +170,51 @@ describe("homepage recently updated tier lists", () => {
     }
     expect(bySlug.has("wow-forever")).toBe(false);
     expect(bySlug.has("genshin-impact")).toBe(false);
-    expect(bySlug.has("nikke")).toBe(false);
+    expect(bySlug.get("nikke")).toBe(nikkeSnapshotDate);
 
     const adapterSource = fs.readFileSync(
       path.resolve(process.cwd(), "src/config/game-content-freshness.server.ts"),
       "utf8",
     );
     expect(adapterSource).not.toMatch(/20\d{2}-\d{2}-\d{2}/);
+
+    const nikkeFreshnessSource = fs.readFileSync(
+      path.resolve(process.cwd(), "src/modules/nikke-tier-list/freshness.ts"),
+      "utf8",
+    );
+    expect(nikkeFreshnessSource).not.toContain("nikke-real-data.json");
+    expect(nikkeFreshnessSource).not.toContain("./data");
   });
 
-  it("automatically selects the 2 freshest eligible games and excludes archived snapshots", () => {
+  it("automatically selects active games and excludes only archived WoW/Genshin snapshots", () => {
     const candidates = buildRecentlyUpdatedCandidates([
       { slug: "wow-forever", freshnessDate: "2026-11-12" },
-      { slug: "anime-expeditions", freshnessDate: "2026-11-10" },
-      { slug: "wild-rift", freshnessDate: "2026-11-09" },
-      { slug: "phantom-blade-zero", freshnessDate: "2026-11-08" },
+      { slug: "genshin-impact", freshnessDate: "2026-11-11" },
+      { slug: "nikke", freshnessDate: "2026-11-10" },
+      { slug: "anime-expeditions", freshnessDate: "2026-11-09" },
     ]);
 
     const selected = selectRecentlyUpdatedTierLists(candidates);
 
-    expect(selected.map((game) => game.slug)).toEqual(["anime-expeditions", "wild-rift"]);
+    expect(selected.map((game) => game.slug)).toEqual(["nikke", "anime-expeditions"]);
     expect(selected.some((game) => game.slug === "wow-forever")).toBe(false);
+    expect(selected.some((game) => game.slug === "genshin-impact")).toBe(false);
     expect(selected.map((game) => game.href)).toEqual([
+      "/nikke/tier-list",
       "/anime-expeditions/tier-list",
-      "/wild-rift/tier-list",
     ]);
+  });
+
+  it("makes NIKKE automatically eligible for Top 2 when its canonical freshness becomes newer", () => {
+    const selected = selectRecentlyUpdatedTierLists(
+      buildRecentlyUpdatedCandidates([
+        { slug: "nikke", freshnessDate: "2026-11-11" },
+        { slug: "anime-expeditions", freshnessDate: "2026-11-10" },
+        { slug: "wild-rift", freshnessDate: "2026-11-09" },
+      ]),
+    );
+
+    expect(selected.map((game) => game.slug)).toEqual(["nikke", "anime-expeditions"]);
   });
 
   it("reorders automatically when freshness changes without changing the homepage component", () => {
