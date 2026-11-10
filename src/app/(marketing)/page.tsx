@@ -3,6 +3,12 @@ import { unstable_cache } from "next/cache";
 
 import { GameHome } from "@/components/home/game-home";
 import { JsonLd } from "@/components/seo/json-ld";
+import { getGameContentFreshness } from "@/config/game-content-freshness.server";
+import {
+  buildRecentlyUpdatedCandidates,
+  homepageRatingChangeGameSlugs,
+  selectRecentlyUpdatedTierLists,
+} from "@/config/home-games.config";
 import { routeRegistry } from "@/config/routes.config";
 // prettier-ignore
 // eslint-disable-next-line creat-web-modules/product-module-boundary
@@ -16,14 +22,18 @@ export const metadata: Metadata = metadataForRoute(routeRegistry, "/", currentSe
 // Homepage uses a small read-only summary, not the complete context/ratings query.
 // No cache entry is created for a failed database read.
 const getHomeUpdates = unstable_cache(
-  () => getMultiGameRecentRatingChanges(["wow-forever", "genshin-impact"], 3),
-  ["tierlistbase-home-multi-game-rating-changes-v1"],
+  () => getMultiGameRecentRatingChanges(homepageRatingChangeGameSlugs, 3),
+  ["tierlistbase-home-multi-game-rating-changes-v2"],
   { revalidate: 1800 },
 );
 
 export default async function HomePage() {
   const home = routeRegistry.get("/");
   if (home.class !== "public_indexable") throw new Error("home route must be indexable");
+
+  const featuredGames = selectRecentlyUpdatedTierLists(
+    buildRecentlyUpdatedCandidates(await getGameContentFreshness()),
+  );
 
   let changes: RecentRatingChangeItem[] = [];
   try {
@@ -49,7 +59,7 @@ export default async function HomePage() {
           description: home.description,
         })}
       />
-      <GameHome title={home.h1} updates={changes} />
+      <GameHome title={home.h1} updates={changes} featuredGames={featuredGames} />
     </main>
   );
 }
