@@ -15,24 +15,24 @@ import styles from "./wild-rift-tier-list.module.css";
 import { WildRiftWorkspace } from "./wild-rift-workspace";
 
 const heroDescription =
-  "Use this Wild Rift tier list to compare Baron, Jungle, Mid, Dragon and Support with ranked statistics, role evidence and reviewed patch context.";
+  "Use this Wild Rift tier list to compare Baron, Jungle, Mid, Dragon and Support using ranked statistics, role evidence and patch context.";
 const sourcesIntro =
   "This Wild Rift tier list combines patch facts, ranked statistics and role review; no statistic alone determines placement.";
 const methodologyIntro =
-  "This Wild Rift champion tier list reviews each role separately, combining Win Rate with reliability, execution, draft value and patch evidence.";
-const faqIntro = "Questions about this Wild Rift tier list, methodology and Ranked snapshot.";
-const coverageDisclosure = `Scope: CN Server · Master+ · Ranked. This Wild Rift tier list includes ${coverage.statisticsBackedPlacements} statistics-backed Champion × Role placements across ${coverage.distinctStatisticsChampions} champions from ${snapshot.snapshotDate}. The source lists ${coverage.sourceTrackedChampions} champions. This discrepancy is preserved. Another ${coverage.editorialPlacements} placements keep the ${coverage.carriedForwardTierCapture} Wild Rift Core tier but show N/A for WR / PR / BR without current statistics.`;
+  "This Wild Rift champion tier list reviews roles separately, using Win Rate, reliability, execution, draft value and patch evidence.";
+const faqIntro = "Questions about this Wild Rift tier list and Ranked methodology.";
+const coverageDisclosure = `Scope: CN Server · Master+ · Ranked. This Wild Rift tier list includes ${coverage.statisticsBackedPlacements} statistics-backed Champion × Role placements across ${coverage.distinctStatisticsChampions} champions (${snapshot.snapshotDate}). The source lists ${coverage.sourceTrackedChampions} champions; the discrepancy is preserved. Another ${coverage.editorialPlacements} placements keep the ${coverage.carriedForwardTierCapture} Wild Rift Core tier with N/A WR / PR / BR and no current statistics.`;
 const roleRowsDisclosure =
-  "Every captured Champion × Role row appears in this Wild Rift tier list; role tiers stay separate rather than averaged.";
+  "Every captured Champion × Role row appears; the Wild Rift tier list keeps role tiers separate.";
 const provenanceDisclosure =
-  "The Wild Rift tier list preserves Wild Rift Core role rankings without TierListBase overrides; they are not official Riot or Tencent tiers. TierListBase has not independently fetched the reported Tencent CN data. Rates are publisher-supplied; ban rate is champion-wide.";
+  "The ranking preserves Wild Rift Core role tiers without TierListBase overrides; they are not official Riot or Tencent tiers. TierListBase has not independently fetched the reported Tencent CN data. Rates are publisher-supplied; ban rate is champion-wide.";
 const decisionSignalsDisclosure =
-  "Alongside Tier, the Wild Rift tier list publishes five editorial signals per Champion × Role: reliability, blind safety, ease, impact and team dependence. They cover access, lane exposure, execution, damage or control and reliance on allies. Signals are independent of Tier; high dependence means more reliance on allies.";
+  "Five editorial signals accompany each Champion × Role in the Wild Rift tier list: reliability, blind safety, ease, impact and team dependence. They cover access, lane exposure, execution, damage/control and reliance on allies. Signals do not set Tier; high dependence means greater reliance on allies.";
 const unavailableTrendPlacements =
   coverage.statisticsBackedPlacements +
   coverage.editorialPlacements -
   coverage.verifiedTrendPlacements;
-const trendDisclosure = `Trend arrows in the Wild Rift tier list show same-role seven-day win-rate change. The capture verifies ${coverage.verifiedTrendPlacements} labelled deltas; the other ${unavailableTrendPlacements} placements have none. The “30 d” column is separate. Patch ${snapshot.gameVersion} changes AAA ARAM augments only, so the ${snapshot.snapshotDate} snapshot remains post-balance against ${snapshot.latestRankedBalance}. Buffs alone do not change tiers.`;
+const trendDisclosure = `For the Wild Rift tier list, trend arrows show same-role seven-day win-rate change. The capture verifies ${coverage.verifiedTrendPlacements} labelled deltas; ${unavailableTrendPlacements} placements have none. “30 d” is separate. Patch ${snapshot.gameVersion} changes AAA ARAM augments only, so the ${snapshot.snapshotDate} snapshot remains post-balance against ${snapshot.latestRankedBalance}. Buffs alone do not change tiers.`;
 
 const faq = [
   [
