@@ -400,11 +400,7 @@ export function GameHome({
           </SectionTitle>
           <div className="tlb-game-grid">
             {featuredGames.map((game, index) => (
-              <GameCard
-                key={game.slug}
-                game={game}
-                accent={index % 2 === 0 ? "gold" : "ice"}
-              />
+              <GameCard key={game.slug} game={game} accent={index % 2 === 0 ? "gold" : "ice"} />
             ))}
           </div>
         </section>
