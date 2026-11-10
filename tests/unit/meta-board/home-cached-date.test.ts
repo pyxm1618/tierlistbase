@@ -13,6 +13,7 @@ it("renders homepage rating changes after Next cache serializes Date as an ISO s
     newTier: "A",
     reason: "Observed ranking movement",
     contextLabel: "Dungeon",
+    gameSlug: "wild-rift",
     changedAt: "2026-10-15T00:00:00.000Z",
   } as unknown as RecentRatingChangeItem;
 
