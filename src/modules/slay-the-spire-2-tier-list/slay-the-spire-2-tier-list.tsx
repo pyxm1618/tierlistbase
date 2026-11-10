@@ -28,7 +28,7 @@ type RankingSection = "cards" | "relics" | "characters" | "potions";
 type SortMode = "tier" | "name";
 
 const rankingSections = [
-  { key: "cards", label: "Cards", note: "Card tier list and contextual analysis" },
+  { key: "cards", label: "Cards", note: "Card tier list with key-card context" },
   { key: "relics", label: "Relics", note: "Extended source-grade rankings" },
   { key: "characters", label: "Characters", note: "Current Main character strength" },
   { key: "potions", label: "Potions", note: "Potion rankings and use context" },
@@ -60,6 +60,30 @@ function moveTab<T extends string>(
   });
 }
 
+const snapshotMonthLabels = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+] as const;
+
+/** Renders the reviewed snapshot date from the snapshot record instead of a display literal. */
+function snapshotDateLabel(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  const monthLabel =
+    month !== undefined && month >= 1 && month <= 12 ? snapshotMonthLabels[month - 1] : undefined;
+  if (!year || !day || !monthLabel) return isoDate;
+  return `${monthLabel} ${day}, ${year}`;
+}
+
 function costLabel(card: SlayCard): string {
   if (card.cost === null) return "N/A";
   return `${card.cost} Energy`;
@@ -71,7 +95,7 @@ function sourceLabel(card: SlayCard): string {
       ? "Current Main game data verified; no complete independent Main Colorless ranking was verified."
       : "Current Main game data verified; the reviewed source did not assign this card an S–D tier.";
   }
-  return `Current Main v0.107.1 source placement: ${card.tier} tier.`;
+  return `Current Main ${snapshot.mainVersion} source placement: ${card.tier} tier.`;
 }
 
 function CardOption({
@@ -232,8 +256,7 @@ function CardsWorkspace() {
           <h2 id="cards-title">Cards</h2>
           <p>
             The Slay the Spire 2 card tier list compares baseline card value by current Main card
-            pool. The broader Slay the Spire 2 cards tier list is contextual: tier does not mean
-            automatic pick.
+            pool. The broader card ranking is contextual: tier does not mean automatic pick.
           </p>
         </div>
         <div className={styles.contextNote}>
@@ -517,8 +540,9 @@ function PotionsPanel() {
           <p className={styles.kicker}>SLAY THE SPIRE 2 POTION TIER LIST</p>
           <h2 id="potions-title">Potions</h2>
           <p>
-            All {snapshot.counts.potions} v0.107.1 Main potions are mapped to the cited S/A/B/C/D/F
-            source list. Use context still depends on the fight, potion slots and route.
+            All {snapshot.counts.potions} {snapshot.mainVersion} Main potions are mapped to the
+            cited S/A/B/C/D/F source list. Use context still depends on the fight, potion slots and
+            route.
           </p>
         </div>
       </div>
@@ -554,7 +578,7 @@ function PotionsPanel() {
 const faq = [
   [
     "What are the best cards in the Slay the Spire 2 card tier list?",
-    "There is no automatic best pick. This Slay the Spire 2 card tier list shows reviewed baseline Main v0.107.1 placements, but deck, relics, route, encounters and current run context can make a lower-tier card the correct choice.",
+    `There is no automatic best pick. This Slay the Spire 2 card tier list shows reviewed baseline Main ${snapshot.mainVersion} placements, but deck, relics, route, encounters and current run context can make a lower-tier card the correct choice.`,
   ],
   [
     "What is the best character in the Slay the Spire 2 character tier list?",
@@ -619,7 +643,7 @@ export function SlayTheSpire2TierList() {
             </div>
             <div>
               <span>Snapshot</span>
-              <strong>Nov 6, 2026</strong>
+              <strong>{snapshotDateLabel(snapshot.date)}</strong>
             </div>
           </div>
         </div>
@@ -718,8 +742,8 @@ export function SlayTheSpire2TierList() {
                 current run state can change value.
               </li>
               <li>
-                <strong>Evidence stays separate:</strong> game object facts come from v0.107.1 data;
-                editorial/community placements keep their own source.
+                <strong>Evidence stays separate:</strong> game object facts come from{" "}
+                {snapshot.mainVersion} data; editorial/community placements keep their own source.
               </li>
               <li>
                 <strong>No fake completeness:</strong> {snapshot.counts.cardsNeedsReview} cards and{" "}

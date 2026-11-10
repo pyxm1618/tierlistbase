@@ -102,4 +102,26 @@ describe("Slay the Spire 2 snapshot integrity", () => {
       ),
     ).toContain("<svg");
   });
+
+  it("reads the reviewed version and snapshot date from the snapshot record, not UI literals", () => {
+    expect(snapshot.mainVersion).toMatch(/^v\d+\.\d+\.\d+$/);
+    expect(snapshot.betaVersion).toMatch(/^v\d+\.\d+\.\d+$/);
+
+    const component = readFileSync(
+      path.join(
+        process.cwd(),
+        "src/modules/slay-the-spire-2-tier-list/slay-the-spire-2-tier-list.tsx",
+      ),
+      "utf8",
+    );
+
+    // Round 3C: the rendered page must not hardcode a build-specific version or snapshot date.
+    expect(component).not.toMatch(/\bv\d+\.\d+\.\d+\b/);
+    expect(component).toContain("snapshot.mainVersion");
+    expect(component).toContain("snapshot.betaVersion");
+    expect(component).toContain("snapshotDateLabel(snapshot.date)");
+    expect(component).not.toMatch(
+      /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{1,2}, \d{4}\b/,
+    );
+  });
 });
