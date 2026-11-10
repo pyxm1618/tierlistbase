@@ -33,7 +33,8 @@ describe("product module boundary", () => {
     'import { Planner } from "@/modules/planner";',
     'import type { PlannerProps } from "@/modules/planner";',
     'import { Planner } from "@/modules/planner/index";',
-  ])("allows the public entry from configuration", async (source) => {
+    'import { contentFreshnessDate } from "@/modules/planner/freshness";',
+  ])("allows declared public entries from configuration", async (source) => {
     expect(await boundaryMessages(source, "src/config/home.config.tsx")).toEqual([]);
   });
 

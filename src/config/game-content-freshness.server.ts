@@ -1,5 +1,3 @@
-/* eslint-disable creat-web-modules/product-module-boundary -- This server-only adapter reads canonical data-only freshness sources without loading product UI roots into the homepage. */
-
 import type { GameRegistryEntry } from "./games.config";
 import { gamesConfig } from "./games.config";
 
@@ -11,34 +9,20 @@ export type GameContentFreshness = {
 type FreshnessLoader = () => Promise<string>;
 
 const freshnessLoaders: Readonly<Record<string, FreshnessLoader>> = {
-  "zenless-zone-zero": async () => {
-    const { snapshotDate } = await import("@/modules/zenless-zone-zero-tier-list/data");
-    return snapshotDate;
-  },
-  "limbus-company": async () => {
-    const { masterSourceMetadata } = await import("@/modules/limbus-tier-list/data/sources");
-    return masterSourceMetadata.reviewedAt;
-  },
-  "phantom-blade-zero": async () => {
-    const { phantomBladeZeroSnapshot } = await import("@/modules/phantom-blade-zero-tier-list/data");
-    return phantomBladeZeroSnapshot.snapshotDate;
-  },
-  "dragon-traveler": async () => {
-    const { snapshotDate } = await import("@/modules/dragon-traveler-tier-list/data");
-    return snapshotDate;
-  },
-  "wild-rift": async () => {
-    const { snapshot } = await import("@/modules/wild-rift-tier-list/data");
-    return snapshot.reviewedAt;
-  },
-  "anime-expeditions": async () => {
-    const { snapshot } = await import("@/modules/anime-expeditions-tier-list/data");
-    return snapshot.reviewedAt;
-  },
-  "slay-the-spire-2": async () => {
-    const { snapshot } = await import("@/modules/slay-the-spire-2-tier-list/data");
-    return snapshot.lastReviewed;
-  },
+  "zenless-zone-zero": async () =>
+    (await import("@/modules/zenless-zone-zero-tier-list/freshness")).contentFreshnessDate,
+  "limbus-company": async () =>
+    (await import("@/modules/limbus-tier-list/freshness")).contentFreshnessDate,
+  "phantom-blade-zero": async () =>
+    (await import("@/modules/phantom-blade-zero-tier-list/freshness")).contentFreshnessDate,
+  "dragon-traveler": async () =>
+    (await import("@/modules/dragon-traveler-tier-list/freshness")).contentFreshnessDate,
+  "wild-rift": async () =>
+    (await import("@/modules/wild-rift-tier-list/freshness")).contentFreshnessDate,
+  "anime-expeditions": async () =>
+    (await import("@/modules/anime-expeditions-tier-list/freshness")).contentFreshnessDate,
+  "slay-the-spire-2": async () =>
+    (await import("@/modules/slay-the-spire-2-tier-list/freshness")).contentFreshnessDate,
 };
 
 function activeGames(games: readonly GameRegistryEntry[]): readonly GameRegistryEntry[] {
