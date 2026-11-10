@@ -1,0 +1,18 @@
+{
+  "purpose": "Local provenance record for the frozen external capture. The digest pins the exact bytes of the capture file, so an edit to the external tier buckets or to the label-to-unit resolution is detectable instead of silent. This is deliberately one file and one digest; it is not a provenance framework.",
+  "captureFile": "docs/anime-expeditions/source-captures/pgg-tier-list-2026-11-08.json",
+  "sourceCaptureSha256": "bb29637977ae4c6f64af22c0f456e32cbdea86a9b3e4a7a69588a9f4136596e7",
+  "source": {
+    "id": "pgg-update5",
+    "name": "Pro Game Guides — Anime Expeditions tier list (best units)",
+    "url": "https://progameguides.com/roblox/anime-expeditions-tier-list-best-units/",
+    "sourceRevision": "2026-11-08"
+  },
+  "capturedAt": "2026-11-10",
+  "hashAlgorithm": "sha256",
+  "regenerate": "Only when the publisher publishes a new tier-list revision: re-read the live page, rewrite the capture by hand from that page, re-run prettier, then replace sourceCaptureSha256 with the new digest. Never regenerate the capture from repository data.",
+  "notCapturedHere": [
+    "No live network call runs in CI; this file is the network-free stand-in for the publisher page.",
+    "No repository file may be used as an input when writing this capture."
+  ]
+}

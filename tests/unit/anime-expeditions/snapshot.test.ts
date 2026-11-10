@@ -176,7 +176,11 @@ it("keeps documented fact coverage separate from current gameplay approval", () 
       "utf8",
     ),
   );
-  expect(review.records).toHaveLength(traits.length + equipment.length + evolutions.length);
+  // Round 3C: the ledger must now cover the unit records too, otherwise it can never
+  // prove the unit ranking claims it is used to support.
+  expect(review.records).toHaveLength(
+    traits.length + equipment.length + evolutions.length + units.length,
+  );
   expect(review.ledger.sourceReview.pass).toBe(review.ledger.total);
   expect(review.ledger.sourceReview.deferred).toBe(0);
   expect(review.ledger.sourceReview.unknown).toBe(0);

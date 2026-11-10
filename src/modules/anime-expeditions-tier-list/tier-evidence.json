@@ -1,0 +1,633 @@
+{
+  "purpose": "Round 3C R3C-AE-01 evidence capture: the published Overall placement of every canonical unit, transcribed from the current comparative tier list so the reconciliation is reproducible instead of asserted.",
+  "source": {
+    "id": "pgg-update5",
+    "url": "https://progameguides.com/roblox/anime-expeditions-tier-list-best-units/",
+    "revisionDate": "2026-11-08",
+    "revisionNote": "Publisher states: Added Emerald Fist and refreshed all Update 4 and 5 unit evaluations with full upgrade stats, total costs, and current ability details.",
+    "scale": "single S / A / B / C / D tier list",
+    "capturedAt": "2026-11-10",
+    "captureMethod": "manual transcription of the publisher tier list on the revision date; no inference between tiers"
+  },
+  "reconciliation": {
+    "rankedBySource": 75,
+    "agreeing": 75,
+    "disagreeing": 0,
+    "notRankedBySource": 2,
+    "scaleCompatibility": "The published Overall view uses exactly the source's five-level S / A / B / C / D scale, so a placement is compared directly. The DPS, Utility, Support and Crowd Control views add an S+ level that the source never publishes, so those sub-grades are TierListBase editorial and are not claimed as publisher placements."
+  },
+  "records": [
+    {
+      "unitId": "5th-god-hand",
+      "currentForm": "5th God Hand",
+      "sourceLabel": "5th God Hand",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "8th-sword",
+      "currentForm": "8th Sword (Berserk)",
+      "sourceLabel": "8th Sword (Berserk)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "atom",
+      "currentForm": "Atom (Totality)",
+      "sourceLabel": "Atom (Totality)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "bioinsect",
+      "currentForm": "Bioinsect (Final Form)",
+      "sourceLabel": "Bioinsect (Final Form)",
+      "sourceTier": "B",
+      "publishedOverall": "B",
+      "agrees": true
+    },
+    {
+      "unitId": "black-heart",
+      "currentForm": "Black Heart (Revived)",
+      "sourceLabel": "Black Heart (Revived)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "bounty-hunter",
+      "currentForm": "Bounty Hunter",
+      "sourceLabel": "Bounty Hunter",
+      "sourceTier": "C",
+      "publishedOverall": "C",
+      "agrees": true
+    },
+    {
+      "unitId": "broken-falcon",
+      "currentForm": "Silver Falcon",
+      "sourceLabel": "Silver Falcon",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "carrot",
+      "currentForm": "Carrot (Unleashed)",
+      "sourceLabel": "Carrot (Unleashed)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "corps-captain",
+      "currentForm": "Corps Captain",
+      "sourceLabel": "Corps Captain",
+      "sourceTier": "C",
+      "publishedOverall": "C",
+      "agrees": true
+    },
+    {
+      "unitId": "crimson",
+      "currentForm": "Crimson (Brother)",
+      "sourceLabel": "Crimson (Brother)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "crimson-captain",
+      "currentForm": "Crimson Captain (Moon)",
+      "sourceLabel": "Crimson Captain (Moon)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "crow",
+      "currentForm": "Crow (Black Fire)",
+      "sourceLabel": "Crow (Black Fire)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "cubert",
+      "currentForm": "Cubert",
+      "sourceLabel": "Cubert",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "curly-brow",
+      "currentForm": "Curly Brow",
+      "sourceLabel": "Curly Brow",
+      "sourceTier": "D",
+      "publishedOverall": "D",
+      "agrees": true
+    },
+    {
+      "unitId": "cursed-immortal",
+      "currentForm": "Cursed Immortal (Black Sun)",
+      "sourceLabel": "Cursed Immortal (Black Sun)",
+      "sourceTier": "B",
+      "publishedOverall": "B",
+      "agrees": true
+    },
+    {
+      "unitId": "cursed-student",
+      "currentForm": "Cursed Student (True Love)",
+      "sourceLabel": "Cursed Student (True Love)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "dark-mage",
+      "currentForm": "Dark Mage (Sovereign)",
+      "sourceLabel": "Dark Mage (Sovereign)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "dead-melody",
+      "currentForm": "Dead Melody (Solo)",
+      "sourceLabel": "Dead Melody (Solo)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "demon-cyborg",
+      "currentForm": "Demon Cyborg",
+      "sourceLabel": "Demon Cyborg",
+      "sourceTier": "C",
+      "publishedOverall": "C",
+      "agrees": true
+    },
+    {
+      "unitId": "devil",
+      "currentForm": "Devil (Hero)",
+      "sourceLabel": "Devil (Hero)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "eclipse-hunter",
+      "currentForm": "Eclipse Hunter (Savior)",
+      "sourceLabel": "Eclipse Hunter (Savior)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "elf-mage",
+      "currentForm": "Elf Mage (Unleashed)",
+      "sourceLabel": "Elf Mage (Unleashed)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "emerald-fist",
+      "currentForm": "Emerald Fist",
+      "sourceLabel": "Emerald Fist",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "fallen-angel",
+      "currentForm": "Fallen Angel (Holy)",
+      "sourceLabel": "Fallen Angel (Holy)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "first-blade",
+      "currentForm": "First Blade (Strongest)",
+      "sourceLabel": "First Blade (Strongest)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "flame-emperor",
+      "currentForm": "Flame Emperor (Reincarnate)",
+      "sourceLabel": "Flame Emperor (Reincarnate)",
+      "sourceTier": "B",
+      "publishedOverall": "B",
+      "agrees": true
+    },
+    {
+      "unitId": "forbidden-teacher",
+      "currentForm": "Forbidden Teacher",
+      "sourceLabel": "Forbidden Teacher",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "greed",
+      "currentForm": "Greed",
+      "sourceLabel": "Greed",
+      "sourceTier": "B",
+      "publishedOverall": "B",
+      "agrees": true
+    },
+    {
+      "unitId": "head-captain",
+      "currentForm": "Head Captain (Char)",
+      "sourceLabel": "Head Captain (Char)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "hollow",
+      "currentForm": "Hollow (Blaze)",
+      "sourceLabel": "Hollow (Blaze)",
+      "sourceTier": "B",
+      "publishedOverall": "B",
+      "agrees": true
+    },
+    {
+      "unitId": "ice-mage",
+      "currentForm": "Ice Mage",
+      "sourceLabel": "Ice Mage",
+      "sourceTier": "C",
+      "publishedOverall": "C",
+      "agrees": true
+    },
+    {
+      "unitId": "ice-queen",
+      "currentForm": "Ice Queen",
+      "sourceLabel": "Ice Queen",
+      "sourceTier": "B",
+      "publishedOverall": "B",
+      "agrees": true
+    },
+    {
+      "unitId": "ignition-commander",
+      "currentForm": "Ignition Commander (Betrayal)",
+      "sourceLabel": "Ignition Commander (Betrayal)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "impaler",
+      "currentForm": "Impaler (Ultimate)",
+      "sourceLabel": "Impaler (Ultimate)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "iron-wolf",
+      "currentForm": "Iron Wolf (Struggler)",
+      "sourceLabel": "Iron Wolf (Struggler)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "jester",
+      "currentForm": "Jester",
+      "sourceLabel": "Jester",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "kid-assassin",
+      "currentForm": "Kid Assassin",
+      "sourceLabel": "Kid Assassin",
+      "sourceTier": "D",
+      "publishedOverall": "D",
+      "agrees": true
+    },
+    {
+      "unitId": "kitsune",
+      "currentForm": "Kitsune",
+      "sourceLabel": "Kitsune",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "lady-giant",
+      "currentForm": "Lady Giant (Envy)",
+      "sourceLabel": "Lady Giant (Envy)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "lightning-god",
+      "currentForm": "Lightning God (Overcharged)",
+      "sourceLabel": "Lightning God (Overcharged)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "little-carrot",
+      "currentForm": "Little Carrot",
+      "sourceLabel": "Carrot",
+      "sourceTier": "D",
+      "publishedOverall": "D",
+      "agrees": true
+    },
+    {
+      "unitId": "metallic-alchemist",
+      "currentForm": "Alchemy Brothers (Truth)",
+      "sourceLabel": "Alchemy Brothers (Truth)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "nen-hunter",
+      "currentForm": "Nen Hunter",
+      "sourceLabel": "Nen Hunter",
+      "sourceTier": "C",
+      "publishedOverall": "C",
+      "agrees": true
+    },
+    {
+      "unitId": "noble-captain",
+      "currentForm": "Noble Captain (Vibrant)",
+      "sourceLabel": "Noble Captain (Vibrant)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "princess",
+      "currentForm": "Princess (Misery)",
+      "sourceLabel": "Princess (Misery)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "prodigy",
+      "currentForm": "Prodigy (Rage)",
+      "sourceLabel": "Prodigy (Rage)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "puppet",
+      "currentForm": "Puppet (Telekinetic)",
+      "sourceLabel": "Puppet (Telekinetic)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "rainman",
+      "currentForm": "Rainman (Forecast)",
+      "sourceLabel": "Rainman (Forecast)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "ramen-guy",
+      "currentForm": "Ramen Guy",
+      "sourceLabel": "Ramen Guy",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "razorjaw",
+      "currentForm": "Razorjaw (Hunter)",
+      "sourceLabel": "Razorjaw (Hunter)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "reaper",
+      "currentForm": "Reaper (Released)",
+      "sourceLabel": "Reaper (Released)",
+      "sourceTier": "B",
+      "publishedOverall": "B",
+      "agrees": true
+    },
+    {
+      "unitId": "reaper-frenzied",
+      "currentForm": "Reaper (Frenzied)",
+      "sourceLabel": "Reaper (Frenzied)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "reishi-archer",
+      "currentForm": "Reishi Archer",
+      "sourceLabel": "Reishi Archer",
+      "sourceTier": "D",
+      "publishedOverall": "D",
+      "agrees": true
+    },
+    {
+      "unitId": "rubber-boy",
+      "currentForm": "Rubber Boy",
+      "sourceLabel": "Rubber Boy",
+      "sourceTier": "D",
+      "publishedOverall": "D",
+      "agrees": true
+    },
+    {
+      "unitId": "salmon-sorcerer",
+      "currentForm": "Salmon Sorcerer (Grade 1)",
+      "sourceLabel": "Salmon Sorcerer (Grade 1)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "sand",
+      "currentForm": "Sand (Alligator)",
+      "sourceLabel": "Sand (Alligator)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "scissor",
+      "currentForm": "Scissor",
+      "sourceLabel": "Scissor",
+      "sourceTier": "B",
+      "publishedOverall": "B",
+      "agrees": true
+    },
+    {
+      "unitId": "shadow",
+      "currentForm": "Shadow (Divine)",
+      "sourceLabel": "Shadow (Divine)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "sharkfang",
+      "currentForm": "Sharkfang (Abyssal)",
+      "sourceLabel": "Sharkfang (Abyssal)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "sovereign",
+      "currentForm": "Sovereign (Djinn)",
+      "sourceLabel": "Sovereign (Djinn)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "stone-alchemist",
+      "currentForm": "Stone Alchemist",
+      "sourceLabel": "Stone Alchemist",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "string-demon",
+      "currentForm": "String Demon (Awakened)",
+      "sourceLabel": "String Demon (Awakened)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "subject-8",
+      "currentForm": "Subject 8 (Monster)",
+      "sourceLabel": "Subject 8 (Monster)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "the-drink",
+      "currentForm": "The Drink (Juicebox)",
+      "sourceLabel": "The Drink (Juicebox)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "the-hero",
+      "currentForm": "The Hero",
+      "sourceLabel": "The Hero",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "thunder-shinobi",
+      "currentForm": "Thunder Shinobi",
+      "sourceLabel": "Thunder Shinobi",
+      "sourceTier": "D",
+      "publishedOverall": "D",
+      "agrees": true
+    },
+    {
+      "unitId": "toy-maker",
+      "currentForm": "Toy Maker",
+      "sourceLabel": "Toy Maker",
+      "sourceTier": "B",
+      "publishedOverall": "B",
+      "agrees": true
+    },
+    {
+      "unitId": "traitor",
+      "currentForm": "Traitor (Illusion)",
+      "sourceLabel": "Traitor (Illusion)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "true-saint",
+      "currentForm": "True Saint (Holy)",
+      "sourceLabel": "True Saint (Holy)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "vegetable",
+      "currentForm": "Vegetable (Prince)",
+      "sourceLabel": "Vegetable (Prince)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "water-mage",
+      "currentForm": "Water Mage (Scholar)",
+      "sourceLabel": "Water Mage (Scholar)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "water-princess",
+      "currentForm": "Water Princess",
+      "sourceLabel": "Water Princess",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "water-sage-founder",
+      "currentForm": "Water Sage (Founder)",
+      "sourceLabel": "Water Sage (Founder)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    },
+    {
+      "unitId": "wild-card",
+      "currentForm": "Wild Card (Ace)",
+      "sourceLabel": "Wild Card (Ace)",
+      "sourceTier": "A",
+      "publishedOverall": "A",
+      "agrees": true
+    },
+    {
+      "unitId": "wolf",
+      "currentForm": "Wolf (Revived)",
+      "sourceLabel": "Wolf (Revived)",
+      "sourceTier": "S",
+      "publishedOverall": "S",
+      "agrees": true
+    }
+  ],
+  "notRanked": [
+    {
+      "unitId": "cube",
+      "currentForm": "Cube",
+      "reason": "Non-normal record outside the publisher's ranked roster: hidden stub with a single source form"
+    },
+    {
+      "unitId": "suited-alchemist",
+      "currentForm": "Suited Alchemist",
+      "reason": "Non-normal record outside the publisher's ranked roster: fusion ingredient consumed by another unit"
+    }
+  ]
+}

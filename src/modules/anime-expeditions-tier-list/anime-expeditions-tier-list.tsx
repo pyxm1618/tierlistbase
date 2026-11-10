@@ -12,6 +12,7 @@ import {
 } from "./data";
 import { UnitWorkspace } from "./unit-workspace";
 import { artworkFor, artworkForOptional } from "./artwork";
+import { authorityClaim, evidenceCoverage, tierEvidence } from "./evidence";
 import styles from "./anime-expeditions-tier-list.module.css";
 
 const faq = [
@@ -37,7 +38,7 @@ const faq = [
   ],
   [
     "How often is the Anime Expeditions tier list updated?",
-    "The Anime Expeditions tier list is updated after current patch facts and ranking evidence are checked. The snapshot date records the source-review pass, not a claim of direct live testing. Update 5 · Hallows Eve is the current reviewed baseline; unresolved obtainment stays labeled Needs Review rather than being inferred.",
+    "The Anime Expeditions tier list is updated after current patch facts and ranking evidence are checked. The snapshot date is the newest ranking-source revision actually reconciled, while the review date records when those sources were last rechecked; neither is a claim of direct live testing. Update 5 · Hallows Eve is the current reviewed baseline; unresolved obtainment stays labeled Needs Review rather than being inferred.",
   ],
 ] as const;
 
@@ -110,6 +111,10 @@ export function AnimeExpeditionsTierList() {
               <dd>{snapshot.date}</dd>
             </div>
             <div>
+              <dt>Source review</dt>
+              <dd>{snapshot.reviewedAt}</dd>
+            </div>
+            <div>
               <dt>Scope</dt>
               <dd>
                 {units.length} canonical units · {snapshot.sourceFormCount} source forms
@@ -119,17 +124,17 @@ export function AnimeExpeditionsTierList() {
               <dt>Review</dt>
               <dd>
                 {units.filter((u) => !Object.values(u.viewTiers).includes("Pending")).length}{" "}
-                five-view reviewed units ·{" "}
-                {units.filter((u) => u.availability === "Needs Review").length} obtainment records
-                remain Needs Review
+                five-view graded units · {evidenceCoverage.overallReconciled} Overall placements
+                reconciled · {units.filter((u) => u.availability === "Needs Review").length}{" "}
+                obtainment records remain Needs Review
               </dd>
             </div>
           </dl>
           <p className={styles.notice}>
-            <strong>Update 5 baseline reviewed.</strong> Current Anime Expeditions rankings,
-            canonical Update 4/5 additions and six-unit team cores are source-reviewed. Five
-            obtainment routes remain explicitly Needs Review.{" "}
-            <a href="#sources">Evidence limits ↓</a>
+            <strong>Update 5 baseline reviewed.</strong> Unit grades are TierListBase editorial
+            synthesis, not publisher placements. {authorityClaim.short}{" "}
+            {units.filter((u) => u.availability === "Needs Review").length} obtainment routes remain
+            explicitly Needs Review. <a href="#sources">Evidence limits ↓</a>
           </p>
         </div>
       </section>
@@ -488,8 +493,9 @@ export function AnimeExpeditionsTierList() {
         <section id="changes" className={styles.section} aria-labelledby="changes-title">
           <h2 id="changes-title">What Changed</h2>
           <p>
-            Update 5 · Hallows Eve is now the source-reviewed baseline for the current Anime
-            Expeditions tier list and its ranking changes.
+            Update 5 · Hallows Eve remains the source-reviewed baseline for the current Anime
+            Expeditions tier list. The November 8 ranking-source revision was re-read on November 10
+            and moved no published tier.
           </p>
           <div className={styles.changeGrid}>
             {[
@@ -510,7 +516,7 @@ export function AnimeExpeditionsTierList() {
                         ? "The Anime Expeditions equipment tier list adds five Update 5 unit-bound equipment records from current source pages; exact obtainment is shown only when documented."
                         : label === "Trait Changes"
                           ? "The Anime Expeditions trait tier list keeps the Draconic historical discrepancy resolved against the dated Update 3 buff; no unsupported new trait delta is claimed."
-                          : "The Anime Expeditions tier list now uses Update 5 six-unit team cores and current role interactions, replacing the old Update 4 provisional composition set."}
+                          : "The Anime Expeditions tier list reconciled every published unit grade against the November 8 ranking-source revision; no tier moved, so the November 5 snapshot was refreshed rather than re-ranked."}
                 </p>
               </div>
             ))}
@@ -537,10 +543,16 @@ export function AnimeExpeditionsTierList() {
             <details>
               <summary>Anime Expeditions tier list uncertainty &amp; coverage</summary>
               <p>
-                {reviewMetadata.ledger.total} displayed Trait, Equipment and evolution records are
-                source-reviewed. Direct personal live testing is not claimed. Update 4 canonical
-                relationships previously held as unresolved are now closed against current unit
-                pages; unresolved current-obtainment claims remain Needs Review instead of being
+                {reviewMetadata.ledger.total} displayed Unit, Trait, Equipment and evolution records
+                are source-reviewed. Passing source review means the underlying facts were checked;
+                it does not mean the record is a publisher placement. Only the Overall view is
+                reconcilable against a published tier list: {evidenceCoverage.overallReconciled} of{" "}
+                {evidenceCoverage.totalUnits} units were reconciled on the{" "}
+                {tierEvidence.source.revisionDate} revision, with {evidenceCoverage.disagreeing}{" "}
+                disagreements. The DPS, Utility, Support and Crowd Control sub-grades are
+                TierListBase editorial for all {evidenceCoverage.roleViewsEditorial} units, because
+                no source publishes graded role placements. Direct personal live testing is not
+                claimed. Unresolved current-obtainment claims remain Needs Review instead of being
                 inferred.
               </p>
               <ul>
@@ -552,7 +564,7 @@ export function AnimeExpeditionsTierList() {
                 Current inventory: {snapshot.sourceFormCount} canonical source forms,{" "}
                 {traits.length} Traits, {standard.length} Standard Equipment,{" "}
                 {equipment.length - standard.length} exclusive items and {evolutions.length}{" "}
-                evolution edges. Update 5 comparative rankings use the current November 2 baseline;
+                evolution edges. Update 5 comparative rankings use the November 8 source revision;
                 direct personal live testing is not implied.
               </p>
               <p>
@@ -567,9 +579,9 @@ export function AnimeExpeditionsTierList() {
             <h2 id="method-title">Ranking Methodology</h2>
             <p>
               Update 5 · Hallows Eve is the current source-reviewed baseline for the Anime
-              Expeditions tier list. TierListBase grades are editorial synthesis of current
-              comparative evidence and documented kits; they are not publisher rankings or a claim
-              of direct live testing of every interaction.
+              Expeditions tier list. TierListBase grades are editorial synthesis.{" "}
+              {authorityClaim.detailed} They are not publisher rankings or a claim of direct live
+              testing of every interaction.
             </p>
             <dl className={styles.methodology}>
               <div>
