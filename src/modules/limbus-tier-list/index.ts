@@ -4,6 +4,7 @@ export {
   bestIdentityBySinner,
   egoRows,
   identityRows,
+  masterSourceMetadata,
   sinners,
   teamDetails,
   teamRows,
