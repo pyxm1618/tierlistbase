@@ -1,4 +1,5 @@
 export { LimbusTierList } from "./limbus-tier-list";
+export { masterSourceMetadata } from "./data/sources";
 export {
   bestEgoBySinner,
   bestIdentityBySinner,
