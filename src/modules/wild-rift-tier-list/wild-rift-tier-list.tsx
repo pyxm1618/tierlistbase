@@ -209,7 +209,7 @@ export function WildRiftTierList() {
             </article>
           </div>
           <p className={styles.disclosure}>
-            This Wild Rift tier list is independent of and not endorsed by Riot Games.
+            This Wild Rift tier list is not affiliated with or endorsed by Riot Games.
           </p>
         </section>
 
