@@ -1,0 +1,14 @@
+{
+  "data_snapshot_date": "2026-10-25",
+  "game_version_if_confirmable": "v122.8 (Halloween Belorta / Pre-Anniversary Update)",
+  "target_characters": 203,
+  "collected_characters": 203,
+  "missing_characters": 0,
+  "extra_characters": 0,
+  "burst_metadata_source": {
+    "name": "NIKKE game-data cross-check via nikke-utils",
+    "url": "https://github.com/Sancti0n/nikke-utils/blob/f62004794a7218147697c368bf3d652e364389de/src/data/characters.js",
+    "checked_at": "2026-10-25",
+    "note": "Used only to correct Burst stage and Burst cooldown mappings; other character metadata remains from the verified NIKKE dataset."
+  }
+}
