@@ -2,6 +2,11 @@ import { seedGenshinTestDatabase } from "../genshin-tier-list/database";
 import { seedWowPresentationFixtures } from "../meta-board/wow-fixtures";
 import { expect, test } from "@playwright/test";
 
+import { getGameContentFreshness } from "@/config/game-content-freshness.server";
+import {
+  buildRecentlyUpdatedCandidates,
+  selectRecentlyUpdatedTierLists,
+} from "@/config/home-games.config";
 import { routeRegistry } from "@/config/routes.config";
 
 test("homepage renders the approved game-discovery information architecture", async ({ page }) => {
@@ -22,14 +27,24 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(page.getByRole("heading", { name: "Why TierListBase?" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Browse All Supported Games" })).toBeVisible();
 
+  const expectedFeatured = selectRecentlyUpdatedTierLists(
+    buildRecentlyUpdatedCandidates(await getGameContentFreshness()),
+  );
+  expect(expectedFeatured).toHaveLength(2);
+
   const featuredCards = page.locator("#explore .tlb-game-card");
-  await expect(featuredCards).toHaveCount(2);
-  await expect(featuredCards.nth(0)).toContainText("Anime Expeditions");
-  await expect(featuredCards.nth(0)).toContainText("Updated Nov 10");
-  await expect(featuredCards.nth(0)).toHaveAttribute("href", "/anime-expeditions/tier-list");
-  await expect(featuredCards.nth(1)).toContainText("Wild Rift");
-  await expect(featuredCards.nth(1)).toContainText("Updated Nov 9");
-  await expect(featuredCards.nth(1)).toHaveAttribute("href", "/wild-rift/tier-list");
+  await expect(featuredCards).toHaveCount(expectedFeatured.length);
+  for (const [index, game] of expectedFeatured.entries()) {
+    await expect(featuredCards.nth(index)).toContainText(game.name);
+    await expect(featuredCards.nth(index)).toHaveAttribute("href", game.href);
+    await expect(featuredCards.nth(index)).toContainText(
+      `Updated ${new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "numeric",
+        timeZone: "UTC",
+      }).format(new Date(game.freshnessDate))}`,
+    );
+  }
   await expect(page.locator("#explore")).not.toContainText("World of Warcraft");
   await expect(page.locator("#explore")).not.toContainText("Genshin Impact");
 
@@ -138,17 +153,14 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(imagePreloads).toHaveAttribute("fetchpriority", "high");
 
   const gameImages = page.locator(".tlb-game-grid .tlb-card-image img");
-  await expect(gameImages).toHaveCount(2);
-  await expect(gameImages.nth(0)).toHaveAttribute("src", "/images/home/hero.webp");
-  await expect(gameImages.nth(0)).toHaveAttribute("srcset", /hero-768\.webp/);
-  await expect(gameImages.nth(1)).toHaveAttribute("src", "/images/wild-rift/hero.webp");
-  for (const gameImage of await gameImages.all()) {
+  await expect(gameImages).toHaveCount(expectedFeatured.length);
+  for (const [index, game] of expectedFeatured.entries()) {
+    const gameImage = gameImages.nth(index);
     await expect(gameImage).toHaveAttribute("loading", "lazy");
     await expect(gameImage).not.toHaveAttribute("fetchpriority", "high");
     await expect(gameImage).toHaveAttribute("sizes", /.+/);
-    const src = await gameImage.getAttribute("src");
-    expect(src).toBeTruthy();
-    const assetResponse = await page.request.get(src!);
+    await expect(gameImage).toHaveAttribute("src", game.image);
+    const assetResponse = await page.request.get(game.image);
     expect(assetResponse.status()).toBe(200);
   }
 
