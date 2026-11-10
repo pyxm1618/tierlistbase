@@ -9,4 +9,3 @@ export {
   teamDetails,
   teamRows,
 } from "./data";
-export { masterSourceMetadata } from "./data/sources";
