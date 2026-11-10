@@ -18,7 +18,9 @@ const freshnessLoaders: Readonly<Record<string, FreshnessLoader>> = {
     return masterSourceMetadata.reviewedAt;
   },
   "phantom-blade-zero": async () => {
-    const { phantomBladeZeroSnapshot } = await import("@/modules/phantom-blade-zero-tier-list/data");
+    const { phantomBladeZeroSnapshot } = await import(
+      "@/modules/phantom-blade-zero-tier-list/data",
+    );
     return phantomBladeZeroSnapshot.snapshotDate;
   },
   "dragon-traveler": async () => {
