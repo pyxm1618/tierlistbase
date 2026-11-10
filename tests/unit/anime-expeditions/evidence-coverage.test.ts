@@ -1,8 +1,10 @@
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
+import type { Unit } from "@/modules/anime-expeditions-tier-list/types";
 import {
   RANKED_PATCH_BASELINE,
   authorityClaim,
@@ -68,6 +70,97 @@ const freshness = JSON.parse(
 };
 
 const unitRecords = review.records.filter((record) => record.kind === "unit");
+
+/**
+ * R3C-AE-02 external anchor.
+ *
+ * `tierEvidence.json`, `review-metadata.json` and `data.ts` are all repository
+ * truth: a change that edits the evidence capture and the expected local metadata
+ * together still satisfies every test above. The frozen publisher capture below is
+ * the independent party in the chain, so `tierEvidence.json` no longer proves
+ * itself; the digest and both reconciliation links start from the external file.
+ */
+const captureDir = path.join(process.cwd(), "docs/anime-expeditions/source-captures");
+const captureFile = "docs/anime-expeditions/source-captures/pgg-tier-list-2026-11-08.json";
+
+type ExternalSourceCapture = {
+  source: {
+    id: string;
+    url: string;
+    sourceRevision: string;
+    captureDate: string;
+    scale: string;
+    scaleLevels: readonly string[];
+  };
+  externalTiers: Record<string, readonly string[]>;
+  externalCounts: Record<string, number>;
+  notRankedBySource: readonly { externalPresence: string; note: string }[];
+  labelResolution: { entries: Record<string, string> };
+};
+
+type CaptureProvenance = {
+  captureFile: string;
+  sourceCaptureSha256: string;
+  capturedAt: string;
+  source: { id: string; url: string; sourceRevision: string };
+};
+
+const externalCapture = JSON.parse(
+  readFileSync(path.join(process.cwd(), captureFile), "utf8"),
+) as ExternalSourceCapture;
+
+const captureProvenance = JSON.parse(
+  readFileSync(path.join(captureDir, "provenance.json"), "utf8"),
+) as CaptureProvenance;
+
+type CaptureRow = { tier: string; label: string };
+type ReconcilableRecord = { unitId: string; sourceTier: string };
+
+function captureRows(capture: ExternalSourceCapture): CaptureRow[] {
+  return Object.entries(capture.externalTiers).flatMap(([tier, labels]) =>
+    labels.map((label) => ({ tier, label })),
+  );
+}
+
+/**
+ * The whole external chain in one pure function: external label -> internal unit
+ * -> captured external tier, compared against both the evidence capture and the
+ * published Overall view. Any link that disagrees is returned, never dropped.
+ */
+function reconcileExternalCapture(
+  capture: ExternalSourceCapture,
+  roster: readonly Unit[],
+  records: readonly ReconcilableRecord[],
+) {
+  const rows = captureRows(capture);
+  const resolution = capture.labelResolution.entries;
+  const resolved = new Map<string, string>();
+  const unresolved: string[] = [];
+
+  for (const row of rows) {
+    const unitId = resolution[row.label];
+    if (unitId === undefined) unresolved.push(row.label);
+    else resolved.set(row.label, unitId);
+  }
+
+  const rosterById = new Map(roster.map((unit) => [unit.id, unit]));
+  const evidenceById = new Map(records.map((record) => [record.unitId, record]));
+
+  const disagreements = rows.flatMap((row) => {
+    const unitId = resolved.get(row.label);
+    if (unitId === undefined) return [];
+    const publishedTier = rosterById.get(unitId)?.viewTiers.Overall ?? null;
+    const evidenceTier = evidenceById.get(unitId)?.sourceTier ?? null;
+    if (publishedTier === row.tier && evidenceTier === row.tier) return [];
+    return [{ label: row.label, unitId, externalTier: row.tier, evidenceTier, publishedTier }];
+  });
+
+  const counts = Object.fromEntries(
+    Object.entries(capture.externalTiers).map(([tier, labels]) => [tier, labels.length]),
+  );
+
+  return { rows, resolved, unresolved, disagreements, counts, total: rows.length };
+}
 
 describe("AE-01 evidence coverage cannot overclaim", () => {
   it("exposes exactly one reconcilable view and keeps the rest editorial", () => {
@@ -265,5 +358,190 @@ describe("AE-02 freshness is verifiable and dated honestly", () => {
     expect(page).toContain("snapshot.reviewedAt");
     expect(page).toContain("Snapshot date");
     expect(page).toContain("Source review");
+  });
+
+  it("never describes the snapshot date as the source-review pass", () => {
+    const page = readFileSync(path.join(moduleDir, "anime-expeditions-tier-list.tsx"), "utf8");
+
+    // The rejected wording stated that the snapshot date records the review pass.
+    expect(page).not.toMatch(/snapshot date records the source-?review pass/i);
+
+    // Whatever sentence explains freshness must still separate the two jobs.
+    const freshnessCopy = page
+      .split("\n")
+      .filter((line) => /snapshot date/i.test(line) && /review/i.test(line));
+    expect(freshnessCopy.length).toBeGreaterThan(0);
+    for (const line of freshnessCopy) {
+      expect(line).toMatch(/reconciled/i);
+      expect(line).toMatch(/recheck|review date/i);
+    }
+  });
+});
+
+describe("AE-02 external capture is the independent party", () => {
+  it("pins the frozen publisher capture to an immutable digest", () => {
+    const actual = createHash("sha256")
+      .update(readFileSync(path.join(process.cwd(), captureFile)))
+      .digest("hex");
+
+    expect(actual).toBe(captureProvenance.sourceCaptureSha256);
+    expect(captureProvenance.captureFile).toBe(captureFile);
+    // The digest must be long enough to be a real sha256, not a placeholder.
+    expect(captureProvenance.sourceCaptureSha256).toMatch(/^[0-9a-f]{64}$/);
+    // Provenance and capture must describe the same external revision.
+    expect(captureProvenance.source.id).toBe(externalCapture.source.id);
+    expect(captureProvenance.source.url).toBe(externalCapture.source.url);
+    expect(captureProvenance.source.sourceRevision).toBe(externalCapture.source.sourceRevision);
+    expect(captureProvenance.capturedAt).toBe(externalCapture.source.captureDate);
+  });
+
+  it("counts the publisher's own buckets, not the repository's", () => {
+    // Hard-coded external counts: they may only change by re-reading the live page.
+    expect(reconcileExternalCapture(externalCapture, units, tierEvidence.records).counts).toEqual({
+      S: 32,
+      A: 23,
+      B: 9,
+      C: 5,
+      D: 6,
+    });
+    expect(externalCapture.externalCounts).toMatchObject({ S: 32, A: 23, B: 9, C: 5, D: 6 });
+    expect(externalCapture.externalCounts.total).toBe(75);
+    expect(Object.keys(externalCapture.externalTiers).sort()).toEqual(
+      [...externalCapture.source.scaleLevels].sort(),
+    );
+  });
+
+  it("keeps the publisher's labels instead of rewriting them to internal ids", () => {
+    const rows = captureRows(externalCapture);
+    expect(rows).toHaveLength(75);
+
+    // The publisher prints the bottom two buckets as "Unit / Character"; a capture
+    // normalised to TierListBase names would have lost that, and with it the
+    // evidence that this was transcribed from outside.
+    for (const tier of ["C", "D"]) {
+      const labels = externalCapture.externalTiers[tier] ?? [];
+      expect(labels.length).toBeGreaterThan(0);
+      for (const label of labels) expect(label).toContain(" / ");
+    }
+    // Carrot appears twice at different tiers; a de-duplicating capture would lose one.
+    expect(rows.filter((row) => row.label.startsWith("Carrot"))).toHaveLength(2);
+
+    // A capture reverse-generated from repository data could only contain repository
+    // names. These publisher rows carry source-side text no repository field holds.
+    const internalLabels = new Set([
+      ...tierEvidence.records.map((record) => record.sourceLabel),
+      ...units.map((unit) => unit.currentForm),
+    ]);
+    const sourceOnlyLabels = rows.filter((row) => !internalLabels.has(row.label));
+    expect(sourceOnlyLabels.length).toBeGreaterThan(20);
+  });
+
+  it("resolves every captured external label to exactly one unit", () => {
+    const reconciliation = reconcileExternalCapture(externalCapture, units, tierEvidence.records);
+    const labels = reconciliation.rows.map((row) => row.label);
+
+    expect(new Set(labels).size).toBe(labels.length);
+    expect(reconciliation.unresolved).toEqual([]);
+    expect(reconciliation.resolved.size).toBe(labels.length);
+
+    const ids = [...reconciliation.resolved.values()];
+    // One unit cannot occupy two external rows.
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const id of ids) expect(units.some((unit) => unit.id === id)).toBe(true);
+  });
+
+  it("reconciles the external capture against the evidence capture and the published tier", () => {
+    const reconciliation = reconcileExternalCapture(externalCapture, units, tierEvidence.records);
+
+    expect(reconciliation.total).toBe(75);
+    expect(reconciliation.disagreements).toEqual([]);
+
+    const capturedIds = [...reconciliation.resolved.values()];
+    expect(capturedIds.sort()).toEqual(tierEvidence.records.map((record) => record.unitId).sort());
+
+    // Both links are asserted separately: a poisoned evidence file and a poisoned
+    // ranking view each have to fail on their own.
+    for (const row of reconciliation.rows) {
+      const unitId = reconciliation.resolved.get(row.label)!;
+      const unit = units.find((candidate) => candidate.id === unitId)!;
+      const evidence = tierEvidence.records.find((record) => record.unitId === unitId)!;
+      expect(evidence.sourceTier, `${row.label} evidence tier`).toBe(row.tier);
+      expect(unit.viewTiers.Overall, `${row.label} published Overall`).toBe(row.tier);
+    }
+
+    // The two units the publisher does not rank stay editorial rather than invented.
+    const notRanked = tierEvidence.notRanked.map((entry) => entry.unitId).sort();
+    expect(notRanked).toEqual(["cube", "suited-alchemist"]);
+    for (const id of notRanked) expect(capturedIds).not.toContain(id);
+    expect(capturedIds.length + notRanked.length).toBe(units.length);
+    expect(externalCapture.notRankedBySource).toHaveLength(notRanked.length);
+  });
+
+  it("binds the capture revision to the snapshot and the review date", () => {
+    expect(externalCapture.source.sourceRevision).toBe(tierEvidence.source.revisionDate);
+    expect(externalCapture.source.sourceRevision).toBe(snapshot.date);
+    expect(externalCapture.source.captureDate).toBe(snapshot.reviewedAt);
+    // The review is a recheck of a dated revision, never a claim that the revision moved.
+    expect(externalCapture.source.captureDate >= externalCapture.source.sourceRevision).toBe(true);
+    expect(snapshot.reviewedAt >= snapshot.date).toBe(true);
+    expect(externalCapture.source.id).toBe(tierEvidence.source.id);
+    expect(externalCapture.source.url).toBe(tierEvidence.source.url);
+  });
+
+  it("fails when the external capture and the repository disagree", () => {
+    const baseline = reconcileExternalCapture(externalCapture, units, tierEvidence.records);
+    // Guard against an always-failing comparator making the mutations below meaningless.
+    expect(baseline.disagreements).toEqual([]);
+
+    const victim = baseline.rows.find((row) => row.tier === "S")!;
+    const victimId = baseline.resolved.get(victim.label)!;
+
+    // 1. The capturer records the wrong external tier.
+    const movedCapture = structuredClone(externalCapture);
+    movedCapture.externalTiers[victim.tier] = movedCapture.externalTiers[victim.tier]!.filter(
+      (label) => label !== victim.label,
+    );
+    movedCapture.externalTiers.D = [...movedCapture.externalTiers.D!, victim.label];
+    const moved = reconcileExternalCapture(movedCapture, units, tierEvidence.records);
+    expect(moved.disagreements).toHaveLength(1);
+    expect(moved.disagreements[0]).toMatchObject({
+      label: victim.label,
+      externalTier: "D",
+      evidenceTier: "S",
+    });
+
+    // 2. tier-evidence.json is edited to agree with a wrong tier.
+    const tamperedEvidence = tierEvidence.records.map((record) =>
+      record.unitId === victimId ? { ...record, sourceTier: "D" } : record,
+    );
+    const tampered = reconcileExternalCapture(externalCapture, units, tamperedEvidence);
+    expect(tampered.disagreements).toHaveLength(1);
+    expect(tampered.disagreements[0]).toMatchObject({
+      unitId: victimId,
+      externalTier: "S",
+      evidenceTier: "D",
+      publishedTier: "S",
+    });
+
+    // 3. The published Overall grade drifts away from the source.
+    const tamperedRoster = units.map((unit) =>
+      unit.id === victimId
+        ? { ...unit, viewTiers: { ...unit.viewTiers, Overall: "D" as const } }
+        : unit,
+    );
+    const drifted = reconcileExternalCapture(externalCapture, tamperedRoster, tierEvidence.records);
+    expect(drifted.disagreements).toHaveLength(1);
+    expect(drifted.disagreements[0]).toMatchObject({
+      unitId: victimId,
+      externalTier: "S",
+      publishedTier: "D",
+    });
+
+    // 4. A label that cannot be resolved is reported, never silently skipped.
+    const orphaned = structuredClone(externalCapture);
+    delete orphaned.labelResolution.entries[victim.label];
+    const orphan = reconcileExternalCapture(orphaned, units, tierEvidence.records);
+    expect(orphan.unresolved).toEqual([victim.label]);
+    expect(orphan.resolved.size).toBe(baseline.rows.length - 1);
   });
 });

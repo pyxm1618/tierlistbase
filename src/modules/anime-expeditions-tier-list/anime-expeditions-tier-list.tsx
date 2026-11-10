@@ -38,7 +38,7 @@ const faq = [
   ],
   [
     "How often is the Anime Expeditions tier list updated?",
-    "The Anime Expeditions tier list is updated after current patch facts and ranking evidence are checked. The snapshot date records the source-review pass, not a claim of direct live testing. Update 5 · Hallows Eve is the current reviewed baseline; unresolved obtainment stays labeled Needs Review rather than being inferred.",
+    "The Anime Expeditions tier list is updated after current patch facts and ranking evidence are checked. The snapshot date is the newest ranking-source revision actually reconciled, while the review date records when those sources were last rechecked; neither is a claim of direct live testing. Update 5 · Hallows Eve is the current reviewed baseline; unresolved obtainment stays labeled Needs Review rather than being inferred.",
   ],
 ] as const;
 
