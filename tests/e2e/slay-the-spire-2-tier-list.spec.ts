@@ -33,6 +33,7 @@ test("Slay the Spire 2 uses the shared shell, real snapshot and complete ranking
   await expect(page.locator("main")).toContainText("v0.107.1");
   await expect(page.locator("main")).toContainText("v0.111.0");
   await expect(page.locator("main")).toContainText("Tier does not mean automatic pick");
+  await expect(page.locator('div[aria-label="Ranking snapshot"]')).toContainText("Nov 6, 2026");
 
   const csp = response?.headers()["content-security-policy"] ?? "";
   const imageDirective = csp.match(/(?:^|; )img-src ([^;]+)/)?.[1] ?? "";
@@ -203,11 +204,16 @@ test("visible copy covers the single Slay the Spire 2 tier-list keyword family w
   for (const phrase of [
     "slay the spire 2 tier list",
     "slay the spire 2 card tier list",
-    "slay the spire 2 cards tier list",
     "slay the spire 2 relic tier list",
     "slay the spire 2 character tier list",
   ])
     expect(text).toContain(phrase);
+
+  // Round 3C: the plural card variant is a rejected duplicate of the approved card secondary and
+  // must never reach browser-visible copy.
+  expect(text).not.toContain("slay the spire 2 cards tier list");
+  expect(text).not.toContain("cards tier list");
+  expect(text).not.toContain("contextual analysis");
   expect(text).not.toContain("28.4% pick rate");
   expect(text).not.toContain("24,831 runs");
 });
