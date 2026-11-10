@@ -14,10 +14,10 @@ it("renders homepage rating changes after Next cache serializes Date as an ISO s
     changedAt: "2026-10-15T00:00:00.000Z",
   } as unknown as RecentRatingChangeItem;
   expect(() =>
-    renderToStaticMarkup(createElement(GameHome, { title: "Game Tier Lists", updates: [update] })),
+    renderToStaticMarkup(\n      createElement(GameHome, { title: "Game Tier Lists", updates: [update], featuredGames: [] }),\n    ),
   ).not.toThrow();
   const html = renderToStaticMarkup(
-    createElement(GameHome, { title: "Game Tier Lists", updates: [update] }),
+    createElement(GameHome, { title: "Game Tier Lists", updates: [update], featuredGames: [] }),
   );
   expect(html).toContain("Oct 15, 2026");
 });
