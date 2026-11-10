@@ -47,7 +47,7 @@ export const gamesConfig: readonly GameRegistryEntry[] = [
     tierListHref: "/nikke/tier-list",
     navigationVisible: true,
     navigationOrder: 4,
-    tierListStatus: "archived",
+    tierListStatus: "active",
     homepageTags: ["Characters", "v122.8 Snapshot"],
   },
   {
