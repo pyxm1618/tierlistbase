@@ -1,10 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import {
-  getHomepageGamePresentation,
-  type HomepageTierListCard,
-} from "@/config/home-games.config";
+import { getHomepageGamePresentation, type HomepageTierListCard } from "@/config/home-games.config";
 import type { RecentRatingChangeItem } from "@/modules/meta-board";
 
 import { HomeHeroImage } from "./home-hero-image";
@@ -409,7 +406,11 @@ export function GameHome({
           </SectionTitle>
           <div className="tlb-game-grid">
             {featuredGames.map((game, index) => (
-              <GameCard key={game.slug} game={game} accent={index % 2 === 0 ? "gold" : "ice"} />
+              <GameCard
+                key={game.slug}
+                game={game}
+                accent={index % 2 === 0 ? "gold" : "ice"}
+              />
             ))}
           </div>
         </section>
