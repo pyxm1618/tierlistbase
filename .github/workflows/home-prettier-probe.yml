@@ -1,0 +1,23 @@
+name: Homepage Prettier Probe
+
+on:
+  push:
+    branches:
+      - tmp/home-g1-g2-prettier-probe
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - run: bun install --frozen-lockfile
+      - name: Format probe
+        run: |
+          bunx prettier --config .prettierrc.json --write src/components/home/game-home.tsx src/config/game-content-freshness.server.ts
+          git diff -- src/components/home/game-home.tsx src/config/game-content-freshness.server.ts
