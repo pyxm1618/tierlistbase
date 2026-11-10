@@ -141,13 +141,7 @@ function formatHomepageDate(value: Date | string, includeYear = false): string {
   }).format(new Date(value));
 }
 
-function GameCard({
-  game,
-  accent,
-}: {
-  game: HomepageTierListCard;
-  accent: "gold" | "ice";
-}) {
+function GameCard({ game, accent }: { game: HomepageTierListCard; accent: "gold" | "ice" }) {
   return (
     <Link
       href={game.href}
