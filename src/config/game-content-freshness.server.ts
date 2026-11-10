@@ -46,16 +46,16 @@ function activeGames(games: readonly GameRegistryEntry[]): readonly GameRegistry
 export async function getGameContentFreshness(
   games: readonly GameRegistryEntry[] = gamesConfig,
 ): Promise<readonly GameContentFreshness[]> {
-  return Promise.all(
+  const freshness = await Promise.all(
     activeGames(games).map(async (game) => {
       const loadFreshness = freshnessLoaders[game.slug];
-      if (!loadFreshness) {
-        throw new Error(`Missing canonical freshness source for active game: ${game.slug}`);
-      }
+      if (!loadFreshness) return null;
       return {
         slug: game.slug,
         freshnessDate: await loadFreshness(),
       };
     }),
   );
+
+  return freshness.filter((item): item is GameContentFreshness => item !== null);
 }
