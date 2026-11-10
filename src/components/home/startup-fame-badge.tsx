@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 
 const STARTUP_FAME_HREF = "https://startupfa.me/s/tierlistbase?utm_source=www.tierlistbase.com";
-const STARTUP_FAME_BADGE_SRC = "https://startupfa.me/badges/featured-badge-small.webp";
+const STARTUP_FAME_BADGE_SRC = "https://startupfa.me/badge?t=small&theme=dark";
 
 /**
  * Startup Fame verification badge.
@@ -23,11 +23,11 @@ export function StartupFameBadge() {
         {/* eslint-disable-next-line @next/next/no-img-element -- Startup Fame badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
         <img
           alt="Tier List Base - Featured on Startup Fame"
-          className="block h-[36px] w-[224px]"
+          className="block h-[36px] w-[240px]"
           height={36}
           loading="lazy"
           src={STARTUP_FAME_BADGE_SRC}
-          width={224}
+          width={240}
         />
       </a>
     </div>
