@@ -406,8 +406,8 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
           </h1>
           <p>
             TierListBase helps you compare rankings across supported games with each tier list, plus
-            the evidence, methodology, and version or snapshot context behind how characters, classes,
-            units, weapons, and more move between tiers.
+            the evidence, methodology, and version or snapshot context behind how characters,
+            classes, units, weapons, and more move between tiers.
           </p>
         </div>
       </section>
