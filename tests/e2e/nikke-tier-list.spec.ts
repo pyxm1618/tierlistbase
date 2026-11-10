@@ -1,27 +1,14 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
-
 import { expect, test } from "@playwright/test";
 
 import { routeRegistry } from "@/config/routes.config";
-import { readSnapshotMetadata } from "@/modules/nikke-tier-list/snapshot";
+import {
+  snapshotDate,
+  snapshotPhase,
+  snapshotVersion,
+} from "@/modules/nikke-tier-list/snapshot-metadata";
 
 const route = "/nikke/tier-list";
 const hasProjectRouteInventory = routeRegistry.routes.some((entry) => entry.route === route);
-
-const recordedSnapshot = (
-  JSON.parse(readFileSync(path.join(process.cwd(), "nikke-real-data.json"), "utf8")) as {
-    snapshot: { data_snapshot_date: string; game_version_if_confirmable: string };
-  }
-).snapshot;
-const {
-  date: snapshotDate,
-  phase: snapshotPhase,
-  version: snapshotVersion,
-} = readSnapshotMetadata({
-  dataSnapshotDate: recordedSnapshot.data_snapshot_date,
-  gameVersion: recordedSnapshot.game_version_if_confirmable,
-});
 
 const CURRENT_RANKING_CLAIM =
   /\bcurrent (?:character |meta )?\w*rankings?\b|\blatest (?:character )?rankings?\b/i;
