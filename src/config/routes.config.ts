@@ -42,12 +42,12 @@ export const routeDefinitions = [
     route: "/",
     class: "public_indexable",
     searchIntent:
-      "discover and explore game tier lists across supported games to compare current character, class, unit, weapon, and card rankings",
+      "discover and explore game tier lists across supported games, including current rankings and reviewed versioned or archived snapshots",
     primaryKeyword: "tier list",
     secondaryKeywords: ["tier lists", "game tier list", "gaming tier list"],
     title: "Tier List – Explore Game Tier Lists | TierListBase",
     description:
-      "Explore game tier lists across supported games. Compare current character, class, unit, weapon, and card rankings with supporting evidence and methodology.",
+      "Explore game tier lists across supported games. Compare character, class, unit, weapon, and card rankings with evidence, methodology, and clear version or snapshot context.",
     h1: "Tier List",
     pageType: "WebApplication",
     relatedRoutes: [
@@ -65,9 +65,9 @@ export const routeDefinitions = [
       "/anime-expeditions/tier-list",
       "/slay-the-spire-2/tier-list",
     ],
-    lastModified: "2026-11-07",
+    lastModified: "2026-11-10",
     reviewStatus: "reviewed",
-    reviewFingerprint: "93249eeafc787cdf67c168cc49ab5426e4e5d9711f48e6af16b7487fd45cd74d",
+    reviewFingerprint: "1af536a697889bee3e1af48c89da2d488fb263fef1c638ef76f37b73810dbec0",
   },
   {
     route: "/wow-forever/tier-list",

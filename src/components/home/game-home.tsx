@@ -135,7 +135,7 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
   const isWow = game === "wow";
   const title = isWow ? "World of Warcraft" : "Genshin Impact";
   const tags = isWow
-    ? ["DPS", "Tanks", "Healers", "PvP", "Leveling"]
+    ? ["DPS", "Tanks", "Healers", "Dungeons", "Level 30 Beta"]
     : ["Characters", "Spiral Abyss", "Teams", "Exploration"];
   const content = (
     <>
@@ -170,8 +170,8 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
         </h3>
         <p>
           {isWow
-            ? "Explore the current class and specialization meta for World of Warcraft: Forever."
-            : "Explore current Genshin Impact character rankings backed by reviewed data."}
+            ? "Explore the archived Level 30 Beta dungeon specialization rankings for World of Warcraft: Forever."
+            : "Explore the archived Version 7.1 Genshin Impact character ranking snapshot with reviewed evidence."}
         </p>
         <div className="tlb-game-bottom">
           <div className="tlb-tag-list">
@@ -405,9 +405,9 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
             )}
           </h1>
           <p>
-            TierListBase helps you compare current rankings across supported games with each tier
-            list, plus the evidence and methodology behind how characters, classes, units, weapons,
-            and more move between tiers.
+            TierListBase helps you compare rankings across supported games with each tier list, plus
+            the evidence, methodology, and version or snapshot context behind how characters,
+            classes, units, weapons, and more move between tiers.
           </p>
         </div>
       </section>
@@ -429,7 +429,7 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
         <section className="tlb-section" id="why-tierlistbase" aria-labelledby="why-title">
           <SectionTitle
             id="why-title"
-            subtitle="Clear, evidence-based and easy to use. Everything you need to understand the current meta."
+            subtitle="Clear, evidence-based and easy to use. Everything you need to understand each ranking and its context."
           >
             Why TierListBase?
           </SectionTitle>

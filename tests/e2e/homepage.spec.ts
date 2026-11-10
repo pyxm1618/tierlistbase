@@ -42,9 +42,26 @@ test("homepage renders the approved game-discovery information architecture", as
   await expect(primaryNav.getByRole("link", { name: "Anime Expeditions" })).toBeVisible();
   await expect(primaryNav.getByRole("link", { name: "Slay the Spire 2" })).toBeVisible();
 
-  await expect(
-    page.getByText("Explore current Genshin Impact character rankings backed by reviewed data."),
-  ).toBeVisible();
+  const wowCard = page.locator(".tlb-game-card.tlb-wow");
+  await expect(wowCard).toContainText(
+    "Explore the archived Level 30 Beta dungeon specialization rankings for World of Warcraft: Forever.",
+  );
+  await expect(wowCard).toContainText("Dungeons");
+  await expect(wowCard).toContainText("Level 30 Beta");
+  await expect(wowCard).not.toContainText("current class and specialization meta");
+  await expect(wowCard).not.toContainText("PvP");
+  await expect(wowCard).not.toContainText("Leveling");
+
+  const genshinCard = page.locator(".tlb-game-card.tlb-genshin");
+  await expect(genshinCard).toContainText(
+    "Explore the archived Version 7.1 Genshin Impact character ranking snapshot with reviewed evidence.",
+  );
+  await expect(genshinCard).not.toContainText("current Genshin Impact character rankings");
+
+  await expect(page.locator(".tlb-hero-inner > p")).not.toContainText(
+    "compare current rankings across supported games",
+  );
+  await expect(page.locator("#why-tierlistbase")).not.toContainText("current meta");
   await expect(
     page.getByText(
       "Open the Genshin Impact tier list page. Verified rankings will appear as reviewed data is published.",
