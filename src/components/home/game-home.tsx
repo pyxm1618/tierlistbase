@@ -1,6 +1,10 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import {
+  getHomepageGamePresentation,
+  type HomepageTierListCard,
+} from "@/config/home-games.config";
 import type { RecentRatingChangeItem } from "@/modules/meta-board";
 
 import { HomeHeroImage } from "./home-hero-image";
@@ -131,23 +135,34 @@ function SectionTitle({
   );
 }
 
-function GameCard({ game }: { game: "wow" | "genshin" }) {
-  const isWow = game === "wow";
-  const title = isWow ? "World of Warcraft" : "Genshin Impact";
-  const tags = isWow
-    ? ["DPS", "Tanks", "Healers", "Dungeons", "Level 30 Beta"]
-    : ["Characters", "Spiral Abyss", "Teams", "Exploration"];
-  const content = (
-    <>
+function formatHomepageDate(value: Date | string, includeYear = false): string {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    ...(includeYear ? { year: "numeric" as const } : {}),
+    timeZone: "UTC",
+  }).format(new Date(value));
+}
+
+function GameCard({
+  game,
+  accent,
+}: {
+  game: HomepageTierListCard;
+  accent: "gold" | "ice";
+}) {
+  return (
+    <Link
+      href={game.href}
+      prefetch={true}
+      className={`tlb-game-card${accent === "ice" ? " tlb-featured-ice" : ""}`}
+      aria-label={`Explore ${game.name} tier list`}
+    >
       <div className="tlb-card-image" aria-hidden="true">
-        {/* eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- existing static assets are delivered directly and lazily */}
         <img
-          src={isWow ? "/images/home/wow.webp" : "/images/home/genshin.webp"}
-          srcSet={
-            isWow
-              ? "/images/home/wow-384.webp 384w, /images/home/wow-640.webp 640w, /images/home/wow-768.webp 768w, /images/home/wow-1080.webp 1080w, /images/home/wow-1440.webp 1440w, /images/home/wow.webp 2048w"
-              : "/images/home/genshin-384.webp 384w, /images/home/genshin-640.webp 640w, /images/home/genshin-768.webp 768w, /images/home/genshin-1080.webp 1080w, /images/home/genshin-1440.webp 1440w, /images/home/genshin.webp 1774w"
-          }
+          src={game.image}
+          {...(game.imageSrcSet ? { srcSet: game.imageSrcSet } : {})}
           sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 46vw, 901px"
           alt=""
           loading="lazy"
@@ -165,37 +180,22 @@ function GameCard({ game }: { game: "wow" | "genshin" }) {
       <div className="tlb-game-card-shade" aria-hidden="true" />
       <div className="tlb-game-content">
         <h3>
-          {title}
+          {game.name}
           <span>Tier List</span>
         </h3>
-        <p>
-          {isWow
-            ? "Explore the archived Level 30 Beta dungeon specialization rankings for World of Warcraft: Forever."
-            : "Explore the archived Version 7.1 Genshin Impact character ranking snapshot with reviewed evidence."}
-        </p>
+        <p>{game.description}</p>
         <div className="tlb-game-bottom">
           <div className="tlb-tag-list">
-            {tags.map((tag) => (
+            {game.tags.map((tag) => (
               <span key={tag}>{tag}</span>
             ))}
+            <span>Updated {formatHomepageDate(game.freshnessDate)}</span>
           </div>
           <span className="tlb-arrow" aria-hidden="true">
             <Icon name="arrow" size={23} />
           </span>
         </div>
       </div>
-    </>
-  );
-  return (
-    <Link
-      href={isWow ? wowHref : genshinHref}
-      prefetch={true}
-      className={`tlb-game-card ${isWow ? "tlb-wow" : "tlb-genshin"}`}
-      aria-label={
-        isWow ? "Explore World of Warcraft: Forever tier list" : "Explore Genshin Impact tier list"
-      }
-    >
-      {content}
     </Link>
   );
 }
@@ -309,81 +309,68 @@ const popular: {
   },
 ];
 
-function UpdateCard({ update }: { update: RecentRatingChangeItem | undefined }) {
-  const isGenshin = update?.gameSlug === "genshin-impact";
-  const title = update
-    ? update.entityName + ": " + update.previousTier + " → " + update.newTier
-    : "No update yet";
-  const description = update
-    ? update.reason || "Tier change recorded for " + update.contextLabel + "."
-    : "New ranking changes will appear here when available.";
+export function prepareHomepageUpdates(
+  updates: readonly RecentRatingChangeItem[],
+): readonly RecentRatingChangeItem[] {
+  return [...updates]
+    .sort((a, b) => new Date(b.changedAt).getTime() - new Date(a.changedAt).getTime())
+    .slice(0, 3);
+}
+
+function UpdateCard({ update }: { update: RecentRatingChangeItem }) {
+  const game = getHomepageGamePresentation(update.gameSlug);
+  if (!game) return null;
+
+  const title = update.entityName + ": " + update.previousTier + " → " + update.newTier;
+  const description = update.reason || "Tier change recorded for " + update.contextLabel + ".";
+
   return (
     <article className="tlb-update-card">
-      <div
-        className={
-          "tlb-update-art" +
-          (update ? " " + (isGenshin ? "tlb-update-ice" : "tlb-update-fire") : "")
-        }
-      >
-        {update ? (
-          /* eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer */
-          <img
-            src={isGenshin ? "/images/home/genshin.webp" : "/images/home/wow.webp"}
-            srcSet={
-              isGenshin
-                ? "/images/home/genshin-384.webp 384w, /images/home/genshin-640.webp 640w, /images/home/genshin-768.webp 768w, /images/home/genshin-1080.webp 1080w, /images/home/genshin-1440.webp 1440w, /images/home/genshin.webp 1774w"
-                : "/images/home/wow-384.webp 384w, /images/home/wow-640.webp 640w, /images/home/wow-768.webp 768w, /images/home/wow-1080.webp 1080w, /images/home/wow-1440.webp 1440w, /images/home/wow.webp 2048w"
-            }
-            sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 31vw, 595px"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="tlb-cover"
-            style={{
-              position: "absolute",
-              height: "100%",
-              width: "100%",
-              inset: 0,
-              color: "transparent",
-            }}
-          />
-        ) : null}
+      <div className="tlb-update-art">
+        {/* eslint-disable-next-line @next/next/no-img-element -- existing static assets are delivered directly and lazily */}
+        <img
+          src={game.image}
+          {...(game.imageSrcSet ? { srcSet: game.imageSrcSet } : {})}
+          sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1600px) 31vw, 595px"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="tlb-cover"
+          style={{
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            inset: 0,
+            color: "transparent",
+          }}
+        />
       </div>
       <div className="tlb-update-body">
         <div className="tlb-update-meta">
-          {update ? (
-            <span className={isGenshin ? "tlb-label ice" : "tlb-label"}>
-              {isGenshin ? "Genshin" : "WoW"}
-            </span>
-          ) : null}
-          <span>
-            {update
-              ? new Intl.DateTimeFormat("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                  timeZone: "UTC",
-                }).format(new Date(update.changedAt))
-              : "No update available"}
-          </span>
+          <span className="tlb-label">{game.name}</span>
+          <span>{formatHomepageDate(update.changedAt, true)}</span>
         </div>
         <h3>{title}</h3>
         <p>{description}</p>
-        {update ? (
-          <Link
-            href={isGenshin ? genshinHref : wowHref}
-            className="tlb-small-arrow"
-            aria-label={"View " + title}
-          >
-            <Icon name="arrow" size={17} />
-          </Link>
-        ) : null}
+        <Link href={game.href} className="tlb-small-arrow" aria-label={"View " + title}>
+          <Icon name="arrow" size={17} />
+        </Link>
       </div>
     </article>
   );
 }
 
-export function GameHome({ title, updates }: { title: string; updates: RecentRatingChangeItem[] }) {
+export function GameHome({
+  title,
+  updates,
+  featuredGames,
+}: {
+  title: string;
+  updates: RecentRatingChangeItem[];
+  featuredGames: readonly HomepageTierListCard[];
+}) {
+  const visibleUpdates = prepareHomepageUpdates(updates);
+
   return (
     <div className="tlb-home">
       <section className="tlb-hero" aria-labelledby="page-title">
@@ -416,13 +403,14 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
         <section className="tlb-section" id="explore" aria-labelledby="explore-title">
           <SectionTitle
             id="explore-title"
-            subtitle="Start with two featured games, then browse every supported game below."
+            subtitle="The most recently reviewed active tier lists, selected automatically from canonical game freshness data."
           >
-            Featured Tier Lists
+            Recently Updated Tier Lists
           </SectionTitle>
           <div className="tlb-game-grid">
-            <GameCard game="wow" />
-            <GameCard game="genshin" />
+            {featuredGames.map((game, index) => (
+              <GameCard key={game.slug} game={game} accent={index % 2 === 0 ? "gold" : "ice"} />
+            ))}
           </div>
         </section>
 
@@ -446,27 +434,26 @@ export function GameHome({ title, updates }: { title: string; updates: RecentRat
           </div>
         </section>
 
-        <section className="tlb-section" id="latest-updates" aria-labelledby="updates-title">
-          <div className="tlb-heading-row">
-            <SectionTitle
-              id="updates-title"
-              subtitle="Stay on top of recent tier list changes from the ranking feeds currently available for WoW Forever and Genshin Impact."
-            >
-              Latest Updates
-            </SectionTitle>
-            <Link className="tlb-all-updates" href="#explore">
-              View rankings <Icon name="arrow" size={17} />
-            </Link>
-          </div>
-          <div className="tlb-update-grid">
-            {[0, 1, 2].map((index) => (
-              <UpdateCard
-                key={updates[index]?.id ?? "placeholder-" + index}
-                update={updates[index]}
-              />
-            ))}
-          </div>
-        </section>
+        {visibleUpdates.length > 0 ? (
+          <section className="tlb-section" id="latest-updates" aria-labelledby="updates-title">
+            <div className="tlb-heading-row">
+              <SectionTitle
+                id="updates-title"
+                subtitle="Recent recorded tier movements from supported ranking feeds."
+              >
+                Latest Updates
+              </SectionTitle>
+              <Link className="tlb-all-updates" href="#explore">
+                View rankings <Icon name="arrow" size={17} />
+              </Link>
+            </div>
+            <div className="tlb-update-grid">
+              {visibleUpdates.map((update) => (
+                <UpdateCard key={update.id} update={update} />
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section
           className="tlb-section tlb-last-section"
