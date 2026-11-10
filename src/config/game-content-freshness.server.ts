@@ -1,3 +1,5 @@
+/* eslint-disable creat-web-modules/product-module-boundary -- This server-only adapter reads canonical data-only freshness sources without loading product UI roots into the homepage. */
+
 import type { GameRegistryEntry } from "./games.config";
 import { gamesConfig } from "./games.config";
 
@@ -10,31 +12,31 @@ type FreshnessLoader = () => Promise<string>;
 
 const freshnessLoaders: Readonly<Record<string, FreshnessLoader>> = {
   "zenless-zone-zero": async () => {
-    const { snapshotDate } = await import("@/modules/zenless-zone-zero-tier-list");
+    const { snapshotDate } = await import("@/modules/zenless-zone-zero-tier-list/data");
     return snapshotDate;
   },
   "limbus-company": async () => {
-    const { masterSourceMetadata } = await import("@/modules/limbus-tier-list");
+    const { masterSourceMetadata } = await import("@/modules/limbus-tier-list/data/sources");
     return masterSourceMetadata.reviewedAt;
   },
   "phantom-blade-zero": async () => {
-    const { phantomBladeZeroSnapshot } = await import("@/modules/phantom-blade-zero-tier-list");
+    const { phantomBladeZeroSnapshot } = await import("@/modules/phantom-blade-zero-tier-list/data");
     return phantomBladeZeroSnapshot.snapshotDate;
   },
   "dragon-traveler": async () => {
-    const { snapshotDate } = await import("@/modules/dragon-traveler-tier-list");
+    const { snapshotDate } = await import("@/modules/dragon-traveler-tier-list/data");
     return snapshotDate;
   },
   "wild-rift": async () => {
-    const { snapshot } = await import("@/modules/wild-rift-tier-list");
+    const { snapshot } = await import("@/modules/wild-rift-tier-list/data");
     return snapshot.reviewedAt;
   },
   "anime-expeditions": async () => {
-    const { snapshot } = await import("@/modules/anime-expeditions-tier-list");
+    const { snapshot } = await import("@/modules/anime-expeditions-tier-list/data");
     return snapshot.reviewedAt;
   },
   "slay-the-spire-2": async () => {
-    const { snapshot } = await import("@/modules/slay-the-spire-2-tier-list");
+    const { snapshot } = await import("@/modules/slay-the-spire-2-tier-list/data");
     return snapshot.lastReviewed;
   },
 };
