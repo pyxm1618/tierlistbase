@@ -4,8 +4,8 @@ export {
   bestIdentityBySinner,
   egoRows,
   identityRows,
-  masterSourceMetadata,
   sinners,
   teamDetails,
   teamRows,
 } from "./data";
+export { masterSourceMetadata } from "./data/sources";
