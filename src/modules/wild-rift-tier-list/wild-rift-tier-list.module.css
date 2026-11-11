@@ -2158,9 +2158,12 @@
 
   .tierBoard {
     padding: 12px;
+    /* Same URL the hero <img> resolves to at this breakpoint (>=1200px always
+       selects the 1440w candidate), so the backdrop reuses the already-loaded
+       hero artwork instead of fetching a second derivative. */
     background:
       linear-gradient(180deg, rgba(2, 17, 28, 0.92), rgba(2, 15, 25, 0.96)),
-      url("/images/wild-rift/hero-760.webp") center bottom / cover no-repeat;
+      url("/images/wild-rift/hero.webp") center bottom / cover no-repeat;
   }
 
   .workspaceHeading {

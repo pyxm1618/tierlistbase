@@ -72,7 +72,9 @@ export function WildRiftTierList() {
           <img
             src="/images/wild-rift/hero-760.webp"
             srcSet="/images/wild-rift/hero-760.webp 760w, /images/wild-rift/hero.webp 1440w"
-            sizes="(max-width: 800px) 100vw, 780px"
+            // The artwork is inset:0 inside a full-bleed header, so its rendered
+            // width always equals the viewport width (measured 360/412/768/1350/1920).
+            sizes="100vw"
             alt=""
             loading="eager"
             fetchPriority="high"
