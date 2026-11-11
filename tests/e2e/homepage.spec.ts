@@ -92,38 +92,30 @@ test("homepage renders the approved game-discovery information architecture", as
   const popular = page.locator("#popular-rankings");
   const readyRankings = popular.locator("a.tlb-popular-item");
   await expect(readyRankings).toHaveCount(10);
-  await expect(popular.getByRole("link", { name: "Open WoW ranking: DPS" })).toHaveAttribute(
-    "href",
-    "/wow-forever/tier-list?mode=dungeon&role=dps&level=30",
-  );
-  await expect(
-    popular.getByRole("link", { name: "Open Genshin ranking: Characters" }),
-  ).toHaveAttribute("href", "/genshin-impact/tier-list");
-  await expect(
-    popular.getByRole("link", { name: "Open NIKKE ranking: Characters" }),
-  ).toHaveAttribute("href", "/nikke/tier-list");
-  await expect(popular.getByRole("link", { name: "Open ZZZ ranking: Characters" })).toHaveAttribute(
-    "href",
-    "/zenless-zone-zero/tier-list",
-  );
-  await expect(
-    popular.getByRole("link", { name: "Open Limbus Company ranking: Identities" }),
-  ).toHaveAttribute("href", "/limbus-company/tier-list");
-  await expect(
-    popular.getByRole("link", { name: "Open Phantom Blade Zero ranking: Weapons" }),
-  ).toHaveAttribute("href", "/phantom-blade-zero/tier-list");
-  await expect(
-    popular.getByRole("link", { name: "Open Dragon Traveler ranking: Luminaries" }),
-  ).toHaveAttribute("href", "/dragon-traveler/tier-list");
-  await expect(
-    popular.getByRole("link", { name: "Open Wild Rift ranking: Ranked" }),
-  ).toHaveAttribute("href", "/wild-rift/tier-list");
-  await expect(
-    popular.getByRole("link", { name: "Open Anime Expeditions ranking: Units" }),
-  ).toHaveAttribute("href", "/anime-expeditions/tier-list");
-  await expect(
-    popular.getByRole("link", { name: "Open Slay the Spire 2 ranking: Cards" }),
-  ).toHaveAttribute("href", "/slay-the-spire-2/tier-list");
+
+  // Ranking links are addressed by destination and must expose an accessible name
+  // derived from their own visible text. They previously carried an
+  // "Open <game> ranking: <group>" aria-label, which Lighthouse reported as
+  // label-content-name-mismatch, so the label was removed instead of duplicated.
+  const rankingLinks = [
+    { href: "/wow-forever/tier-list?mode=dungeon&role=dps&level=30", name: /WoW/i, group: "DPS" },
+    { href: "/genshin-impact/tier-list", name: /Genshin/i, group: "Characters" },
+    { href: "/nikke/tier-list", name: /NIKKE/i, group: "Characters" },
+    { href: "/zenless-zone-zero/tier-list", name: /ZZZ/i, group: "Characters" },
+    { href: "/limbus-company/tier-list", name: /Limbus Company/i, group: "Identities" },
+    { href: "/phantom-blade-zero/tier-list", name: /Phantom Blade Zero/i, group: "Weapons" },
+    { href: "/dragon-traveler/tier-list", name: /Dragon Traveler/i, group: "Luminaries" },
+    { href: "/wild-rift/tier-list", name: /Wild Rift/i, group: "Ranked" },
+    { href: "/anime-expeditions/tier-list", name: /Anime Expeditions/i, group: "Units" },
+    { href: "/slay-the-spire-2/tier-list", name: /Slay the Spire 2/i, group: "Cards" },
+  ] as const;
+
+  for (const { href, name, group } of rankingLinks) {
+    const link = popular.locator(`a.tlb-popular-item[href="${href}"]`);
+    await expect(link).toHaveCount(1);
+    await expect(link).toHaveAccessibleName(name);
+    await expect(link).toContainText(group);
+  }
   await expect(popular.locator(".tlb-popular-soon")).toHaveCount(0);
 
   const heroImage = page.locator(".tlb-hero-art img");

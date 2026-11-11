@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import {
@@ -69,7 +68,21 @@ export function WildRiftTierList() {
     <main className={styles.page}>
       <header className={styles.hero} data-ia-section="hero">
         <div className={styles.heroArtwork} aria-hidden="true">
-          <Image src="/images/wild-rift/hero.webp" alt="" fill priority sizes="100vw" unoptimized />
+          {/* eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer */}
+          <img
+            // Canonical fallback: browsers with srcset support still pick the 760w
+            // candidate on phones, and the >=1200px Tier Board backdrop reuses this
+            // exact URL instead of downloading a second derivative.
+            src="/images/wild-rift/hero.webp"
+            srcSet="/images/wild-rift/hero-760.webp 760w, /images/wild-rift/hero.webp 1440w"
+            // The artwork is inset:0 inside a full-bleed header, so its rendered
+            // width always equals the viewport width (measured 360/412/768/1350/1920).
+            sizes="100vw"
+            alt=""
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
         </div>
         <div className={styles.heroAtmosphere} aria-hidden="true">
           <span />
