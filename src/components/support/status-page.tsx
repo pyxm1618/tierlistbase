@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { ReactNode } from "react";
 
 import styles from "./status-page.module.css";
@@ -21,14 +20,23 @@ export function SupportStatePage({
   return (
     <main className={styles.page}>
       <div className={styles.artwork} aria-hidden="true">
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element -- the artwork is already
+            served unoptimized, and `not-found` is embedded in every marketing page's
+            payload: pulling `next/image` in here made the image client chunk a third hop
+            on the homepage critical chain for an image no visitor sees first. */}
+        <img
           src={artwork}
           alt=""
-          fill
-          unoptimized
-          preload
-          sizes="100vw"
+          decoding="async"
+          loading="lazy"
           className={styles.image}
+          style={{
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            inset: 0,
+            color: "transparent",
+          }}
         />
       </div>
       <div className={styles.shade} aria-hidden="true" />
