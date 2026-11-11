@@ -1677,6 +1677,10 @@
 }
 
 .heroArtwork img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center 42%;
 }
@@ -2156,7 +2160,7 @@
     padding: 12px;
     background:
       linear-gradient(180deg, rgba(2, 17, 28, 0.92), rgba(2, 15, 25, 0.96)),
-      url("/images/wild-rift/hero.webp") center bottom / cover no-repeat;
+      url("/images/wild-rift/hero-760.webp") center bottom / cover no-repeat;
   }
 
   .workspaceHeading {

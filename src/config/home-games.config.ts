@@ -7,11 +7,15 @@ export const HOMEPAGE_GAME_FALLBACK_IMAGE = "/images/home/hero.webp";
 
 const responsiveImageSrcSets: Readonly<Record<string, string>> = {
   "/images/home/hero.webp":
-    "/images/home/hero-384.webp 384w, /images/home/hero-640.webp 640w, /images/home/hero-768.webp 768w, /images/home/hero-1080.webp 1080w, /images/home/hero-1536.webp 1536w, /images/home/hero.webp 2048w",
+    "/images/home/hero-384.webp 384w, /images/home/hero-640.webp 640w, /images/home/hero-768.webp 768w, /images/home/hero-1080.webp 1080w, /images/home/hero-1536.webp 1536w, /images/home/hero.webp 2172w",
   "/images/home/wow.webp":
     "/images/home/wow-384.webp 384w, /images/home/wow-640.webp 640w, /images/home/wow-768.webp 768w, /images/home/wow-1080.webp 1080w, /images/home/wow-1440.webp 1440w, /images/home/wow.webp 2048w",
   "/images/home/genshin.webp":
     "/images/home/genshin-384.webp 384w, /images/home/genshin-640.webp 640w, /images/home/genshin-768.webp 768w, /images/home/genshin-1080.webp 1080w, /images/home/genshin-1440.webp 1440w, /images/home/genshin.webp 1774w",
+  // Without a srcset this card always downloaded the full 1440px artwork for a
+  // slot that renders around 46vw.
+  "/images/wild-rift/hero.webp":
+    "/images/wild-rift/hero-760.webp 760w, /images/wild-rift/hero.webp 1440w",
 };
 
 export type HomepageGamePresentation = {

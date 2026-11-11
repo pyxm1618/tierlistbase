@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import {
@@ -69,7 +68,16 @@ export function WildRiftTierList() {
     <main className={styles.page}>
       <header className={styles.hero} data-ia-section="hero">
         <div className={styles.heroArtwork} aria-hidden="true">
-          <Image src="/images/wild-rift/hero.webp" alt="" fill priority sizes="100vw" unoptimized />
+          {/* eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer */}
+          <img
+            src="/images/wild-rift/hero-760.webp"
+            srcSet="/images/wild-rift/hero-760.webp 760w, /images/wild-rift/hero.webp 1440w"
+            sizes="(max-width: 800px) 100vw, 780px"
+            alt=""
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
         </div>
         <div className={styles.heroAtmosphere} aria-hidden="true">
           <span />
