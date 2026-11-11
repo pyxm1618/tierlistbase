@@ -1,3 +1,9 @@
+"use client";
+
+// Kept as a client component on purpose: a server component would put this
+// image's `<link rel=preload>` into the home route's RSC payload, and the header
+// prefetches `/` from every page, which made unrelated routes download the home
+// hero. Client rendering keeps the preload scoped to the homepage document.
 export function HomeHeroImage() {
   return (
     // eslint-disable-next-line @next/next/no-img-element -- direct-static responsive delivery bypasses /_next/image optimizer
