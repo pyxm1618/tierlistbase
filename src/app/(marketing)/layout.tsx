@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { connection } from "next/server";
 import type { ReactNode } from "react";
 
+import { AdSenseBootstrap } from "@/components/analytics/adsense-bootstrap";
 import { AnalyticsBoundary } from "@/components/analytics/analytics-boundary";
 import { StartupFameBadge } from "@/components/home/startup-fame-badge";
 import { SiteFooter } from "@/components/navigation/site-footer";
@@ -22,13 +23,6 @@ export default async function MarketingLayout({ children }: Readonly<{ children:
     <html lang={siteConfig.defaultLocale}>
       <head>
         <meta name="google-adsense-account" content="ca-pub-2804737462866511" />
-        {shouldLoadCmp ? (
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2804737462866511"
-            crossOrigin="anonymous"
-          />
-        ) : null}
       </head>
       <body>
         <div className="flex min-h-screen flex-col">
@@ -38,6 +32,7 @@ export default async function MarketingLayout({ children }: Readonly<{ children:
           <StartupFameBadge />
         </div>
         <AnalyticsBoundary />
+        {shouldLoadCmp ? <AdSenseBootstrap /> : null}
       </body>
     </html>
   );
