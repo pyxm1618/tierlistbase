@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 
 import { getHomepageGamePresentation, type HomepageTierListCard } from "@/config/home-games.config";
 import type { RecentRatingChangeItem } from "@/modules/meta-board";
@@ -145,9 +145,8 @@ function GameCard({ game, accent }: { game: HomepageTierListCard; accent: "gold"
   return (
     <Link
       href={game.href}
-      prefetch={true}
+      prefetch={false}
       className={`tlb-game-card${accent === "ice" ? " tlb-featured-ice" : ""}`}
-      aria-label={`Explore ${game.name} tier list`}
     >
       <div className="tlb-card-image" aria-hidden="true">
         {/* eslint-disable-next-line @next/next/no-img-element -- existing static assets are delivered directly and lazily */}
@@ -351,17 +350,59 @@ function UpdateCard({ update }: { update: RecentRatingChangeItem }) {
   );
 }
 
+function LatestUpdatesSection({ updates }: { updates: readonly RecentRatingChangeItem[] }) {
+  const visibleUpdates = prepareHomepageUpdates(updates);
+  if (visibleUpdates.length === 0) return null;
+
+  return (
+    <section className="tlb-section" id="latest-updates" aria-labelledby="updates-title">
+      <div className="tlb-heading-row">
+        <SectionTitle
+          id="updates-title"
+          subtitle="Recent recorded tier movements from supported ranking feeds."
+        >
+          Latest Updates
+        </SectionTitle>
+        <Link className="tlb-all-updates" href="#explore">
+          View rankings <Icon name="arrow" size={17} />
+        </Link>
+      </div>
+      <div className="tlb-update-grid">
+        {visibleUpdates.map((update) => (
+          <UpdateCard key={update.id} update={update} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+async function StreamedLatestUpdates({
+  updates,
+}: {
+  updates: Promise<readonly RecentRatingChangeItem[]>;
+}) {
+  return <LatestUpdatesSection updates={await updates} />;
+}
+
+type HomepageUpdatesInput =
+  | readonly RecentRatingChangeItem[]
+  | Promise<readonly RecentRatingChangeItem[]>;
+
+function isResolvedUpdates(
+  value: HomepageUpdatesInput,
+): value is readonly RecentRatingChangeItem[] {
+  return Array.isArray(value);
+}
+
 export function GameHome({
   title,
   updates,
   featuredGames,
 }: {
   title: string;
-  updates: RecentRatingChangeItem[];
+  updates: HomepageUpdatesInput;
   featuredGames: readonly HomepageTierListCard[];
 }) {
-  const visibleUpdates = prepareHomepageUpdates(updates);
-
   return (
     <div className="tlb-home">
       <section className="tlb-hero" aria-labelledby="page-title">
@@ -425,26 +466,13 @@ export function GameHome({
           </div>
         </section>
 
-        {visibleUpdates.length > 0 ? (
-          <section className="tlb-section" id="latest-updates" aria-labelledby="updates-title">
-            <div className="tlb-heading-row">
-              <SectionTitle
-                id="updates-title"
-                subtitle="Recent recorded tier movements from supported ranking feeds."
-              >
-                Latest Updates
-              </SectionTitle>
-              <Link className="tlb-all-updates" href="#explore">
-                View rankings <Icon name="arrow" size={17} />
-              </Link>
-            </div>
-            <div className="tlb-update-grid">
-              {visibleUpdates.map((update) => (
-                <UpdateCard key={update.id} update={update} />
-              ))}
-            </div>
-          </section>
-        ) : null}
+        {isResolvedUpdates(updates) ? (
+          <LatestUpdatesSection updates={updates} />
+        ) : (
+          <Suspense fallback={null}>
+            <StreamedLatestUpdates updates={updates} />
+          </Suspense>
+        )}
 
         <section
           className="tlb-section tlb-last-section"
@@ -477,7 +505,6 @@ export function GameHome({
                 <Link
                   key={item.title + item.subtitle}
                   href={item.href}
-                  aria-label={"Open " + item.title + " ranking: " + item.subtitle}
                   className="tlb-popular-item"
                 >
                   {contents}
@@ -487,9 +514,9 @@ export function GameHome({
                   key={item.title + item.subtitle}
                   className="tlb-popular-item tlb-popular-soon"
                   title="Coming soon"
-                  aria-label={item.title + " " + item.subtitle + ": coming soon"}
                 >
                   {contents}
+                  <span className="sr-only">coming soon</span>
                 </div>
               );
             })}

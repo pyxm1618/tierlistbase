@@ -35,13 +35,14 @@ export default async function HomePage() {
     buildRecentlyUpdatedCandidates(await getGameContentFreshness()),
   );
 
-  let changes: RecentRatingChangeItem[] = [];
-  try {
-    changes = await getHomeUpdates();
-  } catch (error) {
+  // Started here so the read runs in parallel with the rest of the render, but the
+  // page shell never awaits it. The updates block streams in from its own Suspense
+  // boundary, so ranking storage latency cannot delay first paint or LCP.
+  const updatesPromise = getHomeUpdates().catch((error: unknown) => {
     // Public discovery remains available if ranking storage is unconfigured or unavailable.
     console.error("Homepage ranking updates unavailable", error);
-  }
+    return [] as RecentRatingChangeItem[];
+  });
 
   return (
     <main>
@@ -59,7 +60,7 @@ export default async function HomePage() {
           description: home.description,
         })}
       />
-      <GameHome title={home.h1} updates={changes} featuredGames={featuredGames} />
+      <GameHome title={home.h1} featuredGames={featuredGames} updates={updatesPromise} />
     </main>
   );
 }

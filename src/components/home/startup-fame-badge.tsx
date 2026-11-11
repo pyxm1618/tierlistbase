@@ -24,6 +24,8 @@ export function StartupFameBadge() {
         <img
           alt="Tier List Base - Featured on Startup Fame"
           className="block h-[36px] w-[240px]"
+          decoding="async"
+          fetchPriority="low"
           height={36}
           loading="lazy"
           src={STARTUP_FAME_BADGE_SRC}

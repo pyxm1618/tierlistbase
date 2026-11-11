@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { authClient } from "@/platform/auth/auth-client";
 
 const VANGUARD_PATH = "/wow-forever/vanguard";
 const SEAT_ID = /^(?:WOW-(?:W1|O|W2)-[0-9]{4}|FOREVER-(?:F|O|R1|E1|V|E2|R2)-[0-9]{4})$/;
@@ -87,6 +86,9 @@ export function SiteHeaderAccount({
     setPending(true);
     setFailed(false);
     try {
+      // Loaded on demand: the auth client is only needed once a signed-in visitor
+      // actually signs out, so it stays out of the initial page bundle.
+      const { authClient } = await import("@/platform/auth/auth-client");
       const result = await authClient.signOut();
       if (result.error) throw new Error("Sign out failed");
       window.location.reload();
