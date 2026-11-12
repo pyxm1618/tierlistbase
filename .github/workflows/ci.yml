@@ -527,18 +527,7 @@ jobs:
       - name: Install harness dependencies
         run: bun install --frozen-lockfile
       - name: Install Chromium prerequisite
-        shell: bash
-        run: |
-          set -euo pipefail
-          # Same apt-free install as the three browser jobs. No cache is used here
-          # because this manual probe is intentionally an independent clean setup.
-          for attempt in 1 2 3; do
-            if bunx playwright install chromium; then exit 0; fi
-            echo "::warning::Chromium install attempt $attempt failed; retrying"
-            sleep $((attempt * 5))
-          done
-          echo "::error::Chromium install failed after 3 attempts"
-          exit 1
+        run: bunx playwright install --with-deps chromium
       - name: Verify independent clean setup
         run: bun scripts/verify-clean-setup.ts
 
