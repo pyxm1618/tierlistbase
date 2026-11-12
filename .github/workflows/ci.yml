@@ -323,8 +323,32 @@ jobs:
         with: { bun-version: 1.3.14 }
       - name: Install dependencies
         run: bun install --frozen-lockfile
+      - name: Restore Playwright browser cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('bun.lock') }}
       - name: Install Chromium
-        run: bunx playwright install --with-deps chromium
+        id: install_chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          # No apt system-dependency install: that path runs apt-get against azure.archive.ubuntu.com
+          # on every browser job. Its DNS outage made CI run 43039698668 fail three
+          # consecutive attempts before any browser test could start. The
+          # ubuntu-24.04 runner image already provides every shared library
+          # Chromium needs, so only the browser binaries are fetched, from the
+          # Playwright CDN at the exact revision pinned by bun.lock
+          # (@playwright/test 1.57.0 / Chromium build v1200). Retry below is
+          # defence in depth; removing the Ubuntu apt mirror from the runtime
+          # path is the actual fix.
+          for attempt in 1 2 3; do
+            if bunx playwright install chromium; then exit 0; fi
+            echo "::warning::Chromium install attempt $attempt failed; retrying"
+            sleep $((attempt * 5))
+          done
+          echo "::error::Chromium install failed after 3 attempts"
+          exit 1
       - name: Prepare database
         run: DATABASE_URL="$TEST_DATABASE_URL" bun run db:migrate
       - name: Real-page performance budgets
@@ -362,9 +386,34 @@ jobs:
         with: { bun-version: 1.3.14 }
       - name: Install dependencies
         run: bun install --frozen-lockfile
+      - name: Restore Playwright browser cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('bun.lock') }}
       - name: Install Chromium
-        run: bunx playwright install --with-deps chromium
+        id: install_chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          # No apt system-dependency install: that path runs apt-get against azure.archive.ubuntu.com
+          # on every browser job. Its DNS outage made CI run 43039698668 fail three
+          # consecutive attempts before any browser test could start. The
+          # ubuntu-24.04 runner image already provides every shared library
+          # Chromium needs, so only the browser binaries are fetched, from the
+          # Playwright CDN at the exact revision pinned by bun.lock
+          # (@playwright/test 1.57.0 / Chromium build v1200). Retry below is
+          # defence in depth; removing the Ubuntu apt mirror from the runtime
+          # path is the actual fix.
+          for attempt in 1 2 3; do
+            if bunx playwright install chromium; then exit 0; fi
+            echo "::warning::Chromium install attempt $attempt failed; retrying"
+            sleep $((attempt * 5))
+          done
+          echo "::error::Chromium install failed after 3 attempts"
+          exit 1
       - name: Prepare database and mailbox
+        id: prepare_database
         run: |
           rm -rf "$TEST_EMAIL_DIR"
           DATABASE_URL="$TEST_DATABASE_URL" bun run db:migrate
@@ -373,7 +422,14 @@ jobs:
       - name: Production-mode canonical and security output
         run: DATABASE_URL="$TEST_DATABASE_URL" bun run verify:seo:production
       - name: Targeted SEO keyword density audit
-        if: always() && needs.change_scope.outputs.seo_density_targets != 'skip'
+        # cleanup/reporting may use always(); a test that needs Chromium and a
+        # migrated database may not. Gate on the two environment prerequisites
+        # so a setup failure cannot turn into a misleading "DB regression".
+        if: >-
+          ${{ !cancelled()
+              && steps.install_chromium.outcome == 'success'
+              && steps.prepare_database.outcome == 'success'
+              && needs.change_scope.outputs.seo_density_targets != 'skip' }}
         env:
           SEO_DENSITY_TARGETS: ${{ needs.change_scope.outputs.seo_density_targets }}
           SEO_DENSITY_MODE: enforce
@@ -413,8 +469,32 @@ jobs:
         with: { bun-version: 1.3.14 }
       - name: Install dependencies
         run: bun install --frozen-lockfile
+      - name: Restore Playwright browser cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('bun.lock') }}
       - name: Install Chromium
-        run: bunx playwright install --with-deps chromium
+        id: install_chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          # No apt system-dependency install: that path runs apt-get against azure.archive.ubuntu.com
+          # on every browser job. Its DNS outage made CI run 43039698668 fail three
+          # consecutive attempts before any browser test could start. The
+          # ubuntu-24.04 runner image already provides every shared library
+          # Chromium needs, so only the browser binaries are fetched, from the
+          # Playwright CDN at the exact revision pinned by bun.lock
+          # (@playwright/test 1.57.0 / Chromium build v1200). Retry below is
+          # defence in depth; removing the Ubuntu apt mirror from the runtime
+          # path is the actual fix.
+          for attempt in 1 2 3; do
+            if bunx playwright install chromium; then exit 0; fi
+            echo "::warning::Chromium install attempt $attempt failed; retrying"
+            sleep $((attempt * 5))
+          done
+          echo "::error::Chromium install failed after 3 attempts"
+          exit 1
       - name: Prepare database
         run: DATABASE_URL="$TEST_DATABASE_URL" bun run db:migrate
       - name: Vanguard Google-only browser flows
@@ -447,7 +527,18 @@ jobs:
       - name: Install harness dependencies
         run: bun install --frozen-lockfile
       - name: Install Chromium prerequisite
-        run: bunx playwright install --with-deps chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Same apt-free install as the three browser jobs. No cache is used here
+          # because this manual probe is intentionally an independent clean setup.
+          for attempt in 1 2 3; do
+            if bunx playwright install chromium; then exit 0; fi
+            echo "::warning::Chromium install attempt $attempt failed; retrying"
+            sleep $((attempt * 5))
+          done
+          echo "::error::Chromium install failed after 3 attempts"
+          exit 1
       - name: Verify independent clean setup
         run: bun scripts/verify-clean-setup.ts
 
