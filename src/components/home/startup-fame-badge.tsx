@@ -13,8 +13,7 @@ const SHIPSTRY_HREF = "https://shipstry.com/";
 const SHIPSTRY_BADGE_SRC = "https://shipstry.com/badges/featured.svg";
 const STARTUPBASE_HREF =
   "https://startupbase.io/products/tier-list-base?utm_source=startupbase&utm_medium=badge&utm_campaign=launch-badge-dark";
-const STARTUPBASE_BADGE_SRC =
-  "https://statics.startupbase.io/site/badges/launched-on-sb-dark.svg";
+const STARTUPBASE_BADGE_SRC = "https://statics.startupbase.io/site/badges/launched-on-sb-dark.svg";
 
 /**
  * Startup Fame verification badge.
