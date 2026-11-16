@@ -56,9 +56,10 @@ export function StartupFameBadge() {
         {/* eslint-disable-next-line @next/next/no-img-element -- Fazier badge is an official external asset; next/image remotePatterns is intentionally not used */}
         <img
           alt="Fazier badge"
-          className="block w-[120px]"
+          className="block h-[36px] w-[120px]"
           decoding="async"
           fetchPriority="low"
+          height={36}
           loading="lazy"
           src={FAZIER_BADGE_SRC}
           width={120}
