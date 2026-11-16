@@ -79,7 +79,6 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
     "https://cdn.spire-codex.com",
     "https://startupfa.me",
     "https://www.betterlaunch.co",
-    "https://fazier.com",
     "https://shipstry.com",
     "https://statics.startupbase.io",
     ...cmpImageOrigins,
