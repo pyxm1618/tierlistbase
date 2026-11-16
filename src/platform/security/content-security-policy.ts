@@ -81,6 +81,7 @@ export function buildContentSecurityPolicy(input: ContentSecurityPolicyInput): s
     "https://www.betterlaunch.co",
     "https://fazier.com",
     "https://shipstry.com",
+    "https://statics.startupbase.io",
     ...cmpImageOrigins,
     ...(input.analytics.ga4 ? ["https://www.google-analytics.com"] : []),
     ...(input.analytics.clarity ? ["https://*.clarity.ms"] : []),
