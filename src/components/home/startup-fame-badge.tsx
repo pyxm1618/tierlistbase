@@ -11,6 +11,10 @@ const FAZIER_BADGE_SRC =
   "https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark";
 const SHIPSTRY_HREF = "https://shipstry.com/";
 const SHIPSTRY_BADGE_SRC = "https://shipstry.com/badges/featured.svg";
+const STARTUPBASE_HREF =
+  "https://startupbase.io/products/tier-list-base?utm_source=startupbase&utm_medium=badge&utm_campaign=launch-badge-dark";
+const STARTUPBASE_BADGE_SRC =
+  "https://statics.startupbase.io/site/badges/launched-on-sb-dark.svg";
 
 /**
  * Startup Fame verification badge.
@@ -76,6 +80,19 @@ export function StartupFameBadge() {
           loading="lazy"
           src={SHIPSTRY_BADGE_SRC}
           width={220}
+        />
+      </a>
+      <a href={STARTUPBASE_HREF} rel="noopener noreferrer" target="_blank">
+        {/* eslint-disable-next-line @next/next/no-img-element -- StartupBase badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
+        <img
+          alt="Launched on StartupBase"
+          className="block h-[55px] w-[206.25px]"
+          decoding="async"
+          fetchPriority="low"
+          height={55}
+          loading="lazy"
+          src={STARTUPBASE_BADGE_SRC}
+          width={206.25}
         />
       </a>
     </div>
