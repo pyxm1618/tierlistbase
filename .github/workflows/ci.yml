@@ -7,7 +7,8 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.event_name == 'push' && github.sha || github.head_ref || github.ref_name }}
+  # v2 escapes the poisoned pre-v2 concurrency group while preserving branch-scoped cancellation.
+  group: ci-v2-${{ github.workflow }}-${{ github.event_name == 'push' && github.sha || github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 permissions:
@@ -16,7 +17,7 @@ permissions:
 jobs:
   change_scope:
     name: Change Scope
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     outputs:
       vanguard: ${{ steps.scope.outputs.vanguard }}
@@ -91,7 +92,7 @@ jobs:
 
   quality_core:
     name: Quality Core
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     services:
       postgres:
@@ -152,7 +153,7 @@ jobs:
 
   integration:
     name: Database + Contract Integration
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     services:
       postgres:
@@ -205,7 +206,7 @@ jobs:
 
   product_gates:
     name: Product Contracts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 35
     services:
       postgres:
@@ -258,7 +259,7 @@ jobs:
 
   build_runtime:
     name: Build + Runtime
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 40
     services:
       postgres:
@@ -533,7 +534,7 @@ jobs:
 
   ci_required:
     name: CI Required
-    if: always()
+    if: ${{ always() && !cancelled() }}
     needs:
       - change_scope
       - quality_core
@@ -543,7 +544,7 @@ jobs:
       - performance
       - e2e
       - vanguard_e2e
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - name: Require every CI contract
