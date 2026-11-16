@@ -6,6 +6,11 @@ const STARTUP_FAME_HREF = "https://startupfa.me/s/tierlistbase?utm_source=www.ti
 const STARTUP_FAME_BADGE_SRC = "https://startupfa.me/badge?t=small&theme=dark";
 const BETTER_LAUNCH_HREF = "https://www.betterlaunch.co/product/tier-list-base";
 const BETTER_LAUNCH_BADGE_SRC = "https://www.betterlaunch.co/badge-seen-dark.svg";
+const FAZIER_HREF = "https://fazier.com/launches/www.tierlistbase.com";
+const FAZIER_BADGE_SRC =
+  "https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark";
+const SHIPSTRY_HREF = "https://shipstry.com/";
+const SHIPSTRY_BADGE_SRC = "https://shipstry.com/badges/featured.svg";
 
 /**
  * Startup Fame verification badge.
@@ -45,6 +50,32 @@ export function StartupFameBadge() {
           loading="lazy"
           src={BETTER_LAUNCH_BADGE_SRC}
           width={200}
+        />
+      </a>
+      <a href={FAZIER_HREF} rel="noopener noreferrer" target="_blank">
+        {/* eslint-disable-next-line @next/next/no-img-element -- Fazier badge is an official external asset; next/image remotePatterns is intentionally not used */}
+        <img
+          alt="Fazier badge"
+          className="block h-[36px] w-[120px]"
+          decoding="async"
+          fetchPriority="low"
+          height={36}
+          loading="lazy"
+          src={FAZIER_BADGE_SRC}
+          width={120}
+        />
+      </a>
+      <a href={SHIPSTRY_HREF} rel="noopener noreferrer" target="_blank">
+        {/* eslint-disable-next-line @next/next/no-img-element -- Shipstry badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
+        <img
+          alt="Featured on Shipstry"
+          className="block h-[52px] w-[220px]"
+          decoding="async"
+          fetchPriority="low"
+          height={52}
+          loading="lazy"
+          src={SHIPSTRY_BADGE_SRC}
+          width={220}
         />
       </a>
     </div>
