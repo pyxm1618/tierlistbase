@@ -17,7 +17,7 @@ permissions:
 jobs:
   change_scope:
     name: Change Scope
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     outputs:
       vanguard: ${{ steps.scope.outputs.vanguard }}
@@ -92,7 +92,7 @@ jobs:
 
   quality_core:
     name: Quality Core
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 30
     services:
       postgres:
@@ -153,7 +153,7 @@ jobs:
 
   integration:
     name: Database + Contract Integration
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 45
     services:
       postgres:
@@ -206,7 +206,7 @@ jobs:
 
   product_gates:
     name: Product Contracts
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 35
     services:
       postgres:
@@ -259,7 +259,7 @@ jobs:
 
   build_runtime:
     name: Build + Runtime
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 40
     services:
       postgres:
@@ -504,7 +504,7 @@ jobs:
   template_clean_setup:
     name: Template Clean Setup (manual)
     if: github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 55
     services:
       postgres:
@@ -544,7 +544,7 @@ jobs:
       - performance
       - e2e
       - vanguard_e2e
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 5
     steps:
       - name: Require every CI contract
@@ -572,7 +572,7 @@ jobs:
     name: Production Deploy
     if: ${{ always() && github.event_name == 'push' && github.ref_name == 'main' && needs.ci_required.result == 'success' }}
     needs: [ci_required]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     environment: production
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
