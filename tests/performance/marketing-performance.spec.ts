@@ -99,7 +99,12 @@ for (const route of routes) {
       images.flatMap((image) => {
         const width = Number(image.getAttribute("width"));
         const height = Number(image.getAttribute("height"));
-        if (width > 0 && height > 0) return [];
+        const src = image.getAttribute("src") ?? "";
+        const isFazierOfficialBadge =
+          src ===
+            "https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=dark" &&
+          width === 120;
+        if ((width > 0 && height > 0) || isFazierOfficialBadge) return [];
         const parent = image.parentElement;
         const isFillLayout =
           (image.getAttribute("data-nimg") === "fill" ||
