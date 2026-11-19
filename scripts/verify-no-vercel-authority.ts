@@ -28,9 +28,15 @@ const forbiddenPathPatterns = [
 ];
 
 const forbiddenOperationalPatterns = [
-  { label: "Vercel access-token or project-authority reference", pattern: /\bVERCEL_(?:TOKEN|ORG_ID|PROJECT_ID|STAGING_TOKEN)\b/ },
+  {
+    label: "Vercel access-token or project-authority reference",
+    pattern: /\bVERCEL_(?:TOKEN|ORG_ID|PROJECT_ID|STAGING_TOKEN)\b/,
+  },
   { label: "Vercel MCP endpoint", pattern: /\bmcp\.vercel\.com\b/i },
-  { label: "Vercel CLI deployment/project command", pattern: /\bvercel\s+(?:deploy|project|link|pull|build|promote|rollback)\b/i },
+  {
+    label: "Vercel CLI deployment/project command",
+    pattern: /\bvercel\s+(?:deploy|project|link|pull|build|promote|rollback)\b/i,
+  },
   { label: "Vercel CLI production shortcut", pattern: /\bvercel\s+--prod\b/i },
 ];
 
@@ -44,8 +50,15 @@ for (const file of files) {
   }
 }
 
-const packageJson = JSON.parse(await readFile("package.json", "utf8")) as Record<string, unknown>;
-for (const section of ["dependencies", "devDependencies", "optionalDependencies", "peerDependencies"]) {
+const packageJson = JSON.parse(
+  await readFile("package.json", "utf8"),
+) as Record<string, unknown>;
+for (const section of [
+  "dependencies",
+  "devDependencies",
+  "optionalDependencies",
+  "peerDependencies",
+]) {
   const dependencies = packageJson[section];
   if (!dependencies || typeof dependencies !== "object" || Array.isArray(dependencies)) continue;
   for (const name of Object.keys(dependencies)) {
