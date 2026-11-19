@@ -33,6 +33,9 @@ const forbiddenPathPatterns = [
   { label: "Vercel deployment configuration", pattern: /(^|\/)vercel\.json$/i },
 ];
 
+const forbiddenDefaultVercelDeploymentPattern =
+  /(?:^|[\r\n]|&&|\|\||;|\brun:\s*)\s*(?:(?:npx|bunx)\s+|(?:pnpm|yarn)\s+dlx\s+)?vercel(?:@[a-z0-9._-]+(?=\s*(?:$|[\r\n;&|])|\s+(?:deploy|project|link|pull|build|promote|rollback|--prod)\b)|(?=\s*(?:$|[\r\n;&|])))/im;
+
 const forbiddenOperationalPatterns = [
   {
     label: "Vercel access-token or project-authority reference",
@@ -40,11 +43,43 @@ const forbiddenOperationalPatterns = [
   },
   { label: "Vercel MCP endpoint", pattern: /\bmcp\.vercel\.com\b/i },
   {
+    label: "Vercel CLI default deployment invocation",
+    pattern: forbiddenDefaultVercelDeploymentPattern,
+  },
+  {
     label: "Vercel CLI deployment/project command",
     pattern: /\bvercel\s+(?:deploy|project|link|pull|build|promote|rollback)\b/i,
   },
   { label: "Vercel CLI production shortcut", pattern: /\bvercel\s+--prod\b/i },
 ];
+
+const requiredBlockedCliSamples = [
+  "vercel",
+  "npx vercel",
+  "bunx vercel",
+  "pnpm dlx vercel",
+  "yarn dlx vercel",
+  "npx vercel@latest",
+  "npx vercel@latest deploy",
+  "bunx vercel@latest",
+  "bunx vercel@latest deploy",
+  "vercel deploy",
+  "npx vercel deploy",
+];
+
+for (const sample of requiredBlockedCliSamples) {
+  if (!forbiddenOperationalPatterns.some((rule) => rule.pattern.test(sample))) {
+    throw new Error(`Vercel authority guard counterfactual failed to block: ${sample}`);
+  }
+}
+
+if (
+  forbiddenOperationalPatterns.some((rule) =>
+    rule.pattern.test("Vercel is not an authorized deployment path."),
+  )
+) {
+  throw new Error("Vercel authority guard counterfactual rejected ordinary descriptive text.");
+}
 
 const findings = [];
 const files = trackedFiles();
@@ -57,6 +92,20 @@ for (const file of files) {
 }
 
 const packageJson = JSON.parse(await readFile("package.json", "utf8"));
+const packageScripts = packageJson.scripts;
+if (packageScripts && typeof packageScripts === "object" && !Array.isArray(packageScripts)) {
+  for (const [name, command] of Object.entries(packageScripts)) {
+    if (
+      typeof command === "string" &&
+      forbiddenDefaultVercelDeploymentPattern.test(command)
+    ) {
+      findings.push(
+        `package.json: Vercel CLI default deployment invocation in scripts.${name}`,
+      );
+    }
+  }
+}
+
 for (const section of DEPENDENCY_SECTIONS) {
   const dependencies = packageJson[section];
   if (!dependencies || typeof dependencies !== "object" || Array.isArray(dependencies)) continue;
