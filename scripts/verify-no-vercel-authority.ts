@@ -33,7 +33,8 @@ const forbiddenPathPatterns = [
   { label: "Vercel deployment configuration", pattern: /(^|\/)vercel\.json$/i },
 ];
 
-const forbiddenDefaultVercelDeploymentPattern = /(?:^|[\r\n]|&&|\|\||;|\brun:\s*)\s*(?:(?:npx|bunx)\s+|(?:pnpm|yarn)\s+dlx\s+)?vercel(?:@[a-z0-9._-]+(?=\s*(?:$|[\r\n;&|])|\s+(?:deploy|project|link|pull|build|promote|rollback|--prod)\b)|(?=\s*(?:$|[\r\n;&|])))/im;
+const forbiddenDefaultVercelDeploymentPattern =
+  /(?:^|[\r\n]|&&|\|\||;|\brun:\s*)\s*(?:(?:npx|bunx)\s+|(?:pnpm|yarn)\s+dlx\s+)?vercel(?:@[a-z0-9._-]+(?=\s*(?:$|[\r\n;&|])|\s+(?:deploy|project|link|pull|build|promote|rollback|--prod)\b)|(?=\s*(?:$|[\r\n;&|])))/im;
 
 const forbiddenOperationalPatterns = [
   {
