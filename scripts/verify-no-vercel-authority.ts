@@ -3,13 +3,19 @@ import { readFile } from "node:fs/promises";
 
 const GUARD_FILE = "scripts/verify-no-vercel-authority.ts";
 const ALLOWED_EXISTING_VERCEL_CONFIGS = new Set(["examples/neutral-product/vercel.json"]);
+const DEPENDENCY_SECTIONS = [
+  "dependencies",
+  "devDependencies",
+  "optionalDependencies",
+  "peerDependencies",
+];
 
 function trackedFiles(): string[] {
-  const result = spawnSync("git", ["ls-files", "-z"], { encoding: "utf8" });
+  const result = spawnSync("git", ["ls-files", "-z"]);
   if (result.status !== 0) {
-    throw new Error(`git ls-files failed: ${result.stderr.trim()}`);
+    throw new Error(`git ls-files failed: ${result.stderr.toString("utf8").trim()}`);
   }
-  return result.stdout.split("\0").filter(Boolean).sort();
+  return result.stdout.toString("utf8").split("\0").filter(Boolean).sort();
 }
 
 function isTextCandidate(file: string): boolean {
@@ -40,7 +46,7 @@ const forbiddenOperationalPatterns = [
   { label: "Vercel CLI production shortcut", pattern: /\bvercel\s+--prod\b/i },
 ];
 
-const findings: string[] = [];
+const findings = [];
 const files = trackedFiles();
 
 for (const file of files) {
@@ -50,15 +56,8 @@ for (const file of files) {
   }
 }
 
-const packageJson = JSON.parse(
-  await readFile("package.json", "utf8"),
-) as Record<string, unknown>;
-for (const section of [
-  "dependencies",
-  "devDependencies",
-  "optionalDependencies",
-  "peerDependencies",
-]) {
+const packageJson = JSON.parse(await readFile("package.json", "utf8"));
+for (const section of DEPENDENCY_SECTIONS) {
   const dependencies = packageJson[section];
   if (!dependencies || typeof dependencies !== "object" || Array.isArray(dependencies)) continue;
   for (const name of Object.keys(dependencies)) {
@@ -82,9 +81,12 @@ for (const file of files) {
 }
 
 if (findings.length > 0) {
-  for (const finding of findings) console.error(finding);
+  for (const finding of findings) {
+    console.error(finding);
+  }
   throw new Error(
-    "TierListBase has no authorized Vercel deployment path. Remove Vercel deployment authority or obtain explicit authorization for an architecture change.",
+    "TierListBase has no authorized Vercel deployment path. " +
+      "Remove Vercel deployment authority or obtain explicit authorization for an architecture change.",
   );
 }
 
