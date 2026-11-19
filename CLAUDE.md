@@ -137,6 +137,24 @@ The deploy job verifies that the workflow SHA is still the current `main` before
 
 Do not add or restore a Vercel deployment workflow unless the product deployment architecture is intentionally changed in a separate scoped task.
 
+### Vercel authority boundary
+
+TierListBase has no authorized Vercel deployment path. Production deployment authority remains GitHub Actions -> Vinext -> Cloudflare.
+
+AI agents MUST NOT:
+
+- create a Vercel Project for this repository;
+- deploy this repository to Vercel;
+- use Vercel as a temporary builder or runner;
+- use Vercel for audits or probes;
+- use Vercel for screenshot or visual-sample generation;
+- use Vercel for asset generation;
+- use Vercel to bypass local environment limitations.
+
+If execution is blocked locally, stop and report the blocker. Do not provision Vercel, Cloudflare, Supabase, Neon, or other persistent cloud infrastructure without explicit user authorization.
+
+References such as `VERCEL_ENV` in safety tests are test fixtures only and do not grant deployment authority. The pre-existing `examples/neutral-product/vercel.json` is retained as a neutral example/test input only; it is not an authorized TierListBase deployment path and is the guard's sole exact-path Vercel config exception.
+
 ## Documentation policy
 
 Keep docs current and minimal.
