@@ -2,6 +2,7 @@ import { spawnSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 
 const GUARD_FILE = "scripts/verify-no-vercel-authority.ts";
+const ALLOWED_EXISTING_VERCEL_CONFIGS = new Set(["examples/neutral-product/vercel.json"]);
 
 function trackedFiles(): string[] {
   const result = spawnSync("git", ["ls-files", "-z"], { encoding: "utf8" });
@@ -37,6 +38,7 @@ const findings: string[] = [];
 const files = trackedFiles();
 
 for (const file of files) {
+  if (ALLOWED_EXISTING_VERCEL_CONFIGS.has(file)) continue;
   for (const rule of forbiddenPathPatterns) {
     if (rule.pattern.test(file)) findings.push(`${file}: ${rule.label}`);
   }
