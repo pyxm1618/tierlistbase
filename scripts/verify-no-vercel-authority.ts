@@ -94,13 +94,8 @@ const packageJson = JSON.parse(await readFile("package.json", "utf8"));
 const packageScripts = packageJson.scripts;
 if (packageScripts && typeof packageScripts === "object" && !Array.isArray(packageScripts)) {
   for (const [name, command] of Object.entries(packageScripts)) {
-    if (
-      typeof command === "string" &&
-      forbiddenDefaultVercelDeploymentPattern.test(command)
-    ) {
-      findings.push(
-        `package.json: Vercel CLI default deployment invocation in scripts.${name}`,
-      );
+    if (typeof command === "string" && forbiddenDefaultVercelDeploymentPattern.test(command)) {
+      findings.push(`package.json: Vercel CLI default deployment invocation in scripts.${name}`);
     }
   }
 }
