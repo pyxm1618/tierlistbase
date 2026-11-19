@@ -153,7 +153,7 @@ AI agents MUST NOT:
 
 If execution is blocked locally, stop and report the blocker. Do not provision Vercel, Cloudflare, Supabase, Neon, or other persistent cloud infrastructure without explicit user authorization.
 
-References such as `VERCEL_ENV` in safety tests are test fixtures only and do not grant deployment authority.
+References such as `VERCEL_ENV` in safety tests are test fixtures only and do not grant deployment authority. The pre-existing `examples/neutral-product/vercel.json` is retained as a neutral example/test input only; it is not an authorized TierListBase deployment path and is the guard's sole exact-path Vercel config exception.
 
 ## Documentation policy
 
