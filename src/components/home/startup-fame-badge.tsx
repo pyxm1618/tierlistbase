@@ -123,6 +123,15 @@ export function StartupFameBadge() {
       <a
         href={badge.href}
         key={badge.href}
+        onFocus={
+          clone
+            ? undefined
+            : (event) =>
+                event.currentTarget.scrollIntoView({
+                  block: "nearest",
+                  inline: "nearest",
+                })
+        }
         rel={badge.rel}
         tabIndex={clone ? -1 : undefined}
         target="_blank"
@@ -146,6 +155,9 @@ export function StartupFameBadge() {
       <div className="tlb-badge-marquee-viewport">
         <div className="tlb-badge-marquee-track">
           <div className="tlb-badge-marquee-group">{renderBadges(false)}</div>
+          <div aria-hidden="true" className="tlb-badge-marquee-group">
+            {renderBadges(true)}
+          </div>
           <div aria-hidden="true" className="tlb-badge-marquee-group">
             {renderBadges(true)}
           </div>
@@ -178,14 +190,28 @@ export function StartupFameBadge() {
           flex: 0 0 auto;
         }
 
-        .tlb-badge-marquee-viewport:hover .tlb-badge-marquee-track,
-        .tlb-badge-marquee-viewport:focus-within .tlb-badge-marquee-track {
+        .tlb-badge-marquee-viewport:hover .tlb-badge-marquee-track {
           animation-play-state: paused;
+        }
+
+        .tlb-badge-marquee-viewport:focus-within {
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+
+        .tlb-badge-marquee-viewport:focus-within::-webkit-scrollbar {
+          display: none;
+        }
+
+        .tlb-badge-marquee-viewport:focus-within .tlb-badge-marquee-track {
+          animation: none;
+          transform: translate3d(0, 0, 0);
+          will-change: auto;
         }
 
         @keyframes tlb-badge-marquee {
           to {
-            transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-33.3333333333%, 0, 0);
           }
         }
 
