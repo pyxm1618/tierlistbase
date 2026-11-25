@@ -161,6 +161,9 @@ export function StartupFameBadge() {
           <div aria-hidden="true" className="tlb-badge-marquee-group">
             {renderBadges(true)}
           </div>
+          <div aria-hidden="true" className="tlb-badge-marquee-group">
+            {renderBadges(true)}
+          </div>
         </div>
       </div>
       <style>{`
@@ -211,7 +214,7 @@ export function StartupFameBadge() {
 
         @keyframes tlb-badge-marquee {
           to {
-            transform: translate3d(-33.3333333333%, 0, 0);
+            transform: translate3d(-25%, 0, 0);
           }
         }
 
