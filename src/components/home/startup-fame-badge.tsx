@@ -126,11 +126,14 @@ export function StartupFameBadge() {
         onFocus={
           clone
             ? undefined
-            : (event) =>
+            : (event) => {
+                if (!event.currentTarget.matches(":focus-visible")) return;
+
                 event.currentTarget.scrollIntoView({
                   block: "nearest",
                   inline: "nearest",
-                })
+                });
+              }
         }
         rel={badge.rel}
         tabIndex={clone ? -1 : undefined}
@@ -197,16 +200,16 @@ export function StartupFameBadge() {
           animation-play-state: paused;
         }
 
-        .tlb-badge-marquee-viewport:focus-within {
+        .tlb-badge-marquee-viewport:has(a:focus-visible) {
           overflow-x: auto;
           scrollbar-width: none;
         }
 
-        .tlb-badge-marquee-viewport:focus-within::-webkit-scrollbar {
+        .tlb-badge-marquee-viewport:has(a:focus-visible)::-webkit-scrollbar {
           display: none;
         }
 
-        .tlb-badge-marquee-viewport:focus-within .tlb-badge-marquee-track {
+        .tlb-badge-marquee-viewport:has(a:focus-visible) .tlb-badge-marquee-track {
           animation: none;
           transform: translate3d(0, 0, 0);
           will-change: auto;
