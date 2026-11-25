@@ -22,137 +22,193 @@ const CODEHYPE_BADGE_SRC = "https://www.codehype.ai/badges/tier-list-base.svg?va
 const BESTSKY_HREF = "https://bestsky.tools?utm_source=badge";
 const BESTSKY_BADGE_SRC = "https://assets.bestsky.tools/badges/featured-light.svg";
 
+const BADGES = [
+  {
+    href: STARTUP_FAME_HREF,
+    rel: "noopener",
+    src: STARTUP_FAME_BADGE_SRC,
+    alt: "Tier List Base - Featured on Startup Fame",
+    className: "block h-[36px] w-[240px]",
+    height: 36,
+    width: 240,
+  },
+  {
+    href: BETTER_LAUNCH_HREF,
+    rel: "noopener",
+    src: BETTER_LAUNCH_BADGE_SRC,
+    alt: "View Tier List Base on Better Launch",
+    className: "block h-[56px] w-[200px]",
+    height: 56,
+    width: 200,
+  },
+  {
+    href: SHIPSTRY_HREF,
+    rel: "noopener noreferrer",
+    src: SHIPSTRY_BADGE_SRC,
+    alt: "Featured on Shipstry",
+    className: "block h-[52px] w-[220px]",
+    height: 52,
+    width: 220,
+  },
+  {
+    href: STARTUPBASE_HREF,
+    rel: "noopener noreferrer",
+    src: STARTUPBASE_BADGE_SRC,
+    alt: "Launched on StartupBase",
+    className: "block h-[55px] w-[206.25px]",
+    height: 55,
+    width: 206.25,
+  },
+  {
+    href: FINDLY_HREF,
+    rel: "noopener noreferrer",
+    src: FINDLY_BADGE_SRC,
+    alt: "Featured on Findly.tools",
+    className: "block h-[55px] w-[173.75px]",
+    height: 55,
+    width: 173.75,
+  },
+  {
+    href: FIRST_LOOK_HREF,
+    rel: "noopener noreferrer",
+    src: FIRST_LOOK_BADGE_SRC,
+    alt: "Featured on First Look",
+    className: "block h-[55px] w-[200px]",
+    height: 55,
+    width: 200,
+  },
+  {
+    href: TWELVE_TOOLS_HREF,
+    rel: "noopener noreferrer",
+    src: TWELVE_TOOLS_BADGE_SRC,
+    alt: "Featured on Twelve Tools",
+    className: "block h-[54px] w-[200px]",
+    height: 54,
+    width: 200,
+  },
+  {
+    href: CODEHYPE_HREF,
+    rel: "noopener noreferrer",
+    src: CODEHYPE_BADGE_SRC,
+    alt: "Featured on CodeHype",
+    className: "block h-[52px] w-[144px]",
+    height: 52,
+    width: 144,
+  },
+  {
+    href: BESTSKY_HREF,
+    rel: "noopener noreferrer",
+    src: BESTSKY_BADGE_SRC,
+    alt: "Featured on BestskyTools",
+    className: "block h-[52.5px] w-[162.5px]",
+    height: 52.5,
+    width: 162.5,
+  },
+] as const;
+
 /**
- * Startup Fame verification badge.
+ * Homepage-only reciprocal-link badge rail.
  *
- * Rendered by the marketing layout *after* <SiteFooter /> so the badge is the
- * last visible block on the homepage, and only on the homepage. Non-homepage
- * routes render nothing, so the reciprocal backlink stays homepage-only.
+ * Rendered by the marketing layout after <SiteFooter /> so it remains the last
+ * visible block on the homepage. The rail is permanently single-row; overflow
+ * is presented as a continuous horizontal marquee instead of wrapping.
  */
 export function StartupFameBadge() {
   const pathname = usePathname();
 
   if (pathname !== "/") return null;
 
+  const renderBadges = (clone: boolean) =>
+    BADGES.map((badge) => (
+      <a
+        href={badge.href}
+        key={badge.href}
+        rel={badge.rel}
+        tabIndex={clone ? -1 : undefined}
+        target="_blank"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element -- official fixed-size external badge assets intentionally stay as plain img elements */}
+        <img
+          alt={badge.alt}
+          className={badge.className}
+          decoding="async"
+          fetchPriority="low"
+          height={badge.height}
+          loading="lazy"
+          src={badge.src}
+          width={badge.width}
+        />
+      </a>
+    ));
+
   return (
-    <div className="flex w-full flex-wrap items-center justify-center gap-3 bg-[#020e19] py-3">
-      <a href={STARTUP_FAME_HREF} rel="noopener" target="_blank">
-        {/* eslint-disable-next-line @next/next/no-img-element -- Startup Fame badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
-        <img
-          alt="Tier List Base - Featured on Startup Fame"
-          className="block h-[36px] w-[240px]"
-          decoding="async"
-          fetchPriority="low"
-          height={36}
-          loading="lazy"
-          src={STARTUP_FAME_BADGE_SRC}
-          width={240}
-        />
-      </a>
-      <a href={BETTER_LAUNCH_HREF} rel="noopener" target="_blank">
-        {/* eslint-disable-next-line @next/next/no-img-element -- Better Launch badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
-        <img
-          alt="View Tier List Base on Better Launch"
-          className="block h-[56px] w-[200px]"
-          decoding="async"
-          fetchPriority="low"
-          height={56}
-          loading="lazy"
-          src={BETTER_LAUNCH_BADGE_SRC}
-          width={200}
-        />
-      </a>
-      <a href={SHIPSTRY_HREF} rel="noopener noreferrer" target="_blank">
-        {/* eslint-disable-next-line @next/next/no-img-element -- Shipstry badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
-        <img
-          alt="Featured on Shipstry"
-          className="block h-[52px] w-[220px]"
-          decoding="async"
-          fetchPriority="low"
-          height={52}
-          loading="lazy"
-          src={SHIPSTRY_BADGE_SRC}
-          width={220}
-        />
-      </a>
-      <a href={STARTUPBASE_HREF} rel="noopener noreferrer" target="_blank">
-        {/* eslint-disable-next-line @next/next/no-img-element -- StartupBase badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
-        <img
-          alt="Launched on StartupBase"
-          className="block h-[55px] w-[206.25px]"
-          decoding="async"
-          fetchPriority="low"
-          height={55}
-          loading="lazy"
-          src={STARTUPBASE_BADGE_SRC}
-          width={206.25}
-        />
-      </a>
-      <a href={FINDLY_HREF} rel="noopener noreferrer" target="_blank">
-        {/* eslint-disable-next-line @next/next/no-img-element -- Findly.tools badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
-        <img
-          alt="Featured on Findly.tools"
-          className="block h-[55px] w-[173.75px]"
-          decoding="async"
-          fetchPriority="low"
-          height={55}
-          loading="lazy"
-          src={FINDLY_BADGE_SRC}
-          width={173.75}
-        />
-      </a>
-      <a href={FIRST_LOOK_HREF} rel="noopener noreferrer" target="_blank">
-        {/* eslint-disable-next-line @next/next/no-img-element -- First Look badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
-        <img
-          alt="Featured on First Look"
-          className="block h-[55px] w-[200px]"
-          decoding="async"
-          fetchPriority="low"
-          height={55}
-          loading="lazy"
-          src={FIRST_LOOK_BADGE_SRC}
-          width={200}
-        />
-      </a>
-      <a href={TWELVE_TOOLS_HREF} rel="noopener noreferrer" target="_blank">
-        {/* eslint-disable-next-line @next/next/no-img-element -- Twelve Tools badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
-        <img
-          alt="Featured on Twelve Tools"
-          className="block h-[54px] w-[200px]"
-          decoding="async"
-          fetchPriority="low"
-          height={54}
-          loading="lazy"
-          src={TWELVE_TOOLS_BADGE_SRC}
-          width={200}
-        />
-      </a>
-      <a href={CODEHYPE_HREF} rel="noopener noreferrer" target="_blank">
-        {/* eslint-disable-next-line @next/next/no-img-element -- CodeHype badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
-        <img
-          alt="Featured on CodeHype"
-          className="block h-[52px] w-[144px]"
-          decoding="async"
-          fetchPriority="low"
-          height={52}
-          loading="lazy"
-          src={CODEHYPE_BADGE_SRC}
-          width={144}
-        />
-      </a>
-      <a href={BESTSKY_HREF} rel="noopener noreferrer" target="_blank">
-        {/* eslint-disable-next-line @next/next/no-img-element -- BestskyTools badge is an official fixed-size external asset; next/image remotePatterns is intentionally not used */}
-        <img
-          alt="Featured on BestskyTools"
-          className="block h-[52.5px] w-[162.5px]"
-          decoding="async"
-          fetchPriority="low"
-          height={52.5}
-          loading="lazy"
-          src={BESTSKY_BADGE_SRC}
-          width={162.5}
-        />
-      </a>
-    </div>
+    <>
+      <div className="tlb-badge-marquee-viewport">
+        <div className="tlb-badge-marquee-track">
+          <div className="tlb-badge-marquee-group">{renderBadges(false)}</div>
+          <div aria-hidden="true" className="tlb-badge-marquee-group">
+            {renderBadges(true)}
+          </div>
+        </div>
+      </div>
+      <style>{`
+        .tlb-badge-marquee-viewport {
+          width: 100%;
+          overflow: hidden;
+          background: #020e19;
+          padding: 0.75rem 0;
+        }
+
+        .tlb-badge-marquee-track {
+          display: flex;
+          width: max-content;
+          animation: tlb-badge-marquee 42s linear infinite;
+          will-change: transform;
+        }
+
+        .tlb-badge-marquee-group {
+          display: flex;
+          flex-shrink: 0;
+          align-items: center;
+          gap: 0.75rem;
+          padding-right: 0.75rem;
+        }
+
+        .tlb-badge-marquee-group > a {
+          flex: 0 0 auto;
+        }
+
+        .tlb-badge-marquee-viewport:hover .tlb-badge-marquee-track,
+        .tlb-badge-marquee-viewport:focus-within .tlb-badge-marquee-track {
+          animation-play-state: paused;
+        }
+
+        @keyframes tlb-badge-marquee {
+          to {
+            transform: translate3d(-50%, 0, 0);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .tlb-badge-marquee-viewport {
+            overflow-x: auto;
+            scrollbar-width: none;
+          }
+
+          .tlb-badge-marquee-viewport::-webkit-scrollbar {
+            display: none;
+          }
+
+          .tlb-badge-marquee-track {
+            animation: none;
+            will-change: auto;
+          }
+
+          .tlb-badge-marquee-group[aria-hidden="true"] {
+            display: none;
+          }
+        }
+      `}</style>
+    </>
   );
 }
