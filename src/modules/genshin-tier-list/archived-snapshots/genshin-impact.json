@@ -1,0 +1,3733 @@
+{
+  "schemaVersion": 1,
+  "provenance": {
+    "gameSlug": "genshin-impact",
+    "exportedAt": "2026-11-26T07:11:38.383Z",
+    "databaseTarget": "neon:us-east-1",
+    "version": "7.1",
+    "editorialPackage": "data/editorial/genshin-impact/7.1",
+    "counts": {
+      "characters": 121,
+      "evidence": 130
+    }
+  },
+  "data": {
+    "version": "7.1",
+    "context": "endgame-overall",
+    "characters": [
+      {
+        "id": "ed-ef5449600f48911810a15d8d8e3c4e6e1",
+        "name": "Aino",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 对 Lunar-Charged 有实际辅助价值且能提供场下 Hydro，但竞争位明显，难称核心不可替代。",
+        "strengths": ["场下 Hydro", "C6 Lunar-Charged buff", "短轴"],
+        "limitations": ["体系偏 Lunar", "个人贡献普通"],
+        "bestUseContext": "Flins/Lunar-Charged",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current Abyss + 7.1 role cross-check",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/aino/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/aino/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "Luna I",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/8397?lang=en-us"
+      },
+      {
+        "id": "ed-ed25e50136fe21299bc550fe83aff7acd",
+        "name": "Albedo",
+        "tier": "A",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "当前 Hexerei 环境提升了其场下伤害与团队增益价值，但适配面和核心性仍弱于顶级通用副 C。",
+        "strengths": ["低占场 Geo", "稳定伤害", "Hexerei 增益"],
+        "limitations": ["Geo 结构依赖", "易替代"],
+        "bestUseContext": "Geo/Hexerei 场下位",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 editorial + KQM current-era update",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/albedo/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/albedo/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "1.2",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/47?lang=en-us"
+      },
+      {
+        "id": "ed-764b1aef49f715ba21bf8386a7b699d04",
+        "name": "Alhaitham",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "Dendro 本体仍稳定且队伍成熟，但当前顶层 Endgame 环境已有更高上限和更匹配的新体系主 C。",
+        "strengths": ["强 Dendro 驱动", "成熟反应队", "稳定"],
+        "limitations": ["主 C 替代多", "当前上限非顶层"],
+        "bestUseContext": "Quickbloom/Hyperbloom",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 role + mechanics",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/alhaitham/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/alhaitham/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "3.4",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3336?lang=en-us"
+      },
+      {
+        "id": "ed-cbbcf629aada55a0a793a57e4c4d068a0",
+        "name": "Aloy",
+        "tier": "E",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "机制、倍率、队伍贡献和成长路径都缺少当前 Endgame 竞争力，几乎没有不可替代价值。",
+        "strengths": ["免费 Cryo 应用", "爆发短"],
+        "limitations": ["无命座成长", "整体倍率和协同弱"],
+        "bestUseContext": "极有限 Cryo burst 场景",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role cross-check",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/aloy/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/aloy/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "2.1 (PlayStation); 2.2 (All Platforms)",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/13?lang=en-us"
+      },
+      {
+        "id": "ed-192d6e05dec00ff14b24aad212defee48",
+        "name": "Alyosha",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 下在 Stellar-Conduct 中兼顾增益、场下 Electro 与生存，当前体系价值明确；但离开该体系后下降明显。",
+        "strengths": ["Electro 场下", "治疗/增益", "C6 强"],
+        "limitations": ["Stellar-Conduct 绑定"],
+        "bestUseContext": "Sandrone/Cyno/Cryo Traveler SSC",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "KQM current Stellar-Conduct teams",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/alyosha/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/alyosha/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "7.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/11163?lang=en-us"
+      },
+      {
+        "id": "ed-e12cb357d7af2353da30757c87f10dbe0",
+        "name": "Amber",
+        "tier": "E",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 有少量团队辅助价值，但总体输出、覆盖与替代关系使其难以成为合理 Endgame 优先位。",
+        "strengths": ["C6 小幅团队 buff", "Pyro bow utility"],
+        "limitations": ["输出低", "团队贡献少"],
+        "bestUseContext": "极少数 burst/support niche",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role cross-check",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/amber/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/amber/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/14?lang=en-us"
+      },
+      {
+        "id": "ed-0a7f65fcb068cb37c2bde36f24eb8c1eb",
+        "name": "Arataki Itto",
+        "tier": "B",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "能稳定承担 Geo 主 C，但队伍绑定和当前输出竞争力均落后于新一代 Geo / reaction carry。",
+        "strengths": ["Geo 稳定输出", "高抗打断"],
+        "limitations": ["队伍固定", "较长站场"],
+        "bestUseContext": "Gorou/Geo hypercarry",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/arataki-itto/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/arataki-itto/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "2.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/36?lang=en-us"
+      },
+      {
+        "id": "ed-695a9009560efd9a3909fff5cb1223b58",
+        "name": "Arlecchino",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C0 无专武仍具高输出、稳定循环和成熟队伍；主要扣分是纯主 C 的可替代性以及对生存管理的要求。",
+        "strengths": ["高前台输出", "优秀爆发", "队伍成熟"],
+        "limitations": ["治疗机制限制", "纯 carry"],
+        "bestUseContext": "Vape/Overload/Pyro carry",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 review",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/arlecchino/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/arlecchino/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "4.6",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/5149?lang=en-us"
+      },
+      {
+        "id": "ed-59ddca2c8a33e7e1813338908bff2cf43",
+        "name": "Baizhu",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "生存、Dendro 应用与反应辅助整合度高，跨多个 Dendro 队伍有用；但并非多数队伍的最优核心。",
+        "strengths": ["全队治疗", "Dendro", "抗打断小盾"],
+        "limitations": ["应用有限", "进攻增益不突出"],
+        "bestUseContext": "Dendro sustain",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role cross-check",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/baizhu/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/baizhu/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "3.6",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3609?lang=en-us"
+      },
+      {
+        "id": "ed-85d9b63a46e908a300602fda8c665052f",
+        "name": "Barbara",
+        "tier": "B",
+        "primaryRole": "Support",
+        "whyThisTier": "治疗与 Hydro 应用可靠，但场上/自挂水问题、功能单一以及更优 Hydro sustain 使其上限受限。",
+        "strengths": ["强治疗", "Hydro Catalyst"],
+        "limitations": ["自挂水", "贡献单一"],
+        "bestUseContext": "低成本 Hydro sustain",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/barbara/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/barbara/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/35?lang=en-us"
+      },
+      {
+        "id": "ed-9c61e68dd7d9be70bb073affda1cb8cb8",
+        "name": "Beidou",
+        "tier": "B+",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 多目标环境仍有很强场下输出和减抗，但对目标数量、能量和搭档依赖较高。",
+        "strengths": ["C6 多目标高伤", "减抗", "减伤"],
+        "limitations": ["单体下降", "能量需求"],
+        "bestUseContext": "多目标 Electro / SSC 辅助",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role + Stellar evidence",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/beidou/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/beidou/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/11?lang=en-us"
+      },
+      {
+        "id": "ed-30254ee8d147103180987894d8573a8b6",
+        "name": "Bennett",
+        "tier": "A+",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 仍是极强 ATK Buffer + Healer，但圈地、能量要求、只强化 ATK scaling 角色，以及 Nicole/Hexerei 对同类队伍槽位的竞争，足以阻止进入 S。S 所要求的当前跨体系不可替代性已经不成立。",
+        "strengths": ["高 ATK buff", "治疗", "低成本"],
+        "limitations": ["圈地", "部分新体系不吃 buff"],
+        "bestUseContext": "ATK carry / Melt / Pyro",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "7.1 Icy + Mobalytics current cross-check",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          },
+          {
+            "id": "ed-98446131d6efca496b38f69a38a8a22ed",
+            "name": "Mobalytics",
+            "url": "https://mobalytics.gg/genshin-impact/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/bennett/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/bennett/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 4,
+        "weapon": "Sword",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/26?lang=en-us"
+      },
+      {
+        "id": "ed-9714da2d8db847e517938918e3a0611b8",
+        "name": "Candace",
+        "tier": "C",
+        "primaryRole": "Support",
+        "whyThisTier": "有特定 Hydro infusion / 普攻辅助用途，但队伍覆盖窄且同位置替代品普遍更强。",
+        "strengths": ["Hydro infusion", "普攻辅助"],
+        "limitations": ["极窄", "替代品多"],
+        "bestUseContext": "特定 Hydro NA 队",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/candace/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/candace/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "3.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2815?lang=en-us"
+      },
+      {
+        "id": "ed-78b2b6813c5124fd580d7010be6239502",
+        "name": "Charlotte",
+        "tier": "B",
+        "primaryRole": "Support",
+        "whyThisTier": "团队治疗和 Cryo 应用实用，尤其能配 Furina，但自身贡献较集中且很容易被更强 Cryo sustain 替代。",
+        "strengths": ["全队治疗", "Cryo", "Furina 友好"],
+        "limitations": ["攻击贡献低", "易替代"],
+        "bestUseContext": "Furina/Cryo sustain",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/charlotte/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/charlotte/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "4.2",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4377?lang=en-us"
+      },
+      {
+        "id": "ed-1c600edf032e5157b09530805b8e9a7bc",
+        "name": "Chasca",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C0 有优秀远程输出和元素适应性，但队伍构建、机制匹配和环境限制使其综合性低于 A+ 主 C。",
+        "strengths": ["远程", "元素适应", "单体强"],
+        "limitations": ["队伍构成要求", "Boss/元素依赖"],
+        "bestUseContext": "PHEC mixed teams",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/chasca/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/chasca/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "5.2",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7080?lang=en-us"
+      },
+      {
+        "id": "ed-47b942c443c308ef2e9c55a58a56d22cb",
+        "name": "Chevreuse",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 在 Overloaded 队中属于高价值专属支持；体系窄是最大扣分，而不是强度不足。",
+        "strengths": ["C6 Overload 增益高", "治疗", "减抗"],
+        "limitations": ["严格 Pyro/Electro"],
+        "bestUseContext": "Overload",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/chevreuse/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/chevreuse/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "4.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4577?lang=en-us"
+      },
+      {
+        "id": "ed-1041215be9a8ab29f9dcf04b216962f2d",
+        "name": "Chiori",
+        "tier": "B+",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "稳定场下 Geo 伤害、低操作负担，但对 Geo 结构依赖较重，团队增益和泛用性有限。",
+        "strengths": ["稳定 Geo 场下", "低占场"],
+        "limitations": ["构造物/Geo 配队限制"],
+        "bestUseContext": "Geo double-core",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/chiori/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/chiori/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "4.5",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4946?lang=en-us"
+      },
+      {
+        "id": "ed-92496c0e2138a5d83a4d3813b45dd372a",
+        "name": "Chongyun",
+        "tier": "C",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "能提供 Cryo infusion 和少量爆发，但当前高难环境几乎没有需要其独特工具的主流队伍。",
+        "strengths": ["Cryo infusion", "短 CD", "爆发"],
+        "limitations": ["当前无核心队", "会干扰部分 carry"],
+        "bestUseContext": "特殊 Cryo quickswap",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/chongyun/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/chongyun/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/45?lang=en-us"
+      },
+      {
+        "id": "ed-62236620f0d6740b7a601c52daabafaba",
+        "name": "Citlali",
+        "tier": "A+",
+        "primaryRole": "Support",
+        "whyThisTier": "护盾、元素支持和多支强队适配度高，在当前环境仍具高价值；并非所有体系都需要她，因此止于 A+。",
+        "strengths": ["护盾", "减抗/增益", "元素应用"],
+        "limitations": ["体系匹配要求"],
+        "bestUseContext": "Pyro/Cryo 相关强队",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role + current Stygian environment",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/citlali/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/citlali/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "5.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7300?lang=en-us"
+      },
+      {
+        "id": "ed-e57c9db0598c69dfb6b9916e1ace537c5",
+        "name": "Clorinde",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C0 输出和操作体验稳定，但纯主 C 替代性较高，当前 Endgame 顶层阵容竞争激烈。",
+        "strengths": ["高机动", "稳定 Electro 前台", "循环顺"],
+        "limitations": ["纯 carry", "当前竞争多"],
+        "bestUseContext": "Aggravate/Overload",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 update",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/clorinde/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/clorinde/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "4.7",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/5596?lang=en-us"
+      },
+      {
+        "id": "ed-10f6fc0cb1bb50f0f16d63d55e207bcdb",
+        "name": "Collei",
+        "tier": "B",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 有可用的 Dendro 场下应用与短轴适配，但整体质量被 Nahida、Lauma 等显著压制。",
+        "strengths": ["Dendro 场下", "短轴", "C6"],
+        "limitations": ["应用和范围一般"],
+        "bestUseContext": "低成本 Dendro core",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/collei/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/collei/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "3.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2268?lang=en-us"
+      },
+      {
+        "id": "ed-be1320f2d1056f140cce3c93390ab14f2",
+        "name": "Columbina",
+        "tier": "S",
+        "primaryRole": "Support",
+        "whyThisTier": "能启用并强化多种 Lunar Reaction，同时具稳定场下 Hydro 和个人伤害；当前体系覆盖和不可替代性都极高。",
+        "strengths": ["Lunar 全系 enabler", "Hydro", "场下伤害", "buff"],
+        "limitations": ["非 Lunar 场景价值下降", "ER"],
+        "bestUseContext": "Lunar-Charged/Bloom/Crystallize",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current Abyss observed signal + KQM Lunar mechanics",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/columbina/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/columbina/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "Luna IV",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/9121?lang=en-us"
+      },
+      {
+        "id": "ed-6d9da84832681668dc3de02c86049d4f9",
+        "name": "Cyno",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "Stellar-Conduct 明显改善其当前上限，且 C0 已有强队；长站场与特定搭档需求仍限制灵活性。",
+        "strengths": ["当前 SSC 上限高", "EM scaling", "长持续输出"],
+        "limitations": ["长站场", "队伍/轮转绑定"],
+        "bestUseContext": "Stellar-Conduct",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role + KQM/TCL Stellar mechanics",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/cyno/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/cyno/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "3.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2813?lang=en-us"
+      },
+      {
+        "id": "ed-9d8487dff7f6a36df5be0be65827bc320",
+        "name": "Dahlia",
+        "tier": "D",
+        "primaryRole": "Support",
+        "whyThisTier": "有生存/辅助用途，但当前 Endgame 中角色贡献、覆盖和替代关系都不足以支撑更高评级。",
+        "strengths": ["部分 sustain/辅助"],
+        "limitations": ["总贡献低", "高端位竞争差"],
+        "bestUseContext": "少数特化队",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/dahlia/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/dahlia/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 4,
+        "weapon": "Sword",
+        "officialReleaseVersion": "5.7",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7707?lang=en-us"
+      },
+      {
+        "id": "ed-615d9c6d8ce21f83273dec8b417a92fa1",
+        "name": "Dehya",
+        "tier": "C",
+        "primaryRole": "Support",
+        "whyThisTier": "抗打断和伤害缓冲具有实际价值，但持续输出、辅助强度和队伍效率仍明显落后。",
+        "strengths": ["抗打断", "减伤", "场下 Pyro"],
+        "limitations": ["输出低", "防御不完全"],
+        "bestUseContext": "需要抗打断的 burn/Pyro 场景",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/dehya/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/dehya/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "3.5",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3463?lang=en-us"
+      },
+      {
+        "id": "ed-8ab70b117751ab4660cc1fbad46ddc97b",
+        "name": "Diluc",
+        "tier": "B",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "在新支持下仍能形成有效队伍，但 C0 个人天花板和场上竞争力不足以对抗现代强势主 C。",
+        "strengths": ["易操作", "成熟 Vape/Melt", "可吃新 support"],
+        "limitations": ["输出天花板较旧"],
+        "bestUseContext": "Pyro plunge/Vape",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/diluc/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/diluc/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/43?lang=en-us"
+      },
+      {
+        "id": "ed-d6f9bfb1399d2b26f36b00e1efcaef1ea",
+        "name": "Diona",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 将盾、治疗、EM 与当前 Stellar-Conduct 辅助结合起来，价值较过去明显提高；但属于专精而非通用顶级。",
+        "strengths": ["C6 EM", "盾", "治疗", "Cryo"],
+        "limitations": ["圈地", "个人伤害低"],
+        "bestUseContext": "Stellar-Conduct/Cryo",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "KQM current SSC evidence",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/diona/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/diona/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "1.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/44?lang=en-us"
+      },
+      {
+        "id": "ed-8131e26e334129f959fc14ce57a33b6e1",
+        "name": "Dori",
+        "tier": "C",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 能治疗、充能并承担部分反应职责，但功能完成方式和整体队伍收益仍较低。",
+        "strengths": ["能量", "治疗", "Electro"],
+        "limitations": ["tether/站位", "团队 DPS 贡献低"],
+        "bestUseContext": "少数 Electro sustain",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/dori/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/dori/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "3.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2269?lang=en-us"
+      },
+      {
+        "id": "ed-38f6a1d0961793c8acdc4516b1cc5a1bb",
+        "name": "Durin",
+        "tier": "S",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "场下伤害、两种 Burst 模式、减抗以及 Hexerei 协同让其覆盖多个强体系，且部分减抗能力非常难替代。",
+        "strengths": ["双形态", "场下 Pyro", "多元素减抗", "Hexerei"],
+        "limitations": ["部分模式需特定反应", "慢 Pyro application"],
+        "bestUseContext": "Anemo/Geo/Electro/Dendro/Hexerei cores",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM 7.1 current mechanics",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/durin/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/durin/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "Luna III",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/9017?lang=en-us"
+      },
+      {
+        "id": "ed-0dc0eadce4d1f4de51cc0dcd312266b0e",
+        "name": "Emilie",
+        "tier": "B+",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "Burning 相关队伍场下伤害优秀且稳定，但反应体系绑定使其泛用性有限。",
+        "strengths": ["Burning 场下伤害高", "稳定"],
+        "limitations": ["Burning 绑定"],
+        "bestUseContext": "Kinich/Burning",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/emilie/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/emilie/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "4.8",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/5714?lang=en-us"
+      },
+      {
+        "id": "ed-971a18f3c737674e89e58dc6b24f04d0f",
+        "name": "Escoffier",
+        "tier": "A+",
+        "primaryRole": "Support",
+        "whyThisTier": "她在 Freeze 中几乎是顶级且难替代，但最强减抗要求全队 Hydro/Cryo；进入 Stellar-Conduct 等队伍后其核心减抗明显降低，并且会与 Qiqi、Sucrose 等竞争。属于“体系内接近 S”，还不是 Overall S。",
+        "strengths": ["Cryo/Hydro shred", "治疗", "场下伤害"],
+        "limitations": ["纯 Cryo/Hydro 最强", "元素限制"],
+        "bestUseContext": "Freeze/Cryo-Hydro/SSC",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Mobalytics + KQM current cross-check",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          },
+          {
+            "id": "ed-98446131d6efca496b38f69a38a8a22ed",
+            "name": "Mobalytics",
+            "url": "https://mobalytics.gg/genshin-impact/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/escoffier/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/escoffier/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "5.6",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7624?lang=en-us"
+      },
+      {
+        "id": "ed-256bc35a4ac8eb60364d7af2955db2e73",
+        "name": "Eula",
+        "tier": "C",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "仍可制造高物理爆发，但物理体系、充能、爆发命中与当前敌人适配问题显著拉低稳定性。",
+        "strengths": ["大爆发", "物理减抗资源成熟"],
+        "limitations": ["爆发易丢", "能量", "物理弱势"],
+        "bestUseContext": "Physical hypercarry",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/eula/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/eula/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "1.5",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/6?lang=en-us"
+      },
+      {
+        "id": "ed-2af337e61745559fd804d5caded5ccb0f",
+        "name": "Faruzan",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 是 Anemo carry 的强力专属核心，增伤、减抗和能量支援出色；离开 Anemo 主 C 队几乎没有价值。",
+        "strengths": ["C6 Anemo 增益", "减抗", "粒子"],
+        "limitations": ["只服务 Anemo"],
+        "bestUseContext": "Xiao/Wanderer/Vesna/Varka",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current 7.1 roles",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/faruzan/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/faruzan/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "3.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2967?lang=en-us"
+      },
+      {
+        "id": "ed-4ddef39de4aeb63f112c620e41a8b3b86",
+        "name": "Fischl",
+        "tier": "A+",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 场下伤害、Electro 应用及 Hexerei 新增团队收益让她继续保持高泛用性；在 Stellar/Lunar 之外同样可用。",
+        "strengths": ["C6 Oz", "低占场", "高 Electro", "Hexerei"],
+        "limitations": ["AoE 有限"],
+        "bestUseContext": "Aggravate/Overload/LC/SSC flex",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current mechanics + Durin guide",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/fischl/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/fischl/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/38?lang=en-us"
+      },
+      {
+        "id": "ed-c401c6024cf82d7e7118de3bdd9bd1685",
+        "name": "Flins",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "当前 Lunar-Charged 主 C 上限和实战信号都很强，但需要围绕 Lunar 核心构队，主 C 本身也有替代风险。",
+        "strengths": ["Lunar-Charged carry", "高当前实战", "短轴可调"],
+        "limitations": ["需要 LC enablers"],
+        "bestUseContext": "Ineffa/Columbina Lunar-Charged",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current Abyss signal + KQM LC teams",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/flins/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/flins/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "Luna I",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/8398?lang=en-us"
+      },
+      {
+        "id": "ed-c17cfaabd7906dde5c4a6c54684241411",
+        "name": "Freminet",
+        "tier": "D",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C6 能打完整循环，但物理/Cryo 混合定位、输出上限和队伍资源效率都偏低。",
+        "strengths": ["可物理/Cryo", "简单"],
+        "limitations": ["输出与队伍效率低"],
+        "bestUseContext": "Low-cost Physical/Cryo",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/freminet/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/freminet/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "4.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3964?lang=en-us"
+      },
+      {
+        "id": "ed-7e6ec5105e9b22661f1820374ef599337",
+        "name": "Furina",
+        "tier": "S",
+        "primaryRole": "Support",
+        "whyThisTier": "全队增伤、稳定场下 Hydro、个人伤害和与治疗体系的广泛协同仍提供极高账号级 Endgame 价值。",
+        "strengths": ["全队 buff", "Hydro", "场下 DPS", "适配广"],
+        "limitations": ["需要治疗配合"],
+        "bestUseContext": "几乎所有能容纳 healer 的 DPS 队",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/furina/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/furina/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "4.2",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4376?lang=en-us"
+      },
+      {
+        "id": "ed-3e1d1803851d7c8187a77bc877eb5ce64",
+        "name": "Gaming",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C6 在 Plunge 队有很强性价比和实际输出，但明显依赖特定支持，并且纯主 C 替代性较高。",
+        "strengths": ["C6 强 plunge", "四星成本低"],
+        "limitations": ["Xianyun/Bennett/Furina 等支持依赖"],
+        "bestUseContext": "Plunge Vape/Melt",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current KQM-era update",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/gaming/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/gaming/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "4.4",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4775?lang=en-us"
+      },
+      {
+        "id": "ed-a822509f1020a76b93f6aa312840d6211",
+        "name": "Ganyu",
+        "tier": "B",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "Melt/Freeze 仍能工作，但蓄力输出、抗打断需求及当前 Boss/体系竞争让其整体稳定性下降。",
+        "strengths": ["远程", "Melt/Freeze", "AoE"],
+        "limitations": ["蓄力受压", "Boss 环境"],
+        "bestUseContext": "Melt / Freeze",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/ganyu/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/ganyu/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "1.2",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/28?lang=en-us"
+      },
+      {
+        "id": "ed-15245394b2bdfa8009a6c008634819e55",
+        "name": "Gorou",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 在 DEF/Geo 队中增益非常强，但用途高度锁定，无法形成更广泛的 Endgame 价值。",
+        "strengths": ["C6 Geo/DEF buff", "低占场"],
+        "limitations": ["极度 Geo 专属"],
+        "bestUseContext": "Itto/Noelle/DEF Geo",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/gorou/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/gorou/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "2.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/5?lang=en-us"
+      },
+      {
+        "id": "ed-79899b3b35a9c3f3a48c3919ead5d01af",
+        "name": "Hu Tao",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "单体 Vaporize 输出依旧有竞争力，但操作、生存管理和新一代 Pyro/通用主 C 的替代压力很大。",
+        "strengths": ["强单体 Vape", "成熟队伍"],
+        "limitations": ["HP/CA 操作", "竞争压力"],
+        "bestUseContext": "Vaporize single-target",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/hu-tao/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/hu-tao/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "1.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/34?lang=en-us"
+      },
+      {
+        "id": "ed-9d56ba04eca1764942c313289438f90c3",
+        "name": "Iansan",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 强力团队增益适合多类 ATK carry，当前高难队伍也有真实位置；但并非跨体系的万能支持。",
+        "strengths": ["C6 ATK support", "当前强队适配"],
+        "limitations": ["需要目标 carry 匹配"],
+        "bestUseContext": "ATK-scaling hypercarry",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role/Stygian teams",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/iansan/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/iansan/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "5.5",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7502?lang=en-us"
+      },
+      {
+        "id": "ed-217a54c6805e5c9d4737712a5c548fa60",
+        "name": "Ifa",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 能提供 Anemo/反应辅助及一定 sustain，功能完整，但在强 Anemo 支持群中竞争压力较大。",
+        "strengths": ["C6 Anemo/support utility", "sustain"],
+        "limitations": ["泛用上限不高"],
+        "bestUseContext": "Anemo reaction flex",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/ifa/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/ifa/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "5.6",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7627?lang=en-us"
+      },
+      {
+        "id": "ed-05c0a15606dd26b0c66164add8643dd6a",
+        "name": "Illuga",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 在其目标体系中提供高质量增益，当前 Endgame 也有适配；但适用范围仍不足以达到 A+。",
+        "strengths": ["C6 专项 buff 强"],
+        "limitations": ["队伍覆盖有限"],
+        "bestUseContext": "当前适配的 Geo/新体系队",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current Stygian-role signal",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/illuga/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/illuga/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "Luna IV",
+        "officialUrl": "https://www.hoyolab.com/article/43220659"
+      },
+      {
+        "id": "ed-6e6b2267ccdc8c45774497a4e948dd6fc",
+        "name": "Ineffa",
+        "tier": "S",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "Lunar-Charged 的核心场下伤害与反应价值极高，并能进入多个当前强队；当前使用信号也极强。",
+        "strengths": ["LC 核心", "高场下 DPS", "低占场"],
+        "limitations": ["Lunar-Charged 偏专属"],
+        "bestUseContext": "Flins/Columbina LC",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current Abyss observed signal + current guides",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/ineffa/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/ineffa/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "5.8",
+        "officialUrl": "https://www.hoyolab.com/article/40271715"
+      },
+      {
+        "id": "ed-c248a0497a66d7b23a4fe33cba07f2ba9",
+        "name": "Jahoda",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 兼顾治疗、元素应用和 Moonsign 相关增益，但需要一定场上时间且并非多数 Lunar 队首选。",
+        "strengths": ["治疗", "场下元素", "C6 Moonsign buff"],
+        "limitations": ["需蓄 Skill", "竞争位多"],
+        "bestUseContext": "Moonsign/Lunar flex",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/jahoda/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/jahoda/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "Luna III",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/9018?lang=en-us"
+      },
+      {
+        "id": "ed-ac651a4ade38a4ee3ef0e81176619563d",
+        "name": "Jean",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "VV、全队治疗和 Furina 等协同仍可靠，但控制、增益和特化功能均有大量更强替代。",
+        "strengths": ["VV", "全队 heal", "Furina synergy"],
+        "limitations": ["聚怪弱", "buff 少"],
+        "bestUseContext": "Furina + Anemo flex",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/jean/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/jean/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/27?lang=en-us"
+      },
+      {
+        "id": "ed-ae7097a19a6caab8cbed09616f2ca11d6",
+        "name": "Kachina",
+        "tier": "B",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "低成本 Geo/Nightsoul 工具和场下功能有明确用途，但输出与团队贡献不足以进入 B+。",
+        "strengths": ["Nightsoul", "Geo 场下", "低成本"],
+        "limitations": ["伤害偏低"],
+        "bestUseContext": "Natlan/Geo utility",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kachina/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kachina/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "5.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/6318?lang=en-us"
+      },
+      {
+        "id": "ed-2f5793172b5fed97f0d3316f6857dd011",
+        "name": "Kaedehara Kazuha",
+        "tier": "A+",
+        "primaryRole": "Support",
+        "whyThisTier": "聚怪、减抗和元素增伤仍非常稳定且泛用；新 Lunar/Stellar 体系并非都最大化其价值，因此略低于 S。",
+        "strengths": ["聚怪", "VV", "元素增伤", "稳定"],
+        "limitations": ["部分新反应不吃传统 DMG buff"],
+        "bestUseContext": "PHEC reaction / AoE",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kaedehara-kazuha/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kaedehara-kazuha/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "1.6",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/22?lang=en-us"
+      },
+      {
+        "id": "ed-53d07bbcb26d473068b8acde220539c34",
+        "name": "Kaeya",
+        "tier": "C",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 Cryo 场下输出与应用尚可，但范围、伤害和团队支持均被大量现代角色替代。",
+        "strengths": ["低成本 Cryo", "粒子", "场下 Burst"],
+        "limitations": ["范围/伤害有限"],
+        "bestUseContext": "Melt/Freeze budget",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kaeya/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kaeya/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 4,
+        "weapon": "Sword",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/9?lang=en-us"
+      },
+      {
+        "id": "ed-484e21b8fff742f392a6a40d14f7e9944",
+        "name": "Kamisato Ayaka",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "高爆发 Freeze/Cryo 队仍有实战能力，但 Boss 不可冻结、爆发命中和队伍成本限制综合表现。",
+        "strengths": ["冻结爆发强", "高 Cryo frontload"],
+        "limitations": ["Boss 免冻", "Burst 易空"],
+        "bestUseContext": "Freeze/Cryo burst",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kamisato-ayaka/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kamisato-ayaka/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "2.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/32?lang=en-us"
+      },
+      {
+        "id": "ed-a93d040550f8b99b93184966f3d40f4b5",
+        "name": "Kamisato Ayato",
+        "tier": "B",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "操作平稳且 Hydro 应用灵活，但个人输出和团队独特贡献都被当前同元素角色压制。",
+        "strengths": ["Hydro driver", "AoE", "简单"],
+        "limitations": ["personal DPS 中等"],
+        "bestUseContext": "Taser/Hyperbloom/Vape flex",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kamisato-ayato/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kamisato-ayato/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "2.6",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/31?lang=en-us"
+      },
+      {
+        "id": "ed-8db9c75bdcfeb0845f7cc5e793d5d2acf",
+        "name": "Kaveh",
+        "tier": "C",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C6 在 Bloom 队能工作，但输出与队伍控制能力仍难与现代 Dendro/Lunar-Bloom 角色竞争。",
+        "strengths": ["Bloom driver", "自 sustain 部分 Bloom"],
+        "limitations": ["输出低", "竞争激烈"],
+        "bestUseContext": "Budget Bloom",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kaveh/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kaveh/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "3.6",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3608?lang=en-us"
+      },
+      {
+        "id": "ed-d251ae8794168912c9bfb752bb5dbe773",
+        "name": "Keqing",
+        "tier": "B",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "Aggravate 体系稳定、循环短，但整体天花板和当前环境存在明显替代压力。",
+        "strengths": ["短轴", "Aggravate", "高机动"],
+        "limitations": ["上限中等"],
+        "bestUseContext": "Quicken/Aggravate",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/keqing/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/keqing/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/10?lang=en-us"
+      },
+      {
+        "id": "ed-3ecc8db117a6b407a3e4a4ac4bf70dddc",
+        "name": "Kinich",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "Burning/Burgeon 类队伍输出强且机动，现代支持继续改善其表现；体系与目标要求让其止于 A。",
+        "strengths": ["单体高", "机动", "Burning core"],
+        "limitations": ["体系依赖"],
+        "bestUseContext": "Burning/Burgeon",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kinich/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kinich/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "5.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/6317?lang=en-us"
+      },
+      {
+        "id": "ed-b6f3068b4aaf4a306b20e74d135d50f2f",
+        "name": "Kirara",
+        "tier": "B",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 有盾、Dendro 与增伤工具，实用但输出/治疗整合度不够，竞争位很多。",
+        "strengths": ["盾", "Dendro", "C6 buff"],
+        "limitations": ["应用/输出普通"],
+        "bestUseContext": "Dendro defensive flex",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kirara/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kirara/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 4,
+        "weapon": "Sword",
+        "officialReleaseVersion": "3.7",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3719?lang=en-us"
+      },
+      {
+        "id": "ed-d8e9685dc06785f95cba8cfda35f091c3",
+        "name": "Klee",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "Hexerei 与现代队友显著改善其输出环境，但近战 Catalyst 操作、站位和替代关系仍限制稳定性。",
+        "strengths": ["新 Hexerei 资源", "高 Pyro application"],
+        "limitations": ["近距离", "操作/硬直"],
+        "bestUseContext": "Hexerei/Overload/Pyro",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current KQM-era Hexerei evidence",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/klee/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/klee/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/12?lang=en-us"
+      },
+      {
+        "id": "ed-c52201a1906398ec07f229d8667b5cfc3",
+        "name": "Kujou Sara",
+        "tier": "B",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 对 Electro carry 的增益很强，但短 buff 和几乎完全的 Electro 专属性使其用途较窄。",
+        "strengths": ["C6 Electro buff", "短爆发"],
+        "limitations": ["buff 短", "只服务 Electro"],
+        "bestUseContext": "Raiden/Yae/Electro carry",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kujou-sara/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kujou-sara/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "2.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3?lang=en-us"
+      },
+      {
+        "id": "ed-87ba0ca619975d23e7f382ed3cfb5b809",
+        "name": "Kuki Shinobu",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "治疗、场下 Electro 与 Hyperbloom 触发整合度依然极高，低占场且易用；但顶级 Lunar/Stellar 队并不总需要她。",
+        "strengths": ["Heal", "Hyperbloom trigger", "低占场"],
+        "limitations": ["personal damage 低"],
+        "bestUseContext": "Hyperbloom/Quickbloom",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/kuki-shinobu/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/kuki-shinobu/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Sword",
+        "officialReleaseVersion": "2.7",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2256?lang=en-us"
+      },
+      {
+        "id": "ed-47e757e2748787a75f92c342d690b800f",
+        "name": "Lan Yan",
+        "tier": "B",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 可提供盾、Anemo 工具与 Catalyst 辅助，但总体支持上限仍低于主流顶级 Anemo 支持。",
+        "strengths": ["shield", "Anemo/VV", "Catalyst utility"],
+        "limitations": ["进攻贡献低"],
+        "bestUseContext": "defensive Anemo flex",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/lan-yan/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/lan-yan/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "5.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7301?lang=en-us"
+      },
+      {
+        "id": "ed-92c201d519e49f60f599b3a8c8449e6f7",
+        "name": "Lauma",
+        "tier": "A+",
+        "primaryRole": "Support",
+        "whyThisTier": "Lunar-Bloom 的核心 buffer/enabler，当前 Nefer/Columbina 体系价值极高；离开 Bloom/Lunar-Bloom 后明显变窄。",
+        "strengths": ["Lunar-Bloom buff", "Dendro shred/application"],
+        "limitations": ["LB 专属倾向"],
+        "bestUseContext": "Nefer/Columbina Lunar-Bloom",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM current Lunar-Bloom mechanics",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/lauma/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/lauma/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "Luna I",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/8396?lang=en-us"
+      },
+      {
+        "id": "ed-0a43b16c89ab84362589fb4bb92b7de9d",
+        "name": "Layla",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "强盾、Cryo 应用和低占场适合多种需要稳定性的队伍，但进攻增益与角色压缩能力有限。",
+        "strengths": ["强盾", "Cryo 场下", "低占场"],
+        "limitations": ["几乎无治疗/强 buff"],
+        "bestUseContext": "Cryo/freeze defensive slot",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/layla/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/layla/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 4,
+        "weapon": "Sword",
+        "officialReleaseVersion": "3.2",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2859?lang=en-us"
+      },
+      {
+        "id": "ed-99abaf156c390092de1284678267c4ecc",
+        "name": "Linnea",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "同时提供 sustain、Geo/Lunar-Crystallize 相关辅助和个人伤害，角色压缩不错；仍偏 Lunar/Geo 专精。",
+        "strengths": ["sustain", "Geo shred/utility", "Lunar-Crystallize"],
+        "limitations": ["Geo/Lunar 偏科"],
+        "bestUseContext": "Zibai/Geo/Lunar-Crystallize",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM current teams",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/linnea/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/linnea/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "Luna VI",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/10412?lang=en-us"
+      },
+      {
+        "id": "ed-a892cd52e36399564c60159266e58b445",
+        "name": "Lisa",
+        "tier": "C",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 有 DEF shred 和反应价值，但场地、能量和技能流程让其效率与稳定性不高。",
+        "strengths": ["DEF shred", "Catalyst", "Electro"],
+        "limitations": ["Burst 能量/圈地"],
+        "bestUseContext": "budget Aggravate/SSC flex",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/lisa/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/lisa/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/02?lang=en-us"
+      },
+      {
+        "id": "ed-c8a0ea9151bfabd26b602ec433329551b",
+        "name": "Lohen",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C0R0 的实际强度足够进入 A，但他的高端表现明显依赖 Nicole + Durin / 强副 C 核心，自身数值又低于部分现代主 C。强队存在，但队伍成本、可替代性和纯前台定位阻止进入 A+。",
+        "strengths": ["Cryo on-field", "高频应用", "多个 archetype"],
+        "limitations": ["强队友要求高", "纯 carry"],
+        "bestUseContext": "Durin/Nicole Hexerei、Freeze、SSC",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Mobalytics + KQM current cross-check",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          },
+          {
+            "id": "ed-98446131d6efca496b38f69a38a8a22ed",
+            "name": "Mobalytics",
+            "url": "https://mobalytics.gg/genshin-impact/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/lohen/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/lohen/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "Luna VII",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/10623?lang=en-us"
+      },
+      {
+        "id": "ed-3cb7235efefe601fd580fa0dd7a728c92",
+        "name": "Lynette",
+        "tier": "B",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 有 Anemo 驱动和场下功能，但无论伤害还是团队辅助都难超过更成熟 Anemo 选择。",
+        "strengths": ["VV", "场下 Anemo", "C6 driver"],
+        "limitations": ["辅助弱于顶级 Anemo"],
+        "bestUseContext": "budget Anemo flex",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/lynette/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/lynette/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 4,
+        "weapon": "Sword",
+        "officialReleaseVersion": "4.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3962?lang=en-us"
+      },
+      {
+        "id": "ed-85b7217cd4b1040b5dcebfd86b9cd3c9f",
+        "name": "Lyney",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "单体/正面 Pyro 输出仍强，但队伍元素、站位和蓄力节奏要求降低通用性。",
+        "strengths": ["高 Pyro frontload", "远程"],
+        "limitations": ["蓄力/单元素倾向"],
+        "bestUseContext": "Mono Pyro / Pyro carry",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/lyney/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/lyney/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "4.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3963?lang=en-us"
+      },
+      {
+        "id": "ed-3136a347ff4ff638226bf696ac3feee22",
+        "name": "Mavuika",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "主 C 与场下能力兼具、输出天花板高，队伍贡献明显超过普通纯 carry；仍存在体系与资源竞争。",
+        "strengths": ["主/副 C 双用", "高伤", "Pyro 灵活"],
+        "limitations": ["Nightsoul/队友竞争"],
+        "bestUseContext": "Pyro carry / off-field damage",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/mavuika/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/mavuika/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "5.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7299?lang=en-us"
+      },
+      {
+        "id": "ed-d68e4ab01a6aabf65d3fbd707cb28f60a",
+        "name": "Mika",
+        "tier": "C",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 在 Physical 队有完整辅助能力，但 Physical 本身当前整体竞争力低，导致其 Endgame 总价值有限。",
+        "strengths": ["heal", "Physical/AS buff", "C6"],
+        "limitations": ["Physical 体系窄"],
+        "bestUseContext": "Physical carry",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/mika/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/mika/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "3.5",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3462?lang=en-us"
+      },
+      {
+        "id": "ed-584ed73dd5e714229e8adf359c594ac61",
+        "name": "Mona",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "Hexerei 强化后重新获得高质量 burst buff / 队伍协同，部分新队表现很好；持续覆盖和通用稳定性仍不如顶级 Support。",
+        "strengths": ["Omen", "Hydro", "Hexerei"],
+        "limitations": ["buff uptime/ER", "较脆弱"],
+        "bestUseContext": "burst teams / Hexerei cores",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM 7.1 Hexerei update",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/mona/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/mona/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/37?lang=en-us"
+      },
+      {
+        "id": "ed-4e313310f574e0cbaaf1d16c5e786b8eb",
+        "name": "Mualani",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C0 具有很高爆发和优秀单体能力，但 Vaporize setup、目标/操作节奏和队伍配置会影响稳定性。",
+        "strengths": ["超高单次 Vape", "机动"],
+        "limitations": ["setup/目标切换较敏感"],
+        "bestUseContext": "forward Vaporize",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/mualani/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/mualani/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "5.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/6319?lang=en-us"
+      },
+      {
+        "id": "ed-6c57ec9195ef6ba8832f13aa35a46a6c5",
+        "name": "Nahida",
+        "tier": "A+",
+        "primaryRole": "Support",
+        "whyThisTier": "Dendro 应用、EM buff、标记机制与多种 Dendro 队仍高度泛用；当前部分新 Lunar 体系减少了其绝对必要性。",
+        "strengths": ["顶级 Dendro application", "EM", "标记"],
+        "limitations": ["多波敌人重新标记", "新 Lunar 不总需要"],
+        "bestUseContext": "Quicken/Hyperbloom/Bloom",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/nahida/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/nahida/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "3.2",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2850?lang=en-us"
+      },
+      {
+        "id": "ed-8ae16e001120b974ea0c443bf31923e3e",
+        "name": "Navia",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "爆发型 Geo 输出、灵活轮转与较低环境依赖令她很稳定，但作为主 C 仍存在较强替代性。",
+        "strengths": ["高 frontload", "Geo 灵活", "短轴"],
+        "limitations": ["Crystallize setup", "纯 carry"],
+        "bestUseContext": "Geo/flex quickswap",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/navia/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/navia/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "4.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4576?lang=en-us"
+      },
+      {
+        "id": "ed-28e66a5f3a92f7be866f5d79c9786bda0",
+        "name": "Nefer",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "Lunar-Bloom 当前输出天花板非常高且操作简洁，但对 Lauma/Moonsign 和敌人元素状态有显著依赖。",
+        "strengths": ["高 Lunar-Bloom", "i-frame", "简单"],
+        "limitations": ["Lauma/Moonsign", "元素 aura 限制"],
+        "bestUseContext": "Premium Lunar-Bloom",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM current Lunar-Bloom mechanics",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/nefer/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/nefer/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "Luna II",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/8894?lang=en-us"
+      },
+      {
+        "id": "ed-da5a3b6303ec4228cab28a6bb0a76486b",
+        "name": "Neuvillette",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C0 无专武仍有极高 AoE、射程、续航和低失误率，是最稳定的 carry 之一；纯主 C 替代性使其不进 S。",
+        "strengths": ["AoE", "射程", "自 heal", "低操作"],
+        "limitations": ["部分队伍 anti-synergy", "纯 carry"],
+        "bestUseContext": "Hydro hypercarry",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/neuvillette/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/neuvillette/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "4.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4023?lang=en-us"
+      },
+      {
+        "id": "ed-49fca12b9b4f19517dd97ef639436b8ff",
+        "name": "Nicole",
+        "tier": "S",
+        "primaryRole": "Support",
+        "whyThisTier": "强 ATK 团队增益、盾、低占场及 Hexerei 核心联动使她进入大量当前强队，并能替代传统圈地型支持。",
+        "strengths": ["ATK buff", "shield", "off-field buff 覆盖", "Hexerei"],
+        "limitations": ["最佳价值需要第二 Hexerei"],
+        "bestUseContext": "Varka/Lohen/Durin/Hexerei ATK teams",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM current guide",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/nicole/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/nicole/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "Luna VII",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/10622?lang=en-us"
+      },
+      {
+        "id": "ed-21b6d91243886c1a580ccb423b25eda17",
+        "name": "Nilou",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "Bloom 队依旧能以低操作制造高 AoE 反应伤害，但元素锁队和当前 Lunar-Bloom 竞争降低总体价值。",
+        "strengths": ["Bloom conversion", "大范围 AoE", "低操作"],
+        "limitations": ["Hydro/Dendro 锁队"],
+        "bestUseContext": "Nilou Bloom",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/nilou/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/nilou/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "3.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2812?lang=en-us"
+      },
+      {
+        "id": "ed-62d2a84270194061f090d56a65dbd500c",
+        "name": "Ningguang",
+        "tier": "C",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C6 可作为 Geo carry/quickswap，但倍率、AoE 和队伍价值与现代 Geo 主 C 差距明显。",
+        "strengths": ["Geo burst", "远程"],
+        "limitations": ["低 AoE/倍率", "现代 Geo 竞争"],
+        "bestUseContext": "Geo quickswap/main DPS",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/ningguang/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/ningguang/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/8?lang=en-us"
+      },
+      {
+        "id": "ed-fbd22ca2278ce728e8c7ae8d234931993",
+        "name": "Noelle",
+        "tier": "B",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C6 + Furina 等队友仍可获得完整输出与自 sustain，但需要场上时间且明显依赖高质量支持。",
+        "strengths": ["C6 DPS + shield/heal"],
+        "limitations": ["站场长", "队伍支持需求"],
+        "bestUseContext": "Furina/Geo carry",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/noelle/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/noelle/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/40?lang=en-us"
+      },
+      {
+        "id": "ed-96e4587ce58791aadc5bbd1792c4e5af9",
+        "name": "Odette",
+        "tier": "S",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "同时启用并强化 Stellar-Conduct / Stellar-Swirl，场下 Cryo、个人伤害和团队 buff 均强；在当前高压环境里难替代。",
+        "strengths": ["Stellar 双系 enable", "场下 Cryo", "高 off-field DPS", "buff"],
+        "limitations": ["非 Stellar 基本掉档"],
+        "bestUseContext": "Sandrone/Yae/Vesna/Mizuki 等 Stellar",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM + Mobalytics current Stellar evidence",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/odette/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/odette/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "7.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/11162?lang=en-us"
+      },
+      {
+        "id": "ed-b7b9e5fcebe92a881915fefcaefd4dd59",
+        "name": "Ororon",
+        "tier": "B+",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 在目标反应/队伍中提供不错场下伤害和辅助，但适配性和独特性不及顶级 Electro off-fielder。",
+        "strengths": ["场下 Electro", "反应辅助"],
+        "limitations": ["队伍较特定"],
+        "bestUseContext": "Electro-Charged/Nightsoul flex",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/ororon/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/ororon/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "5.2",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7079?lang=en-us"
+      },
+      {
+        "id": "ed-2a3590e8adecde755e88db72ec2b3fb13",
+        "name": "Prune",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 在 Hexerei/Anemo 队提供强 ATK 与全队伤害增益，对 Varka/Venti 等价值高；体系依赖明显。",
+        "strengths": ["C6 ATK/DMG buff", "Hexerei", "Anemo"],
+        "limitations": ["ER/Hexerei 依赖"],
+        "bestUseContext": "Varka/Venti/Hexerei carry",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "KQM current Hexerei teams",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/prune/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/prune/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "Luna VII",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/10624?lang=en-us"
+      },
+      {
+        "id": "ed-698b444d2dc0659c60cfa532d49e7bc45",
+        "name": "Qiqi",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "在本榜 5★=C0 的基准下，Qiqi 已因 Stellar 机制获得很强治疗、产球和团队增益，但真正强势价值仍高度集中于 Stellar-Conduct / Stellar Glimmer 队。C6 的额外 Quill 增益本轮不能计入，因此不足以升 A+。",
+        "strengths": ["极强 heal", "SSC buff", "Cryo"],
+        "limitations": ["主要价值集中 SSC"],
+        "bestUseContext": "Sandrone/Cryo Traveler SSC",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Mobalytics + KQM current Stellar evidence",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          },
+          {
+            "id": "ed-98446131d6efca496b38f69a38a8a22ed",
+            "name": "Mobalytics",
+            "url": "https://mobalytics.gg/genshin-impact/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/qiqi/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/qiqi/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/1?lang=en-us"
+      },
+      {
+        "id": "ed-f143afe67272ae2ef94fdfc7ad378762f",
+        "name": "Raiden Shogun",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "仍能兼顾场上输出、能量回充和多种队伍，但当前纯输出天花板已不再领先，部分功能也有替代。",
+        "strengths": ["battery", "burst DPS", "多体系"],
+        "limitations": ["current pure DPS 非顶级"],
+        "bestUseContext": "Rational/Hypercarry/EC-Lunar flex",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/raiden-shogun/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/raiden-shogun/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "2.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/49?lang=en-us"
+      },
+      {
+        "id": "ed-c8de5f297eb30986239872c0fcd6e2a20",
+        "name": "Razor",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C6 + Hexerei 确实让 Razor 从旧版本明显跃升，且 Durin/Overloaded 中已经能成为强前台 DPS；但这种强度仍严重依赖 Hexerei 核心和长站场。更符合高竞争力专精角色，而不是 A 档的更普适强势 carry。",
+        "strengths": ["C6/Hexerei 新伤害", "DEF shred"],
+        "limitations": ["长站场", "队伍锁定"],
+        "bestUseContext": "Hexerei/Overload/特殊 reaction carry",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "KQM current Hexerei evidence + Icy cross-check",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          },
+          {
+            "id": "ed-b30f33f81afd882737a44f5a449290f09",
+            "name": "KeqingMains",
+            "url": "https://keqingmains.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/razor/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/razor/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/48?lang=en-us"
+      },
+      {
+        "id": "ed-c9faa72255dcdeaf353e9d85279f6cc07",
+        "name": "Rosaria",
+        "tier": "B+",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 低占场 Cryo、粒子和 CRIT 支持依然实用，但纯伤害及现代反应增益较有限。",
+        "strengths": ["Cryo", "CRIT share", "粒子", "C6 physical shred"],
+        "limitations": ["输出/范围中等"],
+        "bestUseContext": "Cryo/Physical flex",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/rosaria/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/rosaria/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "1.4",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/33?lang=en-us"
+      },
+      {
+        "id": "ed-5cc0336c4539c534983b93010238bdad5",
+        "name": "Sandrone",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "Stellar-Conduct 当前上限高、操作简单且有强队；但 KQM 明确显示其竞争性能高度依赖多个 5★队友。",
+        "strengths": ["高 SSC", "简单", "可用免费 Claymore"],
+        "limitations": ["最佳潜力依赖多个 5★"],
+        "bestUseContext": "Sandrone–Odette–Yae SSC",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM current SSC analysis",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/sandrone/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/sandrone/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "Luna VIII",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/10920?lang=en-us"
+      },
+      {
+        "id": "ed-a54d3ffb25c87c454185b0b60c1093c97",
+        "name": "Sangonomiya Kokomi",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "高稳定治疗、场下 Hydro 和驾驶能力仍让她在多类队伍中可靠，但进攻支持上限有限。",
+        "strengths": ["heal", "Hydro", "driver", "稳定"],
+        "limitations": ["burst field time", "低 personal burst"],
+        "bestUseContext": "Freeze/Bloom/Taser",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/sangonomiya-kokomi/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/sangonomiya-kokomi/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "2.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/25?lang=en-us"
+      },
+      {
+        "id": "ed-a278fe3945bc42dab6cb4e8bf2384e4d3",
+        "name": "Sayu",
+        "tier": "C",
+        "primaryRole": "Support",
+        "whyThisTier": "治疗 + VV 的基础功能完整，但场上时间、聚怪和增益能力都明显弱于其他 Anemo sustain。",
+        "strengths": ["heal", "VV", "Anemo"],
+        "limitations": ["低 buff/控制"],
+        "bestUseContext": "budget VV sustain",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/sayu/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/sayu/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "2.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/21?lang=en-us"
+      },
+      {
+        "id": "ed-bdb25d9289839546744b1a870582ba3d9",
+        "name": "Sethos",
+        "tier": "C",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C6 可以形成可用 Electro/Aggravate 输出，但伤害和队伍效率不足以与当前强 carry 竞争。",
+        "strengths": ["C6 Aggravate/CA", "四星成本"],
+        "limitations": ["输出上限"],
+        "bestUseContext": "Quicken",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/sethos/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/sethos/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 4,
+        "weapon": "Bow",
+        "officialReleaseVersion": "4.7",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/5598?lang=en-us"
+      },
+      {
+        "id": "ed-bfa46360c9966d6651de10c427ee05f9f",
+        "name": "Shenhe",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "对 Cryo 伤害仍有优秀专属增益，但高度锁定 Cryo 且当前已有更多能提供伤害、治疗或反应增益的竞争者。",
+        "strengths": ["Cryo buff", "RES shred"],
+        "limitations": ["Cryo 锁定", "quill 受 hit count"],
+        "bestUseContext": "Cryo hypercarry",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/shenhe/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/shenhe/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "2.4",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/29?lang=en-us"
+      },
+      {
+        "id": "ed-8de2fa198034a4d5eb4908cdd99917513",
+        "name": "Shikanoin Heizou",
+        "tier": "C",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C6 能作为 Anemo driver/carry，但输出范围、持续性与团队价值不足以进入更高层。",
+        "strengths": ["Anemo driver", "burst punch"],
+        "limitations": ["melee", "输出有限"],
+        "bestUseContext": "low-cost Anemo driver",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/shikanoin-heizou/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/shikanoin-heizou/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "2.8",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2263?lang=en-us"
+      },
+      {
+        "id": "ed-81ce67ce96005da3d5b066f5aec04304f",
+        "name": "Sigewinne",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "治疗稳定并能辅助场下技能伤害，但 Hydro 位竞争极强，实际不可替代性较低。",
+        "strengths": ["heal", "skill-DMG support", "Hydro"],
+        "limitations": ["占 Hydro slot", "低进攻上限"],
+        "bestUseContext": "Furina/off-field-skill teams",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/sigewinne/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/sigewinne/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "4.7",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/5597?lang=en-us"
+      },
+      {
+        "id": "ed-87f35c4970d7a20b22e23d7a0a0d9e289",
+        "name": "Skirk",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C0 输出能力和 Cryo/Hydro 队强度仍属一线，当前 Stygian 也有明确适配；队伍结构要求使其略低于 S。",
+        "strengths": ["强 Cryo on-field", "稳定", "当前 Stygian 适配"],
+        "limitations": ["Cryo/Hydro 结构要求"],
+        "bestUseContext": "Pure Cryo/Hydro",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current Stygian recommended composition",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/skirk/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/skirk/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "5.7",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7706?lang=en-us"
+      },
+      {
+        "id": "ed-0aeb62479951d17bd2d671c4b9d4d22df",
+        "name": "Sucrose",
+        "tier": "S",
+        "primaryRole": "Support",
+        "whyThisTier": "C6、VV、EM buff、驱动与多个新 Stellar/Lunar 体系兼容，使其以四星成本提供极高当前 Endgame 价值。",
+        "strengths": ["C6", "VV", "EM share", "group", "driver"],
+        "limitations": ["施法手感/聚怪稳定性弱于 Kazuha"],
+        "bestUseContext": "Stellar/Lunar/Dendro/PHEC reactions",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "KQM current broad reaction coverage",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/sucrose/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/sucrose/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/30?lang=en-us"
+      },
+      {
+        "id": "ed-0cf9a364fe65ae21f416aa9a9cf105499",
+        "name": "Tartaglia",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "经典强队仍有高 AoE 和前台 Hydro 价值，但轮转门槛、队伍固定和新角色竞争明显。",
+        "strengths": ["强前台 Hydro", "AoE riptide"],
+        "limitations": ["CD 管理", "队伍固定"],
+        "bestUseContext": "International / Vape AoE",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/tartaglia/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/tartaglia/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "1.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/42?lang=en-us"
+      },
+      {
+        "id": "ed-964a3765885a24f63f6fc7f346f90711c",
+        "name": "Thoma",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 兼顾盾、Pyro application、Burgeon 与普攻增益，可填多个专精位；但很少是全局最优。",
+        "strengths": ["shield", "Burgeon trigger", "C6 NA buff"],
+        "limitations": ["ER", "盾需叠层"],
+        "bestUseContext": "Burgeon/NA teams",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/thoma/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/thoma/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "2.2",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/16?lang=en-us"
+      },
+      {
+        "id": "ed-82696f488d8b9811472995ca7f275ae24",
+        "name": "Tighnari",
+        "tier": "B",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "单体 Quicken 短轴依然稳定且投资友好，但面对当前更强反应 carry 时整体上限不足。",
+        "strengths": ["短轴 single-target", "Quicken"],
+        "limitations": ["AoE 少", "carry ceiling"],
+        "bestUseContext": "Quicken",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/tighnari/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/tighnari/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "3.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2265?lang=en-us"
+      },
+      {
+        "id": "ed-b42eb533c73a6262224310dca53543983",
+        "name": "Traveler",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "按规定仍作为一个 entity，并主要由 Cryo form 支撑。Cryo Traveler 是当前很强的免费 Stellar-Conduct 主 C，并能参与 Stellar-Swirl，但在 C0 基准下 SSW Skill uptime 有限制，而且并不能在 SSC 中普遍作为优秀场下辅助，距离 A+ 的完整度还差一步。",
+        "strengths": ["Cryo form 主 C/副 C", "免费 Stellar enabler", "多形态灵活"],
+        "limitations": ["实际强度高度集中 Cryo", "部分形态弱"],
+        "bestUseContext": "Cryo Traveler SSC/SSW",
+        "rankingAssumption": "C0 / No Signature Weapon; single ranking entity, current value primarily supported by Cryo form.",
+        "evidenceSummary": "Current 7.1 Cryo Traveler guides",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-12e047e6540a7dc2539e732cc02a408b3",
+            "name": "Icy Veins",
+            "url": "https://www.icy-veins.com/genshin-impact/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/traveler/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/traveler/avatar-256.webp"
+        },
+        "element": "Anemo / Geo / Electro / Dendro / Hydro / Pyro / Cryo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/19?lang=en-us"
+      },
+      {
+        "id": "ed-d452af8ca3c31251c3cde440fca664561",
+        "name": "Varesa",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "当前 Electro carry 输出和操作都可靠，已有成熟支持体系；整体团队贡献与泛用性仍低于 A+ 核心。",
+        "strengths": ["Electro carry", "高 current performance"],
+        "limitations": ["纯 carry", "队伍资源竞争"],
+        "bestUseContext": "Electro hypercarry",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role/Stygian",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/varesa/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/varesa/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "5.5",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7488?lang=en-us"
+      },
+      {
+        "id": "ed-d45c8f427c1dc1f12bbd6c5915501e92b",
+        "name": "Varka",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "双元素适应、高输出和多种 PHEC 队给他较强环境覆盖；但最佳表现明显希望有 Hexerei/Prune/Nicole 等优质队友。",
+        "strengths": ["双元素适应", "AoE", "高输出"],
+        "limitations": ["最佳队需要 Anemo+Hexerei+PHEC 配置"],
+        "bestUseContext": "Prune/Nicole/Durin cores",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM 7.1 current guide",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/varka/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/varka/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "Luna V",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/9342?lang=en-us"
+      },
+      {
+        "id": "ed-cadedbbe1354050d0272f7b078263f657",
+        "name": "Venti",
+        "tier": "A+",
+        "primaryRole": "Support",
+        "whyThisTier": "Hexerei 让 Venti 的当前战斗价值大幅回升，但 C0 无专武时仍低于 Varka，顶级表现又很依赖 Durin/Nicole 等 Hexerei 核心；同时大体型/Boss 仍削弱其传统控制价值。达到 A+，但不足 S。",
+        "strengths": ["顶级 CC", "能量", "Hexerei buff", "可 on-field"],
+        "limitations": ["Boss 不吃吸附", "顶级表现依赖 Hexerei"],
+        "bestUseContext": "AoE/groupable fights；Varka/Hexerei",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Mobalytics + KQM current Hexerei evidence",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          },
+          {
+            "id": "ed-98446131d6efca496b38f69a38a8a22ed",
+            "name": "Mobalytics",
+            "url": "https://mobalytics.gg/genshin-impact/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/venti/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/venti/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/23?lang=en-us"
+      },
+      {
+        "id": "ed-6163b6a807ae7d09c5afb87394c2b1e14",
+        "name": "Vesna",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C0、无专武条件下，她依然拥有强 Stellar-Swirl 实战、可用免费 4★ 武器和多个免费/4★ 队友方案，已经超过普通 A 档 carry 的上限。与 Mizuki 重叠、纯前台定位及签名武器提升较大，使她止于 A+ 而不是更高。",
+        "strengths": ["Stellar-Swirl", "简单", "F2P 武器/队友可用"],
+        "limitations": ["与 Mizuki 重叠", "最佳队吃 Odette/Vodyanitsa"],
+        "bestUseContext": "Stellar-Swirl",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Icy + Mobalytics current Vesna evidence",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          },
+          {
+            "id": "ed-12e047e6540a7dc2539e732cc02a408b3",
+            "name": "Icy Veins",
+            "url": "https://www.icy-veins.com/genshin-impact/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/vesna/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/vesna/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "7.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/11661?lang=en-us"
+      },
+      {
+        "id": "ed-78d72dbba02cee339f0ced15c4fff4044",
+        "name": "Vodyanitsa",
+        "tier": "S",
+        "primaryRole": "Support",
+        "whyThisTier": "C0 就同时提供 Hydro/Cryo/Anemo 相关减抗/增益、治疗、抗打断、低占场、场下 Hydro，而且不依赖 Burst 才能完成核心职责；覆盖 Hydro、Cryo、Freeze、Stellar-Swirl 等多类当前高端队伍。Hydro 干扰部分 SSW 是真实短板，但不足以抵消其跨队伍角色压缩和稳定性，已经达到 Overall S。",
+        "strengths": ["heal", "IR", "Hydro/Cryo/Anemo shred", "低占场"],
+        "limitations": ["Hydro application 可干扰 SSW", "并非每队 BiS"],
+        "bestUseContext": "Cryo/Hydro/SSW support",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM 7.1 + Icy current support evidence",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          },
+          {
+            "id": "ed-b30f33f81afd882737a44f5a449290f09",
+            "name": "KeqingMains",
+            "url": "https://keqingmains.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/vodyanitsa/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/vodyanitsa/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "7.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/11702?lang=en-us"
+      },
+      {
+        "id": "ed-63c8b40aadd959d2b561d3f71ef9d9d85",
+        "name": "Wanderer",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C0 搭配 C6 Faruzan 后仍可形成强单核队，但抗打断、单核依赖和现代 carry 竞争限制总体排名。",
+        "strengths": ["ranged Anemo", "移动", "Faruzan synergy"],
+        "limitations": ["抗打断", "support 集中"],
+        "bestUseContext": "Anemo hypercarry",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/wanderer/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/wanderer/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "3.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2968?lang=en-us"
+      },
+      {
+        "id": "ed-7f72c480cd82efffe98801e568a8e9fbf",
+        "name": "Wriothesley",
+        "tier": "A",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "当前 Stellar-Conduct 显著扩展其强队，单体稳定性高；但 C0 的完整度及对特定 Cryo/Electro core 的依赖仍存在。",
+        "strengths": ["稳定 Cryo frontfield", "SSC 新队"],
+        "limitations": ["C0 机制完整度", "队伍核心依赖"],
+        "bestUseContext": "Stellar-Conduct / Freeze",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM current SSC update",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/wriothesley/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/wriothesley/avatar-256.webp"
+        },
+        "element": "Cryo",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "4.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4022?lang=en-us"
+      },
+      {
+        "id": "ed-4f4103eed999d2ba6ea378ca98d6ccff8",
+        "name": "Xiangling",
+        "tier": "A",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 场下 Pyro 和 snapshot 仍很强，反应覆盖广；但能量与 Bennett 类搭档依赖让稳定性和自由度下降。",
+        "strengths": ["C6 off-field Pyro", "snapshot", "AoE"],
+        "limitations": ["ER 高", "常依赖 Bennett"],
+        "bestUseContext": "Vape/Melt/Overload",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/xiangling/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/xiangling/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/50?lang=en-us"
+      },
+      {
+        "id": "ed-ffc1e5d7c1f09fa34b7a91fb4b8fadae6",
+        "name": "Xianyun",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "治疗 + Plunge enable 在特定队伍非常强，也能配 Furina；非 Plunge 队的边际价值明显下降。",
+        "strengths": ["heal", "Plunge enable", "VV"],
+        "limitations": ["非 Plunge 边际价值低"],
+        "bestUseContext": "Xiao/Gaming/Plunge conversions",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/xianyun/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/xianyun/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "4.4",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4774?lang=en-us"
+      },
+      {
+        "id": "ed-b577bb3520558caad6fb42fbcdaa0d2b3",
+        "name": "Xiao",
+        "tier": "B+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "完整支持体系下 AoE 输出仍强，但队伍高度专门化、长站场和主 C 可替代性阻止进入 A。",
+        "strengths": ["AoE plunge", "成熟专属 supports"],
+        "limitations": ["长站场", "特化阵容"],
+        "bestUseContext": "Faruzan/Xianyun/Furina",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/xiao/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/xiao/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "1.3",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/51?lang=en-us"
+      },
+      {
+        "id": "ed-fbc3818628e75c4800168dcefc8a8d90e",
+        "name": "Xilonen",
+        "tier": "S",
+        "primaryRole": "Support",
+        "whyThisTier": "广泛减抗、增伤、治疗与极低场上时间让她跨大量队伍提供稳定价值，当前仍是最强通用角色之一。",
+        "strengths": ["shred", "DMG buff", "heal", "低占场"],
+        "limitations": ["少数 mono-Geo 等条件限制"],
+        "bestUseContext": "极广泛 PHEC/Geo teams",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 role + observed use",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/xilonen/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/xilonen/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "5.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/6924?lang=en-us"
+      },
+      {
+        "id": "ed-b1ed5a46e8e16e21e8c7d0d93972d7b61",
+        "name": "Xingqiu",
+        "tier": "A+",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C6 高 Hydro application、减伤、抗打断和场下输出整合度极高；现代 Hydro 竞争激烈但其功能组合仍罕见。",
+        "strengths": ["C6 Hydro", "DR", "IR", "场下伤害"],
+        "limitations": ["单目标倾向", "普攻触发"],
+        "bestUseContext": "Vape/Hyperbloom/Taser",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/xingqiu/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/xingqiu/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 4,
+        "weapon": "Sword",
+        "officialReleaseVersion": "1.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/39?lang=en-us"
+      },
+      {
+        "id": "ed-4eea405b1fcda68e06f4b415dbe2bfe03",
+        "name": "Xinyan",
+        "tier": "E",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 仍面临物理/Pyro 分裂、盾量和队伍价值问题，当前高难环境缺少合理优先场景。",
+        "strengths": ["shield", "Physical shred/buff"],
+        "limitations": ["分裂 scaling", "盾不稳"],
+        "bestUseContext": "极少数 Physical",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/xinyan/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/xinyan/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 4,
+        "weapon": "Claymore",
+        "officialReleaseVersion": "1.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/41?lang=en-us"
+      },
+      {
+        "id": "ed-e1b0799bf0b857f5a8a14edbdae0eb5d1",
+        "name": "Yae Miko",
+        "tier": "A+",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "当前 Stellar-Conduct 中她是顶级 Electro 场下核心，个人伤害和反应贡献都很高；但这种“接近 S”的优势主要集中于 SSC。并且在本榜 4★=C6 的规则下，C6 Alyosha 已形成真实低稀有度替代压力，因此不可替代性不足以升 S。",
+        "strengths": ["持续 Electro", "高 SSC", "灵活 field time"],
+        "limitations": ["非 SSC 上限明显下降"],
+        "bestUseContext": "Sandrone/Cyno/Cryo Traveler SSC",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM + Icy current Stellar evidence",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          },
+          {
+            "id": "ed-b30f33f81afd882737a44f5a449290f09",
+            "name": "KeqingMains",
+            "url": "https://keqingmains.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/yae-miko/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/yae-miko/avatar-256.webp"
+        },
+        "element": "Electro",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "2.5",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7?lang=en-us"
+      },
+      {
+        "id": "ed-ee7c2e80ed1382aff38d3f52a4885f045",
+        "name": "Yanfei",
+        "tier": "C",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "C6 Pyro 驱动可完成内容且远程手感稳定，但队伍价值和伤害上限落后于大量现代 Pyro carry。",
+        "strengths": ["ranged Pyro", "C6", "易用"],
+        "limitations": ["DPS ceiling", "站场"],
+        "bestUseContext": "Vape/Overload budget carry",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/yanfei/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/yanfei/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 4,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "1.5",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/24?lang=en-us"
+      },
+      {
+        "id": "ed-6ba7dc59dd619bd64202662972b119f1a",
+        "name": "Yaoyao",
+        "tier": "B+",
+        "primaryRole": "Support",
+        "whyThisTier": "Dendro 应用与团队治疗低成本且可靠，但攻击性支持有限，顶级 Dendro/Lunar 队常有更优选择。",
+        "strengths": ["heal", "Dendro", "低成本"],
+        "limitations": ["攻击 buff 少"],
+        "bestUseContext": "Dendro sustain",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/yaoyao/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/yaoyao/avatar-256.webp"
+        },
+        "element": "Dendro",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "3.4",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/3335?lang=en-us"
+      },
+      {
+        "id": "ed-df6454c93ba5497a5a4315ed6e113e9c6",
+        "name": "Yelan",
+        "tier": "A",
+        "primaryRole": "Sub DPS",
+        "whyThisTier": "C0 场下 Hydro、个人伤害和 ramping buff 仍强，但 Xingqiu/Furina/新 Hydro 竞争让不可替代性下降。",
+        "strengths": ["场下 Hydro", "高个人 DPS", "ramping buff"],
+        "limitations": ["单目标", "C0 Hydro application 低于 Xingqiu"],
+        "bestUseContext": "Vape/Hyperbloom/general flex",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/yelan/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/yelan/avatar-256.webp"
+        },
+        "element": "Hydro",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "2.7",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/2252?lang=en-us"
+      },
+      {
+        "id": "ed-878e09ff4c5d8abaff0bcdf4aa36d562d",
+        "name": "Yoimiya",
+        "tier": "C",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "单体远程 Pyro 输出稳定，但 AoE、抗打断与完整普攻串依赖在当前 Endgame 中惩罚较大。",
+        "strengths": ["ranged single-target", "简单"],
+        "limitations": ["AoE 差", "完整普攻串易中断"],
+        "bestUseContext": "single-target Vape",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/yoimiya/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/yoimiya/avatar-256.webp"
+        },
+        "element": "Pyro",
+        "rarity": 5,
+        "weapon": "Bow",
+        "officialReleaseVersion": "2.0",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/15?lang=en-us"
+      },
+      {
+        "id": "ed-0806dc9bbd8b656eb8f4087faaa847ab5",
+        "name": "Yumemizuki Mizuki",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "Stellar-Swirl 后输出、治疗、操作稳定性和可获得 C6 潜力都很强；其队伍仍要求特定 Cryo/Stellar enabler。",
+        "strengths": ["Stellar-Swirl DPS", "自 heal", "简单", "C6 baseline 很强"],
+        "limitations": ["特定 enabler/Cryo 要求"],
+        "bestUseContext": "Odette/Cryo Traveler SSW",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "KQM current Stellar-Swirl guide",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/yumemizuki-mizuki/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/yumemizuki-mizuki/avatar-256.webp"
+        },
+        "element": "Anemo",
+        "rarity": 5,
+        "weapon": "Catalyst",
+        "officialReleaseVersion": "5.4",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/7420?lang=en-us"
+      },
+      {
+        "id": "ed-2f2b0dc4c79c4a1167f23df9b8870004f",
+        "name": "Yun Jin",
+        "tier": "B",
+        "primaryRole": "Support",
+        "whyThisTier": "C6 普攻 buffer 在专门队伍里仍有效，但目标角色数量和整体队伍收益都较有限。",
+        "strengths": ["C6 NA buff", "Geo"],
+        "limitations": ["只增普攻", "队伍窄"],
+        "bestUseContext": "Yoimiya/NA carry",
+        "rankingAssumption": "C6 / Accessible 4★ Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/yun-jin/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/yun-jin/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 4,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "2.4",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/4?lang=en-us"
+      },
+      {
+        "id": "ed-bc89906774ed7869dc229a10375509218",
+        "name": "Zhongli",
+        "tier": "A",
+        "primaryRole": "Support",
+        "whyThisTier": "最稳定盾、全元素/物理减抗与极高容错仍有独特实际价值；牺牲部分输出位使其不进入 A+。",
+        "strengths": ["最强稳定盾", "全抗 shred", "低操作"],
+        "limitations": ["DPS opportunity cost"],
+        "bestUseContext": "高压 Boss / 需要强抗打断",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current role",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/zhongli/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/zhongli/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 5,
+        "weapon": "Polearm",
+        "officialReleaseVersion": "1.1",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/46?lang=en-us"
+      },
+      {
+        "id": "ed-47162da39493fc8ccec6392fcc6828704",
+        "name": "Zibai",
+        "tier": "A+",
+        "primaryRole": "Main DPS",
+        "whyThisTier": "当前 Geo/Lunar-Crystallize 主 C 上限强且已有成熟 support core；仍属于体系型 carry，替代性高于顶级 support。",
+        "strengths": ["强 Geo/Lunar-Crystallize carry", "当前新 support"],
+        "limitations": ["体系型主 C"],
+        "bestUseContext": "Lunar-Crystallize / Geo",
+        "rankingAssumption": "C0 / No Signature Weapon",
+        "evidenceSummary": "Current 7.1 role + KQM current-era coverage",
+        "updatedAt": "2026-10-15T10:03:17.256Z",
+        "evidenceSources": [
+          {
+            "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+            "name": "Genshin Builds",
+            "url": "https://genshin-builds.com/",
+            "observationCount": 1
+          }
+        ],
+        "avatar": {
+          "128": "https://media.tierlistbase.com/genshin/characters/zibai/avatar-128.webp",
+          "256": "https://media.tierlistbase.com/genshin/characters/zibai/avatar-256.webp"
+        },
+        "element": "Geo",
+        "rarity": 5,
+        "weapon": "Sword",
+        "officialReleaseVersion": "Luna IV",
+        "officialUrl": "https://wiki.hoyolab.com/pc/genshin/entry/9122?lang=en-us"
+      }
+    ],
+    "updatedAt": "2026-10-15T10:03:17.256Z",
+    "sources": [
+      {
+        "id": "ed-4291af9fb6cb0740ee32f8c3483c3ea0b",
+        "name": "Genshin Builds",
+        "url": "https://genshin-builds.com/",
+        "sourceType": "third-party-observed-data"
+      },
+      {
+        "id": "ed-12e047e6540a7dc2539e732cc02a408b3",
+        "name": "Icy Veins",
+        "url": "https://www.icy-veins.com/genshin-impact/",
+        "sourceType": "editorial-mechanics"
+      },
+      {
+        "id": "ed-b30f33f81afd882737a44f5a449290f09",
+        "name": "KeqingMains",
+        "url": "https://keqingmains.com/",
+        "sourceType": "theorycrafting-mechanics"
+      },
+      {
+        "id": "ed-98446131d6efca496b38f69a38a8a22ed",
+        "name": "Mobalytics",
+        "url": "https://mobalytics.gg/genshin-impact/",
+        "sourceType": "editorial-mechanics"
+      }
+    ],
+    "evidenceCount": 130,
+    "changes": []
+  }
+}

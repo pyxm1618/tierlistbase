@@ -6,6 +6,7 @@ async function getDb() {
   return db;
 }
 
+import { readArchivedMetaBoard, readArchivedRatingChanges } from "./archived-snapshot";
 import {
   entities,
   entityProfiles,
@@ -116,6 +117,19 @@ export async function getGameMetaBoardData(options?: {
   db?: DatabaseClient | undefined;
 }): Promise<MetaBoardData> {
   const gameSlug = options?.gameSlug ?? "wow-forever";
+  if (!options?.db) {
+    // Archived read path: a frozen snapshot serves the public page, so a page view never opens a
+    // remote database connection. Explicit database callers (publishers, read-backs, tests) keep
+    // the SQL path below, and live games fall through because they have no snapshot.
+    const archived = readArchivedMetaBoard({
+      gameSlug,
+      mode: options?.mode,
+      role: options?.role,
+      levelCap: options?.levelCap,
+      build: options?.build,
+    });
+    if (archived) return archived;
+  }
   const db = options?.db ?? (await getDb());
 
   // 1. Fetch game
@@ -725,6 +739,10 @@ export async function getRecentRatingChanges(
     toVersionId?: string | undefined;
   },
 ): Promise<RecentRatingChangeItem[]> {
+  if (!dbInstance && typeof gameSlug === "string") {
+    const archived = readArchivedRatingChanges(gameSlug, limit, filters);
+    if (archived !== null) return archived;
+  }
   const db = dbInstance ?? (await getDb());
 
   const slugCondition = Array.isArray(gameSlug)

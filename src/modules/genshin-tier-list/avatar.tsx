@@ -27,7 +27,7 @@ export function CharacterAvatar({
           src={src}
           alt={name}
           fill
-          sizes={detail ? "96px" : "64px"}
+          sizes="96px"
           loading="lazy"
           onError={() => setLoadFailed(true)}
         />
