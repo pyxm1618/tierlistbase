@@ -1,16 +1,25 @@
 /**
- * Exports the archived (frozen) WoW Forever and Genshin Impact ranking snapshots.
+ * Exports the archived (frozen) WoW Forever and Genshin Impact ranking snapshots from the
+ * authoritative database into reviewable JSON artifacts.
  *
- * The database stays authoritative and keeps its existing publisher (`scripts/update-wow-forever-data.ts`)
- * and importer (`scripts/reviewed-editorial.ts`). This script only materializes what those tools
- * produced so the public pages can serve a frozen snapshot without a per-request database read.
+ * Why this exists: both archived tier lists still read PostgreSQL on every request, and each read
+ * costs ~3.5s because the Worker must open a new Neon connection per request. Materializing the
+ * frozen snapshot is the smallest change that removes that cost without touching the database, the
+ * publishers, or the ranking rules.
  *
- * Usage (requires the real DATABASE_URL, same secret the production deploy uses):
+ * The database stays authoritative. This script is read-only and does not replace:
+ *   - `scripts/update-wow-forever-data.ts` (WoW publisher)
+ *   - `scripts/reviewed-editorial.ts` (Genshin reviewed-package importer)
+ * Re-run it after any approved publish, then review and commit the regenerated artifact.
  *
- *   bun --conditions=react-server scripts/export-archived-ranking-snapshots.ts
+ * Usage (needs a credential that can SELECT the ranking tables):
  *
- * It refuses to write when the exported data is incomplete or when the Genshin export disagrees
- * with the human-approved editorial package in `data/editorial/`.
+ *   DATABASE_URL=... bun --conditions=react-server scripts/export-archived-ranking-snapshots.ts
+ *
+ * `--games=wow-forever` or `--games=genshin-impact` limits the export during triage.
+ *
+ * Output: `data/archived-snapshots/<game>.json` plus a manifest with counts and SHA-256 so a
+ * reviewer can confirm the artifact matches what was exported.
  */
 import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -19,45 +28,45 @@ import { fileURLToPath } from "node:url";
 
 import { loadGenshinData } from "../src/modules/genshin-tier-list/data";
 import { getGameMetaBoardData, getRecentRatingChanges } from "../src/modules/meta-board/db/queries";
-import { createDatabaseClient, type DatabaseClient } from "../src/platform/database/client";
+import {
+  createDatabaseClient,
+  type DatabaseClient,
+} from "../src/platform/database/client";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+const OUTPUT_DIR = "data/archived-snapshots";
+const WOW_ROLES = ["dps", "tank", "healer"] as const;
+const GENSHIN_EDITORIAL_DIR = path.join(root, "data/editorial/genshin-impact/7.1");
+
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) throw new Error("DATABASE_URL is required to export archived ranking snapshots");
 
-const databaseHost = new URL(databaseUrl).hostname;
-const exportedAt = new Date().toISOString();
-const WOW_ROLES = ["dps", "tank", "healer"] as const;
-const gamesArg = process.argv.find((arg) => arg.startsWith("--games="));
+const gamesArg = process.argv.find((argument) => argument.startsWith("--games="));
 const requestedGames = new Set(
   (gamesArg?.slice("--games=".length) ?? "wow-forever,genshin-impact").split(",").filter(Boolean),
 );
-const GENSHIN_EDITORIAL_DIR = path.join(root, "data/editorial/genshin-impact/7.1");
+const databaseHost = new URL(databaseUrl).hostname;
+const exportedAt = new Date().toISOString();
 
 function jsonSafe<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
 }
 
-async function writeJson(relativePath: string, value: unknown) {
+async function writeArtifact(relativePath: string, value: unknown): Promise<string> {
+  const serialized = `${JSON.stringify(value, null, 2)}\n`;
   const target = path.join(root, relativePath);
   await mkdir(path.dirname(target), { recursive: true });
-  await writeFile(target, `${JSON.stringify(value, null, 2)}\n`, "utf8");
-  const bytes = Buffer.byteLength(`${JSON.stringify(value, null, 2)}\n`);
-  console.log(`wrote ${relativePath} (${(bytes / 1024).toFixed(1)} KiB)`);
-}
-
-async function writeRegistry(relativePath: string, contents: string) {
-  const target = path.join(root, relativePath);
-  await mkdir(path.dirname(target), { recursive: true });
-  await writeFile(target, contents, "utf8");
-  console.log(`wrote ${relativePath}`);
+  await writeFile(target, serialized, "utf8");
+  const digest = createHash("sha256").update(serialized).digest("hex");
+  console.log(`wrote ${relativePath} (${(Buffer.byteLength(serialized) / 1024).toFixed(1)} KiB)`);
+  return digest;
 }
 
 async function readEditorial<T>(file: string): Promise<T> {
   return JSON.parse(await readFile(path.join(GENSHIN_EDITORIAL_DIR, file), "utf8")) as T;
 }
 
-async function verifyEditorialChecksums() {
+async function verifyEditorialChecksums(): Promise<number> {
   const checksums = await readEditorial<Record<string, string>>("checksums.json");
   for (const [file, expected] of Object.entries(checksums)) {
     const actual = createHash("sha256")
@@ -73,9 +82,10 @@ async function verifyEditorialChecksums() {
 type EditorialCharacter = { slug: string; name: string };
 type EditorialRating = { entitySlug: string; tier: string; primaryRole: string };
 
+/** Proves the exported Genshin rows still equal the human-approved package that was imported. */
 async function verifyGenshinAgainstEditorial(
   characters: readonly { name: string; tier: string; primaryRole: string }[],
-) {
+): Promise<number> {
   const master = await readEditorial<EditorialCharacter[]>("character-master.json");
   const ratings = await readEditorial<EditorialRating[]>("ratings.json");
   const tierBySlug = new Map(ratings.map((rating) => [rating.entitySlug, rating]));
@@ -107,9 +117,9 @@ async function verifyGenshinAgainstEditorial(
 
 async function exportWow(database: DatabaseClient) {
   const roles: Record<string, unknown> = {};
-  let entityCount = 0;
-  let evidenceCount = 0;
-  let changeCount = 0;
+  let entities = 0;
+  let evidenceSources = 0;
+  let ratingChanges = 0;
   let version: string | null = null;
   let versionId: string | null = null;
 
@@ -133,12 +143,11 @@ async function exportWow(database: DatabaseClient) {
         : [];
 
     const items = board.tiers.flatMap((group) => group.items);
-    entityCount += items.length;
-    evidenceCount += items.reduce((total, item) => total + item.sources.length, 0);
-    changeCount += changes.length;
+    entities += items.length;
+    evidenceSources += items.reduce((total, item) => total + item.sources.length, 0);
+    ratingChanges += changes.length;
     version = board.version?.version ?? version;
     versionId = board.version?.id ?? versionId;
-
     roles[role] = { board: jsonSafe(board), changes: jsonSafe(changes) };
     console.log(
       `WoW ${role}: ${items.length} entities, ${changes.length} changes, context ${board.activeContext?.id}`,
@@ -146,78 +155,65 @@ async function exportWow(database: DatabaseClient) {
   }
 
   return {
-    snapshot: {
-      schemaVersion: 1,
-      provenance: {
-        gameSlug: "wow-forever",
-        exportedAt,
-        databaseHost,
-        version,
-        versionId,
-        roles: [...WOW_ROLES],
-        quota: { entities: entityCount, evidenceSources: evidenceCount, ratingChanges: changeCount },
-      },
-      roles,
+    schemaVersion: 1,
+    provenance: {
+      gameSlug: "wow-forever",
+      exportedAt,
+      databaseHost,
+      version,
+      versionId,
+      roles: [...WOW_ROLES],
+      counts: { entities, evidenceSources, ratingChanges },
     },
-    counts: { entityCount, evidenceCount, changeCount },
+    roles,
   };
 }
 
 async function exportGenshin(database: Pick<DatabaseClient, "select">) {
   const result = await loadGenshinData(database);
-  if (result.status !== "available") throw new Error("Genshin snapshot is unavailable; refusing to export");
+  if (result.status !== "available") {
+    throw new Error("Genshin snapshot is unavailable; refusing to export");
+  }
   const { data } = result;
   if (data.characters.length === 0) throw new Error("Genshin snapshot has no characters");
 
   const approvedRoster = await verifyGenshinAgainstEditorial(data.characters);
   const checksummedFiles = await verifyEditorialChecksums();
   console.log(
-    `Genshin ${data.version}: ${data.characters.length} characters, ${data.evidenceCount} evidence observations, ${data.sources.length} sources`,
-  );
-  console.log(
-    `Genshin cross-check: matches approved roster (${approvedRoster}) and ${checksummedFiles} checksummed editorial files`,
+    `Genshin ${data.version}: ${data.characters.length} characters, ${data.evidenceCount} evidence observations, ${data.sources.length} sources; matches approved roster (${approvedRoster}) across ${checksummedFiles} checksummed files`,
   );
 
   return {
-    snapshot: {
-      schemaVersion: 1,
-      provenance: {
-        gameSlug: "genshin-impact",
-        exportedAt,
-        databaseHost,
-        version: data.version,
-        editorialPackage: "data/editorial/genshin-impact/7.1",
-      },
-      data: jsonSafe(data),
+    schemaVersion: 1,
+    provenance: {
+      gameSlug: "genshin-impact",
+      exportedAt,
+      databaseHost,
+      version: data.version,
+      editorialPackage: "data/editorial/genshin-impact/7.1",
+      counts: { characters: data.characters.length, evidence: data.evidenceCount },
     },
-    counts: { characters: data.characters.length, evidence: data.evidenceCount },
+    data: jsonSafe(data),
   };
 }
 
 const client = createDatabaseClient(databaseUrl, 1);
+const manifest: Record<string, unknown> = { exportedAt, databaseHost, artifacts: {} };
+const artifacts = manifest.artifacts as Record<string, { sha256: string }>;
+
 try {
   if (requestedGames.has("wow-forever")) {
-    const wow = await exportWow(client.db);
-    await writeJson("src/modules/meta-board/db/archived-snapshots/wow-forever.json", wow.snapshot);
-    await writeRegistry(
-      "src/modules/meta-board/db/archived-snapshots/registry.ts",
-      `import type { ArchivedMetaBoardSnapshot } from "../archived-snapshot";\nimport wowForever from "./wow-forever.json";\n\n/** Generated by \`scripts/export-archived-ranking-snapshots.ts\`. Do not edit by hand. */\nexport const archivedMetaBoardSnapshots: Record<string, ArchivedMetaBoardSnapshot> = {\n  "wow-forever": wowForever as unknown as ArchivedMetaBoardSnapshot,\n};\n`,
-    );
+    const artifact = `${OUTPUT_DIR}/wow-forever.json`;
+    artifacts[artifact] = { sha256: await writeArtifact(artifact, await exportWow(client.db)) };
   }
-
   if (requestedGames.has("genshin-impact")) {
-    const genshin = await exportGenshin(client.db);
-    await writeJson(
-      "src/modules/genshin-tier-list/archived-snapshots/genshin-impact.json",
-      genshin.snapshot,
-    );
-    await writeRegistry(
-      "src/modules/genshin-tier-list/archived-snapshots/registry.ts",
-      `import type { GenshinArchivedSnapshot } from "../archived-snapshot";\nimport genshinImpact from "./genshin-impact.json";\n\n/** Generated by \`scripts/export-archived-ranking-snapshots.ts\`. Do not edit by hand. */\nexport const genshinArchivedSnapshot =\n  genshinImpact as unknown as GenshinArchivedSnapshot;\n`,
-    );
+    const artifact = `${OUTPUT_DIR}/genshin-impact.json`;
+    artifacts[artifact] = {
+      sha256: await writeArtifact(artifact, await exportGenshin(client.db)),
+    };
   }
-
-  console.log(`exported from ${databaseHost} at ${exportedAt}: games=${[...requestedGames].join(",")}`);
+  await writeArtifact(`${OUTPUT_DIR}/manifest.json`, manifest);
+  console.log(`exported from ${databaseHost} at ${exportedAt}`);
 } finally {
   await client.close();
 }
