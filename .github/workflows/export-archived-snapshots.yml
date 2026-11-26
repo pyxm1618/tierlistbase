@@ -24,17 +24,20 @@ jobs:
         with: { bun-version: 1.3.14 }
       - name: Install dependencies
         run: bun install --frozen-lockfile
+      - name: Diagnose database access
+        continue-on-error: true
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: bun scripts/_diagnose-db-access.ts
       - name: Export snapshots from the authoritative database
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: bun --conditions=react-server scripts/export-archived-ranking-snapshots.ts
+        run: bun --conditions=react-server scripts/export-archived-ranking-snapshots.ts --games=genshin-impact
       - name: Upload snapshot artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: archived-ranking-snapshots
           path: |
-            src/modules/meta-board/db/archived-snapshots/wow-forever.json
-            src/modules/meta-board/db/archived-snapshots/registry.ts
             src/modules/genshin-tier-list/archived-snapshots/genshin-impact.json
             src/modules/genshin-tier-list/archived-snapshots/registry.ts
           if-no-files-found: error
