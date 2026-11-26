@@ -267,7 +267,7 @@ export function PhantomBladeZeroTierListPage() {
             alt=""
             fill
             priority
-            quality={78}
+            quality={75}
             sizes="100vw"
             className={styles.heroImage}
             data-p0-role="hero"
