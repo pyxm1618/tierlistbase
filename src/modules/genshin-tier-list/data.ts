@@ -14,7 +14,6 @@ import {
   ratings,
   sources,
 } from "@/modules/meta-board/db/schema";
-import { readArchivedGenshinData } from "./archived-snapshot";
 import { elements, roles, tiers, type Character } from "./characters";
 
 const text = z.string().trim().min(1);
@@ -137,13 +136,6 @@ export type GenshinDataResult =
 export async function loadGenshinData(
   database?: Pick<DatabaseClient, "select">,
 ): Promise<GenshinDataResult> {
-  if (!database) {
-    // Frozen archive read path: the reviewed 7.1 snapshot is materialized at build time so a page
-    // view does not open a remote database connection. Explicit database callers (importer
-    // read-back, integration tests) keep reading the database below.
-    const archived = readArchivedGenshinData();
-    if (archived) return { status: "available", data: archived };
-  }
   try {
     const db = database ?? (await import("@/platform/database/application-database")).db;
     const [scope] = await db
