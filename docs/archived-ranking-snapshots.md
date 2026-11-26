@@ -63,6 +63,53 @@ WoW 三个角色的 board 与 changes、Genshin 全量 data、以及版本与 ed
 
 退出码 0 仅当所有数据集 strict 相等且 checksums 通过。凭据只从环境变量或文件读取，不打印。
 
+### 2.2 如何确认连接目标就是生产 Worker 使用的数据源
+
+快照的哈希只能证明「与所连数据库一致」，不能证明「所连数据库就是生产」。生产页面本身提供了一个毫秒级指纹：
+Genshin 页头展示的 `Ranking Data Captured` 直接来自 `max(ratings.updated_at)`。
+
+```bash
+# 1) 读生产页面展示的抓取时间（公开页面，无需凭据）
+curl -s https://www.tierlistbase.com/genshin-impact/tier-list \
+  | grep -o 'dateTime="[0-9T:.Z-]*"'
+```
+
+```sql
+-- 2) 在只读事务里取同一字段（不写入）
+begin read only;
+select max(r.updated_at) as updated_at
+from ratings r
+join entities e on e.id = r.entity_id
+join games g on g.id = e.game_id
+where g.slug = 'genshin-impact';
+rollback;
+```
+
+两者到毫秒一致，才能认定所连数据库就是生产数据源。辅助指纹（同样的只读方式）：
+
+- `select count(*) from ratings` → 148（Genshin 121 + WoW 27）
+- `select gv.version, gv.level_cap from game_versions gv join games g on g.id = gv.game_id where g.slug = 'wow-forever'` → `Beta` / `30`，
+  与 WoW 页面 `Archived Beta Phase / Version` 及 `Level Cap Context` 显示一致。
+
+三个指纹同时一致才记录为「已确认同源」。仅凭主机名、更新时间相同或 provenance 声明不构成证明。
+
+## 2.3 变更历史的查询覆盖边界
+
+`rating_changes` 快照只覆盖导出时抓取的那个窗口（每角色 `changesLimit = 10` 条）。因此读取路径只在能证明完整时使用快照：
+
+| 查询 | 行为 |
+| --- | --- |
+| 同时给出 `rankingContextId` + `toVersionId`，且该组合已导出，`limit ≤ changesLimit` | 用快照 |
+| 只给 `toVersionId`，且该版本在 `coverage.versions` 中 `complete: true` | 用快照（跨上下文汇总） |
+| 只给 `toVersionId`，但该版本 `complete: false` | 回退 SQL |
+| 只给 `rankingContextId`（跨版本） | 回退 SQL |
+| 不给过滤条件（跨全部版本） | 回退 SQL |
+| `limit > changesLimit` | 回退 SQL |
+| Context / Version 不在快照中 | 回退 SQL |
+
+**未覆盖不等于不存在**：只有落在覆盖范围内且确实无记录时，才返回空数组。`complete` 由导出器在导出时证明
+（该版本的 `availableRoles` 全部导出，且不存在其它 mode / level cap），写进 `provenance.coverage`。
+
 ## 3. 提交前检查
 
 导出后审阅 JSON diff，重点看：

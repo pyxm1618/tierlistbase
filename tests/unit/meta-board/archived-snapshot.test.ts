@@ -119,20 +119,40 @@ describe("WoW archived ranking snapshot", () => {
     expect(select).toHaveBeenCalled();
   });
 
-  it("returns the frozen change history only for the archived context", () => {
+  it("serves the page's own change query from the snapshot", () => {
     const dps = snapshot.roles.dps!.board;
     const matching = readArchivedRatingChanges("wow-forever", 10, {
       rankingContextId: dps.activeContext!.id,
       toVersionId: dps.version!.id,
     });
     expect(matching).toHaveLength(snapshot.roles.dps!.changes.length);
+  });
 
+  it("declares change coverage the reader can rely on", () => {
+    const coverage = snapshot.provenance.coverage;
+    expect(coverage?.changesLimit).toBe(10);
+    const archived = coverage?.versions.find(
+      (version) => version.versionId === snapshot.provenance.versionId,
+    );
+    expect(archived?.complete).toBe(true);
+    expect(archived?.roles.slice().sort()).toEqual(["dps", "healer", "tank"]);
+  });
+
+  it("falls back to SQL instead of reporting uncovered change queries as empty", () => {
+    const dps = snapshot.roles.dps!.board;
+    // Context the artifact never captured.
     expect(
       readArchivedRatingChanges("wow-forever", 10, {
         rankingContextId: "some-other-context",
         toVersionId: dps.version!.id,
       }),
-    ).toEqual([]);
+    ).toBeNull();
+    // Wider window than the exported one.
+    expect(
+      readArchivedRatingChanges("wow-forever", 50, { toVersionId: dps.version!.id }),
+    ).toBeNull();
+    // Unfiltered queries span versions the artifact never captured.
+    expect(readArchivedRatingChanges("wow-forever", 10)).toBeNull();
     expect(readArchivedRatingChanges("genshin-impact", 10)).toBeNull();
   });
 });

@@ -16,6 +16,22 @@ import type {
  */
 export const ARCHIVED_SNAPSHOT_SCHEMA_VERSION = 1;
 
+/**
+ * What the artifact can answer completely. A query outside this envelope must go back to SQL:
+ * absence of a row in the snapshot is not evidence that the database has no such row.
+ */
+export type ArchivedChangesCoverage = {
+  /** Largest `limit` the exported change lists can serve without truncating the real result. */
+  readonly changesLimit: number;
+  readonly versions: ReadonlyArray<{
+    readonly versionId: string;
+    readonly version: string;
+    /** True only when every ranking context of that version was exported. */
+    readonly complete: boolean;
+    readonly roles: readonly string[];
+  }>;
+};
+
 export type ArchivedSnapshotProvenance = {
   readonly gameSlug: string;
   readonly exportedAt: string;
@@ -24,6 +40,7 @@ export type ArchivedSnapshotProvenance = {
   readonly versionId: string | null;
   readonly roles: readonly string[];
   readonly counts: Record<string, number>;
+  readonly coverage?: ArchivedChangesCoverage | undefined;
 };
 
 export type ArchivedMetaBoardRoleSnapshot = {
@@ -146,13 +163,20 @@ export function readArchivedMetaBoard(query: ArchivedBoardQuery): MetaBoardData 
 }
 
 /**
- * Serves a frozen snapshot of `getRecentRatingChanges`. Semantics match the SQL query: apply the
- * supplied filters across every archived ranking context, order the whole result set by
- * `changedAt` descending, then apply `limit` last.
+ * Serves a frozen snapshot of `getRecentRatingChanges`, but only for queries the artifact can answer
+ * completely. Anything else returns `null` so the caller runs the original SQL query.
  *
- * A filtering predicate that matches several roles must aggregate all of them — returning only the
- * first match would silently drop history that the database path returns. Rows are keyed by their
- * primary key so a record present in more than one snapshot collection cannot be duplicated.
+ * Coverage is declared by the exporter and checked here:
+ *   - a context + version pair that was exported is served directly;
+ *   - a version on its own is served only when the artifact proves every context of that version was
+ *     exported (otherwise a cross-context query would silently lose rows);
+ *   - a context without a version, and an unfiltered query, span versions and are never served;
+ *   - a `limit` above the exported window is never served, because the stored list is truncated.
+ *
+ * Semantics inside the envelope mirror the SQL query: filters apply across every covered context, the
+ * union is ordered by `changedAt` descending, `limit` is applied last, and rows are keyed by primary
+ * key so a record shared by two collections is never duplicated. An empty array therefore means
+ * "covered and genuinely empty", never "not covered".
  */
 export function readArchivedRatingChanges(
   gameSlug: string,
@@ -162,17 +186,34 @@ export function readArchivedRatingChanges(
   const snapshot = archivedMetaBoardSnapshots[gameSlug];
   if (!snapshot) return null;
 
+  const coverage = snapshot.provenance.coverage;
+  if (!coverage) return null;
+  if (!Number.isInteger(limit) || limit < 1) return null;
+  if (limit > coverage.changesLimit) return null;
+
   const contextId = filters?.rankingContextId;
   const versionId = filters?.toVersionId;
 
-  const matched = Object.values(snapshot.roles).filter((role) => {
-    const contextMatches = contextId === undefined || role.board.activeContext?.id === contextId;
-    const versionMatches = versionId === undefined || role.board.version?.id === versionId;
-    return contextMatches && versionMatches;
-  });
+  let covered: ArchivedMetaBoardRoleSnapshot[];
+  if (contextId !== undefined && versionId !== undefined) {
+    const match = Object.values(snapshot.roles).find(
+      (role) => role.board.activeContext?.id === contextId && role.board.version?.id === versionId,
+    );
+    if (!match) return null;
+    covered = [match];
+  } else if (versionId !== undefined) {
+    const version = coverage.versions.find((entry) => entry.versionId === versionId);
+    if (!version?.complete) return null;
+    const roles = version.roles.map((role) => snapshot.roles[role]);
+    if (roles.some((role) => role === undefined)) return null;
+    covered = roles as ArchivedMetaBoardRoleSnapshot[];
+  } else {
+    // A context without a version, or no filter at all, spans versions the artifact never captured.
+    return null;
+  }
 
   const byId = new Map<string, RecentRatingChangeItem>();
-  for (const role of matched) {
+  for (const role of covered) {
     for (const change of reviveArchivedChanges(role.changes)) {
       if (!byId.has(change.id)) byId.set(change.id, change);
     }

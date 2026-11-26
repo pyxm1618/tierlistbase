@@ -6,6 +6,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 
 import {
+  assertPackageFileName,
   assertSafeVersion,
   resolveEditorialPackage,
   verifyEditorialChecksums,
@@ -32,6 +33,7 @@ type PackageOptions = {
   readonly rankingContext?: string;
   readonly reviewStatus?: string;
   readonly checksumOverride?: Record<string, string>;
+  readonly checksumOmit?: readonly string[];
 };
 
 function writePackage(options: PackageOptions): string {
@@ -70,6 +72,7 @@ function writePackage(options: PackageOptions): string {
       createHash("sha256").update(contents).digest("hex"),
     ]),
   );
+  for (const file of options.checksumOmit ?? []) delete checksums[file];
   files["checksums.json"] = JSON.stringify({ ...checksums, ...options.checksumOverride });
 
   for (const [file, contents] of Object.entries(files)) {
@@ -146,6 +149,75 @@ describe("Genshin editorial package version binding", () => {
     await expect(verifyEditorialChecksums(pkg)).rejects.toThrow(
       /checksum mismatch for data\/editorial\/genshin-impact\/9\.9\/ratings\.json/,
     );
+  });
+
+  it("refuses a checksum manifest that omits a required input", async () => {
+    const root = temporaryRoot();
+    writePackage({ root, directoryVersion: "9.9", checksumOmit: ["ratings.json"] });
+    const pkg = resolveEditorialPackage({ version: "9.9", rootDir: root });
+    await expect(verifyEditorialChecksums(pkg)).rejects.toThrow(/does not checksum ratings\.json/);
+  });
+
+  it("refuses a checksum manifest that lists an unexpected file", async () => {
+    const root = temporaryRoot();
+    writePackage({
+      root,
+      directoryVersion: "9.9",
+      checksumOverride: { "extra.json": "a".repeat(64) },
+    });
+    const pkg = resolveEditorialPackage({ version: "9.9", rootDir: root });
+    await expect(verifyEditorialChecksums(pkg)).rejects.toThrow(/lists unexpected extra\.json/);
+  });
+
+  it("refuses an empty checksum manifest", async () => {
+    const root = temporaryRoot();
+    writePackage({
+      root,
+      directoryVersion: "9.9",
+      checksumOmit: [
+        "character-master.json",
+        "ratings.json",
+        "sources.json",
+        "evidence.json",
+        "manifest.json",
+      ],
+    });
+    const pkg = resolveEditorialPackage({ version: "9.9", rootDir: root });
+    await expect(verifyEditorialChecksums(pkg)).rejects.toThrow(/checksums\.json is empty/);
+  });
+
+  it("refuses a malformed SHA-256 value", async () => {
+    for (const bad of ["abc", "z".repeat(64), "a".repeat(63), "a".repeat(65), ""]) {
+      const root = temporaryRoot();
+      writePackage({ root, directoryVersion: "9.9", checksumOverride: { "sources.json": bad } });
+      const pkg = resolveEditorialPackage({ version: "9.9", rootDir: root });
+      await expect(verifyEditorialChecksums(pkg), bad).rejects.toThrow(
+        /invalid SHA-256 for sources\.json/,
+      );
+    }
+  });
+
+  it("refuses a checksummed file that is missing from disk", async () => {
+    const root = temporaryRoot();
+    writePackage({ root, directoryVersion: "9.9" });
+    const pkg = resolveEditorialPackage({ version: "9.9", rootDir: root });
+    // Resolve first, then remove the input: the package exists but an input cannot be verified.
+    rmSync(path.join(pkg.directory, "evidence.json"));
+    await expect(verifyEditorialChecksums(pkg)).rejects.toThrow(/evidence\.json is missing/);
+  });
+
+  it("only accepts plain package file names", () => {
+    for (const unsafe of ["../manifest.json", "nested/manifest.json", "..", "", "a\\b.json"]) {
+      expect(() => assertPackageFileName(unsafe), unsafe).toThrow(/unsafe file name/);
+    }
+    expect(assertPackageFileName("ratings.json")).toBe("ratings.json");
+  });
+
+  it("reports a full 5/5 verification on success", async () => {
+    const root = temporaryRoot();
+    writePackage({ root, directoryVersion: "9.9" });
+    const pkg = resolveEditorialPackage({ version: "9.9", rootDir: root });
+    await expect(verifyEditorialChecksums(pkg)).resolves.toBe(5);
   });
 
   it("refuses an export whose roster no longer matches the approved package", async () => {

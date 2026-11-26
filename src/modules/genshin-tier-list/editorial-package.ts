@@ -124,19 +124,89 @@ export async function readPackageFile<T>(pkg: ResolvedEditorialPackage, file: st
 }
 
 /** Re-hashes every file listed in `checksums.json`; returns how many were verified. */
+/** The reviewed package is complete only if every one of these files is checksummed. */
+export const REQUIRED_CHECKSUMMED_FILES = [
+  "character-master.json",
+  "ratings.json",
+  "sources.json",
+  "evidence.json",
+  "manifest.json",
+] as const;
+
+const SHA256_HEX = /^[a-fA-F0-9]{64}$/;
+const SAFE_FILE_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+
+/** Rejects anything that is not a plain file name inside the package directory. */
+export function assertPackageFileName(file: string): string {
+  if (!SAFE_FILE_NAME.test(file) || file.includes("..")) {
+    throw new Error(
+      `Refusing to export: unsafe file name ${JSON.stringify(file)} in checksums.json`,
+    );
+  }
+  return file;
+}
+
+/**
+ * Re-hashes every file the package declares, and refuses a manifest that is not exactly the five
+ * reviewed inputs: a subset would silently leave an input unverified, and an extra entry would let
+ * an unreviewed file claim to be part of the package.
+ */
 export async function verifyEditorialChecksums(pkg: ResolvedEditorialPackage): Promise<number> {
-  const checksums = await readPackageFile<Record<string, string>>(pkg, "checksums.json");
-  for (const [file, expected] of Object.entries(checksums)) {
+  const checksums = await readPackageFile<Record<string, unknown>>(pkg, "checksums.json");
+  if (checksums === null || typeof checksums !== "object" || Array.isArray(checksums)) {
+    throw new Error(`Refusing to export: ${pkg.relativePath}/checksums.json is not an object`);
+  }
+
+  const declared = Object.keys(checksums);
+  if (declared.length === 0) {
+    throw new Error(`Refusing to export: ${pkg.relativePath}/checksums.json is empty`);
+  }
+
+  const required = new Set<string>(REQUIRED_CHECKSUMMED_FILES);
+  const missing = [...required].filter((file) => !Object.hasOwn(checksums, file));
+  if (missing.length > 0) {
+    throw new Error(
+      `Refusing to export: ${pkg.relativePath}/checksums.json does not checksum ${missing.join(", ")}`,
+    );
+  }
+  const unexpected = declared.filter((file) => !required.has(file));
+  if (unexpected.length > 0) {
+    throw new Error(
+      `Refusing to export: ${pkg.relativePath}/checksums.json lists unexpected ${unexpected.join(", ")}`,
+    );
+  }
+  if (declared.length !== REQUIRED_CHECKSUMMED_FILES.length) {
+    throw new Error(
+      `Refusing to export: ${pkg.relativePath}/checksums.json must list exactly ${REQUIRED_CHECKSUMMED_FILES.length} files, found ${declared.length}`,
+    );
+  }
+
+  for (const file of REQUIRED_CHECKSUMMED_FILES) {
+    assertPackageFileName(file);
+    const expected = checksums[file];
+    if (typeof expected !== "string" || !SHA256_HEX.test(expected)) {
+      throw new Error(
+        `Refusing to export: ${pkg.relativePath}/checksums.json has an invalid SHA-256 for ${file}`,
+      );
+    }
+    const absolute = path.join(pkg.directory, file);
+    if (!absolute.startsWith(`${pkg.directory}${path.sep}`)) {
+      throw new Error(`Refusing to export: resolved path for ${file} escapes the package`);
+    }
+    if (!existsSync(absolute)) {
+      throw new Error(`Refusing to export: ${pkg.relativePath}/${file} is missing`);
+    }
     const actual = createHash("sha256")
-      .update(await readFile(path.join(pkg.directory, file)))
+      .update(await readFile(absolute))
       .digest("hex");
-    if (actual !== expected) {
+    if (actual !== expected.toLowerCase()) {
       throw new Error(
         `Refusing to export: editorial checksum mismatch for ${pkg.relativePath}/${file} (${actual} != ${expected})`,
       );
     }
   }
-  return Object.keys(checksums).length;
+
+  return REQUIRED_CHECKSUMMED_FILES.length;
 }
 
 type EditorialCharacter = { slug: string; name: string };

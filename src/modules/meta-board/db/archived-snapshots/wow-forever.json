@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "provenance": {
     "gameSlug": "wow-forever",
-    "exportedAt": "2026-11-26T03:44:00.513Z",
+    "exportedAt": "2026-11-26T07:11:38.383Z",
     "databaseTarget": "neon:us-east-1",
     "version": "Beta",
     "versionId": "v-a34604d21fb04a5905428181db7e6c120c",
@@ -11,6 +11,17 @@
       "entities": 27,
       "evidenceSources": 27,
       "ratingChanges": 0
+    },
+    "coverage": {
+      "changesLimit": 10,
+      "versions": [
+        {
+          "versionId": "v-a34604d21fb04a5905428181db7e6c120c",
+          "version": "Beta",
+          "complete": true,
+          "roles": ["dps", "healer", "tank"]
+        }
+      ]
     }
   },
   "roles": {

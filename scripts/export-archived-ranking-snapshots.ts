@@ -38,6 +38,8 @@ import { createDatabaseClient, type DatabaseClient } from "../src/platform/datab
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const WOW_ROLES = ["dps", "tank", "healer"] as const;
+/** Change rows are exported per role with this window; a larger `limit` cannot be served. */
+const CHANGES_LIMIT = 10;
 const WOW_OUTPUT = "src/modules/meta-board/db/archived-snapshots/wow-forever.json";
 const GENSHIN_OUTPUT = "src/modules/genshin-tier-list/archived-snapshots/genshin-impact.json";
 
@@ -86,6 +88,14 @@ async function writeArtifact(relativePath: string, value: unknown): Promise<stri
 
 async function buildWowSnapshot(database: DatabaseClient) {
   const roles: Record<string, unknown> = {};
+  const exported: Array<{
+    role: string;
+    versionId: string;
+    version: string;
+    availableRoles: string[];
+    availableModes: string[];
+    availableLevels: number[];
+  }> = [];
   let entities = 0;
   let evidenceSources = 0;
   let ratingChanges = 0;
@@ -105,11 +115,21 @@ async function buildWowSnapshot(database: DatabaseClient) {
 
     const changes =
       board.activeContext && board.version
-        ? await getRecentRatingChanges("wow-forever", 10, database, {
+        ? await getRecentRatingChanges("wow-forever", CHANGES_LIMIT, database, {
             rankingContextId: board.activeContext.id,
             toVersionId: board.version.id,
           })
         : [];
+    if (board.activeContext && board.version) {
+      exported.push({
+        role,
+        versionId: board.version.id,
+        version: board.version.version,
+        availableRoles: board.availableRoles,
+        availableModes: board.availableModes,
+        availableLevels: board.availableLevels,
+      });
+    }
 
     const items = board.tiers.flatMap((group) => group.items);
     entities += items.length;
@@ -123,6 +143,29 @@ async function buildWowSnapshot(database: DatabaseClient) {
     );
   }
 
+  // A version is only "complete" when every ranking context the database reports for it was
+  // exported, and no other mode or level cap exists for it. Anything weaker would let a cross-context
+  // query be answered from a subset.
+  const exportedRoles = new Set(exported.map((entry) => entry.role));
+  const versions = [...new Set(exported.map((entry) => entry.versionId))].map((versionId) => {
+    const entries = exported.filter((entry) => entry.versionId === versionId);
+    const availableRoles = new Set(entries.flatMap((entry) => entry.availableRoles));
+    const modes = new Set(entries.flatMap((entry) => entry.availableModes));
+    const levels = new Set(entries.flatMap((entry) => entry.availableLevels));
+    const complete =
+      [...availableRoles].every((role) => exportedRoles.has(role)) &&
+      modes.size === 1 &&
+      modes.has("dungeon") &&
+      levels.size === 1 &&
+      levels.has(30);
+    return {
+      versionId,
+      version: entries[0]?.version ?? "",
+      complete,
+      roles: entries.map((entry) => entry.role).sort(),
+    };
+  });
+
   return {
     schemaVersion: 1,
     provenance: {
@@ -133,6 +176,7 @@ async function buildWowSnapshot(database: DatabaseClient) {
       versionId,
       roles: [...WOW_ROLES],
       counts: { entities, evidenceSources, ratingChanges },
+      coverage: { changesLimit: CHANGES_LIMIT, versions },
     },
     roles,
   };
