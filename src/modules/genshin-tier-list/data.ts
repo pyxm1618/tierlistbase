@@ -3,6 +3,8 @@ import "server-only";
 import { and, eq, inArray, isNull, or } from "drizzle-orm";
 import { z } from "zod";
 import type { DatabaseClient } from "@/platform/database/client";
+// The product barrel re-exports client UI, which must not be pulled into this server-only data
+// module; these are pure drizzle table definitions.
 import {
   entities,
   entityProfiles,
@@ -13,7 +15,9 @@ import {
   ratingChanges,
   ratings,
   sources,
-} from "@/modules/meta-board";
+  // eslint-disable-next-line creat-web-modules/product-module-boundary
+} from "@/modules/meta-board/db/schema";
+import { readArchivedGenshinData } from "./archived-snapshot";
 import { elements, roles, tiers, type Character } from "./characters";
 
 const text = z.string().trim().min(1);
@@ -136,6 +140,13 @@ export type GenshinDataResult =
 export async function loadGenshinData(
   database?: Pick<DatabaseClient, "select">,
 ): Promise<GenshinDataResult> {
+  if (!database) {
+    // Archived read path: the reviewed 7.1 snapshot is materialized, so a page view does not open a
+    // remote database connection. Explicit database callers (importer read-back, integration tests)
+    // keep reading the database below.
+    const archived = readArchivedGenshinData();
+    if (archived) return { status: "available", data: archived };
+  }
   try {
     const db = database ?? (await import("@/platform/database/application-database")).db;
     const [scope] = await db
