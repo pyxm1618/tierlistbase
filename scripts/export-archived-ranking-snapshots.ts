@@ -22,11 +22,17 @@
  */
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadGenshinData } from "../src/modules/genshin-tier-list/data";
+import {
+  resolveEditorialPackage,
+  verifyEditorialChecksums,
+  verifyGenshinAgainstEditorial,
+  type ResolvedEditorialPackage,
+} from "../src/modules/genshin-tier-list/editorial-package";
 import { getGameMetaBoardData, getRecentRatingChanges } from "../src/modules/meta-board/db/queries";
 import { createDatabaseClient, type DatabaseClient } from "../src/platform/database/client";
 
@@ -34,7 +40,6 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const WOW_ROLES = ["dps", "tank", "healer"] as const;
 const WOW_OUTPUT = "src/modules/meta-board/db/archived-snapshots/wow-forever.json";
 const GENSHIN_OUTPUT = "src/modules/genshin-tier-list/archived-snapshots/genshin-impact.json";
-const GENSHIN_EDITORIAL_DIR = path.join(root, "data/editorial/genshin-impact/7.1");
 
 function resolveDatabaseUrl(): string {
   const direct = process.env.DATABASE_URL;
@@ -77,60 +82,6 @@ async function writeArtifact(relativePath: string, value: unknown): Promise<stri
   await writeFile(target, serialized, "utf8");
   console.log(`wrote ${relativePath} (${(Buffer.byteLength(serialized) / 1024).toFixed(1)} KiB)`);
   return createHash("sha256").update(serialized).digest("hex");
-}
-
-async function readEditorial<T>(file: string): Promise<T> {
-  return JSON.parse(await readFile(path.join(GENSHIN_EDITORIAL_DIR, file), "utf8")) as T;
-}
-
-async function verifyEditorialChecksums(): Promise<number> {
-  const checksums = await readEditorial<Record<string, string>>("checksums.json");
-  for (const [file, expected] of Object.entries(checksums)) {
-    const actual = createHash("sha256")
-      .update(await readFile(path.join(GENSHIN_EDITORIAL_DIR, file)))
-      .digest("hex");
-    if (actual !== expected) {
-      throw new Error(`Editorial package checksum mismatch for ${file}: ${actual} != ${expected}`);
-    }
-  }
-  return Object.keys(checksums).length;
-}
-
-type EditorialCharacter = { slug: string; name: string };
-type EditorialRating = { entitySlug: string; tier: string; primaryRole: string };
-
-/** Proves the exported Genshin rows still equal the human-approved package that was imported. */
-async function verifyGenshinAgainstEditorial(
-  characters: readonly { name: string; tier: string; primaryRole: string }[],
-): Promise<number> {
-  const master = await readEditorial<EditorialCharacter[]>("character-master.json");
-  const ratings = await readEditorial<EditorialRating[]>("ratings.json");
-  const tierBySlug = new Map(ratings.map((rating) => [rating.entitySlug, rating]));
-  const slugByName = new Map(master.map((character) => [character.name, character.slug]));
-
-  if (characters.length !== master.length) {
-    throw new Error(
-      `Genshin export has ${characters.length} characters but the approved roster has ${master.length}`,
-    );
-  }
-  for (const character of characters) {
-    const slug = slugByName.get(character.name);
-    if (!slug)
-      throw new Error(`Exported character ${character.name} is not in the approved roster`);
-    const approved = tierBySlug.get(slug);
-    if (!approved) throw new Error(`Approved ratings have no entry for ${slug}`);
-    if (character.tier !== approved.tier) {
-      throw new Error(
-        `Tier drift for ${character.name}: database "${character.tier}" vs approved "${approved.tier}"`,
-      );
-    }
-    if (character.primaryRole !== approved.primaryRole) {
-      throw new Error(
-        `Role drift for ${character.name}: database "${character.primaryRole}" vs approved "${approved.primaryRole}"`,
-      );
-    }
-  }
-  return master.length;
 }
 
 async function buildWowSnapshot(database: DatabaseClient) {
@@ -195,10 +146,17 @@ async function buildGenshinSnapshot(database: Pick<DatabaseClient, "select">) {
   const { data } = result;
   if (data.characters.length === 0) throw new Error("Genshin snapshot has no characters");
 
-  const approvedRoster = await verifyGenshinAgainstEditorial(data.characters);
-  const checksummedFiles = await verifyEditorialChecksums();
+  // Bind the package to the database version before validating anything against it, so a newer
+  // database can never be checked with an older approved package.
+  const pkg: ResolvedEditorialPackage = resolveEditorialPackage({
+    version: data.version,
+    rankingContext: data.context,
+    rootDir: root,
+  });
+  const approvedRoster = await verifyGenshinAgainstEditorial(pkg, data.characters);
+  const checksummedFiles = await verifyEditorialChecksums(pkg);
   console.log(
-    `Genshin ${data.version}: ${data.characters.length} characters, ${data.evidenceCount} evidence observations, ${data.sources.length} sources; matches the approved roster (${approvedRoster}) across ${checksummedFiles} checksummed files`,
+    `Genshin ${data.version}: ${data.characters.length} characters, ${data.evidenceCount} evidence observations, ${data.sources.length} sources; matches ${pkg.relativePath} (${approvedRoster} approved ratings) across ${checksummedFiles} checksummed files`,
   );
 
   return {
@@ -208,7 +166,7 @@ async function buildGenshinSnapshot(database: Pick<DatabaseClient, "select">) {
       exportedAt,
       databaseTarget,
       version: data.version,
-      editorialPackage: "data/editorial/genshin-impact/7.1",
+      editorialPackage: pkg.relativePath,
       counts: { characters: data.characters.length, evidence: data.evidenceCount },
     },
     data: jsonSafe(data),

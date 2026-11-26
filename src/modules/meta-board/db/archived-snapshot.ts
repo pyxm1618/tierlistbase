@@ -146,8 +146,13 @@ export function readArchivedMetaBoard(query: ArchivedBoardQuery): MetaBoardData 
 }
 
 /**
- * Serves the frozen change history for the ranking context the snapshot captured. A filter that
- * does not match the archived context returns an empty list, exactly like the SQL path.
+ * Serves a frozen snapshot of `getRecentRatingChanges`. Semantics match the SQL query: apply the
+ * supplied filters across every archived ranking context, order the whole result set by
+ * `changedAt` descending, then apply `limit` last.
+ *
+ * A filtering predicate that matches several roles must aggregate all of them — returning only the
+ * first match would silently drop history that the database path returns. Rows are keyed by their
+ * primary key so a record present in more than one snapshot collection cannot be duplicated.
  */
 export function readArchivedRatingChanges(
   gameSlug: string,
@@ -159,18 +164,21 @@ export function readArchivedRatingChanges(
 
   const contextId = filters?.rankingContextId;
   const versionId = filters?.toVersionId;
-  if (contextId === undefined && versionId === undefined) {
-    return Object.values(snapshot.roles)
-      .flatMap((role) => reviveArchivedChanges(role.changes))
-      .sort((a, b) => b.changedAt.getTime() - a.changedAt.getTime())
-      .slice(0, limit);
-  }
 
-  for (const role of Object.values(snapshot.roles)) {
+  const matched = Object.values(snapshot.roles).filter((role) => {
     const contextMatches = contextId === undefined || role.board.activeContext?.id === contextId;
     const versionMatches = versionId === undefined || role.board.version?.id === versionId;
-    if (!contextMatches || !versionMatches) continue;
-    return reviveArchivedChanges(role.changes).slice(0, limit);
+    return contextMatches && versionMatches;
+  });
+
+  const byId = new Map<string, RecentRatingChangeItem>();
+  for (const role of matched) {
+    for (const change of reviveArchivedChanges(role.changes)) {
+      if (!byId.has(change.id)) byId.set(change.id, change);
+    }
   }
-  return [];
+
+  return [...byId.values()]
+    .sort((a, b) => b.changedAt.getTime() - a.changedAt.getTime())
+    .slice(0, limit);
 }

@@ -38,8 +38,30 @@ bun --conditions=react-server scripts/export-archived-ranking-snapshots.ts \
 
 - 某个 WoW 角色没有数据或没有 tier；
 - Genshin 快照不可用或角色数为 0；
-- Genshin 导出与 `data/editorial/genshin-impact/7.1/` 的已审核 roster 在 tier 或 primaryRole 上不一致；
-- editorial 包的 SHA-256 与 `checksums.json` 不符。
+- 数据库版本不是合法的路径片段（防止路径逃逸）；
+- 数据库版本对应的 `data/editorial/genshin-impact/<version>/` 不存在（**不会退回旧版本包**）；
+- 该包 `manifest.json` 的 game / gameVersion / rankingContext / reviewStatus 与数据库不一致；
+- Genshin 导出与该版本包的已审核 roster 在 tier 或 primaryRole 上不一致；
+- 包的 SHA-256 与 `checksums.json` 不符。
+
+editorial 包路径由**数据库版本**推导，不再写死。新增版本时必须同时提交该版本的已审核包，否则导出直接失败。
+
+## 2.1 只读对生产数据做同源核对
+
+```bash
+bun --conditions=react-server scripts/verify-archived-snapshot-parity.ts \
+  --database-url-file=/absolute/path/to/.env.local
+```
+
+该脚本在 `BEGIN READ ONLY` 事务内重跑仓库自身的查询函数，把提交的快照与数据库逐字段比对（覆盖全部导出字段）：
+WoW 三个角色的 board 与 changes、Genshin 全量 data、以及版本与 editorial 包绑定；同时复核 editorial checksums。
+
+每个数据集输出两个内容哈希：
+
+- `strict`：数组按快照存储顺序比较（即实际渲染顺序），**MATCH 要求 strict 相等**；
+- `ordered`：数组按元素内容排序后比较，用于区分「内容不同」与「仅顺序不同」。
+
+退出码 0 仅当所有数据集 strict 相等且 checksums 通过。凭据只从环境变量或文件读取，不打印。
 
 ## 3. 提交前检查
 
